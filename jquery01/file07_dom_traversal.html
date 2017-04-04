@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title>jQuery 06</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="resources/bootstrap-3.3.2/css/bootstrap.min.css">
+    <script src="resources/jquery/jquery-1.11.2.min.js"></script>
+    <script src="resources/bootstrap-3.3.2/js/bootstrap.min.js"></script>
+    <style>
+        .list {
+            color: teal;
+        }
+
+        .special {
+            color: tomato;
+        }
+
+        .sublist {
+            color: yellowgreen;
+        }
+    </style>
+    <script>
+        $(function () {
+            $('li').on('click', function() {
+                $(this).next().remove();
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+
+    <h3>Click li element</h3>
+
+
+    <br/>
+
+    <ul class="list">
+        <li>One</li>
+        <li class="special">Two</li>
+        <li>
+            Three
+            <ul class="sublist">
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+
+            </ul>
+        </li>
+
+
+    </ul>
+</div>
+
+</body>
+</html>

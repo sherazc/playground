@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Flex</title>
+    <link rel="stylesheet" href="script/css/common.css">
+    <style>
+        .flex-container {
+            display: flex;
+        }
+
+        .flex-item {
+            flex-grow: 1;
+            height: 30px;
+            line-height: 30px;
+        }
+
+        .flex-item:nth-child(2) {
+            flex-grow: 2;
+        }
+
+        .flex-item:nth-child(5) {
+            flex-grow: 4;
+        }
+    </style>
+
+</head>
+<body>
+<div id="main">
+    <div id="wrapper">
+        <div id="explain">
+            <ul>
+                <li>flex-grow works on the same concept like android layout weight works.</li>
+                <li>By default flex-grow value is 0. 0 means don't grow.</li>
+                <li>flex-grow value should be greater than zero to take effect. </li>
+                <li>The more flex-grow value is compare to other item's value the more it will take space.</li>
+            </ul>
+        </div>
+<pre>
+.flex-container {
+    display: flex;
+}
+
+.flex-item {
+    flex-grow: 1;
+    height: 30px;
+    line-height: 30px;
+}
+
+.flex-item:nth-child(2) {
+    flex-grow: 2;
+}
+
+.flex-item:nth-child(5) {
+    flex-grow: 4;
+}
+</pre>
+        <div class="container flex-container">
+            <div class="item flex-item">
+                1
+            </div>
+            <div class="item flex-item">
+                2
+            </div>
+            <div class="item flex-item">
+                3
+            </div>
+            <div class="item flex-item">
+                4
+            </div>
+            <div class="item flex-item">
+                5
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

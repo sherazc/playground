@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Flex</title>
+    <link rel="stylesheet" href="script/css/common.css">
+    <style>
+        .flex-container {
+            display: flex;
+            align-items: baseline;
+            height: 300px;
+        }
+
+        .flex-item {
+            width: 50px;
+        }
+
+        .flex-item:nth-last-child(3) {
+            font-size: 80px;
+        }
+    </style>
+
+</head>
+<body>
+<div id="main">
+    <div id="wrapper">
+        <div id="explain">
+            align-items: baseline.
+            <br/><br/>
+            Note: baseline of 1, 2, 3, 4, 5 is the same regardless of the size.
+        </div>
+<pre>
+.flex-container {
+    display: flex;
+    align-items: baseline;
+    height: 300px;
+}
+
+.flex-item {
+    width: 50px;
+}
+
+.flex-item:nth-last-child(3) {
+    font-size: 80px;
+}
+</pre>
+        <div class="container flex-container">
+            <div class="item flex-item">
+                1
+            </div>
+            <div class="item flex-item">
+                2
+            </div>
+            <div class="item flex-item">
+                3
+            </div>
+            <div class="item flex-item">
+                4
+            </div>
+            <div class="item flex-item">
+                5
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

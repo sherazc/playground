@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item 
+        android:id="@+id/main_settings"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="@string/main_option_settings"
+        android:icon="@drawable/setting_icon"/>
+    
+    <item 
+        android:id="@+id/main_load"
+        android:icon="@drawable/refresh_icon"
+        android:orderInCategory="200"
+        android:showAsAction="always"
+        android:title="@string/main_option_load"/>
+</menu>

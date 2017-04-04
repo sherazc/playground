@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- http://localhost//php_05_jquery/file_05_show_hide.html -->
+<!-- http://www.w3schools.com/jquery/jquery_hide_show.asp -->
+<html>
+<head>
+<script type="text/javascript" src="./script/jquery-1.9.1.js"></script>
+<script>
+	$(function() {
+		$("#button1").click(function() {
+			$("#textId").show();
+		});
+
+		$("#button2").click(function() {
+			$("#textId").hide();
+		});
+
+		$("#button3").click(function() {
+			$("#textId").toggle();
+		});
+
+		$("#button4").click(function() {
+			$("#textId").show(1000);
+		});
+
+		$("#button5").click(function() {
+			$("#textId").hide(1000);
+		});
+
+		$("#button6").click(function() {
+			$("#textId").toggle(1000);
+		});
+	});
+</script>
+</head>
+<body>
+	<p>
+		<button id="button1">Show</button>
+	</p>
+	<p>
+		<button id="button2">Hide</button>
+	</p>
+	<p>
+		<button id="button3">Toggle</button>
+	</p>
+	<p>
+		<button id="button4">Show Speed 1000</button>
+	</p>
+	<p>
+		<button id="button5">Hide Speed 1000</button>
+	</p>
+	<p>
+		<button id="button6">Toggle Speed 1000</button>
+	</p>
+
+	<h3 id="textId">
+		This text show and hide <br /> More Text <br /> Last line
+	</h3>
+</body>
+</html>

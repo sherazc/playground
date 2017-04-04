@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title>jQuery 09</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="resources/bootstrap-3.3.2/css/bootstrap.min.css">
+    <script src="resources/jquery/jquery-1.11.2.min.js"></script>
+    <script src="resources/bootstrap-3.3.2/js/bootstrap.min.js"></script>
+    <style>
+        .img_item {
+            position: absolute;
+            right: 0px;
+            opacity: 0;
+            top: 0;
+        }
+
+        .img_item2 {
+            position: absolute;
+            right: 0px;
+            opacity: 0;
+            top: 150px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            var left = 0;
+
+            $(".img_item").each(function (imageIndex, imageDiv) {
+                $(this).animate({
+                    left: left,
+                    opacity: 1
+                }, 1500);
+                left += 150;
+            });
+            left = 0;
+
+            $(".img_item2").each(function (imageIndex, imageDiv) {
+                $(this).animate({
+                    left: left,
+                    opacity: 1
+                }, 1500);
+                left += 150;
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+    <div id="img_panel">
+        <div class="img_item"><img src="images/JSP/01.png"/></div>
+        <div class="img_item"><img src="images/JSP/02.png"/></div>
+        <div class="img_item"><img src="images/JSP/03.png"/></div>
+        <div class="img_item"><img src="images/JSP/04.png"/></div>
+        <div class="img_item"><img src="images/JSP/05.png"/></div>
+        <div class="img_item"><img src="images/JSP/06.png"/></div>
+        <div class="img_item2"><img src="images/JSP/07.png"/></div>
+        <div class="img_item2"><img src="images/JSP/08.png"/></div>
+        <div class="img_item2"><img src="images/JSP/09.png"/></div>
+        <div class="img_item2"><img src="images/JSP/10.png"/></div>
+        <div class="img_item2"><img src="images/JSP/11.png"/></div>
+        <div class="img_item2"><img src="images/JSP/12.png"/></div>
+    </div>
+</div>
+</body>
+</html>

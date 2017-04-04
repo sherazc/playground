@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE tiles-definitions PUBLIC
+      "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+      "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+	<definition name="main-template" template="/WEB-INF/views/main-template.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/main-header.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/main-footer.jsp" />
+	</definition>
+
+	<definition name="home" extends="main-template">
+		<put-attribute name="content" value="/WEB-INF/views/home-content.jsp" />
+	</definition>
+
+	<definition name="loginForm" extends="main-template">
+		<put-attribute name="content" value="/WEB-INF/views/login-content.jsp" />
+	</definition>
+
+	<definition name="register" extends="main-template">
+		<put-attribute name="content" value="/WEB-INF/views/register-content.jsp" />
+	</definition>
+
+	<definition name="registrationConfirmation" extends="main-template">
+		<put-attribute name="content" value="/WEB-INF/views/registration-confirmation-content.jsp" />
+	</definition>
+
+	<definition name="editUserContact" extends="main-template">
+		<put-attribute name="content" value="/WEB-INF/views/edit-user-contact-content.jsp" />
+	</definition>
+
+	<definition name="editUserContactConfirmation" extends="main-template">
+		<put-attribute name="content" value="/WEB-INF/views/edit-user-contact-conf-content.jsp" />
+	</definition>
+
+</tiles-definitions>

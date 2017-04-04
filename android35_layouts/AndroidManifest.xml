@@ -1,0 +1,58 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.sc.android.layout"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="16" />
+
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LinearLayoutActivity"
+            android:label="Linear Layout" />
+        <activity 
+            android:name=".LinearLayoutActivity2"
+            android:label="Linear Layout 2"/>
+        <activity 
+            android:name=".GridLayoutActivity"
+            android:label="Grid Layout"/>
+        <activity
+            android:name=".FrameLayoutActivity"
+            android:label="Frame Layout"/>
+        <activity 
+            android:name=".RelativeLayoutActivity"
+            android:label="Relative Layout"/>
+        <activity 
+            android:name=".DialogThemedActivity"
+            android:label="Dialog Theme"
+            android:theme="@android:style/Theme.Dialog"/>
+        <activity 
+            android:name=".TableLayoutActivity"
+            android:label="Table Layout"/>
+        <activity 
+            android:name=".ScreenOrientationRelativeLayoutActivity"
+            android:label="Screen Orientation RelativeLayout"/>
+        <activity 
+            android:name=".ScreenOrientationLand"
+            android:label="Screen Orientation Land"/>
+        <activity 
+            android:name=".ScreenOrientationChanges"
+            android:label="Screen Orientation Changes"/>
+        
+        
+    </application>
+
+</manifest>

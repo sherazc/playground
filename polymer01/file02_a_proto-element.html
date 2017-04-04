@@ -1,0 +1,16 @@
+<link rel="import" href="./bower_components/polymer/polymer.html">
+<polymer-element name="proto-element">
+    <template>
+        <span>This <b>proto-element</b> contains HTML and JavaScript.</span>
+        <span style="color: {{color}}">{{color}}</span>
+    </template>
+
+    <script>
+        Polymer({
+            color: "red",
+            ready: function () {
+                alert("Polymer.ready called.");
+            }
+        });
+    </script>
+</polymer-element>

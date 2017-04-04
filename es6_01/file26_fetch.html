@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ES6</title>
+</head>
+<body>
+
+<img id="image_tag_01" />
+
+<script>
+    /*
+    Chrome, Edge and Firefox support
+
+    We can use below code to check if fetch() is supported.
+     */
+    if (this.fetch) {
+        console.log("fetch() supported");
+    } else {
+        console.log("fetch() not supported");
+    }
+
+    /*
+    This example is not working and giving authorization exception.
+
+     */
+    fetch("./images/image_01.jpg").then((responseData) => {
+        responseData.blob().then((imageBlobData) => {
+            let imageObjectURL = URL.createObjectURL(imageBlobData);
+            document.getElementById("image_tag_01").src = imageObjectURL;
+        });
+    }, (errorResponse) => {
+        console.log("Error getting images/image_01.jpg. ", errorResponse);
+    });
+
+</script>
+
+</body>
+</html>

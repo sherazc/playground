@@ -1,0 +1,39 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center">
+
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_01"
+            android:id="@+id/buttonFragment01"
+            android:onClick="startFragment01"/>
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fragment 02 - Image Fragment"
+            android:id="@+id/buttonFragment02"
+            android:onClick="startFragment02"/>
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fragment 03 - Multi Fragment"
+            android:onClick="startMultipleFragment"
+            android:id="@+id/buttonFragment03"/>
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fragment 03 - View Pager"
+            android:onClick="startViewPager"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fragment 05 Fragment + Menu Drawer"
+            android:onClick="startFragmentMenuDrawer"/>
+</LinearLayout>

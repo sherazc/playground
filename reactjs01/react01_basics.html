@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="scripts/react.15.3.0.min.js"></script>
+    <script src="scripts/react-dom.15.3.0.min.js"></script>
+    <!-- Babel - JSX Transpiler -->
+    <script src="scripts/browser.5.8.24.min.js"></script>
+    <title>React JS</title>
+    <style>
+        * {margin: 0;padding: 0;font-family: Arial;}
+    </style>
+</head>
+<body>
+
+<div id="reactContainer"></div>
+
+<!-- Any thing defied in "text/babel" will be transpiled by babel (https://babeljs.io/) script browser.5.8.24.min.js -->
+<!-- By Doing this we can write JSX code -->
+<script type="text/babel">
+    ReactDOM.render(<h2>React Heading</h2>, document.getElementById("reactContainer"));
+</script>
+</body>
+</html>

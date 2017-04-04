@@ -1,0 +1,61 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial;
+    font-size: 18px;
+}
+
+html , body {
+    background-color: beige;
+    height: 100%;
+    width: 100%;
+}
+
+pre {
+    font-family: "Courier New";
+    font-weight: bold;
+    size: 12px;
+    background-color: #f1f1f1;
+    width: 400px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 3px #c2c2c2 solid;
+    border-radius: 5px;
+
+}
+
+#main {
+    height: 100%;
+    width: 100%;
+    display: table;
+}
+
+#wrapper {
+    display: table-cell;
+    height: 100%;
+    vertical-align: middle;
+}
+
+#explain {
+    background-color: white;
+    border-radius: 3px;
+    padding: 10px;
+    width: 400px;
+    margin: 0 auto 20px auto;
+    box-shadow: 1px 1px 3px #888888;
+}
+
+.container {
+    border: 3px #ffaa8a solid;
+    width: 500px;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+.item {
+    margin: 2px;
+    background: #59bbe6;
+    color: white;
+    text-align: center;
+}

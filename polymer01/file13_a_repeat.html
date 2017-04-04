@@ -1,0 +1,23 @@
+<link rel="import" href="./bower_components/polymer/polymer.html"/>
+<polymer-element name="hello-world">
+    <template>
+        <ol>
+            <template repeat="{{n in names}}">
+                <li>{{n.name}}</li>
+            </template>
+        </ol>
+    </template>
+    <script>
+        Polymer("hello-world", {
+                    ready: function () {
+                        this.names = [
+                            {name: "name1"},
+                            {name: "name2"},
+                            {name: "name3"},
+                            {name: "name4"}
+                        ];
+                    }
+                }
+        );
+    </script>
+</polymer-element>

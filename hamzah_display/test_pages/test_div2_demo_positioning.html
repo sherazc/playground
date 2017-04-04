@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        /*http://stackoverflow.com/questions/16568272/why-doesnt-the-height-of-a-container-element-increase-if-it-contains-floated-el*/
+        * {
+            -moz-box-sizing: border-box;       /* Just for demo purpose */
+            -webkkit-box-sizing: border-box;   /* Just for demo purpose */
+            box-sizing: border-box;            /* Just for demo purpose */
+            margin: 0;
+            padding: 0;
+        }
+
+        .main_wrap {
+            margin: 20px;
+            border: 3px solid black;
+            width: 520px;
+        }
+
+        header, footer {
+            height: 50px;
+            border: 3px solid silver;
+            text-align: center;
+            line-height: 50px;
+        }
+
+        .wrapper {
+            border: 3px solid green;
+        }
+
+        .floated_left {
+            float: left;
+            width: 200px;
+            border: 3px solid red;
+        }
+
+        .floated_right {
+            float: right;
+            width: 300px;
+            border: 3px solid red;
+        }
+
+        .clear:after {
+            clear: both;
+            content: "";
+            display: table;
+        }
+    </style>
+
+</head>
+<body>
+
+
+<div class="main_wrap">
+    <header>Header</header>
+    <div class="wrapper clear">
+        <div class="floated_left">
+            This<br />
+            is<br />
+            just<br />
+            a<br />
+            left<br />
+            floated<br />
+            column<br />
+        </div>
+        <div class="floated_right">
+            This<br />
+            is<br />
+            just<br />
+            a<br />
+            right<br />
+            floated<br />
+            column<br />
+        </div>
+    </div>
+    <footer>Footer</footer>
+</div>
+
+
+
+</body>
+</html>

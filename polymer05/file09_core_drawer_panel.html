@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+
+    <meta charset="UTF-8">
+    <title>File 09 Core Drawer</title>
+    <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+    <link rel="import" href="bower_components/core-header-panel/core-header-panel.html"/>
+    <link rel="import" href="bower_components/core-toolbar/core-toolbar.html"/>
+    <link rel="import" href="bower_components/core-drawer-panel/core-drawer-panel.html"/>
+    <link rel="import" href="bower_components/core-icons/core-icons.html"/>
+    <link rel="import" href="bower_components/core-item/core-item.html"/>
+    <link rel="import" href="bower_components/core-menu/core-menu.html"/>
+    <link rel="import" href="bower_components/core-icon-button/core-icon-button.html"/>
+
+    <style>
+
+        body {
+            font-family: sans-serif;
+        }
+
+        [main] {
+            background-color: #f9f9f9;
+        }
+
+        [drawer] {
+            background-color: #FFFFFF;
+        }
+
+        core-drawer-panel:not([narrow]) #navicon {
+            display: none;
+        }
+
+    </style>
+
+    <script>
+
+        // "polymer-ready" is a polymer event that is fired when polymer is ready
+        document.addEventListener('polymer-ready', function () {
+
+            var navicon = document.getElementById('navicon');
+            var drawerPanel = document.getElementById('drawerPanel');
+
+            navicon.addEventListener('click', function () {
+                drawerPanel.togglePanel();
+            });
+
+        });
+
+    </script>
+
+</head>
+
+<body fullbleed layout vertical>
+<core-drawer-panel id="drawerPanel">
+
+    <core-header-panel drawer>
+        <core-toolbar>
+            Menu
+        </core-toolbar>
+        <core-menu>
+            <core-item label="One"></core-item>
+            <core-item label="Two"></core-item>
+        </core-menu>
+    </core-header-panel>
+
+
+    <core-header-panel main>
+        <core-toolbar>
+            <core-icon-button id="navicon" icon="menu"></core-icon-button>
+            <div>MY APP</div>
+        </core-toolbar>
+        <div class="content">
+            This is content
+        </div>
+    </core-header-panel>
+
+</core-drawer-panel>
+</body>
+</html>

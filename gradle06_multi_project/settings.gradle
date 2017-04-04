@@ -1,0 +1,3 @@
+rootProject.name = 'gradle06_multi_project'
+
+include ':common-api', 'services'

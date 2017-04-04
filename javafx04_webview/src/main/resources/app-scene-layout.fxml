@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.web.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400"
+            prefWidth="700" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.sc.javafx.UiController">
+    <top>
+        <HBox BorderPane.alignment="CENTER">
+            <children>
+                <Label text="Append">
+                    <HBox.margin>
+                        <Insets left="5.0" right="10.0" top="5.0"/>
+                    </HBox.margin>
+                </Label>
+                <Separator orientation="VERTICAL">
+                    <HBox.margin>
+                        <Insets right="10.0"/>
+                    </HBox.margin>
+                </Separator>
+                <Button mnemonicParsing="false" text="Text" onAction="#handleButtonText"/>
+                <Button mnemonicParsing="false" text="File" onAction="#handleButtonFile">
+                    <HBox.margin>
+                        <Insets left="10.0"/>
+                    </HBox.margin>
+                </Button>
+                <Button mnemonicParsing="false" text="Image" onAction="#handleButtonImage">
+                    <HBox.margin>
+                        <Insets left="10.0"/>
+                    </HBox.margin>
+                </Button>
+                <Button mnemonicParsing="false" text="File Or Image" onAction="#handleButtonFileOrImage">
+                    <HBox.margin>
+                        <Insets left="10.0"/>
+                    </HBox.margin>
+                </Button>
+                <Button mnemonicParsing="false" text="URL" onAction="#handleButtonURL">
+                    <HBox.margin>
+                        <Insets left="10.0"/>
+                    </HBox.margin>
+                </Button>
+                <Button mnemonicParsing="false" text="HTML" onAction="#handleButtonHtml">
+                    <HBox.margin>
+                        <Insets left="10.0"/>
+                    </HBox.margin>
+                </Button>
+                <Button mnemonicParsing="false" text="Debug" onAction="#handleButtonDebug">
+                    <HBox.margin>
+                        <Insets left="10.0"/>
+                    </HBox.margin>
+                </Button>
+                <Button mnemonicParsing="false" text="Clear" onAction="#handleButtonClear">
+                    <HBox.margin>
+                        <Insets left="10.0"/>
+                    </HBox.margin>
+                </Button>
+            </children>
+            <BorderPane.margin>
+                <Insets bottom="10.0" top="10.0"/>
+            </BorderPane.margin>
+        </HBox>
+    </top>
+    <center>
+        <WebView BorderPane.alignment="CENTER" fx:id="webViewLogs">
+            <BorderPane.margin>
+                <Insets/>
+            </BorderPane.margin>
+        </WebView>
+    </center>
+</BorderPane>

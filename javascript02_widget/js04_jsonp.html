@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>Please see browser logs</h3>
+<!--
+Client Code contains function definition
+Function implementation is written on Client Side But is called from server side.
+-->
+<script>
+    var callback = function (data) {
+        console.log(data);
+    }
+</script>
+
+<!--
+Function call from server side.
+This is server side script. This script calls function "callback" and passes in "data" parameter
+-->
+<script type="text/javascript" src="js04_jsonp.js"></script>
+</body>
+</html>

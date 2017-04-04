@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title>jQuery 07</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="resources/bootstrap-3.3.2/css/bootstrap.min.css">
+    <script src="resources/jquery/jquery-1.11.2.min.js"></script>
+    <script src="resources/bootstrap-3.3.2/js/bootstrap.min.js"></script>
+
+    <style>
+        .my_table {
+            border: 1px solid sienna;
+        }
+
+        .my_table_row_odd {
+            background-color: tan;
+        }
+
+        .my_table_row_even {
+            background-color: papayawhip;
+        }
+
+        .my_table_header {
+            background-color: sienna;
+            color: #ffffff;
+            padding: 10px;
+        }
+
+        .my_table_cell {
+            padding: 10px;
+            border-bottom: 1px solid sienna;
+        }
+
+    </style>
+
+    <script>
+        $(function () {
+            $('table.my_table tr:odd').addClass("my_table_row_odd");
+            $('table.my_table tr:even').addClass("my_table_row_even");
+            $('table.my_table tr th').addClass("my_table_header");
+            $('table.my_table tr td').addClass("my_table_cell");
+        });
+    </script>
+
+</head>
+<body>
+
+<div class="container">
+
+    <br/>
+
+    <a class="btn btn-info" href="http://www.w3schools.com/jquery/jquery_selectors.asp">
+        Example of jQuery Selectors<br/>
+        http://www.w3schools.com/jquery/jquery_selectors.asp
+    </a>
+
+    <br/><br/>
+
+    <table class="my_table">
+        <tr>
+            <th>A1</th>
+            <th>B2</th>
+            <th>C3</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>a</td>
+            <td>b</td>
+            <td>c</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>a</td>
+            <td>b</td>
+            <td>c</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>a</td>
+            <td>b</td>
+            <td>c</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

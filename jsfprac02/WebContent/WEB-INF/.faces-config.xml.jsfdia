@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#chapter2#result.jsp"
+  PATH="/chapter2/result.jsp" SHAPE="240,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#chapter2#register.jsp"
+  PATH="/chapter2/register.jsp" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#chapter2#register.jsp:0" NAME="item"
+   PATH="/chapter2/register.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="register::#chapter2#result.jsp"
+    NAME="output" PATH="/chapter2/result.jsp"
+    TARGET="rules:#chapter2#result.jsp" TITLE="register" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+</PROCESS>

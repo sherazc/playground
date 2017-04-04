@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item 
+        android:id="@+id/action_refresh"
+        android:orderInCategory="50"
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/refresh_icon"
+        android:title="@string/action_refresh"
+        />
+    
+    <item 
+        android:id="@+id/action_stop"
+        android:orderInCategory="75"
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/player_stop"
+        android:title="@string/action_stop"/>
+    
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:icon="@drawable/setting_icon"
+        android:title="@string/action_settings"/>
+
+</menu>

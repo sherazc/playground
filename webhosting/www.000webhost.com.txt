@@ -1,0 +1,30 @@
+www.000webhost.com
+---------------------
+Account Information
+Contact: http://members.000webhost.com/login.php
+Domain: sheraz.net76.net
+Username: a7001125
+Password: password123
+Home Root: /home/a7001125
+Server Name: server14.000webhost.com
+IP Address: 31.170.160.78
+Apache ver: 2.2.19 (Unix)
+PHP version: 5.2.*
+MySQL ver: 5.1
+Activated On: 2013-02-16 02:19
+
+FTP
+Host name: sheraz.net76.net
+User name: a7001125
+password: password123
+upload files: public_html
+
+Database:
+mysql_host: mysql2.000webhost.com
+mysql_database: a7001125_db
+mysql_user: a7001125_dbu
+mysql_password: password123
+
+Wordpress
+user: sheraz
+password: password123

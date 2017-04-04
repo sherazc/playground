@@ -1,0 +1,30 @@
+[
+  {
+    "word": "boy",
+    "sound": "boy00001.wav",
+    "pronunciation": "ˈbȯi",
+    "functionalLabel": "noun",
+    "definitions": [
+      {
+        "text": "a male child from birth to young manhood",
+        "usages": []
+      },
+      {
+        "text": "a male servant",
+        "usages": []
+      }
+    ]
+  },
+  {
+    "word": "Boy Scout",
+    "sound": "",
+    "pronunciation": "",
+    "functionalLabel": "noun",
+    "definitions": [
+      {
+        "text": "a member of a scouting program (as the Boy Scouts of America)",
+        "usages": []
+      }
+    ]
+  }
+]

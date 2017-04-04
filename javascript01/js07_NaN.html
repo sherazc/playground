@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Javascript Tutorial</title>
+<script type="text/javascript">
+	var formUtils = {
+		valueOfField : function(elementId) {
+			var field = document.getElementById(elementId);
+			return field.value;
+		}
+	}
+
+	function ComputeController() {
+
+		this.divide = function(number1, number2) {
+			return number1 / number2;
+		}
+
+		this.divideFields = function(elementId1, elementId2, outputElementId) {
+			var number1 = formUtils.valueOfField(elementId1);
+			var number2 = formUtils.valueOfField(elementId2);
+			var result = compute.divide(number1, number2);
+			var outputElement = document.getElementById(outputElementId);
+			outputElement.innerHTML = result;
+		}
+	}
+
+	var compute = new ComputeController();
+</script>
+</head>
+<body>
+	<pre></pre>
+
+	<input id="input1a" value="12"> /
+	<input id="input1b" value="3">
+	<button onclick="compute.divideFields('input1a', 'input1b', 'result1')">=</button>
+	<div id="result1"></div>
+
+	<hr />
+	<input id="input2a" value="12"> /
+	<input id="input2b" value="abc">
+	<button onclick="compute.divideFields('input2a', 'input2b', 'result2')">=</button>
+	<div id="result2"></div>
+
+	<hr />
+	<input id="input3a" value="12"> /
+	<input id="input3b" value="0">
+	<button onclick="compute.divideFields('input3a', 'input3b', 'result3')">=</button>
+	<div id="result3"></div>
+
+	<hr />
+	<input id="input4a" value="abc"> /
+	<input id="input4b" value="xyz">
+	<button onclick="compute.divideFields('input4a', 'input4b', 'result4')">=</button>
+	<div id="result4"></div>
+
+	<hr />
+	<input id="input5a" value="0"> /
+	<input id="input5b" value="12">
+	<button onclick="compute.divideFields('input5a', 'input5b', 'result5')">=</button>
+	<div id="result5"></div>
+
+</body>
+</html>

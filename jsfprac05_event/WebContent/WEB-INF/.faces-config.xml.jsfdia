@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#customize.jsp" PATH="/customize.jsp"
+  SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#customize.jsp:0" NAME="item"
+   PATH="/customize.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="same-color::#WEB-INF#results#same-color.jsp"
+    NAME="output" PATH="/WEB-INF/results/same-color.jsp"
+    TARGET="rules:#WEB-INF#results#same-color.jsp" TITLE="same-color" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="success::#WEB-INF#results#show-preview.jsp"
+    NAME="output1" PATH="/WEB-INF/results/show-preview.jsp"
+    TARGET="rules:#WEB-INF#results#show-preview.jsp" TITLE="success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#WEB-INF#results#show-preview.jsp"
+  PATH="/WEB-INF/results/show-preview.jsp" SHAPE="256,177,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#WEB-INF#results#same-color.jsp"
+  PATH="/WEB-INF/results/same-color.jsp" SHAPE="256,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#customize-bg.jsp" PATH="/customize-bg.jsp"
+  SHAPE="32,273,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#customize-bg.jsp:0" NAME="item"
+   PATH="/customize-bg.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="success::#WEB-INF#results#show-preview2.jsp"
+    NAME="output" PATH="/WEB-INF/results/show-preview2.jsp"
+    TARGET="rules:#WEB-INF#results#show-preview2.jsp" TITLE="success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#WEB-INF#results#show-preview2.jsp"
+  PATH="/WEB-INF/results/show-preview2.jsp" SHAPE="240,289,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

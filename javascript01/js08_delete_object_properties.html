@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Javascript Tutorial</title>
+</head>
+<body>
+	<pre>
+<script type="text/javascript">
+	var person = {
+		name : "Person Name",
+		salary : 100,
+		age : 10
+	};
+	document.writeln("person.age = " + person.age);
+
+	document.writeln("running command (person.age = null;)");
+	person.age = null;
+	document.writeln("person.age = " + person.age);
+
+	document.writeln("running command (delete person.age;)");
+	delete person.age;
+	document.writeln("person.age = " + person.age);
+
+	document.writeln("running command (person.age = 20;)");
+	person.age = 20;
+	document.writeln("person.age = " + person.age);
+</script>
+</pre>
+</body>
+</html>

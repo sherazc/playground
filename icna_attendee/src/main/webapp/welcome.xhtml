@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+<!-- http://www.mkyong.com/jsf2/jsf-2-templating-with-facelets-example/ -->
+	<title>Label Printer</title>
+	<h:outputStylesheet library="css" name="main.css" />
+</h:head>
+<h:body bgcolor="black">
+<table border='0' width="700" align="center">
+<tr>
+<td height="70" style="background: url('#{resource['images:headerbg.png']}') repeat;" align="center">
+	<font color="white">
+		<h1><h:outputLink value="welcome.xhtml" style="color:white;">
+			Label Printer
+		</h:outputLink>
+		</h1>
+	</font>	
+</td>
+</tr>
+<tr><td align="center">
+
+<table>
+<tr>
+<td align="left">
+<h:form>
+	<h3>Enter Attendee</h3>
+	<table>
+	<tr>
+		<td>First Name:</td>
+		<td><h:inputText size="30" value="#{attendeeBean.firstName}" /></td>
+	</tr>
+	<tr>
+		<td>Last Name:</td>
+		<td><h:inputText size="30" value="#{attendeeBean.lastName}" /></td>
+	</tr>
+	<tr>
+		<td>City:</td>
+		<td><h:inputText size="30" value="#{attendeeBean.city}" /></td>
+	</tr>
+	<tr>
+		<td>State:</td>
+		<td>
+		<h:selectOneMenu value="#{attendeeBean.state}">
+   			<f:selectItems value="#{attendeeBean.allStates}" var="s"
+   				itemLabel="#{s.state}" itemValue="#{s.stateAbr}" />
+   		</h:selectOneMenu>
+		
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>OR</td>
+	</tr>
+	<tr>
+		<td>Zip:</td>
+		<td><h:inputText size="10" value="#{attendeeBean.zipCode}" /></td>
+	</tr>
+	</table>
+	<p/>
+	
+	
+	<h:commandButton value="Save" action="#{attendeeBean.saveAttendee}" image="/resources/images/icons/savebutton.png"/>
+	&#160;&#160;&#160;
+	<h:commandButton value="Save and Print" action="#{attendeeBean.saveAndPrintAttendee}" image="/resources/images/icons/saveandprintbutton.png"/>
+	&#160;&#160;&#160;
+	<h:commandButton value="Reset Form" action="#{attendeeBean.resetForm}" image="/resources/images/icons/clearbutton.png"/>
+</h:form>
+
+
+<br/><br/>
+
+<h:form id="attendeeDataForm">
+	<h:dataTable id="attendeeDatatable" value="#{attendeeBean.attendeeList}" var="a"
+		styleClass="order-table"
+		headerClass="order-table-header"
+		rowClasses="order-table-odd-row, order-table-even-row">
+		<h:column>
+			<f:facet name="header">
+				<h:commandLink action="#{attendeeBean.attendeeFieldSorter.sortByFirstName}">
+					First Name
+				</h:commandLink>
+			
+			</f:facet>
+			<h:outputText value="#{a.firstName}" rendered="#{not a.editable}"/>
+			<h:inputText value="#{a.firstName}" rendered="#{a.editable}"/>
+		</h:column>
+		<h:column>
+			<f:facet name="header">
+				<h:commandLink action="#{attendeeBean.attendeeFieldSorter.sortByLastName}">
+					Last Name
+				</h:commandLink>
+			</f:facet>
+			<h:outputText value="#{a.lastName}" rendered="#{not a.editable}"/>
+			<h:inputText value="#{a.lastName}" rendered="#{a.editable}"/>
+		</h:column>
+		<h:column>
+			<f:facet name="header">
+				<h:commandLink action="#{attendeeBean.attendeeFieldSorter.sortByCity}">
+					City
+				</h:commandLink>
+			</f:facet>
+			<h:outputText value="#{a.city}" rendered="#{not a.editable}"/>
+			<h:inputText value="#{a.city}" rendered="#{a.editable}"/>
+		</h:column>
+		<h:column>
+			<f:facet name="header">
+				<h:commandLink action="#{attendeeBean.attendeeFieldSorter.sortByState}">
+					State
+				</h:commandLink>
+			</f:facet>
+			<h:outputText value="#{a.state}" rendered="#{not a.editable}"/>
+			<h:inputText value="#{a.state}" rendered="#{a.editable}"/>
+		</h:column>
+		<h:column>
+			<f:facet name="header">
+				<h:commandLink action="#{attendeeBean.attendeeFieldSorter.sortByZip}">
+					Zip Code
+				</h:commandLink>
+			</f:facet>
+			<h:outputText value="#{a.zipCode}" rendered="#{not a.editable}"/>
+			<h:inputText value="#{a.zipCode}" rendered="#{a.editable}"/>
+		</h:column>
+		<h:column>
+			<f:facet name="header">Action</f:facet>
+			&#160;&#160;
+			<h:commandLink action="#{attendeeBean.delete(a)}">
+				<h:graphicImage library="images" name="icons/delete.png"/>
+			</h:commandLink>
+			&#160;&#160;
+			<h:commandLink action="#{attendeeBean.print(a)}">
+				<h:graphicImage library="images" name="icons/print.png"/>
+			</h:commandLink>
+			&#160;&#160;
+			
+		</h:column>
+	</h:dataTable>
+</h:form>
+<br/><br/>
+</td>
+</tr>
+</table>
+
+</td>
+</tr>
+<tr><td height="30" style="background: url('#{resource['images:footerbg.png']}') repeat;"></td></tr>
+</table>
+</h:body>
+</html>

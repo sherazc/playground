@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Flex</title>
+    <link rel="stylesheet" href="script/css/common.css">
+    <style>
+        .flex-container {
+            display: flex;
+            line-height: 40px;
+        }
+
+        .flex-item {
+            flex: 0 1 40px;
+        }
+    </style>
+
+</head>
+<body>
+<div id="main">
+    <div id="wrapper">
+        <div id="explain">
+            <ul>
+                flex: flex-grow flex-shrink flex-basis|auto|initial|inherit;
+                <br/><br/>
+                Default value: 0 1 auto
+                <br/><br/>
+                <a href="http://www.w3schools.com/cssref/css3_pr_flex.asp">
+                    http://www.w3schools.com/cssref/css3_pr_flex.asp
+                </a>
+                <br/><br/>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex">
+                    https://developer.mozilla.org/en-US/docs/Web/CSS/flex
+                </a>
+            </ul>
+        </div>
+<pre>
+.flex-container {
+    display: flex;
+    line-height: 40px;
+}
+
+.flex-item {
+    flex: 0 1 40px;
+}
+</pre>
+        <div class="container flex-container">
+            <div class="item flex-item">
+                1
+            </div>
+            <div class="item flex-item">
+                2
+            </div>
+            <div class="item flex-item">
+                3
+            </div>
+            <div class="item flex-item">
+                4
+            </div>
+            <div class="item flex-item">
+                5
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

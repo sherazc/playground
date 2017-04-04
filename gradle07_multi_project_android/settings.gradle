@@ -1,0 +1,1 @@
+include ':app', ':java-libs:common-api', ':java-libs:services'

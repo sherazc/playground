@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.sc.android49_animation.app" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.sc.android49_animation.app.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.sc.android49_animation.app.Animation01"
+            android:label="@string/title_activity_animation01" >
+        </activity>
+        <activity
+            android:name="com.sc.android49_animation.app.Animation02"
+            android:label="@string/title_activity_animation02" >
+        </activity>
+    </application>
+
+</manifest>

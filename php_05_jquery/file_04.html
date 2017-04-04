@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- http://localhost//php_05_jquery/file_04.html -->
+<!-- http://www.w3schools.com/jquery/jquery_events.asp -->
+
+
+<!-- Mouse Events		Keyboard Events		Form Events		Document/Window Events -->
+<!-- click				keypress			submit			load -->
+<!-- dblclick			keydown				change			resize -->
+<!-- mouseenter			keyup				focus			scroll -->
+<!-- mouseleave	 							blur			unload -->
+
+
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>File 04</title>
+<script type="text/javascript" src="./script/jquery-1.9.1.js"></script>
+<script>
+
+	// $(function() {}); // Consider this as main function of jQuery 
+	$(function() {
+		$("#id1").dblclick(function() {
+			alert("You have doble clicked");
+		});
+		
+		$("#id2").mouseenter(function() {
+			$(this).css("background-color", "#cccccc");
+		});
+		
+		$("#id2").mouseleave(function() {
+			$(this).css("background-color", "#ffffff");
+		});
+	});
+</script>
+</head>
+<body>
+	<p id="id1">Double click me</p>
+	<p id="id2">mouseenter - mouseleave</p>
+</body>
+</html>

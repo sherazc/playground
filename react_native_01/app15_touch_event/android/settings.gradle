@@ -1,0 +1,3 @@
+rootProject.name = 'app15_touch_event'
+
+include ':app'

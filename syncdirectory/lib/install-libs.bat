@@ -1,0 +1,1 @@
+mvn install:install-file -Dfile=jfxrt.jar -DgroupId=com.oracle -DartifactId=jfxrt -Dversion=2 -Dpackaging=jar -DlocalRepositoryPath=.

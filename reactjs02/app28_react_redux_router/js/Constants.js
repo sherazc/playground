@@ -1,0 +1,10 @@
+const Constants = {
+    ACTION_SET_NAME: "ACTION_SET_NAME",
+    ACTION_SET_POSITION: "ACTION_SET_POSITION",
+    ACTION_SET_BRANCH: "ACTION_SET_BRANCH",
+    ACTION_SET_DEPARTMENT: "ACTION_SET_DEPARTMENT",
+    BRANCHES: ["Atlanta", "Alpharetta", "Roswell"],
+    DEPARTMENTS: ["IT", "HR", "SALES", "ADVERTISEMENT"]
+};
+
+export default Constants;

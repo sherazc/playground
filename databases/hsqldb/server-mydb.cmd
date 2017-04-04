@@ -1,0 +1,1 @@
+java -cp ./hsqldb-1.8.0.9.jar org.hsqldb.Server -database.0 file:./mydb/mydb -dbname.0 mydb

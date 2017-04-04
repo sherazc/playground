@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+      prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.sc.fxappjre.controller.MainController">
+
+   <children>
+      <Label layoutX="294.0" layoutY="192.0" text="test" fx:id="propertyLabel"/>
+      <Button layoutX="294.0" layoutY="209.0" mnemonicParsing="false"
+              text="Hello World"
+              onAction="#handleHelloWorldButton"/>
+      <Label layoutX="300.0" layoutY="234.0" text="Hello World Count" fx:id="countLabel"/>
+       
+   </children>
+
+</Pane>

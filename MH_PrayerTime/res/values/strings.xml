@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Masjid Hamzah Prayer Time</string>
+    <string name="web_url">http://www.masjidhamzah.com/</string>
+<!--     <string name="web_url">http://www.yahoo.com/</string> -->
+
+    <string-array name="time1">
+        <item>MainContent_lblFajr</item>
+        <item>MainContent_lblFajrAthan</item>
+        <item>MainContent_lblFajrIqama</item>
+    </string-array>
+    <string-array name="time2">
+        <item>MainContent_lblShurooq</item>
+        <item>MainContent_lblShrooqTime</item>
+    </string-array>
+    <string-array name="time3">
+        <item>MainContent_lblThuhr</item>
+        <item>MainContent_lblThuhrAthan</item>
+        <item>MainContent_lblThuhrIqama</item>
+    </string-array>
+    <string-array name="time4">
+        <item>MainContent_lblAsr</item>
+        <item>MainContent_lblAsrAthan</item>
+        <item>MainContent_lblAsrIqama</item>
+    </string-array>
+    <string-array name="time5">
+        <item>MainContent_lblMaghrib</item>
+        <item>MainContent_lblMaghribAthan</item>
+        <item>MainContent_lblMaghribIqama</item>
+    </string-array>
+    <string-array name="time6">
+        <item>MainContent_lblIsha</item>
+        <item>MainContent_lblIshaAthan</item>
+        <item>MainContent_lblIshaIqama</item>
+    </string-array>
+    <string-array name="time7">
+        <item>MainContent_lblFirstKhutbah</item>
+        <item>MainContent_lblFirstKhutbahTime</item>
+    </string-array>
+    <string-array name="time8">
+        <item>MainContent_lblSecondKhutbah</item>
+        <item>MainContent_lblSecondKhutbahTime</item>
+    </string-array>
+
+</resources>

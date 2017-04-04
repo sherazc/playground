@@ -1,0 +1,3 @@
+rootProject.name = 'app12_networking'
+
+include ':app'

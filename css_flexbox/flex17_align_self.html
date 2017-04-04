@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Flex</title>
+    <link rel="stylesheet" href="script/css/common.css">
+    <style>
+        .flex-container {
+            height: 300px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .flex-item {
+            width: 30%;
+            height: auto;
+        }
+
+        .flex-item:nth-child(3) {
+            align-self: center;
+        }
+    </style>
+
+</head>
+<body>
+<div id="main">
+    <div id="wrapper">
+        <div id="explain">
+            <ul>
+                align-self works just like align-item or align-content.
+                The difference is that it aligns itself according to the items group its in.
+            </ul>
+        </div>
+<pre>
+.flex-container {
+    height: 300px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flex-item {
+    width: 30%;
+    height: auto;
+}
+
+.flex-item:nth-child(3) {
+    align-self: center;
+}
+</pre>
+        <div class="container flex-container">
+            <div class="item flex-item">
+                1
+            </div>
+            <div class="item flex-item">
+                2
+            </div>
+            <div class="item flex-item">
+                3
+            </div>
+            <div class="item flex-item">
+                4
+            </div>
+            <div class="item flex-item">
+                5
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

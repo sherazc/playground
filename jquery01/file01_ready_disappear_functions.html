@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title>jQuery 01</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="resources/bootstrap-3.3.2/css/bootstrap.min.css">
+    <script src="resources/jquery/jquery-1.11.2.min.js"></script>
+    <script src="resources/bootstrap-3.3.2/js/bootstrap.min.js"></script>
+    <script>
+
+        /*
+         Both of these function works the same. It tells jQuery to run the code when
+         the document is loaded and is ready.
+
+         $(document).ready(function () {
+         });
+
+         $(function () {
+         });
+         */
+
+        $(function () {
+            $("#panel1").hide(500).show(1000).hide(500).show(1000);
+            $("#panel2").slideUp(1000).delay(1000).slideDown(1000);
+            $("#panel3").fadeOut(500).fadeIn(500).fadeToggle(1000).fadeToggle(1000);
+            $("#panel4").slideToggle(500).slideToggle(500).fadeToggle(500).fadeToggle(500).toggle(500).toggle(500);
+        });
+
+    </script>
+
+</head>
+<body>
+
+<div class="container">
+
+    <h3>JQuery</h3>
+
+    <div class="row">
+        <div class="col-xs-3">
+            <button id="button1" class="btn btn-lg btn-info">
+                Button 1
+            </button>
+        </div>
+
+        <div class="col-xs-3">
+            <button id="button2" class="btn btn-lg btn-info">
+                Button 2
+            </button>
+        </div>
+        <div class="col-xs-3">
+            <button id="button3" class="btn btn-lg btn-info">
+                Button 3
+            </button>
+        </div>
+        <div class="col-xs-3">
+            <button id="button4" class="btn btn-lg btn-info">
+                Button 4
+            </button>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-xs-3">
+            <div id="panel1" class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Panel 1
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    Panel 1 body
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-3">
+            <div id="panel2" class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Panel 2
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    Panel 2 body
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-3">
+            <div id="panel3" class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Panel 3
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    Panel 3 body
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-3">
+            <div id="panel4" class="panel panel-primary">
+
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Panel 4
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    Panel 4 body
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+/*
+Theme Name: Wordpress theme 02 child theme
+Description: My twenty fourteen child theme Description
+Author: Sheraz
+URI: https://www.youtube.com/watch?v=cbU12Tw7Q4U&list=PLLnpHn493BHGACfv4rC29kJamYMtw34D9
+Template: twentyfourteen
+Version: 1.0
+*/
+
+@import url("../twentyfourteen/style.css");

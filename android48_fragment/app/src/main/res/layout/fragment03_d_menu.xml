@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:padding="10dp"
+              android:layout_height="wrap_content">
+
+    <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="A"
+            android:id="@+id/fragment03_multi_menu_btn_a" android:layout_weight="1"/>
+    <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="B"
+            android:id="@+id/fragment03_multi_menu_btn_b" android:layout_weight="1"/>
+    <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="C"
+            android:id="@+id/fragment03_multi_menu_btn_c" android:layout_weight="1"/>
+</LinearLayout>

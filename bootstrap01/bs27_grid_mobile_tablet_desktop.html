@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title>Bootstrap Grid - Mobile Desktop</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="resources/bootstrap-3.3.2/css/bootstrap.min.css">
+    <script src="resources/jquery/jquery-1.11.2.min.js"></script>
+    <script src="resources/bootstrap-3.3.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container-fluid">
+    <h4>Phones xs 3 columns</h4>
+    <h6>These columns will always stay next to each other</h6>
+
+    <div class="row">
+        <div class="col-xs-4" style="background-color: tomato">
+            .col-xs-4
+        </div>
+        <div class="col-xs-4" style="background-color: tan">
+            .col-xs-4
+        </div>
+        <div class="col-xs-4" style="background-color: steelblue">
+            .col-xs-4
+        </div>
+    </div>
+
+    <h4>Tablets sm 3 columns</h4>
+    <h6>These columns will become rows once window size is less than tablets</h6>
+
+    <div class="row">
+        <div class="col-sm-4" style="background-color: yellowgreen">
+            .col-sm-4
+        </div>
+        <div class="col-sm-4" style="background-color: teal">
+            .col-sm-4
+        </div>
+        <div class="col-sm-4" style="background-color: thistle">
+            .col-sm-4
+        </div>
+    </div>
+
+    <h4>Desktops md 3 columns</h4>
+    <h6>These columns will become rows once window size is less than desktops</h6>
+
+    <div class="row">
+        <div class="col-md-4" style="background-color: wheat">
+            .col-md-4
+        </div>
+        <div class="col-md-4" style="background-color: violet">
+            .col-md-4
+        </div>
+        <div class="col-md-4" style="background-color: turquoise">
+            .col-md-4
+        </div>
+    </div>
+
+    <h4>Larger Desktops lg 3 columns</h4>
+    <h6>These columns will become rows once window size is less than larger desktops</h6>
+
+    <div class="row">
+        <div class="col-lg-4" style="background-color: skyblue">
+            .col-lg-4
+        </div>
+        <div class="col-lg-4" style="background-color: slateblue">
+            .col-lg-4
+        </div>
+        <div class="col-lg-4" style="background-color: slategrey">
+            .col-lg-4
+        </div>
+    </div>
+
+    <h4>Mixing all 4 types lg, md, sm, xs</h4>
+    <h6>On mixing all 4 types with equal width then smallest one (mobile) takes precedence</h6>
+
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="background-color: seashell">
+            4
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="background-color: seagreen">
+            4
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="background-color: sandybrown">
+            4
+        </div>
+    </div>
+
+    <h4>Mixing all 4 types lg, md, sm, xs</h4>
+    <h6>Larger Desktops lg 2, 8, 2</h6>
+    <h6>Desktops md 5, 5, 2</h6>
+    <h6>Tablets sm 1, 1, 10</h6>
+    <h6>Phones xs 6, 4, 2</h6>
+    <h6>Since xs is used in all 3 columns so columns will never become rows</h6>
+
+    <div class="row">
+        <div class="col-lg-2 col-md-5 col-sm-1 col-xs-6" style="background-color: royalblue">
+            column
+        </div>
+        <div class="col-lg-8 col-md-5 col-sm-1 col-xs-4" style="background-color: rosybrown">
+            column
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-10 col-xs-2" style="background-color: red">
+            column
+        </div>
+    </div>
+
+    <h4>Nesting all types</h4>
+    <h6>col-xs-6(col-sm-2, col-sm-5, col-sm-5) and col-xs-6(col-md-6, col-md-3, col-md-3)</h6>
+
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="row">
+                <div class="col-sm-2" style="background-color: purple; color: #ffffff">
+                    tablet 2
+                </div>
+                <div class="col-sm-5" style="background-color: powderblue">
+                    tablet 5
+                </div>
+                <div class="col-sm-5" style="background-color: plum">
+                    tablet 5
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="row">
+                <div class="col-md-6" style="background-color: pink">
+                    Desktop 6
+                </div>
+                <div class="col-md-3" style="background-color: peru">
+                    Desktop 3
+                </div>
+                <div class="col-md-3" style="background-color: peachpuff">
+                    Desktop 3
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

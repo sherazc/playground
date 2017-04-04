@@ -1,0 +1,6 @@
+framework module Pods_ios15_cocoapod_alamofire_swiftyjson {
+  umbrella header "Pods-ios15_cocoapod_alamofire_swiftyjson-umbrella.h"
+
+  export *
+  module * { export * }
+}

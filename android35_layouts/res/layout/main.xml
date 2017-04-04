@@ -1,0 +1,73 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/linearLayoutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Linear Layout" />
+
+        <Button
+            android:id="@+id/linearLayout2Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Linear Layout 2 - layout_weight" />
+
+        <Button
+            android:id="@+id/frameLayoutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Frame Layout" />
+
+        <Button
+            android:id="@+id/relativeLayoutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Relative Layout" />
+
+        <Button
+            android:id="@+id/gridLayoutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Grid Layout" />
+
+        <Button
+            android:id="@+id/dialogThemed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dialog Themed" />
+
+        <Button
+            android:id="@+id/tableLayoutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Table Layout" />
+        
+        <Button
+            android:id="@+id/screenOrientaion1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Screen Orientation Relative Layout" />
+        
+        <Button
+            android:id="@+id/screenOrientaion2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Screen Orientation Layout-Land" />
+		
+		<Button
+            android:id="@+id/screenOrientaion3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Screen Orientation Changes" />
+        
+    </LinearLayout>
+
+</ScrollView>

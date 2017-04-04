@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../scripts/libs/bootstrap-3.3.2/css/bootstrap.min.css">
+    <script src="../scripts/libs/jquery/jquery-1.11.2.min.js"></script>
+    <script src="../scripts/libs/bootstrap-3.3.2/js/bootstrap.min.js"></script>
+    <style>
+        .ticker {
+            width: 400px;
+            height: 600px;
+            overflow: hidden;
+            border: 1px solid #DDD;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px #DDD;
+            background-color:  #F5F3E5;
+            text-align: left;
+        }
+
+        .ticker h3 {
+            padding: 0 0 10px 10px;
+            border-bottom: 1px solid #A7A7A7;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-style: italic;
+        }
+
+        ul li {
+            list-style: none;
+            height:50px;
+            padding:7px;
+            border-bottom: 1px solid #D6CFB8;
+        }
+
+    </style>
+<script>
+    function ticker() {
+        $('#ticker li:first').slideUp(function() {
+            $(this).appendTo($('#ticker')).slideDown();
+        });
+    }
+
+    setInterval(function(){ ticker(); }, 1000);
+</script>
+</head>
+<body>
+
+
+<div class="ticker">
+    <h3>Latest News</h3>
+    <ul id="ticker">
+        <li>Dummy data is benign information that does not contain any useful data, but serves to reserve spac...</li>
+        <li>For testing, dummy data can also be used as stubs or pad to avoid software testing iss...</li>
+        <li>In operational use, dummy data may be transmitted for OPSEC purposes.</li>
+        <li>Dummy data must be rigorously evaluated and documented to ensure that it does no...</li>
+        <li>The topic of this article may not meet Wikipedia's general notability guideline.</li>
+    </ul>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<h3>Please see browser logs</h3>
+<script>
+    /**
+     * This technique is used to prevent browser caching of server's javascript/JSON scripts.
+     * We will achieve this by generating new server script name ever time.
+     */
+    // We need run all of our code in "window.onload" because we are dynamically creating server JSONP URL.
+    // And appending URL in the body of the page.
+    window.onload = function () {
+
+        var randomNumber = Math.round(100000 * Math.random());
+
+        var randomFunctionName = "myFunction_" + randomNumber;
+
+        // making function "randomFunctionName" global function.
+        // Since this code is within "window.onload" that is why we have to make "randomFunctionName" global.
+        // By doing this server will able to callback
+        window[randomFunctionName] = function (data) {
+            console.log(data);
+        }
+
+        var scriptElement = document.createElement("script");
+        scriptElement.src = "js05_jsonp.php?clientFunctionName=" + randomFunctionName;
+        scriptElement.id = "script_" + randomFunctionName;
+
+        // By appending script element to the body. Server data will be sent to the client function.
+        // And Client Function will be called
+        document.body.appendChild(scriptElement);
+
+        // After we are done we can optionally remove the server script tag.
+        document.getElementById(scriptElement.id).remove();
+    };
+</script>
+</body>
+</html>

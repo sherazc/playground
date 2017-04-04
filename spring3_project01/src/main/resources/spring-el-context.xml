@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<bean id="songA" class="com.sc.spring3.spel.Song">
+		<property name="instruments">
+			<props>
+				<prop key="GUITAR">STRUM STRUM STRUM</prop>
+				<prop key="CYMBAL">CRASH CRASH CRASH</prop>
+				<prop key="HARMONICA">HUM HUM HUM</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="songB" class="com.sc.spring3.spel.Song" p:instruments="#{songA.instruments}" />
+	
+	
+ 	<bean id="songC" class="com.sc.spring3.spel.Song" p:instruments="#{instrumentFilter.loadWindInstruments()}" />
+
+	
+	<bean id="instrumentFilter" class="com.sc.spring3.spel.InstrumentFilter">
+		<property name="instruments">
+			<props>
+				<prop key="GUITAR Strings">STRUM STRUM STRUM</prop>
+				<prop key="CYMBAL Bang">CRASH CRASH CRASH</prop>
+				<prop key="HARMONICA Wind">HUM HUM HUM</prop>
+				<prop key="DRUM Sticks">DUM DUM DUM</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<util:list id="citiesList">
+		<bean class="com.sc.spring3.spel.City"
+			p:name="City 1" p:state="State 1" p:population="100"/>
+		<bean class="com.sc.spring3.spel.City"
+			p:name="City 2" p:state="State 2" p:population="200"/>
+		<bean class="com.sc.spring3.spel.City"
+			p:name="City 3" p:state="State 3" p:population="300"/>
+		<bean class="com.sc.spring3.spel.City"
+			p:name="City 4" p:state="State 4" p:population="400"/>
+		<bean class="com.sc.spring3.spel.City"
+			p:name="City 5" p:state="State 5" p:population="500"/>
+	</util:list>
+	
+	<util:map id="citiesMap">
+		<entry key="City 1" value-ref="City1"/>
+		<entry key="City 2" value-ref="City2"/>
+		<entry key="City 3" value-ref="City3"/>
+		<entry key="City 4" value-ref="City4"/>
+		<entry key="City 5" value-ref="City5"/>
+	</util:map>
+	
+	<bean id="City1" class="com.sc.spring3.spel.City"
+			p:name="City 1" p:state="State 1" p:population="100"/>
+	<bean id="City2" class="com.sc.spring3.spel.City"
+		p:name="City 2" p:state="State 2" p:population="200"/>
+	<bean id="City3" class="com.sc.spring3.spel.City"
+		p:name="City 3" p:state="State 3" p:population="300"/>
+	<bean id="City4" class="com.sc.spring3.spel.City"
+		p:name="City 4" p:state="State 4" p:population="400"/>
+	<bean id="City5" class="com.sc.spring3.spel.City"
+		p:name="City 5" p:state="State 5" p:population="500"/>
+		
+	<bean id="cityChooserMain" class="com.sc.spring3.spel.CityChooserMain"
+		p:cityA="#{citiesList[1]}"
+		p:cityB="#{citiesMap['City 4']}"
+		p:cityC="#{citiesList[ T(java.lang.Math).random() * citiesList.size() ]}"
+		p:bigCities="#{citiesList.?[population gt 200]}"/>
+</beans>

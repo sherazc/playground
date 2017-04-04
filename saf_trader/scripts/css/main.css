@@ -1,0 +1,12 @@
+.center {
+    margin: 0px auto;
+}
+
+.centerText {
+    text-align: center;
+}
+
+.centerTextAndContainer {
+    margin: 0px auto;
+    text-align: center;
+}

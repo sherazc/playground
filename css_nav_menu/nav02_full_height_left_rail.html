@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<style>
+    * {
+        margin: 0; padding: 0;
+        font-family: Verdana, Arial;
+    }
+
+    #main_nav {
+        width: 250px;
+        background-color: bisque;
+        float: left;
+        position: fixed;
+        overflow: hidden;
+        height: 100%;
+    }
+
+    #main_nav ul {
+        border: solid 1px darkslategray;
+        list-style-type: none;
+        width: 100%;
+        background: lightgray;
+    }
+
+    #main_nav ul li {
+        border-bottom: solid 1px darkslategray;
+    }
+    #main_nav ul li:last-child {
+        border-bottom: none;
+    }
+    #main_nav ul li a {
+        display: block;
+        text-decoration: none;
+        color: white;
+        padding: 5px;
+        text-align: center;
+    }
+
+    #main_nav ul li a.main_nav_active {
+        background: darkgreen;
+    }
+
+    #main_nav ul li a:hover {
+        background: green;
+    }
+
+    #main_nav ul li a:hover:not(.main_nav_active) {
+        background: darkseagreen;
+    }
+
+    #content {
+        margin-left:250px;
+        width: 100%;
+        background-color: beige;
+        height: 100%;
+        position: fixed;
+
+    }
+
+</style>
+<script></script>
+</head>
+<body>
+
+<nav id="main_nav">
+    <ul>
+        <li><a href="#">Item 1</a></li>
+        <li><a href="#">Item 2</a></li>
+        <li><a href="#" class="main_nav_active">Item 3</a></li>
+        <li><a href="#">Item 4</a></li>
+        <li class="main_nav_right"><a href="#">Item 5</a></li>
+        <li class="main_nav_right"><a href="#">Item 6</a></li>
+    </ul>
+</nav>
+
+
+<div id="content">
+    <h2>Fixed Full-height Side Nav</h2>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+</div>
+
+</body>
+</html>

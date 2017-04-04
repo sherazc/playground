@@ -1,0 +1,78 @@
+fajr_beginning	fajr_athan	fajr_iqama	
+thuhr_beginning	thuhr_athan	thuhr_iqama	
+asr_beginning_shafi	asr_beginning_hanafi asr_athan	asr_iqama	
+maghrib_athan	maghrib_iqama	
+isha_beginning	isha_athan	isha_iqama
+
+
+
+="INSERT INTO salat_times(
+`prayer_date`, `fajr_beginning`, `fajr_athan`, `fajr_iqama`, `thuhr_beginning`, `thuhr_athan`, `thuhr_iqama`, `asr_beginning_shafi`, `asr_beginning_hanafi`, `asr_athan`, `asr_iqama`, `maghrib_athan`, `maghrib_iqama`, `isha_beginning`, `isha_athan`, `isha_iqama`, `shurooq`
+) VALUES (
+'"&TEXT(A2,"yyyy-mm-dd")&"',
+'0000-00-00 "&TEXT(B2,"H:mm")&"',
+'0000-00-00 "&TEXT(D2,"H:mm")&"',
+'0000-00-00 "&TEXT(E2,"H:mm")&"',
+'0000-00-00 "&TEXT(G2,"H:mm")&"',
+'0000-00-00 "&TEXT(I2,"H:mm")&"',
+'0000-00-00 "&TEXT(K2,"H:mm")&"',
+'0000-00-00 "&TEXT(L2,"H:mm")&"',
+'"&M2&"',
+'0000-00-00 "&TEXT(N2,"H:mm")&"',
+'0000-00-00 "&TEXT(P2,"H:mm")&"',
+'0000-00-00 "&TEXT(Q2,"H:mm")&"');"
+
+
+
+
+
+
+
+
+
+"'"&TEXT(A2,"yyyy-mm-dd")&"',
+'0000-00-00 "&TEXT(B2,"H:mm")&"',
+'0000-00-00 "&TEXT(D2,"H:mm")&"',
+'0000-00-00 "&TEXT(E2,"H:mm")&"',
+'0000-00-00 "&TEXT(G2,"H:mm")&"',
+'0000-00-00 "&TEXT(I2,"H:mm")&"',
+'0000-00-00 "&TEXT(K2,"H:mm")&"',
+'0000-00-00 "&TEXT(L2,"H:mm")&"',
+'"&M2&"',
+'0000-00-00 "&TEXT(N2,"H:mm")&"',
+'0000-00-00 "&TEXT(P2,"H:mm")&"',
+'0000-00-00 "&TEXT(Q2,"H:mm")&"');"
+
+
+
+
+
+
+
+"'"&TEXT(A2,"yyyy-mm-dd")&"','0000-00-00 "&TEXT(B2,"H:mm")&"','0000-00-00 "&TEXT(D2,"H:mm")&"','0000-00-00 "&TEXT(E2,"H:mm")&"','0000-00-00 "&TEXT(G2,"H:mm")&"','0000-00-00 "&TEXT(I2,"H:mm")&"','0000-00-00 "&TEXT(K2,"H:mm")&"','0000-00-00 "&TEXT(L2,"H:mm")&"','"&M2&"','0000-00-00 "&TEXT(N2,"H:mm")&"','0000-00-00 "&TEXT(P2,"H:mm")&"','0000-00-00 "&TEXT(Q2,"H:mm")&"');"
+
+
+
+
+"INSERT INTO salat_times(`prayer_date`, `fajr_beginning`, `fajr_athan`, `fajr_iqama`, `thuhr_beginning`, `thuhr_athan`, `thuhr_iqama`, `asr_beginning_shafi`, `asr_beginning_hanafi`, `asr_athan`, `asr_iqama`, `maghrib_athan`, `maghrib_iqama`, `isha_beginning`, `isha_athan`, `isha_iqama`, `shurooq`) VALUES ('2013-01-01',
+'0000-00-00 6:15',
+'0000-00-00 6:45',
+'0000-00-00 7:00',
+'0000-00-00 12:42',
+'0000-00-00 13:45',
+'0000-00-00 14:00',
+'0000-00-00 15:22',
+'0000-00-00 16:02',
+'0000-00-00 16:15',
+'0000-00-00 16:30',
+'0000-00-00 17:40',
+'After Azan',
+'0000-00-00 19:09',
+'0000-00-00 19:15',
+'0000-00-00 19:30',
+'0000-00-00 7:44');"
+
+
+
+
+

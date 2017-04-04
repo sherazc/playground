@@ -1,0 +1,16 @@
+<link rel="import" href="./bower_components/polymer/polymer.html"/>
+<polymer-element name="my-tag" attributes="attribute1 attribute2">
+    <template>
+        attribute1 = {{attribute1}}
+        <br/>
+        attribute2 = {{attribute2}}
+        <hr/>
+    </template>
+
+    <script>
+        Polymer({
+            attribute1: "default value1",
+            attribute2: "default value2"
+        });
+    </script>
+</polymer-element>

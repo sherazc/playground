@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+	<title>Inventory Scanner</title>
+	<h:outputStylesheet library="css" name="main.css" />
+</h:head>
+<h:body bgcolor="black">
+<table border='0' width="1000" align="center">
+<tr>
+<td height="70" style="background: url('#{resource['images:headerbg.png']}') repeat;" align="center">
+	<font color="white">
+		<h1>
+		<h:outputLink value="welcome.xhtml" style="color:white;">
+			Inventory Scanner
+		</h:outputLink>
+		</h1>
+	</font>	
+</td>
+</tr>
+<tr><td align="center">
+
+<table>
+<tr>
+<td align="left">
+<h:form id="scanForm">
+	<h3>Scan or key-in code</h3>
+	<table>
+	<tr>
+		<td>Scan Code:</td>
+		<td>
+			<h:inputText id="scanCode" size="30" value="#{inventoryController.scanCode}" />
+			&#160;
+			<h:commandButton value="Search and add" action="#{inventoryController.searchScanCode}"/>
+			
+		</td>
+	</tr>
+	<tr>
+		<td>&#160;</td>
+		<td>
+			<c:if test="#{not empty inventoryController.errorMessage}">
+				<font color="orange">
+				#{inventoryController.errorMessage}
+				</font>
+			</c:if>
+		</td>
+	</tr>
+	</table>
+	<h:commandButton value="Reset" action="#{inventoryController.resetCurrentProducts}"/>
+	<h:commandButton value="Reload" action="#{inventoryController.refreshDb}"/>
+</h:form>
+<br/>
+
+<h:form id="inventoryForm" rendered="#{not empty inventoryController.currentProducts}">
+	<h:dataTable id="currentInventoryTable" value="#{inventoryController.currentProducts}" var="p"
+		styleClass="order-table"
+		headerClass="order-table-header"
+		rowClasses="order-table-odd-row, order-table-even-row" border="1">
+		<h:column>
+			<f:facet name="header">
+				<h:commandLink action="#{inventoryController.productFieldSorter.sortByIsbn}">
+					ISBN
+				</h:commandLink>
+			</f:facet>
+			<h:outputText value="#{p.code}"/>
+		</h:column>
+		<h:column>
+			<f:facet name="header">
+				<h:commandLink action="#{inventoryController.productFieldSorter.sortBySku}">
+					SKU
+				</h:commandLink>
+			</f:facet>
+			<h:outputText value="#{p.sku}"/>
+		</h:column>
+		<h:column>
+			<f:facet name="header">
+				<h:commandLink action="#{inventoryController.productFieldSorter.sortByProductName}">
+					Product Name
+				</h:commandLink>
+			</f:facet>
+			<h:outputText value="#{p.productName}"/>
+		</h:column>
+		<h:column>
+			<f:facet name="header">
+				<h:commandLink action="#{inventoryController.productFieldSorter.sortByRetailPrice}">
+					Retail Price
+				</h:commandLink>
+			</f:facet>
+			<h:outputText value="#{p.retailPrice}" >
+				<f:convertNumber currencyCode="USD" minFractionDigits="2" maxFractionDigits="2"/>
+			</h:outputText>
+			
+		</h:column>
+		<h:column>
+			<f:facet name="header">
+				<h:commandLink action="#{inventoryController.productFieldSorter.sortByDiscountPrice}">
+					Discount Price
+				</h:commandLink>
+			</f:facet>
+			<h:outputText value="#{p.discountPrice}" >
+				<f:convertNumber currencyCode="USD" minFractionDigits="2" maxFractionDigits="2"/>
+			</h:outputText>
+			
+		</h:column>
+		<h:column>
+			<f:facet name="header">Action</f:facet>
+			&#160;&#160;
+			<h:commandLink action="#{inventoryController.removeProduct(p)}">
+				<h:graphicImage library="images" name="delete.png"/>
+			</h:commandLink>
+		</h:column>
+	</h:dataTable>
+	<br />
+</h:form>
+
+<c:if test="#{not empty inventoryController.currentProducts}">
+<table>
+	<tr>
+		<th align="left">Total Retail Price:</th>
+		<td align="left"> $
+			<h:outputText value="#{inventoryController.totalRetailPrice}" >
+				<f:convertNumber currencyCode="USD" minFractionDigits="2" maxFractionDigits="2"/>
+			</h:outputText>
+			
+		</td>
+		<td align="left"> $
+			<h:outputText value="#{inventoryController.totalRetailPlusTax}" >
+				<f:convertNumber currencyCode="USD" minFractionDigits="2" maxFractionDigits="2"/>
+			</h:outputText>
+			
+		</td>
+	</tr>
+	<tr>
+		<th align="left">Total Discount Price:</th>
+		<td align="left"> $
+			<h:outputText value="#{inventoryController.totalDiscountPrice}" >
+				<f:convertNumber currencyCode="USD" minFractionDigits="2" maxFractionDigits="2"/>
+			</h:outputText>
+		</td>
+		<td align="left"> $
+			<h:outputText value="#{inventoryController.totalDiscountPlusTax}" >
+				<f:convertNumber currencyCode="USD" minFractionDigits="2" maxFractionDigits="2"/>
+			</h:outputText>
+		</td>
+	</tr>
+</table>
+<br/>
+</c:if>
+
+</td>
+</tr>
+</table>
+
+</td>
+</tr>
+<tr><td height="30" style="background: url('#{resource['images:footerbg.png']}') repeat;"></td></tr>
+</table>
+<script type="text/javascript">
+	document.getElementById('scanForm:scanCode').focus();
+</script>
+</h:body>
+</html>

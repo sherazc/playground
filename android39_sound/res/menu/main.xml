@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/carA"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Car A"
+        android:icon="@android:drawable/btn_plus">
+    </item>
+    <item
+        android:id="@+id/carB"
+        android:orderInCategory="200"
+        android:showAsAction="never"
+        android:title="Car B"
+        android:icon="@android:drawable/btn_minus">
+    </item>
+
+</menu>

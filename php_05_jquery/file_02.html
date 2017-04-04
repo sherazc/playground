@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- http://localhost//php_05_jquery/file_02.html -->
+<!-- http://www.w3schools.com/jquery/jquery_syntax.asp -->
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>File 02</title>
+<script type="text/javascript" src="./script/jquery-1.9.1.js"></script>
+<script>
+
+	// $(function() {}); // Consider this as main function of jQuery 
+	$(function() {
+		$("p").click(function() {
+			$(this).hide();
+		});
+	});
+</script>
+</head>
+<body>
+	<p>If you click on me, I will disappear.</p>
+	<p>Click me away!</p>
+	<p>Click me too!</p>
+</body>
+</html>

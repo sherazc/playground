@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/slideLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="top"
+        android:orientation="vertical" >
+
+        <com.sc.ppevents.view.RealViewSwitcher
+            android:id="@+id/slider"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+            <!--
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="top"
+                android:background="#123274"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#FF00FF"
+                    android:text="First, when it comes to wrinkling UI widgets, the Google documentation is sparse. This makes sense; the framework team at Google has a vested interest in encouraging developers to use their components on an “as-is” basis. This ensures a consistent look and feel across the platform. I agree with this decision on the part Google entirely, but there are times when I want to put my own spin on a widget. This plays into my second motivation for writing numerous tutorials on customizing Android UI elements" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#FF0000"
+                    android:text="Test\ntest\ntest\ntest" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="top"
+                android:background="#327412"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#FF00FF"
+                    android:text="Test\ntest\ntest\ntest" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#FF0000"
+                    android:text="Test\ntest\ntest\ntest" />
+            </LinearLayout>
+            -->
+        </com.sc.ppevents.view.RealViewSwitcher>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/InnerRelativeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="10dip" >
+
+        <!--
+        <TextView
+            android:id="@+id/yearText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="1980" >
+        </TextView>
+        android:layout_toLeftOf="@id/yearText"
+        -->
+
+        <SeekBar
+            android:id="@+id/seekbar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:max="19"
+            android:paddingLeft="20dip"
+            android:paddingRight="20dip"
+            android:progress="0"
+            android:progressDrawable="@drawable/progress_drawable"
+            android:secondaryProgress="0"
+            android:thumb="@drawable/bookmark_small" />
+    </RelativeLayout>
+
+</RelativeLayout>

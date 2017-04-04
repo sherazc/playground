@@ -1,0 +1,1 @@
+java -cp /Users/sheraz/dev/databases/hsqldb/hsqldb-1.8.0.9.jar org.hsqldb.util.DatabaseManager 

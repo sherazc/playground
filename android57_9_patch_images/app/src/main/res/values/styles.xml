@@ -1,0 +1,19 @@
+<resources>
+
+    <color name="my_spinner_item_color">#FFF</color>
+    <color name="my_spinner_drop_down_item_color">#ff2a552a</color>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:spinnerDropDownItemStyle">@style/mySpinnerDropDownItemStyle</item>
+        <item name="android:spinnerItemStyle">@style/mySpinnerItemStyle</item>
+    </style>
+
+    <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+        <item name="android:textColor">@color/my_spinner_item_color</item>
+    </style>
+
+    <style name="mySpinnerDropDownItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+        <item name="android:textColor">@color/my_spinner_drop_down_item_color</item>
+    </style>
+
+</resources>

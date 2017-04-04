@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../scripts/libs/bootstrap/css/bootstrap.min.css">
+    <script src="../scripts/libs/jquery/jquery-1.11.2.min.js"></script>
+    <script src="../scripts/libs/jquery/jquery-ui.min.js"></script>
+    <script src="../scripts/libs/bootstrap/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<style>
+    .progress_container {
+        /*position: relative;*/
+        /*background-color: #28a4c9;*/
+        width: 250px;
+        height: 250px;
+    }
+    .progress {
+        width: 250px;
+        height: 250px;
+        border-radius: 100%;
+        transform: rotate(-90deg);
+        background-color: tomato;
+    }
+
+    .progress_image {
+        background: transparent url(../images/donation_box_small.png) no-repeat;
+        background-size: 100px 88px;
+        width: 100px;
+        height: 88px;
+        position: relative;
+        top: -120px;
+        left: 75px;
+    }
+
+    .progress_status {
+        top: -320px;
+        text-align: center;
+        position: relative;
+        color: white;
+    }
+
+    .progress_max {
+        font-size: 20px;
+    }
+
+    .progress_current {
+        margin-top: 30px;
+        font-size: 30px;
+    }
+</style>
+
+<div class="progress_container" style="float: left; margin: 10px;">
+    <div class="progress">
+        <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="20" aria-valuemin="0"
+             aria-valuemax="100" style="width: 75%">
+        </div>
+    </div>
+    <div class="progress_image">
+    </div>
+    <div class="progress_status">
+        <div class="progress_max">
+            Target = $1000
+        </div>
+        <div class="progress_current">
+            Current = $750
+        </div>
+    </div>
+</div>
+
+
+<div class="progress_container" style="float: left; margin: 10px;">
+    <div class="progress">
+        <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="20" aria-valuemin="0"
+             aria-valuemax="100" style="width: 25%">
+        </div>
+    </div>
+    <div class="progress_image">
+    </div>
+    <div class="progress_status">
+        <div class="progress_max">
+            Target = $1000
+        </div>
+        <div class="progress_current">
+            Current = $250
+        </div>
+    </div>
+</div>
+
+
+
+<!--
+<div class="progress">
+
+    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0"
+         aria-valuemax="100" style="width: 75%">
+        <div class="progress_content">
+            <img src="images/footer_trangle2_left.png"/>
+            <br/>
+            sdfsdf
+        </div>
+    </div>
+</div>
+
+<div class="progress">
+    <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="20"
+         aria-valuemin="0" aria-valuemax="100" style="height: 100px; width: 100px">
+        <div class="progress_content">
+            <img src="images/footer_trangle2_left.png"/>
+            <br/>
+            sdfsdf
+        </div>
+    </div>
+</div>-->
+</body>
+</html>

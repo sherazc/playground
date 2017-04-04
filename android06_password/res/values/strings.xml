@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Android06_password</string>
+    <string name="lblPassword">Enter Your Password:</string>
+    <string name="btn_submit">Submit</string>
+
+</resources>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title>jQuery 06</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="resources/bootstrap-3.3.2/css/bootstrap.min.css">
+    <script src="resources/jquery/jquery-1.11.2.min.js"></script>
+    <script src="resources/bootstrap-3.3.2/js/bootstrap.min.js"></script>
+    <style>
+        .list {
+            color: teal;
+        }
+
+        .special {
+            color: tomato;
+        }
+
+        .sublist {
+            color: yellowgreen;
+        }
+    </style>
+    <script>
+        $(function () {
+
+
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+
+    <h3>Try these commands on console</h3>
+
+    <code>$('li')</code> This will find all the "li" elements
+    <br/>
+    <code>$('li').first()</code> This will find the first "li" element
+    <br/>
+    <code>$('li').last()</code> This will find the last "li" element
+    <br/>
+    <code>$('li').first().hide()</code> This will hide the first "li" element
+    <br/>
+    <code>$('li').first().show()</code> This will show the first "li" element
+    <br/>
+    <code>$('li').eq(0)</code> Returns first index "li" element
+    <br/>
+    <code>$('li').eq(1)</code> Returns second index "li" element
+    <br/>
+    <code>$('ul:first')</code> Returns first "ul" element
+    <br/>
+    <code>$('ul:first').children()</code> Selects first "ul" and then
+    get all its children elements
+    <br/>
+    <code>$('li:first').siblings()</code> Selects all the siblings of first 'li'
+    <br/>
+    <code>$('li:first').parent()</code> Select the parent of first 'li'
+    <br/>
+    <code>$('li').eq(1).prev()</code> Select the second 'li' and then select
+    previous 'li' which is the first 'li'
+    <br/>
+    <code>$('li').eq(1).next()</code> Select the second 'li' and then select
+    next 'li' which is the third 'li'
+    <br/>
+
+
+    <ul class="list">
+        <li>One</li>
+        <li class="special">Two</li>
+        <li>
+            Three
+            <ul class="sublist">
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+
+            </ul>
+        </li>
+
+
+    </ul>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title>jQuery 15</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="resources/bootstrap-3.3.2/css/bootstrap.min.css">
+    <script src="resources/jquery/jquery-1.11.2.min.js"></script>
+    <script src="resources/jquery/jquery-ui.min.js"></script>
+    <script src="resources/bootstrap-3.3.2/js/bootstrap.min.js"></script>
+    <style>
+        .circleBase {
+            border-radius: 50%;
+            behavior: url(PIE.htc); /* remove if you don't care about IE8 */
+        }
+        .type1 {
+            width: 300px;
+            height: 300px;
+            background: tomato;
+            box-shadow: 0px 0px 10px #444444;
+            /*border: 3px solid red;*/
+        }
+        .alignMiddle{
+            text-align: center;
+            position: relative;
+            top: 50%;
+            transform: translateY(-100%);
+        }
+        .stickyToolbar {
+            display: none;
+            position: fixed;
+            width: 100%;
+            background-color: #398439;
+            color: white;
+            z-index: 100;
+            left: 0;
+            box-shadow: 0px 0px 10px #444444;
+        }
+
+        .componentShadow {
+            box-shadow: 0px 0px 10px #444444;
+        }
+
+        .textShadow {
+            text-shadow: 1px 1px 5px #444444;;
+        }
+
+    </style>
+    <script>
+
+        $(window).scroll(function() {
+            var scrollPosition = $(this).scrollTop();
+            var windowHeight = $(this).height();
+            var windowWidth = $(this).width();
+            animateToolBar(scrollPosition);
+            animateCircles(scrollPosition, windowHeight);
+            animateMultiCircles(scrollPosition)
+        });
+
+        function animateToolBar(scrollPosition) {
+            if (scrollPosition > 150) {
+                $("#toolBarSmall").slideDown();
+            } else {
+                $("#toolBarSmall").slideUp();
+            }
+        }
+
+        function animateCircles(scrollPosition, windowHeight) {
+            var circleOneVisible = componentIsVisible("#circleOne", scrollPosition, windowHeight, 75);
+            var circleTwoVisible = componentIsVisible("#circleTwo", scrollPosition, windowHeight, 150);
+            var circleThreeVisible = componentIsVisible("#circleThree", scrollPosition, windowHeight, 225);
+
+            if (circleOneVisible) {
+                $("#circleOne").animate({opacity: 1}, 500);
+            }
+            if (circleTwoVisible) {
+                $("#circleTwo").animate({opacity: 1}, 500);
+            }
+            if (circleThreeVisible) {
+                $("#circleThree").animate({opacity: 1}, 500);
+            }
+        }
+
+        var multiCirclesAnimationComplete = false;
+        function animateMultiCircles(scrollPosition) {
+            if (multiCirclesAnimationComplete) {
+                return;
+            }
+            multiCirclesAnimationComplete = true;
+            if (scrollPosition > 1) {
+                var bigCircle = $("#multiCircleThree");
+                var mediumCircle = $("#multiCircleTwo");
+                var smallCircle = $("#multiCircleOne");
+
+                var bigCircleMarginTop = parseInt(bigCircle.css("margin-top"));
+                var mediumCircleMarginTop = parseInt(mediumCircle.css("margin-top"));
+                var smallCircleMarginTop = parseInt(smallCircle.css("margin-top"));
+
+                bigCircle.animate({
+                   marginTop: bigCircleMarginTop + 20
+
+                }, 1000, "easeInOutBounce");
+
+                mediumCircle.animate({
+                    marginTop: mediumCircleMarginTop + 70
+                }, 2000, "easeInElastic");
+
+                smallCircle.animate({
+                    marginTop: smallCircleMarginTop + 75
+                }, 3000, "easeInOutElastic");
+            }
+        }
+
+        function componentIsVisible(componentId, scrollPosition, windowHeight, pixelsVisible) {
+            var componentTopOffSet = $(componentId).offset().top;
+            if ((scrollPosition + windowHeight - pixelsVisible) > componentTopOffSet) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+
+        $(window).ready(function() {
+            var randomTextHtml = "";
+            for(i=0; i < 100; i++) {
+                randomTextHtml += (i + "<br/> <p>Some Text</p> <hr/>");
+            }
+            $("#randomTextContainer").html(randomTextHtml);
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+    <div id="toolBarSmall" class="stickyToolbar">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12"><h3>Top Bar content</h3></div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="jumbotron">
+            <h1>Heading</h1>
+            <p>
+                Some Heading details
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 componentShadow" style="margin-bottom: 40px; align-content: center; text-align: center; height: 340px;">
+            <div id="multiCircleThree" class="circleBase componentShadow " style="margin-top: 10px; margin-left: auto; margin-right: auto;; background: seagreen; width: 300px; height: 300px; color: whitesmoke;">
+                <span style="">Three</span>
+            </div>
+            <div id="multiCircleTwo" class="circleBase componentShadow " style="margin-top:-280px ;margin-left: auto; margin-right: auto;background: mediumturquoise; width: 200px; height: 200px; color: whitesmoke;">
+                <span style="">Two</span>
+            </div>
+
+            <div id="multiCircleOne" class="circleBase componentShadow " style="margin-top:-180px; margin-left: auto; margin-right: auto;background: dodgerblue; width: 100px; height: 100px; color: whitesmoke;">
+                <span style="">One</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 componentShadow" style="margin-bottom: 40px;">
+            <h4>
+                <span class="textShadow">Lorem Ipsum Dolor</span>
+            </h4>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam orci leo, suscipit nec elementum<br/>
+                sit amet,bibendum sit amet tellus. Maecenas nec turpis tortor. Pellentesque sit amet tincidunt <br/>
+                urna. Ut eu dapibus magna. Sed ullamcorper congue iaculis. Maecenas pulvinar sapien vitae quam <br/>
+                egestas gravida. Ut vehicula, ex quis rhoncus pretium, nisi metus euismod elit, eu pretium dolor <br/>
+                nisl eu nulla. Fusce et metus est. Pellentesque eleifend, erat dictum sagittis scelerisque, est <br/>
+                mi egestas orci, at finibus nisl lacus nec ex. Donec tortor ipsum, porta sit amet vulputate <br/>
+                scelerisque, lobortis eu turpis.
+            </p>
+            <p>
+                Morbi molestie turpis felis, eget finibus augue feugiat sed. Nunc et lectus quis nibh iaculis <br/>
+                auctor eget consectetur odio. Praesent turpis neque, consequat ac lobortis eu, imperdiet ac odio. <br/>
+                Quisque eu nunc sit amet sem molestie blandit. Phasellus non orci sollicitudin, gravida tellus <br/>
+                non, dictum justo. Donec eleifend odio sagittis ex rhoncus hendrerit. Duis sed faucibus libero, <br/>
+                id aliquam elit. In et fringilla dolor. Curabitur semper non urna sed suscipit. Phasellus vel <br/>
+                sagittis ipsum. Nulla erat est, commodo quis libero id, gravida consequat eros. In viverra augue <br/>
+                tellus, nec dictum ex malesuada non. Mauris lacinia sed urna id efficitur.
+            </p>
+            <p>
+                Praesent quis dui lectus. Sed lacus erat, sagittis eu imperdiet eu, vulputate non erat. Aenean ex <br/>
+                eros, faucibus ac tempus a, laoreet non erat. Cras congue pulvinar orci in tincidunt. Quisque <br/>
+                lectus tortor, posuere nec leo suscipit, hendrerit ultrices nisi. Sed ullamcorper, magna et <br/>
+                auctor eleifend, dolor risus euismod lectus, et ullamcorper augue urna sed lorem. Ut molestie <br/>
+                porttitor arcu, quis tristique justo commodo a. Fusce vitae sagittis purus. Praesent egestas sit <br/>
+                amet est vel gravida. Sed placerat euismod erat posuere tincidunt. Nullam ipsum nisl, maximus et <br/>
+                massa vel, fermentum efficitur dolor. Etiam sed faucibus mauris. Suspendisse vestibulum lectus <br/>
+                tempus sem hendrerit, et ullamcorper lacus eleifend. Donec libero tortor, mattis ut velit <br/>
+                efficitur, hendrerit efficitur sem.
+            </p>
+            <p>
+                Praesent feugiat at ligula non varius. Curabitur maximus magna risus, at accumsan nulla imperdiet <br/>
+                sit amet. Cras auctor risus id massa luctus congue. Nam molestie velit at est lacinia tincidunt. <br/>
+                Integer erat massa, feugiat hendrerit leo vel, consequat laoreet lacus. Praesent pretium lectus <br/>
+                sapien, eu ornare nulla volutpat a. Integer vel nibh maximus, interdum arcu ut, ultrices enim. <br/>
+                Maecenas accumsan et ante pharetra auctor. Duis quis velit enim.
+            </p>
+            <p>
+                Etiam dapibus porttitor volutpat. Aliquam ac arcu nec nisi lacinia varius. In auctor risus et <br/>
+                turpis luctus bibendum. Phasellus sagittis purus sit amet tincidunt bibendum. Nam ac mauris sed <br/>
+                ante dapibus posuere. Fusce bibendum turpis et enim tincidunt semper. Nulla dapibus vehicula mi <br/>
+                vitae ultrices. Etiam hendrerit id nisl eu rutrum. Nulla facilisi.
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4" style="background-color: turquoise">
+            <div id="circleOne" class="circleBase type1" style="opacity: 0;">
+                <div class="alignMiddle">
+                    <h1 style="color: whitesmoke">one</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4" style="background-color: wheat">
+            <div id="circleTwo" class="circleBase type1" style="opacity: 0;">
+                <div class="alignMiddle">
+                    <h1 style="color: whitesmoke">two</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4" style="background-color: sandybrown;">
+            <div id="circleThree" class="circleBase type1" style="opacity: 0;">
+                <div class="alignMiddle">
+                    <h1 style="color: whitesmoke">three</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="randomTextContainer"></div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

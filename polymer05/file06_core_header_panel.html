@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>File 06 core header panel</title>
+    <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+    <link rel="import" href="bower_components/core-header-panel/core-header-panel.html"/>
+    <link rel="import" href="bower_components/core-toolbar/core-toolbar.html"/>
+    <link rel="import" href="bower_components/core-icon-button/core-icon-button.html"/>
+    <link rel="import" href="bower_components/core-icons/core-icons.html"/>
+
+    <style>
+        core-toolbar {
+            background-color: #0b97c4;
+            color: #ffffff;
+        }
+    </style>
+
+</head>
+<body fullbleed layout vertical>
+<!--
+
+mode can be
+- scroll: Means header will scroll with the content
+- waterfall: Means when on the top there wont be any shadow but when content is scroll down then it will show shadow.
+- seamed: Means toolbar is sticky but there is no drop shadow
+-- waterfall-tall: means that toolbar starts off as tall but shrinks when content is scrolled up.
+-->
+<core-header-panel flex mode="waterfall-tall">
+    <core-toolbar>
+        <core-icon-button icon="menu"></core-icon-button>
+
+        <div class="bottom indent">MY APP</div>
+        <span flex></span>
+
+        <core-icon-button icon="search"></core-icon-button>
+    </core-toolbar>
+
+    <div class="content">
+        Scroll down
+        <p></p>
+        <div class="banner"> Testing</div>
+
+        This is my content.<br/>
+        This is my content.<br/>
+        This is my content
+        .<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>
+        .<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>
+        This is my content.<br/>
+        This is my content.<br/>
+        This is my content.<br/>
+        This is my content.<br/>
+        This is my content.<br/>
+        This is my content.<br/>
+    </div>
+</core-header-panel>
+</body>
+</html>

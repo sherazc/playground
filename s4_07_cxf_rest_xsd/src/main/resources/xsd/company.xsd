@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.sc.com/schema/company"
+	xmlns:tns="http://www.sc.com/schema/company" xmlns:common="http://www.sc.com/schema/common"
+	elementFormDefault="qualified">
+
+	<import schemaLocation="common.xsd" namespace="http://www.sc.com/schema/common" />
+
+	<element name="employee">
+		<complexType>
+			<complexContent>
+				<extension base="common:BaseEntityType">
+					<sequence>
+						<element name="name" type="string"></element>
+						<element name="age" type="int"></element>
+						<element name="address" type="common:LocationType"></element>
+						<element ref="tns:department"></element>
+					</sequence>
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
+
+	<element name="department">
+		<complexType>
+			<complexContent>
+				<extension base="common:BaseEntityType">
+					<sequence>
+						<element name="location" type="common:LocationType"></element>
+					</sequence>
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
+
+</schema>

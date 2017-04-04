@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">android46_actionbar_5</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_activity2">Activity 2</string>
+	<string name="action_activity3">Activity 3</string>
+	<string name="main_activity">Main Activity</string>
+    
+</resources>

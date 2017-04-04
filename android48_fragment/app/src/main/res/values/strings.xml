@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">android48_fragment</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="fragment_01">Fragment 01 - Simple</string>
+    <string name="title_activity_fragment02">Fragment02</string>
+    <string name="fragment02_click_button">Click Me Image</string>
+    <string name="title_activity_fragment03_multi">Fragment03Multi</string>
+    <string name="title_activity_fragment04_view_pager">Fragment 04 View Pager</string>
+    <string name="title_activity_fragment05">Fragment 05 + Menu Drawer</string>
+
+</resources>

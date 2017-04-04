@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.sc.com/schema/common"
+	xmlns:tns="http://www.sc.com/schema/common" elementFormDefault="qualified">
+
+	<simpleType name="CommonIdType">
+		<restriction base="integer">
+			<maxInclusive value="9999"></maxInclusive>
+			<minInclusive value="1000"></minInclusive>
+		</restriction>
+	</simpleType>
+
+	<complexType name="LocationType">
+		<sequence>
+			<element name="id" type="tns:CommonIdType"></element>
+			<element name="street" type="string"></element>
+			<element name="city" type="string"></element>
+			<element name="state">
+				<simpleType>
+					<restriction base="string">
+						<enumeration value="FL"></enumeration>
+						<enumeration value="NY"></enumeration>
+						<enumeration value="GA"></enumeration>
+						<enumeration value="CA"></enumeration>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="zip">
+				<simpleType>
+					<restriction base="int">
+						<minInclusive value="10000"></minInclusive>
+						<maxInclusive value="99999"></maxInclusive>
+					</restriction>
+				</simpleType>
+			</element>
+		</sequence>
+	</complexType>
+
+
+	<complexType name="BaseEntityType">
+		<sequence>
+			<element name="id" type="tns:CommonIdType"></element>
+		</sequence>
+	</complexType>
+
+	<element name="requestQuery">
+		<complexType>
+			<sequence>
+				<element name="entityType">
+					<simpleType>
+						<restriction base="string">
+							<enumeration value="EMPLOYEE"></enumeration>
+							<enumeration value="DEPARTMENT"></enumeration>
+							<enumeration value="PRODUCT"></enumeration>
+						</restriction>
+					</simpleType>
+				</element>
+				<element name="columnCriteria" type="tns:ColumnType"
+					minOccurs="1" maxOccurs="unbounded"></element>
+			</sequence>
+		</complexType>
+	</element>
+
+    <complexType name="ColumnType">
+    	<sequence>
+    		<element name="columnName" type="string"></element>
+    		<element name="columnValue" type="string"></element>
+    	</sequence>
+    </complexType>
+</schema>

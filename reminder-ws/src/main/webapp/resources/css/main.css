@@ -1,0 +1,10 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    /* Padding to push content under nav bar */
+    padding-top: 0px;
+    /* Margin bottom by footer height */
+    margin-bottom: 0px;
+}

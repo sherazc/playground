@@ -1,0 +1,12 @@
+<link rel="import" href="./bower_components/polymer/polymer.html"/>
+
+
+<!--
+    Looks like attributes can not contain - hyphen.
+    Maybe they accept all characters as variables do.
+-->
+<polymer-element name="hello-world" attributes="firstname lastname" noscript>
+    <template>
+        <h1>Hello {{firstname}} {{lastname}}!</h1>
+    </template>
+</polymer-element>

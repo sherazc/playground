@@ -1,0 +1,24 @@
+local db
+name: icnaatlanta_db
+db type: utf8_general_ci
+User: dbuser/password123
+
+Ununtu
+/opt/lampp/htdocs/icnaatlanta_v01/
+http://localhost/icnaatlanta_v01
+
+MAC
+/Applications/MAMP/htdocs/icnaatlanta_v01/
+http://localhost:8888/icnaatlanta_v01
+
+Window
+c:\xampp\htdocs\icnaatlanta_v01\
+c:/xampp/htdocs/icnaatlanta_v01/
+/xampp/icnaatlanta_v01/
+http://localhost/icnaatlanta_v01
+
+Bitsegment
+
+
+/homepages/3/d528545929/htdocs/icnaatlanta/wp-content
+http://www.bitsegment.com/icnaatlanta

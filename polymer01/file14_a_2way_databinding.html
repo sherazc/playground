@@ -1,0 +1,22 @@
+<link rel="import" href="./bower_components/polymer/polymer.html"/>
+<!--
+https://www.youtube.com/watch?v=nDMK0mf0rv4&list=PLLnpHn493BHHbOWwQxtGCVfEgWZxxofyA&spfreload=10
+-->
+<polymer-element name="hello-world">
+    <template>
+        <h1>Hello {{name}}!</h1>
+        <input type="text" value="{{name}}"/>
+        <button on-click="{{resetName}}">Reset it. ({{name}})</button>
+    </template>
+    <script>
+
+        Polymer("hello-world", {
+            ready: function() {
+                this.name = "World";
+            },
+            resetName: function() {
+                this.name = "You";
+            }
+        });
+    </script>
+</polymer-element>

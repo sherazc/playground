@@ -1,0 +1,13 @@
+<link rel="import" href="./bower_components/polymer/polymer.html"/>
+
+<polymer-element name="hello-world" attributes="firstname lastname">
+    <template>
+        <h1>Hello {{firstname}} {{lastname}}!</h1>
+    </template>
+    <script>
+        Polymer({
+            firstname: "DefaultFirstName",
+            lastname: "DefaultLastName"
+        });
+    </script>
+</polymer-element>

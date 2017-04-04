@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Flex</title>
+    <link rel="stylesheet" href="script/css/common.css">
+    <style>
+        .flex-container {
+            display: flex;
+            flex-wrap: nowrap;
+        }
+
+        .flex-item {
+            width: 500px;
+        }
+
+    </style>
+
+</head>
+<body>
+<div id="main">
+    <div id="wrapper">
+        <div id="explain">
+            Every flex item is 900px. But Flex container don't let it's children come out unlike normal div.
+            Because of which all items are sized evenly.
+            <br/><br/>
+            which means maximum width of a flex item is what it can have.
+        </div>
+<pre>
+.flex-container {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.flex-item {
+    width: 900px;
+}
+</pre>
+        <div class="container flex-container">
+            <div class="item flex-item">
+                1
+            </div>
+            <div class="item flex-item">
+                2
+            </div>
+            <div class="item flex-item">
+                3
+            </div>
+            <div class="item flex-item">
+                4
+            </div>
+            <div class="item flex-item">
+                5
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

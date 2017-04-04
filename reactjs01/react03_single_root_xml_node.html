@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="scripts/react.15.3.0.min.js"></script>
+    <script src="scripts/react-dom.15.3.0.min.js"></script>
+    <!-- Babel - JSX Transpiler -->
+    <script src="scripts/browser.5.8.24.min.js"></script>
+    <title>React JS</title>
+    <style>
+        * {margin: 0;padding: 0;font-family: Arial;}
+    </style>
+</head>
+<body>
+<div id="reactContainer"></div>
+<script type="text/babel">
+    /**
+     * When writing JSX in custom component's return function OR in ReactDOM.render() function, then
+     * it could only have Single XML Root Node. And It has be a well defined XML just like XHTML.
+     *
+     * NOTE: I used <div> tag to enclose multiple tags tags in MyCustomComponent class definition
+     * and I used <div> tag to enclose multiple tags tags in ReactDOM.render().
+     * Just to have single Root Node
+     *
+     * NOTE: I closed <input placeholder="Input"></input> tag because JSX has to be well formed XML.
+     */
+
+    var MyCustomComponent = React.createClass({
+        render: function () {
+            return (
+                    <div>
+                        <label>Input:</label>
+                        <input placeholder="Input"></input>
+                    </div>
+                );
+        }
+    });
+
+    ReactDOM.render((
+            <div>
+                <MyCustomComponent/>
+                <MyCustomComponent/>
+                <MyCustomComponent/>
+            </div>
+    ), document.getElementById("reactContainer"));
+</script>
+</body>
+</html>

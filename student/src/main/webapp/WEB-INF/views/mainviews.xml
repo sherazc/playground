@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE tiles-definitions PUBLIC
+      "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+      "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+
+<tiles-definitions>
+	<definition name="main-template" template="/WEB-INF/views/template/main-template.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/header/main-header.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/footer/main-footer.jsp" />
+	</definition>
+
+	<definition name="parent01" template="/WEB-INF/views/template/template-01.jsp">
+		<put-attribute name="page-title" value="ICNA Students" />
+		<put-attribute name="header" value="/WEB-INF/views/header/header-01.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/footer/footer-01.jsp" />
+	</definition>
+	
+	<definition name="home" extends="parent01">
+		<put-attribute name="content" value="/WEB-INF/views/content/home-content.jsp" />
+	</definition>
+	
+	<definition name="search-all" extends="parent01">
+		<put-attribute name="content" value="/WEB-INF/views/content/search-content.jsp" />
+	</definition>
+
+	<definition name="register" extends="parent01">
+		<put-attribute name="content" value="/WEB-INF/views/content/register.jsp" />
+	</definition>
+	
+	<definition name="register-confirmation" extends="parent01">
+		<put-attribute name="content" value="/WEB-INF/views/content/register-confirmation.jsp" />
+	</definition>
+	
+	<definition name="reports" extends="parent01">
+		<put-attribute name="content" value="/WEB-INF/views/content/reports.jsp" />
+	</definition>
+	
+	<definition name="login" extends="parent01">
+		<put-attribute name="content" value="/WEB-INF/views/content/login.jsp" />
+	</definition>
+
+	<definition name="admin" extends="parent01">
+		<put-attribute name="content" value="/WEB-INF/views/content/admin.jsp" />
+	</definition>
+
+	<definition name="admin-confirmation" extends="parent01">
+		<put-attribute name="content" value="/WEB-INF/views/content/admin-confirmation.jsp" />
+	</definition>
+</tiles-definitions>

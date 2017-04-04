@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Quran Reminder</string>
+    <string name="language_prompt">Choose Translation</string>
+
+    <string-array name="language_array">
+        <item>Bengali - Muhiuddin Khan</item>
+        <item>Bengali - Zohurul Hoque</item>
+        <item>English - Abdullah Yusuf Ali</item>
+        <item>English - Ahmed Raza Khan</item>
+        <item>English - Saheeh International</item>
+        <item>French - Muhammad Hamidullah</item>
+        <item>German - Abu Rida Muhammad ibn Ahmad ibn Rassoul</item>
+        <item>Hindi - Muhammad Farooq Khan and Muhammad Ahmed</item>
+        <item>Hindi - Suhel Farooq Khan and Saifur Rahman Nadwi</item>
+        <item>Indonesian - Indonesian Ministry of Religious Affairs</item>
+        <item>Persian - Mahdi Elahi Ghomshei</item>
+        <item>Spanish - Muhammad Isa Garcia</item>
+        <item>Urdu - Abul Aala Maududi</item>
+        <item>Urdu - Ahmed Raza Khan</item>
+        <item>Urdu - Fateh Muhammad Jalandhry</item>
+    </string-array>
+
+</resources>

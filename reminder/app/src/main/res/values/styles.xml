@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="theme_window_background">#4DAA57</color>
+    <color name="theme_primary">#4DAA57</color>
+    <color name="theme_primary_dark">#ff428442</color>
+    <color name="theme_accent">#093</color>
+    <color name="theme_primary_text">#FFF</color>
+    <color name="theme_secondary_text">#FFF</color>
+    <color name="aya_number_oval_bg">#4DAA57</color>
+    <color name="aya_number_text">#FFF</color>
+    <color name="aya_number_shadow">#0222</color>
+    <!--<color name="arabic_aya_text">#1899BA</color>-->
+    <color name="arabic_aya_text">#ff000000</color>
+    <color name="chapter_name_bg_top">#ff8f9d4a</color>
+    <color name="chapter_name_bg_bottom">#ff70733e</color>
+    <color name="view_pager_bg_gradient_top">#fff7ffd8</color>
+    <color name="view_pager_bg_gradient_bottom">#FEFEFE</color>
+    <color name="setting_divider">#999</color>
+    <color name="chapter_name_shadow">#222</color>
+    <color name="chapter_name_text">#FFF</color>
+    <color name="loading_text_color">#222</color>
+    <color name="pointer_on">#994DAA57</color>
+    <color name="pointer_off">#99999999</color>
+    <color name="translation_spinner_text">#FFF</color>
+    <color name="setting_label_text">#222</color>
+    <color name="setting_reminder_time_text">#093</color>
+    <color name="setting_reminder_time_shadow">#A3FFA3</color>
+
+    <style name="AppTheme" parent="AppTheme.Base">
+    </style>
+
+
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textColorPrimary">@color/theme_primary_text</item>
+        <item name="android:textColorSecondary">@color/theme_secondary_text</item>
+        <item name="android:windowBackground">@color/theme_window_background</item>
+        <item name="colorPrimary">@color/theme_primary</item>
+        <item name="colorPrimaryDark">@color/theme_primary_dark</item>
+        <item name="colorAccent">@color/theme_accent</item>
+    </style>
+
+
+    <style name="arabic_aya_me_quran">
+        <item name="fontName">me_quran.ttf</item>
+    </style>
+
+    <style name="arabic_aya_saleem">
+        <item name="fontName">saleem.ttf</item>
+    </style>
+
+    <style name="setting_label_icon">
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <style name="setting_label">
+        <item name="android:textColor">@color/setting_label_text</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:layout_marginTop">3dp</item>
+    </style>
+
+
+    <style name="digital_clock">
+        <item name="android:textColor">@color/setting_reminder_time_text</item>
+        <item name="android:textSize">10dp</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="digital_clock_large" parent="digital_clock">
+        <item name="android:shadowColor">@color/setting_reminder_time_shadow</item>
+        <!--
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowRadius">10</item>
+        -->
+        <item name="android:textSize">30dp</item>
+        <item name="android:layout_margin">10dp</item>
+    </style>
+
+
+</resources>

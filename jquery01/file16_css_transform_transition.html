@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title>jQuery 16</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="resources/bootstrap-3.3.2/css/bootstrap.min.css">
+    <script src="resources/jquery/jquery-1.11.2.min.js"></script>
+    <script src="resources/jquery/jquery-ui.min.js"></script>
+    <script src="resources/bootstrap-3.3.2/js/bootstrap.min.js"></script>
+    <style>
+        .transitionBegin {
+            transition: all 1s ease;
+        }
+
+        .rotateTransform {
+            transform: rotate(180deg);
+        }
+
+        .rotateXTransform {
+            transform: rotateX(180deg);
+        }
+
+        .rotateYTransform {
+            transform: rotateY(180deg);
+        }
+
+        .rotateZTransform {
+            transform: rotateZ(180deg);
+        }
+
+        .rotateXYZTransform {
+            transform: rotateX(180deg) rotateY(180deg) rotateZ(180deg);
+        }
+
+        .translate3dTransform {
+            transform: translate3d(180px, 180px, 180px);
+        }
+
+        .scale3dTransform {
+            transform: scale3d(2.5, 2.5, 2.5);
+        }
+
+        .skewXTransform {
+            transform: skewX(45deg);
+        }
+
+        .skewYTransform {
+            transform: skewY(45deg);
+        }
+
+        .skewXYTransform {
+            transform: skewX(45deg) skewY(45deg);
+        }
+
+        .changeCssColorFontSize {
+            color: #843534;
+            background-color: #d43f3a;
+            font-family: monospace;
+            font-size: 50px;
+            height: 400px;
+            width: 400px;
+        }
+
+        .changeCss1And3 {
+            color: springgreen;
+            background-color: skyblue;
+            font-family: Helvetica;
+            font-size: 60px;
+            height: 300px;
+            width: 300px;
+            transform: rotateX(180deg) rotateY(180deg) rotateZ(180deg) skewX(45deg) skewY(45deg) translate3d(180px, 180px, 180px) scale3d(2.5, 2.5, 2.5);
+        }
+    </style>
+    <script>
+        $(window).ready(function () {
+            $("#panel1").addClass("transitionBegin");
+
+            $("#button1").on("click", function () {
+                $("#panel1").toggleClass("rotateTransform");
+            });
+
+            $("#button2").on("click", function () {
+                $("#panel1").toggleClass("rotateXTransform");
+            });
+
+            $("#button3").on("click", function () {
+                $("#panel1").toggleClass("rotateYTransform");
+            });
+
+            $("#button4").on("click", function () {
+                $("#panel1").toggleClass("rotateZTransform");
+            });
+
+            $("#button5").on("click", function () {
+                $("#panel1").toggleClass("rotateXYZTransform");
+            });
+
+            $("#button6").on("click", function () {
+                $("#panel1").toggleClass("translate3dTransform");
+            });
+
+            $("#button7").on("click", function () {
+                $("#panel1").toggleClass("scale3dTransform");
+            });
+
+            $("#button8").on("click", function () {
+                $("#panel1").toggleClass("skewXTransform");
+            });
+
+            $("#button9").on("click", function () {
+                $("#panel1").toggleClass("skewYTransform");
+            });
+
+            $("#button10").on("click", function () {
+                $("#panel1").toggleClass("skewXYTransform");
+            });
+
+            $("#button11").on("click", function () {
+                $("#panel1").toggleClass("changeCssColorFontSize");
+            });
+
+            $("#button12").on("click", function () {
+                $("#panel1").toggleClass("changeCss1And3");
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+<div class="container">
+
+    <div class="row">
+        <div class="col-xs-3">
+            <button id="button1" class="btn btn-lg btn-info">
+                Rotate 180deg
+            </button>
+        </div>
+
+        <div class="col-xs-3">
+            <button id="button2" class="btn btn-lg btn-info">
+                Rotate X 180deg
+            </button>
+        </div>
+        <div class="col-xs-3">
+            <button id="button3" class="btn btn-lg btn-info">
+                Rotate Y 180deg
+            </button>
+        </div>
+        <div class="col-xs-3">
+            <button id="button4" class="btn btn-lg btn-info">
+                Rotate Z 180deg
+            </button>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-xs-3">
+            <button id="button5" class="btn btn-lg btn-info">
+                Rotate XYZ 180deg
+            </button>
+        </div>
+
+        <div class="col-xs-3">
+            <button id="button6" class="btn btn-lg btn-info">
+                translate3d 180 XYZ
+            </button>
+        </div>
+        <div class="col-xs-3">
+            <button id="button7" class="btn btn-lg btn-info">
+                scale3d 2.5 XYZ
+            </button>
+        </div>
+        <div class="col-xs-3">
+            <button id="button8" class="btn btn-lg btn-info">
+                skewX 45deg
+            </button>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-xs-3">
+            <button id="button9" class="btn btn-lg btn-info">
+                skewY 45deg
+            </button>
+        </div>
+
+        <div class="col-xs-3">
+            <button id="button10" class="btn btn-lg btn-info">
+                skewX skewY 45deg
+            </button>
+        </div>
+        <div class="col-xs-3">
+            <button id="button11" class="btn btn-lg btn-info">
+                Change CSS 1.0 Properties
+            </button>
+        </div>
+        <div class="col-xs-3">
+            <button id="button12" class="btn btn-lg btn-info">
+                Change CSS 1 And 3
+            </button>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-xs-3">
+            <div id="panel1" class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Panel 1
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    Panel 1 body
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

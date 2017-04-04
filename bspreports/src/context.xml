@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.3.xsd">
+	
+	<!-- http://heraclitusonsoftware.wordpress.com/software-development done till chapter 4 -->
+	
+	<security:global-method-security secured-annotations="disabled">
+	</security:global-method-security>
+
+	<security:http auto-config="true">
+		<security:intercept-url pattern="/login" filters="none" />
+		<security:intercept-url pattern="/resources" filters="none" />
+		<security:intercept-url pattern="/**" access="ROLE_USER" />
+		<security:form-login login-page="/login" default-target-url="/data" always-use-default-target="true"
+			authentication-failure-url="/login.jsp?authfailed=true" />
+	</security:http>
+
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:user-service id="userDetailsService">
+				<security:user name="username" password="password" authorities="ROLE_USER, ROLE_ADMIN" />
+				<security:user name="test" password="test" authorities="ROLE_USER" />
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+</beans>

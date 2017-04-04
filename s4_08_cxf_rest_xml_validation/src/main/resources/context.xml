@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+ 	http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+ 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+ 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <context:component-scan base-package="com.sc"/>
+
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+
+    <jaxrs:server id="company" address="/company">
+        <jaxrs:providers>
+            <!--
+            We are not using JacksonJsonProvider becuase
+            CXF's JSON Provider allows us to do validation.
+            <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>
+            -->
+            <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider"/>
+            <ref bean="jsonProvider"/>
+            <ref bean="jaxbProvider"/>
+            <bean class="com.sc.s4.exception.ClientExceptionMapper"/>
+            <bean class="com.sc.s4.exception.ServerExceptionMapper"/>
+            <bean class="com.sc.s4.exception.ThrowableMapper"/>
+
+
+        </jaxrs:providers>
+        <jaxrs:serviceBeans>
+            <!--
+            <ref bean="companyRestService"/>
+            -->
+            <ref bean="employeeRestService"/>
+        </jaxrs:serviceBeans>
+        <jaxrs:extensionMappings>
+            <entry key="xml" value="application/xml"/>
+            <entry key="json" value="application/json"/>
+        </jaxrs:extensionMappings>
+
+        <!--Method one specify all schemas here:-->
+        <!--
+        <jaxrs:schemaLocations>
+            <jaxrs:schemaLocation>classpath:/xsd/store.xsd</jaxrs:schemaLocation>
+            <jaxrs:schemaLocation>classpath:/xsd/company.xsd</jaxrs:schemaLocation>
+            <jaxrs:schemaLocation>classpath:/xsd/common.xsd</jaxrs:schemaLocation>
+        </jaxrs:schemaLocations>
+        -->
+    </jaxrs:server>
+
+
+
+    <bean id="jaxbProvider" class="org.apache.cxf.jaxrs.provider.JAXBElementProvider">
+        <property name="schemaHandler" ref="schemaHandler"/>
+    </bean>
+
+    <bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider">
+        <property name="schemaHandler" ref="schemaHandler"/>
+    </bean>
+
+    <bean id="schemaHandler" class="org.apache.cxf.jaxrs.utils.schemas.SchemaHandler">
+        <property name="schemaLocations" ref="allSchemas"/>
+    </bean>
+
+    <util:list id="allSchemas">
+        <value>classpath:/xsd/store.xsd</value>
+        <value>classpath:/xsd/company.xsd</value>
+        <value>classpath:/xsd/common.xsd</value>
+    </util:list>
+
+
+</beans>

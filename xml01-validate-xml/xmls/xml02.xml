@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<user xmlns="http://www.example.org/xsd01"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/xsd01 xsd01.xsd">
+	<fname>Sheraz</fname>
+	<lname>Chaudhry</lname>
+	<salary>100</salary>
+</user>

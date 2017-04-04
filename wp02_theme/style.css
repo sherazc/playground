@@ -1,0 +1,156 @@
+/*
+Theme Name: wp02_theme
+Author: Sheraz
+Author URI: http://www.google.com
+Version: 1.0
+
+https://www.youtube.com/watch?v=k7olvEeBM2I&index=3&list=PLpcSpRrAaOaqMA4RdhSnnNcaqOVpX7qi5
+*/
+
+body {
+    font-family: helvetica, arial;
+    background-color: whitesmoke;
+}
+
+a:link,
+a:visited {
+    color: #0091cd;
+}
+
+a:hover {
+    color: #db572f;
+}
+
+p {
+    line-height: 1.65em;
+}
+
+div.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: white;
+}
+
+article.post {
+    border-bottom: 2px dotted #bbb;
+
+}
+
+article.post:last-of-type {
+    border-bottom: none;
+}
+
+.site-header {
+    border-bottom: 2px solid #999;
+}
+
+.site-footer {
+    border-top: 2px solid #999;
+    margin-top: 30px;
+}
+
+/*Navigation Menus*/
+
+.site-nav ul {
+    margin: 0;
+    padding: 0;
+}
+
+.site-nav ul li {
+    list-style: none;
+    float: left;
+}
+
+.site-nav ul:before, .site-nav ul:after {
+    content: "";
+    display: table;
+}
+
+.site-nav ul:after {
+    clear: both;
+}
+
+.site-nav ul li {
+    *zoom: 1;
+}
+
+/*Site Header Menu*/
+.site-header nav ul li {
+    margin-right: 5px;
+}
+
+.site-header nav ul li a:link,
+.site-header nav ul li a:visited {
+    display: block;
+    padding: 10px 18px;
+    border: 1px solid #bbb;
+    border-bottom: none;
+    text-decoration: none;
+}
+
+.site-header nav ul li a:hover {
+    background-color: #ececec;
+}
+
+.site-header nav ul li.current-menu-item a:link,
+.site-header nav ul li.current-menu-item a:visited {
+
+    background-color: #0091cd;
+    color: #fff;
+}
+
+/*Footer Menu*/
+.site-footer nav ul li {
+    margin-right: 10px;
+    padding-right: 10px;
+    border-right: 1px dotted #bbb;
+}
+
+/*Clearfix*/
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.clearfix {
+    *zoom: 1;
+}
+
+/*Two Column article*/
+
+div.title-column {
+    width: 30%;
+    float: left;
+}
+
+div.text-column {
+    width: 70%;
+    float: right;
+}
+
+/*Info box styles*/
+div.info-box  {
+    width: 30%;
+    float: right;
+    margin: 0 0 30px 30px;
+    padding: 0 20px;
+    background-color: #eee;
+}
+
+div.info-box h4 {
+    margin-bottom: 5px;
+}
+
+div.info-box p {
+    font-size: 85%;
+}
+
+
+.home_page_widget {
+    margin: 0 auto;
+    border: 2px dotted #555;
+    width: 500px;
+    padding: 15px;
+}

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--in resource file duration is mandatory-->
+<objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+        android:propertyName="alpha"
+        android:repeatCount="3"
+        android:repeatMode="reverse"
+        android:duration="300"
+        android:valueTo="0"/>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<requestQuery xmlns="http://www.sc.com/schema/common">
+    <entityType>EMPLOYEE</entityType>
+    <columnCriteria>
+        <columnName>id</columnName>
+        <columnValue>100</columnValue>
+    </columnCriteria>
+</requestQuery>

@@ -1,0 +1,1 @@
+java -cp sb-1.0.jar org.hsqldb.util.DatabaseManagerSwing 

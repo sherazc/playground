@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="scripts/react.15.3.0.min.js"></script>
+    <script src="scripts/react-dom.15.3.0.min.js"></script>
+    <!-- Babel - JSX Transpiler -->
+    <script src="scripts/browser.5.8.24.min.js"></script>
+    <title>React JS</title>
+    <style>
+        * {margin: 0;padding: 0;font-family: Arial;}
+        label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div id="reactContainer"></div>
+<script type="text/babel">
+    /**
+     * Any custom arguments we send to component can be accessed through "this.props" object inside component.
+     *
+     *
+     * NOTE:
+     * In JSX can not use this.props in quotes.
+     * http://stackoverflow.com/questions/21668025/react-jsx-access-props-in-quotes
+     *
+     * NOTE:
+     * In JSX + Harmony OR ES6 we can use backtick (`) to combine static text and this.props
+     *
+     * NOTE:
+     * How I used placeholder={this.props.placeholder}
+     * In the rendered page HTML placeholder's value is enclosed in double quotes. Not sure if browser did it or JSX did it.
+     */
+
+    var MyCustomComponent = React.createClass({
+        render: function () {
+            return (
+                    <div>
+                        <label>{this.props.label}:</label>
+                        <input placeholder={this.props.placeholder}></input>
+                    </div>
+                );
+        }
+    });
+
+    ReactDOM.render((
+            <div>
+                <p>
+                    <MyCustomComponent label="Name" placeholder="Please enter Name..."/>
+                </p>
+                <p>
+                    <MyCustomComponent label="Address" placeholder="Please enter Address..."/>
+                </p>
+            </div>
+    ), document.getElementById("reactContainer"));
+</script>
+</body>
+</html>

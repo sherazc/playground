@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+
+    <LinearLayout
+            android:id="@+id/dialog_yellow_brown"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:background="@drawable/brown_yellow_square"
+            android:gravity="center_horizontal">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hello World"
+                android:textColor="#FFF"
+                android:textSize="35dp"
+                android:layout_gravity="center_vertical"/>
+    </LinearLayout>
+
+</LinearLayout>

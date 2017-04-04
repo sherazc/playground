@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title>jQuery 14</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="resources/bootstrap-3.3.2/css/bootstrap.min.css">
+    <script src="resources/jquery/jquery-1.11.2.min.js"></script>
+    <script src="resources/jquery/jquery-ui.min.js"></script>
+    <script src="resources/bootstrap-3.3.2/js/bootstrap.min.js"></script>
+    <script>
+        var animationSpeed = 200;
+        $(window).ready(function () {
+            $("#panel1").draggable().css("z-index", 1).mousedown(function() {
+                var zIndex = $("#panel2").css("z-index");
+                $(this).css("z-index", zIndex + 1);
+                $(this).animate({opacity: 0.5}, animationSpeed);
+            }).mouseup(function() {
+                $(this).animate({opacity: 1}, animationSpeed);
+            });
+
+            $("#panel2").draggable().css("z-index", 0).mousedown(function() {
+                var zIndex = $("#panel1").css("z-index");
+                $(this).css("z-index", zIndex + 1);
+                $(this).animate({opacity: 0.5}, animationSpeed);
+            }).mouseup(function() {
+                $(this).animate({opacity: 1}, animationSpeed);
+            });
+        });
+
+    </script>
+</head>
+<body>
+<div class="container">
+    <div id="panel1" class="panel panel-danger" style="position: absolute; cursor: all-scroll;">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                Draggable 1
+            </h3>
+        </div>
+        <div class="panel-body">
+            Panel 1 body
+        </div>
+    </div>
+    <div id="panel2" class="panel panel-primary" style="position: absolute; cursor: all-scroll; ">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                Draggable 2
+            </h3>
+        </div>
+        <div class="panel-body">
+            Panel 2 body
+        </div>
+    </div>
+</div>
+</body>
+</html>

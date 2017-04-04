@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Javascript Tutorial</title>
+</head>
+<body>
+	<pre>
+<script type="text/javascript">
+	/**
+	 * Defining singleton class using Object literals.
+	 * NOTE: This is kind of singleton. In other words you can only create one instance of this class.
+	 */
+	// Any property defined in object is a public property. It would include both variables and functions.
+	var apple = {
+		type : "aType",
+		size : null,
+		price : 10,
+		getSize : function() {
+			return this.size;
+		},
+		setSize : function(size) {
+			// to access Object's member within Object defination we have to use "this.". 
+			// Notice we have not used "this." while defining Object members
+			this.size = size;
+		},
+		getInfo : function() {
+			document.writeln("apple type=" + this.type + ", size=" + this.getSize() + ", price=" + this.price);
+		},
+
+	};
+
+	apple.setSize("Small");
+
+	apple.getInfo();
+</script>
+</pre>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<link rel="import" href="./bower_components/polymer/polymer.html"/>
+<polymer-element name="my-tag">
+    <template>
+        Value in inputs: {{inputValue}}<br/>
+        <button on-click="{{setFocus}}">Set focus on text input</button>
+        <input id="nameInput" value="{{inputValue}}" placeholder="Enter value"/>
+    </template>
+    <script>
+        Polymer({
+            inputValue: "Default value",
+            setFocus: function() {
+                this.$.nameInput.focus();
+            }
+        });
+    </script>
+
+</polymer-element>

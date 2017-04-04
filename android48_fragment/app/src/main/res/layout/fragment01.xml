@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" android:backgroundTint="#fff5af29" android:background="#ffb0db5d">
+
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Fragment01"
+            android:id="@+id/textView"/>
+
+    <fragment
+            android:id="@+id/fragment01a_element"
+            android:name="com.sc.android48_fragment.app.Fragment01$Fragment01A"
+            android:layout_weight="1"
+            android:layout_width="match_parent" android:layout_height="match_parent"/>
+
+    <fragment
+            android:id="@+id/fragment01b_element"
+            android:name="com.sc.android48_fragment.app.Fragment01$Fragment01B"
+            android:layout_weight="2"
+            android:layout_width="match_parent" android:layout_height="match_parent"/>
+</LinearLayout>

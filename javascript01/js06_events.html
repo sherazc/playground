@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Javascript Tutorial</title>
+</head>
+<body>
+	<pre>
+<script type="text/javascript">
+	function ButtonController(controllerName) {
+
+		this.controllerName = controllerName;
+
+		function buildMessage(message) {
+			// TODO find out why cant access private class variables in private class method 
+			return controllerName + " " + message + " " + new Date();
+		}
+
+		this.showMessageByElementId = function(elementId, message) {
+			var element = document.getElementById(elementId);
+			element.innerHTML = buildMessage(message);
+		}
+
+		this.showMessageByElement = function(element, message) {
+			element.innerHTML = buildMessage(message);
+		}
+	}
+
+	var buttonController1 = new ButtonController("Controller1");
+	var buttonController2 = new ButtonController("Controller2");
+	document.writeln(buttonController1.controllerName);
+	document.writeln(buttonController2.controllerName);
+</script>
+</pre>
+
+	<button onclick="buttonController1.showMessageByElementId('messageDiv1', 'Button 1 message')">Button 1</button>
+	<div id="messageDiv1" style="color: red;"></div>
+	<button onclick="buttonController2.showMessageByElement(this, 'Button 2 message')">Button 2</button>
+</body>
+</html>

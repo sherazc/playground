@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="scripts/react.15.3.0.min.js"></script>
+    <script src="scripts/react-dom.15.3.0.min.js"></script>
+    <!-- Babel - JSX Transpiler -->
+    <script src="scripts/browser.5.8.24.min.js"></script>
+    <title>React JS</title>
+    <style>
+        * {margin: 0;padding: 0;font-family: Arial;}
+
+        .blueBox, .greenBox {
+            padding: 20px;
+            color: white;
+            font-size: 20px;
+            border: 1px solid #717171;
+            text-decoration: none;
+            margin: 10px;
+        }
+
+        .blueBox {
+            background-color: #8cbeed;
+        }
+
+        .greenBox {
+            background-color: #9ed992;
+        }
+    </style>
+</head>
+<body>
+<div id="reactContainer"></div>
+<script type="text/babel">
+
+    /**
+     * Elements within component can be accessed using {this.props.children} object.
+     *
+     * NOTE:
+     * In JSX code we used "className=" instead of "class=". This is because "class" is a reserved ES5 or ES6 keyword.
+     *
+     */
+
+    var MyCustomComponent = React.createClass({
+        render: function () {
+            return (
+                    <div className="greenBox">
+                        <h1>My Custom Component</h1>
+                        {this.props.children}
+                        Some Detailed Text
+                    </div>
+                );
+        }
+    });
+
+    ReactDOM.render((
+            <div>
+                <div className="blueBox">
+                    <MyCustomComponent>
+                        <h2>
+                            My Component 1
+                        </h2>
+                    </MyCustomComponent>
+                </div>
+                <div className="blueBox">
+                    <MyCustomComponent>
+                        <h2>
+                            My Component 2
+                        </h2>
+                    </MyCustomComponent>
+                </div>
+                <div className="blueBox">
+                    <MyCustomComponent>
+                        <h2>
+                            My Component 3
+                        </h2>
+                    </MyCustomComponent>
+                </div>
+            </div>
+    ), document.getElementById("reactContainer"));
+</script>
+</body>
+</html>

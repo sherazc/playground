@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.sc.com/schema/store"
+	xmlns:tns="http://www.sc.com/schema/store" xmlns:common="http://www.sc.com/schema/common"
+	elementFormDefault="qualified">
+
+	<import schemaLocation="common.xsd" namespace="http://www.sc.com/schema/common" />
+
+	<element name="product">
+		<complexType>
+			<complexContent>
+				<extension base="common:BaseEntityType">
+					<sequence>
+						<element name="name" type="string"></element>
+						<element name="price" type="double"></element>
+						<element ref="tns:productDetail"></element>
+					</sequence>
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
+
+	<element name="productDetail">
+		<complexType>
+			<complexContent>
+				<extension base="common:BaseEntityType">
+					<sequence>
+						<element name="itemsInStock" type="int"></element>
+						<element name="description" type="string"></element>
+					</sequence>
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
+</schema>

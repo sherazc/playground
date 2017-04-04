@@ -1,0 +1,72 @@
+<html>
+<!--
+https://www.youtube.com/watch?v=mA_htWfLLQs
+-->
+<!--
+
+background: ;
+    color
+    image URL
+    position both vertical and horizontal
+    repeat
+
+background-position: ;
+    vertical position
+    horizontal position
+
+background-image: ;
+    image URL
+
+background-repeat: ;
+    repeat-x or repeat-y or no-repeat
+-->
+
+<head>
+    <style>
+        #container {
+            width: 900px;
+            background-color: cornsilk;
+            margin: 0 auto;
+        }
+        .header {
+            height: 20%;
+            background-color: aliceblue;
+        }
+        .content {
+            height: 60%;
+            background-color: lavender;
+        }
+        .footer {
+            height: 20%;
+            background-color: aliceblue;
+        }
+
+        .bird_right_center {
+            background-image: url(images/bird_512x512.png);
+            background-position: right center;
+            background-repeat: no-repeat;
+        }
+        .brick_top_repeat_x {
+            background-image: url(images/brick_tile_32x32.png);
+            background-repeat: repeat-x;
+            background-position: top;
+        }
+    </style>
+</head>
+
+<body style="margin: 0;padding: 0; background-color: beige;" class="brick_top_repeat_x">
+<div id="container">
+
+    <div class="header bird_right_center">
+
+    </div>
+    <div class="content">
+
+    </div>
+
+    <div class="footer">
+
+    </div>
+</div>
+</body>
+</html>

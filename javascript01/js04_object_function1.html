@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Javascript Tutorial</title>
+</head>
+<body>
+<pre>
+<script type="text/javascript">
+
+var person = {firstName:null, lastName:null};
+
+person.greetPerson = function (message) {
+	document.writeln(message + " " + this.firstName + " " + this.lastName);
+}
+
+person.firstName = "Sheraz";
+person.lastName = "Chaudhry"
+
+person.greetPerson("Hi");
+
+</script>
+</pre>
+</body>
+</html>

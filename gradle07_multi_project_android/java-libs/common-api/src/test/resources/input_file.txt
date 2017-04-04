@@ -1,0 +1,3 @@
+Some content
+in
+input_file.txt

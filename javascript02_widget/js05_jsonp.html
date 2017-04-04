@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<h3>Please see browser logs</h3>
+<!--
+By using this technique we tell server what function we need to pad our json with.
+OR
+What is client function name that it needs to call.
+-->
+<script>
+    function myFunction(data) {
+        console.log(data);
+    }
+</script>
+<script type="application/javascript" src="js05_jsonp.php?clientFunctionName=myFunction"></script>
+</body>
+</html>

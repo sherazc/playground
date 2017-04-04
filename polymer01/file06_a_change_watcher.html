@@ -1,0 +1,53 @@
+<link rel="import" href="./bower_components/polymer/polymer.html"/>
+<polymer-element name="text-slider">
+    <template>
+        Field 1 name = <span style="color: {{color}}">{{name}}</span>
+        <br/>
+        Field 2 color = {{color}}
+        <br/>
+        Field 3 age = <b>{{age}}</b>
+
+        <p/>
+        <label for="inputName">Name: </label> <input type="text" id="inputName" value="{{name}}"/>
+
+        <p/>
+        <label for="inputColor">Color: </label> <input type="text" id="inputColor" value="{{color}}"/>
+
+        <p/>
+        <label for="inputAge">Age:</label> <input type="range" id="inputAge" value="{{age}}"/>
+
+        <p/>
+        <label for="inputSalary">Salary:</label> <input type="number" id="inputSalary" value="{{salary}}"/>
+
+
+        <p style="background-color: #fbe7b1; color: {{color}}">{{message}}</p>
+    </template>
+<script>
+    // https://www.polymer-project.org/docs/polymer/polymer.html#change-watchers
+
+    Polymer({
+        name: "Sheraz",
+        color: "red",
+        age: 25,
+        salary: 1000,
+        message: "Nothing changed",
+        nameChanged: function(oldValue, newValue) {
+            this.message = fieldValueChanged("name", oldValue, newValue);
+        },
+        colorChanged: function(oldValue, newValue) {
+            this.message = fieldValueChanged("color", oldValue, newValue);
+        },
+        ageChanged: function(oldValue, newValue) {
+            this.message = fieldValueChanged("age", oldValue, newValue);
+        },
+        salaryChanged: function(oldValue, newValue) {
+            this.message = fieldValueChanged("salary", oldValue, newValue);
+        }
+    });
+
+    function fieldValueChanged(fieldName, oldValue, newValue) {
+        return "Value changed: " + fieldName + " oldValue:(" + oldValue +  ") newValue: (" + newValue + ")";
+    }
+</script>
+
+</polymer-element>

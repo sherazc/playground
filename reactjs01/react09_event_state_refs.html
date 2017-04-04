@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="scripts/react.15.3.0.js"></script>
+    <script src="scripts/react-dom.15.3.0.js"></script>
+    <!-- Babel - JSX Transpiler -->
+    <script src="scripts/browser.5.8.24.min.js"></script>
+    <title>React JS</title>
+    <style>
+        * {margin: 0;padding: 0;font-family: Arial;}
+
+        .blueBox, .greenBox, .redBox, .darkBlueBox, .whiteBox  {
+            padding: 20px;
+            color: white;
+            font-size: 20px;
+            border: 1px solid #a3a3a3;
+            text-decoration: none;
+            margin: 10px;
+        }
+
+        .blueBox {
+            background-color: #8cbeed;
+        }
+
+        .whiteBox {
+            background-color: #fcfcfc;
+            color: #3d3d3d;
+        }
+
+        .greenBox {
+            background-color: #9ed992;
+        }
+
+        .darkBlueBox {
+            background-color: #2c4a80;
+        }
+
+        .redBox {
+            background-color: #ad3a26;
+        }
+
+        .button {
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.70);
+            border-radius: 5px;
+        }
+        .button:hover {
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.70);
+        }
+        .button:active {
+            box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+<div id="reactContainer"></div>
+<script type="text/babel">
+
+    var MyCustomComponent = React.createClass({
+
+        edit: function () {
+            this.setState({
+                editing: true
+            });
+        },
+        remove: function () {
+            alert("Removing Comment!");
+        },
+        save: function () {
+            this.setState({editing: false});
+        },
+        getInitialState: function () {
+            return {editing: false};
+        },
+        renderNormal: function () {
+            return (
+                    <div className="blueBox">
+                        Enter Comments:
+                        <div onClick={this.edit} className="whiteBox">
+                            {this.props.children}
+                        </div>
+                        <button onClick={this.edit} className="darkBlueBox button">Edit</button>
+                        <button onClick={this.remove} className="redBox button">Remove</button>
+                    </div>
+            );
+        },
+        renderForm: function () {
+            return (
+                    <div className="blueBox">
+                        Enter Comments:
+                        <div>
+                            <textarea className="whiteBox">
+                                {this.props.children}
+                            </textarea>
+                        </div>
+                        <button onClick={this.save} className="greenBox button">Save</button>
+                    </div>
+            );
+        },
+        render: function () {
+            if (this.state.editing) {
+                return this.renderForm();
+            } else {
+                return this.renderNormal();
+            }
+        }
+    });
+
+    ReactDOM.render((
+            <div>
+                <MyCustomComponent>Comments</MyCustomComponent>
+            </div>
+    ), document.getElementById("reactContainer"));
+</script>
+</body>
+</html>

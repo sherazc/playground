@@ -1,0 +1,1 @@
+java -cp sb-1.0.jar org.hsqldb.Server -database.0 file:./db/sb -dbname.0 sb

@@ -1,0 +1,15 @@
+*.ipr
+*.iws
+*.iml
+*.class
+*.orig
+*.Backup
+*.Base
+*.Local
+*.Remote
+classes/
+build/
+gen/
+.idea/
+.git/
+target/

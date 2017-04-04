@@ -1,0 +1,16 @@
+*.ipr
+*.iws
+*.iml
+*.class
+*.orig
+*.Backup
+*.Base
+*.Local
+*.Remote
+.DS_Store
+classes/
+build/
+gen/
+.idea/
+.git/
+target/

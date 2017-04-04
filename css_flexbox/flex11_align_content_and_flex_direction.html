@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Flex</title>
+    <link rel="stylesheet" href="script/css/common.css">
+    <style>
+        .flex-container {
+            display: flex;
+            height: 300px;
+            flex-wrap: wrap;
+            align-content: center;
+            flex-direction: column;
+        }
+
+        .flex-item {
+            width: 30%;
+            height: 30%;
+            line-height: 50px;
+        }
+    </style>
+
+</head>
+<body>
+<div id="main">
+    <div id="wrapper">
+        <div id="explain">
+
+        </div>
+<pre>
+.flex-container {
+    display: flex;
+    height: 300px;
+    flex-wrap: wrap;
+    align-content: center;
+    flex-direction: column;
+}
+
+.flex-item {
+    width: 30%;
+    height: 30%;
+    line-height: 50px;
+}
+</pre>
+        <div class="container flex-container">
+            <div class="item flex-item">
+                1
+            </div>
+            <div class="item flex-item">
+                2
+            </div>
+            <div class="item flex-item">
+                3
+            </div>
+            <div class="item flex-item">
+                4
+            </div>
+            <div class="item flex-item">
+                5
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

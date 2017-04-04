@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top">
+        <TextView
+                android:id="@+id/header_sura_name_english"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Al Fatihah"/>
+        <TextView
+                android:id="@+id/header_sura_name_arabic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Arabic Fatihah" android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/header_sura_name_english"/>
+        <TextView
+                android:id="@+id/header_sura_name_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="The Opener"
+                android:layout_below="@+id/header_sura_name_english"
+                />
+        <TextView
+                android:id="@+id/header_sura_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(Sura/Chapter Number: 1)"
+                android:layout_below="@+id/header_sura_name_arabic"
+                android:layout_toRightOf="@+id/header_sura_name_description"
+                android:layout_toEndOf="@+id/header_sura_name_description"/>
+        <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/header_translation_spinner"
+                android:entries="@array/language_array"
+                android:prompt="@string/language_prompt"
+                android:spinnerMode="dialog"
+                android:layout_gravity="right|bottom"
+                android:layout_alignParentBottom="true" android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+    <TextView android:layout_width="match_parent" android:layout_height="match_parent" android:text="Center" android:layout_gravity="center"/>
+    <!--
+
+        <include layout="@layout/main_content_view"/>
+
+        <include layout="@layout/main_loading_view"/>
+    -->
+
+
+</FrameLayout>
+

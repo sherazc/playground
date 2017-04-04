@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>File 05 Toolbar</title>
+    <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+    <link rel="import" href="bower_components/core-toolbar/core-toolbar.html"/>
+    <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html"/>
+    <link rel="import" href="bower_components/core-icons/core-icons.html"/>
+    <link rel="import" href="bower_components/paper-progress/paper-progress.html"/>
+
+
+    <style>
+        core-toolbar {
+            background-color: #0b97c4;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<!--
+fullbleed layout attribute will remove any body padding
+-->
+<body fullbleed>
+
+<!--"tall" class is a polymer class-->
+<core-toolbar class="tall">
+
+    <paper-icon-button icon="menu"></paper-icon-button>
+
+
+    <!--
+    "middle" will place div in the middle of its container. In our case it's core-toolbar.
+    "indent" will indent div according to previous element.
+    -->
+    <div class="middle indent">My App</div>
+
+
+    <!--TIP: an empty span flex will separate toolbar option and search button-->
+    <span flex></span>
+
+    <paper-icon-button icon="search"></paper-icon-button>
+
+
+    <!--
+    "bottom" will move it to the bottom and and "fit" will remove any padding or margin
+    "paper-progress" value can be between 0 and 100
+    -->
+    <paper-progress class="bottom fit" value="30"></paper-progress>
+
+</core-toolbar>
+</body>
+</html>

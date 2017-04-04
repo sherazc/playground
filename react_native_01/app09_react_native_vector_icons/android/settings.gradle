@@ -1,0 +1,3 @@
+rootProject.name = 'app09_react_native_vector_icons'
+
+include ':app'

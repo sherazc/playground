@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Javascript Tutorial</title>
+</head>
+<body>
+	<pre>
+<script type="text/javascript">
+	/**
+	 * Defining class using Function and function constructor.
+	 *
+	 */
+
+	function Apple(type, color) {
+		// if this keyword is missing then it becomes private variable
+		this.type = type;
+		this.color = color;
+
+		this.getInfo = getAppleInfo; // function closure
+
+		this.setType = function(type) {
+			this.type = type;
+		};
+
+		this.getType = function() {
+			return this.type;
+		};
+
+		this.setColor = function(color) {
+			myPrivateClassFunction();
+			this.color = color;
+		};
+
+		function myPrivateClassFunction() {
+			document.writeln("myPrivateClassFunction() called");
+		}
+	}
+
+	function getAppleInfo() {
+		document.writeln("(type=" + this.getType() + ", color=" + this.color + ")");
+	}
+
+	var apple1 = new Apple("aType1", "aColor1");
+	var apple2 = new Apple("aType2", "aColor2");
+
+	document.write("Apple1 = ");
+	apple1.getInfo();
+
+	apple2.setType("aTypeChanged2");
+	apple2.setColor("aColorChanged2");
+
+	document.write("Apple2 = ");
+	apple2.getInfo();
+
+	apple2.item = {
+		price : 10,
+		size : "big"
+	};
+
+	apple2.myMethod = function() {
+		document.writeln("This method is only available in apple2 variable");
+		document.writeln("apple2 only item price=" + this.item.price + ", size=" + this.item.size);
+	}
+
+	apple2.myMethod();
+
+	// This fails because myMethod() is only defined in apple2 veriable
+	// apple1.myMethod();
+
+	// This fails because myPrivateClassFunction() is a private function 
+	// apple1.myPrivateClassFunction();
+</script>
+</pre>
+</body>
+</html>

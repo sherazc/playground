@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, MainActivity!</string>
+    <string name="app_name">android34 view animation</string>
+    <string name="rotate">Rotate</string>
+    <string name="group">Group</string>
+    <string name="fade">Fade</string>
+    <string name="animate">Animate</string>
+    <string name="large_text">Large Text</string>
+    <string name="content_description">Content Description</string>
+    <string name="_0">0</string>
+
+</resources>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="scripts/react.15.3.0.min.js"></script>
+    <script src="scripts/react-dom.15.3.0.min.js"></script>
+    <!-- Babel - JSX Transpiler -->
+    <script src="scripts/browser.5.8.24.min.js"></script>
+    <title>React JS</title>
+    <style>
+        * {margin: 0;padding: 0;font-family: Arial;}
+    </style>
+</head>
+<body>
+<div id="reactContainer"></div>
+<script type="text/babel">
+    /**
+     * Every thing in React JS is a Component.
+     * Just like every thing in HTML is an Element.
+     *
+     * We can create our own custom components in React JS and render it on DOM.
+     *
+     * IMPORTANT!
+     * React components name must begin with capital letter.
+     * This is how JSX differentiate React components and HTML elements.
+     * https://facebook.github.io/react/docs/jsx-in-depth.html#html-tags-vs.-react-components
+     */
+
+    var MyCustomComponent = React.createClass({
+        /**
+         * Any React component that needs UI. Should contain render function.
+         * This render Function return html that it needs to render.
+         */
+        render: function () {
+            return (<h1>My Custom Component</h1>);
+        }
+    });
+
+    ReactDOM.render(<MyCustomComponent/>, document.getElementById("reactContainer"));
+</script>
+</body>
+</html>

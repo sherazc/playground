@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/data/mongo
+       http://www.springframework.org/schema/data/mongo/spring-mongo.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+    <!--################################-->
+    <!--Spring Context-->
+    <!--################################-->
+    <context:component-scan base-package="com.sc"/>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:config.properties</value>
+                <value>file:./local-config.properties</value>
+            </list>
+        </property>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+    </bean>
+
+    <!--################################-->
+    <!--Spring MVC-->
+    <!--################################-->
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
+
+    <mvc:annotation-driven/>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix">
+            <value>/WEB-INF/views/</value>
+        </property>
+        <property name="suffix">
+            <value>.jsp</value>
+        </property>
+        <property name="order" value="2"/>
+    </bean>
+
+    <!--################################-->
+    <!--MongoDB-->
+    <!--################################-->
+    <mongo:mongo id="mongo" host="${db.host}" port="${db.port}"/>
+    <mongo:db-factory id="mongoDbFactory" dbname="${db.name}" mongo-ref="mongo" username="${db.user}"
+                      password="${db.password}"/>
+
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
+    </bean>
+
+
+    <!--################################-->
+    <!--Spring security-->
+    <!--################################-->
+
+    <!-- Enable the method security to use the
+	     @PreAuthorize, @PreFilter, @PostAuthorize and @PostFilter annotations
+	     in methods and secure it.
+	-->
+    <security:global-method-security pre-post-annotations="enabled"/>
+    <!-- secure the application´s urls with the specific Role -->
+
+    <security:http auto-config="true" use-expressions="true" access-denied-page="/redirect?page=access-denied">
+
+        <security:intercept-url pattern="/" access="permitAll"/>
+        <security:intercept-url pattern="/home" access="permitAll"/>
+        <security:intercept-url pattern="/register" access="permitAll"/>
+        <security:intercept-url pattern="/confirmation" access="permitAll"/>
+        <security:intercept-url pattern="/access-denied" access="permitAll"/>
+        <security:intercept-url pattern="/user" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')"/>
+        <security:intercept-url pattern="/admin" access="hasAnyRole('ROLE_ADMIN')"/>
+
+        <security:form-login login-page="/login" default-target-url="/user"
+                             authentication-failure-url="/confirmation/login_failed"/>
+        <security:logout logout-success-url="/confirmation/logout"/>
+
+    </security:http>
+
+    <!-- Define the application authentication manager to use a custom Class (mongoUserDetailsService)
+	     to validate the user access, and the password enconding -->
+    <security:authentication-manager alias="authenticationManager">
+        <security:authentication-provider user-service-ref="mongoDbUserDetailsService">
+            <security:password-encoder hash="plaintext"/>
+        </security:authentication-provider>
+    </security:authentication-manager>
+</beans>

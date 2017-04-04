@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<s:schema xmlns:weather="http://www.sc.com/s4/ws/weatherservice/"
+          xmlns:s="http://www.w3.org/2001/XMLSchema"
+          xmlns:datatypes="http://www.sc.com/s4/ws/weatherservice/datatypes"
+          xmlns:exception="http://www.sc.com/s4/ws/weatherservice/exception"
+          targetNamespace="http://www.sc.com/s4/ws/weatherservice/"
+          elementFormDefault="qualified"
+          version="1.0">
+
+    <s:import namespace="http://www.sc.com/s4/ws/weatherservice/general"
+              schemaLocation="Weather-Schemes/weather-general.xsd"/>
+
+    <s:import namespace="http://www.sc.com/s4/ws/weatherservice/exception"
+              schemaLocation="Weather-Schemes/weather-exception.xsd"/>
+
+</s:schema>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="toolbar02_primaryColor">#FFEB3B</color>
+    
+    <color name="toolbar02_primaryColorDark">#FBC02D</color>
+    
+    <color name="toolbar02_accentColor">#F00</color>
+</resources>

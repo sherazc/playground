@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.sc.android50_anim_loading_screen.app.Activity01CrossFadeViews">
+    <item android:id="@+id/activity01_action_toggle"
+          android:title="@string/action_toggle"
+          android:orderInCategory="100"
+          app:showAsAction="ifRoom|withText"/>
+</menu>

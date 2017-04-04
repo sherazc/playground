@@ -1,0 +1,25 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.sc.android53_toolbar.app.Toolbar03">
+
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/app_bar03"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            app:theme="@style/Toolbar03.Theme"
+            app:popupTheme="@style/Toolbar03.Popup.Theme">
+
+
+    </android.support.v7.widget.Toolbar>
+
+
+    <TextView
+            android:text="This uses custom Theme for toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/app_bar03"/>
+
+</RelativeLayout>

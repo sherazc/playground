@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title>jQuery 08</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="resources/bootstrap-3.3.2/css/bootstrap.min.css">
+    <script src="resources/jquery/jquery-1.11.2.min.js"></script>
+    <script src="resources/bootstrap-3.3.2/js/bootstrap.min.js"></script>
+    <script>
+        $(function () {
+
+            $('#eventButton').on('click', function() {
+                $('#eventTextArea').append('click ');
+            });
+
+            $('#eventButton').on('dblclick', function() {
+                $('#eventTextArea').append('dblclick ');
+            });
+
+            $('#eventButton').on('mouseenter', function() {
+                $('#eventTextArea').append('mouseenter ');
+            });
+
+            $('#eventButton').on('mouseleave', function() {
+                $('#eventTextArea').append('mouseleave ');
+            });
+
+            $('#eventButton').on('keypress', function() {
+                $('#eventTextArea').append('keypress ');
+            });
+
+            $('#eventButton').on('keydown', function() {
+                $('#eventTextArea').append('keydown ');
+            });
+
+            $('#eventButton').on('keyup', function() {
+                $('#eventTextArea').append('keyup ');
+            });
+        });
+    </script></head>
+<body>
+<div class="container">
+    <br/><br/>
+    <div class="form-group">
+        <lable for="eventTextField">Event Field</lable>
+        <input id="eventTextField" type="text" hint="Events text field">
+    </div>
+    <br/>
+    <button id="eventButton" class="btn btn-info btn-lg">My Button</button>
+    <br/><br/>
+
+    <textarea id="eventTextArea" cols="50" rows="10"></textarea>
+</div>
+</body>
+</html>

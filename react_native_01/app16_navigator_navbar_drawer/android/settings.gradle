@@ -1,0 +1,3 @@
+rootProject.name = 'app16_navigator_navbar_drawer'
+
+include ':app'

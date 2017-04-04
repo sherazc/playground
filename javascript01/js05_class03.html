@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Javascript Tutorial</title>
+</head>
+<body>
+	<pre>
+<script type="text/javascript">
+	/**
+	 * Defining singleton class using Function.
+	 * NOTE: This is kind of singleton. In other words you can only create one instance of this class.
+	 */
+
+	var apple = new function() {
+		// since "this." is missing so these are private variables/private class properties
+		type = null;
+		color = null;
+		
+		// Here "this." is used so these are public functions 
+		this.getType = function() {
+			document.writeln(type);
+			// to access private/class properties we can not use "this.". If we use "this." then it creates a new public variable.
+			return type;
+		}
+		
+		
+		// since we can not use "this." to access class members, so as a consequence we can not use same variable name 
+		// like we do in Java to define set methods.
+		this.setType = function (typeInput) {
+			type = typeInput;
+		}
+		
+		this.getColor = function() {
+			return color;
+		}
+		
+		this.setColor = function(colorInput) {
+			color = colorInput;
+		}
+	}
+	
+	apple.setType("aType100");
+	apple.setColor("Green");
+	document.writeln(apple.getType());
+	document.writeln(apple.getColor());
+	
+	
+</script>
+</pre>
+</body>
+</html>

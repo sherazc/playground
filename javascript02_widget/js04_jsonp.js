@@ -1,0 +1,1 @@
+callback({name: 'Sheraz', city: 'Atlanta'});

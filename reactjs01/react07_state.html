@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="scripts/react.15.3.0.js"></script>
+    <script src="scripts/react-dom.15.3.0.js"></script>
+    <!-- Babel - JSX Transpiler -->
+    <script src="scripts/browser.5.8.24.min.js"></script>
+    <title>React JS</title>
+    <style>
+        * {margin: 0;padding: 0;font-family: Arial;}
+
+        .blueBox, .greenBox, .redBox, .darkBlueBox, .whiteBox  {
+            padding: 20px;
+            color: white;
+            font-size: 20px;
+            border: 1px solid #a3a3a3;
+            text-decoration: none;
+            margin: 10px;
+        }
+
+        .blueBox {
+            background-color: #8cbeed;
+        }
+
+        .whiteBox {
+            background-color: #fcfcfc;
+            color: #3d3d3d;
+        }
+
+        .greenBox {
+            background-color: #9ed992;
+        }
+
+        .darkBlueBox {
+            background-color: #2c4a80;
+        }
+
+        .redBox {
+            background-color: #ad3a26;
+        }
+
+        .button {
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.70);
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.70);
+        }
+        .button:active {
+            box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+<div id="reactContainer"></div>
+<script type="text/babel">
+
+    /**
+     * Every React component have an object called this.state
+     * Just like component's attribute we could use STATE to customize a component.
+     *
+     * Whenever a component need a value that could change and have an effect during life of component we use STATE.
+     * Whenever a component need a value would stay same through its life then we use prop/attribute.
+     *
+     * States are watched by React. Means that if a state value is changed then it will impact anywhere
+     * that state values is used in render UI.
+     *
+     * IMPORTANT:
+     * If the state changes then render function runs again. Which in-turn will re-render all its children components.
+     * We could control it using shouldComponentUpdate property
+     *
+     * https://facebook.github.io/react/docs/component-specs.html#updating-shouldcomponentupdate
+     * http://stackoverflow.com/questions/24718709/reactjs-does-render-get-called-any-time-setstate-is-called
+     *
+     *
+     * NOTE:
+     * getInitialState: just like "render" function, getInitialState will be called by ReactJS.
+     * Returned valued from the will be the initial state. A component could only have single state but
+     * could have any value. To store multiple values in the state, we could have it return an object.
+     * e.g. Note how it return curly braces {}
+     *
+     * https://facebook.github.io/react/docs/component-specs.html#getinitialstate
+     * https://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
+     *
+     *
+     * NOTE:
+     * Checkbox have a property called defaultChecked. Its NOT a special React or JSX property.
+     * http://www.w3schools.com/jsref/prop_checkbox_defaultchecked.asp
+     */
+
+    var MyCustomComponent = React.createClass({
+        getInitialState: function () {
+            return {checked: true};
+        },
+        handleChecked: function () {
+            this.setState({checked: !this.state.checked});
+        },
+        render: function () {
+            var message;
+            if (this.state.checked) {
+                message = "checked"
+            } else {
+                message = "unchecked"
+            }
+
+            return (
+                <div className="greenBox">
+                    <input className="blueBox button" type="checkbox" onChange={this.handleChecked} defaultChecked={this.state.checked}/>
+                    <div className="whiteBox">Check box is {message}.</div>
+                </div>
+            );
+        }
+    });
+
+    ReactDOM.render(<MyCustomComponent/>, document.getElementById("reactContainer"));
+</script>
+</body>
+</html>

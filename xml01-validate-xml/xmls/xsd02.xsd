@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/xsd01" xmlns:tns="http://www.example.org/xsd01" elementFormDefault="qualified">
+
+    <element name="user" type="tns:UserType"></element>
+    
+    <complexType name="UserType">
+    	<sequence>
+    		<element name="fname" type="string"></element>
+    		<element name="lname" type="string"></element>
+    		<element name="salary" type="int"></element>
+    	</sequence>
+    </complexType>
+</schema>

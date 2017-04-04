@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title>jQuery 05</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="resources/bootstrap-3.3.2/css/bootstrap.min.css">
+    <script src="resources/jquery/jquery-1.11.2.min.js"></script>
+    <script src="resources/bootstrap-3.3.2/js/bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            $("#message").html('Click buttons to see effects');
+
+            // if instead of '#' we give '.' then jQuery finds the element by
+            // CSS class.
+            $('.my-fake-button-class').on('click', function () {
+
+                // In HTML 5 we can create our own tag attributes.
+                // if we use "data-" prefix to our attributes.
+                // This function "attr()" returns value of the attribute.
+                var panelId = $(this).attr('data-myattribute');
+                $(panelId).fadeToggle(500);
+
+                // this line drills further down to search element by its class.
+                $(panelId + ' .panel-body').html("new content");
+            });
+
+        });
+    </script>
+
+</head>
+<body>
+
+<div class="container">
+
+    <h3>jQuery</h3>
+    <h5 id="message" class="alert-info"></h5>
+
+    <div class="row">
+        <div class="col-xs-3">
+            <button id="button1" class="btn btn-lg btn-info my-fake-button-class"
+                    data-myattribute="#panel1">
+                Button 1
+            </button>
+        </div>
+
+        <div class="col-xs-3">
+            <button id="button2" class="btn btn-lg btn-info my-fake-button-class"
+                    data-myattribute="#panel2">
+                Button 2
+            </button>
+        </div>
+        <div class="col-xs-3">
+            <button id="button3" class="btn btn-lg btn-info my-fake-button-class"
+                    data-myattribute="#panel3">
+                Button 3
+            </button>
+        </div>
+        <div class="col-xs-3">
+            <button id="button4" class="btn btn-lg btn-info my-fake-button-class"
+                    data-myattribute="#panel4">
+                Button 4
+            </button>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-xs-3">
+            <div id="panel1" class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Panel 1
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    Panel 1 body
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-3">
+            <div id="panel2" class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Panel 2
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    Panel 2 body
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-3">
+            <div id="panel3" class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Panel 3
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    Panel 3 body
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-3">
+            <div id="panel4" class="panel panel-primary">
+
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Panel 4
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    Panel 4 body
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

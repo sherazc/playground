@@ -1,0 +1,6 @@
+framework module Pods_ios14_cocoapod_alamofire_afnetwork {
+  umbrella header "Pods-ios14_cocoapod_alamofire_afnetwork-umbrella.h"
+
+  export *
+  module * { export * }
+}

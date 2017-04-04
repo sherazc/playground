@@ -1,0 +1,33 @@
+/*Clearfix*/
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+
+.footer-widget-area {
+    /*
+    This "box-sizing" element makes sures that content stays within the parent element
+    To make columns, this is a good trick to give combination of
+    (box-sizing: border-box; width: 25%; float: left; padding-right: 30px;)
+    */
+    box-sizing: border-box;
+    width: 25%;
+    float: left;
+    padding-right: 30px;
+}
+
+.footer-widget-area:last-of-type {
+    padding-right: 0;
+}
+
+.footer-widget-area h4 {
+    font-size: 15px;
+    font-style: normal;
+    font-weight: normal;
+}

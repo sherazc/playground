@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>JSF 2.0</title>
+	<h:outputStylesheet library="css" name="main.css" />
+</h:head>
+<h:body>
+	<h3>Orders</h3>
+	
+<h:form>
+	
+	<h:dataTable value="#{order.orderList}" var="o"
+		styleClass="order-table"
+		headerClass="order-table-header"
+		rowClasses="order-table-odd-row, order-table-even-row">
+		<h:column>
+			<f:facet name="header">Order No</f:facet>
+			<h:outputText value="#{o.orderNo}" rendered="#{not o.editable}"/>
+			<h:inputText value="#{o.orderNo}" rendered="#{o.editable}"/>
+		</h:column>
+		<h:column>
+			<f:facet name="header">Product Name</f:facet>
+			<h:outputText value="#{o.productName}" rendered="#{not o.editable}"/>
+			<h:inputText value="#{o.productName}" rendered="#{o.editable}"/>
+		</h:column>
+		<h:column>
+			<f:facet name="header">Price</f:facet>
+			<h:outputText value="#{o.price}" rendered="#{not o.editable}">
+				<f:convertNumber maxFractionDigits="2" groupingUsed="false" />
+			</h:outputText>
+			<h:inputText value="#{o.price}" rendered="#{o.editable}">
+				<f:convertNumber maxFractionDigits="2" groupingUsed="false" />
+			</h:inputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">Quantity</f:facet>
+			<h:outputText value="#{o.quantity}" rendered="#{not o.editable}"/>
+			<h:inputText value="#{o.quantity}" rendered="#{o.editable}"/>
+		</h:column>
+		<h:column>
+			<f:facet name="header">Action</f:facet>
+			<h:commandLink value="Edit" action="#{order.edit(o)}"/>
+			&#160;
+			<h:commandLink value="Delete" action="#{order.delete(o)}"/>
+		</h:column>
+	</h:dataTable>
+	<h:commandButton action="#{order.save}" value="save"/>
+	<h3>Enter Order</h3>
+	<table>
+	<tr>
+		<td>Order No:</td>
+		<td><h:inputText size="10" value="#{order.orderNo}" /></td>
+	</tr>
+	<tr>
+		<td>Product Name:</td>
+		<td><h:inputText size="20" value="#{order.productName}" /></td>
+	</tr>
+	<tr>
+		<td>Price:</td>
+		<td><h:inputText size="5" value="#{order.price}" /></td>
+	</tr>
+	<tr>
+		<td>Quantity:</td>
+		<td><h:inputText size="10" value="#{order.quantity}" /></td>
+	</tr>
+	</table>
+	<h:commandButton value="Add" action="#{order.addOrder}"/>
+</h:form>
+</h:body>
+</html>

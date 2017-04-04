@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Flex</title>
+    <link rel="stylesheet" href="script/css/common.css">
+    <style>
+        .flex-container {
+            display: flex;
+        }
+
+        .flex-item {
+            width: 30%;
+            height: 30%;
+            line-height: 50px;
+        }
+
+        .flex-item:nth-child(5) {
+            order: -8;
+        }
+
+        .flex-item:nth-child(2) {
+            order: 3;
+        }
+
+        .flex-item:nth-child(4) {
+            order: 2;
+        }
+    </style>
+
+</head>
+<body>
+<div id="main">
+    <div id="wrapper">
+        <div id="explain">
+            Every flex item has order. If not specified then its 0.
+            If multiple item have same order number then item's order depends on where they appear in the code.
+        </div>
+<pre>
+.flex-container {
+    display: flex;
+}
+
+.flex-item {
+    width: 30%;
+    height: 30%;
+    line-height: 50px;
+}
+
+.flex-item:nth-child(5) {
+    order: -8;
+}
+
+.flex-item:nth-child(2) {
+    order: 3;
+}
+
+.flex-item:nth-child(4) {
+    order: 2;
+}
+
+</pre>
+        <div class="container flex-container">
+            <div class="item flex-item">
+                1
+            </div>
+            <div class="item flex-item">
+                2
+            </div>
+            <div class="item flex-item">
+                3
+            </div>
+            <div class="item flex-item">
+                4
+            </div>
+            <div class="item flex-item">
+                5
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

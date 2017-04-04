@@ -1,0 +1,19 @@
+{
+  "name": "es6_01",
+  "version": "1.0.0",
+  "description": "es6_01",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://sherazc@bitbucket.org/sherazc/sheraz.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/sherazc/sheraz#readme",
+  "dependencies": {
+    "node-fetch": "^1.6.3"
+  }
+}
