@@ -1,0 +1,25 @@
+body {
+    background: #5d8ac3;
+    margin: 0;
+    height: 100%;
+}
+#app {
+    padding: 20px 20px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#heading {
+    font-size: 100px;
+    color: floralwhite;
+    text-align: center;
+}
+
+#content {
+    font-size: 30px;
+    color: floralwhite;
+    text-align: center;
+}
+
+.textWhite {
+    color: floralwhite;
+}

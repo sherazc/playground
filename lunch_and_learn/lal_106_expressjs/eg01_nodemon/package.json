@@ -1,0 +1,17 @@
+{
+  "name": "my_express_app",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start-es5": "nodemon app_01_es5.js",
+    "start-es6": "nodemon app_02_es6.js --exec babel-node --presets es2015"
+  },
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "description": "",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-preset-es2015": "^6.24.1"
+  }
+}

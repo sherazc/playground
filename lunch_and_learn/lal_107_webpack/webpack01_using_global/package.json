@@ -1,0 +1,13 @@
+{
+  "name": "webpack01_using_global",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack app.js app.min.js",
+    "build-watch": "webpack app.js app.min.js -p --watch",
+    "start": "node app.min.js"
+  },
+  "author": "Sheraz",
+  "license": "ISC"
+}

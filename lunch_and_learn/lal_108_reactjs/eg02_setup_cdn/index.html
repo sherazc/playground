@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ReactJS CDN</title>
+    <!-- Babel and React CDN -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+</head>
+<body>
+<!-- App Div -->
+<div id="myapp"></div>
+
+<!-- React Application Code -->
+<script type="text/babel">
+// React Component
+class MyComponent extends React.Component {
+
+    render() {
+        let myVar = 2 + 3;
+        return (
+                <h1>Hello World {myVar}</h1>
+        );
+    }
+}
+
+// Rendering React Component on DOM
+ReactDOM.render(<MyComponent/>, document.getElementById("myapp"));
+</script>
+</body>
+</html>

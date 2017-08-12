@@ -1,0 +1,11 @@
+{
+  "name": "lal_103_js_es5",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app_01_es5_object.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

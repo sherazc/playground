@@ -1,0 +1,22 @@
+{
+  "name": "webpack02_dev-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build-dev": "webpack-dev-server --entry ./src/js/app.js --output-filename ./dist/app.min.js",
+    "build-prod": "webpack ./src/js/app.js ./dist/app.min.js"
+  },
+  "author": "Sheraz",
+  "license": "ISC",
+  "devDependencies": {
+    "loglevel": "^1.4.1",
+    "webpack": "^3.3.0",
+    "webpack-dev-server": "^2.6.0",
+    "style-loader": "^0.18.2",
+    "css-loader": "^0.28.4"
+  },
+  "dependencies": {
+    "jquery": "^3.2.1"
+  }
+}

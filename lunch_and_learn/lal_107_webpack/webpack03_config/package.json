@@ -1,0 +1,20 @@
+{
+  "name": "webpack03_config",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build-dev": "webpack-dev-server",
+    "build-prod": "webpack"
+  },
+  "author": "Sheraz",
+  "license": "ISC",
+  "devDependencies": {
+    "loglevel": "^1.4.1",
+    "webpack": "^3.3.0",
+    "webpack-dev-server": "^2.6.0"
+  },
+  "dependencies": {
+    "jquery": "^3.2.1"
+  }
+}
