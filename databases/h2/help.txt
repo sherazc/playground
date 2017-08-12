@@ -1,9 +1,0 @@
-Name=H2 - jdbc:h2:tcp://localhost:9092/mydb/mydb
-URL=jdbc:h2:tcp://localhost:9092/mydb/mydb
-user name=sa
-user password=
-================================================
-Name=H2 - jdbc:h2:tcp://localhost:9092/open18-db/h2
-URL=jdbc:h2:tcp://localhost:9092/open18-db/h2
-user name=open18
-user password=tiger

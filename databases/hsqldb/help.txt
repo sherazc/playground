@@ -1,4 +1,0 @@
-Name=HSQLDB - jdbc:hsqldb:hsql://localhost:9001/mydb
-URL=jdbc:hsqldb:hsql://localhost:9001/mydb
-user name=sa
-user password=

@@ -1,1 +1,0 @@
-java -cp /Users/sheraz/dev/databases/h2/h2.jar org.h2.tools.Server -baseDir /Users/sheraz/dev/databases/h2 -tcp -tcpAllowOthers true -tcpPort 9092
