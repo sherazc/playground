@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Velocity</title>
+</head>
+<body>
+<h1>
+    Array List Map
+</h1>
+Create Array: # set($ myArray = ["Sheraz", "Tariq", "Chaudhry"])
+#set($myArray = ["Sheraz", "Tariq", "Chaudhry"])
+<hr/>
+<p>
+    Arrays and List are treated the same
+</p>
+<h2>Array</h2>
+myArray.isEmpty() = $myArray.isEmpty()
+<br/>
+myArray.size() = $myArray.size()
+<br/>
+myArray.get(2) = $myArray.get(2)
+<br/>
+myArray[2] = $myArray[2]
+<br/>
+Foreach Loop on Array:
+#foreach($name in $myArray)
+    $name
+#end
+<br/>
+myArray.set(0, 'Abrar') = $myArray.set(0, 'Abrar')
+<br/>
+Foreach Loop on Array:
+#foreach($name in $myArray)
+    $name
+#end
+<br/>
+myArray.clear() = $myArray.clear()
+<br/>
+myArray.size() = $myArray.size()
+
+
+<hr/>
+<h2>List</h2>
+## Setting Map's "ModalC" list into a new variable
+#set($myList = $computers.get('ModalC'))
+myList.isEmpty() = $myList.isEmpty()
+<br/>
+myList.size() = $myList.size()
+<br/>
+myList.get(2) = $myList.get(2)
+<br/>
+myList[2] = $myList[2]
+<br/>
+Foreach Loop on List:
+    #foreach($name in $myList)
+        $name
+    #end
+<br/>
+myList.set(0, 'Abrar') = $myList.set(0, 'Abrar')
+<br/>
+Foreach Loop on List:
+    #foreach($name in $myList)
+        $name
+    #end
+<br/>
+Unable to call clear() becasue it a immutable list
+<br/>
+myList.clear() = ## $myList.clear()
+<br/>
+myList.size() = $myList.size()
+
+
+<hr/>
+<h2>Map</h2>
+computers.isEmpty() = $computers.isEmpty()
+<br/>
+computers.size() = $computers.size()
+<br/>
+computers.get('ModalB') = $computers.get('ModalB')
+<br/>
+computers['ModalB'] = $computers['ModalB']
+<br/>
+Foreach Loop on Map:
+<br/>
+#foreach($mapEntry in $computers.entrySet())
+    $mapEntry.key = $mapEntry.value
+<br/>
+#end
+<br/>
+myList.set(0, 'Abrar') = $myList.set(0, 'Abrar')
+<br/>
+Foreach Loop on Array:
+    #foreach($name in $myList)
+        $name
+    #end
+<br/>
+Unable to call clear() becasue it a immutable list
+<br/>
+myList.clear() = ## $myList.clear()
+<br/>
+myList.size() = $myList.size()
+<hr/>
+
+
+</body>
+</html>

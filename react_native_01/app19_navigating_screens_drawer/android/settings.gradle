@@ -1,0 +1,3 @@
+rootProject.name = 'app19_navigating_screens_drawer'
+
+include ':app'

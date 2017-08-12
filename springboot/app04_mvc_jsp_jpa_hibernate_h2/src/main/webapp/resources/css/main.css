@@ -1,0 +1,121 @@
+body {
+    font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: deepskyblue;
+    color: white;
+    text-align: center;
+    font-size: 40px;
+    font-weight: lighter;
+    padding: 20px;
+}
+
+
+footer {
+    background-color: #2a2a2a;
+    color: whitesmoke;
+    font-size: 12px;
+    font-weight: lighter;
+    padding: 20px;
+    text-align: center;
+}
+
+#content {
+    margin: 20px 5% 20px 5%;
+}
+
+#main_nav {
+    min-width: 500px;
+    box-shadow: 0px 4px 5px 0px rgba(36, 36, 36, 0.6);
+    -webkit-box-shadow: 0px 4px 5px 0px rgba(36, 36, 36, 0.6);
+    -moz-box-shadow: 0px 4px 5px 0px rgba(36, 36, 36, 0.6);
+    -o-box-shadow: 0px 4px 5px 0px rgba(36, 36, 36, 0.6);
+
+}
+
+#main_nav ul {
+    list-style-type: none;
+    background: #3a9cd0;
+    overflow: hidden;
+    margin: 0;
+}
+
+#main_nav ul li {
+    float: left;
+    border-right: 1px solid rgba(184, 184, 184, 0.40);
+    border-top-right-radius: 10px;
+}
+
+#main_nav ul li:first-child {
+    float: left;
+    border-left: 1px solid rgba(184, 184, 184, 0.40);
+}
+
+
+#main_nav ul li a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    text-decoration: none;
+    transition: 300ms;
+    font-size: 18px;
+}
+
+#main_nav ul li:hover {
+    background-color: #398fc2;
+}
+
+#main_nav ul li.hamburger_icon {
+    display: none;
+}
+
+.active {
+    background-color: #286a8f;
+}
+
+@media screen and (max-width: 680px) {
+    /*
+    Hide all li but the first one which is "home" link
+    */
+    #main_nav ul li:not(:first-child) {
+        display: none;
+    }
+
+    /*
+    show hamburger_icon and float it to right
+    */
+    #main_nav ul li.hamburger_icon {
+        float: right;
+        display: block;
+    }
+
+    /*
+    "responsive" class is added/toggled in javascript
+    */
+    #main_nav ul.responsive {
+        position: relative;
+    }
+
+    #main_nav ul.responsive li.hamburger_icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    #main_nav ul.responsive li {
+        border: none;
+        float: none;
+        display: inline;
+    }
+
+    #main_nav ul.responsive li a {
+        display: block;
+        text-align: left;
+    }
+}
+

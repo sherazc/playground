@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>SB</title>
+</head>
+<body>
+<h1>Persons</h1>
+<ol>
+    <li th:each="person : ${persons}" th:text="${person}">Person A</li>
+</ol>
+</body>
+</html>

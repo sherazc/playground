@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Velocity</title>
+</head>
+<body>
+<h1>Variables</h1>
+<br/>
+Comments:
+## Single Line
+
+#*
+ Multi
+ Line
+ *#
+<hr/>
+
+Creating String variable
+<br/>
+#set($myString = "My String Value")
+#[[$myString]]# = $myString
+<hr/>
+Creating int variable
+<br/>
+    #set($myInt = 100)
+#[[$myInt]]# = $myInt
+<hr/>
+Adding 50 int variable
+<br/>
+#set($myInt = $myInt + 50)
+#[[$myInt]]# = $myInt
+<hr/>
+Range Variable
+<br/>
+#set($endRange = 3)
+#set($myRange = [1..$endRange])
+#[[$myRange]]# = $myRange
+<hr/>
+Using Range to run loop
+<br/>
+Range values:
+#foreach($index in $myRange)
+    $index
+#end
+<hr/>
+Variable with braceses
+<br/>
+#[[${myInt} = ]]#${myInt}
+</body>
+</html>

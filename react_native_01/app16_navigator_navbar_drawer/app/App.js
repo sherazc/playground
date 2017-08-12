@@ -26,10 +26,7 @@ import Drawer from "react-native-drawer";
 const SCREEN_NAMES = {
     HOME: "Home",
     ONE: "One",
-    TWO: "Two",
-    THREE: "Three",
-    SETTINGS: "Settings",
-
+    TWO: "Three",
 };
 
 function isIos() {
@@ -45,22 +42,18 @@ export default class App extends React.Component {
     }
 
     openDrawer() {
-        this.refs.drawer.open();
+        this.drawer.open();
     }
 
     closeDrawer() {
-        this.refs.drawer.close();
-    }
-
-    getNavigator() {
-        return this.refs.navigator;
+        this.drawer.close();
     }
 
     render() {
         return (
             <Drawer
-                content={<ScreenDrawer closeDrawer={this.closeDrawer.bind(this)} navigator={this.getNavigator.bind(this)}/>}
-                ref="drawer"
+                content={<ScreenDrawer closeDrawer={this.closeDrawer.bind(this)}/>}
+                ref={(drawer) => {this.drawer = drawer;}}
                 type="overlay"
                 tapToClose={true}
                 openDrawerOffset={0.2} // 20% gap on the right side of drawer
@@ -69,7 +62,7 @@ export default class App extends React.Component {
                 tweenHandler={(ratio) => ({
                     main: { opacity:(2-ratio)/2 }
                 })}>
-                <Navigator ref="navigator"
+                <Navigator
                     renderScene={screenRouter}
                     initialRoute={{screenName: SCREEN_NAMES.HOME}}
                     navigationBar={navigationBar(this.openDrawer.bind(this))} />
@@ -83,7 +76,7 @@ export default class App extends React.Component {
 // ------------- Start Screen -------------
 
 let ScreenDrawer = (props) => {
-
+    // styles.textLight
     return (
         <ScrollView style={styles.containerDrawer}>
             <Image
@@ -101,17 +94,15 @@ let ScreenDrawer = (props) => {
             </Image>
             <View style={{flex: 1}}>
                 <DrawerHeading text="Main Items"/>
-                <DrawerItem navigator={props.navigator} closeDrawer={props.closeDrawer} selected={true} collectionName="FontAwesome" iconName="home" textMiddle="Home" textRight=""/>
-                <DrawerItem navigator={props.navigator} closeDrawer={props.closeDrawer} collectionName="Entypo" iconName="heart" textMiddle="One" textRight="5"/>
-
-                {/*
+                <DrawerItem selected={true} collectionName="FontAwesome" iconName="home" textMiddle="Home" textRight=""/>
+                <DrawerItem collectionName="Entypo" iconName="heart" textMiddle="One" textRight="5"/>
                 <DrawerSeparator/>
                 <DrawerHeading text="Other Items"/>
-                <DrawerItem closeDrawer={props.closeDrawer} collectionName="Entypo" iconName="game-controller" textMiddle="Two"/>
-                <DrawerItem closeDrawer={props.closeDrawer} collectionName="FontAwesome" iconName="download" textMiddle="Three" textRight="@"/>
+                <DrawerItem collectionName="Entypo" iconName="game-controller" textMiddle="Two"/>
+                <DrawerItem collectionName="FontAwesome" iconName="download" textMiddle="Three" textRight="@"/>
                 <DrawerSeparator/>
-                <DrawerItem closeDrawer={props.closeDrawer} collectionName="FontAwesome" iconName="cog" textMiddle="Settings" textRight=""/>
-*/}
+                <DrawerItem collectionName="FontAwesome" iconName="cog" textMiddle="Settings" textRight=""/>
+
             </View>
         </ScrollView>
     );
@@ -121,14 +112,10 @@ let ScreenDrawer = (props) => {
 let ScreenHome = (props) => {
     return (
         <View style={styles.containerHome}>
-            <TouchableHighlight onPress={() => {
-                    props.navigator.push({screenName: SCREEN_NAMES.TWO});
-                }}>
-            <Text style={styles.textDark} >
+            <Text style={styles.textDark}>
                 Home Screen
             </Text>
 
-            </TouchableHighlight>
             <Text style={styles.textDark}>
                 Screen One
             </Text>
@@ -147,57 +134,18 @@ let ScreenOne = (props) => {
     );
 };
 
-let ScreenTwo = (props) => {
-    return (
-        <View style={styles.containerOne}>
-            <Text style={styles.textDark}>
-                Screen Two
-            </Text>
-        </View>
-    );
-};
-
-let ScreenThree = (props) => {
-    return (
-        <View style={styles.containerOne}>
-            <Text style={styles.textDark}>
-                Screen Three
-            </Text>
-        </View>
-    );
-};
-
-let ScreenSettings = (props) => {
-    return (
-        <View style={styles.containerOne}>
-            <Text style={styles.textDark}>
-                Screen Settings
-            </Text>
-        </View>
-    );
-};
 // ------------- End Screen -------------
 
 // ------------- Start Router -------------
 
-let screenRouter = (route, navigator) => {
+let screenRouter = (route, navigation) => {
     switch (route.screenName) {
         case SCREEN_NAMES.HOME:
-            return <ScreenHome navigator={navigator}/>;
+            return <ScreenHome/>;
             break;
         case SCREEN_NAMES.ONE:
             return <ScreenOne/>;
             break;
-        case SCREEN_NAMES.TWO:
-            return <ScreenTwo/>;
-            break;
-            case SCREEN_NAMES.THREE:
-            return <ScreenThree/>;
-            break;
-        case SCREEN_NAMES.SETTINGS:
-            return <ScreenSetting/>;
-            break;
-
     }
 };
 
@@ -205,12 +153,15 @@ let screenRouter = (route, navigator) => {
 
 // ------------- Start Navigation Bar -------------
 let leftButton = (openDrawer, navigator, index) => {
+    console.log(arguments);
     if (index == 0) {
         return (
             <View style={styles.navButton}>
                 <TouchableHighlight style={styles.navButton} onPress={openDrawer}>
                     <IconFontAwesome name="bars" style={styles.navButtonText}/>
                 </TouchableHighlight>
+
+
             </View>
         );
     } else {
@@ -232,7 +183,7 @@ let rightButton = () => {
       */
         return (
             <TouchableHighlight style={styles.navButton} onPress={()=> {
-                navigator.push({screenName: VIEW_NAMES.SETTINGS})
+                navigator.push({screenName: SCREEN_NAMES.SETTINGS})
             }}>
                 <IconFontAwesome name="sliders" style={styles.navButtonText}/>
             </TouchableHighlight>
@@ -291,16 +242,9 @@ let DrawerItem = (props) => {
         icon = <IconEntypo name={props.iconName} style={drawerItemIcon}/>;
     }
 
-    function navigate() {
-        if (!props.selected) {
-
-        }
-        props.navigator().push({screenName: SCREEN_NAMES.THREE});
-        props.closeDrawer();
-    }
 
     return (
-        <TouchableHighlight style={drawerItemButton} onPress={navigate}>
+        <TouchableHighlight style={drawerItemButton}>
             <View style={{flex: 1, flexDirection: "row"}}>
                 {icon}
                 <Text style={drawerItemTextMiddle}>{props.textMiddle}</Text>

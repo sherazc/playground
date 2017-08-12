@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Velocity</title>
+</head>
+<body>
+<h1>
+    Service Methods
+</h1>
+
+mathService.add(1, 2) = $myService.add(1, 2)
+<hr/>
+
+mathService.substract(4, 2) = $myService.substract(4, 2)
+<hr/>
+
+myService.getMessage() = $myService.getMessage()
+<hr/>
+
+myService.multiMessage('No', 3) = $myService.multiMessage('No', 3)
+<hr/>
+
+myService.yearlySalary(person) = $myService.yearlySalary($person)
+<hr/>
+
+myService.concat(person.cars) = $myService.concat($person.cars)
+<hr/>
+
+myService.concat(person.cars) = $myService.concat( ["Sheraz", "Tariq", "Chaudhry"] )
+<hr/>
+
+
+</body>
+</html>

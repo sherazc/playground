@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Velocity</title>
+</head>
+<body>
+<h1>
+    Loop
+</h1>
+Foreach Variables
+<br>
+#set($namesList = ["Sheraz", "Tariq", "Chaudhry"])
+
+#foreach($name in $namesList)
+
+    #if($foreach.first)
+        (
+    #end
+
+    $foreach.count:
+
+    $name
+
+    #if($foreach.hasNext)
+        ,
+    #end
+
+    #if($foreach.last)
+    )
+    #end
+
+#end
+
+<hr>
+Break
+<br>
+#set($zeroToFive = [0..5])
+#foreach($number in $zeroToFive)
+    #if($number > 2)
+        #break
+    #end
+    $number
+#end
+
+<hr>
+
+#set($computerSpecs = {"cpu": "i7", "ram": "16gb", "hd": "1tb"})
+Map's Key Value variables
+<br>
+<ul>
+#foreach($computerSpecsKeys in $computerSpecs.keySet())
+    <li>$computerSpecsKeys = $computerSpecs.get($computerSpecsKeys)</li>
+#end
+</ul>
+</body>
+</html>

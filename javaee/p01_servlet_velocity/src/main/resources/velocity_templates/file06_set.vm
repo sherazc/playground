@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Velocity</title>
+</head>
+<body>
+<h1>
+    Set
+</h1>
+Boolean Variable
+<br>
+#set($myBoolean1 = true)
+#[[$myBoolean1]]# = ${myBoolean1}
+<br>
+#set($myBoolean2 = 3 > 4)
+#[[$myBoolean2]]# = ${myBoolean2}
+
+<hr>
+Number variable
+<br>
+#set($myNum1 = 1)
+#set($myNum2 = 2)
+#set($myNum3 = $myNum1 + $myNum2 * 10 - 5)
+
+#[[$myNum3]]# = ${myNum3}
+
+<hr>
+
+String Variable
+<br>
+#set($myVar1 = "My value 1")
+#set($myVar2 = $myVar1)
+
+#[[$myVar2]]# = ${myVar2}
+
+<hr/>
+Array/List/ArrayList
+<br>
+#set($myArrayList1 = ["one", $myVar2, "three"])
+#[[$myArrayList1]]# = ${myArrayList1}
+
+<hr/>
+Map
+<br>
+#set($myMap1 = {"key1": "value1", "key2": "value2"})
+#[[$myMap1]]# = ${myMap1}
+
+<hr/>
+Range
+<br>
+#set($endRange = 5)
+#set($myRange1 = [1..$endRange])
+<br/>
+Range values:
+#foreach($index in $myRange1)
+    $index
+#end
+
+</body>
+</html>

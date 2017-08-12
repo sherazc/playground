@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Velocity</title>
+</head>
+<body>
+<h1>
+    Context Variables
+</h1>
+Name: $name
+<br/>
+
+Cars:
+#foreach($car in $cars)
+    $car,
+#end
+<br/>
+
+Age: $age
+<br/>
+
+Salary: $$salary
+<br/>
+
+Admin:
+<input type="checkbox" #if($admin) checked #end>
+<br/>
+
+Date Of Birth:
+    #set( $String = '' )##
+    $String.format('%1$tY-%1$tm-%1$td %1$tH:%1$tM.%1$tS', $dob)
+<br/>
+
+</body>
+</html>

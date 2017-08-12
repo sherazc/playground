@@ -1,4 +1,4 @@
-package com.sc.lambda.eg02_lambda_type_inference;
+package com.sc.lambda.eg02_type_inference;
 
 public class App {
     public static void main(String[] args) {

@@ -1,0 +1,3 @@
+rootProject.name = 'app21_realm'
+
+include ':app'
