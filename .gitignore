@@ -11,11 +11,15 @@
 .DS_Store
 local.properties
 
+.svn/
+.git/
+
 **/classes/
 **/build/
 **/gen/
 **/.idea/
 **/.git/
+**/.svn/
 **/target/
 **/.gradle/
 node_modules
