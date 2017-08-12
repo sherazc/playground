@@ -1,0 +1,15 @@
+apply plugin: 'java'
+compileJava.options.encoding = 'UTF-8'
+
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+version = '1.0'
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+}

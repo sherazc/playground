@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <layer-list>
+
+            <item>
+                <shape>
+                    <gradient
+                            android:angle="270"
+                            android:startColor="@color/chapter_name_bg_top"
+                            android:endColor="@color/chapter_name_bg_bottom"
+                            android:type="linear"/>
+                </shape>
+            </item>
+            <!--
+            <item>
+                <bitmap
+                        android:src="@drawable/chapter_name_background_image"
+                        android:tileMode="repeat"
+                        android:tileModeX="repeat"
+                        >
+
+                </bitmap>
+            </item>-->
+
+        </layer-list>
+    </item>
+</selector>
