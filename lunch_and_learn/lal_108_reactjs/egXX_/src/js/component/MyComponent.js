@@ -1,11 +1,11 @@
 import React from "react"
 
-let MyComponent = (props) => {
-    return (
-        <div className="boxGreen">
-            {props.message}
-        </div>
-    );
+export default class MyComponent extends React.Component {
+    render() {
+        return (
+            <div className="boxGreen">
+                {this.props.message}
+            </div>
+        );
+    }
 };
-
-export default MyComponent;
