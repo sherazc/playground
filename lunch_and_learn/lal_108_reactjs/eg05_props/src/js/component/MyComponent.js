@@ -1,4 +1,6 @@
-import React from "react"
+import React from "react";
+import PropTypes from 'prop-types';
+
 
 export default class MyComponent extends React.Component {
     render() {
@@ -32,4 +34,14 @@ export default class MyComponent extends React.Component {
             </div>
         );
     }
+};
+
+MyComponent.propTypes = {
+    staticString: PropTypes.string.isRequired,
+    varString: PropTypes.string,
+    varInt: PropTypes.number,
+    varArray: PropTypes.array,
+    varObject: PropTypes.object,
+    varFunction: PropTypes.func.isRequired
+
 };
