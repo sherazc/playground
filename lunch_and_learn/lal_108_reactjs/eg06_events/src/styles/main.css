@@ -1,0 +1,56 @@
+body {
+}
+.content {
+    background-color: #ffe9cc;
+    padding: 10px;
+}
+
+.boxGreen {
+    background-color: olivedrab;
+    border: 1px solid #3d643f;
+    padding: 15px;
+    color: whitesmoke;
+    display: inline-block;
+    border-radius: 3px;
+    margin: 5px;
+}
+
+.boxRed {
+    background-color: crimson;
+    border: 1px solid #641d11;
+    padding: 15px;
+    color: whitesmoke;
+    display: inline-block;
+    border-radius: 3px;
+    margin: 5px;
+}
+
+.boxBlue {
+    background-color: darkblue;
+    border: 1px solid #3e5080;
+    padding: 15px;
+    color: whitesmoke;
+    display: inline-block;
+    border-radius: 3px;
+    margin: 5px;
+}
+
+.boxYellow {
+    background-color: #d2cb43;
+    border: 1px solid #805e0d;
+    padding: 15px;
+    color: #2f2f2f;
+    display: inline-block;
+    border-radius: 3px;
+    margin: 5px;
+}
+
+.boxBrown {
+    background-color: chocolate;
+    border: 1px solid #805044;
+    padding: 15px;
+    color: whitesmoke;
+    display: inline-block;
+    border-radius: 3px;
+    margin: 5px;
+}
