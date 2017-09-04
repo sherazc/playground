@@ -7,4 +7,5 @@ let printSystemInfo = () => {
     console.log(`Home Dir = ${os.homedir()}`);
 };
 
+
 printSystemInfo();
