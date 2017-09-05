@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "app01": "nodemon app01.js --exec babel-node --presets es2015",
-    "app02": "nodemon app02_send_back_file.js --exec babel-node --presets es2015",
-    "app03": "nodemon app03_send_back_json.js --exec babel-node --presets es2015"
+    "app01": "nodemon app01.js --exec babel-node --presets es2015"
   },
   "author": "",
   "license": "ISC",
