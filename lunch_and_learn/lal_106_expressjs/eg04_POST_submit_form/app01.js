@@ -1,5 +1,5 @@
 import express from "express";
-import bodyParser from "body-parser"
+import bodyParser from "body-parser";
 let app = express();
 
 // https://www.npmjs.com/package/body-parser
@@ -12,14 +12,10 @@ app.get("/", (request, response) => {
 });
 
 app.post("/", (request, response) => {
-    // http://expressjs.com/tr/api.html#req.query
-    
     console.log(request.body);
     console.log("Email =", request.body.email);
     console.log("Password =", request.body.password);
-
     response.sendFile(__dirname + "/user_register_confirm.html");
 });
-
 
 app.listen(8080, () => console.log("Server Started on port 8080"));
