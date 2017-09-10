@@ -12,6 +12,3 @@ db.person.find({$or: [
     {name: "Sheraz"},
     {salary: {$gt: 50}}
 ]});
-
-
-
