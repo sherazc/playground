@@ -10,7 +10,7 @@ var emp1 = {
     projects : [ "project01a", "project01b", "project01c" ],
     hiredate : new Date(1999, 5, 24, 11, 33, 30, 0),
     department : "IT"
-}
+};
 
 var emp2 = {
     name : "name2",
@@ -23,15 +23,18 @@ var emp2 = {
     },
     projects : [ "project02a", "project02b", "project02c" ],
     hiredate : new Date('Aug 29 2014'),
-}
+};
 
 db.mydb.employee.insert(emp1);
 
 db.mydb.employee.insert(emp2);
 
 var cursor = db.mydb.employee.find();
-printjson(cursor[0]);
-printjson(cursor[1]);
+
+printjson(cursor[0]);
+
+printjson(cursor[1]);
+
 while (cursor.hasNext()) {
     print(cursor.next());
 }

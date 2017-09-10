@@ -22,7 +22,7 @@ var emp1 = {
     projects: ["project01a", "project01b", "project01c"],
     hiredate: new Date(1999,5,24,11,33,30,0),
     department: "IT"
-}
+};
 
 var emp2 = {
     name: "name2", 
@@ -34,8 +34,8 @@ var emp2 = {
         zip: 20000
     },
     projects: ["project02a", "project02b", "project02c"],
-    hiredate: new Date('Aug 29 2014'),
-}
+    hiredate: new Date('Aug 29 2014')
+};
 
 // inserts variables in employee collection
 db.mydb.employee.insert(emp1);
@@ -46,5 +46,7 @@ db.mydb.employee.insert( {name: "name3"});
 
 // selects all records in employee collection
 db.mydb.employee.find();
-
-// shows all collections (or in other words shows a tables)show collections
+
+
+// shows all collections (or in other words shows a tables)
+show collections
