@@ -9,8 +9,5 @@ export class UserComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-    console.log("User init");
-  }
-
+  ngOnInit() {}
 }
