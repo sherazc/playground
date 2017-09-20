@@ -13,6 +13,5 @@ request.setAttribute("contextPath", request.getContextPath());
 </head>
 <body>
 1 + 3 = {{1 + 3}}
-Changed
 </body>
 </html>
