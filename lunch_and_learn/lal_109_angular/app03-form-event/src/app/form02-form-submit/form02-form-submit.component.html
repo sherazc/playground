@@ -1,0 +1,8 @@
+
+<form (submit)="changeMessage(personName.value)">
+  <input #personName placeholder="Enter name" type="text" class="form-control" style="width:20em"/>
+  <div style="padding: 2em">
+      Message: {{message}}
+  </div>
+  <input type="submit" class="btn btn-warning" value="Say Hello"/>
+</form>
