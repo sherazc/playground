@@ -2,4 +2,5 @@ let add = (a, b) => {
     return a + b;
 }
 
-module.exports.add = add;
+//module.export.add = add;
+export default add;

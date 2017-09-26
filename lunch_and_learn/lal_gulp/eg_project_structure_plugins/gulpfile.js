@@ -1,20 +1,23 @@
-const gulp = require("gulp");
-const babel = require("gulp-babel");
-const browserify = require('gulp-browserify');
-const sourcemaps = require('gulp-sourcemaps');
+var gulp = require('gulp');
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
+var babelify = require('babelify');
+var gutil = require('gulp-util');
 
-gulp.task("build-js", () => {
-    gulp.src("./src/js/*.js")
-        .pipe(sourcemaps.init())
-        .pipe(babel({
-           presets: ['es2015']
-        }))
-        .pipe(browserify({
-            insertGlobals: true,
-            debug: true
-        }))
-        .pipe(sourcemaps.write("./sm"))
-        .pipe(gulp.dest("dist/"));
+
+gulp.task('scripts', function() {
+	browserify({ debug: true })
+		.transform(babelify, { presets: ["env"] })
+		.require("./src/js/main.js", { entry: true })
+		.bundle()
+		.on('error',gutil.log)
+		.pipe(source('bundle.js'))
+    	.pipe(gulp.dest('./dist/js'));
+});
+
+gulp.task('watch', function () {
+    gulp.watch("./src/html/**/*.html", ["build-html"]);
+    gulp.watch(['./src/js/**/*.js'], ['scripts']);
 });
 
 gulp.task("build-html", () => {
@@ -22,7 +25,4 @@ gulp.task("build-html", () => {
         .pipe(gulp.dest("dist/"));
 });
 
-gulp.task("default", ["build-js", "build-html"], () => {
-    gulp.watch("./src/html/**/*.html", ["build-html"]);
-    gulp.watch("./src/js/**/*.js", ["build-js"]);
-});
+gulp.task('default', ['scripts', "build-html", 'watch']);
