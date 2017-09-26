@@ -1,0 +1,3 @@
+rootProject.name = 'azan_call'
+
+include ':app'
