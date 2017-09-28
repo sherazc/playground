@@ -4,7 +4,6 @@ var source = require('vinyl-source-stream');
 var babelify = require('babelify');
 var gutil = require('gulp-util');
 
-
 gulp.task('scripts', function() {
 	browserify({ debug: true })
 		.transform(babelify, { presets: ["env"] })

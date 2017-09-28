@@ -1,15 +1,12 @@
-// let add =  require("./module_a");
-// let subtract=  require("./module_b");
+import {add, subtract} from "./services";
 
-//const add  = require("./module-a");
-// const subtract = require("./module-b");
-import add from "./module_a";
-import subtract from "./module_b";
+class Calculator {
+}
 
-let myvar = 10;
+Calculator.prototype.add = add;
+Calculator.prototype.subtract = subtract;
 
-console.log(myvar);
-//console.log(add.add(3, 2));
-//console.log(subtract.subtract(3, 2));
-console.log(add(3, 2));
-console.log(subtract(3, 2));
+let calculator = new Calculator();
+
+console.log(calculator.add(3, 2));
+console.log(calculator.subtract(3, 2));
