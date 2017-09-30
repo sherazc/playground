@@ -1,0 +1,1 @@
+{"version":3,"sources":["module_a.js"],"names":["add","a","b","module","exports"],"mappings":";;AAAA,IAAIA,MAAM,SAANA,GAAM,CAACC,CAAD,EAAIC,CAAJ,EAAU;AAChB,WAAOD,IAAIC,CAAX;AACH,CAFD;;AAIAC,OAAOC,OAAP,CAAeJ,GAAf,GAAqBA,GAArB","file":"../module_a.js","sourcesContent":["let add = (a, b) => {\n    return a + b;\n}\n\nmodule.exports.add = add;"]}
