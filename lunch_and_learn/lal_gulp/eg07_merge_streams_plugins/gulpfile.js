@@ -15,7 +15,7 @@ gulp.task("compile-css", () => {
 
 	merge(cssStream, sassStream)
 		.pipe(concat("styles.css"))
-		//.pipe(minifyCss())
+		.pipe(minifyCss())
 		.pipe(gulp.dest("dist/css/"));
 });
 
