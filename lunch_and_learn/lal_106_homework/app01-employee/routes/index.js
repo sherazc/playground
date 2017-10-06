@@ -1,9 +1,15 @@
 var express = require('express');
 var router = express.Router();
+import HomeController from "./web/HomeController";
+import EmployeeController from "./web/EmployeeController";
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+let homeController = new HomeController();
+let employeeController = new EmployeeController();
+
+router.get('/', homeController.home);
+router.get('/add', employeeController.addEmployee);
+router.get('/add-confirm', employeeController.addEmployeeConfirm);
+router.get('/list', employeeController.listEmployees);
+router.get('/delete', employeeController.deleteEmployee);
 
 module.exports = router;
