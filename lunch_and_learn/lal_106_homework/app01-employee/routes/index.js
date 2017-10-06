@@ -8,8 +8,8 @@ let employeeController = new EmployeeController();
 
 router.get('/', homeController.home);
 router.get('/add', employeeController.addEmployee);
-router.get('/add-confirm', employeeController.addEmployeeConfirm);
+router.post('/add-confirm', employeeController.addEmployeeConfirm);
 router.get('/list', employeeController.listEmployees);
-router.get('/delete', employeeController.deleteEmployee);
+router.get('/delete/:id', employeeController.deleteEmployee);
 
 module.exports = router;
