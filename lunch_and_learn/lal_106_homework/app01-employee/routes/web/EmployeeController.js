@@ -20,7 +20,10 @@ class EmployeeController {
     }
 
     deleteEmployee (request, response) {
-        response.render('delete-employee', viewAttributesComposer('Employee Deleted', {}));
+        employeeDao.deleteById(request.params.id, employeeId => response.render('delete-employee', 
+                viewAttributesComposer('Employee Deleted', {"deletedEmployeeId": employeeId})
+            ) 
+        );
     }
 }
 

@@ -8,4 +8,12 @@ export default class EmployeeDao extends BaseDao {
             super.endConnection(connection);
          });
     }
+
+    deleteById(employeeId, deleteEmployeeProcessor) {
+        let connection = super.connect();
+        connection.query('delete from employee where id=?', employeeId, (error, result) => {
+            deleteEmployeeProcessor(employeeId);
+            super.endConnection(connection);
+         });
+    }
 }
