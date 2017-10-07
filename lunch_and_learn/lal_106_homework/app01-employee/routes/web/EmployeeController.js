@@ -1,4 +1,8 @@
 import viewAttributesComposer from "./utils/viewAttributesComposer";
+import EmployeeDao from "../model/EmployeeDao";
+
+
+let employeeDao = new EmployeeDao();
 
 class EmployeeController {
     addEmployee (request, response) {
@@ -10,7 +14,9 @@ class EmployeeController {
     }
 
     listEmployees (request, response) {
-        response.render('list-employees', viewAttributesComposer('All Employees', {}));
+        employeeDao.findAll((employees) => {
+            response.render('list-employees', viewAttributesComposer('All Employees', {employees}));
+        });
     }
 
     deleteEmployee (request, response) {
