@@ -16,4 +16,14 @@ export default class EmployeeDao extends BaseDao {
             super.endConnection(connection);
          });
     }
+
+    addEmployee(name, salary, addEmployeeProcessor) {
+        let connection = super.connect();
+        //connection.query('insert into employee set ?', {name: name, salary: salary}, (error, result) => {
+        connection.query('insert into employee set ?', [{name}], (error, result) => {
+            console.log(error);
+            addEmployeeProcessor(name, salary);
+            super.endConnection(connection);
+         });
+    }
 }
