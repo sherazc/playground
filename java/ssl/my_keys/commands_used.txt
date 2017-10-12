@@ -1,0 +1,43 @@
+sheraz@sheraz-k:~/my_keys$ ssh-keygen -t rsa -b 4096 -f ./id_rsa -N mypassword123
+Generating public/private rsa key pair.
+Your identification has been saved in ./id_rsa.
+Your public key has been saved in ./id_rsa.pub.
+The key fingerprint is:
+3d:39:99:fd:d7:c6:dc:41:ca:31:1f:29:49:f7:78:44 sheraz@sheraz-k
+The key's randomart image is:
++--[ RSA 4096]----+
+|             . oE|
+|            . ooo|
+|             =.+o|
+|         . =. B..|
+|        S B .o o |
+|           o . o+|
+|              . B|
+|               o |
+|                 |
++-----------------+
+sheraz@sheraz-k:~/my_keys$
+sheraz@sheraz-k:~/my_keys$ keytool -genkey -v -keystore tomcat_password.jks -alias "tomcat-dev" -keyalg RSA -keysize 4096 -validity 10000
+Enter keystore password:  
+Re-enter new password: 
+What is your first and last name?
+  [Unknown]:  Sheraz Chaudhry
+What is the name of your organizational unit?
+  [Unknown]:  IT
+What is the name of your organization?
+  [Unknown]:  BitSegment
+What is the name of your City or Locality?
+  [Unknown]:  Milton
+What is the name of your State or Province?
+  [Unknown]:  GA
+What is the two-letter country code for this unit?
+  [Unknown]:  US
+Is CN=Sheraz Chaudhry, OU=IT, O=BitSegment, L=Milton, ST=GA, C=US correct?
+  [no]:  yes
+
+Generating 4,096 bit RSA key pair and self-signed certificate (SHA256withRSA) with a validity of 10,000 days
+        for: CN=Sheraz Chaudhry, OU=IT, O=BitSegment, L=Milton, ST=GA, C=US
+Enter key password for <tomcat-dev>
+        (RETURN if same as keystore password):  
+[Storing tomcat_password.jks]
+sheraz@sheraz-k:~/my_keys$ 
