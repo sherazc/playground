@@ -1,12 +1,14 @@
-import React from 'react';
-
 import {
     StyleSheet
 } from 'react-native';
 
-export default class ScreenBuilder {
-    buildScreen(mainMessage, subMessage, styleBackground, styleMainMessage, styleSubMessage) {
+class ScreenBuilder {
+    buildScreen(previousScreen, mainMessage, subMessage, styleBackground, styleMainMessage, styleSubMessage) {
         let screen = {};
+        if (previousScreen) {
+            screen = previousScreen;
+        }
+
         if (mainMessage) {
             screen.mainMessage = mainMessage;
         }
@@ -14,7 +16,9 @@ export default class ScreenBuilder {
             screen.subMessage = subMessage;
         }
         if (styleBackground || styleMainMessage || styleSubMessage) {
-            screen.style = {};
+            if (!screen.style) {
+                screen.style = {};
+            }
             if (styleBackground) {
                 screen.style.background = styleBackground
             }
@@ -25,6 +29,7 @@ export default class ScreenBuilder {
                 screen.style.subMessage = styleSubMessage
             }
         }
+        return screen;
     }
 }
 

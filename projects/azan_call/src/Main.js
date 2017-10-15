@@ -9,6 +9,9 @@ import {
     View
 } from 'react-native';
 
+import Alert from "./ui/Alert";
+
+
 // let salatTime = new SalatTime('http://dashboard.masjidhamzah.com/salat_time.php');
 let screenBuilder = new ScreenBuilder();
 
@@ -16,17 +19,12 @@ export default class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            screen: ,
-            screen: {
-                mainMessage: "Main Loading...",
-                subMessage: "Sub Loading...",
-                style: {
-                    background: styles.screenDark,
-                    mainMessage: styles.textExtraLargeLight,
-                    subMessage: styles.textLight
-                }
-
-            },
+            screen: screenBuilder.buildScreen(null,
+                "Main Loading...",
+                "Sub Loading...",
+                styles.screenDark,
+                styles.textExtraLargeLight,
+                styles.textLight),
             azanCalled: false,
             salatDone: false,
             currentSalah: {},
@@ -40,46 +38,20 @@ export default class Main extends Component {
 
     mainTapped() {
         if (this.state.azanCalled) {
-            this.updateScreen({
-                screen: {
-                    style: {
-                        background: styles.screenGreen,
-                    }
-    
-                },
-                azanCalled: false
-            });
+            this.setState(screenBuilder.buildScreen(this.state.screen, "Azan Called", null, styles.screenRed, null));
+            this.setState({azanCalled: false});
         } else {
-            this.setState({
-                screen: {
-                    style: {
-                        background: styles.screenRed
-                    }
-    
-                },
-                azanCalled: true
-            });
+            this.setState(screenBuilder.buildScreen(this.state.screen, "Azan Not called", null, styles.screenGreen, null));
+            this.setState({azanCalled: true});
         }
-        console.log("aaaaa");
-    }
-
-
-    updateScreen(changedElements) {
-        this.setState((previousState, props) => {
-            return changedElements;
-        });
     }
 
     settings() {
-        console.log("bbbb");
+        Alert.show("Alert", 'Setting Clicked!');
     }
 
     render() {
-        
-
         return (
-
-
             <TouchableHighlight onPress={this.mainTapped.bind(this)} style={this.state.screen.style.background}>
                 <View>
                     <TouchableHighlight onPress={this.settings}>
@@ -96,8 +68,6 @@ export default class Main extends Component {
                     
                 </View>
             </TouchableHighlight>
-
-        
         );
     }
 }
