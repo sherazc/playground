@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 // import SalatTime from "./services/SalatTime";
+import ScreenBuilder, {styles} from "./ui/ScreenBuilder";
 
 import {
     StyleSheet,
@@ -9,11 +10,13 @@ import {
 } from 'react-native';
 
 // let salatTime = new SalatTime('http://dashboard.masjidhamzah.com/salat_time.php');
+let screenBuilder = new ScreenBuilder();
 
 export default class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            screen: ,
             screen: {
                 mainMessage: "Main Loading...",
                 subMessage: "Sub Loading...",
@@ -37,35 +40,36 @@ export default class Main extends Component {
 
     mainTapped() {
         if (this.state.azanCalled) {
-            this.setState({
+            this.updateScreen({
                 screen: {
-                    mainMessage: "Main Loading...",
                     style: {
                         background: styles.screenGreen,
-                        //mainMessage: styles.textExtraLargeLight,
-                        //subMessage: styles.textLight
                     }
     
                 },
-                azanCalled: false,
-                
+                azanCalled: false
             });
         } else {
             this.setState({
                 screen: {
                     style: {
-                        background: styles.screenRed,
-                        //mainMessage: styles.textExtraLargeLight,
-                        //subMessage: styles.textLight
+                        background: styles.screenRed
                     }
     
                 },
-                azanCalled: true,
-                
+                azanCalled: true
             });
         }
         console.log("aaaaa");
     }
+
+
+    updateScreen(changedElements) {
+        this.setState((previousState, props) => {
+            return changedElements;
+        });
+    }
+
     settings() {
         console.log("bbbb");
     }
@@ -98,56 +102,3 @@ export default class Main extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    screenRed: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#ec8683',
-        padding: 10,
-        alignSelf: 'stretch',
-
-    },
-    screenGreen: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#81d54f',
-        padding: 10,
-        alignSelf: 'stretch',
-    },
-    screenDark: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#111111',
-        padding: 10,
-        alignSelf: 'stretch',
-    }, 
-    textExtraLargeLight: {
-        color: "#ffffff",
-        fontSize: 30
-    },
-    textExtraLargeDark: {
-        color: "#111111",
-        fontSize: 24
-
-    },
-    textExtraLargeGray: {
-        color: 24,
-        fontSize: 24
-    },
-    textDark: {
-        color: "#111111",
-        fontSize: 12
-    },
-    textLight: {
-        color: "#ffffff",
-        fontSize: 12
-    }
-});
