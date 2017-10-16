@@ -34,7 +34,7 @@ export default class Main extends Component {
 
     componentDidMount() {
         salatTime.reteriveTodaysSchedule();
-        setInterval(this.updateScreen, 10000);
+        //setInterval(this.updateScreen, 10000);
         
     }
 
