@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import SalatTime from "./services/SalatTime";
+import SalatTime from "./services/SalatTime";
 import ScreenBuilder, {styles} from "./ui/ScreenBuilder";
 
 import {
@@ -12,7 +12,7 @@ import {
 import Alert from "./ui/Alert";
 
 
-// let salatTime = new SalatTime('http://dashboard.masjidhamzah.com/salat_time.php');
+let salatTime = new SalatTime('http://dashboard.masjidhamzah.com/salat_time.php');
 let screenBuilder = new ScreenBuilder();
 
 export default class Main extends Component {
@@ -20,8 +20,8 @@ export default class Main extends Component {
         super(props);
         this.state = {
             screen: screenBuilder.buildScreen(null,
-                "Main Loading...",
-                "Sub Loading...",
+                "Loading...",
+                "",
                 styles.screenDark,
                 styles.textExtraLargeLight,
                 styles.textLight),
@@ -33,7 +33,16 @@ export default class Main extends Component {
     }
 
     componentDidMount() {
-        // salatTime.reteriveTodaysSchedule();
+        salatTime.reteriveTodaysSchedule();
+        setInterval(this.updateScreen, 10000);
+        
+    }
+
+
+
+    updateScreen() {
+        let currentTime = new Date();
+        console.log("Working", currentTime);
     }
 
     mainTapped() {
@@ -45,6 +54,8 @@ export default class Main extends Component {
             this.setState({azanCalled: true});
         }
     }
+
+    
 
     settings() {
         Alert.show("Alert", 'Setting Clicked!');
