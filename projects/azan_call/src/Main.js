@@ -43,12 +43,12 @@ export default class Main extends Component {
             this.setState(screenBuilder.buildScreen(this.state.screen, `Error getting salah time from ${serviceUrl}`, null, styles.screenDark, null));
             return;
         }
-        if (!todaySalatTime && !this.validateSalahTime(todaySalatTime)) {
+        if (!todaySalatTime || !this.validateSalahTime(todaySalatTime)) {
             this.setState(screenBuilder.buildScreen(this.state.screen, `Invalid salah times received`, null, styles.screenDark, null));
             return;
         }
         this.timeHandler = new TimeHandler(todaySalatTime, this.state, this.setState);
-        this.setState({tappable: true});
+        //this.setState({tappable: true});
         //setInterval(this.updateScreen, 10000);
     }
 
