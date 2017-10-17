@@ -30,16 +30,15 @@ export default class SalatTime {
 /*
 0000-00-00 07:00:00
 */
-    reteriveTodaysSchedule() {
-        fetch('http://dashboard.masjidhamzah.com/salat_time.php')
-            .then((response) => response.json())
+    reteriveTodaysSchedule(setSalahTimeInView) {
+        let errorHandler = (error) => setSalahTimeInView("error");
+        fetch(this.serviceUrl)
+            .then((response) => response.json(), errorHandler)
             .then((todaySalatTime) => {
                 let fixedTodaySalatTime = fixDates(todaySalatTime);
-                
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+                setSalahTimeInView(todaySalatTime);
+            }, errorHandler)
+            .catch(errorHandler);
     }
 }
 
@@ -61,9 +60,6 @@ let fixDates = (todaySalatTime) => {
     }
     todaySalatTime.isha_athan = stringToDate(todaySalatTime.isha_athan);
     todaySalatTime.isha_iqama = stringToDate(todaySalatTime.isha_iqama);
-
-    console.log(todaySalatTime);
-    Alert.show("Time", JSON.stringify(todaySalatTime));
     return todaySalatTime;
 }
 
