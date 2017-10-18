@@ -6,12 +6,11 @@ const SALAH_NAMES = ["Fajar", "Zuhar", "Asr", "Maghrib", "Isha"];
 
 export default class TimeHandler {
     constructor(todaySalatTime, mainState, setMainState) {
-        
         this.todaySalatTime = todaySalatTime;
         this.mainState = mainState;
         this.setMainState = setMainState;
         this.init();
-        
+        setInterval(() => processSalahTimes.apply(this, [this.salahs]), 1000);
     }
 
     init() {
@@ -22,14 +21,13 @@ export default class TimeHandler {
             makeSalahObject(SALAH_NAMES[3], this.todaySalatTime.maghrib_athan, this.todaySalatTime.maghrib_iqama),
             makeSalahObject(SALAH_NAMES[4], this.todaySalatTime.isha_athan, this.todaySalatTime.isha_iqama)
         ];
-        console.log(salahs);
+        this.salahs = salahs;
     }
 }
 
-
-let makeSalahObject = (name, azan, iqmah) => {
-    return {name, azan, iqmah};
-}; 
+let processSalahTimes = (salahs) => {
+    console.log("Why ", salahs[0].azan.getTime());
+}
 
 /*
 
@@ -41,3 +39,8 @@ If current_time > salah_period.begin and current_time < salah_period.end
 Return salah_period.salah
 
 */
+
+let makeSalahObject = (name, azan, iqmah) => {
+    return {name, azan, iqmah};
+}; 
+
