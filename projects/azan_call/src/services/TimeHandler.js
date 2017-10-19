@@ -1,6 +1,6 @@
-//import ScreenBuilder, { styles } from "../ui/ScreenBuilder";
+import ScreenBuilder, { styles } from "../ui/ScreenBuilder";
 
-//let screenBuilder = new ScreenBuilder();
+let screenBuilder = new ScreenBuilder();
 
 const SALAH_NAMES = ["Fajar", "Zuhar", "Asr", "Maghrib", "Isha"];
 
@@ -10,7 +10,8 @@ export default class TimeHandler {
         this.mainState = mainState;
         this.setMainState = setMainState;
         this.init();
-        setInterval(() => processSalahTimes.apply(this, [this.salahs]), 1000);
+        // setInterval(() => processSalahTimes.apply(this, [this.salahs]), 1000);
+        processSalahTimes(this.salahs);
     }
 
     init() {
@@ -26,23 +27,19 @@ export default class TimeHandler {
 }
 
 let processSalahTimes = (salahs) => {
-    console.log("Why ", salahs[0].azan.getTime());
     let now = new Date();
     let nowTime = now.getTime();
-
-
+    let salahPeriod = getCurrentSalahPeriod(nowTime, salahs);
+    console.log(salahPeriod);
 }
 
 /*
-
 Current_Salah = 
 Order all Azan Times [array of 5 times]
 Calculate salah_periods [0-1], [1-2], [2-3], [3-4], [4-0]
 loop over all salah_periods
 If current_time > salah_period.begin and current_time < salah_period.end
 Return salah_period.salah
-
-
 
 Update Screen
 Show "Azan not called" (if Current_time is between Current_Salah.athan and Next_Salah.athan) and (azanCalled == false)  and (salahDone == false) 
@@ -55,15 +52,49 @@ Show "Salat in progress" (if  Current_time is between Current_Salah.athan and Ne
 Show "Salat done" (if  Current_time is between Current_Salah.athan and Next_Salah.athan) and (azanCalled == true) and (Current_time >= Current_Salah.iqama + 20 mins) and set azanCalled = false and set main message = Next_Salah.name + begins in + (Next_Salah.athan - Current_time) set salahDone = true
 
 Show blank screen If Next_Salah.athan - Current_time == 1h, set salahDone = false
-
-
-
-
-
-
 */
+
+
+let getCurrentSalahPeriod = (nowTime, salahs) => {
+    let salahPeriod = [];
+
+    if (nowTime < salahs[0].azan.getTime()) {
+        // current time is before today's fajar azan
+        // yesterday isha
+        salahPeriod.push(makeSalahObject(salahs[4].name, addDays(salahs[4].azan, -1), addDays(salahs[4].iqmah, -1)));
+        salahPeriod.push(salahs[0]);
+    } else if (nowTime > salahs[4].azan.getTime()) {
+        // current time is after today's isha azan
+        salahPeriod.push(salahs[4]);
+        salahPeriod.push(makeSalahObject(salahs[0].name, addDays(salahs[0].azan, 1), addDays(salahs[0].iqmah, 1)));
+    } else {
+        // Current time is after today's fajar azan
+        for(let currentSalahIndex in salahs) {
+            currentSalahIndex = (currentSalahIndex - 0);
+            let nextSalahIndex = (currentSalahIndex) + 1;
+            if (nextSalahIndex > 4) {
+                nextSalahIndex = 0;
+            }
+            let tempCurrentSalah = salahs[currentSalahIndex];
+            let tempNextSalah = salahs[nextSalahIndex];
+
+            if (nowTime > tempCurrentSalah.azan.getTime() 
+                && nowTime < tempNextSalah.azan.getTime()) {
+                salahPeriod.push(tempCurrentSalah);
+                salahPeriod.push(tempNextSalah);
+                break;
+            }
+        }
+    }
+    return salahPeriod;
+}
+
+let addDays = (date, days) => {
+    let calculatedDate = new Date(date.valueOf());
+    calculatedDate.setDate(date.getDate() + days);
+    return calculatedDate;
+}
 
 let makeSalahObject = (name, azan, iqmah) => {
     return {name, azan, iqmah};
 }; 
-

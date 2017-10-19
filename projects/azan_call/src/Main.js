@@ -64,7 +64,10 @@ export default class Main extends Component {
             && todaySalatTime.maghrib_iqama
             && todaySalatTime.isha_athan
             && todaySalatTime.isha_iqama;
-        // TODO: test ranges and instance of Date
+        
+            // TODO: test ranges and instance of Date
+            // TODO: test if all todaySalatTime are today's salah and iqmah time
+            // maybe do it when fetching time from service and test if it is today's month and date
 
         return allDatesAvailable;
     }
