@@ -47,7 +47,7 @@ export default class Main extends Component {
             this.setState(screenBuilder.buildScreen(this.state.screen, `Invalid salah times received`, null, styles.screenDark, null));
             return;
         }
-        this.timeHandler = new TimeHandler(todaySalatTime, this.state, this.setState);
+        this.timeHandler = new TimeHandler(todaySalatTime, this.state, this.setState.bind(this));
         //this.setState({tappable: true});
         //setInterval(this.updateScreen, 10000);
     }
@@ -78,10 +78,10 @@ export default class Main extends Component {
         }
 
         if (this.state.azanCalled) {
-            this.setState(screenBuilder.buildScreen(this.state.screen, "Azan Called", null, styles.screenRed, null));
+            //this.setState(screenBuilder.buildScreen(this.state.screen, "Azan Called", null, styles.screenRed, null));
             this.setState({azanCalled: false});
         } else {
-            this.setState(screenBuilder.buildScreen(this.state.screen, "Azan Not called", null, styles.screenGreen, null));
+            //this.setState(screenBuilder.buildScreen(this.state.screen, "Azan Not called", null, styles.screenGreen, null));
             this.setState({azanCalled: true});
         }
     }

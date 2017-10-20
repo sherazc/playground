@@ -6,7 +6,10 @@ export default class SalatTime {
     }
 
     reteriveTodaysSchedule(setSalahTimeInView) {
-        let errorHandler = (error) => setSalahTimeInView("error");
+        let errorHandler = (error) => {
+            setSalahTimeInView("error");
+            console.log(error);
+        };
         fetch(this.serviceUrl)
             .then((response) => response.json(), errorHandler)
             .then((todaySalatTime) => {

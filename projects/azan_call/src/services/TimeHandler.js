@@ -6,32 +6,58 @@ const SALAH_NAMES = ["Fajar", "Zuhar", "Asr", "Maghrib", "Isha"];
 
 export default class TimeHandler {
     constructor(todaySalatTime, mainState, setMainState) {
-        this.todaySalatTime = todaySalatTime;
-        this.mainState = mainState;
-        this.setMainState = setMainState;
-        this.init();
-        // setInterval(() => processSalahTimes.apply(this, [this.salahs]), 1000);
-        processSalahTimes(this.salahs);
-    }
-
-    init() {
         let salahs = [
-            makeSalahObject(SALAH_NAMES[0], this.todaySalatTime.fajr_athan, this.todaySalatTime.fajr_iqama),
-            makeSalahObject(SALAH_NAMES[1], this.todaySalatTime.thuhr_athan, this.todaySalatTime.thuhr_iqama),
-            makeSalahObject(SALAH_NAMES[2], this.todaySalatTime.asr_athan, this.todaySalatTime.asr_iqama),
-            makeSalahObject(SALAH_NAMES[3], this.todaySalatTime.maghrib_athan, this.todaySalatTime.maghrib_iqama),
-            makeSalahObject(SALAH_NAMES[4], this.todaySalatTime.isha_athan, this.todaySalatTime.isha_iqama)
+            makeSalahObject(SALAH_NAMES[0], todaySalatTime.fajr_athan, todaySalatTime.fajr_iqama),
+            makeSalahObject(SALAH_NAMES[1], todaySalatTime.thuhr_athan,todaySalatTime.thuhr_iqama),
+            makeSalahObject(SALAH_NAMES[2], todaySalatTime.asr_athan, todaySalatTime.asr_iqama),
+            makeSalahObject(SALAH_NAMES[3], todaySalatTime.maghrib_athan, todaySalatTime.maghrib_iqama),
+            makeSalahObject(SALAH_NAMES[4], todaySalatTime.isha_athan, todaySalatTime.isha_iqama)
         ];
-        this.salahs = salahs;
+        setInterval(() => processSalahTimes.apply(this, [salahs, mainState, setMainState]), 1000);
+        // processSalahTimes(salahs, mainState, setMainState);
     }
 }
 
-let processSalahTimes = (salahs) => {
+let processSalahTimes = (salahs, mainState, setMainState) => {
     let now = new Date();
     let nowTime = now.getTime();
     let salahPeriod = getCurrentSalahPeriod(nowTime, salahs);
+    if (isShowAzanNotCalled(nowTime, salahPeriod, mainState)) {
+        setMainState(screenBuilder.buildScreen(mainState.screen, `${salahPeriod[0].name} Azan Not Called`, null, styles.screenRed, null));
+        if (mainState.salatDone && salahPeriod[1].azan.getTime() < nowTime) {
+            setMainState({salatDone: false});
+        }
+        setMainState({tappable: true});
+    }
+
+    if (isShowAzanCalled(nowTime, salahPeriod, mainState)) {
+        setMainState(
+            screenBuilder.buildScreen(
+                mainState.screen, 
+                `${salahPeriod[0].name} Azan Called`, 
+                null, styles.screenGreen, 
+                `${salahPeriod[0].name} jamat begins in ${salahPeriod[0].iqmah.getTime() - nowTime}`,
+                styles.textLight));
+        
+        setMainState({tappable: true});
+    }
+
     console.log(salahPeriod);
 }
+
+let isShowAzanNotCalled = (nowTime, salahPeriod, mainState) => {
+    return nowTime > salahPeriod[0].azan.getTime() 
+        && nowTime < salahPeriod[1].azan.getTime()
+        && !mainState.azanCalled && !mainState.salatDone;
+}
+
+let isShowAzanCalled = (nowTime, salahPeriod, mainState) => {
+    return nowTime > salahPeriod[0].azan.getTime() 
+        && nowTime < salahPeriod[1].azan.getTime()
+        && mainState.azanCalled 
+        && nowTime < salahPeriod[0].iqmah.getTime();
+}
+
 
 /*
 Current_Salah = 
@@ -42,10 +68,13 @@ If current_time > salah_period.begin and current_time < salah_period.end
 Return salah_period.salah
 
 Update Screen
-Show "Azan not called" (if Current_time is between Current_Salah.athan and Next_Salah.athan) and (azanCalled == false)  and (salahDone == false) 
+Show "Azan not called" (if Current_time is between Current_Salah.athan and Next_Salah.athan) 
+and (azanCalled == false)  and (salahDone == false) 
 set salahDone = false if (salahDone == true) and Next_Salah.athan <= Current_time 
 
-Show "Azan called" (if  Current_time is between Current_Salah.athan and Next_Salah.athan) and (azanCalled == true) and  (Current_time < Current_Salah.iqama) and set sub message = Current_Salah.name + jamat begins in + (Current_Salah.iqama - Current_time)
+Show "Azan called" (if  Current_time is between Current_Salah.athan and Next_Salah.athan) 
+and (azanCalled == true) and  (Current_time < Current_Salah.iqama) and 
+set sub message = Current_Salah.name + jamat begins in + (Current_Salah.iqama - Current_time)
 
 Show "Salat in progress" (if  Current_time is between Current_Salah.athan and Next_Salah.athan) and (azanCalled == true) and (Current_time > Current_Salah.iqama) and (Current_time < Current_Salah.iqama + 20 mins) 
 
