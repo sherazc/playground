@@ -47,9 +47,14 @@ export default class Main extends Component {
             this.setState(screenBuilder.buildScreen(this.state.screen, `Invalid salah times received`, null, styles.screenDark, null));
             return;
         }
-        this.timeHandler = new TimeHandler(todaySalatTime, this.state, this.setState.bind(this));
+        this.timeHandler = new TimeHandler(todaySalatTime, this.getMainState.bind(this), this.setState.bind(this));
         //this.setState({tappable: true});
         //setInterval(this.updateScreen, 10000);
+    }
+
+
+    getMainState() {
+        return this.state;
     }
 
     // TODO: externalize it; maybe create time validator

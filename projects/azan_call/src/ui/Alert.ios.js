@@ -8,6 +8,6 @@ export default class Alert {
         if (title) {
             alertTitle = title;
         }
-        AlertIOS.alert(alertTitle,'All your data are belong to us.');
+        AlertIOS.alert(alertTitle, message);
     }
 } 
