@@ -41,18 +41,17 @@ let processSalahTimes = (salahs, getMainState, setMainState) => {
     }
 
 
-    /*
+    
     if (isShowAzanCalled(nowTime, salahPeriod, getMainState)) {
         setMainState(screenBuilder.buildScreen(
             getMainState().screen, 
             `${salahPeriod[0].name} Azan Called`, 
-            null, styles.screenGreen, 
             `${salahPeriod[0].name} jamat begins in ${msToTime(salahPeriod[0].iqmah.getTime() - nowTime)}`,
-            styles.textLight
+            styles.screenGreen, styles.textExtraLargeLight, styles.textLight
         ));
         setMainState({tappable: true});
     }
-
+/*
     if (isShowSalahInProgress(nowTime, salahPeriod, getMainState)) {
         setMainState(screenBuilder.buildScreen(        
             getMainState().screen, 
@@ -208,8 +207,7 @@ let isTimeBetweenAzans = (time, salahPeriod) => {
 }
 
 let msToTime = (duration) => {
-    var milliseconds = parseInt((duration%1000)/100)
-        , seconds = parseInt((duration/1000)%60)
+    var seconds = parseInt((duration/1000)%60)
         , minutes = parseInt((duration/(1000*60))%60)
         , hours = parseInt((duration/(1000*60*60))%24);
 
@@ -217,5 +215,5 @@ let msToTime = (duration) => {
     minutes = (minutes < 10) ? "0" + minutes : minutes;
     seconds = (seconds < 10) ? "0" + seconds : seconds;
 
-    return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
+    return hours + ":" + minutes + ":" + seconds;
 }
