@@ -9,12 +9,12 @@ db.links.count();
 db.links.insert({});
 db.links.find();
 db.links.insert(
-{
-    title: "Link 1",
-    url: "http://www.google.com",
-    meta: ["Windows", "OSX", "Linux"],
-    savedOn: new Date(),
-}
+    {
+        title: "Link 1",
+        url: "http://www.google.com",
+        meta: ["Windows", "OSX", "Linux"],
+        savedOn: new Date(),
+    }
 );
 
 var myDocument = {};

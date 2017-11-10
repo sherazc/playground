@@ -7,6 +7,7 @@ use mydb
 // shows currnt selected database
 db
 
+// Mongo Shell command
 // shows help
 help
 
@@ -38,15 +39,19 @@ var emp2 = {
 };
 
 // inserts variables in employee collection
-db.mydb.employee.insert(emp1);
-db.mydb.employee.insert(emp2);
+db.employee.insert(emp1);
+db.employee.insert(emp2);
 
 // insert BSON in employee collection
-db.mydb.employee.insert( {name: "name3"});
+db.employee.insert( {name: "name3"});
 
 // selects all records in employee collection
-db.mydb.employee.find();
+db.employee.find();
 
-
-// shows all collections (or in other words shows a tables)
 show collections
+
+db.employee.drop();
+
+// Mongo Shell command
+// shows all collections (or in other words shows a tables)
+

@@ -25,18 +25,19 @@ var emp2 = {
     hiredate : new Date('Aug 29 2014'),
 };
 
-db.mydb.employee.insert(emp1);
+db.employee.insert(emp1);
 
-db.mydb.employee.insert(emp2);
+db.employee.insert(emp2);
 
-var cursor = db.mydb.employee.find();
+
+var cursor = db.employee.find();
 
 printjson(cursor[0]);
 
 printjson(cursor[1]);
 
 while (cursor.hasNext()) {
-    print(cursor.next());
+    printjson(cursor.next());
 }
 
 printjson(emp2);

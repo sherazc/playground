@@ -1,3 +1,6 @@
+use mydb
+
+// insert 1000 student records
 for (i = 1; i <= 1000; i++) {
     var studentNum = i * 1000;
     var student = {
@@ -8,9 +11,20 @@ for (i = 1; i <= 1000; i++) {
         registrationDate : new Date()
     };
 
-    // printjson(student);    db.mydb.students.insert(student);}
-// selects all recordsdb.mydb.students.find();
-// limits selected recordsdb.mydb.students.find().limit(10);
-// selects one recorddb.mydb.students.findOne();
+    // printjson(student);    
+    db.students.insert(student);
+}
+// selects all 
+db.students.find();
 
-// Giving criteriadb.mydb.students.find({studentNum : 30000});
+// limits selected 
+db.students.find().limit(10);
+
+// pagination
+db.students.find().skip(20).limit(10);
+
+// selects one 
+db.students.findOne();
+
+// Criteria
+db.students.find({studentNum : 30000});
