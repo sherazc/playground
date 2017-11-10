@@ -80,7 +80,7 @@ function buildReminderWidgetContainerHTML(reminderDetail) {
         resultHtml += "</td></tr>";
 
         resultHtml += "<tr><td></td><td class='ayaTranslation'>";
-        resultHtml += translations[i].lineString
+        // resultHtml += translations[i].lineString
         resultHtml += "</td></tr>";
 
     }
@@ -92,9 +92,9 @@ function buildReminderWidgetContainerHTML(reminderDetail) {
     resultHtml += "<span class='surahTitle'>";
     resultHtml += suraNameArabic;
     resultHtml += "</span>&nbsp;|&nbsp;";
-    resultHtml += "<span class='ayaTranslationName'>";
-    resultHtml += ("Translation - " + translationName);
-    resultHtml += "</span>";
+    //resultHtml += "<span class='ayaTranslationName'>";
+    //resultHtml += ("Translation - " + translationName);
+    //resultHtml += "</span>";
     resultHtml += "</td></tr>";
     resultHtml += "</table>";
     return resultHtml;
