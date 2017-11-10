@@ -3,7 +3,7 @@ db
 db.links.drop();
 /*
 ObjectId() is embedded with: 
-    - Time that ObjectId() was created. 
+    - Time that ObjectId() was created on. 
     - Host name of the mashine where the record was saved
     - Process Id
     - And a random incrementing number

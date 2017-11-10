@@ -1,8 +1,13 @@
+// DB Setup
 use office
 db.employee.drop();
 db.department.drop();
 
-// Generating data
+/*
+Generating data:
+Insert 10 department and 100 employees
+
+*/
 for (i=1; i <= 10; i++) {
     var num = i * 10
     db.department.insert({
@@ -38,15 +43,18 @@ db.employee.find()[50];
 db.employee.find()[50].name;
 
 // Return all the employee records that contains departmentNumber array that contains 10
-db.employee.find({departmentNumber:50});
+db.employee.find({departmentNumber:10});
 db.employee.find({departmentNumber:10}).count();
 
-// If a field is an object then we need to give the full object in the query
+// Find by first and last name
 db.employee.find({name: {first: "first1", last: "last1"}});
 
 // Get object reference in first find and using it next find
 var department80Object = db.department.findOne({name: "department 80"});
 db.employee.find({departmentNumber: department80Object.departmentNumber});
+
+// There are 10 employees in below criteria but still getting one employee
+db.employee.findOne({departmentNumber: department80Object.departmentNumber});
 
 var department80Object = db.department.find({name: "department 80"})[0];
 db.employee.find({departmentNumber: department80Object.departmentNumber});

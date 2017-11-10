@@ -21,6 +21,7 @@ function insertLink(index, userObjectId) {
      });
 }
 
+// Inserts half with referece and half with no user reference.
 for (i=1; i<=10; i++) {
     if (i % 2 == 0) {
         insertLink(i, user1ObjectIdReference);
