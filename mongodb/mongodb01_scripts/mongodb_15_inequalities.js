@@ -12,7 +12,7 @@ db.employee.save({name: 42, salary: 5555});
 // span accross datatypes
 db.employee.find({name: {$lt: "d"}});
 db.employee.find({name: {$gt: "d"}});
-db.employee.find({name: {$eq: "41"}});
+db.employee.find({name: {$eq: "42"}});
 
 // But this will return record that has name=42
 db.employee.find({name: {$eq: 42}});
