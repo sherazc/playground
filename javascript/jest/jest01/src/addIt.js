@@ -1,4 +1,4 @@
 module.exports = (a, b) => {
-    console.log(`Adding ${a} + ${b}`);
+    console.log(`addIt ${a} + ${b}`);
     return a + b;
 }
