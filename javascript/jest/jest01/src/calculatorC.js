@@ -1,8 +1,8 @@
-module.exports = (num1, num2, operator) => {
-    console.log(`Calculating ${num1} ${num2}`);
+module.exports = (num1, num2) => {
+    console.log(`calculatorC, ${num1} ${num2}`);
     let result = localAddIt(num1, num2);
     if (result) {
-        return `calculatorB = ${result}`;
+        return `calculatorC = ${result}`;
     } 
 }
 

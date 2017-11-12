@@ -1,10 +1,9 @@
-describe("My Application addIt works", () => {
-    it("Calculator can add", () => {
-        let addItMock = jest.mock("../src/addIt", () => {
-            return jest.fn(() => 2);
-        });
-        let calculator = require("../src/calculator");
-        let calculatorResult = calculator(1, 1, "+");
-        expect(calculatorResult).toBe(2);
+describe("My Application calculatorA works", () => {
+    it("calculatorA can add", () => {
+        let addItMockFunction = jest.fn(() => 2);
+        
+        let calculatorA = require("../src/calculatorA");
+        let calculatorResult = calculatorA(1, 1, addItMockFunction);
+        expect(calculatorResult).toBe("calculatorA = 2");
     });
 });

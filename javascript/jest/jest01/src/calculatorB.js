@@ -1,8 +1,7 @@
-
 let addIt = require("./addIt");
 
 module.exports = (num1, num2, operator) => {
-    console.log(`Calculating ${num1} ${operator} ${num2}`);
+    console.log(`calculatorB, ${num1} ${operator} ${num2}`);
     let result;
     switch (operator) {
         case '+':
