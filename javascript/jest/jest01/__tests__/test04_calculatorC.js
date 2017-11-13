@@ -20,4 +20,13 @@ describe("My Application calculatorC works", () => {
         */
         console.log(calculator(1,2));
     });
+
+    it("test unexported function", () => {
+        let calculator = require("../src/calculatorC");
+        let localAddIt = calculator.__get__("localAddIt");
+        console.log(localAddIt);
+    });
 });
+
+
+
