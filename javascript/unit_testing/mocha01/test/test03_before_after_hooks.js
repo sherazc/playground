@@ -1,4 +1,4 @@
-describe('hooks', () = {
+describe('hooks', () => {
     before(() => { console.log("Run before all it()"); });
     after(() => { console.log("Run after all it()"); });
     beforeEach(() => { console.log("Run before every it()"); });
