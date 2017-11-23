@@ -1,5 +1,5 @@
 {
-  "name": "jest02",
+  "name": "jest03",
   "version": "1.0.0",
   "description": "Testing with jest",
   "main": "index.js",
@@ -10,6 +10,7 @@
   "license": "ISC",
   "devDependencies": {
     "jest": "^21.3.0",
-    "rewire": "^3.0.0"
-  }
+    "rewire": "^3.0.2"
+  },
+  "dependencies": {}
 }
