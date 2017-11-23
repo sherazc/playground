@@ -7,5 +7,8 @@
     "test": "mocha"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "rewire": "^3.0.2"
+  }
 }
