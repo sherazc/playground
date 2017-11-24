@@ -1,4 +1,5 @@
 let rewire = require("rewire");
+
 describe("Calculator", () => {
     it("should add", () => {
         //console.log(rewire.toString());
@@ -7,7 +8,7 @@ describe("Calculator", () => {
         calc.__set__("localAddIt", () => {
             return 5;
         });
-        
+
         console.log(calc(2, 2));
     });
 });

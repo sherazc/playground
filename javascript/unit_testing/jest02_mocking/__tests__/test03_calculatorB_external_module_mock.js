@@ -3,7 +3,7 @@ describe("My Application calculatorB works", () => {
         /*
         Mocking external module and giving it mock implementation.
         */
-        let addItMockModule = jest.mock("../src/addIt", () => {
+        jest.mock("../src/addIt", () => {
             return jest.fn(() => 2);
         });
         let calculator = require("../src/calculatorB");
