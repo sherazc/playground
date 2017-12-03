@@ -185,17 +185,7 @@ let getCurrentSalahPeriod = (nowTime, salahs) => {
     return salahPeriod;
 }
 
-let addDays = (date, days) => {
-    let calculatedDate = new Date(date.valueOf());
-    calculatedDate.setDate(date.getDate() + days);
-    return calculatedDate;
-}
 
-let addMinutes = (date, minutes) => {
-    let calculatedDate = new Date(date.valueOf());
-    calculatedDate.setMinutes(date.getMinutes() + minutes);
-    return calculatedDate;
-}
 
 let makeSalahObject = (name, azan, iqmah) => {
     return {name, azan, iqmah};
@@ -204,16 +194,4 @@ let makeSalahObject = (name, azan, iqmah) => {
 let isTimeBetweenAzans = (time, salahPeriod) => {
     return time > salahPeriod[0].azan.getTime() 
         && time < salahPeriod[1].azan.getTime()
-}
-
-let msToTime = (duration) => {
-    var seconds = parseInt((duration/1000)%60)
-        , minutes = parseInt((duration/(1000*60))%60)
-        , hours = parseInt((duration/(1000*60*60))%24);
-
-    hours = (hours < 10) ? "0" + hours : hours;
-    minutes = (minutes < 10) ? "0" + minutes : minutes;
-    seconds = (seconds < 10) ? "0" + seconds : seconds;
-
-    return hours + ":" + minutes + ":" + seconds;
 }
