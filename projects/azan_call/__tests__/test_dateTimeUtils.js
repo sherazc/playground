@@ -73,23 +73,23 @@ describe("dateTimeUtils", () => {
     });
 
     describe("msToTime", () => {
-        it.skip("handle undefined", () => {
+        it("handle undefined", () => {
             expect(msToTime()).toBeUndefined();
             expect(msToTime(null)).toBeUndefined();
         });
 
-        it.skip("zero duration", () => {
+        it("zero duration", () => {
             expect(msToTime(0)).toBe("00:00:00");
         });
 
-        it.skip("seconds duration", () => {
+        it("seconds duration", () => {
             expect(msToTime(1 * 1000)).toBe("00:00:01");
             expect(msToTime(30 * 1000)).toBe("00:00:30");
             expect(msToTime(100 * 1000)).toBe("00:01:40");
             expect(msToTime(1000 * 1000)).toBe("00:16:40");
         });
 
-        it.skip("minutes duration", () => {
+        it("minutes duration", () => {
             expect(msToTime(1 * 1000 * 60)).toBe("00:01:00");
             expect(msToTime(30 * 1000 * 60)).toBe("00:30:00");
             expect(msToTime(100 * 1000 * 60)).toBe("01:40:00");
