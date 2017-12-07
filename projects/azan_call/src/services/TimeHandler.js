@@ -187,9 +187,7 @@ let getCurrentSalahPeriod = (nowTime, salahs) => {
 
 
 
-let makeSalahObject = (name, azan, iqmah) => {
-    return {name, azan, iqmah};
-}; 
+
 
 let isTimeBetweenAzans = (time, salahPeriod) => {
     return time > salahPeriod[0].azan.getTime() 
