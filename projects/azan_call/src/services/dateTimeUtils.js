@@ -32,4 +32,14 @@ let msToTime = (duration) => {
     return hours + ":" + minutes + ":" + seconds;
 }
 
-module.exports = {addDays, addMinutes, msToTime};
+let isTimeBetweenAzans = (time, salahPeriod) => {
+    if (!time || !salahPeriod || salahPeriod.length != 2
+        || !salahPeriod[0].azan || !salahPeriod[1].azan) {
+        return false;
+    }
+
+    return time > salahPeriod[0].azan.getTime() 
+        && time < salahPeriod[1].azan.getTime()
+}
+
+module.exports = {addDays, addMinutes, msToTime, isTimeBetweenAzans};

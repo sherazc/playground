@@ -189,7 +189,3 @@ let getCurrentSalahPeriod = (nowTime, salahs) => {
 
 
 
-let isTimeBetweenAzans = (time, salahPeriod) => {
-    return time > salahPeriod[0].azan.getTime() 
-        && time < salahPeriod[1].azan.getTime()
-}

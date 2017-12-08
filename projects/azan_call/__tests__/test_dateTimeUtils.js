@@ -1,4 +1,4 @@
-const {addDays, addMinutes, msToTime} = require("../src/services/dateTimeUtils");
+const {addDays, addMinutes, msToTime, isTimeBetweenAzans} = require("../src/services/dateTimeUtils");
 
 describe("dateTimeUtils", () => {
     const date = new Date("2017-11-13T13:34:50");
@@ -102,6 +102,46 @@ describe("dateTimeUtils", () => {
             expect(msToTime(10 * anHourMillis)).toBe("10:00:00");
             expect(msToTime(100 * anHourMillis)).toBe("100:00:00");
             expect(msToTime(1000 * anHourMillis)).toBe("1000:00:00");
+        });
+    });
+
+    describe("isTimeBetweenAzans", () => {
+        it("Find time between", () => {
+            let salahPeriod = [
+                {azan: new Date("2016-02-29T13:00:00")},
+                {azan: new Date("2016-02-29T13:30:00")}
+            ];
+
+            let currentTime = new Date("2016-02-29T13:15:00").getTime();
+            expect(isTimeBetweenAzans(currentTime, salahPeriod)).toBeTruthy();
+            
+            currentTime = new Date("2016-02-29T12:45:00").getTime();
+            expect(isTimeBetweenAzans(currentTime, salahPeriod)).toBeFalsy();
+            
+            currentTime = new Date("2016-02-29T13:45:00").getTime();
+            expect(isTimeBetweenAzans(currentTime, salahPeriod)).toBeFalsy();
+        });
+
+        it("Bad azan arguments", () => {
+            expect(isTimeBetweenAzans(null, null)).toBeFalsy();
+            expect(isTimeBetweenAzans(null, [])).toBeFalsy();
+            expect(isTimeBetweenAzans(null, [1,2,3])).toBeFalsy();
+            expect(isTimeBetweenAzans(100, [])).toBeFalsy();
+            expect(isTimeBetweenAzans(100, [1,2])).toBeFalsy();
+
+            let salahPeriod = [
+                {azan: new Date("2016-02-29T13:00:00")},
+                {azan: new Date("2016-02-29T13:30:00")}
+            ];
+
+            let currentTime = new Date("2016-02-29T13:15:00").getTime();
+            expect(isTimeBetweenAzans(currentTime, salahPeriod)).toBeTruthy();
+            
+            currentTime = new Date("2016-02-29T12:45:00").getTime();
+            expect(isTimeBetweenAzans(currentTime, salahPeriod)).toBeFalsy();
+            
+            currentTime = new Date("2016-02-29T13:45:00").getTime();
+            expect(isTimeBetweenAzans(currentTime, salahPeriod)).toBeFalsy();
         });
     });
 });
