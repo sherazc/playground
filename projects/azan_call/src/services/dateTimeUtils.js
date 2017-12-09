@@ -42,4 +42,9 @@ let isTimeBetweenAzans = (time, salahPeriod) => {
         && time < salahPeriod[1].azan.getTime()
 }
 
+let getNow = () => {
+    let now = new Date();
+    return now;
+}
+
 module.exports = {addDays, addMinutes, msToTime, isTimeBetweenAzans};

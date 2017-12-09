@@ -1,5 +1,7 @@
 let getCurrentSalahPeriod = require("../src/services/getCurrentSalahPeriod");
 
+let makeFakeSalahs = require("./fakes/makeFake").makeFakeSalahs;
+// TODO: create mocks of addDays() and makeSalahObject
 const TODAY_DATE_STR = "2016-02-29";
 
 describe("getCurrentSalahPeriod", () => {
@@ -9,7 +11,7 @@ describe("getCurrentSalahPeriod", () => {
 
     it("now time after fajar and before isha azan", () => {
         // Setup
-        let fakeSalahs = makeFakeSalahs();
+        let fakeSalahs = makeFakeSalahs(TODAY_DATE_STR);
         // Call and Assert
         assertTimeBetween(new Date(TODAY_DATE_STR + "T07:00"), fakeSalahs);
         assertTimeBetween(new Date(TODAY_DATE_STR + "T14:00"), fakeSalahs);
@@ -21,7 +23,7 @@ describe("getCurrentSalahPeriod", () => {
         // Setup
         let getCurrentSalahPeriod_local = require("../src/services/getCurrentSalahPeriod");
         let now = new Date(TODAY_DATE_STR + "T04:00");
-        let fakeSalahs = makeFakeSalahs();
+        let fakeSalahs = makeFakeSalahs(TODAY_DATE_STR);
         let yesterday = new Date(TODAY_DATE_STR + "T00:00");
         yesterday.setDate(yesterday.getDate() - 1);
 
@@ -40,10 +42,10 @@ describe("getCurrentSalahPeriod", () => {
         // Setup
         let getCurrentSalahPeriod_local = require("../src/services/getCurrentSalahPeriod");
         let now = new Date(TODAY_DATE_STR + "T22:00");
-        let fakeSalahs = makeFakeSalahs();
+        let fakeSalahs = makeFakeSalahs(TODAY_DATE_STR);
         let tomorrow = new Date(TODAY_DATE_STR + "T00:00");
         tomorrow.setDate(tomorrow.getDate() + 1);
-
+        
         // Call
         let salahPeriod = getCurrentSalahPeriod_local(now.getTime(), fakeSalahs);
         
@@ -67,12 +69,3 @@ function assertTimeBetween(now, salahTimes) {
     expect(salahPeriod[1].azan.toLocaleDateString()).toBe(now.toLocaleDateString());
 }
 
-function makeFakeSalahs() {
-    return [
-        {name: "Fajar", azan: new Date(TODAY_DATE_STR + "T06:00"), iqmah: new Date(TODAY_DATE_STR + "T06:30")},
-        {name: "Zuhar", azan: new Date(TODAY_DATE_STR + "T13:00"), iqmah: new Date(TODAY_DATE_STR + "T13:30")},
-        {name: "Asr", azan: new Date(TODAY_DATE_STR + "T17:00"), iqmah: new Date(TODAY_DATE_STR + "T17:30")},
-        {name: "Maghrib", azan: new Date(TODAY_DATE_STR + "T19:00"), iqmah: new Date(TODAY_DATE_STR + "T19:30")},
-        {name: "Isha", azan: new Date(TODAY_DATE_STR + "T21:00"), iqmah: new Date(TODAY_DATE_STR + "T21:30")},
-    ];
-}
