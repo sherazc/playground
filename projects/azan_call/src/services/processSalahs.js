@@ -12,12 +12,20 @@ const processSalahs = (now, salahs, azanCalledDateTime) => {
     }
 
     let salahPeriod = getCurrentSalahPeriod(now, salahs);
-    let azanCalled = isAzanCalled(azanCalledDateTime, salahPeriod);
+
+    let azanCalledDateTimeValid = azanCalledDateTime;
+    if (!azanCalledDateTime || !isTimeBetweenAzans(azanCalledDateTime.getTime(), salahPeriod)) {
+        //azanCalledDateTimeValid = undefined;
+    }
+
+    let azanCalled = isAzanCalled(azanCalledDateTimeValid, salahPeriod);
     let salahDone = isSalahDone(now, salahPeriod, azanCalled);
     let salahInProgress = isSalahInProgress(now, salahPeriod, azanCalled);
 
-    // console.log("salahPeriod=", salahPeriod);
-    // console.log(`azanCalled=${azanCalled}, salahDone=${salahDone}, salahInProgress=${salahInProgress}`);
+    console.log("now=", now.toLocaleString());
+    console.log("azanCalledDateTime=", azanCalledDateTime ? azanCalledDateTime.toLocaleString() : "");
+    console.log(salahPeriodToString(salahPeriod));
+    console.log(`azanCalled=${azanCalled}, salahDone=${salahDone}, salahInProgress=${salahInProgress}`);
 
     if (!azanCalled) {
         result.mainMessage = `${salahPeriod[0].name} azan not called`;
@@ -36,8 +44,12 @@ and (azanCalled == false)  and (salahDone == false)
 set salahDone = false if (salahDone == true) and Next_Salah.athan <= Current_time 
 
 */
-
     return result;
+}
+
+let salahPeriodToString = (salahPeriod) => {
+    return `Current ${salahPeriod[0].name}: azan: ${salahPeriod[0].azan.toLocaleString()}, iqamah: ${salahPeriod[0].iqmah.toLocaleString()}
+Next ${salahPeriod[1].name}: azan: ${salahPeriod[1].azan.toLocaleString()}, iqamah: ${salahPeriod[1].iqmah.toLocaleString()}`;
 }
 
 let isAzanCalled = (azanCalledDateTime, salahPeriod) =>  {

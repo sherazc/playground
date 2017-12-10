@@ -15,6 +15,6 @@ module.exports = {
     makeFakeSalahs
 };
 
-describe("makeFake", () => {
-    it("work")
+describe.skip("makeFake", () => {
+    it("work");
 });

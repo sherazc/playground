@@ -14,6 +14,9 @@ let getCurrentSalahPeriod = (nowTime, salahs) => {
         // yesterday isha
         salahPeriod.push(makeSalahObject(salahs[4].name, addDays(salahs[4].azan, -1), addDays(salahs[4].iqmah, -1)));
         salahPeriod.push(salahs[0]);
+        //salahPeriod.push(salahs[4]);
+        //salahPeriod.push(makeSalahObject(salahs[0].name, addDays(salahs[0].azan, 1), addDays(salahs[0].iqmah, 1)));
+
     } else if (nowTime > salahs[4].azan.getTime()) {
         // current time is after today's isha azan
         salahPeriod.push(salahs[4]);

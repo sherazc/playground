@@ -4,7 +4,7 @@ const Constants = require("../src/services/Constants");
 
 const TODAY_DATE_STR = "2016-02-29";
 
-describe("processSalahs", () => {
+describe.skip("processSalahs", () => {
     it("be Thruthy", () => {
         let result = processSalahs();
         expect(result).toBeTruthy();
@@ -62,25 +62,50 @@ describe("processSalahs", () => {
         expect(result.mainMessage).toBe(`${Constants.SALAH_NAMES[2]} azan called`);
     });
 
-    
-});
-
-
-describe("processSalahs 2", () => {
     it(`${Constants.SALAH_NAMES[2]} salah in progress. azanCalledDateTime after azan and before iqamah. now after iqamah and before progress limit.`, () => {
         // Setup
         let fakeSalahs = makeFakeSalahs(TODAY_DATE_STR);
         let now = new Date(fakeSalahs[2].iqmah);
-        // now.setMinutes(now.)
-        
-        console.log(now.toLocaleString());
+        now.setMinutes(now.getMinutes() + Constants.SALAH_DURATION_MIN - 1);
         
         let azanCalledDateTime = new Date(TODAY_DATE_STR + "T17:05");
 
         // Call
         let result = processSalahs(now, fakeSalahs, azanCalledDateTime);
         // Assert
-        //expect(result.mainMessage).toBe(`${Constants.SALAH_NAMES[2]} in progress`);
+        expect(result.mainMessage).toBe(`${Constants.SALAH_NAMES[2]} in progress`);
     });
+
+    it(`Next salah ${Constants.SALAH_NAMES[3]}. azanCalledDateTime after azan and before iqamah. now after iqamah and after progress limit.`, () => {
+        // Setup
+        let fakeSalahs = makeFakeSalahs(TODAY_DATE_STR);
+        let now = new Date(fakeSalahs[2].iqmah);
+        now.setMinutes(now.getMinutes() + Constants.SALAH_DURATION_MIN + 1);
+        
+        let azanCalledDateTime = new Date(TODAY_DATE_STR + "T17:05");
+
+        // Call
+        let result = processSalahs(now, fakeSalahs, azanCalledDateTime);
+        // Assert
+        expect(result.mainMessage).toBe(`Next salah: ${Constants.SALAH_NAMES[3]}`);
+    });
+});
+
+
+describe("processSalahs 2", () => {
+    it(`Fajar manual`, () => {
+        // Setup
+        let fakeSalahs = makeFakeSalahs(TODAY_DATE_STR);
+        let now = new Date(TODAY_DATE_STR + "T23:00");
+        //now.toLocaleString
+        let azanCalledDateTime = new Date(TODAY_DATE_STR + "T21:05");
+
+        // Call
+        let result = processSalahs(now, fakeSalahs, azanCalledDateTime);
+        // Assert
+        //expect(result.mainMessage).toBe(`Next salah: ${Constants.SALAH_NAMES[3]}`);
+        console.log(result);
+    });
+
 
 });
