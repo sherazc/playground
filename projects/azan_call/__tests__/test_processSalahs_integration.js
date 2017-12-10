@@ -93,17 +93,20 @@ describe.skip("processSalahs", () => {
 
 
 describe("processSalahs 2", () => {
-    it(`Fajar manual`, () => {
+    it(`Midnight tests`, () => {
         // Setup
         let fakeSalahs = makeFakeSalahs(TODAY_DATE_STR);
-        let now = new Date(TODAY_DATE_STR + "T23:00");
+        let now = new Date(TODAY_DATE_STR + "T00:05");
         //now.toLocaleString
-        let azanCalledDateTime = new Date(TODAY_DATE_STR + "T21:05");
+        //let azanCalledDateTime = new Date(TODAY_DATE_STR + "T21:05");
+        //azanCalledDateTime.setDate(azanCalledDateTime.getDate() -1)
+
+        let azanCalledDateTime = new Date(TODAY_DATE_STR + "T00:06");
 
         // Call
         let result = processSalahs(now, fakeSalahs, azanCalledDateTime);
         // Assert
-        //expect(result.mainMessage).toBe(`Next salah: ${Constants.SALAH_NAMES[3]}`);
+        //expect(result.mainMessage).toBe(`Next salah: ${Constants.SALAH_NAMES[0]}`);
         console.log(result);
     });
 

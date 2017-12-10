@@ -1,6 +1,7 @@
 const getCurrentSalahPeriod = require("./getCurrentSalahPeriod");
 const Constants = require("./Constants");
 const isTimeBetweenAzans = require("./dateTimeUtils").isTimeBetweenAzans;
+let addDays = require("./dateTimeUtils").addDays;
 
 const processSalahs = (now, salahs, azanCalledDateTime) => {
     let result = {
@@ -13,10 +14,17 @@ const processSalahs = (now, salahs, azanCalledDateTime) => {
 
     let salahPeriod = getCurrentSalahPeriod(now, salahs);
 
+    // Dont need it
+    // TODO: Do this after midnight if azan is called before midnight
+    //let azanCalledDateTimeValid = addDays(azanCalledDateTime, -1);
     let azanCalledDateTimeValid = azanCalledDateTime;
-    if (!azanCalledDateTime || !isTimeBetweenAzans(azanCalledDateTime.getTime(), salahPeriod)) {
+
+    // look into some cleanup
+    //if (!azanCalledDateTime || !isTimeBetweenAzans(azanCalledDateTime.getTime(), salahPeriod)) {
         //azanCalledDateTimeValid = undefined;
-    }
+    //}
+
+    //console.log(azanCalledDateTimeValid)
 
     let azanCalled = isAzanCalled(azanCalledDateTimeValid, salahPeriod);
     let salahDone = isSalahDone(now, salahPeriod, azanCalled);
@@ -36,14 +44,6 @@ const processSalahs = (now, salahs, azanCalledDateTime) => {
     } else if (salahDone) {
         result.mainMessage = `Next salah: ${salahPeriod[1].name}`;
     }
-
-    
-/*
-Show "Azan not called" (if Current_time is between Current_Salah.athan and Next_Salah.athan) 
-and (azanCalled == false)  and (salahDone == false) 
-set salahDone = false if (salahDone == true) and Next_Salah.athan <= Current_time 
-
-*/
     return result;
 }
 
