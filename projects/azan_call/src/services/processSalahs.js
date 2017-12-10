@@ -53,7 +53,7 @@ let isSalahInProgress = (now, salahPeriod, azanCalled) => {
     }
 
     let timeSinceIqmah =  now.getTime() - salahPeriod[0].iqmah.getTime();
-    return timeSinceIqmah < Constants.SALAH_DURARION && now.getTime() > salahPeriod[0].iqmah.getTime();
+    return timeSinceIqmah < Constants.SALAH_DURATION_MILLIS && now.getTime() > salahPeriod[0].iqmah.getTime();
 }
 
 let isSalahDone = (now, salahPeriod, azanCalled) => {
@@ -62,7 +62,7 @@ let isSalahDone = (now, salahPeriod, azanCalled) => {
     }
     
     let timeSinceIqmah =  now.getTime() - salahPeriod[0].iqmah.getTime();
-    return timeSinceIqmah > Constants.SALAH_DURARION;
+    return timeSinceIqmah > Constants.SALAH_DURATION_MILLIS;
 }
 
 
