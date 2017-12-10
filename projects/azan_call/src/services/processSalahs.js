@@ -7,13 +7,17 @@ const processSalahs = (now, salahs, azanCalledDateTime) => {
         mainMessage: "",
         subMessage: ""
     }
+    if (!now || !salahs) {
+        return result;
+    }
 
     let salahPeriod = getCurrentSalahPeriod(now, salahs);
     let azanCalled = isAzanCalled(azanCalledDateTime, salahPeriod);
     let salahDone = isSalahDone(now, salahPeriod, azanCalled);
     let salahInProgress = isSalahInProgress(now, salahPeriod, azanCalled);
 
-
+    // console.log("salahPeriod=", salahPeriod);
+    // console.log(`azanCalled=${azanCalled}, salahDone=${salahDone}, salahInProgress=${salahInProgress}`);
 
     if (!azanCalled) {
         result.mainMessage = `${salahPeriod[0].name} azan not called`;
@@ -49,7 +53,7 @@ let isSalahInProgress = (now, salahPeriod, azanCalled) => {
     }
 
     let timeSinceIqmah =  now.getTime() - salahPeriod[0].iqmah.getTime();
-    return timeSinceIqmah < Constants.SALAH_DURARION;
+    return timeSinceIqmah < Constants.SALAH_DURARION && now.getTime() > salahPeriod[0].iqmah.getTime();
 }
 
 let isSalahDone = (now, salahPeriod, azanCalled) => {

@@ -5,7 +5,7 @@ const Constants = require("../src/services/Constants");
 const TODAY_DATE_STR = "2016-02-29";
 
 describe("processSalahs", () => {
-    it.skip("be Thruthy", () => {
+    it("be Thruthy", () => {
         let result = processSalahs();
         expect(result).toBeTruthy();
         expect(result.mainMessage).toBeDefined();
@@ -24,8 +24,20 @@ describe("processSalahs", () => {
         expect(result.mainMessage).toBe(`${Constants.SALAH_NAMES[2]} azan not called`);
     });
 
+    it(`${Constants.SALAH_NAMES[2]} azan not called. No azan time. Now passed iqmah`, () => {
+        // Setup
+        let fakeSalahs = makeFakeSalahs(TODAY_DATE_STR);
+        let now = new Date(TODAY_DATE_STR + "T17:45");
 
-    it(`${Constants.SALAH_NAMES[2]} azan not called. Azan time still ${Constants.SALAH_NAMES[1]}.`, () => {
+        // Call
+        let result = processSalahs(now, fakeSalahs);
+
+        // Assert
+        expect(result.mainMessage).toBe(`${Constants.SALAH_NAMES[2]} azan not called`);
+    });
+
+
+    it(`${Constants.SALAH_NAMES[2]} azan not called. azanCalledDateTime still ${Constants.SALAH_NAMES[1]}.`, () => {
         // Setup
         let fakeSalahs = makeFakeSalahs(TODAY_DATE_STR);
         let now = new Date(TODAY_DATE_STR + "T17:15");
@@ -38,16 +50,19 @@ describe("processSalahs", () => {
         expect(result.mainMessage).toBe(`${Constants.SALAH_NAMES[2]} azan not called`);
     });
 
-    it.skip(`${Constants.SALAH_NAMES[0]} azan called`, () => {
+    it(`${Constants.SALAH_NAMES[2]} azan called. azanCalledDateTime after ${Constants.SALAH_NAMES[2]} azan and before iqamah`, () => {
         // Setup
         let fakeSalahs = makeFakeSalahs(TODAY_DATE_STR);
-        let now = new Date(TODAY_DATE_STR + "T06:15");
-        let azanCalledDateTime = new Date(TODAY_DATE_STR + "T06:05");
+        let now = new Date(TODAY_DATE_STR + "T17:15");
+        let azanCalledDateTime = new Date(TODAY_DATE_STR + "T17:05");
 
         // Call
         let result = processSalahs(now, fakeSalahs, azanCalledDateTime);
-
         // Assert
-        //expect(result.mainMessage).toBe(`${Constants.SALAH_NAMES[0]} azan called`);
+        expect(result.mainMessage).toBe(`${Constants.SALAH_NAMES[2]} azan called`);
     });
+});
+
+
+describe("processSalahs 2", () => {
 });
