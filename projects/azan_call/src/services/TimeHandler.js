@@ -120,35 +120,6 @@ Show blank screen If Next_Salah.athan - Current_time == 1h, set salahDone = fals
 */
 
 
-/*
-Current_Salah = 
-Order all Azan Times [array of 5 times]
-Calculate salah_periods [0-1], [1-2], [2-3], [3-4], [4-0]
-loop over all salah_periods
-If current_time > salah_period.begin and current_time < salah_period.end
-Return salah_period.salah
-
-Update Screen
-Show "Azan not called" (if Current_time is between Current_Salah.athan and Next_Salah.athan) 
-and (azanCalled == false)  and (salahDone == false) 
-set salahDone = false if (salahDone == true) and Next_Salah.athan <= Current_time 
-
-Show "Azan called" (if  Current_time is between Current_Salah.athan and Next_Salah.athan) 
-and (azanCalled == true) and  (Current_time < Current_Salah.iqama) and 
-set sub message = Current_Salah.name + jamat begins in + (Current_Salah.iqama - Current_time)
-
-Show "Salat in progress" (if  Current_time is between Current_Salah.athan and Next_Salah.athan) 
-and (azanCalled == true) and (Current_time > Current_Salah.iqama) 
-and (Current_time < Current_Salah.iqama + 20 mins) 
-
-Show "Salat done" (if  Current_time is between Current_Salah.athan and Next_Salah.athan) 
-and (azanCalled == true) and (Current_time >= Current_Salah.iqama + 20 mins) 
-and set azanCalled = false 
-and set main message = Next_Salah.name + begins in + (Next_Salah.athan - Current_time) 
-and set salahDone = true
-
-Show blank screen If Next_Salah.athan - Current_time == 1h, set salahDone = false
-*/
 
 
 
