@@ -29,12 +29,12 @@ const processSalahs = (now, salahs, azanCalledDateTime) => {
     let azanCalled = isAzanCalled(azanCalledDateTimeValid, salahPeriod);
     let salahDone = isSalahDone(now, salahPeriod, azanCalled);
     let salahInProgress = isSalahInProgress(now, salahPeriod, azanCalled);
-
+/* 
     console.log("now=", now.toLocaleString());
     console.log("azanCalledDateTime=", azanCalledDateTime ? azanCalledDateTime.toLocaleString() : "");
     console.log(salahPeriodToString(salahPeriod));
     console.log(`azanCalled=${azanCalled}, salahDone=${salahDone}, salahInProgress=${salahInProgress}`);
-
+ */
     if (!azanCalled) {
         result.mainMessage = `${salahPeriod[0].name} azan not called`;
     } else if(azanCalled && !salahDone && !salahInProgress) {

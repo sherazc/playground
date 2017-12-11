@@ -4,7 +4,7 @@ const Constants = require("../src/services/Constants");
 
 const TODAY_DATE_STR = "2016-02-29";
 
-describe.skip("processSalahs", () => {
+describe("processSalahs", () => {
     it("be Thruthy", () => {
         let result = processSalahs();
         expect(result).toBeTruthy();
@@ -35,7 +35,6 @@ describe.skip("processSalahs", () => {
         // Assert
         expect(result.mainMessage).toBe(`${Constants.SALAH_NAMES[2]} azan not called`);
     });
-
 
     it(`${Constants.SALAH_NAMES[2]} azan not called. azanCalledDateTime still ${Constants.SALAH_NAMES[1]}.`, () => {
         // Setup
@@ -89,26 +88,47 @@ describe.skip("processSalahs", () => {
         // Assert
         expect(result.mainMessage).toBe(`Next salah: ${Constants.SALAH_NAMES[3]}`);
     });
-});
 
-
-describe("processSalahs 2", () => {
-    it(`Midnight tests`, () => {
+    it(`Next salah ${Constants.SALAH_NAMES[0]}. azanCalledDateTime after azan and before iqamah. now after midnight, after iqamah and after progress limit.`, () => {
         // Setup
         let fakeSalahs = makeFakeSalahs(TODAY_DATE_STR);
         let now = new Date(TODAY_DATE_STR + "T00:05");
-        //now.toLocaleString
-        //let azanCalledDateTime = new Date(TODAY_DATE_STR + "T21:05");
-        //azanCalledDateTime.setDate(azanCalledDateTime.getDate() -1)
 
-        let azanCalledDateTime = new Date(TODAY_DATE_STR + "T00:06");
+        let azanCalledDateTime = new Date(TODAY_DATE_STR + "T21:05");
+        azanCalledDateTime.setDate(azanCalledDateTime.getDate() -1)
 
         // Call
         let result = processSalahs(now, fakeSalahs, azanCalledDateTime);
         // Assert
-        //expect(result.mainMessage).toBe(`Next salah: ${Constants.SALAH_NAMES[0]}`);
-        console.log(result);
+        expect(result.mainMessage).toBe(`Next salah: ${Constants.SALAH_NAMES[0]}`);
     });
 
+    it(`${Constants.SALAH_NAMES[4]} azan not called. azanCalledDateTime still ${Constants.SALAH_NAMES[3]}. now after midnight, after iqamah and after progress limit.`, () => {
+        // Setup
+        let fakeSalahs = makeFakeSalahs(TODAY_DATE_STR);
+        let now = new Date(TODAY_DATE_STR + "T00:05");
 
+        let azanCalledDateTime = new Date(TODAY_DATE_STR + "T19:00");
+        azanCalledDateTime.setDate(azanCalledDateTime.getDate() -1)
+
+        // Call
+        let result = processSalahs(now, fakeSalahs, azanCalledDateTime);
+        // Assert
+        expect(result.mainMessage).toBe(`${Constants.SALAH_NAMES[4]} azan not called`);
+    });
+
+    it(`${Constants.SALAH_NAMES[4]} azan not called. azanCalledDateTime undefined. now after midnight, after iqamah and after progress limit.`, () => {
+        // Setup
+        let fakeSalahs = makeFakeSalahs(TODAY_DATE_STR);
+        let now = new Date(TODAY_DATE_STR + "T00:05");
+        
+        // Call
+        let result = processSalahs(now, fakeSalahs, undefined);
+        // Assert
+        expect(result.mainMessage).toBe(`${Constants.SALAH_NAMES[4]} azan not called`);
+    });
+});
+
+
+describe("processSalahs 2", () => {    
 });
