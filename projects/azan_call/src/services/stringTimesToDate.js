@@ -1,26 +1,26 @@
 
-module.exports = (salatTime) => {
-    if (!salatTime) {
+module.exports = (salatTimeObject) => {
+    if (!salatTimeObject) {
         return;
     }
-    salatTime.fajr_athan = stringToDate(salatTime.fajr_athan);
-    salatTime.fajr_iqama = stringToDate(salatTime.fajr_iqama);
-    salatTime.thuhr_athan = stringToDate(salatTime.thuhr_athan);
-    salatTime.thuhr_iqama = stringToDate(salatTime.thuhr_iqama);
-    salatTime.asr_athan = stringToDate(salatTime.asr_athan);
-    salatTime.asr_iqama = stringToDate(salatTime.asr_iqama);
-    salatTime.maghrib_athan = stringToDate(salatTime.maghrib_athan);
+    salatTimeObject.fajr_athan = stringToDate(salatTimeObject.fajr_athan);
+    salatTimeObject.fajr_iqama = stringToDate(salatTimeObject.fajr_iqama);
+    salatTimeObject.thuhr_athan = stringToDate(salatTimeObject.thuhr_athan);
+    salatTimeObject.thuhr_iqama = stringToDate(salatTimeObject.thuhr_iqama);
+    salatTimeObject.asr_athan = stringToDate(salatTimeObject.asr_athan);
+    salatTimeObject.asr_iqama = stringToDate(salatTimeObject.asr_iqama);
+    salatTimeObject.maghrib_athan = stringToDate(salatTimeObject.maghrib_athan);
     
-    if (salatTime.maghrib_athan) {
-        let maghrib_iqama = new Date(salatTime.maghrib_athan);
+    if (salatTimeObject.maghrib_athan) {
+        let maghrib_iqama = new Date(salatTimeObject.maghrib_athan);
         maghrib_iqama.setMinutes(maghrib_iqama.getMinutes() + 5);
-        salatTime.maghrib_iqama = maghrib_iqama;
+        salatTimeObject.maghrib_iqama = maghrib_iqama;
     } else {
-        salatTime.maghrib_iqama = undefined;    
+        salatTimeObject.maghrib_iqama = undefined;    
     }
-    salatTime.isha_athan = stringToDate(salatTime.isha_athan);
-    salatTime.isha_iqama = stringToDate(salatTime.isha_iqama);
-    return salatTime;
+    salatTimeObject.isha_athan = stringToDate(salatTimeObject.isha_athan);
+    salatTimeObject.isha_iqama = stringToDate(salatTimeObject.isha_iqama);
+    return salatTimeObject;
 }
 
 let stringToDate = (dateString) => {
