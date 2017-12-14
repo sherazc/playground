@@ -30,14 +30,15 @@ describe("getCurrentSalahPeriod", () => {
 
         // Call
         let salahPeriod = getCurrentSalahPeriod_local(now.getTime(), fakeSalahs);
+        
         console.log(now.toISOString());
-        console.log(now.toISOString());
-        console.log(now.toLocaleDateString());
         // Assert
         expect(salahPeriod[0].azan.getTime()).toBeLessThan(now.getTime());
         expect(salahPeriod[1].azan.getTime()).toBeGreaterThan(now.getTime());
         // Asserting yesterday's isha
+        // NOTE to fix this unit test. Change both toISODateString()
         expect(salahPeriod[0].azan.toLocaleDateString()).toBe(yesterday.toLocaleDateString());
+        
         expect(salahPeriod[1].azan.toLocaleDateString()).toBe(now.toLocaleDateString());
     });
 

@@ -1,5 +1,5 @@
 let makeSalahObject = require("./commonUtils").makeSalahObject;
-let addDays = require("./dateTimeUtils").addDays;
+let addDays = require("./date/dateTimeUtils").addDays;
 
 // VERY IMPORTANT: nowTime and salahs dates should have same date
 let getCurrentSalahPeriod = (nowTime, salahs) => {

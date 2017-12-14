@@ -1,4 +1,4 @@
-const {addDays, addMinutes, msToTime, isTimeBetweenAzans} = require("../src/services/dateTimeUtils");
+const {addDays, addMinutes, msToTime, isTimeBetweenAzans} = require("../src/services/date/dateTimeUtils");
 
 
 describe.skip("dateTimeUtils", () => {

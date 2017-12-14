@@ -1,7 +1,7 @@
 const getCurrentSalahPeriod = require("./getCurrentSalahPeriod");
 const Constants = require("./Constants");
-const isTimeBetweenAzans = require("./dateTimeUtils").isTimeBetweenAzans;
-let addDays = require("./dateTimeUtils").addDays;
+const isTimeBetweenAzans = require("./date/dateTimeUtils").isTimeBetweenAzans;
+let addDays = require("./date/dateTimeUtils").addDays;
 
 const processSalahs = (now, salahs, azanCalledDateTime) => {
     let result = {
