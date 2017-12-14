@@ -1,6 +1,7 @@
 const processSalahs = require("../src/services/processSalahs");
 const makeFakeSalahs = require("./fakes/makeFake").makeFakeSalahs;
 const Constants = require("../src/services/Constants");
+const DateCreator = require("../src/services/date/DateCreator");
 
 const TODAY_DATE_STR = "2016-02-29";
 
@@ -15,7 +16,7 @@ describe("processSalahs", () => {
     it(`${Constants.SALAH_NAMES[2]} azan not called. No azan time.`, () => {
         // Setup
         let fakeSalahs = makeFakeSalahs(TODAY_DATE_STR);
-        let now = new Date(TODAY_DATE_STR + "T17:15");
+        let now = DateCreator.fromISO(TODAY_DATE_STR + "T17:15");
 
         // Call
         let result = processSalahs(now, fakeSalahs);
@@ -27,7 +28,7 @@ describe("processSalahs", () => {
     it(`${Constants.SALAH_NAMES[2]} azan not called. No azan time. Now passed iqmah`, () => {
         // Setup
         let fakeSalahs = makeFakeSalahs(TODAY_DATE_STR);
-        let now = new Date(TODAY_DATE_STR + "T17:45");
+        let now = DateCreator.fromISO(TODAY_DATE_STR + "T17:45");
 
         // Call
         let result = processSalahs(now, fakeSalahs);
@@ -39,8 +40,8 @@ describe("processSalahs", () => {
     it(`${Constants.SALAH_NAMES[2]} azan not called. azanCalledDateTime still ${Constants.SALAH_NAMES[1]}.`, () => {
         // Setup
         let fakeSalahs = makeFakeSalahs(TODAY_DATE_STR);
-        let now = new Date(TODAY_DATE_STR + "T17:15");
-        let azanCalledDateTime = new Date(TODAY_DATE_STR + "T14:00");
+        let now = DateCreator.fromISO(TODAY_DATE_STR + "T17:15");
+        let azanCalledDateTime = DateCreator.fromISO(TODAY_DATE_STR + "T14:00");
 
         // Call
         let result = processSalahs(now, fakeSalahs, azanCalledDateTime);
@@ -52,8 +53,8 @@ describe("processSalahs", () => {
     it(`${Constants.SALAH_NAMES[2]} azan called. azanCalledDateTime after azan and before iqamah. now before iqmah`, () => {
         // Setup
         let fakeSalahs = makeFakeSalahs(TODAY_DATE_STR);
-        let now = new Date(TODAY_DATE_STR + "T17:15");
-        let azanCalledDateTime = new Date(TODAY_DATE_STR + "T17:05");
+        let now = DateCreator.fromISO(TODAY_DATE_STR + "T17:15");
+        let azanCalledDateTime = DateCreator.fromISO(TODAY_DATE_STR + "T17:05");
 
         // Call
         let result = processSalahs(now, fakeSalahs, azanCalledDateTime);
@@ -65,9 +66,9 @@ describe("processSalahs", () => {
         // Setup
         let fakeSalahs = makeFakeSalahs(TODAY_DATE_STR);
         let now = new Date(fakeSalahs[2].iqmah);
-        now.setMinutes(now.getMinutes() + Constants.SALAH_DURATION_MIN - 1);
+        now.setMinutes(now.getUTCMinutes() + Constants.SALAH_DURATION_MIN - 1);
         
-        let azanCalledDateTime = new Date(TODAY_DATE_STR + "T17:05");
+        let azanCalledDateTime = DateCreator.fromISO(TODAY_DATE_STR + "T17:05");
 
         // Call
         let result = processSalahs(now, fakeSalahs, azanCalledDateTime);
@@ -79,9 +80,9 @@ describe("processSalahs", () => {
         // Setup
         let fakeSalahs = makeFakeSalahs(TODAY_DATE_STR);
         let now = new Date(fakeSalahs[2].iqmah);
-        now.setMinutes(now.getMinutes() + Constants.SALAH_DURATION_MIN + 1);
+        now.setMinutes(now.getUTCMinutes() + Constants.SALAH_DURATION_MIN + 1);
         
-        let azanCalledDateTime = new Date(TODAY_DATE_STR + "T17:05");
+        let azanCalledDateTime = DateCreator.fromISO(TODAY_DATE_STR + "T17:05");
 
         // Call
         let result = processSalahs(now, fakeSalahs, azanCalledDateTime);
@@ -92,10 +93,10 @@ describe("processSalahs", () => {
     it(`Next salah ${Constants.SALAH_NAMES[0]}. azanCalledDateTime after azan and before iqamah. now after midnight, after iqamah and after progress limit.`, () => {
         // Setup
         let fakeSalahs = makeFakeSalahs(TODAY_DATE_STR);
-        let now = new Date(TODAY_DATE_STR + "T00:05");
+        let now = DateCreator.fromISO(TODAY_DATE_STR + "T00:05");
 
-        let azanCalledDateTime = new Date(TODAY_DATE_STR + "T21:05");
-        azanCalledDateTime.setDate(azanCalledDateTime.getDate() -1)
+        let azanCalledDateTime = DateCreator.fromISO(TODAY_DATE_STR + "T21:05");
+        azanCalledDateTime.setDate(azanCalledDateTime.getUTCDate() -1)
 
         // Call
         let result = processSalahs(now, fakeSalahs, azanCalledDateTime);
@@ -106,10 +107,10 @@ describe("processSalahs", () => {
     it(`${Constants.SALAH_NAMES[4]} azan not called. azanCalledDateTime still ${Constants.SALAH_NAMES[3]}. now after midnight, after iqamah and after progress limit.`, () => {
         // Setup
         let fakeSalahs = makeFakeSalahs(TODAY_DATE_STR);
-        let now = new Date(TODAY_DATE_STR + "T00:05");
+        let now = DateCreator.fromISO(TODAY_DATE_STR + "T00:05");
 
-        let azanCalledDateTime = new Date(TODAY_DATE_STR + "T19:00");
-        azanCalledDateTime.setDate(azanCalledDateTime.getDate() -1)
+        let azanCalledDateTime = DateCreator.fromISO(TODAY_DATE_STR + "T19:00");
+        azanCalledDateTime.setDate(azanCalledDateTime.getUTCDate() -1)
 
         // Call
         let result = processSalahs(now, fakeSalahs, azanCalledDateTime);
@@ -120,7 +121,7 @@ describe("processSalahs", () => {
     it(`${Constants.SALAH_NAMES[4]} azan not called. azanCalledDateTime undefined. now after midnight, after iqamah and after progress limit.`, () => {
         // Setup
         let fakeSalahs = makeFakeSalahs(TODAY_DATE_STR);
-        let now = new Date(TODAY_DATE_STR + "T00:05");
+        let now = DateCreator.fromISO(TODAY_DATE_STR + "T00:05");
         
         // Call
         let result = processSalahs(now, fakeSalahs, undefined);

@@ -1,17 +1,8 @@
 const {addDays, addMinutes, msToTime, isTimeBetweenAzans} = require("../src/services/dateTimeUtils");
 
 
-const date1 = new Date("2017-11-13T13:34:50");
-const date2 = new Date(Date.UTC(2017, 11, 13, 13, 34, 50));
-const date3 = new Date(date1.getTime());
-
-console.log(date1.getUTCHours());
-console.log(date2.getUTCHours());
-console.log(date3.getUTCHours());
-
-
 describe.skip("dateTimeUtils", () => {
-    const date = new Date("2017-11-13T13:34:50");
+    const date = DateCreator.fromISO("2017-11-13T13:34:50");
     describe("addDays", () => {
         it("handle undefined", () => {
             expect(addDays()).toBeUndefined();
@@ -21,29 +12,29 @@ describe.skip("dateTimeUtils", () => {
         it("add 10 days", () => {
             let calcDate = addDays(date, 10);
             expect(calcDate.getUTCFullYear()).toBe(2017);
-            expect(calcDate.getMonth()).toBe(10);
-            expect(calcDate.getDate()).toBe(23);
+            expect(calcDate.getUTCMonth()).toBe(10);
+            expect(calcDate.getUTCDate()).toBe(23);
         });
 
         it("subtract 10 days", () => {
             let calcDate = addDays(date, -10);
-            expect(calcDate.getFullYear()).toBe(2017);
-            expect(calcDate.getMonth()).toBe(10);
-            expect(calcDate.getDate()).toBe(3);
+            expect(calcDate.getUTCFullYear()).toBe(2017);
+            expect(calcDate.getUTCMonth()).toBe(10);
+            expect(calcDate.getUTCDate()).toBe(3);
         });
 
         it("add 100 days", () => {
             let calcDate = addDays(date, 100);
-            expect(calcDate.getFullYear()).toBe(2018);
-            expect(calcDate.getMonth()).toBe(1);
-            expect(calcDate.getDate()).toBe(21);
+            expect(calcDate.getUTCFullYear()).toBe(2018);
+            expect(calcDate.getUTCMonth()).toBe(1);
+            expect(calcDate.getUTCDate()).toBe(21);
         });
 
         it("subtract 100 days", () => {
             let calcDate = addDays(date, -100);
-            expect(calcDate.getFullYear()).toBe(2017);
-            expect(calcDate.getMonth()).toBe(7);
-            expect(calcDate.getDate()).toBe(5);
+            expect(calcDate.getUTCFullYear()).toBe(2017);
+            expect(calcDate.getUTCMonth()).toBe(7);
+            expect(calcDate.getUTCDate()).toBe(5);
         });
     });
 
@@ -55,30 +46,30 @@ describe.skip("dateTimeUtils", () => {
 
         it("add 10 minutes", () => {
             let calcDate = addMinutes(date, 10);
-            expect(calcDate.getHours()).toBe(13);
-            expect(calcDate.getMinutes()).toBe(44);
-            expect(calcDate.getSeconds()).toBe(50);
+            expect(calcDate.getUTCHours()).toBe(13);
+            expect(calcDate.getUTCMinutes()).toBe(44);
+            expect(calcDate.getUTCSeconds()).toBe(50);
         });
 
         it("subtract 10 minutes", () => {
             let calcDate = addMinutes(date, -10);
-            expect(calcDate.getHours()).toBe(13);
-            expect(calcDate.getMinutes()).toBe(24);
-            expect(calcDate.getSeconds()).toBe(50);
+            expect(calcDate.getUTCHours()).toBe(13);
+            expect(calcDate.getUTCMinutes()).toBe(24);
+            expect(calcDate.getUTCSeconds()).toBe(50);
         });
 
         it("add 100 minutes", () => {
             let calcDate = addMinutes(date, 100);
-            expect(calcDate.getHours()).toBe(15);
-            expect(calcDate.getMinutes()).toBe(14);
-            expect(calcDate.getSeconds()).toBe(50);
+            expect(calcDate.getUTCHours()).toBe(15);
+            expect(calcDate.getUTCMinutes()).toBe(14);
+            expect(calcDate.getUTCSeconds()).toBe(50);
         });
 
         it("subtract 100 minutes", () => {
             let calcDate = addMinutes(date, -100);
-            expect(calcDate.getHours()).toBe(11);
-            expect(calcDate.getMinutes()).toBe(54);
-            expect(calcDate.getSeconds()).toBe(50);
+            expect(calcDate.getUTCHours()).toBe(11);
+            expect(calcDate.getUTCMinutes()).toBe(54);
+            expect(calcDate.getUTCSeconds()).toBe(50);
         });
     });
 
@@ -118,17 +109,17 @@ describe.skip("dateTimeUtils", () => {
     describe("isTimeBetweenAzans", () => {
         it("Find time between", () => {
             let salahPeriod = [
-                {azan: new Date("2016-02-29T13:00:00")},
-                {azan: new Date("2016-02-29T13:30:00")}
+                {azan: DateCreator.fromISO("2016-02-29T13:00:00")},
+                {azan: DateCreator.fromISO("2016-02-29T13:30:00")}
             ];
 
-            let currentTime = new Date("2016-02-29T13:15:00").getTime();
+            let currentTime = DateCreator.fromISO("2016-02-29T13:15:00").getTime();
             expect(isTimeBetweenAzans(currentTime, salahPeriod)).toBeTruthy();
             
-            currentTime = new Date("2016-02-29T12:45:00").getTime();
+            currentTime = DateCreator.fromISO("2016-02-29T12:45:00").getTime();
             expect(isTimeBetweenAzans(currentTime, salahPeriod)).toBeFalsy();
             
-            currentTime = new Date("2016-02-29T13:45:00").getTime();
+            currentTime = DateCreator.fromISO("2016-02-29T13:45:00").getTime();
             expect(isTimeBetweenAzans(currentTime, salahPeriod)).toBeFalsy();
         });
 
@@ -140,17 +131,17 @@ describe.skip("dateTimeUtils", () => {
             expect(isTimeBetweenAzans(100, [1,2])).toBeFalsy();
 
             let salahPeriod = [
-                {azan: new Date("2016-02-29T13:00:00")},
-                {azan: new Date("2016-02-29T13:30:00")}
+                {azan: DateCreator.fromISO("2016-02-29T13:00:00")},
+                {azan: DateCreator.fromISO("2016-02-29T13:30:00")}
             ];
 
-            let currentTime = new Date("2016-02-29T13:15:00").getTime();
+            let currentTime = DateCreator.fromISO("2016-02-29T13:15:00").getTime();
             expect(isTimeBetweenAzans(currentTime, salahPeriod)).toBeTruthy();
             
-            currentTime = new Date("2016-02-29T12:45:00").getTime();
+            currentTime = DateCreator.fromISO("2016-02-29T12:45:00").getTime();
             expect(isTimeBetweenAzans(currentTime, salahPeriod)).toBeFalsy();
             
-            currentTime = new Date("2016-02-29T13:45:00").getTime();
+            currentTime = DateCreator.fromISO("2016-02-29T13:45:00").getTime();
             expect(isTimeBetweenAzans(currentTime, salahPeriod)).toBeFalsy();
         });
     });

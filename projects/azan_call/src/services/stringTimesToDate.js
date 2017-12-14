@@ -1,3 +1,4 @@
+let DateCreator = require("./date/DateCreator");
 
 module.exports = (salatTimeObject) => {
     if (!salatTimeObject) {
@@ -13,7 +14,7 @@ module.exports = (salatTimeObject) => {
     
     if (salatTimeObject.maghrib_athan) {
         let maghrib_iqama = new Date(salatTimeObject.maghrib_athan);
-        maghrib_iqama.setMinutes(maghrib_iqama.getMinutes() + 5);
+        maghrib_iqama.setMinutes(maghrib_iqama.getUTCMinutes() + 5);
         salatTimeObject.maghrib_iqama = maghrib_iqama;
     } else {
         salatTimeObject.maghrib_iqama = undefined;    
@@ -27,11 +28,11 @@ let stringToDate = (dateString) => {
     if (!dateString || dateString.length < 19) {
         return;
     }
-    let now = new Date();
-    let year = now.getFullYear();
-    let month = oneToTwoDigitsString(now.getMonth() + 1);
-    let date = oneToTwoDigitsString(now.getDate());
-    return new Date(`${year}-${month}-${date}T${dateString.substr(11, 19)}`);
+    let now = DateCreator.now();
+    let year = now.getUTCFullYear();
+    let month = oneToTwoDigitsString(now.getUTCMonth() + 1);
+    let date = oneToTwoDigitsString(now.getUTCDate());
+    return DateCreator.fromISO(`${year}-${month}-${date}T${dateString.substr(11, 19)}`);
 }
 
 let oneToTwoDigitsString = (num) => {

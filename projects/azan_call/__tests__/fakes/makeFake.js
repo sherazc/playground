@@ -1,13 +1,14 @@
 const CONSTANTS = require("../../src/services/Constants");
+const DateCreator = require("../../src/services/date/DateCreator");
 
 function makeFakeSalahs(TODAY_DATE_STR) {
     return [
-        {name: CONSTANTS.SALAH_NAMES[0], azan: new Date(TODAY_DATE_STR + "T06:00"), iqmah: new Date(TODAY_DATE_STR + "T06:30")},
-        {name: CONSTANTS.SALAH_NAMES[1], azan: new Date(TODAY_DATE_STR + "T13:00"), iqmah: new Date(TODAY_DATE_STR + "T13:30")},
-        {name: CONSTANTS.SALAH_NAMES[2], azan: new Date(TODAY_DATE_STR + "T17:00"), iqmah: new Date(TODAY_DATE_STR + "T17:30")},
-        {name: CONSTANTS.SALAH_NAMES[3], azan: new Date(TODAY_DATE_STR + "T19:00"), iqmah: new Date(TODAY_DATE_STR + "T19:05")}, // Maghrib Jamah 5 min
-        {name: CONSTANTS.SALAH_NAMES[4], azan: new Date(TODAY_DATE_STR + "T21:00"), iqmah: new Date(TODAY_DATE_STR + "T21:30")},
-        {name: CONSTANTS.SALAH_NAMES[5], time: new Date(TODAY_DATE_STR + "T08:00")},
+        {name: CONSTANTS.SALAH_NAMES[0], azan: DateCreator.fromISO(TODAY_DATE_STR + "T06:00"), iqmah: DateCreator.fromISO(TODAY_DATE_STR + "T06:30")},
+        {name: CONSTANTS.SALAH_NAMES[1], azan: DateCreator.fromISO(TODAY_DATE_STR + "T13:00"), iqmah: DateCreator.fromISO(TODAY_DATE_STR + "T13:30")},
+        {name: CONSTANTS.SALAH_NAMES[2], azan: DateCreator.fromISO(TODAY_DATE_STR + "T17:00"), iqmah: DateCreator.fromISO(TODAY_DATE_STR + "T17:30")},
+        {name: CONSTANTS.SALAH_NAMES[3], azan: DateCreator.fromISO(TODAY_DATE_STR + "T19:00"), iqmah: DateCreator.fromISO(TODAY_DATE_STR + "T19:05")}, // Maghrib Jamah 5 min
+        {name: CONSTANTS.SALAH_NAMES[4], azan: DateCreator.fromISO(TODAY_DATE_STR + "T21:00"), iqmah: DateCreator.fromISO(TODAY_DATE_STR + "T21:30")},
+        {name: CONSTANTS.SALAH_NAMES[5], time: DateCreator.fromISO(TODAY_DATE_STR + "T08:00")},
     ];
 }
 

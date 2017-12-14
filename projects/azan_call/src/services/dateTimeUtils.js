@@ -3,7 +3,7 @@ let addDays = (date, days) => {
         return;
     }
     let calculatedDate = new Date(date.valueOf());
-    calculatedDate.setDate(date.getDate() + days);
+    calculatedDate.setDate(date.getUTCDate() + days);
     return calculatedDate;
 }
 
@@ -12,7 +12,7 @@ let addMinutes = (date, minutes) => {
         return;
     }
     let calculatedDate = new Date(date.valueOf());
-    calculatedDate.setMinutes(date.getMinutes() + minutes);
+    calculatedDate.setMinutes(date.getUTCMinutes() + minutes);
     return calculatedDate;
 }
 
@@ -40,11 +40,6 @@ let isTimeBetweenAzans = (time, salahPeriod) => {
 
     return time > salahPeriod[0].azan.getTime() 
         && time < salahPeriod[1].azan.getTime()
-}
-
-let getNow = () => {
-    let now = new Date();
-    return now;
 }
 
 module.exports = {addDays, addMinutes, msToTime, isTimeBetweenAzans};

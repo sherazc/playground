@@ -1,4 +1,5 @@
 let getCurrentSalahPeriod = require("../src/services/getCurrentSalahPeriod");
+let DateCreator = require("../src/services/date/DateCreator");
 
 let makeFakeSalahs = require("./fakes/makeFake").makeFakeSalahs;
 // TODO: create mocks of addDays() and makeSalahObject
@@ -13,23 +14,25 @@ describe("getCurrentSalahPeriod", () => {
         // Setup
         let fakeSalahs = makeFakeSalahs(TODAY_DATE_STR);
         // Call and Assert
-        assertTimeBetween(new Date(TODAY_DATE_STR + "T07:00"), fakeSalahs);
-        assertTimeBetween(new Date(TODAY_DATE_STR + "T14:00"), fakeSalahs);
-        assertTimeBetween(new Date(TODAY_DATE_STR + "T18:00"), fakeSalahs);
-        assertTimeBetween(new Date(TODAY_DATE_STR + "T20:00"), fakeSalahs);
+        assertTimeBetween(DateCreator.fromISO(TODAY_DATE_STR + "T07:00"), fakeSalahs);
+        assertTimeBetween(DateCreator.fromISO(TODAY_DATE_STR + "T14:00"), fakeSalahs);
+        assertTimeBetween(DateCreator.fromISO(TODAY_DATE_STR + "T18:00"), fakeSalahs);
+        assertTimeBetween(DateCreator.fromISO(TODAY_DATE_STR + "T20:00"), fakeSalahs);
     });
 
     it("now time before fajar", () => {
         // Setup
         let getCurrentSalahPeriod_local = require("../src/services/getCurrentSalahPeriod");
-        let now = new Date(TODAY_DATE_STR + "T04:00");
+        let now = DateCreator.fromISO(TODAY_DATE_STR + "T04:00");
         let fakeSalahs = makeFakeSalahs(TODAY_DATE_STR);
-        let yesterday = new Date(TODAY_DATE_STR + "T00:00");
-        yesterday.setDate(yesterday.getDate() - 1);
+        let yesterday = DateCreator.fromISO(TODAY_DATE_STR + "T00:00");
+        yesterday.setDate(yesterday.getUTCDate() - 1);
 
         // Call
         let salahPeriod = getCurrentSalahPeriod_local(now.getTime(), fakeSalahs);
-
+        console.log(now.toISOString());
+        console.log(now.toISOString());
+        console.log(now.toLocaleDateString());
         // Assert
         expect(salahPeriod[0].azan.getTime()).toBeLessThan(now.getTime());
         expect(salahPeriod[1].azan.getTime()).toBeGreaterThan(now.getTime());
@@ -41,10 +44,10 @@ describe("getCurrentSalahPeriod", () => {
     it("now time after isha", () => {
         // Setup
         let getCurrentSalahPeriod_local = require("../src/services/getCurrentSalahPeriod");
-        let now = new Date(TODAY_DATE_STR + "T22:00");
+        let now = DateCreator.fromISO(TODAY_DATE_STR + "T22:00");
         let fakeSalahs = makeFakeSalahs(TODAY_DATE_STR);
-        let tomorrow = new Date(TODAY_DATE_STR + "T00:00");
-        tomorrow.setDate(tomorrow.getDate() + 1);
+        let tomorrow = DateCreator.fromISO(TODAY_DATE_STR + "T00:00");
+        tomorrow.setDate(tomorrow.getUTCDate() + 1);
         
         // Call
         let salahPeriod = getCurrentSalahPeriod_local(now.getTime(), fakeSalahs);
