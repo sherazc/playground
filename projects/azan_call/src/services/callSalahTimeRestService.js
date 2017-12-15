@@ -6,6 +6,7 @@ let callSalahTimeRestService = (serviceUrl, successCallBack, errorCallBack) => {
     fetch(serviceUrl)
         .then((response) => response.json(), errorHandler)
         .then((salatTimeObject) => {
+            console.log(salatTimeObject)
             successCallBack(salatTimeObject);
         }, errorHandler)
         .catch(errorHandler);

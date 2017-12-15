@@ -1,21 +1,12 @@
 let Constants = require("../src/services/Constants");
 let callSalahTimeRestService = require("../src/services/callSalahTimeRestService");
-//require('whatwg-fetch');
-// import 'whatwg-fetch';
-/*
-callSalahTimeRestService(Constants.SERVICE_URL, 
-    (salahTimeObject) => {
-        done();
-    },
-    (error) => {
-        done();
-    }
-);
-*/
+let makeFakeSalatTime = require("./fakes/makeFake").makeFakeSalatTime;
 
-describe.skip("callSalahTimeRestService", () => {
+describe("callSalahTimeRestService", () => {
+    beforeEach(() => {
+        global.fetch = jest.fn(mockFetchImpl);
+    });
     it("working", (done) => {
-         
         callSalahTimeRestService(Constants.SERVICE_URL, 
             (salahTimeObject) => {
                 done();
@@ -26,3 +17,15 @@ describe.skip("callSalahTimeRestService", () => {
         );
     })
 });
+
+let mockFetchImpl = () => {
+    let fetchPromise = new Promise((resolve, reject) => {
+
+        // 
+        let response = {
+            json: () => JSON.stringify(makeFakeSalatTime())
+        }
+        resolve(response);
+    });
+    return fetchPromise;
+};
