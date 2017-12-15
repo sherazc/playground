@@ -1,5 +1,6 @@
 let getCurrentSalahPeriod = require("../src/services/getCurrentSalahPeriod");
 let DateCreator = require("../src/services/date/DateCreator");
+const {toISODateString} = require("../src/services/date/dateTimeUtils");
 
 let makeFakeSalahs = require("./fakes/makeFake").makeFakeSalahs;
 // TODO: create mocks of addDays() and makeSalahObject
@@ -26,20 +27,19 @@ describe("getCurrentSalahPeriod", () => {
         let now = DateCreator.fromISO(TODAY_DATE_STR + "T04:00");
         let fakeSalahs = makeFakeSalahs(TODAY_DATE_STR);
         let yesterday = DateCreator.fromISO(TODAY_DATE_STR + "T00:00");
-        yesterday.setDate(yesterday.getUTCDate() - 1);
+        yesterday.setUTCDate(yesterday.getUTCDate() - 1);
 
         // Call
         let salahPeriod = getCurrentSalahPeriod_local(now.getTime(), fakeSalahs);
-        
-        console.log(now.toISOString());
+
         // Assert
         expect(salahPeriod[0].azan.getTime()).toBeLessThan(now.getTime());
         expect(salahPeriod[1].azan.getTime()).toBeGreaterThan(now.getTime());
         // Asserting yesterday's isha
         // NOTE to fix this unit test. Change both toISODateString()
-        expect(salahPeriod[0].azan.toLocaleDateString()).toBe(yesterday.toLocaleDateString());
+        expect(toISODateString(salahPeriod[0].azan)).toBe(toISODateString(yesterday));
         
-        expect(salahPeriod[1].azan.toLocaleDateString()).toBe(now.toLocaleDateString());
+        expect(toISODateString(salahPeriod[1].azan)).toBe(toISODateString(now));
     });
 
     it("now time after isha", () => {
@@ -48,7 +48,7 @@ describe("getCurrentSalahPeriod", () => {
         let now = DateCreator.fromISO(TODAY_DATE_STR + "T22:00");
         let fakeSalahs = makeFakeSalahs(TODAY_DATE_STR);
         let tomorrow = DateCreator.fromISO(TODAY_DATE_STR + "T00:00");
-        tomorrow.setDate(tomorrow.getUTCDate() + 1);
+        tomorrow.setUTCDate(tomorrow.getUTCDate() + 1);
         
         // Call
         let salahPeriod = getCurrentSalahPeriod_local(now.getTime(), fakeSalahs);
@@ -56,20 +56,19 @@ describe("getCurrentSalahPeriod", () => {
         // Assert
         expect(salahPeriod[0].azan.getTime()).toBeLessThan(now.getTime());
         expect(salahPeriod[1].azan.getTime()).toBeGreaterThan(now.getTime());
-        expect(salahPeriod[0].azan.toLocaleDateString()).toBe(now.toLocaleDateString());
+        expect(toISODateString(salahPeriod[0].azan)).toBe(toISODateString(now));
         // Asserting tomorrow's fajar
-        expect(salahPeriod[1].azan.toLocaleDateString()).toBe(tomorrow.toLocaleDateString());
+        expect(toISODateString(salahPeriod[1].azan)).toBe(toISODateString(tomorrow));
     });
 });
 
 function assertTimeBetween(now, salahTimes) {
     // Call
     let salahPeriod = getCurrentSalahPeriod(now.getTime(), salahTimes);
-    //console.log(salahPeriod)
     // Verify
     expect(salahPeriod[0].azan.getTime()).toBeLessThan(now.getTime());
     expect(salahPeriod[1].azan.getTime()).toBeGreaterThan(now.getTime());
-    expect(salahPeriod[0].azan.toLocaleDateString()).toBe(now.toLocaleDateString());
-    expect(salahPeriod[1].azan.toLocaleDateString()).toBe(now.toLocaleDateString());
+    expect(toISODateString(salahPeriod[0].azan)).toBe(toISODateString(now));
+    expect(toISODateString(salahPeriod[1].azan)).toBe(toISODateString(now));
 }
 

@@ -3,7 +3,7 @@ let addDays = (date, days) => {
         return;
     }
     let calculatedDate = new Date(date.valueOf());
-    calculatedDate.setDate(date.getUTCDate() + days);
+    calculatedDate.setUTCDate(date.getUTCDate() + days);
     return calculatedDate;
 }
 
@@ -42,4 +42,12 @@ let isTimeBetweenAzans = (time, salahPeriod) => {
         && time < salahPeriod[1].azan.getTime()
 }
 
-module.exports = {addDays, addMinutes, msToTime, isTimeBetweenAzans};
+let toISODateString = (date) => {
+    if (!date) {
+        return;
+    }
+    let isoString = date.toISOString();
+    return isoString.substring(0, 10);
+};
+
+module.exports = {addDays, addMinutes, msToTime, isTimeBetweenAzans, toISODateString};

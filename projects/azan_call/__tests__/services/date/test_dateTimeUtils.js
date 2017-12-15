@@ -1,7 +1,7 @@
-const {addDays, addMinutes, msToTime, isTimeBetweenAzans} = require("../src/services/date/dateTimeUtils");
+const {addDays, addMinutes, msToTime, isTimeBetweenAzans, toISODateString} = require("../../../src/services/date/dateTimeUtils");
+const DateCreator = require("../../../src/services/date/DateCreator");
 
-
-describe.skip("dateTimeUtils", () => {
+describe("dateTimeUtils", () => {
     const date = DateCreator.fromISO("2017-11-13T13:34:50");
     describe("addDays", () => {
         it("handle undefined", () => {
@@ -143,6 +143,20 @@ describe.skip("dateTimeUtils", () => {
             
             currentTime = DateCreator.fromISO("2016-02-29T13:45:00").getTime();
             expect(isTimeBetweenAzans(currentTime, salahPeriod)).toBeFalsy();
+        });
+    });
+    
+    describe("toISODateString", () => {
+        it("Handle invalid arguments", () => {
+            expect(toISODateString()).toBeFalsy();
+            // expect(toISODateString("X")).toBeFalsy();
+            // expect(toISODateString(new Date("X"))).toBeFalsy();
+        });
+
+        it("able to convert Date to ISO date String", () => {
+            const date = DateCreator.fromISO("2017-11-13T13:34:50");
+            const isoDateString = toISODateString(date);
+            expect(isoDateString).toBe("2017-11-13");
         });
     });
 });

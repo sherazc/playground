@@ -17,12 +17,7 @@ const processSalahs = (now, salahs, azanCalledDateTime) => {
     let azanCalled = isAzanCalled(azanCalledDateTime, salahPeriod);
     let salahDone = isSalahDone(now, salahPeriod, azanCalled);
     let salahInProgress = isSalahInProgress(now, salahPeriod, azanCalled);
-/* 
-    console.log("now=", now.toLocaleString());
-    console.log("azanCalledDateTime=", azanCalledDateTime ? azanCalledDateTime.toLocaleString() : "");
-    console.log(salahPeriodToString(salahPeriod));
-    console.log(`azanCalled=${azanCalled}, salahDone=${salahDone}, salahInProgress=${salahInProgress}`);
- */
+
     if (!azanCalled) {
         result.mainMessage = `${salahPeriod[0].name} azan not called`;
     } else if(azanCalled && !salahDone && !salahInProgress) {
@@ -36,8 +31,8 @@ const processSalahs = (now, salahs, azanCalledDateTime) => {
 }
 
 let salahPeriodToString = (salahPeriod) => {
-    return `Current ${salahPeriod[0].name}: azan: ${salahPeriod[0].azan.toLocaleString()}, iqamah: ${salahPeriod[0].iqmah.toLocaleString()}
-Next ${salahPeriod[1].name}: azan: ${salahPeriod[1].azan.toLocaleString()}, iqamah: ${salahPeriod[1].iqmah.toLocaleString()}`;
+    return `Current ${salahPeriod[0].name}: azan: ${salahPeriod[0].azan.toISOString()}, iqamah: ${salahPeriod[0].iqmah.toISOString()}
+Next ${salahPeriod[1].name}: azan: ${salahPeriod[1].azan.toISOString()}, iqamah: ${salahPeriod[1].iqmah.toISOString()}`;
 }
 
 let isAzanCalled = (azanCalledDateTime, salahPeriod) =>  {

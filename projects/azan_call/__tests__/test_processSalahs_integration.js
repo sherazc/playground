@@ -96,7 +96,7 @@ describe("processSalahs", () => {
         let now = DateCreator.fromISO(TODAY_DATE_STR + "T00:05");
 
         let azanCalledDateTime = DateCreator.fromISO(TODAY_DATE_STR + "T21:05");
-        azanCalledDateTime.setDate(azanCalledDateTime.getUTCDate() -1)
+        azanCalledDateTime.setUTCDate(azanCalledDateTime.getUTCDate() -1)
 
         // Call
         let result = processSalahs(now, fakeSalahs, azanCalledDateTime);
@@ -110,7 +110,7 @@ describe("processSalahs", () => {
         let now = DateCreator.fromISO(TODAY_DATE_STR + "T00:05");
 
         let azanCalledDateTime = DateCreator.fromISO(TODAY_DATE_STR + "T19:00");
-        azanCalledDateTime.setDate(azanCalledDateTime.getUTCDate() -1)
+        azanCalledDateTime.setUTCDate(azanCalledDateTime.getUTCDate() -1)
 
         // Call
         let result = processSalahs(now, fakeSalahs, azanCalledDateTime);
