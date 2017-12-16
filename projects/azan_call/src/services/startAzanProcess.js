@@ -30,7 +30,11 @@ const startAzanProcess = (success, error, getAzanCalledDateTime) => {
 
 const successfullyReterivedData = (salahTimeObject) => {
     let salahTimeObjectWithDates = stringTimesToDate(salahTimeObject);
-    Constants.SALAH_NAMES
+    if (!validateSalahTime(salahTimeObjectWithDates)) {
+        console.error("Salah time validation failed. salahTimeObjectWithDates=", salahTimeObjectWithDates);
+        return;
+    }
+
     let salahsArray = [
         makeSalahObject(Constants.SALAH_NAMES[0], salahTimeObjectWithDates.fajr_athan, salahTimeObjectWithDates.fajr_iqama),
         makeSalahObject(Constants.SALAH_NAMES[1], salahTimeObjectWithDates.thuhr_athan,salahTimeObjectWithDates.thuhr_iqama),
@@ -52,6 +56,25 @@ const successfullyReterivedData = (salahTimeObject) => {
 const failedToReterivedData = (error) => {
     console.log("error occured", error)
 };
+
+const validateSalahTime = (todaySalatTime) => {
+    let allDatesAvailable = todaySalatTime.fajr_athan
+        && todaySalatTime.fajr_iqama
+        && todaySalatTime.thuhr_athan
+        && todaySalatTime.thuhr_iqama
+        && todaySalatTime.asr_athan
+        && todaySalatTime.asr_iqama
+        && todaySalatTime.maghrib_athan
+        && todaySalatTime.maghrib_iqama
+        && todaySalatTime.isha_athan
+        && todaySalatTime.isha_iqama;
+    
+        // TODO: test ranges and instance of Date
+        // TODO: test if all todaySalatTime are today's salah and iqmah time
+        // maybe do it when fetching time from service and test if it is today's month and date
+
+    return allDatesAvailable;
+}
 
 
 /*

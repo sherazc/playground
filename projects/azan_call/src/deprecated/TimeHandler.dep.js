@@ -1,3 +1,4 @@
+// Deprecated
 import ScreenBuilder, { styles } from "../ui/ScreenBuilder";
 
 let screenBuilder = new ScreenBuilder();
