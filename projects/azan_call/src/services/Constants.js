@@ -7,4 +7,6 @@ module.exports = {
     SALAH_DURATION_MIN,
     MAGHRIB_LIMIT_MIN,
     SERVICE_URL: 'http://dashboard.masjidhamzah.com/salat_time.php',
+    FETCH_SALAH_TIME_INTERVAL_MILLIS: 30 * 60 * 1000,
+    UPDATE_UI_INTERVAL_MILLIS: 1000,
 }
