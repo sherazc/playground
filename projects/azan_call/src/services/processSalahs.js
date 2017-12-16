@@ -13,7 +13,6 @@ const processSalahs = (now, salahs, azanCalledDateTime) => {
     }
 
     let salahPeriod = getCurrentSalahPeriod(now, salahs);
-
     let azanCalled = isAzanCalled(azanCalledDateTime, salahPeriod);
     let salahDone = isSalahDone(now, salahPeriod, azanCalled);
     let salahInProgress = isSalahInProgress(now, salahPeriod, azanCalled);

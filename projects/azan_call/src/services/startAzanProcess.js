@@ -3,21 +3,22 @@ const Constants = require("./Constants");
 const stringTimesToDate = require("./stringTimesToDate");
 const processSalahs = require("./processSalahs");
 const DateCreator = require("./date/DateCreator");
+const makeSalahObject = require("./commonUtils").makeSalahObject;
 
 // Update UI methods
-let successUpdateUi;
-let errorUpdateUi;
+let updateAzanMessageInUi;
 let getAzanCalledDateTimeUi;
 
 // Update intervals
 let fetchSalahTimeInterval;
 let updateUiInterval;
 
-const startAzanProcess = (success, error, getAzanCalledDateTime) => {
+const startAzanProcess = (updateAzanMessage, getAzanCalledDateTime) => {
     // save UI update method reference
-    successUpdateUi = success;
-    errorUpdateUi = error;
+    updateAzanMessageInUi = updateAzanMessage;
     getAzanCalledDateTimeUi = getAzanCalledDateTime;
+
+    callSalahTimeRestService(Constants.SERVICE_URL, successfullyReterivedData, failedToReterivedData);
 
     fetchSalahTimeInterval = setInterval(() => {
         if (updateUiInterval) {
@@ -44,10 +45,11 @@ const successfullyReterivedData = (salahTimeObject) => {
     ];
 
     updateUiInterval = setInterval(() => {
-        let azanCalledDateTime = getAzanCalledDateTime();
-        let uiMessageResult = processSalahs(DateCreator.now(), salahsArray, azanCalledDateTime);
+        let azanCalledDateTime = getAzanCalledDateTimeUi();
+        let now = DateCreator.now();
+        let uiMessageResult = processSalahs(now, salahsArray, azanCalledDateTime);
         // TODO: handle if error occurs
-        successUpdateUi(uiMessageResult);
+        updateAzanMessageInUi(uiMessageResult);
 
     }, Constants.UPDATE_UI_INTERVAL_MILLIS);
 
@@ -76,6 +78,7 @@ const validateSalahTime = (todaySalatTime) => {
     return allDatesAvailable;
 }
 
+module.exports = startAzanProcess;
 
 /*
 TODO: 

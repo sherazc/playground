@@ -5,7 +5,8 @@ let callSalahTimeRestService = (serviceUrl, successCallBack, errorCallBack) => {
     };
 
     fetch(serviceUrl)
-        .then((response) => successCallBack(response), errorHandler)
+        .then((response) => response.json(), errorHandler)
+        .then((responseJsonBody) => successCallBack(responseJsonBody))
         .catch(errorHandler);
     /*
     fetch(serviceUrl)

@@ -2,7 +2,7 @@ let Constants = require("../src/services/Constants");
 let callSalahTimeRestService = require("../src/services/callSalahTimeRestService");
 let makeFakeSalatTime = require("./fakes/makeFake").makeFakeSalatTime;
 
-describe("callSalahTimeRestService", () => {
+describe.skip("callSalahTimeRestService", () => {
     beforeEach(() => {
         global.fetch = jest.fn(mockFetchImpl);
     });

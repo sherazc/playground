@@ -1,5 +1,14 @@
 let now = () => {
-    return new Date(Date.now());
+    let systemNow = new Date();
+    let utcMillis = Date.UTC(
+        systemNow.getFullYear(), 
+        systemNow.getMonth(), 
+        systemNow.getDate(), 
+        systemNow.getHours(), 
+        systemNow.getMinutes(), 
+        systemNow.getSeconds(), 
+        systemNow.getMilliseconds());
+    return new Date(utcMillis);
 }
 
 let fromISO = (isoDateString) => {
