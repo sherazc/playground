@@ -10,6 +10,7 @@ import Alert from "./ui/Alert";
 let mainStyles = require("./ui/MainStyles").mainStyles;
 let DateCreator = require("./services/date/DateCreator");
 let startAzanProcess = require("./services/startAzanProcess");
+const Constants = require("./services/Constants");
 
 export default class Main extends Component {
     constructor(props) {
@@ -18,6 +19,7 @@ export default class Main extends Component {
             mainMessage: "Loading...",
             subMessage: "",
             azanCalledDateTime: null,
+            alert: Constants.ALERT_BLACK
         };
     }
 
@@ -36,6 +38,7 @@ export default class Main extends Component {
         this.setState({
             mainMessage: uiMessageResult.mainMessage,
             subMessage: uiMessageResult.subMessage,
+            alert: uiMessageResult.alert
         });
     }
 
@@ -49,8 +52,23 @@ export default class Main extends Component {
     }
 
     render() {
+
+        let backgroundStyle = mainStyles.screenDark;
+        switch(this.state.alert) {
+            case Constants.ALERT_BLACK:
+                backgroundStyle = mainStyles.screenDark;
+                break;
+            case Constants.ALERT_RED:
+                backgroundStyle = mainStyles.screenRed;
+                break;
+            case Constants.ALERT_GREEN:
+                backgroundStyle = mainStyles.screenGreen;
+                break;
+            default:
+        }
+
         return (
-            <TouchableHighlight onPress={this.mainTapped.bind(this)} style={mainStyles.screenRed}>
+            <TouchableHighlight onPress={this.mainTapped.bind(this)} style={backgroundStyle}>
                 <View>
                     <TouchableHighlight onPress={this.settings}>
                         <Text style={mainStyles.textLight}>

@@ -9,4 +9,7 @@ module.exports = {
     SERVICE_URL: 'http://dashboard.masjidhamzah.com/salat_time.php',
     FETCH_SALAH_TIME_INTERVAL_MILLIS: 30 * 60 * 1000,
     UPDATE_UI_INTERVAL_MILLIS: 1000,
+    ALERT_RED: "ALERT_RED",
+    ALERT_GREEN: "ALERT_GREEN",
+    ALERT_BLACK: "ALERT_BLACK",
 }

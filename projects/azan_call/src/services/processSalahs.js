@@ -1,12 +1,13 @@
 const getCurrentSalahPeriod = require("./getCurrentSalahPeriod");
 const Constants = require("./Constants");
-const isTimeBetweenAzans = require("./date/dateTimeUtils").isTimeBetweenAzans;
+const {isTimeBetweenAzans, msToTime} = require("./date/dateTimeUtils");
 let addDays = require("./date/dateTimeUtils").addDays;
 
 const processSalahs = (now, salahs, azanCalledDateTime) => {
     let result = {
         mainMessage: "",
-        subMessage: ""
+        subMessage: "",
+        alert: Constants.ALERT_BLACK
     }
     if (!now || !salahs) {
         return result;
@@ -19,12 +20,20 @@ const processSalahs = (now, salahs, azanCalledDateTime) => {
 
     if (!azanCalled) {
         result.mainMessage = `${salahPeriod[0].name} azan not called`;
+        result.subMessage = `for ${msToTime(now.getTime() - salahPeriod[0].azan.getTime())}`;
+        result.alert = Constants.ALERT_RED;
     } else if(azanCalled && !salahDone && !salahInProgress) {
         result.mainMessage = `${salahPeriod[0].name} azan called`;
+        result.subMessage = `Salah begins in ${msToTime(salahPeriod[0].iqmah.getTime() - now.getTime())}`;
+        result.alert = Constants.ALERT_GREEN;
     } else if (salahInProgress) {
         result.mainMessage = `${salahPeriod[0].name} in progress`;
+        result.subMessage = `for ${msToTime(salahPeriod[0].iqmah.getTime() + Constants.SALAH_DURATION_MILLIS - now.getTime())}`;
+        result.alert = Constants.ALERT_BLACK;
     } else if (salahDone) {
         result.mainMessage = `Next salah: ${salahPeriod[1].name}`;
+        result.subMessage = `In ${msToTime(salahPeriod[1].azan.getTime() - now.getTime())}`;
+        result.alert = Constants.ALERT_BLACK;
     }
     return result;
 }
