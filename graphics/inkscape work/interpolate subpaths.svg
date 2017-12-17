@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 744.09448819 1052.3622047"
+   id="svg4167"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="interpolate subpaths.svg">
+  <defs
+     id="defs4169">
+    <inkscape:path-effect
+       effect="interpolate"
+       id="path-effect4182"
+       is_visible="true"
+       trajectory="m 533.28535,525.54406 -430.72471,0.63702"
+       equidistant_spacing="true"
+       steps="12"
+       trajectory-nodetypes="cc" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.78490086"
+     inkscape:cx="372.04724"
+     inkscape:cy="526.1811"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1019"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata4172">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="path4179"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 526.18111,321.05963 c 0,0 88.97117,112.81706 84.08705,178.36648 -6.87033,92.20618 -154.1596,230.60237 -154.1596,230.60237 m 34.86255,-408.38973 c 0,0 72.78694,112.89557 68.3352,178.59812 C 553.04666,591.36441 428.77448,729.5652 428.77448,729.5652 M 455.7611,322.21786 c 0,0 56.60273,112.97408 52.58336,178.82977 -5.64898,90.04889 -106.90406,228.05428 -106.90406,228.05428 m 19.11069,-406.30494 c 0,0 40.41851,113.05259 36.83152,179.06141 -5.0383,88.97026 -83.2763,226.78024 -83.2763,226.78024 m 11.23478,-405.26254 c 0,0 24.23428,113.1311 21.07967,179.29306 -4.42763,87.89161 -59.64853,225.50619 -59.64853,225.50619 m 3.35885,-404.22014 c 0,0 8.05006,113.20961 5.32783,179.5247 -3.81695,86.81298 -36.02077,224.23215 -36.02077,224.23215 M 314.92107,324.5343 c 0,0 -8.13416,113.28812 -10.42401,179.75635 -3.20628,85.73434 -12.393,222.9581 -12.393,222.9581 M 279.71107,325.11341 c 0,0 -24.31839,113.36663 -26.17586,179.988 -2.59561,84.65569 11.23477,221.68405 11.23477,221.68405 M 244.50106,325.69253 c 0,0 -40.50261,113.44513 -41.9277,180.21963 -1.98493,83.57705 34.86253,220.41001 34.86253,220.41001 M 209.29105,326.27164 c 0,0 -56.68683,113.52364 -57.67954,180.45128 -1.37426,82.49841 58.4903,219.13596 58.4903,219.13596 M 174.08105,326.85075 c 0,0 -72.87106,113.60215 -73.43139,180.68292 -0.763583,81.41977 82.11806,217.86192 82.11806,217.86192 M 138.87104,327.42986 c 0,0 -89.055277,113.68066 -89.183235,180.91457 C 49.534902,588.68556 155.43364,724.9323 155.43364,724.9323"
+       inkscape:path-effect="#path-effect4182"
+       inkscape:original-d="m 510.89255,337.62223 c 0,0 88.97117,112.81706 84.08705,178.36648 C 588.10927,608.19489 440.82,746.59108 440.82,746.59108 M 138.87104,327.42986 c 0,0 -89.055278,113.68066 -89.183236,180.91457 C 49.534901,588.68556 155.43364,724.9323 155.43364,724.9323" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:99.1116333px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="147.65097"
+       y="114.56573"
+       id="text4184"
+       sodipodi:linespacing="125%"
+       transform="scale(0.48804732,2.0489816)"><tspan
+         sodipodi:role="line"
+         id="tspan4186"
+         x="147.65097"
+         y="114.56573">Interpolate Sub-Paths</tspan></text>
+  </g>
+</svg>
