@@ -14,18 +14,19 @@ import Main from "./src/Main";
 export default class azan_call extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Main/>
-      </View>
+        <View style={styles.container}>
+          <Main/>
+        </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
+    // marginTop: 20, //space for time on top
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    //justifyContent: 'center',
+    //alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
 });

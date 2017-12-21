@@ -4,7 +4,8 @@ import {
     Text,
     TouchableHighlight,
     View,
-    Dimensions
+    Dimensions,
+    Image
 } from 'react-native';
 
 import Alert from "./ui/Alert";
@@ -66,18 +67,69 @@ export default class Main extends Component {
 
         console.log(orientationDetector.orientation);
         console.log(this.state.azanSalahStatus, new Date());
+        let style = portraitStyle;
+        if (orientationDetector.orientation == ORIENTATION.LANDSCAPE) {
+            style = landscapeStyle;
+        }
+
         return (
             <TouchableHighlight onLayout={orientationDetector.detectOrientation.bind(orientationDetector)}
-                onPress={this.mainTapped.bind(this)} style={backgroundStyle}>
+                                style={[style.parent]}
+                                onPress={this.mainTapped.bind(this)}>
+
                 <View>
-                    <Text style={mainStyles.textExtraLargeLight}>
-                        {this.state.mainMessage}
-                    </Text>
-                    <Text style={mainStyles.textLight}>
-                        {this.state.subMessage}
-                    </Text>
+                    <View style={[style.child, {backgroundColor: "#af12ea"}]}>
+                        <Image source={require("./ui/images/azan_called.png")}
+                               style={{width: 100, height: 100}}/>
+                    </View>
+                    <View style={[style.child, {backgroundColor: "#afa8ea"}]}>
+                        <Text>
+                            {this.state.mainMessage}
+                        </Text>
+                        <Text>
+                            {this.state.subMessage}
+                        </Text>
+
+                    </View>
                 </View>
             </TouchableHighlight>
         );
     }
 }
+
+let landscapeStyle = StyleSheet.create({
+    parent: {
+        flex: 1,
+        flexDirection: 'row',
+        //flexWrap: 'wrap',
+        width: "100%",
+        backgroundColor: "#F599FF",
+    },
+    child: {
+        width: "100%",
+        //height: '100%',
+        flex: 1,
+        //aspectRatio: 1,
+        padding: 10,
+        //margin: 10,
+    }
+});
+
+let portraitStyle = StyleSheet.create({
+    parent: {
+        flex: 1,
+        flexDirection: 'column',
+        //flexWrap: 'wrap'
+    },
+    child: {
+        width: "100%",
+        height: '50%',
+
+        //aspectRatio: 1,
+        padding: 10,
+        //margin: 10,
+    }
+});
+
+//let style = portraitStyle;
+//let style = landscapeStyle;
