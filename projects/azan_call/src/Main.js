@@ -24,6 +24,7 @@ export default class Main extends Component {
             subMessage: "",
             azanCalledDateTime: null,
             alert: Constants.ALERT_BLACK,
+            azanSalahStatus: Constants.AZAN_SALAH_STATUS.AZAN_NOT_CALLED
         };
     }
 
@@ -39,7 +40,8 @@ export default class Main extends Component {
         this.setState({
             mainMessage: uiMessageResult.mainMessage,
             subMessage: uiMessageResult.subMessage,
-            alert: uiMessageResult.alert
+            alert: uiMessageResult.alert,
+            azanSalahStatus: uiMessageResult.azanSalahStatus
         });
     }
 
@@ -63,6 +65,7 @@ export default class Main extends Component {
         }
 
         console.log(orientationDetector.orientation);
+        console.log(this.state.azanSalahStatus, new Date());
         return (
             <TouchableHighlight onLayout={orientationDetector.detectOrientation.bind(orientationDetector)}
                 onPress={this.mainTapped.bind(this)} style={backgroundStyle}>

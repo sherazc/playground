@@ -76,7 +76,7 @@ const validateSalahTime = (todaySalatTime) => {
         // maybe do it when fetching time from service and test if it is today's month and date
 
     return allDatesAvailable;
-}
+};
 
 module.exports = startAzanProcess;
 

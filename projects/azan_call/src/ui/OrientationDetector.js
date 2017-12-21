@@ -5,10 +5,7 @@ import {
 const ORIENTATION = {PORTRAIT: "PORTRAIT", LANDSCAPE: "LANDSCAPE"};
 
 class OrientationDetector {
-
-    constructor() {
-        this.orientation = "";
-    }
+    orientation = "";
 
     detectOrientation(event) {
         const {width, height} = Dimensions.get('window');
