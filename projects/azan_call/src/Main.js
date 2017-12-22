@@ -35,6 +35,10 @@ export default class Main extends Component {
         this.setState({azanCalledDateTime: DateCreator.now()});
     }
 
+    undoAzanTime() {
+        this.setState({azanCalledDateTime: null});
+    }
+
     updateOrientation() {
         const {width, height} = Dimensions.get('window');
         this.setState({orientationStyle: width > height ? landscapeStyle : portraitStyle});
@@ -54,12 +58,28 @@ export default class Main extends Component {
     }
 
     render() {
+        let azanSalahImage = require("./ui/images/azan_called.png");
+        switch(this.state.azanSalahStatus) {
+            case Constants.AZAN_SALAH_STATUS.AZAN_NOT_CALLED:
+                azanSalahImage = require("./ui/images/azan_not_called.png");
+                break;
+            case Constants.AZAN_SALAH_STATUS.AZAN_CALLED:
+                azanSalahImage = require("./ui/images/azan_called.png");
+                break;
+            case Constants.AZAN_SALAH_STATUS.SALAH_IN_PROGRESS:
+                azanSalahImage = require("./ui/images/salah_in_progress_b.png");
+                break;
+            case Constants.AZAN_SALAH_STATUS.SALAH_DONE:
+                azanSalahImage = require("./ui/images/next_salah.png");
+                break;
+        }
+
+
         return (
             <TouchableHighlight style={[styles.wrapper]} onPress={this.mainTapped.bind(this)}>
                 <View style={[this.state.orientationStyle.container]} onLayout={this.updateOrientation.bind(this)}>
-                    <View style={[this.state.orientationStyle.box, {backgroundColor: "#af12ea"}]}>
-                        <Image source={require("./ui/images/azan_called.png")}
-                               style={{width: 100, height: 100}}/>
+                    <View style={[this.state.orientationStyle.box, {backgroundColor: "#af12ea", }]}>
+                        <Image source={azanSalahImage} style={{resizeMode: "contain"}}/>
                     </View>
                     <View style={[this.state.orientationStyle.box, {backgroundColor: "#afa8ea"}]}>
                         <Text>
@@ -68,6 +88,9 @@ export default class Main extends Component {
                         <Text>
                             {this.state.subMessage}
                         </Text>
+                        <TouchableHighlight onPress={this.undoAzanTime.bind(this)}>
+                            <Image source={require("./ui/images/undo.png")} style={{width: 50, resizeMode: "contain"}}/>
+                        </TouchableHighlight>
                     </View>
                 </View>
             </TouchableHighlight>

@@ -14,7 +14,8 @@ const landscapeStyle = StyleSheet.create({
         justifyContent: 'flex-start',
     },
     box: {
-        flex: 1
+        flex: 1,
+        padding: 20, alignItems: "center", justifyContent: "center",
     }
 });
 
@@ -25,7 +26,8 @@ const portraitStyle = StyleSheet.create({
         justifyContent: 'flex-start',
     },
     box: {
-        flex: 1
+        flex: 1,
+        padding: 20, alignItems: "center", justifyContent: "center",
     }
 });
 
