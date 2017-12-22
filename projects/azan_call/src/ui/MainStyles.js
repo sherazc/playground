@@ -1,4 +1,34 @@
-let StyleSheet = require("react-native").StyleSheet;
+const StyleSheet = require("react-native").StyleSheet;
+
+
+const styles = StyleSheet.create({
+    wrapper: {
+        flex: 1,
+    }
+});
+
+const landscapeStyle = StyleSheet.create({
+    container: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+    },
+    box: {
+        flex: 1
+    }
+});
+
+const portraitStyle = StyleSheet.create({
+    container: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+    },
+    box: {
+        flex: 1
+    }
+});
+
 
 const mainStyles = StyleSheet.create({
     container: {
@@ -54,4 +84,4 @@ const mainStyles = StyleSheet.create({
     }
 });
 
-module.exports = {mainStyles};
+module.exports = {mainStyles, styles, landscapeStyle, portraitStyle};
