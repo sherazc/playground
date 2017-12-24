@@ -8,11 +8,25 @@ import {
     Image
 } from 'react-native';
 
-import Alert from "./ui/Alert";
-let {mainStyles, styles, landscapeStyle, portraitStyle} = require("./ui/MainStyles");
+const dataStore = require("./storage/DataStore");
+let {
+    styles,
+    landscapeStyle,
+    portraitStyle,
+    styleAzanNotCalled,
+    styleAzanCalled,
+    styleSalahInProgress,
+    styleNextSalah,
+} = require("./ui/MainStyles");
 let DateCreator = require("./services/date/DateCreator");
 let startAzanProcess = require("./services/startAzanProcess");
 const Constants = require("./services/Constants");
+
+// image icons
+let imageAzanNotCalled = require("./ui/images/azan_not_called.png");
+let imageAzanCalled = require("./ui/images/azan_called.png");
+let imageSalahInProgress = require("./ui/images/salah_in_progress_b.png");
+let imageNextSalah = require("./ui/images/next_salah.png");
 
 export default class Main extends Component {
     constructor(props) {
@@ -25,14 +39,22 @@ export default class Main extends Component {
             azanSalahStatus: Constants.AZAN_SALAH_STATUS.AZAN_NOT_CALLED,
             orientationStyle: portraitStyle
         };
+        dataStore.get(dataStore.DATA_KEYS.AZAN_CALLED_DATETIME, this.setAzanCalledDateTimeISOString.bind(this));
     }
 
     componentDidMount() {
         startAzanProcess(this.updateAzanMessage.bind(this), this.getAzanCalledDateTime.bind(this));
     }
 
+    setAzanCalledDateTimeISOString(error, azanCalledDateTimeISOString) {
+        let azanCalledDateTime = DateCreator.fromISO(azanCalledDateTimeISOString);
+        this.setState({azanCalledDateTime});
+    }
+
     mainTapped() {
-        this.setState({azanCalledDateTime: DateCreator.now()});
+        let currentDataTime = DateCreator.now();
+        dataStore.store(dataStore.DATA_KEYS.AZAN_CALLED_DATETIME, currentDataTime.toISOString());
+        this.setState({azanCalledDateTime: currentDataTime});
     }
 
     undoAzanTime() {
@@ -57,40 +79,55 @@ export default class Main extends Component {
         return this.state.azanCalledDateTime;
     }
 
+    makeUndoButton(azanCalledDateTime) {
+        if (azanCalledDateTime) {
+            return (
+                <TouchableHighlight onPress={this.undoAzanTime.bind(this)}>
+                    <Image source={require("./ui/images/undo.png")} style={{width: 50, resizeMode: "contain"}}/>
+                </TouchableHighlight>
+            );
+        }
+    }
+
     render() {
-        let azanSalahImage = require("./ui/images/azan_called.png");
+        let azanSalahImage = undefined;
+        let azanCalledMethod = undefined;
+        let azanStatusStyle = styleNextSalah;
+
         switch(this.state.azanSalahStatus) {
             case Constants.AZAN_SALAH_STATUS.AZAN_NOT_CALLED:
-                azanSalahImage = require("./ui/images/azan_not_called.png");
+                azanSalahImage = imageAzanNotCalled;
+                azanCalledMethod = this.mainTapped.bind(this);
+                azanStatusStyle = styleAzanNotCalled;
                 break;
             case Constants.AZAN_SALAH_STATUS.AZAN_CALLED:
-                azanSalahImage = require("./ui/images/azan_called.png");
+                azanSalahImage = imageAzanCalled;
+                azanStatusStyle = styleAzanCalled;
                 break;
             case Constants.AZAN_SALAH_STATUS.SALAH_IN_PROGRESS:
-                azanSalahImage = require("./ui/images/salah_in_progress_b.png");
+                azanSalahImage = imageSalahInProgress;
+                azanStatusStyle = styleSalahInProgress;
                 break;
             case Constants.AZAN_SALAH_STATUS.SALAH_DONE:
-                azanSalahImage = require("./ui/images/next_salah.png");
+                azanSalahImage = imageNextSalah;
+                azanStatusStyle = styleNextSalah;
                 break;
         }
 
-
         return (
-            <TouchableHighlight style={[styles.wrapper]} onPress={this.mainTapped.bind(this)}>
-                <View style={[this.state.orientationStyle.container]} onLayout={this.updateOrientation.bind(this)}>
-                    <View style={[this.state.orientationStyle.box, {backgroundColor: "#af12ea", }]}>
+            <TouchableHighlight style={[styles.wrapper]} onPress={azanCalledMethod}>
+                <View style={[this.state.orientationStyle.container, azanStatusStyle.container]} onLayout={this.updateOrientation.bind(this)}>
+                    <View style={[this.state.orientationStyle.box, ]}>
                         <Image source={azanSalahImage} style={{resizeMode: "contain"}}/>
                     </View>
-                    <View style={[this.state.orientationStyle.box, {backgroundColor: "#afa8ea"}]}>
-                        <Text>
+                    <View style={[this.state.orientationStyle.box]}>
+                        <Text style={[azanStatusStyle.mainMessage, styles.mainMessage]}>
                             {this.state.mainMessage}
                         </Text>
-                        <Text>
+                        <Text style={[azanStatusStyle.subMessage, styles.subMessage]}>
                             {this.state.subMessage}
                         </Text>
-                        <TouchableHighlight onPress={this.undoAzanTime.bind(this)}>
-                            <Image source={require("./ui/images/undo.png")} style={{width: 50, resizeMode: "contain"}}/>
-                        </TouchableHighlight>
+                        {this.makeUndoButton(this.state.azanCalledDateTime)}
                     </View>
                 </View>
             </TouchableHighlight>

@@ -9,7 +9,7 @@ let now = () => {
         systemNow.getSeconds(), 
         systemNow.getMilliseconds());
     return new Date(utcMillis);
-}
+};
 
 let fromISO = (isoDateString) => {
     if(!isoDateString || isoDateString.length < 4) {
@@ -33,10 +33,8 @@ let fromISO = (isoDateString) => {
         && seconds > -1 && seconds < 60
         ) {
         return new Date(Date.UTC(year, --month, date, hours, minutes, seconds, milliseconds));
-    } else {
-        return;
-    }    
-}
+    }
+};
 
 let subStringToNumber = (stringInput, fromIndex, toIndex) => {
     let subStringResult = stringInput.substring(fromIndex, toIndex);
@@ -46,7 +44,7 @@ let subStringToNumber = (stringInput, fromIndex, toIndex) => {
     } else {
         return 0;
     }
-}
+};
 
 module.exports = {
     now, fromISO

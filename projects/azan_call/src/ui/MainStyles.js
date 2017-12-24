@@ -4,6 +4,14 @@ const StyleSheet = require("react-native").StyleSheet;
 const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
+    },
+    mainMessage: {
+        fontSize: 50,
+        textAlign: "center"
+    },
+    subMessage: {
+        fontSize: 30,
+        marginBottom: 20
     }
 });
 
@@ -31,59 +39,61 @@ const portraitStyle = StyleSheet.create({
     }
 });
 
-
-const mainStyles = StyleSheet.create({
+let styleAzanNotCalled = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        backgroundColor: '#ec8683'
     },
-    screenRed: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#ec8683',
-        padding: 10,
-        alignSelf: 'stretch',
-
-    },
-    screenGreen: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#81d54f',
-        padding: 10,
-        alignSelf: 'stretch',
-    },
-    screenDark: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#111111',
-        padding: 10,
-        alignSelf: 'stretch',
-    },
-    textExtraLargeLight: {
+    mainMessage: {
         color: "#ffffff",
-        fontSize: 30
     },
-    textExtraLargeDark: {
-        color: "#111111",
-        fontSize: 24
-
-    },
-    textExtraLargeGray: {
-        color: 24,
-        fontSize: 24
-    },
-    textDark: {
-        color: "#111111",
-        fontSize: 12
-    },
-    textLight: {
+    subMessage: {
         color: "#ffffff",
-        fontSize: 12
     }
 });
 
-module.exports = {mainStyles, styles, landscapeStyle, portraitStyle};
+let styleAzanCalled = StyleSheet.create({
+    container: {
+        backgroundColor: '#81d54f'
+    },
+    mainMessage: {
+        color: "#ffffff",
+    },
+    subMessage: {
+        color: "#ffffff",
+    }
+});
+
+let styleSalahInProgress = StyleSheet.create({
+    container: {
+        backgroundColor: '#111111'
+    },
+    mainMessage: {
+        color: "#AAAAAA",
+    },
+    subMessage: {
+        color: "#AAAAAA",
+    }
+});
+
+
+let styleNextSalah = StyleSheet.create({
+    container: {
+        backgroundColor: '#111111'
+    },
+    mainMessage: {
+        color: "#AAAAAA",
+    },
+    subMessage: {
+        color: "#AAAAAA",
+    }
+});
+
+module.exports = {
+    styles,
+    landscapeStyle,
+    portraitStyle,
+    styleAzanNotCalled,
+    styleAzanCalled,
+    styleSalahInProgress,
+    styleNextSalah
+};
