@@ -6,12 +6,14 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     mainMessage: {
-        fontSize: 50,
-        textAlign: "center"
+        fontSize: 60,
+        textAlign: "center",
+        fontWeight: "bold"
     },
     subMessage: {
-        fontSize: 30,
-        marginBottom: 20
+        fontSize: 40,
+        marginBottom: 20,
+        fontWeight: "bold"
     }
 });
 
@@ -23,7 +25,7 @@ const landscapeStyle = StyleSheet.create({
     },
     box: {
         flex: 1,
-        padding: 20, alignItems: "center", justifyContent: "center",
+        padding: 20, alignItems: "center", justifyContent: "center", paddingLeft: 0,
     }
 });
 
@@ -41,7 +43,7 @@ const portraitStyle = StyleSheet.create({
 
 let styleAzanNotCalled = StyleSheet.create({
     container: {
-        backgroundColor: '#ec8683'
+        backgroundColor: '#d22f36'
     },
     mainMessage: {
         color: "#ffffff",

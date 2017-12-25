@@ -42,7 +42,7 @@ const successfullyReterivedData = (salahTimeObject) => {
         makeSalahObject(Constants.SALAH_NAMES[2], salahTimeObjectWithDates.asr_athan, salahTimeObjectWithDates.asr_iqama),
         makeSalahObject(Constants.SALAH_NAMES[3], salahTimeObjectWithDates.maghrib_athan, salahTimeObjectWithDates.maghrib_iqama),
         makeSalahObject(Constants.SALAH_NAMES[4], salahTimeObjectWithDates.isha_athan, salahTimeObjectWithDates.isha_iqama),
-        {name: CONSTANTS.SALAH_NAMES[5], time: salahTimeObjectWithDates.shurooq}
+        {name: Constants.SALAH_NAMES[5], time: salahTimeObjectWithDates.shurooq}
     ];
 
     updateUiInterval = setInterval(() => {
