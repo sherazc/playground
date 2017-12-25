@@ -36,19 +36,14 @@ const successfullyReterivedData = (salahTimeObject) => {
         return;
     }
 
-
-    let shrooqObj = {};
-    shrooqObj[CONSTANTS.SALAH_NAMES[5]] = salahTimeObjectWithDates.shurooq;
     let salahsArray = [
         makeSalahObject(Constants.SALAH_NAMES[0], salahTimeObjectWithDates.fajr_athan, salahTimeObjectWithDates.fajr_iqama),
         makeSalahObject(Constants.SALAH_NAMES[1], salahTimeObjectWithDates.thuhr_athan,salahTimeObjectWithDates.thuhr_iqama),
         makeSalahObject(Constants.SALAH_NAMES[2], salahTimeObjectWithDates.asr_athan, salahTimeObjectWithDates.asr_iqama),
         makeSalahObject(Constants.SALAH_NAMES[3], salahTimeObjectWithDates.maghrib_athan, salahTimeObjectWithDates.maghrib_iqama),
         makeSalahObject(Constants.SALAH_NAMES[4], salahTimeObjectWithDates.isha_athan, salahTimeObjectWithDates.isha_iqama),
-        shrooqObj
+        {name: CONSTANTS.SALAH_NAMES[5], time: salahTimeObjectWithDates.shurooq}
     ];
-
-    salahsArray.push();
 
     updateUiInterval = setInterval(() => {
         let azanCalledDateTime = getAzanCalledDateTimeUi();

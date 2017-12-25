@@ -19,8 +19,14 @@ const processSalahs = (now, salahs, azanCalledDateTime) => {
     let azanCalled = isAzanCalled(azanCalledDateTime, salahPeriod);
     let salahDone = isSalahDone(now, salahPeriod, azanCalled);
     let salahInProgress = isSalahInProgress(now, salahPeriod, azanCalled);
+    let nowBetweenShrooqAndZuhar = isNowBetweenShrooqAndZuhar(now, salahs);
 
-    if (!azanCalled) { // Azan not called
+    if (salahDone || nowBetweenShrooqAndZuhar) { // Salah done
+        result.mainMessage = `Next salah: ${salahPeriod[1].name}`;
+        result.subMessage = `In ${msToTime(salahPeriod[1].azan.getTime() - now.getTime())}`;
+        result.alert = Constants.ALERT_BLACK;
+        result.azanSalahStatus = Constants.AZAN_SALAH_STATUS.SALAH_DONE;
+    } else if (!azanCalled) { // Azan not called
         result.mainMessage = `${salahPeriod[0].name} azan not called`;
         result.subMessage = `for ${msToTime(now.getTime() - salahPeriod[0].azan.getTime())}`;
         result.alert = Constants.ALERT_RED;
@@ -35,11 +41,6 @@ const processSalahs = (now, salahs, azanCalledDateTime) => {
         result.subMessage = `for ${msToTime(salahPeriod[0].iqmah.getTime() + Constants.SALAH_DURATION_MILLIS - now.getTime())}`;
         result.alert = Constants.ALERT_BLACK;
         result.azanSalahStatus = Constants.AZAN_SALAH_STATUS.SALAH_IN_PROGRESS;
-    } else if (salahDone) { // Salah done
-        result.mainMessage = `Next salah: ${salahPeriod[1].name}`;
-        result.subMessage = `In ${msToTime(salahPeriod[1].azan.getTime() - now.getTime())}`;
-        result.alert = Constants.ALERT_BLACK;
-        result.azanSalahStatus = Constants.AZAN_SALAH_STATUS.SALAH_DONE;
     }
     return result;
 };
@@ -72,6 +73,17 @@ let isSalahDone = (now, salahPeriod, azanCalled) => {
     
     let timeSinceIqmah =  now.getTime() - salahPeriod[0].iqmah.getTime();
     return timeSinceIqmah > Constants.SALAH_DURATION_MILLIS;
+};
+
+let isNowBetweenShrooqAndZuhar = (now, salahs) => {
+    if (!now || !salahs || salahs.length < 6 || !salahs[5].time) {
+        return false;
+    }
+
+    let nowTime = now.getTime();
+    let shrooqTime = salahs[5].time.getTime();
+    let zuharAzanTime = salahs[1].azan.getTime();
+    return nowTime && shrooqTime && zuharAzanTime && nowTime > shrooqTime && nowTime < zuharAzanTime;
 };
 
 
