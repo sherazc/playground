@@ -46,6 +46,7 @@ export default class Main extends Component {
         startAzanProcess(this.updateAzanMessage.bind(this), this.getAzanCalledDateTime.bind(this));
     }
 
+    // this method gets called when restoring time by dataStore
     setAzanCalledDateTimeISOString(error, azanCalledDateTimeISOString) {
         let azanCalledDateTime = DateCreator.fromISO(azanCalledDateTimeISOString);
         this.setState({azanCalledDateTime});

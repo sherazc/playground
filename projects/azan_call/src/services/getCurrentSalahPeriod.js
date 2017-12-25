@@ -41,6 +41,6 @@ let getCurrentSalahPeriod = (nowTime, salahs) => {
         }
     }
     return salahPeriod;
-}
+};
 
 module.exports = getCurrentSalahPeriod;

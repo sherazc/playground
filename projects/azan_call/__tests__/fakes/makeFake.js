@@ -36,7 +36,7 @@ let makeFakeSalatTime = () => {
         "asr_change": "0000-00-00 16:30:00",
         "asr_change_date": "2018-01-26"
     };
-}
+};
 
 module.exports = {
     makeFakeSalahs, makeFakeSalatTime
