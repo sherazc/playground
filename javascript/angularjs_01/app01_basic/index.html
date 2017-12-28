@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AngularJS</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+</head>
+<body>
+<div ng-app="myAngularApp" class="container">
+    <h1>App01 Basic</h1>
+    <div ng-controller="myAppController">
+        <input ng-model="firstName"/>
+        <input ng-model="lastName"/>
+        <button ng-click="addName()">Add Name</button>
+        <br/>
+        Filter: <input ng-model="nameFilter" ng-show="allNames">
+        <ol>
+            <li ng-repeat="name in allNames | filter: nameFilter">{{name.fName}} {{name.lName}}</li>
+        </ol>
+    </div>
+</div>
+
+<script src="../lib/angular.min.js"></script>
+<script>
+    function myController($scope, myAppService) {
+        $scope.firstName = "";
+        $scope.lastName = "";
+        $scope.allNames = [];
+
+        $scope.addName = function(event) {
+            $scope.allNames.push({
+                    fName: myAppService.makeUpper($scope.firstName),
+                    lName: myAppService.makeUpper($scope.lastName)
+                });
+        }
+    }
+
+    function myService() {
+        this.makeUpper = function(str) {
+            return str.toUpperCase();
+        };
+    }
+
+    var myAngularApp = angular.module("myAngularApp", []);
+    myAngularApp.controller("myAppController", myController);
+    myAngularApp.service("myAppService", myService);
+</script>
+</body>
+</html>
