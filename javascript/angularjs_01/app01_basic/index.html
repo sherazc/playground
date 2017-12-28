@@ -15,7 +15,7 @@
         <input ng-model="lastName"/>
         <button ng-click="addName()">Add Name</button>
         <br/>
-        Filter: <input ng-model="nameFilter" ng-show="allNames">
+        Filter: <input ng-model="nameFilter">
         <ol>
             <li ng-repeat="name in allNames | filter: nameFilter">{{name.fName}} {{name.lName}}</li>
         </ol>
