@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Angular</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div ng-controller="myController">
+        <loading-directive ng-show="loadingData"></loading-directive>
+        <button ng-click="loadData()" class="btn btn-info">Click to load data</button>
+        <ol>
+            <li ng-repeat="contact in contacts">
+                <b>
+                    {{contact.first_name}} 
+                    {{contact.last_name}} 
+                </b>
+                {{contact.email}}
+            </li>
+        </ol>
+    </div>
+<script src="../lib/angular.min.js"></script>
+<script>
+    var myApp = angular.module("myApp", []);
+    myApp.controller("myController", myController);
+    myApp.directive("loadingDirective", loadingDirective);
+
+    function myController($scope, $timeout, $http) {
+        $scope.loadingData = false;
+        $scope.contacts = [];
+        $scope.loadData = function() {
+            $scope.contacts = [];
+            $scope.loadingData = true;
+            $timeout(function(){
+                $http({method: "GET",url: "./data.json"})
+                    .then(function success(response) {
+                        console.log(response);
+                        $scope.contacts = response.data;
+                        $scope.loadingData = false;
+                    }, function error(response) {});
+            }, 2000);
+        }
+    }
+
+    function loadingDirective() {
+        return {
+            templateUrl: "loading_screen.html"
+        }
+    }
+
+</script>
+</body>
+</html>
