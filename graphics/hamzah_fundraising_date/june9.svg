@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="june9.svg">
+  <defs
+     id="defs4">
+    <filter
+       id="filter3888"
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow">
+      <feFlood
+         id="feFlood3890"
+         flood-opacity="0.5"
+         flood-color="rgb(0,0,0)"
+         result="flood" />
+      <feComposite
+         id="feComposite3892"
+         in2="SourceGraphic"
+         in="flood"
+         operator="in"
+         result="composite1" />
+      <feGaussianBlur
+         id="feGaussianBlur3894"
+         in="composite"
+         stdDeviation="20"
+         result="blur" />
+      <feOffset
+         id="feOffset3896"
+         dx="10"
+         dy="10"
+         result="offset" />
+      <feComposite
+         id="feComposite3898"
+         in2="offset"
+         in="SourceGraphic"
+         operator="over"
+         result="composite2" />
+    </filter>
+    <filter
+       id="filter3910"
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow">
+      <feFlood
+         id="feFlood3912"
+         flood-opacity="0.5"
+         flood-color="rgb(0,0,0)"
+         result="flood" />
+      <feComposite
+         id="feComposite3914"
+         in2="SourceGraphic"
+         in="flood"
+         operator="in"
+         result="composite1" />
+      <feGaussianBlur
+         id="feGaussianBlur3916"
+         in="composite"
+         stdDeviation="2"
+         result="blur" />
+      <feOffset
+         id="feOffset3918"
+         dx="2"
+         dy="2"
+         result="offset" />
+      <feComposite
+         id="feComposite3920"
+         in2="offset"
+         in="SourceGraphic"
+         operator="over"
+         result="composite2" />
+    </filter>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3808">
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:none"
+         id="rect3810"
+         width="625.22693"
+         height="744.08197"
+         x="1227.4338"
+         y="188.14011"
+         rx="5"
+         ry="5" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.80770671"
+     inkscape:cx="372.04724"
+     inkscape:cy="526.18109"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1025"
+     inkscape:window-x="-2"
+     inkscape:window-y="-3"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g3812"
+       transform="translate(-1168.0001,-34.647894)"
+       inkscape:export-filename="/home/sheraz/june10.png"
+       inkscape:export-xdpi="143.94774"
+       inkscape:export-ydpi="143.94774">
+      <rect
+         style="fill:#ffffff;fill-opacity:1;stroke:none"
+         id="rect3806"
+         width="625.22693"
+         height="744.08197"
+         x="1227.4338"
+         y="188.14011"
+         rx="5"
+         ry="5" />
+      <rect
+         clip-path="url(#clipPath3808)"
+         inkscape:export-ydpi="123.44198"
+         inkscape:export-xdpi="123.44198"
+         inkscape:export-filename="/home/sheraz/june9_no_shadow.png"
+         ry="5"
+         rx="5"
+         y="232.09174"
+         x="1271.3855"
+         height="656.17871"
+         width="537.32373"
+         id="rect2985"
+         style="fill:#ffffff;fill-opacity:1;stroke:none;filter:url(#filter3910)" />
+    </g>
+    <rect
+       ry="1.1415091"
+       rx="5"
+       y="198.09174"
+       x="103.38538"
+       height="149.80679"
+       width="537.32373"
+       id="rect3755"
+       style="fill:#30ccdc;fill-opacity:1;stroke:none"
+       inkscape:export-filename="/home/sheraz/june10.png"
+       inkscape:export-xdpi="143.94774"
+       inkscape:export-ydpi="143.94774" />
+    <text
+       xml:space="preserve"
+       style="font-size:126.58983612000000107px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:start;line-height:150%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;font-family:FreeSans;-inkscape-font-specification:FreeSans Semi-Bold;filter:url(#filter3910)"
+       x="199.91969"
+       y="336.73816"
+       id="text3757"
+       sodipodi:linespacing="150%"
+       inkscape:export-filename="/home/sheraz/june10.png"
+       inkscape:export-xdpi="143.94774"
+       inkscape:export-ydpi="143.94774"><tspan
+         sodipodi:role="line"
+         id="tspan3759"
+         x="199.91969"
+         y="336.73816"
+         style="font-size:126.58983612000000107px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:start;line-height:150%;writing-mode:lr-tb;text-anchor:start;font-family:FreeSans;-inkscape-font-specification:FreeSans Semi-Bold;fill:#ffffff;fill-opacity:1">JUNE</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:79.72116089px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter3910);font-family:Sans"
+       x="159.39261"
+       y="830.65765"
+       id="text3904"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/sheraz/june10.png"
+       inkscape:export-xdpi="143.94774"
+       inkscape:export-ydpi="143.94774"
+       transform="translate(-1.8030404e-6,0)"><tspan
+         sodipodi:role="line"
+         id="tspan3906"
+         x="159.39261"
+         y="830.65765">SATURDAY</tspan></text>
+    <g
+       id="g3783"
+       transform="matrix(1.2302317,0,0,1.2302317,-45.945283,-76.228915)"
+       inkscape:export-filename="/home/sheraz/june10.png"
+       inkscape:export-xdpi="143.94774"
+       inkscape:export-ydpi="143.94774">
+      <path
+         inkscape:export-ydpi="123.44198"
+         inkscape:export-xdpi="123.44198"
+         inkscape:export-filename="/home/sheraz/june9_no_shadow.png"
+         style="fill:#e52828;fill-opacity:1;filter:url(#filter3910)"
+         d="m 315.50274,657.37577 c -20.73875,-1.74348 -44.15053,-8.95696 -62.74343,-19.33211 -29.14159,-16.26147 -49.05941,-36.90447 -62.44757,-64.72129 -3.78316,-7.86043 -7.58123,-17.55479 -8.79601,-22.45146 -0.39166,-1.57882 -0.95494,-3.80373 -1.25171,-4.94425 -1.94507,-7.47586 -2.47441,-12.72571 -2.51168,-24.91005 -0.0409,-13.3461 0.45813,-18.1648 2.88316,-27.84487 6.2358,-24.891 17.09286,-45.03708 33.50762,-62.17565 17.15556,-17.9122 44.57414,-32.72539 72.36654,-39.0969 2.36826,-0.54292 5.21014,-1.21649 6.31534,-1.49678 2.30889,-0.5856 10.56447,-1.92667 18.08482,-2.93774 11.74664,-1.5793 40.39799,-0.60754 50.89308,1.72611 1.37512,0.30577 4.69615,0.98644 7.38018,1.51262 14.80641,2.90261 34.71647,10.95782 47.75066,19.31892 5.4237,3.47916 6.2167,4.50417 6.2167,8.03527 0,3.87557 -1.68332,5.69996 -5.60739,6.077 -2.79395,0.26847 -3.21346,0.11904 -7.6431,-2.72247 -5.23525,-3.35827 -17.64104,-9.50241 -23.78027,-11.77752 -20.5599,-7.61921 -42.07715,-10.75099 -64.87571,-9.44249 -11.02183,0.63257 -13.11924,0.92839 -28.99308,4.08928 -12.6457,2.51806 -30.57575,9.40311 -43.34619,16.64469 -12.13663,6.88219 -26.32997,19.20372 -33.95115,29.47363 -5.79676,7.81143 -11.78407,18.65214 -15.61341,28.27002 -1.62087,4.07092 -3.38766,8.89623 -3.73321,10.1961 -0.16794,0.63153 -0.71721,2.5692 -1.22052,4.30591 -2.53745,8.75459 -3.35305,15.49324 -3.33529,27.55782 0.0142,9.686 0.23248,12.82141 1.2332,17.71178 3.83719,18.75282 13.00877,38.15832 25.27563,53.47903 7.27505,9.08611 15.0474,16.47476 25.30124,24.0522 18.08082,13.36144 40.80533,22.97579 63.16853,26.72547 20.17232,3.38232 50.89141,2.25514 70.04282,-2.5701 14.28158,-3.59825 21.26726,-5.88776 30.3487,-9.94652 24.01074,-10.73106 46.43307,-29.56474 60.88375,-51.13945 8.28509,-12.36961 15.70388,-30.12492 18.12792,-43.38526 0.54835,-2.99979 1.3562,-7.18446 1.79514,-9.29928 1.29374,-6.2328 1.08761,-27.44385 -0.34263,-35.26921 -1.87136,-10.23822 -2.20007,-11.56032 -4.38429,-17.63363 -5.31912,-14.79001 -11.11647,-24.16113 -23.49717,-37.98203 -6.78639,-7.57576 -9.16015,-9.95993 -14.89804,-14.96324 -2.84189,-2.47806 -5.42545,-4.79548 -5.74123,-5.14982 -0.60389,-0.67767 -7.97457,-6.27626 -11.99245,-9.10919 -5.92427,-4.17712 -16.61639,-10.50291 -23.17689,-13.71215 -7.69163,-3.76256 -9.31867,-5.29754 -9.32292,-8.79514 0,-0.97954 0.59254,-2.65884 1.31934,-3.73179 1.29273,-1.9084 1.40931,-1.95079 5.36282,-1.95079 3.71328,0 4.47985,0.227 9.44325,2.79667 26.38642,13.66057 49.82756,33.09042 67.94598,56.31877 10.81521,13.86547 18.3575,30.49723 21.22765,46.80993 0.52784,2.99977 1.37521,7.36442 1.8832,9.69919 0.75889,3.48854 0.86505,6.51229 0.59563,16.96743 -0.18028,6.9973 -0.6259,14.38778 -0.99021,16.4233 -2.62642,14.67361 -3.05145,16.56527 -5.52201,24.57542 -3.011,9.76258 -8.83862,22.77596 -13.48182,30.10536 -1.43324,2.26246 -6.87302,9.89439 -10.16195,14.25709 -3.38732,4.49324 -15.49334,16.95549 -21.51074,22.14365 -16.05853,13.84563 -33.53947,23.62642 -54.32967,30.39811 -6.79491,2.21322 -10.37168,3.17377 -19.86837,5.3358 -2.47091,0.56253 -10.38635,1.8539 -17.79781,2.90365 -5.80985,0.82289 -34.87881,1.22041 -42.48498,0.58097 z"
+         id="path3802"
+         inkscape:connector-curvature="0" />
+      <text
+         transform="matrix(0.91330503,0,0,0.91330503,29.456121,44.897256)"
+         inkscape:export-ydpi="123.44198"
+         inkscape:export-xdpi="123.44198"
+         inkscape:export-filename="/home/sheraz/june9_no_shadow.png"
+         sodipodi:linespacing="125%"
+         id="text3900"
+         y="603.78943"
+         x="201.32835"
+         style="font-size:236.01573181px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter3910);font-family:Sans"
+         xml:space="preserve"><tspan
+           dx="0 -33.814724"
+           y="603.78943"
+           x="201.32835"
+           id="tspan3902"
+           sodipodi:role="line">10</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:57.46597672px;font-style:italic;font-variant:normal;font-weight:500;font-stretch:normal;text-align:center;line-height:89.99999762%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:URW Chancery L;-inkscape-font-specification:URW Chancery L Medium Italic"
+       x="977.60065"
+       y="152.88177"
+       id="text3788"
+       sodipodi:linespacing="89.999998%"
+       inkscape:export-filename="/home/sheraz/june10_with_fundraising.png"
+       inkscape:export-xdpi="143.94774"
+       inkscape:export-ydpi="143.94774"><tspan
+         sodipodi:role="line"
+         id="tspan3794"
+         x="977.60065"
+         y="152.88177">Masjid Hamzah</tspan><tspan
+         sodipodi:role="line"
+         id="tspan3796"
+         x="977.60065"
+         y="204.60117">Fundraising</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="22700"
+       y="28752.361"
+       id="text3798"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3800"
+         x="22700"
+         y="28752.361">5</tspan></text>
+  </g>
+</svg>
