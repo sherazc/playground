@@ -19,3 +19,12 @@ myAppModule.controller("myAppController", ["$scope", function($scope) {
     $scope.num1 = 3;
     $scope.num2 = 5;
 }]);
+
+myApp.factory('apiService', function buildApiService(clientId, encrypter, apiCaller) {
+    var encryptedClientId = encrypter(clientId);
+    return {
+        callServer: function() {
+            apiCaller(encryptedClientId);
+        }
+    };
+});
