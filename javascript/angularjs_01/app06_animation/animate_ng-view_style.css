@@ -1,0 +1,17 @@
+#view-container {
+    padding: 20px;
+    background: white;
+    border: 1px solid rgb(200, 200, 200);
+    min-height: 500px;
+}
+
+#mainView.ng-enter {
+    transition: 500ms ease-out all;
+    opacity: 0;
+    transform: translateY(200px);
+}
+
+#mainView.ng-enter.ng-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+}
