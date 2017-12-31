@@ -13,6 +13,9 @@ myApp.config(function($routeProvider) {
             templateUrl: "./partial_views/department.html",
             controller: "departmentController"
             
+        })
+        .otherwise({
+            redirectTo: "/home"
         });
         
 });
