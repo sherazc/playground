@@ -25,7 +25,7 @@ const Constants = require("./services/Constants");
 // image icons
 let imageAzanNotCalled = require("./ui/images/azan_not_called.png");
 let imageAzanCalled = require("./ui/images/azan_called.png");
-let imageSalahInProgress = require("./ui/images/salah_in_progress_d.png");
+let imageSalahInProgress = require("./ui/images/salah_in_progress_e.png");
 let imageNextSalah = require("./ui/images/next_salah.png");
 
 export default class Main extends Component {
