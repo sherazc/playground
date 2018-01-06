@@ -30,3 +30,4 @@ node_modules
 .classpath
 **/bin/
 .project
+package-lock.json
