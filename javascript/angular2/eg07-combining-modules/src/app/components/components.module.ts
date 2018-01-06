@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalculatorComponent } from './calculator/calculator.component';
 import { ServicesModule } from '../services/services.module';
@@ -9,6 +9,7 @@ import { CalculatorService } from '../services/calculator.service';
     CommonModule, ServicesModule
   ],
   providers: [CalculatorService],
-  declarations: [CalculatorComponent]
+  declarations: [CalculatorComponent],
+  exports: [CalculatorComponent]
 })
 export class ComponentsModule { }
