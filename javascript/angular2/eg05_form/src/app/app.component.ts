@@ -19,7 +19,7 @@ import { Component } from '@angular/core';
       <input name="name.last" [(ngModel)]="name.lastName" />
       <br/>
       <label>Email:</label>
-      <input name="email" [(ngModel)]="email" />
+      <input name="email" bindon-ngModel="email" />
     </form>
   `,
 })
