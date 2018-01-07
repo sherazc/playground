@@ -7,14 +7,11 @@ import { CalculatorService } from '../../services/calculator.service';
   styleUrls: ['./calculator.component.css']
 })
 export class CalculatorComponent implements OnInit {
-
   public numA: number;
   public numB: number;
   public result: number;
 
-  constructor(public calculatorService: CalculatorService) {
-    console.log('calculatorService=', calculatorService);
-  }
+  constructor(private calculatorService: CalculatorService) {}
 
   ngOnInit() {}
 
