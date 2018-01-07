@@ -1,0 +1,14 @@
+div.container {
+    margin-top: 20px;
+}
+
+button, .result, input {
+    margin: 10px 0 0 0;
+}
+input {
+    width: 200px;
+}
+
+.result {
+    font-weight: bold;
+}

@@ -1,11 +1,13 @@
-<p>
-  Num 1: <input name="numA" type="number" [(ngModel)]="numA">
+<div class="container">
+  Num 1: <input type="number" [(ngModel)]="numA" class="form-control">
   <br/>
-  Num 2: <input name="numB" type="number" [(ngModel)]="numB">
+  Num 2: <input type="number" [(ngModel)]="numB" class="form-control">
   <br/>
-  <button (click)="addNumbers()">Add</button>
+  <button (click)="addNumbers()" class="btn btn-info">Add</button>
   <br/>
-  <button (click)="subtractNumber()">Subtract</button>
+  <button (click)="subtractNumber()" class="btn btn-warning">Subtract</button>
   <br/>
-  Result: {{result}}
-</p>
+  <div class="result">
+      Result: {{result}}
+  </div>
+</div>
