@@ -6,10 +6,9 @@ import {SubtractService} from './subtract.service';
 import {CalculatorService} from './calculator.service';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-  providers: [AddService, SubtractService, CalculatorService],
-  declarations: []
+  imports: [CommonModule],
+  providers: [AddService, SubtractService],
+  declarations: [],
+  exports: []
 })
 export class ServicesModule { }

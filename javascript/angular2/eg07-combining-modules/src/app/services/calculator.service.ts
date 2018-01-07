@@ -5,7 +5,7 @@ import { SubtractService } from './subtract.service';
 @Injectable()
 export class CalculatorService {
 
-  constructor(public addService: AddService, public subtractService: SubtractService) { }
+  constructor(private addService: AddService, private subtractService: SubtractService) { }
 
   add(a: number, b: number) {
     return this.addService.add(a, b);

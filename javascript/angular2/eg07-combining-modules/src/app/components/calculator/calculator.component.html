@@ -1,3 +1,11 @@
 <p>
-  calculator works!
+  Num 1: <input name="numA" type="number" [(ngModel)]="numA">
+  <br/>
+  Num 2: <input name="numB" type="number" [(ngModel)]="numB">
+  <br/>
+  <button (click)="addNumbers()">Add</button>
+  <br/>
+  <button (click)="subtractNumber()">Subtract</button>
+  <br/>
+  Result: {{result}}
 </p>
