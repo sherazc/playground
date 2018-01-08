@@ -1,3 +1,7 @@
-<p>
-  calculator works!
-</p>
+<div>
+  <input type="number" #numA> 
+  <input type="number" #numB><br/>
+  <button (click)="addInputs(numA, numB)">Add</button>
+  <button (click)="subtractInputs(numA, numB)">Subtract</button><br/>
+  Result: {{result}}
+</div>
