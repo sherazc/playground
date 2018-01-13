@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { LocationStrategy, HashLocationStrategy, APP_BASE_HREF } from '@angular/common';
 
@@ -14,7 +13,7 @@ const childRoutes: Routes = [
   {path: '', redirectTo: 'register', pathMatch: 'full'},
   {path: 'register', component: RegisterComponent},
   {path: 'profile/:id',
-    component: ProfileComponent}, // Para
+    component: ProfileComponent}, // Parametered path
 ];
 
 const routes: Routes = [
@@ -28,7 +27,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent, // AppComponent root component contains main nav
     ProfileComponent,
     AboutComponent,
     RegisterComponent,
@@ -36,12 +35,11 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [
+  providers: [ // 2 lines below will make Hash base URL. If Commented then it use HTML5 URL
     { provide: LocationStrategy, useClass: HashLocationStrategy },
-    { provide: APP_BASE_HREF, useValue: '/' } // <--- this right here
+    { provide: APP_BASE_HREF, useValue: '/' }
   ],
   bootstrap: [AppComponent]
 })
