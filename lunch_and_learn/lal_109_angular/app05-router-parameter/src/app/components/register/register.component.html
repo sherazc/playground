@@ -1,5 +1,13 @@
 <p>
-  register works!
-  <br/>
   Both "user" and "user/register" go to register "RegisterComponent"
 </p>
+<div>
+<b>Profile Views</b>
+<ul>
+  <li *ngFor="let profileId of profileIds">
+    <a [routerLink]="['/user', 'profile', profileId]">
+      /user/profile/{{profileId}}
+    </a>
+  </li>
+</ul>
+</div>

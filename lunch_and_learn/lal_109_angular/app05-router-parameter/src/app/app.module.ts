@@ -13,14 +13,17 @@ import { ProfileComponent } from './components/profile/profile.component';
 const childRoutes: Routes = [
   {path: '', redirectTo: 'register', pathMatch: 'full'},
   {path: 'register', component: RegisterComponent},
-  {path: 'profile', component: ProfileComponent},
+  {path: 'profile/:id',
+    component: ProfileComponent}, // Para
 ];
 
 const routes: Routes = [
-  {path: '', redirectTo: 'home', pathMatch: 'full'}, // if no path then redirect to /home
+  {path: '', redirectTo: 'home',
+    pathMatch: 'full'}, // if no path then redirect to /home
   {path: 'home', component: HomeComponent},
   {path: 'about', component: AboutComponent},
-  {path: 'user', children: childRoutes}
+  {path: 'user',
+    children: childRoutes} // child routes. all have "/user" prefix
 ];
 
 @NgModule({
