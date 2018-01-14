@@ -1,0 +1,10 @@
+<a href="https://jsonplaceholder.typicode.com/post">https://jsonplaceholder.typicode.com/post</a>
+<br/>
+<button (click)="getAllBlogPosts()">GET all blog posts</button>
+<button (click)="createNewBlogPost()">POST new blog posts</button>
+<ul>
+  <li *ngFor="let post of posts">
+    {{post}}
+  </li>
+</ul>
+
