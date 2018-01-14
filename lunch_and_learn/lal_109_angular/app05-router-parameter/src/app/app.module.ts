@@ -13,7 +13,7 @@ const childRoutes: Routes = [
   {path: '', redirectTo: 'register', pathMatch: 'full'},
   {path: 'register', component: RegisterComponent},
   {path: 'profile/:id',
-    component: ProfileComponent}, // Parametered path
+    component: ProfileComponent}, // Path parameter :id
 ];
 
 const routes: Routes = [
