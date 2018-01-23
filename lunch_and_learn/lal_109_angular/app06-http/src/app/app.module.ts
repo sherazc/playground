@@ -1,10 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule, InjectionToken } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BlogService } from './services/blog.service';
-
-export const SERVICE_ENDPOINT = new InjectionToken<string>('SERVICE_ENDPOINT');
+import { SERVICE_ENDPOINT} from './myConfigs';
 
 @NgModule({
   declarations: [AppComponent],

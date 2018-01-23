@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { BlogService } from './services/blog.service';
-import { SERVICE_ENDPOINT } from './app.module';
+import { SERVICE_ENDPOINT } from './myConfigs';
 
 @Component({
   selector: 'app-root',
