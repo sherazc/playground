@@ -10,9 +10,7 @@ import { SERVICE_ENDPOINT } from './myConfigs';
 export class AppComponent {
   posts: Array<any>;
 
-  constructor(private blogService: BlogService, @Inject(SERVICE_ENDPOINT) private serviceEndpoint: string) { 
-    console.log(serviceEndpoint);
-  }
+  constructor(private blogService: BlogService) {}
 
   getAllBlogPosts() {
     this.blogService.getAllBlogPosts();

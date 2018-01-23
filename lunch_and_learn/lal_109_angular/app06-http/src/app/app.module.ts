@@ -8,7 +8,7 @@ import { SERVICE_ENDPOINT} from './myConfigs';
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, HttpClientModule],
-  providers: [BlogService, {provide: SERVICE_ENDPOINT, useValue: 'https://jsonplaceholder.typicode.com/post'}],
+  providers: [BlogService, {provide: SERVICE_ENDPOINT, useValue: 'https://jsonplaceholder.typicode.com/posts'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -9,9 +9,22 @@ export class BlogService {
     getAllBlogPosts() {
         console.log(this.serviceEndpoint);
         console.log('GET 1', this.httpClient);
+        this.httpClient.get(this.serviceEndpoint).subscribe(data => {
+            console.log(data);
+        });
     }
 
     createNewBlogPost() {
-        console.log('POST 1');
+        const myPost = JSON.parse(`
+            {
+                "userId": 1,
+                "id": 102,
+                "title": "Post Title",
+                "body": "Post Body"
+            }
+        `);
+        this.httpClient.post(this.serviceEndpoint, myPost).subscribe(data => {
+            console.log(data);
+        });
     }
 }
