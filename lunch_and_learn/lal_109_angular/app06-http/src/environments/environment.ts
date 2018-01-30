@@ -6,3 +6,5 @@
 export const environment = {
   production: false
 };
+
+export const service_end_point = 'https://jsonplaceholder.typicode.com/posts';
