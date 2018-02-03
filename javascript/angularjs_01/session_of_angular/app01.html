@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../lib/angular.js"></script>    
+</head>
+<body>
+
+    <div ng-controller="myController">
+        <input ng-model="a"/>
+        {{a}}<br/>
+        {{a}}<br/>
+        {{a}}<br/>
+        {{a}}<br/>
+        {{a}}<br/>
+        {{myName}}
+        <br/>
+        {{books}}
+        <button ng-click="increaseA()">Click Me</button>
+        <hr>
+        <ol>
+            <li ng-repeat="book in books | filter: bookFilter | filter: upper track by $index ">
+                {{book}} {{$index}}
+            </li>
+        </ol>
+        <hr>
+        <input ng-model="bookInput"><button ng-click="addBook()">Add</button>
+        <br>
+        <input ng-model="bookFilter">
+    </div>
+
+    <script>
+        var myApp = angular.module("myApp", []);    
+        var myControllerFunction = function($scope) {
+            $scope.a = 20;
+            $scope.myName = "Sheraz";
+            $scope.bookInput = "";
+            $scope.books = ["book1", "book2"];
+            
+            $scope.increaseA = function() {
+                $scope.a++;
+            }
+
+            $scope.addBook = function() {
+                $scope.books.push($scope.bookInput);
+            }
+        }
+        myApp.controller("myController", myControllerFunction);
+    </script>
+</body>
+</html>

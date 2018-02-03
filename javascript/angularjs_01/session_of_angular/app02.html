@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../lib/angular.js"></script> 
+</head>
+<body ng-app="myApp">
+    <div ng-controller="calculatorController">
+        <input ng-model="num1">
+        <input ng-model="num2"> {{result}}
+        <br>
+        <button ng-click="addInputs()">Add</button>
+    </div>
+    <script>
+        var myApp = angular.module("myApp", []);
+        
+        let CalculatorController = ($scope, calculatorService) => {
+            $scope.num1 = 0;
+            $scope.num2 = 0;
+            $scope.result = 0;
+            $scope.addInputs = () => {
+                $scope.result = calculatorService.add($scope.num1, $scope.num2);
+
+            }
+        };
+
+        let CalculatorService = function () {
+            this.add = (a, b) => {
+                return parseInt(a) + parseInt(b);
+            }
+        }
+
+        let CalculatorService1 = function () {
+            this.add = (a, b) => {
+                return parseInt(a) + parseInt(b);
+            }
+        }
+        myApp.service("calculatorService", CalculatorService);
+        myApp.controller("calculatorController", CalculatorController);
+
+    </script>
+</body>
+</html>
