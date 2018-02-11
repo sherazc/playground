@@ -3,12 +3,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.sc.dp</groupId>
-    <artifactId>app01_strategy</artifactId>
+    <artifactId>app03_factory</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>app01_strategy</name>
+    <name>app03_factory</name>
     <url>http://maven.apache.org</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <build>
         <plugins>
             <plugin>
