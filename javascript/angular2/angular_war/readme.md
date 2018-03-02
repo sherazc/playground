@@ -1,4 +1,4 @@
-#Step 1: create maven project
+# Step 1: create maven project
 ```$ mvn archetype:generate```
 
 
