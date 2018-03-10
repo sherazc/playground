@@ -6,3 +6,5 @@
 export const environment = {
   production: false
 };
+
+export const service_end_point_base = 'http://localhost:4200/api/';

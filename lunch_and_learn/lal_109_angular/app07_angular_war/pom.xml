@@ -16,6 +16,19 @@
         <angular.project.nodeinstallation>target/node_installation</angular.project.nodeinstallation>
     </properties>
 
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+
+            </properties>
+        </profile>
+
+    </profiles>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -34,6 +47,7 @@
             <version>2.9.4</version>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
