@@ -23,7 +23,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-
+                <environment.build.type>build</environment.build.type>
             </properties>
         </profile>
 
@@ -80,7 +80,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>npm build</id>
+                        <id>npm ${environment.build.type}</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
