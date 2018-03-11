@@ -31,3 +31,5 @@ node_modules
 **/bin/
 .project
 package-lock.json
+
+node_installation

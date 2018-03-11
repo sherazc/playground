@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.sc.angular</groupId>
-    <artifactId>app07_angular_war</artifactId>
+    <artifactId>app08_angular_war</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
@@ -13,7 +13,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <angular.project.location>angular-ui</angular.project.location>
-        <angular.project.nodeinstallation>target/node_installation</angular.project.nodeinstallation>
+        <angular.project.nodeinstallation>node_installation</angular.project.nodeinstallation>
     </properties>
 
     <profiles>
