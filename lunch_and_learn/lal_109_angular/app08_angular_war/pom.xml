@@ -23,10 +23,21 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <environment.build.type>build</environment.build.type>
+                <environment.build.type>build-dev</environment.build.type>
             </properties>
         </profile>
-
+        <profile>
+            <id>qa</id>
+            <properties>
+                <environment.build.type>build-qa</environment.build.type>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <environment.build.type>build-prod</environment.build.type>
+            </properties>
+        </profile>
     </profiles>
 
     <dependencies>
@@ -80,12 +91,12 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>npm ${environment.build.type}</id>
+                        <id>npm build</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <arguments>run build</arguments>
+                            <arguments>run ${environment.build.type}</arguments>
                         </configuration>
                     </execution>
                 </executions>
