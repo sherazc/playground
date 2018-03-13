@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.sc.angular</groupId>
-    <artifactId>app08_angular_war</artifactId>
+    <artifactId>app08_angular_war_pom_xml</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>app07_angular_war</name>
+    <name>app08_angular_war_pom_xml</name>
     <url>http://maven.apache.org</url>
 
     <properties>
