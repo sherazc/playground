@@ -6,12 +6,14 @@ import { SERVICE_ENDPOINT } from '../myConfigs';
 export class BlogService {
     constructor(private httpClient: HttpClient, @Inject(SERVICE_ENDPOINT) private serviceEndpoint: string) {}
 
-    getAllBlogPosts() {
-        console.log(this.serviceEndpoint);
-        console.log('GET 1', this.httpClient);
-        this.httpClient.get(this.serviceEndpoint).subscribe(data => {
-            console.log(data);
-        });
+    async getAllBlogPosts() {
+      let result: any = null;
+      try {
+        result = await this.httpClient.get(this.serviceEndpoint).toPromise();
+      } catch (error) {
+        console.error(`Unable to get data from ${this.serviceEndpoint}`, error);
+      }
+      return result;
     }
 
     createNewBlogPost() {
