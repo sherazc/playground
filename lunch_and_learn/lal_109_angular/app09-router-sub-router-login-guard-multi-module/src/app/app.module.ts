@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { routing } from './app.routes';
 
 
 import { AppComponent } from './app.component';
+import {LayoutsModule} from './layouts/layouts.module';
 
 
 @NgModule({
@@ -10,7 +12,9 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    routing,
+    LayoutsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
