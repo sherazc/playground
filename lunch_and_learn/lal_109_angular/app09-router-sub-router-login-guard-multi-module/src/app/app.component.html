@@ -1,31 +1,12 @@
 <div class="container">
-  <div class="row" style="background-color: #e93d46; padding: 20px; color: whitesmoke; border-bottom: 2px solid #cb373e">
-    Public Menu&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Home</a>&nbsp;&nbsp;|&nbsp;&nbsp;Hi User Name&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">login</a>/<a href="#">logout</a>
-  </div>
+
+  <public-menu></public-menu>
 
   <router-outlet></router-outlet>
 
-  <div class="row" style="background-color: #f3a443; padding: 20px; color: whitesmoke; border-bottom: 2px solid #d5903a">
-    Customer Menu&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">View Items</a>
-  </div>
+  <customer-menu></customer-menu>
+  <admin-menu></admin-menu>
 
-
-  <div class="row" style="background-color: #74e377; padding: 20px; color: whitesmoke; border-bottom: 2px solid #6dc070">
-    Admin Menu&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Add Item</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Edit Item</a>
-  </div>
-
-  <div style="border: 1px solid #dedede; padding: 30px; width: 500px; border-radius: 3px;">
-    <div class="form-group">
-      <label for="userName">User</label>
-      <input id="userName" type="text" class="form-control">
-    </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input id="password" type="password" class="form-control">
-    </div>
-    <div>
-      <button class="btn btn-primary">Submit</button>
-    </div>
-  </div>
+  <login></login>
 
 </div>

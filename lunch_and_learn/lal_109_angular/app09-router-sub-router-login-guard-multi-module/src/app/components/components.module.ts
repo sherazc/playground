@@ -22,7 +22,12 @@ import {EditItemComponent} from './edit-item/edit-item.component';
     ViewItemsComponent,
     AddItemComponent,
     EditItemComponent],
-  exports: []
+  exports: [
+    PublicMenuComponent,
+    CustomerMenuComponent,
+    AdminMenuComponent,
+    LoginComponent
+  ]
 })
 export class ComponentsModule {
 }
