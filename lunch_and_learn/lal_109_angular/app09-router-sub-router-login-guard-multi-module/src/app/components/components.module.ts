@@ -8,10 +8,16 @@ import {LoginComponent} from './login/login.component';
 import {ViewItemsComponent} from './view-items/view-items.component';
 import {AddItemComponent} from './add-item/add-item.component';
 import {EditItemComponent} from './edit-item/edit-item.component';
+import {RouterModule} from '@angular/router';
+import {FooterComponent} from './footer/footer.component';
+import { ViewItemComponent } from './view-item/view-item.component';
+import { ViewItemSummaryComponent } from './view-item-summary/view-item-summary.component';
+import { ViewItemDetailComponent } from './view-item-detail/view-item-detail.component';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   declarations: [
     PublicMenuComponent,
@@ -21,12 +27,17 @@ import {EditItemComponent} from './edit-item/edit-item.component';
     LoginComponent,
     ViewItemsComponent,
     AddItemComponent,
-    EditItemComponent],
+    EditItemComponent,
+    FooterComponent,
+    ViewItemComponent,
+    ViewItemSummaryComponent,
+    ViewItemDetailComponent],
   exports: [
     PublicMenuComponent,
     CustomerMenuComponent,
     AdminMenuComponent,
-    LoginComponent
+    LoginComponent,
+    FooterComponent
   ]
 })
 export class ComponentsModule {
