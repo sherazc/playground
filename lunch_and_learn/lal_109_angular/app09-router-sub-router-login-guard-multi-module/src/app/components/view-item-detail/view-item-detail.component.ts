@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {ItemService} from '../../services/item/item.service';
+import {ActivatedRoute} from '@angular/router';
+import {Item} from '../../services/modal/Item';
 
 @Component({
   selector: 'app-view-item-detail',
@@ -7,9 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewItemDetailComponent implements OnInit {
 
-  constructor() { }
+  item: Item;
+  constructor(private itemService: ItemService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.item = this.itemService.findItemById(this.route.pathFromRoot[3].snapshot.params.itemId);
   }
-
 }

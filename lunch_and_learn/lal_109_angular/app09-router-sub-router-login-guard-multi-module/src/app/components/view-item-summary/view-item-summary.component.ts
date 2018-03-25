@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ItemService} from '../../services/item/item.service';
+import {ActivatedRoute} from '@angular/router';
+import {Item} from '../../services/modal/Item';
 
 @Component({
   selector: 'app-view-item-summary',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewItemSummaryComponent implements OnInit {
 
-  constructor() { }
+  item: Item;
 
-  ngOnInit() {
+  constructor(private itemService: ItemService, private route: ActivatedRoute) {
   }
 
+  ngOnInit() {
+    // Note pathFromRoot. pathFromRoot[0] is root /
+    // We cant do this.route.snapshot.params.itemId because itemId exist in the parent route
+    this.item = this.itemService.findItemById(this.route.pathFromRoot[3].snapshot.params.itemId);
+  }
 }
