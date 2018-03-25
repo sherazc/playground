@@ -13,11 +13,13 @@ import {FooterComponent} from './footer/footer.component';
 import { ViewItemComponent } from './view-item/view-item.component';
 import { ViewItemSummaryComponent } from './view-item-summary/view-item-summary.component';
 import { ViewItemDetailComponent } from './view-item-detail/view-item-detail.component';
+import {ServicesModule} from "../services/services.module";
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    ServicesModule
   ],
   declarations: [
     PublicMenuComponent,

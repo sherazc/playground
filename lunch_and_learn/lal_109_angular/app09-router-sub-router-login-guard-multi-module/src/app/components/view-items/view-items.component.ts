@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Item} from '../../services/modal/Item';
+import {ItemService} from '../../services/item/item.service';
 
 @Component({
   selector: 'app-view-items',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewItemsComponent implements OnInit {
 
-  constructor() { }
+  public items: Item[];
+
+  constructor(private itemsService: ItemService) {}
 
   ngOnInit() {
+    this.items = this.itemsService.loadItem();
   }
-
 }
