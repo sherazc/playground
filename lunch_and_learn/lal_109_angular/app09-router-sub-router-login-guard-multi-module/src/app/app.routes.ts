@@ -11,6 +11,7 @@ import {ViewItemDetailComponent} from './components/view-item-detail/view-item-d
 import {AuthenticationGuard} from './services/guard/authentication.guard';
 import {UnAuthorizedComponent} from './components/un-authorized/un-authorized.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
+import {AuthorizationAdminGuard} from "./services/guard/authorization-admin.guard";
 
 const routes: Routes = [
   {
@@ -28,8 +29,8 @@ const routes: Routes = [
               {path: 'detail', component: ViewItemDetailComponent}
             ]
           },
-          {path: 'add-item', component: AddItemComponent},
-          {path: 'edit-item/:itemId', component: EditItemComponent}
+          {path: 'add-item', component: AddItemComponent, canActivate: [AuthorizationAdminGuard]},
+          {path: 'edit-item/:itemId', component: EditItemComponent, canActivate: [AuthorizationAdminGuard]}
         ]
       },
       {path: 'login', component: LoginComponent},
