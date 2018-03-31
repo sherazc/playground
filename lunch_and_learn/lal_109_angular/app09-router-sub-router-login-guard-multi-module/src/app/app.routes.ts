@@ -8,7 +8,9 @@ import {EditItemComponent} from './components/edit-item/edit-item.component';
 import {ViewItemComponent} from './components/view-item/view-item.component';
 import {ViewItemSummaryComponent} from './components/view-item-summary/view-item-summary.component';
 import {ViewItemDetailComponent} from './components/view-item-detail/view-item-detail.component';
-import {AuthenticationGuard} from "./services/guard/authentication.guard";
+import {AuthenticationGuard} from './services/guard/authentication.guard';
+import {UnAuthorizedComponent} from './components/un-authorized/un-authorized.component';
+import {NotFoundComponent} from './components/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -30,7 +32,9 @@ const routes: Routes = [
           {path: 'edit-item/:itemId', component: EditItemComponent}
         ]
       },
-      {path: 'login', component: LoginComponent}
+      {path: 'login', component: LoginComponent},
+      {path: 'un-authorized', component: UnAuthorizedComponent},
+      {path: '**', component: NotFoundComponent}
     ]
   }
 ];

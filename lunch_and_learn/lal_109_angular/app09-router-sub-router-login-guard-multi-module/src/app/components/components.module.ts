@@ -15,6 +15,8 @@ import { ViewItemSummaryComponent } from './view-item-summary/view-item-summary.
 import { ViewItemDetailComponent } from './view-item-detail/view-item-detail.component';
 import {ServicesModule} from "../services/services.module";
 import {FormsModule} from "@angular/forms";
+import { UnAuthorizedComponent } from './un-authorized/un-authorized.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   imports: [
@@ -35,13 +37,14 @@ import {FormsModule} from "@angular/forms";
     FooterComponent,
     ViewItemComponent,
     ViewItemSummaryComponent,
-    ViewItemDetailComponent],
+    ViewItemDetailComponent,
+    UnAuthorizedComponent,
+    NotFoundComponent],
   exports: [
     PublicMenuComponent,
     CustomerMenuComponent,
     AdminMenuComponent,
-    LoginComponent,
-    FooterComponent
+    FooterComponent,
   ]
 })
 export class ComponentsModule {
