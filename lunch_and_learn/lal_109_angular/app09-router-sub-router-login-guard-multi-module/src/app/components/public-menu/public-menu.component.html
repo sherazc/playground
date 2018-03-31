@@ -1,7 +1,13 @@
 <div class="row" style="background-color: #e93d46; padding: 20px; color: whitesmoke; border-bottom: 2px solid #cb373e">
   Public Menu&nbsp;&nbsp;|&nbsp;&nbsp;
-  <a [routerLink]="['/']">Home</a>&nbsp;&nbsp;|&nbsp;&nbsp;Hi User Name&nbsp;&nbsp;|&nbsp;&nbsp;
-  <a [routerLink]="['/login']">login</a>
-  /
-  <a href="#">logout</a>
+  <a [routerLink]="['/']">Home</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+  <div *ngIf="currentUser()">
+    Hi {{currentUser().firstName}} {{currentUser().lastName}} &nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="#" (onclick)="logout()">logout</a>
+  </div>
+
+  <div *ngIf="!currentUser()">
+    <a [routerLink]="['/login']">login</a>
+  </div>
+
 </div>

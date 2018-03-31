@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   login(loginForm: NgForm) {
     const sessionUser: SessionUser = this.authenticationService.login(loginForm.value.userId, loginForm.value.password);
     if (sessionUser) {
-      this.route.navigate('/view-items');
+      this.route.navigate(['/view-items']);
     } else {
 
     }

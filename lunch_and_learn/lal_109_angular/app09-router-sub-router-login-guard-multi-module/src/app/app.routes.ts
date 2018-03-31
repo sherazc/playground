@@ -8,13 +8,14 @@ import {EditItemComponent} from './components/edit-item/edit-item.component';
 import {ViewItemComponent} from './components/view-item/view-item.component';
 import {ViewItemSummaryComponent} from './components/view-item-summary/view-item-summary.component';
 import {ViewItemDetailComponent} from './components/view-item-detail/view-item-detail.component';
+import {AuthenticationGuard} from "./services/guard/authentication.guard";
 
 const routes: Routes = [
   {
     path: '', component: MainComponent,
     children: [
       {
-        path: '', component: SubLoginComponent,
+        path: '', component: SubLoginComponent, canActivate: [AuthenticationGuard],
         children: [
           {path: '', component: ViewItemsComponent},
           {path: 'view-items', component: ViewItemsComponent},
