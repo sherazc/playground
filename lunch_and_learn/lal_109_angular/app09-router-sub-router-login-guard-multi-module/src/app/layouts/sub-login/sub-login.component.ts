@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthenticationService} from '../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-sub-login',
   templateUrl: './sub-login.component.html',
   styleUrls: ['./sub-login.component.css']
 })
-export class SubLoginComponent implements OnInit {
+export class SubLoginComponent {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+  constructor(public authenticationService: AuthenticationService) { }
 
 }

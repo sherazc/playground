@@ -1,5 +1,5 @@
 <div>
   <customer-menu></customer-menu>
-  <admin-menu></admin-menu>
+  <admin-menu *ngIf="authenticationService.isCurrentUserAdmin()"></admin-menu>
   <router-outlet></router-outlet>
 </div>
