@@ -11,7 +11,7 @@ import {ViewItemDetailComponent} from './components/view-item-detail/view-item-d
 import {AuthenticationGuard} from './services/guard/authentication.guard';
 import {UnAuthorizedComponent} from './components/un-authorized/un-authorized.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
-import {AuthorizationAdminGuard} from "./services/guard/authorization-admin.guard";
+import {AuthorizationAdminGuard} from './services/guard/authorization-admin.guard';
 
 const routes: Routes = [
   {
