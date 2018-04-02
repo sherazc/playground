@@ -1,23 +1,38 @@
 <form #loginForm="ngForm" (submit)="login(loginForm)">
   <div style="border: 1px solid #dedede; padding: 30px; width: 500px; border-radius: 3px; margin-top: 40px">
+
     <div class="form-group">
       <label for="userId">User</label>
-      <input ngModel
+      <input ngModel required
+             [ngClass]="{'is-invalid': userId.invalid && userId.touched}"
              name="userId"
-             #userId
+             #userId="ngModel"
              id="userId" type="text" class="form-control">
+      <div class="invalid-feedback">
+        Please enter User Id
+      </div>
     </div>
     <div class="form-group">
       <label for="password">Password</label>
-      <input ngModel
+      <input ngModel required
+             [ngClass]="{'is-invalid': password.invalid && password.touched}"
              name="password"
+             #password="ngModel"
              id="password" type="password" class="form-control">
+      <div class="invalid-feedback">
+        Please enter password
+      </div>
     </div>
     <div>
-      <button class="btn btn-primary">Submit</button>
+      <button class="btn btn-primary" [disabled]="loginForm.invalid">Submit</button>
+    </div>
+{{loginForm.errors}}
+    <div class="text-danger" style="margin-top: 30px;" *ngIf="loginForm.touched && loginForm.invalid">
+      Please enter User Id and password
     </div>
   </div>
 </form>
+
 Admin User = sheraz/sheraz
 <br>
 Manager User = abrar/abrar
