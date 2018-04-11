@@ -5,7 +5,7 @@ import {routing} from './app.routes';
 import {AppComponent} from './app.component';
 import {LayoutsModule} from './layouts/layouts.module';
 import {ComponentsModule} from './components/components.module';
-import {ServicesModule} from "./services/services.module";
+import {ServicesModule} from './services/services.module';
 
 
 @NgModule({
