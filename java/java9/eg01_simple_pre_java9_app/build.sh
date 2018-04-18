@@ -8,7 +8,7 @@ rm -rf target/classes
 
 echo building ui.jar
 javac -cp "target/*" -d target/classes -sourcepath src/ui `find src/ui -name *.java`
-jar -cf target/ui.jar -C target/classes .
+jar -cfe target/ui.jar com.sc.cli.CalculatorCli -C target/classes .
 rm -rf target/classes
 
 
@@ -17,6 +17,6 @@ rm -rf target/classes
 
 echo =============================
 
-java -cp "target/*" com.sc.cli.CalculatorCli 2 + 3
+java -cp "target/*" 2 + 3
 java -cp "target/*" com.sc.cli.CalculatorCli 6 - 2
 java -cp "target/*" com.sc.cli.CalculatorCli 4 \* 5
