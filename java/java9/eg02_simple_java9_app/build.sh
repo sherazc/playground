@@ -1,10 +1,17 @@
+#!/usr/bin/env bash
+
 echo Cleaning
 rm -rf target
 
-mkdir target/module_lib
-
+mkdir -p target/mlib
 
 echo building worker.jar
-javac -d target/classes -sourcepath src/com.sc.worker `find src/com.sc.worker -name *.java`
-jar -cf target/module_lib/worker.jar -C target/classes .
+javac -d target/classes `find src/com.sc.worker -name *.java`
+jar -cf target/mlib/worker.jar -C target/classes .
 rm -rf target/classes
+
+echo building ui.jar
+javac -p target/mlib/* -d target/classes `find src/com.sc.ui -name *.java`
+jar -cf target/mlib/ui.jar -C target/classes .
+rm -rf target/classes
+
