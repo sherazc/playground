@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Angular</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+</head>
+<body ng-app="myApp">
+    <div class="container">
+        <h1 style="
+            background:steelblue; 
+            font-weight: 200; 
+            color: white; 
+            padding: 20px; 
+            letter-spacing: 5px; 
+            text-align: center;">
+            UNIT TESTING
+        </h1>
+    <div ng-controller="myController" class="row" style="margin-top: 40px">
+    <div class="col-md-6 offset-md-3">
+        <div class="form-group">
+            <label>Number 1:</label>
+            <input ng-model="inputModel.num1" type="number" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Number 2:</label>
+            <input ng-model="inputModel.num2" type="number" class="form-control">
+        </div>
+        <button ng-click="calculate('+');" type="submit" class="btn btn-success">+</button>
+        <button ng-click="calculate('-');" type="submit" class="btn btn-danger">-</button>
+        <div ng-if="result" class="alert alert-success" style="margin-top: 40px">
+            {{result}}
+        </div>
+    </div>
+    </div>
+    </div>
+<script src="../lib/angular.js"></script>
+<script src="./script.js"></script>    
+</body>
+</html>
