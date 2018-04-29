@@ -17,4 +17,30 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <!--
+                            For some reason maven adds Main-Class attribute
+                            But I am still not able to execute module.
+
+                            But I can run if build jar with out maven.
+
+                            See build.sh of eg02_simple_java_9
+                            -->
+                            <!--<addClasspath>true</addClasspath>-->
+                            <!--<classpathPrefix>/</classpathPrefix>-->
+                            <mainClass>com.sc.cli.CalculatorCli</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
