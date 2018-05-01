@@ -1,4 +1,4 @@
-package com.sc.lambda_stream.eg04_cant_reuse_stream;
+package com.sc.stream.eg04_cant_reuse_stream;
 
 import java.util.stream.IntStream;
 import java.util.stream.Stream;

@@ -1,4 +1,4 @@
-package com.sc.lambda_stream.eg01;
+package com.sc.stream.eg01;
 
 import java.util.Arrays;
 import java.util.List;
