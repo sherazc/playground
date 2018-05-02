@@ -1,4 +1,4 @@
-package com.sc.stream.eg02_parallel_stream;
+package com.sc.stream.eg05_parallel_stream;
 
 import java.util.Arrays;
 import java.util.List;

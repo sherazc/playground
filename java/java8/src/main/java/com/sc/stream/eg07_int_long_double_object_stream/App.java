@@ -1,4 +1,4 @@
-package com.sc.stream.eg05_int_long_double_object_stream;
+package com.sc.stream.eg07_int_long_double_object_stream;
 
 import java.util.Arrays;
 import java.util.List;

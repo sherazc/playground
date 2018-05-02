@@ -1,4 +1,4 @@
-package com.sc.stream.eg03_stream_of;
+package com.sc.stream.eg06_stream_of;
 
 import java.util.Arrays;
 import java.util.stream.Stream;

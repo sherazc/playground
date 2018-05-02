@@ -5,7 +5,7 @@ import java.util.stream.Stream;
 
 public class App {
     public static void main(String[] args) {
-        // of Method
+        // Stream.of() Method
         Stream<Integer> streamA = Stream.of(1, 2, 3);
 
         // From List

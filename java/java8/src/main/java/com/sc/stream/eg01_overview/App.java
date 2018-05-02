@@ -1,4 +1,4 @@
-package com.sc.stream.eg01;
+package com.sc.stream.eg01_overview;
 
 import java.util.Arrays;
 import java.util.List;
