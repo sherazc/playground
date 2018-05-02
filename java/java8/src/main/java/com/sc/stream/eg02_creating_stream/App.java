@@ -1,6 +1,7 @@
 package com.sc.stream.eg02_creating_stream;
 
 import java.util.Arrays;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class App {
@@ -17,5 +18,8 @@ public class App {
         streamCBuilder.accept(2);
         streamCBuilder.accept(3);
         Stream<Integer> streamC = streamCBuilder.build();
+
+        // From Array
+        IntStream streamD = Arrays.stream(new int[]{1, 2, 3});
     }
 }
