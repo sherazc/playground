@@ -34,7 +34,6 @@ public class App {
         System.out.println("========= Stream.filter() ========");
         Stream.of(2, 4, 6).filter(i -> i > 2).forEach(System.out::println);
 
-
         // findAny(). Observation: Parallel return random number. Sequential returns first element - Terminal
         System.out.println("========= Stream.findAny() ========");
         System.out.println(Stream.of(2, 4, 6).parallel().findAny().get());
@@ -76,13 +75,34 @@ public class App {
         System.out.println(Stream.of(2, 4, 6).mapToInt(i -> i).sum());
 
         // max(), min() - Terminal
-        System.out.println("========= Stream.mapToInt() ========");
+        System.out.println("========= Stream.max() ========");
         System.out.println(Stream.of(2, 4, 6).max((a, b) -> {if (a == b) return 0; else if(a > b) return 1; else return -1;} ).get());
 
+        // noneMatch() - Terminal
+        System.out.println("========= Stream.noneMatch() ========");
+        System.out.println(Stream.of(2, 4, 6).noneMatch(a -> a == 1));
+
+        // peek() - Its just like forEach that excepts Consumer. - Operational
+        // But its a Operational and forEach is Terminal
+        System.out.println("========= Stream.peek() ========");
+        Stream.of(2, 4, 6).peek(System.out::println).forEach(System.out::println);
+
+        // skip() - Operational
+        System.out.println("========= Stream.skip() ========");
+        Stream.of(2, 4, 6).skip(1).forEach(System.out::println);
+
+        // sorted() - Operational
+        System.out.println("========= Stream.sorted() ========");
+        Stream.of(6, 2, 4).sorted().forEach(System.out::println);
+
+        // toArray() - Terminal
+        System.out.println("========= Stream.toArray() ========");
+        for (Object num : Stream.of(2, 4, 6).toArray()) {
+            System.out.println(num);
+        }
 
         // collect()
         // flatMap()
         // reduce
-
     }
 }
