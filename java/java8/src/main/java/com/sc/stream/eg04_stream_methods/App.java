@@ -5,11 +5,11 @@ import java.util.stream.Stream;
 public class App {
     public static void main(String[] args) {
 
-        // Find if all elements match
+        // Find if all elements match - Terminal
         boolean allMatch = Stream.of(2, 4, 6).allMatch(i -> i % 2 == 0);
         System.out.println("allMatch=" + allMatch);
 
-        // Find if any of Stream Element match
+        // Find if any of Stream Element match - Terminal
         boolean anyMatch = Stream.of(2, 4, 6).anyMatch(i -> i == 2);
         System.out.println("anyMatch=" + anyMatch);
 
@@ -18,30 +18,71 @@ public class App {
         System.out.println("========= Stream.concat() ========");
         concatStream.forEach(System.out::println);
 
-        // Count
+        // Count - Terminal
         System.out.println("========= Stream.count() ========");
         System.out.println(Stream.of(2, 4, 6).count());
 
-        // Distinct
+        // Distinct - Operational
         System.out.println("========= Stream.distinct() ========");
         Stream.of(2, 2, 3, 3).distinct().forEach(System.out::println);
 
-        // Empty. Make a new stream empty
+        // Empty. Make a new stream empty - Operational
         System.out.println("========= Stream.empty() ========");
         System.out.println(Stream.empty().count());
 
-        // filter
+        // filter - Operational
         System.out.println("========= Stream.filter() ========");
         Stream.of(2, 4, 6).filter(i -> i > 2).forEach(System.out::println);
 
 
-        // findAny(). Observation: Parallel return random number. Sequential returns first element
+        // findAny(). Observation: Parallel return random number. Sequential returns first element - Terminal
         System.out.println("========= Stream.findAny() ========");
         System.out.println(Stream.of(2, 4, 6).parallel().findAny().get());
 
-        // findFirst().
+        // findFirst(). - Terminal
         System.out.println("========= Stream.findFirst() ========");
         System.out.println(Stream.of(2, 4, 6).findFirst().get());
+
+        // forEach() - Terminal
+        System.out.println("========= Stream.forEach() ========");
+        Stream.of(2, 4, 6).forEach(System.out::println);
+
+
+        // forEachOrdered() - process in the same order they were added - Terminal
+        System.out.println("========= Stream.forEachOrdered() ========");
+        Stream.of(6, 2, 4).forEachOrdered(System.out::println);
+
+        // generate() - Create a unlimited size stream.
+        // If limit() is not used then this stream will never end - Operational
+        System.out.println("========= Stream.generate() ========");
+        Stream.generate(() -> (int) (Math.random() * 10)).limit(2).forEach(System.out::println);
+
+        // iterate() - Create a unlimited size stream. Sequential stream
+        // If limit() is not used then this stream will never end - Operational
+        System.out.println("========= Stream.iterate() ========");
+        Stream.iterate(0, i -> i + 1).limit(5).forEach(System.out::println);
+
+        // limit() - Limits Stream - Operational
+        // Do not give error if limit value is higher than number of elements available in the stream
+        System.out.println("========= Stream.limit() ========");
+        Stream.of(2, 4, 6).limit(2).forEach(System.out::println);
+
+        // map() - Perform special action of each element before terminal - Operational
+        System.out.println("========= Stream.map() ========");
+        Stream.of(2, 4, 6).map(i -> i * 2).forEach(System.out::println);
+
+        // mapToInt(), mapToDouble(), mapToLong() - converts Stream to IntStream, LongStream, DoubleStream - Operational
+        System.out.println("========= Stream.mapToInt() ========");
+        System.out.println(Stream.of(2, 4, 6).mapToInt(i -> i).sum());
+
+        // max(), min() - Terminal
+        System.out.println("========= Stream.mapToInt() ========");
+        System.out.println(Stream.of(2, 4, 6).max((a, b) -> {if (a == b) return 0; else if(a > b) return 1; else return -1;} ).get());
+
+
+        // collect()
+        // flatMap()
+        // reduce
 
     }
 }
