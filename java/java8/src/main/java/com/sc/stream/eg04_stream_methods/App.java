@@ -101,8 +101,10 @@ public class App {
             System.out.println(num);
         }
 
+        // TODO: Do these examples
         // collect()
         // flatMap()
-        // reduce
+        // reduce()
+        // IntStream, DoubleStream, LongStream
     }
 }
