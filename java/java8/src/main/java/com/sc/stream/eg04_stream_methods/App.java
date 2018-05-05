@@ -106,5 +106,6 @@ public class App {
         // flatMap()
         // reduce()
         // IntStream, DoubleStream, LongStream
+        // convert stream to array, iterator, list and back to stream
     }
 }
