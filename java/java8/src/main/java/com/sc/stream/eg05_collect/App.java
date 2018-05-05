@@ -6,14 +6,9 @@ import java.util.stream.Stream;
 public class App {
 
     public static void main(String[] args) {
-        System.out.println("========= collect(Collectors.toList()) =========");
-        Stream.of(1, 2, 3).collect(Collectors.toList()).forEach(System.out::println);
-
-        System.out.println("========= collect(Collectors.toSet()) =========");
-        Stream.of(1, 2, 3).collect(Collectors.toSet()).forEach(System.out::println);
-
-
         /*
+        Stream.collect(): takes in 3 parameters
+
         supplier: Initializes objects which can collect Stream elements.
         accumulator: Runs over each element of the Stream. Receives current collector and current stream element
         combiner: Only used in parallel stream. For parallel stream, stream will be distributed in multiple chunks.
@@ -29,11 +24,27 @@ public class App {
         System.out.println(result);
 
 
+        /*
+        Method reference example similar to previous example
+         */
         System.out.println("========= collect(supplier, accumulator, combiner) =========");
         StringBuilder result2 = Stream.of("a", "b", "c").parallel()
                 .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append);
         System.out.println(result2);
 
+
+        /*
+        Built-in collectors in Collectors static methods
+         */
+        System.out.println("========= collect(Collectors.joining()) =========");
+        String result3 = Stream.of("a", "b", "c").parallel().collect(Collectors.joining());
+        System.out.println(result3);
+
+        System.out.println("========= collect(Collectors.toList()) =========");
+        Stream.of("a", "b", "c").collect(Collectors.toList()).forEach(System.out::println);
+
+        System.out.println("========= collect(Collectors.toSet()) =========");
+        Stream.of("a", "b", "c").collect(Collectors.toSet()).forEach(System.out::println);
 
 
 
