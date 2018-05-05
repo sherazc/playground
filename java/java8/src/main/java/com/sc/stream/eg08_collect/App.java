@@ -1,4 +1,4 @@
-package com.sc.stream.eg05_collect;
+package com.sc.stream.eg08_collect;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -7,6 +7,7 @@ public class App {
 
     public static void main(String[] args) {
         /*
+        TODO: add collect explanation and reduce vs collect
         Stream.collect(): takes in 3 parameters
 
         supplier: Initializes objects which can collect Stream elements.
@@ -45,9 +46,5 @@ public class App {
 
         System.out.println("========= collect(Collectors.toSet()) =========");
         Stream.of("a", "b", "c").collect(Collectors.toSet()).forEach(System.out::println);
-
-
-
-
     }
 }

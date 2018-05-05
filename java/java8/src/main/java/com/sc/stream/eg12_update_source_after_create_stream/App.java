@@ -1,4 +1,4 @@
-package com.sc.stream.eg06_update_source_after_create_stream;
+package com.sc.stream.eg12_update_source_after_create_stream;
 
 import java.util.ArrayList;
 import java.util.Arrays;
