@@ -22,15 +22,15 @@ public class App {
         System.out.println("========= Stream.count() ========");
         System.out.println(Stream.of(2, 4, 6).count());
 
-        // Distinct - Operational
+        // Distinct - Intermediate
         System.out.println("========= Stream.distinct() ========");
         Stream.of(2, 2, 3, 3).distinct().forEach(System.out::println);
 
-        // Empty. Make a new stream empty - Operational
+        // Empty. Make a new stream empty - Intermediate
         System.out.println("========= Stream.empty() ========");
         System.out.println(Stream.empty().count());
 
-        // filter - Operational
+        // filter - Intermediate
         System.out.println("========= Stream.filter() ========");
         Stream.of(2, 4, 6).filter(i -> i > 2).forEach(System.out::println);
 
@@ -52,25 +52,25 @@ public class App {
         Stream.of(6, 2, 4).forEachOrdered(System.out::println);
 
         // generate() - Create a unlimited size stream.
-        // If limit() is not used then this stream will never end - Operational
+        // If limit() is not used then this stream will never end - Intermediate
         System.out.println("========= Stream.generate() ========");
         Stream.generate(() -> (int) (Math.random() * 10)).limit(2).forEach(System.out::println);
 
         // iterate() - Create a unlimited size stream. Sequential stream
-        // If limit() is not used then this stream will never end - Operational
+        // If limit() is not used then this stream will never end - Intermediate
         System.out.println("========= Stream.iterate() ========");
         Stream.iterate(0, i -> i + 1).limit(5).forEach(System.out::println);
 
-        // limit() - Limits Stream - Operational
+        // limit() - Limits Stream - Intermediate
         // Do not give error if limit value is higher than number of elements available in the stream
         System.out.println("========= Stream.limit() ========");
         Stream.of(2, 4, 6).limit(2).forEach(System.out::println);
 
-        // map() - Perform special action of each element before terminal - Operational
+        // map() - Perform special action of each element before terminal - Intermediate
         System.out.println("========= Stream.map() ========");
         Stream.of(2, 4, 6).map(i -> i * 2).forEach(System.out::println);
 
-        // mapToInt(), mapToDouble(), mapToLong() - converts Stream to IntStream, LongStream, DoubleStream - Operational
+        // mapToInt(), mapToDouble(), mapToLong() - converts Stream to IntStream, LongStream, DoubleStream - Intermediate
         System.out.println("========= Stream.mapToInt() ========");
         System.out.println(Stream.of(2, 4, 6).mapToInt(i -> i).sum());
 
@@ -82,16 +82,16 @@ public class App {
         System.out.println("========= Stream.noneMatch() ========");
         System.out.println(Stream.of(2, 4, 6).noneMatch(a -> a == 1));
 
-        // peek() - Its just like forEach that excepts Consumer. - Operational
-        // But its a Operational and forEach is Terminal
+        // peek() - Its just like forEach that excepts Consumer. - Intermediate
+        // But its a Intermediate and forEach is Terminal
         System.out.println("========= Stream.peek() ========");
         Stream.of(2, 4, 6).peek(System.out::println).forEach(System.out::println);
 
-        // skip() - Operational
+        // skip() - Intermediate
         System.out.println("========= Stream.skip() ========");
         Stream.of(2, 4, 6).skip(1).forEach(System.out::println);
 
-        // sorted() - Operational
+        // sorted() - Intermediate
         System.out.println("========= Stream.sorted() ========");
         Stream.of(6, 2, 4).sorted().forEach(System.out::println);
 
