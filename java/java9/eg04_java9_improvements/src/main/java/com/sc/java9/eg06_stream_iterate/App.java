@@ -19,12 +19,10 @@ public class App {
         System.out.println("========= Java 8 Stream.iterate() ========");
         Stream.iterate(0, i -> i + 2).limit(3).forEach(System.out::println);
 
-
         /*
         Java 9 Stream.iterate() have predicate because of which we don't have to use limit().
          */
         System.out.println("======= Java 9 Stream.iterate() =======");
         Stream.iterate(0, i -> i < 5, i -> i + 2).forEach(System.out::println);
-
     }
 }
