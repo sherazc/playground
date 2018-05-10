@@ -6,6 +6,7 @@ mkdir target\classes
 dir src\worker /s /B /A-D > target\sources.txt
 javac -d target\classes -sourcepath src\worker @target\sources.txt
 jar -cf target/worker.jar -C target/classes .
+jar -f target/worker.jar -d
 del target\sources.txt
 rd /s /q target\classes
 
@@ -14,6 +15,7 @@ mkdir target\classes
 dir src\ui /s /B /A-D > target\sources.txt
 javac -cp "target/*" -d target\classes -sourcepath src\ui @target\sources.txt
 jar -cf target/ui.jar -C target/classes .
+jar -f target/ui.jar -d
 del target\sources.txt
 rd /s /q target\classes
 
