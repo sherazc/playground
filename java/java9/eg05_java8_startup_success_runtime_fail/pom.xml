@@ -3,10 +3,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.sc.java9</groupId>
-    <artifactId>eg05_java8_compile_success_runtime_fail</artifactId>
+    <artifactId>eg05_java8_startup_success_runtime_fail</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>eg05_java8_compile_success_runtime_fail</name>
+    <name>eg05_java8_startup_success_runtime_fail</name>
     <modules>
         <module>module-a</module>
         <module>module-b</module>
