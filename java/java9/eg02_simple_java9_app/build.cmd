@@ -25,6 +25,6 @@ jar -tf target/ui.jar
 
 echo =============================
 
-java -cp "target/*" com.sc.cli.CalculatorCli 2 + 3
-java -cp "target/*" com.sc.cli.CalculatorCli 6 - 2
-java -cp "target/*" com.sc.cli.CalculatorCli 4 % 5
+java -p "target/*" com.sc.cli.CalculatorCli 2 + 3
+java -p "target/*" com.sc.cli.CalculatorCli 6 - 2
+java -p "target/*" com.sc.cli.CalculatorCli 4 % 5
