@@ -3,10 +3,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.sc.java9</groupId>
-    <artifactId>eg06_java9_ClassNotFoundExeception_solution</artifactId>
+    <artifactId>eg05_java9_ClassNotFoundExeception_solution</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>eg06_java9_startup_fail_classNotFoundExeception_solution</name>
+    <name>eg05_java9_startup_fail_classNotFoundExeception_solution</name>
     <modules>
         <module>com.sc.module-a</module>
         <module>com.sc.module-b</module>
