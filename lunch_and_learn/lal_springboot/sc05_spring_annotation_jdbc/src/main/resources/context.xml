@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+    <bean id="storeInventory" class="com.lal.services.StoreInventoryImpl">
+        <constructor-arg name="siteInventoryDao" ref="siteInventoryDao"/>
+        <constructor-arg name="warehouseInventoryDao" ref="warehouseInventoryDao"/>
+    </bean>
+
+    <bean id="siteInventoryDao" class="com.lal.dao.SiteInventoryDaoImpl">
+        <constructor-arg name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+    <bean id="warehouseInventoryDao" class="com.lal.dao.WarehouseInventoryDaoImpl">
+        <constructor-arg name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+        <constructor-arg name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <jdbc:embedded-database id="dataSource" type="HSQL">
+        <jdbc:script location="classpath:create_db.sql"/>
+    </jdbc:embedded-database>
+
+<!--
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.hsqldb.jdbc.JDBCDriver"/>
+        <property name="url" value="jdbc:hsqldb:mem:mymemdb"/>
+        <property name="username" value="SA"/>
+        <property name="password" value=""/>
+    </bean>
+-->
+</beans>
