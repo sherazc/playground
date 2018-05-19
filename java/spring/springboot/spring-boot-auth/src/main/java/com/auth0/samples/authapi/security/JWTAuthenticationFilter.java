@@ -3,7 +3,8 @@ package com.auth0.samples.authapi.security;
 
 import com.auth0.samples.authapi.user.ApplicationUser;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.org.apache.xml.internal.security.algorithms.SignatureAlgorithm;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -49,12 +50,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             HttpServletResponse res,
                                             FilterChain chain,
                                             Authentication auth) throws IOException, ServletException {
-
         String token = Jwts.builder()
                 .setSubject(((User) auth.getPrincipal()).getUsername())
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS512, SECRET.getBytes())
+                .setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
+                .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET.getBytes())
                 .compact();
-        res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
+        res.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token);
     }
 }
