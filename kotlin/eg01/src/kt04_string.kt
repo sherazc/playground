@@ -14,7 +14,7 @@ fName.length = ${fName.length}
 fName char at 2 = ${fName.get(2)}
 fName char at 2 = ${fName[2]}
 
-fNmae substring from 2 to 5 = ${fName.subSequence(2, 5)}
+fName substring from 2 to 5 = ${fName.subSequence(2, 5)}
 """
 
     println(multiLineString)
