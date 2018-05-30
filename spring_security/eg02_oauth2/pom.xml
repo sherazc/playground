@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.sc.sb</groupId>
-	<artifactId>eg01</artifactId>
+	<artifactId>eg02_oauth2</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>eg01</name>
+	<name>eg02_oauth2</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
