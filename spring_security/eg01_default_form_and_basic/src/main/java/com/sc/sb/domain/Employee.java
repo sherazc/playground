@@ -1,4 +1,4 @@
-package com.sc.sb.eg01.domain;
+package com.sc.sb.domain;
 
 public class Employee {
     private String name;
