@@ -1,4 +1,4 @@
-package com.sc.sb.eg02;
+package com.sc.sb;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

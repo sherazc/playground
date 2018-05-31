@@ -1,6 +1,6 @@
-package com.sc.sb.eg02.controller;
+package com.sc.sb.controller;
 
-import com.sc.sb.eg02.domain.Employee;
+import com.sc.sb.domain.Employee;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
