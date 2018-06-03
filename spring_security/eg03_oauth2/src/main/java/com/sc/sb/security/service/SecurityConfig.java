@@ -1,4 +1,4 @@
-package com.sc.sb.security;
+package com.sc.sb.security.service;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
