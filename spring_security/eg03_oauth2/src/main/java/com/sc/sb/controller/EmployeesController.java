@@ -11,20 +11,21 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController("/employee")
+@RestController
 public class EmployeesController {
+
     private List<Employee> employees;
 
     public EmployeesController() {
         employees = new ArrayList<>();
     }
 
-    @GetMapping
+    @GetMapping("/employee")
     public List<Employee> getEmployees() {
         return employees;
     }
 
-    @PostMapping
+    @PostMapping("/employee")
     public Employee postEmployee(@RequestBody Employee employee) {
         this.employees.add(employee);
         return employee;

@@ -2,8 +2,10 @@ package com.sc.sb.security.authserver;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -50,5 +52,23 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
                 .accessTokenValiditySeconds(accessTokenValiditySeconds)
                 .refreshTokenValiditySeconds(refreshTokenValiditySeconds)
                 .secret("secret");
+    }
+
+    /**
+     *
+     * In Spring Security 5 we need to explicitly provide the PasswordEncoder that our
+     * passwords are encoded with. Its not the requirement for the Spring Security 4.2.3.
+     *
+     * Use NoOpPasswordEncoder only for Demo purpose. Not in production.
+     *
+     * https://stackoverflow.com/questions/46999940/spring-boot-passwordencoder-error
+     * https://www.harinathk.com/spring/no-passwordencoder-mapped-id-null/
+     * https://docs.spring.io/spring-security/site/docs/5.0.0.BUILD-SNAPSHOT/reference/htmlsingle/#troubleshooting
+     *
+     * @return
+     */
+    @Bean
+    public static NoOpPasswordEncoder passwordEncoder() {
+        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
     }
 }
