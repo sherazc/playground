@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController("/employee")
+// @RestController("/employee")
 public class EmployeesController {
     private List<Employee> employees;
 
