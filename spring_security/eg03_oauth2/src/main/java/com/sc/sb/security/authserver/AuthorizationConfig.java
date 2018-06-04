@@ -29,11 +29,25 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
         this.authenticationManager = authenticationManager;
     }
 
+
+    /**
+     * Sets client's authentication manager. This authenticate sets client
+     * user details in the token.
+     *
+     * @param endpoints
+     * @throws Exception
+     */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.authenticationManager(this.authenticationManager);
     }
 
+    /**
+     * Sets roles for Authentication server that could generate token
+     *
+     * @param oauthServer
+     * @throws Exception
+     */
     @Override
     public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
         oauthServer
@@ -41,6 +55,14 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
                 .checkTokenAccess("hasAuthority('ROLE_TRUSTED_CLIENT')");
     }
 
+    /**
+     * Sets Authentication Server's user details and type of tokens they can generate.
+     *
+     * In this example user=trusted-app, password=secret
+     *
+     * @param clients
+     * @throws Exception
+     */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
