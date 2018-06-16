@@ -4,7 +4,7 @@
 
     <parent>
         <groupId>com.sc.reminder.app</groupId>
-        <artifactId>reminder-parent-pom</artifactId>
+        <artifactId>reminder-app</artifactId>
         <version>1.0</version>
     </parent>
 
