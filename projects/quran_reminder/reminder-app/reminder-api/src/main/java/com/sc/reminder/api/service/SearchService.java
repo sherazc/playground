@@ -57,6 +57,8 @@ public abstract class SearchService {
             String rawTranslationLine = searchFileLine.readLine(translationBufferedReader, randomQuranLineNumber,
                     CommonUtils.displayNameToIndexName(getTranslationDisplayName()));
 
+            LOG.debug("rawAyaLine = {}", rawAyaLine);
+            LOG.debug("rawTranslationLine = {}", rawTranslationLine);
             if (rawAyaLine == null || rawTranslationLine == null) {
                 break;
             }
