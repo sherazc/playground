@@ -4,6 +4,8 @@ import com.sc.reminder.api.domain.AyaDetail;
 import com.sc.reminder.api.domain.Line;
 import com.sc.reminder.api.service.random.RandomAyaNumber;
 import com.sc.reminder.api.utils.CommonUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -12,6 +14,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public abstract class SearchService {
+    private final Logger LOG = LoggerFactory.getLogger(SearchService.class);
 
     public static final int HISTORY_DAYS = 6;
     public static final String FILE_EXTENSION = ".txt";
@@ -25,6 +28,7 @@ public abstract class SearchService {
     }
 
     public List<AyaDetail> search(int limitHistory) {
+        LOG.debug("Searching for AyaDetail. limitHistory = {}", limitHistory);
         List<AyaDetail> result = new ArrayList<AyaDetail>();
         if(CommonUtils.isBlank(getTranslationDisplayName())) {
             return result;
@@ -43,7 +47,8 @@ public abstract class SearchService {
             BufferedReader translationBufferedReader = CommonUtils.streamToBufferedReader(openTranslationStream());
 
             int randomQuranLineNumber = RandomAyaNumber.getInstance().generateRandomAyaNumber(daysSinceEpoch);
-
+            LOG.debug("daysSinceEpoch = {}", daysSinceEpoch);
+            LOG.debug("randomQuranLineNumber = {}", randomQuranLineNumber);
             List<Line> ayaLines = new ArrayList<Line>();
             List<Line> translationLines = new ArrayList<Line>();
 
