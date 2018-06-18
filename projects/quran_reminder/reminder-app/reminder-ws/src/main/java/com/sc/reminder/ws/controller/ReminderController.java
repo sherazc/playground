@@ -10,6 +10,7 @@ import com.sc.reminder.ws.util.CommonUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -67,6 +69,32 @@ public class ReminderController {
             reminderDetail = new ReminderDetail(ayaDetail, translation);
         }
         return reminderDetail;
+    }
+
+
+    @RequestMapping(value="/reminder2/{limitHistory}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public
+    @ResponseBody
+    List<ReminderDetail> reminder2(HttpServletResponse response, @PathVariable int limitHistory,
+                            @RequestParam(defaultValue = "English - Saheeh International", value = "translation", required = false)
+                                    String translation) {
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        if (StringUtils.isBlank(translation)) {
+            translation = DEFAULT_TRANSLATION;
+        }
+        SearchService searchService = new ResourceSearchService();
+        searchService.setTranslationDisplayName(translation.replaceAll(" ", "_"));
+
+        List<AyaDetail> ayaDetails = searchService.search(limitHistory);
+        List<ReminderDetail> reminderDetails = new ArrayList<ReminderDetail>();
+        if (ayaDetails != null && ayaDetails.size() > 0) {
+            for (AyaDetail ayaDetail : ayaDetails) {
+                reminderDetails.add(new ReminderDetail(ayaDetail, translation));
+            }
+        }
+        return reminderDetails;
     }
 
     @RequestMapping("/today")

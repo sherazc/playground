@@ -14,7 +14,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public abstract class SearchService {
-    private final Logger LOG = LoggerFactory.getLogger(SearchService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SearchService.class);
 
     public static final int HISTORY_DAYS = 6;
     public static final String FILE_EXTENSION = ".txt";
