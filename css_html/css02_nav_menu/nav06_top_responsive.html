@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<style>
+    * {
+        margin: 0; padding: 0;
+        font-family: Verdana, Arial;
+    }
+
+    #main_nav {
+        min-width: 500px;
+    }
+
+    #main_nav ul {
+        list-style-type: none;
+        background: teal;
+        overflow: hidden;
+    }
+
+    #main_nav ul li {
+        float: left;
+    }
+
+    #main_nav ul li a {
+        display: inline-block;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        text-decoration: none;
+        transition: 300ms;
+        font-size: 18px;
+    }
+
+    #main_nav ul li a:hover {
+        background-color: orangered;
+    }
+
+    #main_nav ul li.hamburger_icon {
+        display: none;
+    }
+
+    @media screen and (max-width: 680px) {
+        /*
+        Hide all li but the first one which is "home" link
+        */
+        #main_nav ul li:not(:first-child) {
+            display: none;
+        }
+
+        /*
+        show hamburger_icon and float it to right
+        */
+        #main_nav ul li.hamburger_icon {
+            float: right;
+            display: block;
+        }
+
+        /*
+        "responsive" class is added/toggled in javascript
+        */
+        #main_nav ul.responsive {
+            position: relative;
+        }
+
+        #main_nav ul.responsive li.hamburger_icon {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        #main_nav ul.responsive li {
+
+            float: none;
+            display: inline;
+        }
+
+        #main_nav ul.responsive li a {
+            display: block;
+            text-align: left;
+        }
+    }
+
+
+</style>
+<script>
+    window.addEventListener("load", addEvents);
+
+    function addEvents() {
+        var hamburgerIconElement = document.getElementsByClassName("hamburger_icon")[0];
+        hamburgerIconElement.addEventListener("click", function (event) {
+            toggleElementsClass("#main_nav ul", "responsive")
+        })
+    }
+
+    function toggleElementsClass(selector, className) {
+        var element = document.querySelector(selector);
+        if (selector == null || className == null) {
+            console.log("Please specify selector and class name");
+            return;
+        }
+        if (element == null) {
+            console.log("Can't find " + selector);
+            return;
+        }
+        console.log(element.classList);
+        element.classList.toggle(className);
+    }
+
+
+</script>
+</head>
+<body>
+
+<nav id="main_nav">
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Item 1</a></li>
+        <li><a href="#">Item 2</a></li>
+        <li><a href="#">Item 3</a></li>
+        <li><a href="#">Item 4</a></li>
+        <li><a href="#">Item 5</a></li>
+        <!--
+        Got this hamburger icon character code from:
+        http://www.w3schools.com/charsets/ref_utf_misc_symbols.asp
+        -->
+        <li class="hamburger_icon"><a href="javascript:void(0)">&#9776;</a></li>
+    </ul>
+</nav>
+
+
+<div style="">
+    <h2>Responsive Topnav Example</h2>
+    <p>Resize the browser window to see how it works.</p>
+</div>
+</body>
+</html>
