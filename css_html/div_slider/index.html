@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+<style>
+* {
+    /*margin: 10px; padding: 10px;*/
+    font-family: Arial;
+}
+
+button {
+    margin: 10px; padding: 20px;
+}
+.tile {
+    width: 200px;
+    height: 200px;
+    border: 1px solid black;
+    text-align: center;
+    line-height: 200px;
+    position: absolute;
+}
+
+.tile1 {
+    z-index: 20;
+    background-color: #59bbe6;
+}
+
+.tile2 {
+    background-color: #909e66;
+}
+
+.tile3 {
+    background-color: azure;
+}
+
+.container{
+    background-color: lightsalmon;
+}
+
+#tiles {
+    background-color: antiquewhite;
+    overflow: hidden;
+    width: 300px;
+    height: 300px;
+    position: relative;
+}
+#slider {
+    overflow: hidden;
+}
+</style>
+
+</head>
+<body>
+<div class="container">
+
+    <button onclick="moveTile1()">Move Tile 1</button>
+    <button onclick="moveTile1Back()">Move Tile 1 back</button>
+    <div id="slider">
+        <div id="tiles">
+            <div class="tile tile1">
+                <span>Tile 1</span>
+            </div>
+
+            <div class="tile tile2">
+                <span>Tile 2</span>
+            </div>
+            <div class="tile tile3">
+                <span>Tile 3</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    let singleTileWidth = 200;
+    let singleTileHeight = singleTileWidth;
+    let tilesContainerWidth = singleTileWidth;
+    let tilesContainerHeight = singleTileHeight;
+    let transitionSeconds = .5;
+    let slideDelaySeconds = 1;
+
+
+    let allTiles = [
+        {
+            id: 1,
+            image: ""
+        }
+    ];
+
+
+    let tile1Moved = false;
+    let tile1 = document.getElementsByClassName("tile1")[0];
+    let tile2 = document.getElementsByClassName("tile2")[0];
+    let tile3 = document.getElementsByClassName("tile3")[0];
+    function moveTile1() {
+        tile1.style.transition= "all .5s";
+        tile1.style.transform = "translateX(200px)";
+        tile1Moved = true;
+    }
+    function moveTile1Back() {
+        tile1.style.transition= "none";
+        tile1.style.transform = "translateX(0px)";
+        tile1Moved = false;
+    }
+
+    setInterval(function () {
+       if (tile1Moved) {
+           moveTile1Back()
+       } else {
+           moveTile1()
+       }
+    }, 2000);
+</script>
+
+</body>
+</html>
