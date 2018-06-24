@@ -9,7 +9,7 @@
 
 <style>
 * {
-    /*margin: 10px; padding: 10px;*/
+    margin: 10px; padding: 10px;
     font-family: Arial;
 }
 
@@ -19,15 +19,14 @@ button {
 .tile {
     width: 200px;
     height: 200px;
-    border: 1px solid black;
     text-align: center;
-    line-height: 200px;
     position: absolute;
 }
 
 .tile1 {
     z-index: 20;
-    background-color: #59bbe6;
+    background: #59bbe6 url(images/image1.png) no-repeat center center;
+    background-size: contain;
 }
 
 .tile2 {
@@ -48,6 +47,7 @@ button {
     width: 300px;
     height: 300px;
     position: relative;
+    margin: 0 auto;
 }
 #slider {
     overflow: hidden;
@@ -63,20 +63,20 @@ button {
     <div id="slider">
         <div id="tiles">
             <div class="tile tile1">
-                <span>Tile 1</span>
             </div>
 
             <div class="tile tile2">
-                <span>Tile 2</span>
             </div>
             <div class="tile tile3">
-                <span>Tile 3</span>
             </div>
         </div>
     </div>
 
 </div>
 <script>
+function createSlider(sliderName) {
+    
+}    
     let singleTileWidth = 200;
     let singleTileHeight = singleTileWidth;
     let tilesContainerWidth = singleTileWidth;
@@ -84,24 +84,23 @@ button {
     let transitionSeconds = .5;
     let slideDelaySeconds = 1;
 
-
     let allTiles = [
-        {
-            id: 1,
-            image: ""
-        }
+        {image: "images/image1.png"},
+        {image: "images/image2.jpg"},
+        {image: "images/image3.jpg"}
     ];
-
 
     let tile1Moved = false;
     let tile1 = document.getElementsByClassName("tile1")[0];
     let tile2 = document.getElementsByClassName("tile2")[0];
     let tile3 = document.getElementsByClassName("tile3")[0];
+
     function moveTile1() {
         tile1.style.transition= "all .5s";
         tile1.style.transform = "translateX(200px)";
         tile1Moved = true;
     }
+
     function moveTile1Back() {
         tile1.style.transition= "none";
         tile1.style.transform = "translateX(0px)";

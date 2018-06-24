@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+<style>
+* {
+    /*margin: 10px; padding: 10px;*/
+    font-family: Arial;
+}
+
+.container{
+    background-color: lightsalmon;
+}
+
+/*********************************/
+
+#slider {
+    overflow: hidden;
+    /*******/
+    background-color: cornflowerblue;
+}
+
+#tiles {
+    position: relative;
+    overflow: hidden;
+    /*******/
+    margin: 0 auto;
+    background-color: antiquewhite;
+}
+
+.tile {
+    position: absolute;
+    /*******/
+    border: 1px solid black;
+}
+
+/*********************************/
+</style>
+
+</head>
+<body>
+<div class="container">
+    <div id="slider">
+        <div id="tiles">
+        </div>
+    </div>
+</div>
+<script>
+
+
+
+    function createSlider(sliderName) {
+        // Initial Configuration
+        let tileWidth = 200;
+        let tileHeight = tileWidth;
+        let tilesContainerWidth = tileWidth;
+        let tilesContainerHeight = tileHeight;
+        let transitionSeconds = .5;
+        let slideDelaySeconds = 1;
+        let allTiles = [
+            {image: "images/image1.png"},
+            {image: "images/image2.jpg"},
+            {image: "images/image3.jpg"}
+        ];
+
+
+        let tilesElement = document.getElementById("tiles");
+        tilesElement.style.width = tilesContainerWidth + "px";
+        tilesElement.style.height = tilesContainerHeight + "px";
+
+        allTiles.forEach(function (tileData, index) {
+            tilesElement.innerHTML += `<div class="tile"></div>`;
+        });
+
+        let tileHtmlCollection = document.getElementsByClassName("tile");
+
+        for(i=0; i < tileHtmlCollection.length; i++) {
+            tileHtmlCollection[i].style.width = tileWidth + "px";
+            tileHtmlCollection[i].style.height = tileHeight + "px";
+            tileHtmlCollection[i].style.background =
+                `transparent url(${allTiles[i].image}) no-repeat center center`;
+            tileHtmlCollection[i].style["background-size"]= "contain";
+        }
+
+    }
+
+    createSlider("test");
+</script>
+
+</body>
+</html>
