@@ -53,7 +53,7 @@
 <script>
     let createSlider = sliderName => {
         // Initial Configuration
-        let tileWidth = 200;
+        let tileWidth = "200px";
         let tileHeight = tileWidth;
         let tilesContainerWidth = tileWidth;
         let tilesContainerHeight = tileHeight;
@@ -67,14 +67,14 @@
 
         // Setup animation
         let animateTransition = `all ${transitionSeconds}s`;
-        let animateTransform = `translateX(${tileWidth}px)`;
+        let animateTransform = `translateX(${tileWidth})`;
         let animateTransitionReset = `none`;
         let animateTransformReset = `translateX(0px)`;
 
         // Setup tilesElement. All tiles container
         let tilesElement = document.getElementById("tiles");
-        tilesElement.style.width = tilesContainerWidth + "px";
-        tilesElement.style.height = tilesContainerHeight + "px";
+        tilesElement.style.width = tilesContainerWidth;
+        tilesElement.style.height = tilesContainerHeight;
         allTiles.forEach(function (tileData, index) {
             // Adding order to allTiles
             tileData.order = index + 1;
@@ -88,8 +88,8 @@
         // Setup tile
         let tileHtmlCollection = document.getElementsByClassName(`tile_${sliderName}`);
         for(i=0; i < tileHtmlCollection.length; i++) {
-            tileHtmlCollection[i].style.width = tileWidth + "px";
-            tileHtmlCollection[i].style.height = tileHeight + "px";
+            tileHtmlCollection[i].style.width = tileWidth;
+            tileHtmlCollection[i].style.height = tileHeight;
             tileHtmlCollection[i].style.background =
                 `#eee url(${allTiles[i].image}) no-repeat center center`;
             tileHtmlCollection[i].style["background-size"]= "contain";
