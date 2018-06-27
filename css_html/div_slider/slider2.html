@@ -9,7 +9,7 @@
 
 <style>
 * {
-    margin: 10px; padding: 10px;
+    /*margin: 10px; padding: 10px;*/
     font-family: Arial;
 }
 
@@ -51,10 +51,7 @@
     </div>
 </div>
 <script>
-
-
-
-    function createSlider(sliderName) {
+    let createSlider = sliderName => {
         // Initial Configuration
         let tileWidth = 200;
         let tileHeight = tileWidth;
@@ -79,24 +76,65 @@
         tilesElement.style.width = tilesContainerWidth + "px";
         tilesElement.style.height = tilesContainerHeight + "px";
         allTiles.forEach(function (tileData, index) {
-            tilesElement.innerHTML += `<div id="tile_${index}_${index}" class="tile"></div>`;
+            // Adding order to allTiles
+            tileData.order = index + 1;
+            tilesElement.innerHTML += `
+                <div
+                    id="tile_${sliderName}_${index}"
+                    class="tile tile_${sliderName}">
+                </div>`;
         });
 
-
         // Setup tile
-        let tileHtmlCollection = document.getElementsByClassName("tile");
+        let tileHtmlCollection = document.getElementsByClassName(`tile_${sliderName}`);
         for(i=0; i < tileHtmlCollection.length; i++) {
             tileHtmlCollection[i].style.width = tileWidth + "px";
             tileHtmlCollection[i].style.height = tileHeight + "px";
             tileHtmlCollection[i].style.background =
                 `#eee url(${allTiles[i].image}) no-repeat center center`;
             tileHtmlCollection[i].style["background-size"]= "contain";
+            // Adding div element to allTiles
+            allTiles[i].element = tileHtmlCollection[i];
         }
 
+        // Reorder
+        let reorderTiles = (tileDataArray) => {
+            tileDataArray.forEach((tileData) => {
+                if (tileData.order === tileDataArray.length) {
+                    tileData.order = 1;
+                } else {
+                    tileData.order += 1;
+                }
+            });
+        };
+
+        let animateTiles = () => {
+            setInterval(() => {
+                console.log(allTiles);
+                reorderTiles(allTiles);
+                allTiles.forEach((tileData) => {
+
+                    if (tileData.order === allTiles.length) {
+                        tileData.element.style.transition = animateTransitionReset;
+                        tileData.element.style.transform = animateTransformReset;
+
+                    } else {
+                        tileData.element.style.transition = animateTransition;
+                        tileData.element.style.transform = animateTransform;
+                    }
+                    setTimeout(() => {
+                        tileData.element.style["z-index"] = tileData.order;
+                    }, transitionSeconds * 1000);
+                })
+            }, slideDelaySeconds * 1000);
+        };
 
 
+        if (allTiles.length > 1) {
+            animateTiles();
+        }
 
-    }
+    };
 
     createSlider("test");
 </script>
