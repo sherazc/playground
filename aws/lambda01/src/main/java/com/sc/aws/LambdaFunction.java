@@ -9,9 +9,6 @@ public class LambdaFunction {
         if (user == null) {
             return null;
         }
-
-
-
         return user;
     }
 
