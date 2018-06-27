@@ -9,7 +9,7 @@
 
 <style>
 * {
-    /*margin: 10px; padding: 10px;*/
+    margin: 10px; padding: 10px;
     font-family: Arial;
 }
 
@@ -19,7 +19,7 @@
 
 /*********************************/
 
-#slider {
+.slider {
     overflow: hidden;
     /*******/
     background-color: cornflowerblue;
@@ -45,7 +45,7 @@
 </head>
 <body>
 <div class="container">
-    <div id="slider">
+    <div class="slider">
         <div id="tiles">
         </div>
     </div>
@@ -68,24 +68,33 @@
             {image: "images/image3.jpg"}
         ];
 
+        // Setup animation
+        let animateTransition = `all ${transitionSeconds}s`;
+        let animateTransform = `translateX(${tileWidth}px)`;
+        let animateTransitionReset = `none`;
+        let animateTransformReset = `translateX(0px)`;
 
+        // Setup tilesElement. All tiles container
         let tilesElement = document.getElementById("tiles");
         tilesElement.style.width = tilesContainerWidth + "px";
         tilesElement.style.height = tilesContainerHeight + "px";
-
         allTiles.forEach(function (tileData, index) {
-            tilesElement.innerHTML += `<div class="tile"></div>`;
+            tilesElement.innerHTML += `<div id="tile_${index}_${index}" class="tile"></div>`;
         });
 
-        let tileHtmlCollection = document.getElementsByClassName("tile");
 
+        // Setup tile
+        let tileHtmlCollection = document.getElementsByClassName("tile");
         for(i=0; i < tileHtmlCollection.length; i++) {
             tileHtmlCollection[i].style.width = tileWidth + "px";
             tileHtmlCollection[i].style.height = tileHeight + "px";
             tileHtmlCollection[i].style.background =
-                `transparent url(${allTiles[i].image}) no-repeat center center`;
+                `#eee url(${allTiles[i].image}) no-repeat center center`;
             tileHtmlCollection[i].style["background-size"]= "contain";
         }
+
+
+
 
     }
 
