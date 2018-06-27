@@ -19,7 +19,7 @@
 
 /*********************************/
 
-#slider {
+.slider {
     overflow: hidden;
     /*******/
     background-color: cornflowerblue;
@@ -45,18 +45,15 @@
 </head>
 <body>
 <div class="container">
-    <div id="slider">
+    <div class="slider">
         <div id="tiles">
         </div>
     </div>
 </div>
 <script>
-
-
-
-    function createSlider(sliderName) {
+    let createSlider = sliderName => {
         // Initial Configuration
-        let tileWidth = 200;
+        let tileWidth = "200px";
         let tileHeight = tileWidth;
         let tilesContainerWidth = tileWidth;
         let tilesContainerHeight = tileHeight;
@@ -68,26 +65,76 @@
             {image: "images/image3.jpg"}
         ];
 
+        // Setup animation
+        let animateTransition = `all ${transitionSeconds}s`;
+        let animateTransform = `translateX(${tileWidth})`;
+        let animateTransitionReset = `none`;
+        let animateTransformReset = `translateX(0px)`;
 
+        // Setup tilesElement. All tiles container
         let tilesElement = document.getElementById("tiles");
-        tilesElement.style.width = tilesContainerWidth + "px";
-        tilesElement.style.height = tilesContainerHeight + "px";
-
+        tilesElement.style.width = tilesContainerWidth;
+        tilesElement.style.height = tilesContainerHeight;
         allTiles.forEach(function (tileData, index) {
-            tilesElement.innerHTML += `<div class="tile"></div>`;
+            // Adding order to allTiles
+            tileData.order = index + 1;
+            tilesElement.innerHTML += `
+                <div
+                    id="tile_${sliderName}_${index}"
+                    class="tile tile_${sliderName}">
+                </div>`;
         });
 
-        let tileHtmlCollection = document.getElementsByClassName("tile");
-
+        // Setup tile
+        let tileHtmlCollection = document.getElementsByClassName(`tile_${sliderName}`);
         for(i=0; i < tileHtmlCollection.length; i++) {
-            tileHtmlCollection[i].style.width = tileWidth + "px";
-            tileHtmlCollection[i].style.height = tileHeight + "px";
+            tileHtmlCollection[i].style.width = tileWidth;
+            tileHtmlCollection[i].style.height = tileHeight;
             tileHtmlCollection[i].style.background =
-                `transparent url(${allTiles[i].image}) no-repeat center center`;
+                `#eee url(${allTiles[i].image}) no-repeat center center`;
             tileHtmlCollection[i].style["background-size"]= "contain";
+            // Adding div element to allTiles
+            allTiles[i].element = tileHtmlCollection[i];
         }
 
-    }
+        // Reorder
+        let reorderTiles = (tileDataArray) => {
+            tileDataArray.forEach((tileData) => {
+                if (tileData.order === tileDataArray.length) {
+                    tileData.order = 1;
+                } else {
+                    tileData.order += 1;
+                }
+            });
+        };
+
+        let animateTiles = () => {
+            setInterval(() => {
+                console.log(allTiles);
+                reorderTiles(allTiles);
+                allTiles.forEach((tileData) => {
+
+                    if (tileData.order === allTiles.length) {
+                        tileData.element.style.transition = animateTransitionReset;
+                        tileData.element.style.transform = animateTransformReset;
+
+                    } else {
+                        tileData.element.style.transition = animateTransition;
+                        tileData.element.style.transform = animateTransform;
+                    }
+                    setTimeout(() => {
+                        tileData.element.style["z-index"] = tileData.order;
+                    }, transitionSeconds * 1000);
+                })
+            }, slideDelaySeconds * 1000);
+        };
+
+
+        if (allTiles.length > 1) {
+            animateTiles();
+        }
+
+    };
 
     createSlider("test");
 </script>
