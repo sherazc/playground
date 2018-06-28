@@ -5,7 +5,7 @@ import com.amazonaws.services.lambda.runtime.Context;
 public class LambdaFunction {
 
 
-    public User lambda(Context context) {
+    public User lambdaReturnUser(Context context) {
         User user = null;
         if (user == null) {
             user = new User();
@@ -16,8 +16,8 @@ public class LambdaFunction {
         return user;
     }
 
-    public static void main(String[] args) {
-        LambdaFunction lambdaFunction = new LambdaFunction();
-        // System.out.println(lambdaFunction.lambda(null, null));
+    public String lambdaReturnHelloWorld(Context context) {
+        return "Hello Sheraz";
     }
+
 }
