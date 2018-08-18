@@ -1,0 +1,14 @@
+{
+  "name": "es2017",
+  "version": "1.0.0",
+  "description": "es2017",
+  "main": "eg01_getter_setter.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0"
+  }
+}
