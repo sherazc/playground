@@ -1,30 +1,32 @@
-// ######### Decorators
-let toppings = (pizzaTarget) => {
-    pizzaTarget.toppings = [];
-};
+// ######### Helper
 
+// ######### Decorators
 let extraCheese = (pizzaTarget) => {
-    console.log(pizzaTarget.toppings);
-    // pizzaTarget.toppings.push("Extra Cheese");
+    pizzaTarget.toppings = ["Extra Cheese"];
 };
 
 
 // ######### Decorating Class
-@toppings
 @extraCheese
 class Pizza {
-    constructor(size) {
-        this.size = size;
+    constructor() {
+        this.size = "";
+        this.toppings = [];
     }
 
     describe() {
         console.log(`${this.size} Pizza`);
-        // this.toppings.forEach((value, index) => {console.log(`${value}, `)})
+        console.log(this.toppings);
+        this.toppings.forEach((value) => {console.log(`${value}, `)})
     }
+
+
 }
 
 
 // ######### Using decorations
-let pizzaOrder1 = new Pizza("Large");
+let pizzaOrder1 = new Pizza();
 
 pizzaOrder1.describe();
+
+console.log(Pizza.toppings);
