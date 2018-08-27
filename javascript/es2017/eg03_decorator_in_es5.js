@@ -1,5 +1,6 @@
 /*
 Javascript function decorators are "Higher Order Function"
+"Higher Order Function" are functions that take in function and return a function
 A type of function that takes in a
 function and returns another function
 */
@@ -12,14 +13,19 @@ function addFreeItemDecorator(fn) {
         // return = function will be called when setDetail() is called
         // this = is ItemOrder() function/class
 
-        
+        // Line below is an error because ...
+        // fn([arguments[0] + " plus 1 free", arguments[1], arguments[2] + 1]);
 
+        fn.apply(this, [arguments[0] + " plus 1 free", arguments[1], arguments[2] + 1]);
+
+        console.log("Added free item by addFreeItemDecorator(fn)")
     }
 }
 
 // Class definition
 function ItemOrder() {}
 
+// Adding functions to Class
 ItemOrder.prototype.setDetail = addFreeItemDecorator(function(name, price, quantity) {
     this.name = name;
     this.price = price;
@@ -32,12 +38,7 @@ ItemOrder.prototype.printDetail = function() {
     console.log("Quantity: " + this.quantity);
 };
 
-
-
 // Using Class
 var milkOrder = new ItemOrder();
 milkOrder.setDetail("Milk", 2, 1);
-milkOrder.setDetail("Milk", 2, 2);
-
-
 milkOrder.printDetail();
