@@ -7,18 +7,18 @@ function and returns another function
 
 // Decorator
 function addFreeItemDecorator(fn) {
-    return function() {
+    return function decorator(name, price, quantity) {
         // fn = is the function passed in addFreeItemDecorator
-        // arguments = are the arguments passed to fn
+        // arguments array, (name, price, quantity) = are the arguments passed to fn
         // return = function will be called when setDetail() is called
         // this = is ItemOrder() function/class
 
-        // Line below is an error because ...
+        // Line below is an error because... DON'T HAVE CORRECT ANSWER.
         // fn([arguments[0] + " plus 1 free", arguments[1], arguments[2] + 1]);
 
-        fn.apply(this, [arguments[0] + " plus 1 free", arguments[1], arguments[2] + 1]);
-
-        console.log("Added free item by addFreeItemDecorator(fn)")
+        fn.apply(this, [name + " plus 1 free", price, quantity + 1]);
+        
+        console.log("Added free item by addFreeItemDecorator(fn)");
     }
 }
 
