@@ -1,6 +1,6 @@
 /*
 Javascript function decorators are "Higher Order Function"
-"Higher Order Function" are functions that take in function and return a function
+"Higher Order Function" are functions that take in function or return a function
 A type of function that takes in a
 function and returns another function
 */
