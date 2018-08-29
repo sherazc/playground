@@ -1,4 +1,5 @@
-//
+// https://en.wikipedia.org/wiki/Fluent_interface
+// https://www.youtube.com/watch?v=d8CDFsQHZpE&t=210s
 var fluent = function(fn) {
     return function (...args) {
         fn.apply(this, args);
