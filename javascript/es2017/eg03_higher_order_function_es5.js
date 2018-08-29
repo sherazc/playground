@@ -7,7 +7,7 @@ var bannerFunction = function(fn) {
         var helloFunctionResult = fn.apply(this, [name]);
         return "====\n" + helloFunctionResult + "\n====";
     }
-}
+};
 
 var bannerHelloFunction = bannerFunction(helloFunction);
 var bannerHelloFunctionResult = bannerHelloFunction("Sheraz");
