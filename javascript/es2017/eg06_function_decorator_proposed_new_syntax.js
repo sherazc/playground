@@ -8,9 +8,9 @@ Once they are finalized they will become part of "env" preset
 */
 
 // Decorator
-function addFreeItemDecorator(target, name, descriptor) {
-    // target = function's class
-    // name = function name on which decorator is added
+function addFreeItemDecorator(targetFunctionClass, functionName, descriptor) {
+    // targetFunctionClass = function's class
+    // functionName = function name on which decorator is added
     // descriptor = function + other function meta data
     // descriptor.value = setDetail function 
 
@@ -18,13 +18,13 @@ function addFreeItemDecorator(target, name, descriptor) {
     // In ES5 we used to return function from decorator function
     // In new syntax we set it to descriptor.value
 
-    let original = descriptor.value;
+    let originalFunction = descriptor.value;
     descriptor.value = function (name, price, quantity) {
 
         // NOTE: FOR SOME REASON BELOW LINE IS ERROR. I DON'T UNDERSTAND WHY!!!
         // descriptor.value.apply(this, [name + " plus 1 free", price, quantity + 1]);
 
-        original.apply(this, [name + " plus 1 free", price, quantity + 1]);
+        originalFunction.apply(this, [name + " plus 1 free", price, quantity + 1]);
         console.log("Added free item by addFreeItemDecorator()");
     };
 
