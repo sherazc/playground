@@ -1,3 +1,8 @@
+/*
+If decorator need some value to be passed into it then
+decorator function is wrapped in another function that receives
+those values.
+ */
 const greeting = (greetingText) => {
     return (targetFunctionClass, functionName, descriptor) => {
 
