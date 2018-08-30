@@ -2,17 +2,23 @@
 // ######### Helper
 
 // ######### Decorators
-let toppingsDecorator = (toppingsArray) => {
-    return (PizzaClass) => {
-        console.log(PizzaClass);
-        return (...args) => {
-            // console.log(arguments);
-            return new PizzaClass("Small");
-        };
+/*
+class decorator Can only change implementation of class not the instance.
+*/
 
-    };
+let toppingsDecorator = function(initialToppings) {
+    return function(PizzaClass) {
+        return function (pizzaSize) {
+            console.log(pizzaSize);
+            console.log(PizzaClass);
+            let modified = new PizzaClass(pizzaSize);
+            modified.describe = function() {
+                console.log(initialToppings);
+            }
+            return modified;
+        }
+    }
 };
-
 
 // ######### Decorating Class
 @toppingsDecorator(['a', 'b'])
@@ -29,8 +35,9 @@ class Pizza {
     }
 }
 
-
 // ######### Using decorations
 let pizzaOrder1 = new Pizza("Large");
 
-//pizzaOrder1.describe();
+console.log(pizzaOrder1);
+console.log("==========");
+pizzaOrder1.describe();
