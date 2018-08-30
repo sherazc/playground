@@ -26,7 +26,7 @@ function addFreeItemDecorator(target, name, descriptor) {
 
         original.apply(this, [name + " plus 1 free", price, quantity + 1]);
         console.log("Added free item by addFreeItemDecorator()");
-    }
+    };
 
     return descriptor;
 }
