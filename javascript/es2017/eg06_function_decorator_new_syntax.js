@@ -1,6 +1,6 @@
 /*
 NOTE: @Decorators are currently in proposal phase.
-This is why we are using these bable plugins
+This is why we are using these babel plugins
     - "@babel/plugin-proposal-class-properties"
     - "@babel/plugin-proposal-decorators"
 
@@ -49,6 +49,6 @@ class ItemOrder {
 }
 
 // Using Class
-var milkOrder = new ItemOrder();
+let milkOrder = new ItemOrder();
 milkOrder.setDetail("Milk", 2, 1);
 milkOrder.printDetail();

@@ -5,7 +5,7 @@ those values.
  */
 const greeting = (greetingText) => {
     return (targetFunctionClass, functionName, descriptor) => {
-
+        console.log(targetFunctionClass, functionName, descriptor);
         let originalFunction = descriptor.value;
         descriptor.value = (personName) => {
             return `${greetingText} ${originalFunction.apply(this, [personName])}`;

@@ -2,17 +2,17 @@
 /*
 Class decorator can only change implementation of class not the instance.
 
-IMPORTANT: When creating decorators use "function" keyword function
-as es6 produces unexpected results because it changes "this" scope.
+IMPORTANT: When creating decorators use "function" keyword function as es6 function
+syntax could produces unexpected results because it changes "this" scope.
 */
 
-let toppingsDecorator = (initialToppings) => {
-    return (PizzaClass) => {
+let toppingsDecorator = function (initialToppings) {
+    return function (PizzaClass) {
         return function (pizzaSize) {
             console.log(pizzaSize);
             console.log(PizzaClass);
             let modified = new PizzaClass(pizzaSize);
-            modified.describe = () => {
+            modified.describe = function() {
                 console.log(initialToppings);
             };
             // Even though we are retuning instance of Pizza class but still it will
