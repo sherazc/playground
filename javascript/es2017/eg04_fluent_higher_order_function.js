@@ -1,5 +1,6 @@
 // https://en.wikipedia.org/wiki/Fluent_interface
 // https://www.youtube.com/watch?v=d8CDFsQHZpE&t=210s
+// Fluent pattern will only work with consumer function. i.e. that done produce any result.
 var fluent = function(fn) {
     return function (...args) {
         fn.apply(this, args);
