@@ -1,24 +1,22 @@
 // ######### Decorators
 /*
-Class decorator can only change implementation of class not the instance.
-
-IMPORTANT: When creating decorators use "function" keyword function as es6 function
+IMPORTANT: When creating decorators use "function" keyword. Function as es6 function
 syntax could produces unexpected results because it changes "this" scope.
 */
-
 let toppingsDecorator = function (initialToppings) {
     return function (PizzaClass) {
         return function (pizzaSize) {
-            let modified = new PizzaClass(pizzaSize);
-            modified.toppings = initialToppings;
+            let modifiedPizza = new PizzaClass(pizzaSize);
+            modifiedPizza.toppings = initialToppings;
             /*
-            modified.describe = function() {
+            We can also modify Class's functions. e.g.
+            modifiedPizza.describe = function() {
                 console.log(initialToppings);
             };
             */
-            // Even though we are retuning instance of Pizza class but still it will
-            // change class definition.
-            return modified;
+            // Even though we are retuning instance of Pizza class but
+            // still it will change class definition.
+            return modifiedPizza;
         }
     }
 };
@@ -41,6 +39,6 @@ class Pizza {
 // ######### Using decorations
 let pizzaOrder = new Pizza("Large");
 
-console.log(pizzaOrder);
+console.log("Pizza Object = ", pizzaOrder);
 console.log("==========");
 pizzaOrder.describe();
