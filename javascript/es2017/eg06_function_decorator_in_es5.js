@@ -39,5 +39,7 @@ ItemOrder.prototype.printDetail = function() {
 
 // Using Class
 var milkOrder = new ItemOrder();
+// Setting 1 for quantity but still decorator will modify argument and
+// add additional item.
 milkOrder.setDetail("Milk", 2, 1);
 milkOrder.printDetail();
