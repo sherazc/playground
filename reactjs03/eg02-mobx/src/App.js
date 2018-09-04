@@ -5,15 +5,26 @@ import {inject, observer} from 'mobx-react';
 @inject("BirdStore")
 @observer
 class App extends Component {
-    birdInput;
+    state = {
+        birdInput: ""
+    };
 
     handleBirdInputChange(event) {
-        this.birdInput = event.target.value;
+        this.setState({
+            birdInput: event.target.value
+        });
     }
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log("Form submitted", this.birdInput);
+        this.addBird();
+    }
+
+    addBird() {
+        this.props.BirdStore.birds.push(this.state.birdInput);
+        this.setState({
+            birdInput: ""
+        })
     }
 
 
@@ -23,9 +34,12 @@ class App extends Component {
             <div className="App">
                 <h2>{BirdStore.birdCount}</h2>
                 <form onSubmit={e => this.handleSubmit(e)}>
-                    <input value={this.birdInput} onChange={this.handleBirdInputChange.bind(this)}/>
-                    <button type="button" onClick={() => console.log("Button clicked", this.birdInput)}>Click</button>
+                    <input value={this.state.birdInput} onChange={this.handleBirdInputChange.bind(this)}/>
+                    <button type="button" onClick={() => this.addBird()}>Click</button>
                 </form>
+                <ul>
+                    {BirdStore.birds.map((bird, index) => <li key={index}>{bird}</li>)}
+                </ul>
             </div>
         );
     }
