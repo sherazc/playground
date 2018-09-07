@@ -12,7 +12,11 @@ class CounterStore {
     }
 
     @computed get count() {
-        return this.countData;
+        if (this.countData) {
+            return this.countData;
+        } else {
+            return "Zero";
+        }
     }
 }
 
