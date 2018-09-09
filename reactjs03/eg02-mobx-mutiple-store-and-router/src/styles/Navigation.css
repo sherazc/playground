@@ -1,0 +1,16 @@
+.nav {
+    padding: 20px 20px;
+    background-color: beige;
+}
+
+.nav > a {
+    padding: 5px 10px;
+    text-decoration: none;
+    color: darkblue;
+}
+
+
+.nav > a.active{
+    background-color: darkblue;
+    color: snow;
+}
