@@ -9,8 +9,6 @@ import NotFound from "./components/NotFound";
 class App extends Component {
   render() {
     return (
-        <div>test</div>
-        /*
       <BrowserRouter>
         <div>
             <Navigation/>
@@ -22,8 +20,6 @@ class App extends Component {
             </Switch>
         </div>
       </BrowserRouter>
-
-        */
     );
   }
 }

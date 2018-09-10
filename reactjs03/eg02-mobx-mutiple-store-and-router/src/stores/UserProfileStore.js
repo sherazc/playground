@@ -6,5 +6,6 @@ class UserProfileStore {
         age: 20
     };
 }
+const userProfileStore = new UserProfileStore();
 
-export default new UserProfileStore();
+export default userProfileStore;

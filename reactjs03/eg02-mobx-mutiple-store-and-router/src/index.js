@@ -8,7 +8,7 @@ import todoStore from './stores/TodoStore';
 import userProfileStore from './stores/UserProfileStore';
 
 const root = (
-    <Provider>
+    <Provider todoStore={todoStore} userProfileStore={userProfileStore}>
         <App />
     </Provider>
 );

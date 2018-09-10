@@ -1,7 +1,9 @@
 import {observable} from 'mobx';
 
 class TodoStore {
-    @observable allTodo = [];
+    @observable allTodo = ["one", "two", "three"];
 }
 
-export default new TodoStore();
+const todoStore = new TodoStore();
+
+export default todoStore;
