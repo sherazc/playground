@@ -28,15 +28,15 @@
     "html-webpack-plugin": "2.29.0",
     "jest": "20.0.4",
     "mobx": "^5.1.0",
-    "mobx-react": "^5.2.6",
+    "mobx-react": "^5.2.8",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
     "promise": "8.0.1",
     "raf": "3.4.0",
-    "react": "^16.4.2",
+    "react": "^16.5.0",
     "react-dev-utils": "^5.0.2",
-    "react-dom": "^16.4.2",
+    "react-dom": "^16.5.0",
     "resolve": "1.6.0",
     "style-loader": "0.19.0",
     "sw-precache-webpack-plugin": "0.11.4",
@@ -93,7 +93,7 @@
       ["transform-decorators-legacy"],
       ["transform-class-properties"]
     ]
-   
+
   },
   "eslintConfig": {
     "extends": "react-app"
