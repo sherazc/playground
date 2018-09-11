@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {inject} from "mobx-react";
+import SubUserProfile from "./SubUserProfile";
 
 @inject("userProfileStore")
 export default class UserProfile extends Component {
@@ -18,37 +19,34 @@ export default class UserProfile extends Component {
             <div className="section">
                 <b>User</b>
                 <br/>
-                <input
-                    type="text"
-                    value={this.userProfileStore.name}
-                    onChange={e => {
-                        // console.log(e.target.value);
-                        // this.userProfileStore.user.name = e.target.value;
-                        this.userProfileStore.updateName(e.target.value);
-                    }}
-                />
 
-                <br/>
                 <input
                     type="text"
-                    value={this.state.nameInput}
+                    value={this.userProfileStore.user.name}
                     onChange={e => {
                         // console.log(e.target.value);
                         // this.userProfileStore.user.name = e.target.value;
+                        this.userProfileStore.user.name = e.target.value;
                         this.setState({
                             nameInput: e.target.value
                         });
 
                         //this.userProfileStore.updateName(e.target.value);
                         // this.userProfileStore.updateName(this.state.nameInput);
-                        this.userProfileStore.user.name = this.state.nameInput;
+
                     }}
                 />
+
+                <button onClick={e => {
+
+                    this.userProfileStore.user.name = 'Chaudhry';
+                }}>Click me</button>
 
                 <br/>
                 Name: {userProfileStore.user.name}
                 <br/>
                 Age: {userProfileStore.user.age}
+                <SubUserProfile/>
             </div>
         );
     }
