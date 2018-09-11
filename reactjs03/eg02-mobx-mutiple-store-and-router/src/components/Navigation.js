@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {NavLink} from 'react-router-dom';
-import "../styles/Navigation.css"
 import {inject} from "mobx-react";
 
 @inject("userProfileStore")
