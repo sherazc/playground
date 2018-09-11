@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {NavLink} from 'react-router-dom';
-import {inject} from "mobx-react";
+import {inject, observer} from "mobx-react";
 
 @inject("userProfileStore")
+@observer
 export default class Navigation extends Component {
     render() {
         const {userProfileStore} = this.props;

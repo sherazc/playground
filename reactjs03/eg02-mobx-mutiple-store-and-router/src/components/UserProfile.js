@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import {inject} from "mobx-react";
-import SubUserProfile from "./SubUserProfile";
+import {inject, observer} from "mobx-react";
 
 @inject("userProfileStore")
+@observer
 export default class UserProfile extends Component {
     constructor(props) {
         super(props);
@@ -13,40 +13,27 @@ export default class UserProfile extends Component {
         };
     }
 
+    changeName(event) {
+        this.props.userProfileStore.user.name = event.target.value;
+        this.setState({
+            nameInput: event.target.value
+        });
+    }
+
     render() {
         const {userProfileStore} = this.props;
         return (
             <div className="section">
                 <b>User</b>
                 <br/>
-
                 <input
                     type="text"
                     value={this.userProfileStore.user.name}
-                    onChange={e => {
-                        // console.log(e.target.value);
-                        // this.userProfileStore.user.name = e.target.value;
-                        this.userProfileStore.user.name = e.target.value;
-                        this.setState({
-                            nameInput: e.target.value
-                        });
-
-                        //this.userProfileStore.updateName(e.target.value);
-                        // this.userProfileStore.updateName(this.state.nameInput);
-
-                    }}
-                />
-
-                <button onClick={e => {
-
-                    this.userProfileStore.user.name = 'Chaudhry';
-                }}>Click me</button>
-
+                    onChange={this.changeName.bind(this)}/>
                 <br/>
                 Name: {userProfileStore.user.name}
                 <br/>
                 Age: {userProfileStore.user.age}
-                <SubUserProfile/>
             </div>
         );
     }

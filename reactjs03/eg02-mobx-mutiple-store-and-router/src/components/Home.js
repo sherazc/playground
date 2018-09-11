@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import {inject} from "mobx-react";
+import {inject, observer} from "mobx-react";
 
 @inject("todoStore")
 @inject("userProfileStore")
+@observer
 export default class Home extends Component {
     render() {
         const {userProfileStore, todoStore} = this.props;

@@ -4,6 +4,4 @@ class TodoStore {
     @observable allTodo = ["one", "two", "three"];
 }
 
-const todoStore = new TodoStore();
-
-export default todoStore;
+export default new TodoStore();
