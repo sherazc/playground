@@ -6,7 +6,9 @@ export default class UserProfile extends Component {
     render() {
         const {userProfileStore} = this.props;
         return (
-            <div>
+            <div className="section">
+                <b>User</b>
+                <br/>
                 Name: {userProfileStore.user.name}
                 <br/>
                 Age: {userProfileStore.user.age}

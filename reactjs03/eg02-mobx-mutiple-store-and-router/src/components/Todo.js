@@ -6,7 +6,7 @@ export default class Todo extends Component {
     render() {
         const {todoStore} = this.props;
         return (
-            <div>
+            <div className="section">
                 <b>TODO</b>
                 <ul>
                     {todoStore.allTodo.map((td, i)=> {
