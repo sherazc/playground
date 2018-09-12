@@ -4,9 +4,12 @@ import './index.css';
 import App from './App';
 import {Provider} from "mobx-react";
 import registerServiceWorker from './registerServiceWorker';
+import AllStores from "./stores/AllStores";
+
+console.log();
 
 const root = (
-    <Provider>
+    <Provider {...AllStores}>
        <App />
    </Provider>
 );
