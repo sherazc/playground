@@ -15,10 +15,10 @@ export default class Navigation extends Component {
                     Call @action when it's time to update @observable
                 </NavLink>
                 <NavLink to="/eg03">
-                    eg03 - Solution 2 -
+                    eg03 - Solution 2 - Use runInAction() to update
                 </NavLink>
                 <NavLink to="/eg04">
-                    eg04 - Solution 3 -
+                    eg04 - Solution 3 - async await plus runInAction()
                 </NavLink>
                 <NavLink to="/eg05">
                     eg05 - Solution 4 -
