@@ -14,6 +14,15 @@ export default class Navigation extends Component {
                     eg02 - Solution 1 -
                     Call @action when it's time to update @observable
                 </NavLink>
+                <NavLink to="/eg03">
+                    eg03 - Solution 2 -
+                </NavLink>
+                <NavLink to="/eg04">
+                    eg04 - Solution 3 -
+                </NavLink>
+                <NavLink to="/eg05">
+                    eg05 - Solution 4 -
+                </NavLink>
             </div>
         );
     }

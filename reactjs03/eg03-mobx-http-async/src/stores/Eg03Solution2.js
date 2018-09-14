@@ -1,21 +1,15 @@
 import constants from "./Constants";
-import {observable, configure, action} from "mobx";
+import {observable, configure, runInAction} from "mobx";
 
 configure({enforceActions: "observed"});
+export default class Eg03Solution2 {
 
-export default class Eg02Solution1 {
     @observable
     users = [];
-
 
     loadUsers = () => {
         fetch(constants.usersEndpoint)
             .then(response => response.json())
-            .then(userData => this.setUsers(userData))
+            .then(userData => runInAction(() => this.users = userData));
     };
-
-    @action
-    setUsers = (users) => {
-        this.users = users;
-    }
 }

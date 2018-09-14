@@ -11,7 +11,6 @@ export default class Eg01 extends Component {
     }
 
     render() {
-        console.log(this.props.Eg01StoreWrongImplementation);
         return(
             <div>
                 <h3>Eg01</h3>
