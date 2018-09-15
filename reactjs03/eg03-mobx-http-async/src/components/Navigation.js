@@ -21,7 +21,10 @@ export default class Navigation extends Component {
                     eg04 - Solution 3 - async await plus runInAction()
                 </NavLink>
                 <NavLink to="/eg05">
-                    eg05 - Solution 4 -
+                    eg05 - Solution 4 - flow plus yield.
+                    <span style={{fontStyle: "italic"}}>
+                        I CAN NOT MAKE IT WORK
+                    </span>
                 </NavLink>
             </div>
         );

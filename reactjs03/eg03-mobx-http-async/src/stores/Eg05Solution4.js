@@ -1,15 +1,25 @@
 import constant from "./Constants"
-import {observable, configure} from "mobx";
+import {
+    configure,
+    observable,
+    flow,
+    decorate
+} from "mobx";
 
 configure({enforceActions: "observed"});
-export default class Eg05Solution4 {
-
-    @observable
+class Eg05Solution4 {
     users = [];
 
-    loadUser = function*() {
+    loadUser = flow(function*() {
         const response = yield fetch(constant.usersEndpoint);
         const userData = yield response.json();
-        //this.users =
-    }
+        this.users = userData;
+    });
 }
+
+
+decorate(Eg05Solution4, {
+    users: observable
+});
+
+export default Eg05Solution4;

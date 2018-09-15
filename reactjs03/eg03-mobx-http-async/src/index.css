@@ -33,6 +33,10 @@ button {
   display: block;
 }
 
+.nav > a:hover {
+  background-color: #8b6632;
+}
+
 .nav > a.active {
   background-color: darkblue;
   color: snow;
