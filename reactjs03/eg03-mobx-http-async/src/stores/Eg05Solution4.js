@@ -10,7 +10,7 @@ configure({enforceActions: "observed"});
 class Eg05Solution4 {
     users = [];
 
-    loadUser = flow(function*() {
+    loadUsers = flow(function*() {
         const response = yield fetch(constant.usersEndpoint);
         const userData = yield response.json();
         this.users = userData;
