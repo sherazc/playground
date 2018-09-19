@@ -10,7 +10,6 @@
 
     <modules>
         <module>data</module>
-        <module>services</module>
         <module>webservices</module>
     </modules>
     <!-- https://spring.io/guides/gs/multi-module/ -->
