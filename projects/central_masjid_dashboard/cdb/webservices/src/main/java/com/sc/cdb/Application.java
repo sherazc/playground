@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication(scanBasePackages = "com.sc")
 @RestController
-public class DemoApplication {
+public class Application {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DemoApplication.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
     private final MyService myService;
 
-    public DemoApplication(MyService myService) {
+    public Application(MyService myService) {
         this.myService = myService;
     }
 
@@ -31,6 +31,6 @@ public class DemoApplication {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 }
