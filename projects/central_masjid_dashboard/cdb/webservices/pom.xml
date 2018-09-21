@@ -24,7 +24,7 @@
         </dependency>
         <dependency>
             <groupId>com.sc.cdb</groupId>
-	        <artifactId>data</artifactId>
+	        <artifactId>services</artifactId>
             <version>1.0</version>
         </dependency>
     </dependencies>

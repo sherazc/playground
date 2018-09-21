@@ -28,6 +28,7 @@
 
     <modules>
         <module>data</module>
+        <module>services</module>
         <module>webservices</module>
     </modules>
 
