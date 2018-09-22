@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -15,6 +16,7 @@ public class Company {
     private String id;
     @NotNull
     private String name;
+    @Valid
     private Address address;
     private String icon;
 }

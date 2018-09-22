@@ -9,7 +9,9 @@ import com.sc.cdb.webservices.model.ErrorResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -24,8 +26,9 @@ public class CompanyRegisterController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> registerCompany(@Valid CompanyRegisterModel companyRegisterModel,
-                                          BindingResult bindingResult) {
+    public ResponseEntity<Object> registerCompany(
+            @Valid @RequestBody CompanyRegisterModel companyRegisterModel,
+            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(new ErrorResponse("400", bindingResult));
         }

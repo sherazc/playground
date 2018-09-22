@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -13,7 +14,9 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class CompanyRegisterModel {
     @NotNull
+    @Valid
     private Company company;
     @NotNull
+    @Valid
     private User adminUser;
 }
