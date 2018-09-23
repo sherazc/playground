@@ -40,7 +40,16 @@ public class CompanyRegisterController {
     public ResponseEntity<Object> getCompanyById() {
         Address address = new Address("123 St", "City", "ST", "12345", "1.1", "2.2");
         Company company = new Company("xyz.abc", "Company Name", address, "icon");
-        User user = new User("abc.xyz", "xyz.abc", "email@email.com", "password", "First", "Last", true);
+        User user = new User(
+                "abc.xyz",
+                "xyz.abc",
+                "email@email.com",
+                "password",
+                "First",
+                "Last",
+                true,
+                new String[]{"USER"}
+                );
         CompanyRegisterModel companyRegisterModel = new CompanyRegisterModel(company, user);
         return ResponseEntity.ok(companyRegisterModel);
     }

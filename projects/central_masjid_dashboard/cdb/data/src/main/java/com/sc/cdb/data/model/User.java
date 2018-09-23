@@ -23,6 +23,7 @@ public class User {
     private String firstName;
     private String lastName;
     private Boolean active;
+    private String[] roles;
 
     @JsonIgnore
     public String getPassword() {
