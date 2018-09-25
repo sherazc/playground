@@ -8,7 +8,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -35,7 +34,7 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
 
         return getAuthenticationManager()
                 .authenticate(new UsernamePasswordAuthenticationToken(
-                        accountCredentials.getUserName(),
+                        accountCredentials.getUsername(),
                         accountCredentials.getPassword(),
                         Collections.emptyList()
                 ));

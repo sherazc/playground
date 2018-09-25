@@ -18,10 +18,10 @@ public class AuthenticationService {
     private static String PREFIX = "Bearer";
 
 
-    public static void addToken(HttpServletResponse response, String userName) {
+    public static void addToken(HttpServletResponse response, String username) {
 
         String jwtToken = Jwts.builder()
-                .setSubject(userName)
+                .setSubject(username)
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.ES512, SIGNING_KEY)
                 .compact();
@@ -34,15 +34,15 @@ public class AuthenticationService {
     public static Authentication getAuthentication(HttpServletRequest request) {
          String token = request.getHeader(AUTHORIZATION);
         if (StringUtils.isNotBlank(token)) {
-            String userName = Jwts.parser()
+            String username = Jwts.parser()
                     .setSigningKey(SIGNING_KEY)
                     .parseClaimsJws(token.replace(PREFIX + " ", ""))
                     .getBody()
                     .getSubject();
 
-            if (StringUtils.isNotBlank(userName)) {
+            if (StringUtils.isNotBlank(username)) {
                 return new UsernamePasswordAuthenticationToken(
-                        userName,
+                        username,
                         null,
                         Collections.emptyList());
             }
