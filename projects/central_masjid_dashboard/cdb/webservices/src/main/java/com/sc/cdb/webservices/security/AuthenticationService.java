@@ -23,7 +23,7 @@ public class AuthenticationService {
         String jwtToken = Jwts.builder()
                 .setSubject(username)
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.ES512, SIGNING_KEY)
+                .signWith(SignatureAlgorithm.HS512, SIGNING_KEY)
                 .compact();
 
         response.addHeader(AUTHORIZATION, PREFIX + " " + jwtToken);

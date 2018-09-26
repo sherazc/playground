@@ -31,7 +31,7 @@ db.getCollection("user").insert(
     {
         "companyId": "xyz.abc",
         "email": "email@email.com",
-        "password": "$2a$04$n.Ys16qnCE1ICxVkSM4ECeYXQOFwFUBGzfHUjECeZ6zniY69AzgKS", // password
+        "password": "$2a$04$bl.8O/fUKciwtqKeMg8g.Ox/OGlEqleAgQq9Zuo5/HPPHhM8aLocG", // password
         "firstName": "First",
         "lastName": "Last",
         "active": true,

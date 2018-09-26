@@ -15,7 +15,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
                 "abc.xyz",
                 "xyz.abc",
                 "email@email.com",
-                "$2a$04$n.Ys16qnCE1ICxVkSM4ECeYXQOFwFUBGzfHUjECeZ6zniY69AzgKS", // password
+                "$2a$04$bl.8O/fUKciwtqKeMg8g.Ox/OGlEqleAgQq9Zuo5/HPPHhM8aLocG", // password
                 "First",
                 "Last",
                 true,
