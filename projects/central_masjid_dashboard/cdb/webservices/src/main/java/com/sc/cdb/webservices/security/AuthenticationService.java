@@ -6,6 +6,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class AuthenticationService {
     private static final long EXPIRATION_TIME = 86_400_000;
@@ -26,7 +28,7 @@ public class AuthenticationService {
         Map<String, Object> claims = new HashMap<>();
         claims.put("roles", new String[] {"USER"});
         claims.put("firstName", "Sheraz");
-        claims.put("LastName", "Chaudhry");
+        claims.put("lastName", "Chaudhry");
         String jwtToken = Jwts.builder()
                 // TODO Fix Claims
                 .setClaims(claims)
@@ -51,7 +53,9 @@ public class AuthenticationService {
 
             String username = claims.getSubject();
             Date expiration = claims.getExpiration();
-            List<String> roles = claims.get("roles", List.class);
+            List<SimpleGrantedAuthority> roles = ((List<String>) claims.get("roles", List.class)).stream()
+                    .map(e -> new SimpleGrantedAuthority(e))
+                    .collect(Collectors.toList());
             String firstName = claims.get("firstName", String.class);
             String lastName = claims.get("lastName", String.class);
 
@@ -59,7 +63,7 @@ public class AuthenticationService {
                 return new UsernamePasswordAuthenticationToken(
                         username,
                         null,
-                        Collections.emptyList());
+                        roles);
             }
         }
         return null;
