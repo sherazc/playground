@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AuthenticationService {
@@ -24,8 +25,11 @@ public class AuthenticationService {
         // TODO: Add roles to token
         Map<String, Object> claims = new HashMap<>();
         claims.put("roles", new String[] {"USER"});
+        claims.put("firstName", "Sheraz");
+        claims.put("LastName", "Chaudhry");
         String jwtToken = Jwts.builder()
                 // TODO Fix Claims
+                .setClaims(claims)
                 .setSubject(username)
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS512, SIGNING_KEY)
@@ -46,6 +50,10 @@ public class AuthenticationService {
                     .getBody();
 
             String username = claims.getSubject();
+            Date expiration = claims.getExpiration();
+            List<String> roles = claims.get("roles", List.class);
+            String firstName = claims.get("firstName", String.class);
+            String lastName = claims.get("lastName", String.class);
 
             if (StringUtils.isNotBlank(username)) {
                 return new UsernamePasswordAuthenticationToken(
