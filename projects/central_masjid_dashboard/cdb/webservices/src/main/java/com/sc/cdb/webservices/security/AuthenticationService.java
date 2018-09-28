@@ -17,7 +17,6 @@ public class AuthenticationService {
     private static String SIGNING_KEY = "SecretKey";
     private static String PREFIX = "Bearer";
 
-
     public static void addToken(HttpServletResponse response, String username) {
 
         String jwtToken = Jwts.builder()
