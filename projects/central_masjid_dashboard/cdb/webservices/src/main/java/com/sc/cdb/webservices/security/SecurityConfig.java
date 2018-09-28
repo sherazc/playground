@@ -37,6 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 // .antMatchers(HttpMethod.GET, "/company").permitAll()
+                // Commented it because @PreAuthorize("permitAll()") is not working then
                 //.anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new LoginFilter("/login", authenticationManager()),

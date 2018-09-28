@@ -1,5 +1,6 @@
 package com.sc.cdb.webservices.security;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.commons.lang3.StringUtils;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AuthenticationService {
     private static final long EXPIRATION_TIME = 86_400_000;
@@ -18,8 +21,11 @@ public class AuthenticationService {
     private static String PREFIX = "Bearer";
 
     public static void addToken(HttpServletResponse response, String username) {
-
+        // TODO: Add roles to token
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("roles", new String[] {"USER"});
         String jwtToken = Jwts.builder()
+                // TODO Fix Claims
                 .setSubject(username)
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS512, SIGNING_KEY)
@@ -31,13 +37,15 @@ public class AuthenticationService {
 
 
     public static Authentication getAuthentication(HttpServletRequest request) {
-         String token = request.getHeader(AUTHORIZATION);
+        // TODO: load roles from token
+        String token = request.getHeader(AUTHORIZATION);
         if (StringUtils.isNotBlank(token)) {
-            String username = Jwts.parser()
+            Claims claims = Jwts.parser()
                     .setSigningKey(SIGNING_KEY)
                     .parseClaimsJws(token.replace(PREFIX + " ", ""))
-                    .getBody()
-                    .getSubject();
+                    .getBody();
+
+            String username = claims.getSubject();
 
             if (StringUtils.isNotBlank(username)) {
                 return new UsernamePasswordAuthenticationToken(
