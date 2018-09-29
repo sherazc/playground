@@ -1,5 +1,5 @@
-insert into hibernate_sequence values ( 1 );
-insert into hibernate_sequence values ( 1 );
+-- insert into hibernate_sequence values ( 1 );
+-- insert into hibernate_sequence values ( 1 );
 
 INSERT INTO user (id, username, password, salary, age) VALUES (1, 'user1', '$2a$04$uwl7jqrA0e7w3qvVugrS3ehX44iw.XKxKa73jgNL7SKAhRVI3TZnq', 3456, 33);
 INSERT INTO user (id, username, password, salary, age) VALUES (2, 'user2', '$2a$04$uwl7jqrA0e7w3qvVugrS3ehX44iw.XKxKa73jgNL7SKAhRVI3TZnq', 7823, 23);
