@@ -9,4 +9,5 @@ INSERT INTO role (id, description, name) VALUES (4, 'Admin role', 'ADMIN');
 INSERT INTO role (id, description, name) VALUES (5, 'User role', 'USER');
 
 INSERT INTO user_roles (user_id, role_id) VALUES (1, 4);
+INSERT INTO user_roles (user_id, role_id) VALUES (1, 5);
 INSERT INTO user_roles (user_id, role_id) VALUES (2, 5);
