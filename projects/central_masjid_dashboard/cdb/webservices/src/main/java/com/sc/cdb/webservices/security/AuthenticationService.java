@@ -26,7 +26,7 @@ public class AuthenticationService {
     public static void addToken(HttpServletResponse response, String username) {
         // TODO: Add roles to token
         Map<String, Object> claims = new HashMap<>();
-        claims.put("roles", new String[] {"USER"});
+        claims.put("roles", new String[] {"ROLE_USER"});
         claims.put("firstName", "Sheraz");
         claims.put("lastName", "Chaudhry");
         String jwtToken = Jwts.builder()
@@ -54,7 +54,9 @@ public class AuthenticationService {
             String username = claims.getSubject();
             Date expiration = claims.getExpiration();
             List<SimpleGrantedAuthority> roles = ((List<String>) claims.get("roles", List.class)).stream()
-                    .map(e -> new SimpleGrantedAuthority(e))
+                    .map(e -> new SimpleGrantedAuthority(
+                            // "ROLE_" +
+                                    e))
                     .collect(Collectors.toList());
             String firstName = claims.get("firstName", String.class);
             String lastName = claims.get("lastName", String.class);

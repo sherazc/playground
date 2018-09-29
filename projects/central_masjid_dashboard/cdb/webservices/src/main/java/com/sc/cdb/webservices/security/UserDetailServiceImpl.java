@@ -7,6 +7,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
     @Override
@@ -24,11 +28,14 @@ public class UserDetailServiceImpl implements UserDetailsService {
                 new String[]{"USER"}
         );
 
+        String[] roles = Arrays.stream(user.getRoles())
+                .map(e -> "ROLE_" + e).toArray(String[]::new);
+
         UserDetails userDetails = new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),
                 true, true, true, true,
-                AuthorityUtils.createAuthorityList(user.getRoles())
+                AuthorityUtils.createAuthorityList(roles)
         );
 
         return userDetails;
