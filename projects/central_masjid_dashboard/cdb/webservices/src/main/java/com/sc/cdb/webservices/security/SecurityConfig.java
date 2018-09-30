@@ -26,8 +26,10 @@ import java.util.Collections;
         jsr250Enabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
     private UserDetailServiceImpl userDetailService;
+    private AuthenticationFilter
+
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

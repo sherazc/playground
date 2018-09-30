@@ -1,5 +1,7 @@
 package com.sc.cdb.webservices.security;
 
+import com.sc.cdb.data.model.User;
+import com.sc.cdb.webservices.model.AuthenticatedUserDetail;
 import com.sc.cdb.webservices.model.AuthenticationRequest;
 import com.sc.cdb.webservices.model.AuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,17 +45,18 @@ public class AuthenticationController {
         AuthenticationResponse authenticationResponse = new AuthenticationResponse();
 
         if (authentication.isAuthenticated()) {
+            AuthenticatedUserDetail authenticatedUserDetail = (AuthenticatedUserDetail) authentication.getPrincipal();
+            User user = authenticatedUserDetail.getUser();
             Map<String, Object> clames = new HashMap<>();
+            if (user.getRoles() != null) {
+                clames.put("roles", user.getRoles());
+            }
 
-
-
-
-            authenticationResponse.setToken("Testing");
-
+            String token = this.authenticationTokenService.generateToken(user.getEmail(), clames);
+            authenticationResponse.setToken(token);
+            authenticationResponse.setFirstName(user.getFirstName());
+            authenticationResponse.setLastName(user.getLastName());
         }
-
-
-
         return ResponseEntity.ok(authenticationResponse);
     }
 }

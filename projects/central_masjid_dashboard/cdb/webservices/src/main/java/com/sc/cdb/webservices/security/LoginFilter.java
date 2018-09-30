@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
 
+@Deprecated
 public class LoginFilter extends AbstractAuthenticationProcessingFilter {
 
 
@@ -46,7 +47,7 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
             HttpServletResponse response,
             FilterChain chain,
             Authentication authResult) throws IOException, ServletException {
-        AuthenticationTokenService.addToken(response, authResult.getName());
+        // AuthenticationTokenService.addToken(response, authResult.getName());
 
     }
 }
