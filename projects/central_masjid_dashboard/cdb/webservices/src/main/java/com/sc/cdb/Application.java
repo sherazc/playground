@@ -13,6 +13,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
+
 @SpringBootApplication(scanBasePackages = "com.sc")
 @RestController
 public class Application implements CommandLineRunner {
@@ -70,7 +72,7 @@ public class Application implements CommandLineRunner {
                 "First",
                 "Last",
                 true,
-                new String[]{"USER"}
+                Arrays.asList("USER")
         );
         userRepository.save(user);
 

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -23,7 +24,7 @@ public class User {
     private String firstName;
     private String lastName;
     private Boolean active;
-    private String[] roles;
+    private List<String> roles;
 
     @JsonIgnore
     public String getPassword() {

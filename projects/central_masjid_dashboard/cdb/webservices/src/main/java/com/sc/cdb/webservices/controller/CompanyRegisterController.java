@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 
 @RestController
 @RequestMapping("/company")
@@ -52,7 +53,7 @@ public class CompanyRegisterController {
                 "First",
                 "Last",
                 true,
-                new String[]{"USER"}
+                Arrays.asList("USER")
                 );
         CompanyRegisterModel companyRegisterModel = new CompanyRegisterModel(company, user);
         return ResponseEntity.ok(companyRegisterModel);
@@ -71,7 +72,7 @@ public class CompanyRegisterController {
                 "First",
                 "Last",
                 true,
-                new String[]{"USER"}
+                Arrays.asList("USER")
         );
         CompanyRegisterModel companyRegisterModel = new CompanyRegisterModel(company, user);
         return ResponseEntity.ok(companyRegisterModel);

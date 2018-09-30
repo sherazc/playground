@@ -25,10 +25,10 @@ public class UserDetailServiceImpl implements UserDetailsService {
                 "First",
                 "Last",
                 true,
-                new String[]{"USER"}
+                Arrays.asList("USER")
         );
 
-        String[] roles = Arrays.stream(user.getRoles())
+        String[] roles = user.getRoles().stream()
                 .map(e -> "ROLE_" + e).toArray(String[]::new);
 
         UserDetails userDetails = new org.springframework.security.core.userdetails.User(
