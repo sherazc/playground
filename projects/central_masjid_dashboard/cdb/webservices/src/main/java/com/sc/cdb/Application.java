@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Arrays;
 
 @SpringBootApplication(scanBasePackages = "com.sc")
-@RestController
 public class Application implements CommandLineRunner {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
@@ -31,17 +30,6 @@ public class Application implements CommandLineRunner {
         this.myService = myService;
         this.companyRepository = companyRepository;
         this.userRepository = userRepository;
-    }
-
-    @GetMapping("/")
-    public String home() {
-        LOGGER.trace("A TRACE Message");
-        LOGGER.debug("A DEBUG Message");
-        LOGGER.info("An INFO Message");
-        LOGGER.warn("A WARN Message");
-        LOGGER.error("An ERROR Message");
-
-        return myService.message();
     }
 
     public static void main(String[] args) {
