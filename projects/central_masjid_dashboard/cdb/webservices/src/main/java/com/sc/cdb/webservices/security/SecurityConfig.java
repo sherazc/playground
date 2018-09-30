@@ -36,12 +36,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 // .antMatchers(HttpMethod.GET, "/company").permitAll()
-                // Commented it because @PreAuthorize("permitAll()") is not working then
-                //.anyRequest().authenticated()
+                // Commented it to turn off url base and use method level security
+                // .anyRequest().authenticated()
                 .and()
+                // Filter below attempts login. We can create our
                 .addFilterBefore(new LoginFilter("/login", authenticationManager()),
                         UsernamePasswordAuthenticationFilter.class)
+                // Filter below auth n/z for all secured request.
+                // Validates JWT in http request
                 .addFilterBefore(new AuthenticationFilter(),
                         UsernamePasswordAuthenticationFilter.class);
     }
