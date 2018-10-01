@@ -27,8 +27,12 @@ import java.util.Collections;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserDetailServiceImpl userDetailService;
-    private AuthenticationFilter
+    private AuthenticationFilter authenticationFilter;
 
+    public SecurityConfig(UserDetailServiceImpl userDetailService, AuthenticationFilter authenticationFilter) {
+        this.userDetailService = userDetailService;
+        this.authenticationFilter = authenticationFilter;
+    }
 
 
     @Override
@@ -49,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         UsernamePasswordAuthenticationFilter.class)
                 // Filter below auth n/z for all secured request.
                 // Validates JWT in http request
-                .addFilterBefore(new AuthenticationFilter(),
+                .addFilterBefore(authenticationFilter,
                         UsernamePasswordAuthenticationFilter.class);
     }
 

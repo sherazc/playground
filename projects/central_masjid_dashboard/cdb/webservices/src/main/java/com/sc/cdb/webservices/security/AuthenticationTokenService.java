@@ -10,17 +10,15 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
 public class AuthenticationTokenService {
-    private static final long EXPIRATION_TIME = 86_400_000;
+    // private static final long EXPIRATION_TIME = 86_400_000;
+    private static final long EXPIRATION_TIME = 1_000;
     private static final String AUTHORIZATION = "Authorization";
     private static final String SIGNING_KEY = "SecretKey";
     private static final String PREFIX = "Bearer";
@@ -48,19 +46,22 @@ public class AuthenticationTokenService {
 
         String username = claims.getSubject();
         Date expiration = claims.getExpiration();
-        List<SimpleGrantedAuthority> roles = ((List<String>) claims.get("roles", List.class)).stream()
-                .map(e -> new SimpleGrantedAuthority(
-                        "ROLE_" + e))
-                .collect(Collectors.toList());
 
-        // TODO validate expiration.
-        if (StringUtils.isNotBlank(username)) {
+        boolean tokenValid = expiration != null && new Date().before(expiration);
+
+        if (tokenValid && StringUtils.isNotBlank(username)) {
+            List<SimpleGrantedAuthority> roles = ((List<String>) claims.get("roles", List.class)).stream()
+                    .map(e -> new SimpleGrantedAuthority(
+                            "ROLE_" + e))
+                    .collect(Collectors.toList());
             return new UsernamePasswordAuthenticationToken(
                     username,
                     null,
                     roles);
+        } else {
+            return null;
         }
 
-        return null;
+
     }
 }
