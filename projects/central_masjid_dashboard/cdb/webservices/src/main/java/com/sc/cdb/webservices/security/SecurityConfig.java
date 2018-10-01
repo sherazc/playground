@@ -42,15 +42,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors()
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                // .antMatchers(HttpMethod.GET, "/company").permitAll()
                 // Commented it to turn off url base and use method level security
                 // .anyRequest().authenticated()
                 .and()
-                // Filter below attempts login. We can create our
-                .addFilterBefore(new LoginFilter("/login", authenticationManager()),
-                        UsernamePasswordAuthenticationFilter.class)
                 // Filter below auth n/z for all secured request.
                 // Validates JWT in http request
                 .addFilterBefore(authenticationFilter,

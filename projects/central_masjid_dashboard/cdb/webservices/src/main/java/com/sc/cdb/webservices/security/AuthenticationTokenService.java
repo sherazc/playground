@@ -1,9 +1,14 @@
 package com.sc.cdb.webservices.security;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,51 +22,71 @@ import java.util.stream.Collectors;
 
 @Service
 public class AuthenticationTokenService {
-    // private static final long EXPIRATION_TIME = 86_400_000;
-    private static final long EXPIRATION_TIME = 1_000;
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationTokenService.class);
     private static final String AUTHORIZATION = "Authorization";
-    private static final String SIGNING_KEY = "SecretKey";
     private static final String PREFIX = "Bearer";
 
-    String generateToken(String userId, Map<String, Object> claims) {
+
+    private String signingKey;
+    private long expirationMilliseconds;
+
+
+    public AuthenticationTokenService(
+            @Value("${security.jwt.signing.key}") String signingKey,
+            @Value("${security.jwt.expiration.seconds}") int expirationSeconds) {
+        this.signingKey = signingKey;
+        this.expirationMilliseconds = expirationSeconds * 1000;
+    }
+
+    String generateToken(String email, Map<String, Object> claims) {
+        if (StringUtils.isBlank(email) || claims == null) {
+            LOGGER.warn("Can not generate token. Invalid email={} or claims={}", email, claims);
+        }
         String jwtToken = Jwts.builder()
                 .setClaims(claims)
-                .setSubject(userId)
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS512, SIGNING_KEY)
+                .setSubject(email)
+                .setExpiration(new Date(System.currentTimeMillis() + expirationMilliseconds))
+                .signWith(SignatureAlgorithm.HS512, signingKey)
                 .compact();
-
+        LOGGER.debug("Generated token. email={}  token={}", email, jwtToken);
         return jwtToken;
     }
 
     Authentication getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(AUTHORIZATION);
         if (StringUtils.isBlank(token)) {
+            LOGGER.debug("Can not authenticate. Token is missing");
             return null;
         }
-        Claims claims = Jwts.parser()
-                .setSigningKey(SIGNING_KEY)
-                .parseClaimsJws(token.replace(PREFIX + " ", ""))
-                .getBody();
+        Claims claims = null;
+        try {
+            claims = Jwts.parser()
+                    .setSigningKey(signingKey)
+                    .parseClaimsJws(token.replace(PREFIX + " ", ""))
+                    .getBody();
+        } catch (ExpiredJwtException ex) {
+            LOGGER.warn("Can not authenticate. Token {} is expired. {}", token, ex.getMessage());
+            return null;
+        }
 
-        String username = claims.getSubject();
-        Date expiration = claims.getExpiration();
+        if (claims == null) {
+            LOGGER.warn("Can not authenticate. Can not parse claims.");
+            return null;
+        }
 
-        boolean tokenValid = expiration != null && new Date().before(expiration);
+        String email = claims.getSubject();
 
-        if (tokenValid && StringUtils.isNotBlank(username)) {
+        if (StringUtils.isNotBlank(email)) {
             List<SimpleGrantedAuthority> roles = ((List<String>) claims.get("roles", List.class)).stream()
                     .map(e -> new SimpleGrantedAuthority(
                             "ROLE_" + e))
                     .collect(Collectors.toList());
             return new UsernamePasswordAuthenticationToken(
-                    username,
+                    email,
                     null,
                     roles);
         } else {
             return null;
         }
-
-
     }
 }
