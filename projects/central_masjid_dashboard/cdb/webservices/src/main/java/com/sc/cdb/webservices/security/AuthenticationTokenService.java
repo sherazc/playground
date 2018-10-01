@@ -5,7 +5,6 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,10 +25,8 @@ public class AuthenticationTokenService {
     private static final String AUTHORIZATION = "Authorization";
     private static final String PREFIX = "Bearer";
 
-
     private String signingKey;
     private long expirationMilliseconds;
-
 
     public AuthenticationTokenService(
             @Value("${security.jwt.signing.key}") String signingKey,
@@ -54,15 +51,16 @@ public class AuthenticationTokenService {
 
     Authentication getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(AUTHORIZATION);
+        LOGGER.debug("Attempting to authenticate. Token={}", token);
         if (StringUtils.isBlank(token)) {
-            LOGGER.debug("Can not authenticate. Token is missing");
+            LOGGER.info("Can not authenticate. Token is missing");
             return null;
         }
-        Claims claims = null;
+        Claims claims;
         try {
             claims = Jwts.parser()
                     .setSigningKey(signingKey)
-                    .parseClaimsJws(token.replace(PREFIX + " ", ""))
+                    .parseClaimsJws(token.replace(PREFIX, "").trim())
                     .getBody();
         } catch (ExpiredJwtException ex) {
             LOGGER.warn("Can not authenticate. Token {} is expired. {}", token, ex.getMessage());
