@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class User extends BaseModel {
     @Id
     private String id;
     private String companyId;
@@ -21,8 +21,7 @@ public class User {
     private String email;
     @NotNull
     private String password;
-    private String firstName;
-    private String lastName;
+    private String firstName, lastName;
     private Boolean active;
     private List<String> roles;
 

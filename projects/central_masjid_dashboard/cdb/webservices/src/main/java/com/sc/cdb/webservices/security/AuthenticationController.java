@@ -47,12 +47,12 @@ public class AuthenticationController {
         if (authentication.isAuthenticated()) {
             AuthenticatedUserDetail authenticatedUserDetail = (AuthenticatedUserDetail) authentication.getPrincipal();
             User user = authenticatedUserDetail.getUser();
-            Map<String, Object> clames = new HashMap<>();
+            Map<String, Object> claims = new HashMap<>();
             if (user.getRoles() != null) {
-                clames.put("roles", user.getRoles());
+                claims.put("roles", user.getRoles());
             }
 
-            String token = this.authenticationTokenService.generateToken(user.getEmail(), clames);
+            String token = this.authenticationTokenService.generateToken(user.getEmail(), claims);
             authenticationResponse.setToken(token);
             authenticationResponse.setFirstName(user.getFirstName());
             authenticationResponse.setLastName(user.getLastName());

@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Company {
+public class Company extends BaseModel {
     @Id
     private String id;
     @NotNull
