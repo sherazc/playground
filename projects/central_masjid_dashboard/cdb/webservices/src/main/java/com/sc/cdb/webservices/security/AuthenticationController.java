@@ -33,12 +33,13 @@ public class AuthenticationController {
     private AuthenticationTokenService authenticationTokenService;
     private CompanyService companyService;
 
-    @Autowired
     public AuthenticationController(
             AuthenticationManager authenticationManager,
-            AuthenticationTokenService authenticationTokenService) {
+            AuthenticationTokenService authenticationTokenService,
+            CompanyService companyService) {
         this.authenticationManager = authenticationManager;
         this.authenticationTokenService = authenticationTokenService;
+        this.companyService = companyService;
     }
 
     @PostMapping("login")
@@ -59,8 +60,11 @@ public class AuthenticationController {
                     authenticationRequest.getCompanyId());
         }
 
-        // TODO send back 401 or 403 if authentication response is null
-        return ResponseEntity.ok(authenticationResponse);
+        if (authenticationResponse == null) {
+            return ResponseEntity.status(401).build();
+        } else {
+            return ResponseEntity.ok(authenticationResponse);
+        }
     }
 
     private AuthenticationResponse buildAuthenticationResponse(User user, String requestedCompanyId) {
