@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -53,46 +54,53 @@ public class AuthenticationController {
 
         if (authentication.isAuthenticated()) {
             AuthenticatedUserDetail authenticatedUserDetail = (AuthenticatedUserDetail) authentication.getPrincipal();
-            User user = authenticatedUserDetail.getUser();
-            if (user != null) {
-                Map<String, Object> claims = new HashMap<>();
-                boolean superAdminUser = false;
-                if (user.getRoles() != null) {
-                    claims.put("roles", user.getRoles());
-                    superAdminUser = user.getRoles().contains("SUPER_ADMIN");
-                }
-
-                Company company = getUserCompanyOrAssumedCompany(
-                        user.getCompanyId(),
-                        authenticationRequest.getCompanyId(),
-                        superAdminUser);
-                // Checking if SUPER_ADMIN is trying to assume an
-                /*
-                if (StringUtils.isNotBlank(user.getCompanyId())) {
-                    LOG.debug("Authenticated user by email {}. Now searching for user's company {}",
-                            user.getEmail(),
-                            user.getCompanyId());
-                    companyService.findCompanyById()
-                } else {
-                    LOG.info("Authenticated user by email {}. But user is not assigned companyId",
-                            user.getEmail());
-
-                }
-                */
-
-
-                Company company = authenticatedUserDetail.getCompany();
-
-                String token = this.authenticationTokenService.generateToken(user.getEmail(), claims);
-                authenticationResponse.setToken(token);
-                authenticationResponse.setUser(user);
-                authenticationResponse.setCompany(company);
-            }
+            authenticationResponse = buildAuthenticationResponse(
+                    authenticatedUserDetail.getUser(),
+                    authenticationRequest.getCompanyId());
         }
+
+        // TODO send back 401 or 403 if authentication response is null
         return ResponseEntity.ok(authenticationResponse);
     }
 
-    private Company getUserCompanyOrAssumedCompany(String userCompanyId, String assumeCompanyId, boolean superAdminUser) {
+    private AuthenticationResponse buildAuthenticationResponse(User user, String requestedCompanyId) {
+        if (user == null) {
+            LOG.warn("Not building authentication response. User is null.");
+            return null;
+        }
+        AuthenticationResponse authenticationResponse = null;
+        Map<String, Object> claims = createClaims(user.getRoles());
+
+        Company company = getUserCompanyOrAssumedCompany(user.getRoles(),
+                user.getCompanyId(), requestedCompanyId);
+
+        if (company == null) {
+            LOG.warn("Can not authenticate. Unable to find company.");
+        } else {
+            authenticationResponse = new AuthenticationResponse();
+            String token = this.authenticationTokenService.generateToken(user.getEmail(), claims);
+            authenticationResponse.setToken(token);
+            authenticationResponse.setUser(user);
+            authenticationResponse.setCompany(company);
+        }
+
+        return authenticationResponse;
+    }
+
+
+    private Map<String, Object> createClaims(List<String> userRoles) {
+        Map<String, Object> claims = new HashMap<>();
+        if (userRoles != null) {
+            claims.put("roles", userRoles);
+        }
+        return claims;
+    }
+
+    private Company getUserCompanyOrAssumedCompany(List<String> userRoles, String userCompanyId, String assumeCompanyId) {
+        boolean superAdminUser = userRoles != null && userRoles.contains("SUPER_ADMIN");
+        LOG.debug("Searching for user's company. superAdminUser={}, userCompanyId={}, assumeCompanyId={}",
+                superAdminUser, userCompanyId, assumeCompanyId);
+
         String companyIdToWorkWith = superAdminUser ? assumeCompanyId : userCompanyId;
         if (StringUtils.isBlank(companyIdToWorkWith)) {
             LOG.warn(
