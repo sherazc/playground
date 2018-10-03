@@ -56,16 +56,16 @@ public class AuthenticationController {
             User user = authenticatedUserDetail.getUser();
             if (user != null) {
                 Map<String, Object> claims = new HashMap<>();
-                boolean assumeUserCompany = false;
+                boolean superAdminUser = false;
                 if (user.getRoles() != null) {
                     claims.put("roles", user.getRoles());
-                    assumeUserCompany = user.getRoles().contains("SUPER_ADMIN");
+                    superAdminUser = user.getRoles().contains("SUPER_ADMIN");
                 }
 
-                Company company = getUsersCompany(
+                Company company = getUserCompanyOrAssumedCompany(
                         user.getCompanyId(),
                         authenticationRequest.getCompanyId(),
-                        assumeUserCompany);
+                        superAdminUser);
                 // Checking if SUPER_ADMIN is trying to assume an
                 /*
                 if (StringUtils.isNotBlank(user.getCompanyId())) {
@@ -90,5 +90,16 @@ public class AuthenticationController {
             }
         }
         return ResponseEntity.ok(authenticationResponse);
+    }
+
+    private Company getUserCompanyOrAssumedCompany(String userCompanyId, String assumeCompanyId, boolean superAdminUser) {
+        String companyIdToWorkWith = superAdminUser ? assumeCompanyId : userCompanyId;
+        if (StringUtils.isBlank(companyIdToWorkWith)) {
+            LOG.warn(
+                    "Can not find company. Company ID not provided. superAdminUser={}, userCompanyId={}, assumeCompanyId={}",
+                    superAdminUser, userCompanyId, assumeCompanyId);
+            return null;
+        }
+        return companyService.findCompanyById(companyIdToWorkWith).orElse(null);
     }
 }
