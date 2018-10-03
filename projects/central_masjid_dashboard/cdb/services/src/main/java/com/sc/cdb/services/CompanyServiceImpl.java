@@ -5,9 +5,12 @@ import com.sc.cdb.data.model.User;
 import com.sc.cdb.data.repository.CompanyRepository;
 import com.sc.cdb.data.repository.UserRepository;
 import com.sc.cdb.services.model.CompanyRegisterModel;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Component
 public class CompanyServiceImpl implements CompanyService {
@@ -20,6 +23,14 @@ public class CompanyServiceImpl implements CompanyService {
                               UserRepository userRepository) {
         this.companyRepository = companyRepository;
         this.userRepository = userRepository;
+    }
+
+    @Override
+    public Optional<Company> findCompanyById(String companyId) {
+        if (StringUtils.isBlank(companyId)) {
+            return Optional.empty();
+        }
+        return companyRepository.findById(companyId);
     }
 
     @Override

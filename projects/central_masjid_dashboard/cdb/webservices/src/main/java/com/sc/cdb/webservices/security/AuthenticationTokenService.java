@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class AuthenticationTokenService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationTokenService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AuthenticationTokenService.class);
     private static final String AUTHORIZATION = "Authorization";
     private static final String PREFIX = "Bearer";
 
@@ -37,7 +37,7 @@ public class AuthenticationTokenService {
 
     String generateToken(String email, Map<String, Object> claims) {
         if (StringUtils.isBlank(email) || claims == null) {
-            LOGGER.warn("Can not generate token. Invalid email={} or claims={}", email, claims);
+            LOG.warn("Can not generate token. Invalid email={} or claims={}", email, claims);
         }
         String jwtToken = Jwts.builder()
                 .setClaims(claims)
@@ -45,15 +45,15 @@ public class AuthenticationTokenService {
                 .setExpiration(new Date(System.currentTimeMillis() + expirationMilliseconds))
                 .signWith(SignatureAlgorithm.HS512, signingKey)
                 .compact();
-        LOGGER.debug("Generated token. email={}  token={}", email, jwtToken);
+        LOG.debug("Generated token. email={}  token={}", email, jwtToken);
         return jwtToken;
     }
 
     Authentication getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(AUTHORIZATION);
-        LOGGER.debug("Attempting to authenticate. Token={}", token);
+        LOG.debug("Attempting to authenticate. Token={}", token);
         if (StringUtils.isBlank(token)) {
-            LOGGER.info("Can not authenticate. Token is missing");
+            LOG.info("Can not authenticate. Token is missing");
             return null;
         }
         Claims claims;
@@ -63,12 +63,12 @@ public class AuthenticationTokenService {
                     .parseClaimsJws(token.replace(PREFIX, "").trim())
                     .getBody();
         } catch (ExpiredJwtException ex) {
-            LOGGER.warn("Can not authenticate. Token {} is expired. {}", token, ex.getMessage());
+            LOG.warn("Can not authenticate. Token {} is expired. {}", token, ex.getMessage());
             return null;
         }
 
         if (claims == null) {
-            LOGGER.warn("Can not authenticate. Can not parse claims.");
+            LOG.warn("Can not authenticate. Can not parse claims.");
             return null;
         }
 

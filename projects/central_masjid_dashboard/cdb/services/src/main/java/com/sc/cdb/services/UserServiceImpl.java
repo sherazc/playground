@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Component
 public class UserServiceImpl implements UserService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
     private UserRepository userRepository;
 
     public UserServiceImpl(UserRepository userRepository) {
@@ -19,12 +19,13 @@ public class UserServiceImpl implements UserService {
     }
 
     public Optional<User> findUserByEmail(String email) {
+        LOG.info("Searching for user by email: {}", email);
         if (StringUtils.isBlank(email)) {
-            LOGGER.info("Can not find user. Email is empty");
+            LOG.info("Can not find user. Email is empty");
             return Optional.empty();
         }
         User user = userRepository.findByEmail(email);
-        LOGGER.debug("User found: {}", user);
+        LOG.debug("User found: {}", user);
         return Optional.ofNullable(user);
     }
 }

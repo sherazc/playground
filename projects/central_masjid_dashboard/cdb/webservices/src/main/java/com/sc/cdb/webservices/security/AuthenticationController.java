@@ -1,9 +1,13 @@
 package com.sc.cdb.webservices.security;
 
+import com.sc.cdb.data.model.Company;
 import com.sc.cdb.data.model.User;
+import com.sc.cdb.services.CompanyService;
 import com.sc.cdb.webservices.model.AuthenticatedUserDetail;
 import com.sc.cdb.webservices.model.AuthenticationRequest;
 import com.sc.cdb.webservices.model.AuthenticationResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,9 +25,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/auth")
 public class AuthenticationController {
+    private static final Logger LOG = LoggerFactory.getLogger(AuthenticationController.class);
 
     private AuthenticationManager authenticationManager;
     private AuthenticationTokenService authenticationTokenService;
+    private CompanyService companyService;
 
     @Autowired
     public AuthenticationController(
@@ -51,11 +57,12 @@ public class AuthenticationController {
             if (user.getRoles() != null) {
                 claims.put("roles", user.getRoles());
             }
+            Company company = authenticatedUserDetail.getCompany();
 
             String token = this.authenticationTokenService.generateToken(user.getEmail(), claims);
             authenticationResponse.setToken(token);
-            authenticationResponse.setFirstName(user.getFirstName());
-            authenticationResponse.setLastName(user.getLastName());
+            authenticationResponse.setUser(user);
+            authenticationResponse.setCompany(company);
         }
         return ResponseEntity.ok(authenticationResponse);
     }
