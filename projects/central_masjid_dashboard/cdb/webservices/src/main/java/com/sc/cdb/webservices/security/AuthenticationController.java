@@ -6,6 +6,7 @@ import com.sc.cdb.services.CompanyService;
 import com.sc.cdb.webservices.model.AuthenticatedUserDetail;
 import com.sc.cdb.webservices.model.AuthenticationRequest;
 import com.sc.cdb.webservices.model.AuthenticationResponse;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,21 +49,45 @@ public class AuthenticationController {
                 )
         );
 
-        AuthenticationResponse authenticationResponse = new AuthenticationResponse();
+        AuthenticationResponse authenticationResponse = null;
 
         if (authentication.isAuthenticated()) {
             AuthenticatedUserDetail authenticatedUserDetail = (AuthenticatedUserDetail) authentication.getPrincipal();
             User user = authenticatedUserDetail.getUser();
-            Map<String, Object> claims = new HashMap<>();
-            if (user.getRoles() != null) {
-                claims.put("roles", user.getRoles());
-            }
-            Company company = authenticatedUserDetail.getCompany();
+            if (user != null) {
+                Map<String, Object> claims = new HashMap<>();
+                boolean assumeUserCompany = false;
+                if (user.getRoles() != null) {
+                    claims.put("roles", user.getRoles());
+                    assumeUserCompany = user.getRoles().contains("SUPER_ADMIN");
+                }
 
-            String token = this.authenticationTokenService.generateToken(user.getEmail(), claims);
-            authenticationResponse.setToken(token);
-            authenticationResponse.setUser(user);
-            authenticationResponse.setCompany(company);
+                Company company = getUsersCompany(
+                        user.getCompanyId(),
+                        authenticationRequest.getCompanyId(),
+                        assumeUserCompany);
+                // Checking if SUPER_ADMIN is trying to assume an
+                /*
+                if (StringUtils.isNotBlank(user.getCompanyId())) {
+                    LOG.debug("Authenticated user by email {}. Now searching for user's company {}",
+                            user.getEmail(),
+                            user.getCompanyId());
+                    companyService.findCompanyById()
+                } else {
+                    LOG.info("Authenticated user by email {}. But user is not assigned companyId",
+                            user.getEmail());
+
+                }
+                */
+
+
+                Company company = authenticatedUserDetail.getCompany();
+
+                String token = this.authenticationTokenService.generateToken(user.getEmail(), claims);
+                authenticationResponse.setToken(token);
+                authenticationResponse.setUser(user);
+                authenticationResponse.setCompany(company);
+            }
         }
         return ResponseEntity.ok(authenticationResponse);
     }
