@@ -105,7 +105,7 @@ public class AuthenticationController {
         LOG.debug("Searching for user's company. superAdminUser={}, userCompanyId={}, assumeCompanyId={}",
                 superAdminUser, userCompanyId, assumeCompanyId);
 
-        String companyIdToWorkWith = superAdminUser ? assumeCompanyId : userCompanyId;
+        String companyIdToWorkWith = superAdminUser && StringUtils.isNotBlank(assumeCompanyId) ? assumeCompanyId : userCompanyId;
         if (StringUtils.isBlank(companyIdToWorkWith)) {
             LOG.warn(
                     "Can not find company. Company ID not provided. superAdminUser={}, userCompanyId={}, assumeCompanyId={}",

@@ -47,10 +47,10 @@ public class Application implements CommandLineRunner {
                 "12345",
                 "1.1",
                 "2.2");
-        Company company1 = new Company(null, "Company Name 1", address, "icon");
+        Company company1 = new Company("company1", "Company Name 1", address, "icon");
         companyRepository.save(company1);
 
-        Company company2 = new Company(null, "Company Name 2", address, "icon");
+        Company company2 = new Company("company2", "Company Name 2", address, "icon");
         companyRepository.save(company2);
 
 
