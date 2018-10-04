@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
+import java.util.Date;
 
 @SpringBootApplication(scanBasePackages = "com.sc")
 public class Application implements CommandLineRunner {
@@ -47,10 +48,10 @@ public class Application implements CommandLineRunner {
                 "12345",
                 "1.1",
                 "2.2");
-        Company company1 = new Company("company1", "Company Name 1", address, "icon");
+        Company company1 = new Company("company1", "Company Name 1", address, "icon", true, new Date());
         companyRepository.save(company1);
 
-        Company company2 = new Company("company2", "Company Name 2", address, "icon");
+        Company company2 = new Company("company2", "Company Name 2", address, "icon", true, new Date());
         companyRepository.save(company2);
 
 
@@ -63,8 +64,8 @@ public class Application implements CommandLineRunner {
                 "$2a$04$bl.8O/fUKciwtqKeMg8g.Ox/OGlEqleAgQq9Zuo5/HPPHhM8aLocG",
                 "Sheraz",
                 "User",
-                true,
-                Arrays.asList("USER")
+                Arrays.asList("USER"),
+                true, true
         );
         userRepository.save(user);
         User user2 = new User(
@@ -74,8 +75,8 @@ public class Application implements CommandLineRunner {
                 "$2a$04$bl.8O/fUKciwtqKeMg8g.Ox/OGlEqleAgQq9Zuo5/HPPHhM8aLocG",
                 "Sheraz",
                 "Admin",
-                true,
-                Arrays.asList("ADMIN", "USER")
+                Arrays.asList("ADMIN", "USER"),
+                true, true
         );
         userRepository.save(user2);
 
@@ -86,8 +87,8 @@ public class Application implements CommandLineRunner {
                 "$2a$04$bl.8O/fUKciwtqKeMg8g.Ox/OGlEqleAgQq9Zuo5/HPPHhM8aLocG",
                 "Sheraz",
                 "Super Admin",
-                true,
-                Arrays.asList("SUPER_ADMIN", "USER")
+                Arrays.asList("SUPER_ADMIN", "USER"),
+                true, true
         );
         userRepository.save(user3);
     }

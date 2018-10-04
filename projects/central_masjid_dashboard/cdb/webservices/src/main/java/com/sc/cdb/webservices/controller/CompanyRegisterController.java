@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.Arrays;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/company")
@@ -44,7 +45,7 @@ public class CompanyRegisterController {
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Object> getCompanyById() {
         Address address = new Address("123 St", "City", "ST", "12345", "1.1", "2.2");
-        Company company = new Company("xyz.abc", "Company Name", address, "icon");
+        Company company = new Company("xyz.abc", "Company Name", address, "icon", true, new Date());
         User user = new User(
                 "abc.xyz",
                 "xyz.abc",
@@ -52,8 +53,8 @@ public class CompanyRegisterController {
                 "password",
                 "First",
                 "Last",
-                true,
-                Arrays.asList("USER")
+                Arrays.asList("USER"),
+                true, true
                 );
         CompanyRegisterModel companyRegisterModel = new CompanyRegisterModel(company, user);
         return ResponseEntity.ok(companyRegisterModel);
@@ -63,7 +64,7 @@ public class CompanyRegisterController {
     @PreAuthorize("permitAll()")
     public ResponseEntity<Object> getCompanyById2() {
         Address address = new Address("123 St", "City", "ST", "12345", "1.1", "2.2");
-        Company company = new Company("xyz.abc", "Company Name", address, "icon");
+        Company company = new Company("xyz.abc", "Company Name", address, "icon", true, new Date());
         User user = new User(
                 "abc.xyz",
                 "xyz.abc",
@@ -71,8 +72,8 @@ public class CompanyRegisterController {
                 "password",
                 "First",
                 "Last",
-                true,
-                Arrays.asList("USER")
+                Arrays.asList("USER"),
+                true, true
         );
         CompanyRegisterModel companyRegisterModel = new CompanyRegisterModel(company, user);
         return ResponseEntity.ok(companyRegisterModel);
