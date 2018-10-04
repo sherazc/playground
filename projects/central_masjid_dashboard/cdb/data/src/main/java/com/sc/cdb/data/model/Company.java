@@ -8,6 +8,7 @@ import org.springframework.data.annotation.Id;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -21,4 +22,6 @@ public class Company extends BaseModel {
     @Valid
     private Address address;
     private String icon;
+    private Boolean active;
+    private Date expirationDate;
 }
