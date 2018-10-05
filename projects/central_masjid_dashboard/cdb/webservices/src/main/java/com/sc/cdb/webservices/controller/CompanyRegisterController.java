@@ -6,7 +6,8 @@ import com.sc.cdb.data.model.User;
 import com.sc.cdb.services.CompanyService;
 import com.sc.cdb.services.model.CompanyRegisterModel;
 import com.sc.cdb.services.model.ServiceResponse;
-import com.sc.cdb.webservices.model.ErrorResponse;
+import com.sc.cdb.webservices.decorator.ErrorResponseDecorator;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,12 +28,15 @@ public class CompanyRegisterController {
 
     private CompanyService companyService;
     private PasswordEncoder passwordEncoder;
+    private ErrorResponseDecorator errorResponseDecorator;
 
     public CompanyRegisterController(
             CompanyService companyService,
-            PasswordEncoder passwordEncoder) {
+            PasswordEncoder passwordEncoder,
+            ErrorResponseDecorator errorResponseDecorator) {
         this.companyService = companyService;
         this.passwordEncoder = passwordEncoder;
+        this.errorResponseDecorator = errorResponseDecorator;
     }
 
     @PostMapping
@@ -40,13 +44,21 @@ public class CompanyRegisterController {
             @Valid @RequestBody CompanyRegisterModel companyRegisterModel,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return ResponseEntity.badRequest().body(new ErrorResponse("400", bindingResult));
+            ServiceResponse<Object> invalidResponse = ServiceResponse.builder().target(companyRegisterModel).build();
+            return ResponseEntity.badRequest().body(
+                    errorResponseDecorator.rejectBindingErrors(
+                            invalidResponse,
+                            bindingResult.getAllErrors()));
         }
         companyRegisterModel.getAdminUser().setPassword(passwordEncoder.encode(companyRegisterModel.getAdminUser().getPassword()));
 
-        ServiceResponse<CompanyRegisterModel> companyRegisterModelServiceResponse = companyService.registerCompany(companyRegisterModel);
+        ServiceResponse<CompanyRegisterModel> response = companyService.registerCompany(companyRegisterModel);
+        if (response.isSuccessful()) {
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
 
-        return ResponseEntity.ok(companyRegisterModelServiceResponse);
     }
 
     @GetMapping("secure")
@@ -63,7 +75,7 @@ public class CompanyRegisterController {
                 "Last",
                 Arrays.asList("USER"),
                 true, true
-                );
+        );
         CompanyRegisterModel companyRegisterModel = new CompanyRegisterModel(company, user);
         return ResponseEntity.ok(companyRegisterModel);
     }

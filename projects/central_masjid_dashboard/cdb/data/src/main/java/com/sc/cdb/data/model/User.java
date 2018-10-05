@@ -25,8 +25,8 @@ public class User extends BaseModel {
     private String password;
     private String firstName, lastName;
     private List<String> roles;
-    private Boolean active;
-    private Boolean verified;
+    private boolean active;
+    private boolean verified;
 
     @JsonIgnore
     public String getPassword() {

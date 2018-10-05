@@ -22,6 +22,6 @@ public class Company extends BaseModel {
     @Valid
     private Address address;
     private String icon;
-    private Boolean active;
+    private boolean active;
     private Date expirationDate;
 }

@@ -38,21 +38,21 @@ public class AuthenticatedUserDetail implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return user.getActive();
+        return user.isActive();
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return user.getActive();
+        return user.isActive();
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return user.getActive();
+        return user.isActive();
     }
 
     @Override
     public boolean isEnabled() {
-        return user.getActive();
+        return user.isActive();
     }
 }
