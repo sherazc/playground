@@ -5,9 +5,11 @@ import com.sc.cdb.data.model.Company;
 import com.sc.cdb.data.model.User;
 import com.sc.cdb.services.CompanyService;
 import com.sc.cdb.services.model.CompanyRegisterModel;
+import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.webservices.model.ErrorResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,21 +26,27 @@ import java.util.Date;
 public class CompanyRegisterController {
 
     private CompanyService companyService;
+    private PasswordEncoder passwordEncoder;
 
-    public CompanyRegisterController(CompanyService companyService) {
+    public CompanyRegisterController(
+            CompanyService companyService,
+            PasswordEncoder passwordEncoder) {
         this.companyService = companyService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostMapping
-    public ResponseEntity<Object> registerCompany(
+    public ResponseEntity<?> registerCompany(
             @Valid @RequestBody CompanyRegisterModel companyRegisterModel,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(new ErrorResponse("400", bindingResult));
         }
+        companyRegisterModel.getAdminUser().setPassword(passwordEncoder.encode(companyRegisterModel.getAdminUser().getPassword()));
 
-        CompanyRegisterModel result = companyService.registerCompany(companyRegisterModel);
-        return ResponseEntity.ok(result);
+        ServiceResponse<CompanyRegisterModel> companyRegisterModelServiceResponse = companyService.registerCompany(companyRegisterModel);
+
+        return ResponseEntity.ok(companyRegisterModelServiceResponse);
     }
 
     @GetMapping("secure")

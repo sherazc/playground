@@ -5,6 +5,7 @@ import com.sc.cdb.data.model.User;
 import com.sc.cdb.data.repository.CompanyRepository;
 import com.sc.cdb.data.repository.UserRepository;
 import com.sc.cdb.services.model.CompanyRegisterModel;
+import com.sc.cdb.services.model.ServiceResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,11 +35,22 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public CompanyRegisterModel registerCompany(CompanyRegisterModel companyRegisterModel) {
+    public ServiceResponse<CompanyRegisterModel> registerCompany(CompanyRegisterModel companyRegisterModel) {
+        ServiceResponse.ServiceResponseBuilder<CompanyRegisterModel> builder = ServiceResponse.builder();
+        builder.target(companyRegisterModel);
+
         if (companyRegisterModel.getCompany() == null
                 || companyRegisterModel.getAdminUser() == null) {
-            LOGGER.debug("Can not register company. Company or Admin user missing");
-            return null;
+            String errorMessage = "Can not register company. Company or Admin user missing";
+            LOGGER.error(errorMessage);
+            return builder.build().reject(errorMessage);
+        }
+
+        User existingUser = this.userRepository.findByEmail(companyRegisterModel.getAdminUser().getEmail());
+        if (existingUser != null) {
+            String errorMessage = "Can not register company. Company or Admin user missing";
+            LOGGER.error(errorMessage);
+            return builder.build().reject(errorMessage);
         }
 
         Company company = companyRegisterModel.getCompany();
@@ -53,6 +65,8 @@ public class CompanyServiceImpl implements CompanyService {
 
         companyRegisterModel.setCompany(savedCompany);
         companyRegisterModel.setAdminUser(savedAdminUser);
-        return companyRegisterModel;
+
+
+        return builder.build().accept("Company and it's admin user registered.");
     }
 }
