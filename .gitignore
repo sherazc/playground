@@ -31,5 +31,6 @@ node_modules
 **/bin/
 .project
 package-lock.json
+yarn.lock
 
 node_installation
