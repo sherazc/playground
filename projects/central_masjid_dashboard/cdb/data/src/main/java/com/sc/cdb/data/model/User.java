@@ -37,4 +37,22 @@ public class User extends BaseModel {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public boolean isActive() {
+        // TODO: remove hardcoded value and once activate logic is complete
+        return true;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public boolean isVerified() {
+        // TODO: remove hardcoded value and once activate logic is complete
+        return true;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
 }

@@ -24,4 +24,14 @@ public class Company extends BaseModel {
     private String icon;
     private boolean active;
     private Date expirationDate;
+
+
+    public boolean isActive() {
+        // TODO: remove hardcoded value and once activate logic is complete
+        return true;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 }
