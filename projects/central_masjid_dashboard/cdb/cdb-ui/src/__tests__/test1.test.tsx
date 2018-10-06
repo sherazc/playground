@@ -1,5 +1,3 @@
-console.log("################ Testing tests");
-
 /*
 
 it('sums numbers', () => {
@@ -7,5 +5,5 @@ it('sums numbers', () => {
     expect(4).toEqual(4);
     console.log("################ Testing tests");
 });
-
 */
+

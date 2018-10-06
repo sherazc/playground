@@ -18,6 +18,8 @@
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
+    "@types/jest": "^23.3.3",
+    "@types/jest": "^23.3.3",
     "@types/node": "^10.11.4",
     "@types/react": "^16.4.15",
     "@types/react-dom": "^16.0.8",
