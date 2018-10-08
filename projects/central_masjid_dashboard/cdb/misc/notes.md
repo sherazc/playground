@@ -42,12 +42,12 @@ yarn start
 ```bash
 create-react-app ui
 cd ui
-yarn add --save react-router-dom 
-yarn add --save mobx 
-yarn add --save mobx-react
-yarn add --save react-app-rewired 
-yarn add --save react-app-rewire-mobx 
-yarn add --save babel-plugin-styled-components
+yarn add react-router-dom 
+yarn add mobx 
+yarn add mobx-react
+yarn add react-app-rewired 
+yarn add react-app-rewire-mobx 
+yarn add babel-plugin-styled-components
 yarn test
 ```
 
