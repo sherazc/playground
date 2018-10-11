@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
+import {ListUsers} from "./ListUsers";
 
 class Home extends Component{
     render() {
@@ -8,6 +9,8 @@ class Home extends Component{
                 <h1>Home</h1>
                 <h3>Counter</h3>
                 {this.props.count}
+                <h3>All users</h3>
+                <ListUsers users={this.props.users}/>
             </div>
         );
     }
@@ -15,7 +18,8 @@ class Home extends Component{
 
 const mapStateToProps = state => {
     return {
-        count: state.countReducer.count
+        count: state.countReducer.count,
+        users: state.userReducer.users
     };
 };
 
