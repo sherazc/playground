@@ -6,12 +6,12 @@ import AllUsers from "./components/AllUsers";
 import AddUser from "./components/AddUser";
 import Counter from "./components/Counter";
 import {Provider} from 'react-redux';
-import index from "./store";
+import store from "./store";
 
 class App extends Component {
     render() {
         return (
-            <Provider store={index}>
+            <Provider store={store}>
                 <BrowserRouter>
                     <div>
                         <Navigation/>

@@ -5,14 +5,15 @@ const initialState = {};
 
 const middleware = [thunk];
 
-const index = createStore(
-    rootReducer,
-    initialState,
-    compose(
+let allMiddlewares;
+if (window.__REDUX_DEVTOOLS_EXTENSION__) {
+    allMiddlewares = compose(
         applyMiddleware(...middleware),
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-    )
-);
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+} else {
+    allMiddlewares = compose(
+        applyMiddleware(...middleware));
+}
 
-
-export default index;
+const store = createStore(rootReducer, initialState, allMiddlewares);
+export default store;
