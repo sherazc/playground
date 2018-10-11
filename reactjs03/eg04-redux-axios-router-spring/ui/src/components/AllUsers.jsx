@@ -1,8 +1,10 @@
 import React, {Component} from "react";
+import {userFetchAllAction} from "../store/action/user-actions";
+import {connect} from "react-redux";
 
-export default class AllUsers extends Component {
+class AllUsers extends Component {
     componentDidMount() {
-
+        this.props.fetchAll();
     }
     render() {
         return (
@@ -14,5 +16,14 @@ export default class AllUsers extends Component {
 }
 
 const actions = {
-
+    fetchAll: userFetchAllAction
 };
+
+const mapStateToProps = state => {
+    console.log(state);
+  return {
+      users: state.userReducer.users
+  }
+};
+
+export default connect(mapStateToProps, actions)(AllUsers);
