@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
+import {countAddAction, countSubtractAction} from "../store/action/counter-actions";
 
 class Counter extends Component {
     constructor(props) {
@@ -11,11 +12,11 @@ class Counter extends Component {
     }
 
     add() {
-        console.log("add ", new Date());
+        this.props.countAdd(2);
     }
 
     subtract() {
-        console.log("subtract ", new Date());
+        this.props.countSubtract(2);
     }
 
     render() {
@@ -31,10 +32,14 @@ class Counter extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log(state);
     return {
         count: state.countReducer.count
     };
 };
 
-export default connect(mapStateToProps)(Counter);
+const actions = {
+    countAdd: countAddAction,
+    countSubtract: countSubtractAction
+};
+
+export default connect(mapStateToProps, actions)(Counter);

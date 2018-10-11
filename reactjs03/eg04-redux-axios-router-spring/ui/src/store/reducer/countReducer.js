@@ -9,7 +9,7 @@ export const countReducer = (state = initialState, action) => {
         case COUNT_ADD:
             return {...state, count: state.count + action.payload};
         case COUNT_SUBTRACT:
-            return {...state, count: state.count + action.payload};
+            return {...state, count: state.count - action.payload};
         default: return state;
     }
 };
