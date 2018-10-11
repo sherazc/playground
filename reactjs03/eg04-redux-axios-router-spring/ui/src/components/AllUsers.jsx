@@ -1,6 +1,9 @@
 import React, {Component} from "react";
 
 export default class AllUsers extends Component {
+    componentDidMount() {
+
+    }
     render() {
         return (
             <div>
@@ -9,3 +12,7 @@ export default class AllUsers extends Component {
         );
     }
 }
+
+const actions = {
+
+};
