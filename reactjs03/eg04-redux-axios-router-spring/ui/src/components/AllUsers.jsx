@@ -10,6 +10,9 @@ class AllUsers extends Component {
         return (
             <div>
                 <h1>All users</h1>
+                <ul>
+                    {this.props.users.map((user, index) => <li key={index}>Name: {user.name}, age: {user.age}</li>)}
+                </ul>
             </div>
         );
     }

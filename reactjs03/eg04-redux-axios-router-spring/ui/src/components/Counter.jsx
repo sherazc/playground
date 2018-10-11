@@ -5,8 +5,6 @@ import {countAddAction, countSubtractAction} from "../store/action/counter-actio
 class Counter extends Component {
     constructor(props) {
         super(props);
-
-        console.log(props);
         this.add = this.add.bind(this);
         this.subtract = this.subtract.bind(this);
     }
