@@ -25,6 +25,12 @@ public class UserApi {
 
     @GetMapping
     public ResponseEntity<?> getUsers() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         return ResponseEntity.ok(users);
     }
 

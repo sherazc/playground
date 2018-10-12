@@ -22,7 +22,6 @@ const actions = {
 };
 
 const mapStateToProps = state => {
-    console.log(state);
   return {
       users: state.userReducer.users
   }
