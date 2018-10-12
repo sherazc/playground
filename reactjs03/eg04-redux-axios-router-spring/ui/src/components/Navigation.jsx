@@ -10,7 +10,7 @@ export default class Navigation extends Component {
                     All Users
                 </NavLink>
                 <NavLink to="/add-user">
-                    Add Users
+                    Add User
                 </NavLink>
                 <NavLink to="/counter">
                     Counter

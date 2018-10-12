@@ -19,8 +19,8 @@ public class UserApi {
     private static List<User> users = new ArrayList<>();
 
     static {
-        users.add(new User("User a", 1));
-        users.add(new User("User b", 2));
+        users.add(new User(1,"User a", 10));
+        users.add(new User(2,"User b", 20));
     }
 
     @GetMapping
@@ -30,6 +30,7 @@ public class UserApi {
 
     @PostMapping
     public ResponseEntity<?> addUser(@RequestBody User user) {
+        user.setId(users.size() + 10);
         users.add(user);
         return ResponseEntity.ok(users);
     }
