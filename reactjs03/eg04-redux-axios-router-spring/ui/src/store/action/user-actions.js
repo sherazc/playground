@@ -3,6 +3,7 @@ import axios from "axios";
 export const USER_FETCH_ALL = "USERS_FETCH_ALL";
 export const USER_CREATE = "USER_CREATE";
 
+const baseUrl = 'http://localhost:9000';
 /*
 For async calls we will have to call dispatch() when async completes.
 
@@ -11,7 +12,7 @@ This is possible because of thunk library.
 */
 
 export const userFetchAllAction = () => dispatch => {
-    axios.get("http://localhost:9000/user")
+    axios.get(`${baseUrl}/user`)
         .then(response =>
             dispatch({
                 type: USER_FETCH_ALL,
@@ -19,28 +20,19 @@ export const userFetchAllAction = () => dispatch => {
             })
         )
         .catch(error => console.log(error))
-        .then(() => console.log("Done!", new Date())); // .then() after catch is always called.
+        .then(() => console.log("Done with get user API!", new Date())); // .then() after catch is always called.
 };
 
 export const userCreateAction = (newUser) => dispatch => {
-
-
-    /*
-    fetch('http://localhost:9000/user', {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify(newUser)
-    })
-        .then(res => res.json())
-        .then(createdUser =>
+    axios.post(`${baseUrl}/user`, newUser)
+        .then(response =>
             dispatch({
                 type: USER_CREATE,
-                payload: createdUser
+                payload: response.data
             })
-        );
-
-    */
-
+        )
+        .catch(function (error) {
+            console.log(error);
+        })
+        .then(() => console.log("Done with create user API!", new Date())); // .then() after catch is always called.;
 };

@@ -6,8 +6,8 @@ class AddUser extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: undefined,
-            age: undefined
+            name: "",
+            age: ""
         };
 
         this.onChange = this.onChange.bind(this);
