@@ -1,12 +1,14 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
 import {countAddAction, countSubtractAction} from "../store/action/counter-actions";
+import history from "../app-browse-history";
 
 class Counter extends Component {
     constructor(props) {
         super(props);
         this.add = this.add.bind(this);
         this.subtract = this.subtract.bind(this);
+        this.goToAllUsers = this.goToAllUsers.bind(this);
     }
 
     add() {
@@ -17,6 +19,10 @@ class Counter extends Component {
         this.props.countSubtract(2);
     }
 
+    goToAllUsers() {
+        history.push("/all-users");
+    }
+
     render() {
         return (
             <div>
@@ -24,6 +30,11 @@ class Counter extends Component {
                 <h3>{this.props.count}</h3>
                 <button type="button" onClick={this.add}>+</button>
                 <button type="button" onClick={this.subtract}>-</button>
+                <br/>
+                <br/>
+                Using history to change page. We could use this in authentication guard
+                <br/>
+                <button type="button" onClick={this.goToAllUsers}>Go to All User</button>
             </div>
         );
     }
