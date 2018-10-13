@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {connect} from 'react-redux';
 import {countAddAction, countSubtractAction} from "../store/action/counter-actions";
 import history from "../app-browse-history";
+import axios from "axios"
 
 class Counter extends Component {
     constructor(props) {
@@ -23,6 +24,13 @@ class Counter extends Component {
         history.push("/all-users");
     }
 
+
+    makeUnAuthorizedServiceCall() {
+        axios.get("http://localhost:9000/un-auth")
+            .then(response => console.log("Unauthorized call made", response))
+            .catch(error => console.log("Unauthorized call made", error));
+    }
+
     render() {
         return (
             <div>
@@ -35,6 +43,11 @@ class Counter extends Component {
                 Using history to change page. We could use this in authentication guard
                 <br/>
                 <button type="button" onClick={this.goToAllUsers}>Go to All User</button>
+                <br/>
+                <br/>
+                <button type="button" onClick={this.makeUnAuthorizedServiceCall}>
+                    Make UnAuthorized Service Call
+                </button>
             </div>
         );
     }

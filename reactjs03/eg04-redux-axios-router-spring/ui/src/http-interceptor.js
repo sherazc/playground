@@ -9,8 +9,10 @@ const setupInterceptor = () => {
         console.log("Request interceptor body", configs.data);
         console.log("Request interceptor URL", configs.url);
         console.log("Request interceptor method", configs.method);
+
+        // Use this technique to replace if authentication fails.
         if (configs.url.indexOf("/un-auth")) {
-            history.push("/all-users");
+            history.replace("/all-users");
         }
         return configs;
     });
