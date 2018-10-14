@@ -9,7 +9,7 @@
 
     <parent>
         <groupId>com.sc.cdb</groupId>
-        <artifactId>cdb</artifactId>
+        <artifactId>cdb-api</artifactId>
         <version>1.0</version>
     </parent>
 

@@ -9,7 +9,7 @@
     -->
 
     <groupId>com.sc.cdb</groupId>
-    <artifactId>cdb</artifactId>
+    <artifactId>cdb-api</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>
 
@@ -61,7 +61,7 @@
             <scope>runtime</scope>
         </dependency>
 
-        
+
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
