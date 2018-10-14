@@ -10,6 +10,7 @@ yarn add react-router-dom
 yarn add redux
 yarn add redux-thunk
 yarn add node-sass
+yarn add bootstrap
 ```
 
 ## Configure react-app-rewired

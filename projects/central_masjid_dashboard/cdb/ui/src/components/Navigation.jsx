@@ -6,9 +6,11 @@ export default class Navigation extends Component {
         return (
             <div className="nav">
                 <NavLink to="/" exact>Home</NavLink>
+                |
                 <NavLink to="/login">
                     Login
                 </NavLink>
+                |
                 <NavLink to="/register">
                     Register
                 </NavLink>
