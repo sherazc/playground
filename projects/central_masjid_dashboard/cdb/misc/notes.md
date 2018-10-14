@@ -9,6 +9,7 @@ yarn add react-router
 yarn add react-router-dom
 yarn add redux
 yarn add redux-thunk
+yarn add node-sass
 ```
 
 ## Configure react-app-rewired
