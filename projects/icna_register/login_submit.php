@@ -1,31 +1,37 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <title>Register</title>
-    <?php include_once 'common_html_head.php' ?>
-</head>
-<body>
-<?php include 'header.php'; ?>
-<div class="container">
-<div class="row">
-        <div class="col-sm-6">
-            <h3>Login</h3>
-            <form method="post" action="login_submit.php">
-                <div class="form-group">
-                    <label for="userName">User Name</label>
-                    <input type="text" class="form-control" name="userName" id="userName"
-                           placeholder="User name"/>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" name="password" id="password"
-                           placeholder="Password"/>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
-    </div>
-</div>
-<?php include 'footer.php'?>
-</body>
-</html>
+<?php
+include "db_connect.php";
+include "utilities.php";
+$logged_in_user = "logged_in_user";
+
+function findUser($db, $userId, $password) {
+    $stmt = $db->prepare("SELECT id, user_id, user_password FROM `icna_register_user` WHERE lower(user_id)=lower(?) and user_password=?");
+    $stmt->bind_param("ss", $userId, $password);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if($result->num_rows === 0) {
+        return null;
+    } else {
+
+        $row = $result->fetch_assoc();
+        $user = new stdClass();
+        $user->id = $row['id'];
+        $user->userId = $row['user_id'];
+        $user->password = $row['user_password'];
+        $stmt->close();
+        return $user;
+    }
+}
+
+$userId = getValue($_REQUEST["userId"]);
+$password = getValue($_REQUEST["password"]);
+
+$user = findUser($db, $userId, $password);
+
+if (isNull($user)) {
+    header('Location: login.php?failLogin=true');
+} else {
+    $_SESSION[$logged_in_user] = $user->userId;
+    header('Location: register.php');
+}
+
+mysqli_close($db);

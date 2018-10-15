@@ -12,14 +12,14 @@
             <h3>Login</h3>
             <form method="post" action="login_submit.php">
                 <div class="form-group">
-                    <label for="userName">User Name</label>
-                    <input type="text" class="form-control" name="userName" id="userName"
-                           placeholder="User name"/>
+                    <label for="userId">User Name</label>
+                    <input type="text" class="form-control" name="userId" id="userId"
+                           placeholder="User name" required/>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" class="form-control" name="password" id="password"
-                           placeholder="Password"/>
+                           placeholder="Password" required/>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
