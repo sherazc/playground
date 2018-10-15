@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "db_connect.php";
 include "utilities.php";
 $logged_in_user = "logged_in_user";
@@ -33,5 +34,7 @@ if (isNull($user)) {
     $_SESSION[$logged_in_user] = $user->userId;
     header('Location: register.php');
 }
+
+var_dump($user);
 
 mysqli_close($db);
