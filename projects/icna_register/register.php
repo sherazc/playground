@@ -16,7 +16,7 @@
                 <div class="form-group">
                     <label for="email">Email address</label>
                     <input type="email" class="form-control" name="email" id="email"
-                           aria-describedby="emailHelp" placeholder="Enter email"/>
+                           aria-describedby="emailHelp" placeholder="Enter email" required/>
                     <small id="emailHelp" class="form-text text-muted">We'll never share your email with
                         anyone else.
                     </small>
@@ -25,31 +25,31 @@
                 <div class="form-group">
                     <label for="firstName">First Name</label>
                     <input type="text" class="form-control" name="firstName" id="firstName"
-                           placeholder="First Name"/>
+                           placeholder="First Name" required/>
                 </div>
 
                 <div class="form-group">
                     <label for="lastName">Last Name</label>
                     <input type="text" class="form-control" name="lastName" id="lastName"
-                           placeholder="Last Name"/>
+                           placeholder="Last Name" required/>
                 </div>
 
                 <div class="form-group">
                     <label for="street">Street</label>
                     <input type="text" class="form-control" name="street" id="street"
-                           placeholder="Street"/>
+                           placeholder="Street" required/>
                 </div>
 
 
                 <div class="form-group">
                     <label for="city">City</label>
                     <input type="text" class="form-control" name="city" id="city"
-                           placeholder="City"/>
+                           placeholder="City" required/>
                 </div>
 
                 <div class="form-group">
                     <label for="state">State</label>
-                    <select class="form-control" name="state" id="state">
+                    <select class="form-control" name="state" id="state" required>
                         <option value="AL">Alabama</option>
                         <option value="AK">Alaska</option>
                         <option value="AZ">Arizona</option>
@@ -107,7 +107,7 @@
                 <div class="form-group">
                     <label for="zip">Zip</label>
                     <input type="text" class="form-control" name="zip" id="zip"
-                           placeholder="Zip"/>
+                           placeholder="Zip" required/>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Submit</button>
