@@ -47,8 +47,22 @@ function register($db,
                   $state,
                   $zip) {
 
-}
+    $statement = $db->prepare("insert into icna_register
+(email, first_name, last_name, street, city, state, zip)
+values (?, ?, ?, ?, ?, ?, ?)");
+    $statement->bind_param("sssssss",
+        $email,
+        $firstName,
+        $lastName,
+        $street,
+        $city,
+        $state,
+        $zip);
 
+    $result = $statement->execute();
+    $statement->close();
+    return $result;
+}
 
 $email = getValue($_REQUEST["email"]);
 $firstName = getValue($_REQUEST["firstName"]);
@@ -58,7 +72,7 @@ $city = getValue($_REQUEST["city"]);
 $state = getValue($_REQUEST["state"]);
 $zip = getValue($_REQUEST["email"]);
 
-register($db,
+$loginSuccessful = register($db,
     $email,
     $firstName,
     $lastName,
@@ -69,7 +83,13 @@ register($db,
 
 ?>
 <div class="container">
-    Registration Complete
+    <?php
+        if ($loginSuccessful) {
+            echo "Registered Successfully";
+        } else {
+            echo "Failed to Register";
+        }
+    ?>
 </div>
 <?php include 'footer.php'?>
 </body>

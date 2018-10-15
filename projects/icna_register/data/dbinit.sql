@@ -20,3 +20,7 @@ create table icna_register_user(
 
 insert into icna_register_user(user_id, user_password)
 values ('admin', 'admin');
+
+insert into icna_register
+(email, first_name, last_name, street, city, state, zip)
+values ('test@test.com', 'Sheraz', 'Chaudhry', '123 street', 'City1', 'ST', '10000');
