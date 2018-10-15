@@ -10,6 +10,13 @@
 <div class="row">
         <div class="col-sm-6">
             <h3>Login</h3>
+            <?php
+            if (isset($_REQUEST["failLogin"])) {
+                ?>
+                <span style="color: red">Failed to login</span>
+                <?php
+            }
+            ?>
             <form method="post" action="login_submit.php">
                 <div class="form-group">
                     <label for="userId">User Name</label>
