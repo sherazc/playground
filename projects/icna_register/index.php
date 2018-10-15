@@ -8,13 +8,13 @@
 <?php include 'header.php'?>
 <div class="container">
     <div class="row">
-        <div class="col-sm-6" style="margin: 20px 0;">
+        <div class="col-sm-6">
             <h3>Register</h3>
-            <form>
+            <form method="post" action="register.php">
 
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1"
+                    <label for="email">Email address</label>
+                    <input type="email" class="form-control" name="email" id="email"
                            aria-describedby="emailHelp" placeholder="Enter email"/>
                     <small id="emailHelp" class="form-text text-muted">We'll never share your email with
                         anyone else.
