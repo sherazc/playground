@@ -105,3 +105,11 @@ function encloseJsonP($json, $callback) {
     }
     return $result;
 }
+
+function getValue(&$value) {
+    if (isset($value)) {
+        return $value;
+    } else {
+        return null;
+    }
+}

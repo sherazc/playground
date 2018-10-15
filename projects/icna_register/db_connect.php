@@ -20,9 +20,9 @@ $isLocal = $serverAddress == '::1' || $serverAddress == '127.0.0.1' || $serverNa
 $isProd = endsWith($serverName, '.com');
 
 if ($isLocal) {
-    $dbHost = "localhost:8889";
+    $dbHost = "localhost:3306";
     $dbUser = "root";
-    $dbPassword = "root";
+    $dbPassword = "";
     $dbName = "employeedb";
 } elseif ($isProd) {
     $dbHost = "localhost:3306";
