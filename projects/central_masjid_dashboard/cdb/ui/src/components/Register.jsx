@@ -30,19 +30,28 @@ class Register extends Component {
         }
     }
 
+    onChange(event) {
+        console.log(event.target);
+        // call setState
+    }
+
     render() {
+        const {company, adminUser} = this.state;
+        
         return (
             <div className="row">
 
                 <div className="col-sm-6">
                     <h3>Register</h3>
                     <form>
-
-
                         <div className="form-group">
                             <label htmlFor="companyName">Masjid Name</label>
                             <input type="text" className="form-control" name="companyName" id="companyName"
-                                   placeholder="Masjid Name"/>
+                                   placeholder="Masjid Name"
+                                   value={company.name}
+                                   onChange={this.onChange}
+
+                            />
                         </div>
 
                         <div className="form-group">
