@@ -4,40 +4,28 @@ class Register extends Component {
 
     constructor(props) {
         super(props);
-
         this.state = {
-            company: {
-                name: "Company Name",
-                address: {
-                    street: "123 St",
-                    city: "City",
-                    state: "ST",
-                    zip: "12345",
-                    longitude: "1.1",
-                    latitude: "2.2"
-                },
-                icon: "icon"
-            },
-            adminUser: {
-                email: "email@email.com",
-                password: "password123",
-                firstName: "First",
-                lastName: "Last",
-                roles: ["ADMIN"],
-                active: true,
-                verified: true
-            }
+            companyName: "Company Name",
+            companyAddressStreet: "123 St",
+            companyAddressCity: "City",
+            companyAddressState: "ST",
+            companyAddressZip: "12345",
+            companyAddressLongitude: "1.1",
+            companyAddressLatitude: "2.2",
+            companyIcon: "icon",
+            adminUserEmail: "email@email.com",
+            adminUserPassword: "password123",
+            adminUserFirstName: "First",
+            adminUserLastName: "Last",
+            adminUserRoles: ["ADMIN"]
         }
     }
 
     onChange(event) {
-        console.log(event.target);
-        // call setState
+
     }
 
     render() {
-        const {company, adminUser} = this.state;
-        
         return (
             <div className="row">
 
@@ -47,23 +35,19 @@ class Register extends Component {
                         <div className="form-group">
                             <label htmlFor="companyName">Masjid Name</label>
                             <input type="text" className="form-control" name="companyName" id="companyName"
-                                   placeholder="Masjid Name"
-                                   value={company.name}
-                                   onChange={this.onChange}
-
-                            />
+                                   placeholder="Masjid Name" />
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="street">Street</label>
-                            <input type="text" className="form-control" name="street" id="street"
+                            <label htmlFor="companyAddressStreet">Street</label>
+                            <input type="text" className="form-control" name="companyAddressStreet" id="companyAddressStreet"
                                    placeholder="Street"/>
                         </div>
 
 
                         <div className="form-group">
-                            <label htmlFor="city">City</label>
-                            <input type="text" className="form-control" name="city" id="city"
+                            <label htmlFor="companyAddressCity">City</label>
+                            <input type="text" className="form-control" name="companyAddressCity" id="companyAddressCity"
                                    placeholder="City"/>
                         </div>
 
@@ -120,7 +104,6 @@ class Register extends Component {
 }
 
 /*
-
 {
    "company":    {
       "name": "Company Name",
@@ -144,8 +127,5 @@ class Register extends Component {
       "verified": true
    }
 }
-
-
-
  */
 export default Register;
