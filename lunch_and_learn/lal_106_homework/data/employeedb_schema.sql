@@ -11,6 +11,11 @@ create table employee (id integer auto_increment, name varchar(255), salary inte
 insert into employee (id, name, salary) values (10, 'Sheraz', 100);
 
 select id, name, salary from employee;
+
 insert into employee (id, name, salary) values (10, 'Sheraz', 100);
 
 select id, name, salary from employee;
+
+
+select * from icna_register;
+

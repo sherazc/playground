@@ -6,7 +6,7 @@
     <?php include_once 'authenticate.php' ?>
 </head>
 <body>
-<?php include 'header.php'?>
+<?php include_once 'header.php'?>
 <?php
 
 
@@ -70,7 +70,7 @@ $lastName = getValue($_REQUEST["lastName"]);
 $street = getValue($_REQUEST["street"]);
 $city = getValue($_REQUEST["city"]);
 $state = getValue($_REQUEST["state"]);
-$zip = getValue($_REQUEST["email"]);
+$zip = getValue($_REQUEST["zip"]);
 
 $loginSuccessful = register($db,
     $email,
@@ -91,6 +91,6 @@ $loginSuccessful = register($db,
         }
     ?>
 </div>
-<?php include 'footer.php'?>
+<?php include_once 'footer.php'?>
 </body>
 </html>

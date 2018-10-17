@@ -5,7 +5,7 @@
     <?php include_once 'common_html_head.php' ?>
 </head>
 <body>
-<?php include 'header.php'; ?>
+<?php include_once 'header.php'; ?>
 <div class="container">
 <div class="row">
         <div class="col-sm-6">
@@ -33,6 +33,6 @@
         </div>
     </div>
 </div>
-<?php include 'footer.php'?>
+<?php include_once 'footer.php'?>
 </body>
 </html>

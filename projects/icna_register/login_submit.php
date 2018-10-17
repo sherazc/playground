@@ -1,7 +1,7 @@
 <?php
 session_start();
-include "db_connect.php";
-include "utilities.php";
+include_once "db_connect.php";
+include_once "utilities.php";
 $logged_in_user = "logged_in_user";
 
 function findUser($db, $userId, $password) {
@@ -29,10 +29,10 @@ $password = getValue($_REQUEST["password"]);
 $user = findUser($db, $userId, $password);
 
 if (isNull($user)) {
-    header('Location: login.php?failLogin=true');
+    redirect("login.php?failLogin=true");
 } else {
     $_SESSION[$logged_in_user] = $user->userId;
-    header('Location: register.php');
+    redirect("register.php");
 }
 
 var_dump($user);

@@ -22,7 +22,7 @@ $isProd = endsWith($serverName, '.com');
 if ($isLocal) {
     $dbHost = "localhost:3306";
     $dbUser = "root";
-    $dbPassword = "";
+    $dbPassword = "root";
     $dbName = "employeedb";
 } elseif ($isProd) {
     $dbHost = "localhost:3306";
