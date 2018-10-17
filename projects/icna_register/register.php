@@ -109,18 +109,67 @@
                     <input type="text" class="form-control" name="zip" id="zip"
                            placeholder="Zip" required/>
                 </div>
+<hr style="border: 5px solid black"/>
 
+
+                <div class="form-group">
+                    <label for="state">Chapter/Region</label>
+                    <select class="form-control" name="chapterRegion" id="chapterRegion" required>
+                        <option></option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="state">Event Start</label>
+                    <div class="input-group date" id="eventStartPicker" data-target-input="nearest">
+                        <input type="text" id="eventStart" name="eventStart" class="form-control datetimepicker-input" data-target="#eventStartPicker"/>
+                        <div class="input-group-append" data-target="#eventStartPicker" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(function () {
+                        $('#eventStartPicker').datetimepicker();
+                    });
+                </script>
+
+                <div class="form-group">
+                    <label for="state">Event End</label>
+                    <div class="input-group date" id="eventEndPicker" data-target-input="nearest">
+                        <input type="text" id="eventEnd" name="eventEnd" class="form-control datetimepicker-input" data-target="#eventEndPicker"/>
+                        <div class="input-group-append" data-target="#eventEndPicker" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(function () {
+                        $('#eventEndPicker').datetimepicker();
+                    });
+                </script>
                 <div class="form-group">
                     <label for="state">Category</label>
                     <select class="form-control" name="category" id="category" required>
-                        <option>Select one</option>
+                        <option></option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="state">Category Type</label>
                     <select class="form-control" name="categoryType" id="categoryType" required>
-                        <option>Select one</option>
+                        <option></option>
                     </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" name="description" id="description" required placeholder="Description"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="attendance">Attendance</label>
+                    <input type="number" class="form-control" name="attendance" id="attendance"
+                           placeholder="Attendance" required/>
                 </div>
 
 
@@ -129,6 +178,7 @@
         </div>
     </div>
 </div>
+<?php include_once 'scripts/collection/chapterRegion.php'?>
 <?php include_once 'scripts/collection/categoryType.php'?>
 <?php include_once 'footer.php'?>
 </body>
