@@ -110,11 +110,26 @@
                            placeholder="Zip" required/>
                 </div>
 
+                <div class="form-group">
+                    <label for="state">Category</label>
+                    <select class="form-control" name="category" id="category" required>
+                        <option>Select one</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="state">Category Type</label>
+                    <select class="form-control" name="categoryType" id="categoryType" required>
+                        <option>Select one</option>
+                    </select>
+                </div>
+
+
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </div>
 </div>
+<?php include_once 'scripts/collection/categoryType.php'?>
 <?php include_once 'footer.php'?>
 </body>
 </html>
