@@ -5,7 +5,7 @@ require_once "utilities.php";
 <div class="container">
     <div style="background-color: #518bbf; color: #dce0ef; font-size: 40px; padding: 30px; margin-bottom: 20px">
         <div style="display: inline">
-            REGISTER
+            EVENT TRACKER
         </div>
         <?php
         if (isLoggedIn()) {

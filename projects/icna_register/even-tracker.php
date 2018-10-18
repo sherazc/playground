@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>ICNA Register</title>
+    <title>ICNA EVENT TRACKER</title>
     <?php include_once 'common_html_head.php' ?>
     <?php include_once 'authenticate.php' ?>
 </head>
@@ -10,9 +10,15 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-6">
-            <h3>Register</h3>
-            <form method="post" action="register_submit.php">
-<?php include_once "components/register/chapterRegion.php"?>
+            <h3>Create Event</h3>
+            <form method="post" action="event-tracker_submit.php">
+                <div class="form-group">
+                    <label for="eventName">Event Name</label>
+                    <input type="text" class="form-control" name="eventName" id="eventName"
+                           placeholder="Event Name" required/>
+                </div>
+
+<?php include_once "components/even-tracker/chapterRegion.php"?>
                 <div class="form-group">
                     <label for="eventStart">Event Start</label>
                     <div class="input-group date" id="eventStartPicker" data-target-input="nearest">
@@ -41,7 +47,7 @@
                         $('#eventEndPicker').datetimepicker();
                     });
                 </script>
-<?php include_once "components/register/categoryType.php"?>
+<?php include_once "components/even-tracker/categoryType.php"?>
 
                 <div class="form-group">
                     <label for="description">Description</label>
@@ -54,8 +60,8 @@
                            placeholder="Attendance" required/>
                 </div>
 
-<?php include_once "components/register/servings.php"?>
-<?php include_once "components/register/locationTypes.php"?>
+<?php include_once "components/even-tracker/servings.php"?>
+<?php include_once "components/even-tracker/locationTypes.php"?>
 
                 <div class="form-group">
                     <label for="street">Street</label>
@@ -70,14 +76,14 @@
                            placeholder="City" required/>
                 </div>
 
-                <?php include_once "components/register/states.php"?>
+                <?php include_once "components/even-tracker/states.php"?>
 
                 <div class="form-group">
                     <label for="zip">Zip</label>
                     <input type="text" class="form-control" name="zip" id="zip"
                            placeholder="Zip" required/>
                 </div>
-<?php include_once "components/register/attendees.php"?>
+<?php include_once "components/even-tracker/attendees.php"?>
 
                 <div class="form-group">
                     <label for="eventInCharge">Event In-Charge</label>
@@ -127,7 +133,7 @@
                            placeholder="Number of Volunteers" required/>
                 </div>
 
-<?php include_once "components/register/rating.php"?>
+<?php include_once "components/even-tracker/rating.php"?>
 
                 <div class="form-group">
                     <label for="issues">Issues</label>

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Register</title>
+    <title>Event Tracker</title>
     <?php include_once 'common_html_head.php' ?>
 </head>
 <body>

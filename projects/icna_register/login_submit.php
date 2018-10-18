@@ -32,7 +32,7 @@ if (isNull($user)) {
     redirect("login.php?failLogin=true");
 } else {
     $_SESSION[$logged_in_user] = $user->userId;
-    redirect("register.php");
+    redirect("even-tracker.php");
 }
 
 var_dump($user);

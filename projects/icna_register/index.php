@@ -1,4 +1,4 @@
 <?php
 include_once "utilities.php";
-redirect("register.php");
+redirect("even-tracker.php");
 
