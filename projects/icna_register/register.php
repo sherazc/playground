@@ -12,54 +12,9 @@
         <div class="col-sm-6">
             <h3>Register</h3>
             <form method="post" action="register_submit.php">
-
-                <div class="form-group">
-                    <label for="email">Email address</label>
-                    <input type="email" class="form-control" name="email" id="email"
-                           aria-describedby="emailHelp" placeholder="Enter email" required/>
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with
-                        anyone else.
-                    </small>
-                </div>
-
-                <div class="form-group">
-                    <label for="firstName">First Name</label>
-                    <input type="text" class="form-control" name="firstName" id="firstName"
-                           placeholder="First Name" required/>
-                </div>
-
-                <div class="form-group">
-                    <label for="lastName">Last Name</label>
-                    <input type="text" class="form-control" name="lastName" id="lastName"
-                           placeholder="Last Name" required/>
-                </div>
-
-                <div class="form-group">
-                    <label for="street">Street</label>
-                    <input type="text" class="form-control" name="street" id="street"
-                           placeholder="Street" required/>
-                </div>
-
-
-                <div class="form-group">
-                    <label for="city">City</label>
-                    <input type="text" class="form-control" name="city" id="city"
-                           placeholder="City" required/>
-                </div>
-
-<?php include_once "components/register/states.php"?>
-
-                <div class="form-group">
-                    <label for="zip">Zip</label>
-                    <input type="text" class="form-control" name="zip" id="zip"
-                           placeholder="Zip" required/>
-                </div>
-<hr style="border: 5px solid black"/>
-
 <?php include_once "components/register/chapterRegion.php"?>
-
                 <div class="form-group">
-                    <label for="state">Event Start</label>
+                    <label for="eventStart">Event Start</label>
                     <div class="input-group date" id="eventStartPicker" data-target-input="nearest">
                         <input type="text" id="eventStart" name="eventStart" class="form-control datetimepicker-input" data-target="#eventStartPicker"/>
                         <div class="input-group-append" data-target="#eventStartPicker" data-toggle="datetimepicker">
@@ -72,9 +27,8 @@
                         $('#eventStartPicker').datetimepicker();
                     });
                 </script>
-
                 <div class="form-group">
-                    <label for="state">Event End</label>
+                    <label for="eventEnd">Event End</label>
                     <div class="input-group date" id="eventEndPicker" data-target-input="nearest">
                         <input type="text" id="eventEnd" name="eventEnd" class="form-control datetimepicker-input" data-target="#eventEndPicker"/>
                         <div class="input-group-append" data-target="#eventEndPicker" data-toggle="datetimepicker">
@@ -91,7 +45,7 @@
 
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea class="form-control" name="description" id="description" required placeholder="Description"></textarea>
+                    <textarea rows="6" class="form-control" name="description" id="description" required placeholder="Description"></textarea>
                 </div>
 
                 <div class="form-group">
@@ -101,6 +55,89 @@
                 </div>
 
 <?php include_once "components/register/servings.php"?>
+<?php include_once "components/register/locationTypes.php"?>
+
+                <div class="form-group">
+                    <label for="street">Street</label>
+                    <input type="text" class="form-control" name="street" id="street"
+                           placeholder="Street" required/>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" class="form-control" name="city" id="city"
+                           placeholder="City" required/>
+                </div>
+
+                <?php include_once "components/register/states.php"?>
+
+                <div class="form-group">
+                    <label for="zip">Zip</label>
+                    <input type="text" class="form-control" name="zip" id="zip"
+                           placeholder="Zip" required/>
+                </div>
+<?php include_once "components/register/attendees.php"?>
+
+                <div class="form-group">
+                    <label for="eventInCharge">Event In-Charge</label>
+                    <input type="text" class="form-control" name="eventInCharge" id="eventInCharge"
+                           placeholder="Event In-Charge" required/>
+                </div>
+
+                <div class="form-group">
+                    <label for="speakers">Speakers</label>
+                    <textarea rows="6" class="form-control" name="speakers" id="speakers"
+                              placeholder="Speakers" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="expense">Expense $</label>
+                    <input type="number" class="form-control" name="expense" id="expense"
+                           placeholder="Expense" required/>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="paidBy">Paid By</label>
+                    <input type="text" class="form-control" name="paidBy" id="paidBy"
+                           placeholder="Paid By" required/>
+                </div>
+
+                <div class="form-group">
+                    <label for="income">Income $</label>
+                    <input type="number" class="form-control" name="income" id="income"
+                           placeholder="Income" required/>
+                </div>
+
+                <div class="form-group">
+                    <label for="donation">In-kind Donation Amount $</label>
+                    <input type="number" class="form-control" name="donation" id="donation"
+                           placeholder="In-kind Donation Amount" required/>
+                </div>
+
+                <div class="form-group">
+                    <label for="workers">Number of workers</label>
+                    <input type="number" class="form-control" name="workers" id="workers"
+                           placeholder="Number of workers" required/>
+                </div>
+
+                <div class="form-group">
+                    <label for="volunteers">Number of Volunteers</label>
+                    <input type="number" class="form-control" name="volunteers" id="volunteers"
+                           placeholder="Number of Volunteers" required/>
+                </div>
+
+<?php include_once "components/register/rating.php"?>
+
+                <div class="form-group">
+                    <label for="issues">Issues</label>
+                    <textarea rows="6" class="form-control" name="issues" id="issues" required placeholder="Issues"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="comments">Comments</label>
+                    <textarea rows="6" class="form-control" name="comments" id="comments" required placeholder="Comments"></textarea>
+                </div>
 
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

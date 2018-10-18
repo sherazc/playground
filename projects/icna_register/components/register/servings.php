@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label for="state">Servings</label>
+    <label for="servings">Servings</label>
     <select class="form-control" name="servings" id="servings" required>
         <option></option>
     </select>

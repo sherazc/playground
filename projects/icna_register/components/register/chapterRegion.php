@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label for="state">Chapter/Region</label>
+    <label for="chapterRegion">Chapter/Region</label>
     <select class="form-control" name="chapterRegion" id="chapterRegion" required>
         <option></option>
     </select>

@@ -1,11 +1,11 @@
 <div class="form-group">
-    <label for="state">Category</label>
+    <label for="category">Category</label>
     <select class="form-control" name="category" id="category" required>
         <option></option>
     </select>
 </div>
 <div class="form-group">
-    <label for="state">Category Type</label>
+    <label for="categoryType">Category Type</label>
     <select class="form-control" name="categoryType" id="categoryType" required>
         <option></option>
     </select>
