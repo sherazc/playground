@@ -9,35 +9,6 @@
 <?php include_once 'header.php'?>
 <?php
 
-
-function addOrUpdateStudent($db, $updateStudentId, $firstName, $lastName, $grade, $picture)
-{
-    $message = null;
-    if (!isset($db) || !isset($firstName) || !isset($lastName) || !isset($grade)) {
-        return "Required fields missing.";
-    }
-
-    if (isset($updateStudentId)) {
-        $dbStudent = findStudent($db, $updateStudentId);
-    }
-    if (isset($dbStudent)) {
-        $statement = $db->prepare("UPDATE students SET first_name=?, last_name=?, grade=?, picture=? WHERE id=?");
-        $statement->bind_param("sssss", $firstName, $lastName, $grade, $picture, $updateStudentId);
-    } else {
-        $statement = $db->prepare("INSERT INTO students (first_name, last_name, grade, picture) VALUES (?, ?, ?, ?)");
-        $statement->bind_param("ssss", $firstName, $lastName, $grade, $picture);
-    }
-
-    if ($statement->execute()) {
-        $message = "Student successfully saved.";
-    } else {
-        $message = "Failed to save student.";
-    }
-    $statement->close();
-    return $message;
-}
-
-
 function createEvent($db,
                   $eventName,
                   $chapterRegion,
@@ -65,14 +36,21 @@ function createEvent($db,
                   $issues,
                   $comments) {
 
-    $statement = $db->prepare("insert into icna_register
-(email, first_name, last_name, street, city, state, zip)
-values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-    $statement->bind_param("ssssssssssssssssssssssss",
+    $insertStatement = "insert into event_tracker"
+        ."(event_name,chapter_region,event_start_date,event_end_date,category,category_type,"
+        ."attendance,servings,location_types,street,city,state,zip,attendees,event_in_charge,"
+        ."speakers,expense,paid_by,income,donation,workers,volunteers,rating,issues,comments)"
+        ."values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+    $eventStartIso = uiDateTimeToIsoDateTime($eventStart);
+    $eventEndIso = uiDateTimeToIsoDateTime($eventEnd);
+
+    $statement = $db->prepare($insertStatement);
+    $statement->bind_param("sssssssssssssssssssssssss",
         $eventName,
         $chapterRegion,
-        $eventStart,
-        $eventEnd,
+        $eventStartIso,
+        $eventEndIso,
         $category,
         $categoryType,
         $attendance,
@@ -155,7 +133,6 @@ $loginSuccessful = createEvent($db,
         $rating,
         $issues,
         $comments);
-
 ?>
 <div class="container">
     <?php
@@ -169,3 +146,34 @@ $loginSuccessful = createEvent($db,
 <?php include_once 'footer.php'?>
 </body>
 </html>
+
+
+    <?php
+
+// TODO below code is just for reference
+    function addOrUpdateStudent($db, $updateStudentId, $firstName, $lastName, $grade, $picture)
+{
+    $message = null;
+    if (!isset($db) || !isset($firstName) || !isset($lastName) || !isset($grade)) {
+        return "Required fields missing.";
+    }
+
+    if (isset($updateStudentId)) {
+        $dbStudent = findStudent($db, $updateStudentId);
+    }
+    if (isset($dbStudent)) {
+        $statement = $db->prepare("UPDATE students SET first_name=?, last_name=?, grade=?, picture=? WHERE id=?");
+        $statement->bind_param("sssss", $firstName, $lastName, $grade, $picture, $updateStudentId);
+    } else {
+        $statement = $db->prepare("INSERT INTO students (first_name, last_name, grade, picture) VALUES (?, ?, ?, ?)");
+        $statement->bind_param("ssss", $firstName, $lastName, $grade, $picture);
+    }
+
+    if ($statement->execute()) {
+        $message = "Student successfully saved.";
+    } else {
+        $message = "Failed to save student.";
+    }
+    $statement->close();
+    return $message;
+}

@@ -5,7 +5,7 @@ include_once "utilities.php";
 $logged_in_user = "logged_in_user";
 
 function findUser($db, $userId, $password) {
-    $stmt = $db->prepare("SELECT id, user_id, user_password FROM `icna_register_user` WHERE lower(user_id)=lower(?) and user_password=?");
+    $stmt = $db->prepare("SELECT id, user_id, user_password FROM `event_tracker_user` WHERE lower(user_id)=lower(?) and user_password=?");
     $stmt->bind_param("ss", $userId, $password);
     $stmt->execute();
     $result = $stmt->get_result();

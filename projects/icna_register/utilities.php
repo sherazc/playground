@@ -30,3 +30,7 @@ function redirect($url) {
 function isLoggedIn() {
     return isset($_SESSION["logged_in_user"]) && $_SESSION["logged_in_user"] != null;
 }
+
+function uiDateTimeToIsoDateTime(&$uiDateTime) {
+    return date('Y-m-d G:i:s', strtotime($uiDateTime));
+}

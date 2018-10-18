@@ -32,14 +32,14 @@ require_once "utilities.php";
     <div class="row">
         <div class="col-lg-12">
             <div style="background-color: #518bbf; color: #dce0ef; font-size: 40px; padding: 30px;">
-                <div style="display: inline; word-spacing: 20px; letter-spacing: 5px; font-weight: 200">
+                <div style="display: inline; word-spacing: 20px; letter-spacing: 5px; font-weight: 200; text-shadow: 2px 2px 3px rgba(0,0,0,0.6)">
                     EVENT TRACKER
                 </div>
                 <?php
                 if (isLoggedIn()) {
                     ?>
                     <div style="display: inline; float: right; ">
-                        <a href="logout.php" style="border: 0">
+                        <a href="logout.php" style="border: 0;">
                             <img src="images/baseline-power_settings_new-24px.svg" alt="logout" style="width: 40px; border: 0">
                         </a>
                     </div>

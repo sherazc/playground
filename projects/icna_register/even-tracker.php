@@ -7,6 +7,14 @@
 </head>
 <body>
 <?php include_once 'header.php'?>
+<?php
+
+// $ds ='10/11/2018 10:48 PM';
+// echo date('Y-m-d G:i:s', strtotime($ds));
+
+?>
+
+
 <div class="container">
     <div class="row">
         <div class="col-sm-6">
@@ -36,7 +44,7 @@
                 <div class="form-group">
                     <label for="eventEnd">Event End</label>
                     <div class="input-group date" id="eventEndPicker" data-target-input="nearest">
-                        <input type="text" id="eventEnd" name="eventEnd" class="form-control datetimepicker-input" data-target="#eventEndPicker"/>
+                        <input type="text" id="eventEnd" name="eventEnd" class="form-control datetimepicker-input" data-target="#eventEndPicker" />
                         <div class="input-group-append" data-target="#eventEndPicker" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
