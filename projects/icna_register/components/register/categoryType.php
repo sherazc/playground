@@ -1,3 +1,16 @@
+<div class="form-group">
+    <label for="state">Category</label>
+    <select class="form-control" name="category" id="category" required>
+        <option></option>
+    </select>
+</div>
+<div class="form-group">
+    <label for="state">Category Type</label>
+    <select class="form-control" name="categoryType" id="categoryType" required>
+        <option></option>
+    </select>
+</div>
+
 <script>
     var categoryTypes = [
         {
@@ -155,7 +168,7 @@
         categoryTypeSelect.find('option')
             .remove()
             .end()
-            .append('<option>Select one</option>');
+            .append('<option></option>');
 
         var selectedCategoryType = categoryTypes.filter(function(categoryType) {
             return categoryType.name === selectedCategoryValue;

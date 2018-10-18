@@ -1,10 +1,15 @@
+<div class="form-group">
+    <label for="state">Chapter/Region</label>
+    <select class="form-control" name="chapterRegion" id="chapterRegion" required>
+        <option></option>
+    </select>
+</div>
 <script>
     var chapterRegions = [
         "Atlanta",
         "Duluth",
         "Alpharetta"
     ];
-
 
     var chapterRegionSelect = $('#chapterRegion');
 
