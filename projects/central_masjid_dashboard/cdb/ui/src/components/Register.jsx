@@ -54,7 +54,7 @@ class Register extends Component {
 
                         <div className="form-group">
                             <label htmlFor="state">State</label>
-                            <StateSelect/>
+                            <StateSelect selectedStateAbv="GA"/>
                         </div>
 
                         <div className="form-group">
