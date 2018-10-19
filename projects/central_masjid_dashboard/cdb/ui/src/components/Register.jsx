@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import StateSelect from "./partials/StateSelect";
 
 class Register extends Component {
 
@@ -33,7 +34,7 @@ class Register extends Component {
                     <h3>Register</h3>
                     <form>
                         <div className="form-group">
-                            <label htmlFor="companyName">Masjid Name</label>
+                            <label htmlFor="companyName">Name</label>
                             <input type="text" className="form-control" name="companyName" id="companyName"
                                    placeholder="Masjid Name" />
                         </div>
@@ -53,8 +54,7 @@ class Register extends Component {
 
                         <div className="form-group">
                             <label htmlFor="state">State</label>
-                            <input type="text" className="form-control" name="state" id="state"
-                                   placeholder="State"/>
+                            <StateSelect/>
                         </div>
 
                         <div className="form-group">

@@ -239,5 +239,3 @@ const stateSelectOptions = (selectStateAbbreviation) => {
         }
     ];
 };
-
-export default stateSelectOptions;
