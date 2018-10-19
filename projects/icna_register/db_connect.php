@@ -17,7 +17,7 @@ $remoteAddress = getenv('REMOTE_ADDR');
 $isLocal = $serverAddress == '::1' || $serverAddress == '127.0.0.1' || $serverName == 'localhost'
     || substr($serverAddress, 0, 8) == '192.168.';
 
-$isProd = endsWith($serverName, '.com');
+$isProd = endsWith($serverName, '.com') || endsWith($serverName, '.org');
 
 if ($isLocal) {
     $dbHost = "localhost:3306";
@@ -25,10 +25,10 @@ if ($isLocal) {
     $dbPassword = "root";
     $dbName = "employeedb";
 } elseif ($isProd) {
-    $dbHost = "localhost:3306";
-    $dbUser = "hamzahdbadmin";
-    $dbPassword = "password123";
-    $dbName = "hamzahdashboarddb";
+    $dbHost = "db758181394.db.1and1.com:3306";
+    $dbUser = "dbo758181394";
+    $dbPassword = "Et$2020$";
+    $dbName = "db758181394";
 }
 
 $db = new mysqli($dbHost, $dbUser, $dbPassword, $dbName);
