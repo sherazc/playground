@@ -8,7 +8,7 @@ class StateSelect extends Component {
 
     render() {
         return (
-            <select className="form-control" value={this.props.selectedStateAbv}>
+            <select className="form-control" value={this.props.selectedStateAbv} onChange={this.props.onChange}>
                 {this.buildStateOptions(states)}
             </select>
         );

@@ -9,7 +9,7 @@ class Register extends Component {
             companyName: "Company Name",
             companyAddressStreet: "123 St",
             companyAddressCity: "City",
-            companyAddressState: "ST",
+            companyAddressState: "GA",
             companyAddressZip: "12345",
             companyAddressLongitude: "1.1",
             companyAddressLatitude: "2.2",
@@ -19,11 +19,13 @@ class Register extends Component {
             adminUserFirstName: "First",
             adminUserLastName: "Last",
             adminUserRoles: ["ADMIN"]
-        }
+        };
+
+        this.onChange = this.onChange.bind(this);
     }
 
     onChange(event) {
-
+        console.log(event.target.value);
     }
 
     render() {
@@ -54,7 +56,7 @@ class Register extends Component {
 
                         <div className="form-group">
                             <label htmlFor="state">State</label>
-                            <StateSelect selectedStateAbv="GA"/>
+                            <StateSelect selectedStateAbv={this.state.companyAddressState} name="state" onChange={this.onChange}/>
                         </div>
 
                         <div className="form-group">
