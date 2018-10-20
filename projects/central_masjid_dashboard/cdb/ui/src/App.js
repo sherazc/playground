@@ -10,6 +10,7 @@ import './App.scss';
 import Home from "./components/Home";
 import Login from "./components/Login";
 import RegisterCompany from "./components/RegisterCompany";
+import Alert from "./components/alert/Alert";
 
 class App extends Component {
     render() {
@@ -17,6 +18,7 @@ class App extends Component {
             <Provider store={store}>
                 <Router history={history}>
                     <div className="container">
+                        <Alert/>
                         <Navigation/>
                         <Switch>
                             <Route path='/' component={Home} exact/>

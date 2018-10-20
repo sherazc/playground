@@ -1,13 +1,13 @@
-import {CREATE_COMPANY} from "../action/company-actions";
+import {CREATE_UPDATE_COMPANY} from "../action/company-actions";
 
 const initialState = {
-    newCompany: {}
+    createUpdateCompany: {}
 };
 
 export const companyReducer = (state = initialState, action) => {
     switch (action.type) {
-        case CREATE_COMPANY:
-            return {...state, newCompany: action.payload};
+        case CREATE_UPDATE_COMPANY:
+            return {...state, createUpdateCompany: action.payload};
         default: return state;
     }
 };

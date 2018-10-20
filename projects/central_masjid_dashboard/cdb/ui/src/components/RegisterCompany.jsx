@@ -2,27 +2,13 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import StateSelect from "./partials/StateSelect";
 import InputField from "./partials/InputField";
-import {createCompanyAction} from "../store/action/company-actions";
+import {createUpdateCompanyAction} from "../store/action/company-actions";
 
 class RegisterCompany extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            companyName: "Company Name",
-            companyAddressStreet: "123 St",
-            companyAddressCity: "City",
-            companyAddressState: "GA",
-            companyAddressZip: "12345",
-            companyAddressLongitude: "1.1",
-            companyAddressLatitude: "2.2",
-            companyIcon: "icon",
-            adminUserEmail: "email@email.com",
-            adminUserPassword: "password123",
-            adminUserFirstName: "First",
-            adminUserLastName: "Last",
-            adminUserRoles: ["ADMIN"]
-        };
+        this.state = this.createBlankFlatCompany();
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -34,31 +20,47 @@ class RegisterCompany extends Component {
 
     onSubmit(event) {
         event.preventDefault();
-        const state = this.state;
+        // const state = this.state;
 
-        const companyRegisterObject = {
+        const createUpdateCompany = {
             company: {
-                name: state.companyName,
+                name: this.state.companyName,
                 address: {
-                    street: state.companyAddressStreet,
-                    city: state.companyAddressCity,
-                    state: state.companyAddressState,
-                    zip: state.companyAddressZip
+                    street: this.state.companyAddressStreet,
+                    city: this.state.companyAddressCity,
+                    state: this.state.companyAddressState,
+                    zip: this.state.companyAddressZip
                 }
             },
             adminUser: {
-                email: state.adminUserEmail,
-                password: state.adminUserPassword,
-                firstName: state.adminUserFirstName,
-                lastName: state.adminUserLastName,
+                email: this.state.adminUserEmail,
+                password: this.state.adminUserPassword,
+                firstName: this.state.adminUserFirstName,
+                lastName: this.state.adminUserLastName,
                 roles: ["ADMIN"],
                 active: true,
                 verified: true
             }
         };
+        this.props.createUpdateCompanyAction(createUpdateCompany);
+    }
 
-        console.log(companyRegisterObject);
-
+    createBlankFlatCompany() {
+        return {
+            companyName: "",
+            companyAddressStreet: "",
+            companyAddressCity: "",
+            companyAddressState: "",
+            companyAddressZip: "",
+            companyAddressLongitude: "",
+            companyAddressLatitude: "",
+            companyIcon: "",
+            adminUserEmail: "",
+            adminUserPassword: "",
+            adminUserFirstName: "",
+            adminUserLastName: "",
+            adminUserRoles: []
+        }
     }
 
     render() {
@@ -163,13 +165,13 @@ class RegisterCompany extends Component {
 
 
 const actions = {
-    createCompany: createCompanyAction
+    createUpdateCompanyAction: createUpdateCompanyAction
 };
 
 
 const mapStateToProps = state => {
     return {
-        users: state.companyReducer.user
+        createUpdateCompany: state.companyReducer.createUpdateCompany
     };
 };
 

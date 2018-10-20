@@ -74,7 +74,7 @@ const actions = {
 
 const mapStateToProps = state => {
     return {
-        users: state.userReducer.user
+        users: state.userReducer.users
     };
 };
 
