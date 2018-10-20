@@ -9,13 +9,17 @@ const StateSelect = (props) => {
     };
 
     return (
-        <select
-            className="form-control"
-            name={props.name}
-            value={props.selectedStateAbv}
-            onChange={props.onChange}>
-            {buildStateOptions(states)}
-        </select>
+        <div className="form-group">
+            <label htmlFor={props.name}>{props.label}</label>
+            <select
+                className="form-control"
+                id={props.name}
+                name={props.name}
+                value={props.selectedStateAbv}
+                onChange={props.onChange}>
+                {buildStateOptions(states)}
+            </select>
+        </div>
     );
 };
 

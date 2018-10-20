@@ -23,19 +23,48 @@ class Register extends Component {
         };
 
         this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     onChange(event) {
         this.setState({[event.target.name]: event.target.value});
     }
 
+    onSubmit(event) {
+        event.preventDefault();
+        const state = this.state;
+
+        const companyRegisterObject = {
+            company: {
+                name: state.companyName,
+                address: {
+                    street: state.companyAddressStreet,
+                    city: state.companyAddressCity,
+                    state: state.companyAddressState,
+                    zip: state.companyAddressZip
+                }
+            },
+            adminUser: {
+                email: state.adminUserEmail,
+                password: state.adminUserPassword,
+                firstName: state.adminUserFirstName,
+                lastName: state.adminUserLastName,
+                roles: ["ADMIN"],
+                active: true,
+                verified: true
+            }
+        };
+
+        console.log(companyRegisterObject);
+
+    }
+
     render() {
         return (
             <div className="row">
-
                 <div className="col-sm-6">
                     <h3>Register</h3>
-                    <form>
+                    <form onSubmit={this.onSubmit}>
                         <InputField
                             label="Masjid Name"
                             name="companyName"
@@ -54,18 +83,18 @@ class Register extends Component {
                             onChange={this.onChange}
                             value={this.state.companyAddressCity}/>
 
-                        <div className="form-group">
-                            <label htmlFor="state">State</label>
-                            <StateSelect selectedStateAbv={this.state.companyAddressState} name="companyAddressState"
-                                         onChange={this.onChange}/>
-                        </div>
+                        <StateSelect
+                            label="State"
+                            selectedStateAbv={this.state.companyAddressState}
+                            name="companyAddressState"
+                            onChange={this.onChange}/>
 
                         <InputField
                             label="Zip"
                             name="companyAddressZip"
                             onChange={this.onChange}
                             value={this.state.companyAddressZip}/>
-                        
+
                         <hr/>
 
                         <InputField
@@ -96,11 +125,9 @@ class Register extends Component {
                             onChange={this.onChange}
                             value={this.state.adminUserLastName}/>
 
-
                         <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
                 </div>
-
             </div>
         );
     }
