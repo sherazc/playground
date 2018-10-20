@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import StateSelect from "./partials/StateSelect";
+import InputField from "./partials/InputField";
 
 class Register extends Component {
 
@@ -25,7 +26,7 @@ class Register extends Component {
     }
 
     onChange(event) {
-        this.setState({ [event.target.name]: event.target.value });
+        this.setState({[event.target.name]: event.target.value});
     }
 
     render() {
@@ -35,42 +36,35 @@ class Register extends Component {
                 <div className="col-sm-6">
                     <h3>Register</h3>
                     <form>
-                        <div className="form-group">
-                            <label htmlFor="companyName">Name</label>
-                            <input type="text" className="form-control" name="companyName" id="companyName"
-                                   placeholder="Masjid Name" />
-                        </div>
+                        <InputField
+                            label="Masjid Name"
+                            name="companyName"
+                            onChange={this.onChange}
+                            value={this.state.companyName}/>
 
-                        <div className="form-group">
-                            <label htmlFor="companyAddressStreet">Street</label>
-                            <input type="text" className="form-control" name="companyAddressStreet" id="companyAddressStreet"
-                                   placeholder="Street"/>
-                        </div>
+                        <InputField
+                            label="Street"
+                            name="companyAddressStreet"
+                            onChange={this.onChange}
+                            value={this.state.companyAddressStreet}/>
 
-
-                        <div className="form-group">
-                            <label htmlFor="companyAddressCity">City</label>
-                            <input type="text" className="form-control" name="companyAddressCity" id="companyAddressCity"
-                                   placeholder="City"/>
-                        </div>
+                        <InputField
+                            label="City"
+                            name="companyAddressCity"
+                            onChange={this.onChange}
+                            value={this.state.companyAddressCity}/>
 
                         <div className="form-group">
                             <label htmlFor="state">State</label>
-                            <StateSelect selectedStateAbv={this.state.companyAddressState} name="companyAddressState" onChange={this.onChange}/>
+                            <StateSelect selectedStateAbv={this.state.companyAddressState} name="companyAddressState"
+                                         onChange={this.onChange}/>
                         </div>
 
-                        <div className="form-group">
-                            <label htmlFor="zip">Zip</label>
-                            <input type="text" className="form-control" name="zip" id="zip"
-                                   placeholder="Zip"/>
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="icon">Icon</label>
-                            <input type="text" className="form-control" name="icon" id="icon"
-                                   placeholder="Icon"/>
-                        </div>
-
+                        <InputField
+                            label="Zip"
+                            name="companyAddressZip"
+                            onChange={this.onChange}
+                            value={this.state.companyAddressZip}/>
                         <hr/>
 
                         <div className="form-group">
@@ -81,19 +75,25 @@ class Register extends Component {
                                 anyone else.
                             </small>
                         </div>
+                        
+                        <InputField
+                            label="Password"
+                            name="adminUserPassword"
+                            type="password"
+                            onChange={this.onChange}
+                            value={this.state.adminUserPassword}/>
 
-                        <div className="form-group">
-                            <label htmlFor="password">Password</label>
-                            <input type="password" className="form-control" name="password" id="password"
-                                   placeholder="Password"/>
-                        </div>
+                        <InputField
+                            label="First Name"
+                            name="adminUserFirstName"
+                            onChange={this.onChange}
+                            value={this.state.adminUserFirstName}/>
 
-                        <div className="form-group">
-                            <label htmlFor="firstName">First Name</label>
-                            <input type="text" className="form-control" name="firstName" id="firstName"
-                                   placeholder="First Name"/>
-                        </div>
-
+                        <InputField
+                            label="Last Name"
+                            name="adminUserLastName"
+                            onChange={this.onChange}
+                            value={this.state.adminUserLastName}/>
 
 
                         <button type="submit" className="btn btn-primary">Submit</button>

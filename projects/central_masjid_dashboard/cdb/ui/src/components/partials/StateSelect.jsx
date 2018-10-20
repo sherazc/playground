@@ -1,24 +1,31 @@
-import React, {Component} from "react";
+import React from "react";
+import PropTypes from "prop-types";
 
-class StateSelect extends Component {
-    render() {
-        return (
-            <select
-                className="form-control"
-                name={this.props.name}
-                value={this.props.selectedStateAbv}
-                onChange={this.props.onChange}>
-                {this.buildStateOptions(states)}
-            </select>
-        );
-    }
-
-    buildStateOptions(states) {
+const StateSelect = (props) => {
+    const buildStateOptions = (states) => {
         return states.map((stateObject, index) => {
             return (<option value={stateObject.abbreviation} key={index}>{stateObject.name}</option>);
         })
-    }
-}
+    };
+
+    return (
+        <select
+            className="form-control"
+            name={props.name}
+            value={props.selectedStateAbv}
+            onChange={props.onChange}>
+            {buildStateOptions(states)}
+        </select>
+    );
+};
+
+
+// TODO. Find out if propTypes is possible is stateless component
+StateSelect.prototypes = {
+    name: PropTypes.string,
+    selectedStateAbv: PropTypes.string,
+    onChange: PropTypes.fn
+};
 
 const states = [
     {
