@@ -25,7 +25,7 @@ class Register extends Component {
     }
 
     onChange(event) {
-        console.log(event.target.value);
+        this.setState({ [event.target.name]: event.target.value });
     }
 
     render() {
@@ -56,7 +56,7 @@ class Register extends Component {
 
                         <div className="form-group">
                             <label htmlFor="state">State</label>
-                            <StateSelect selectedStateAbv={this.state.companyAddressState} name="state" onChange={this.onChange}/>
+                            <StateSelect selectedStateAbv={this.state.companyAddressState} name="companyAddressState" onChange={this.onChange}/>
                         </div>
 
                         <div className="form-group">
