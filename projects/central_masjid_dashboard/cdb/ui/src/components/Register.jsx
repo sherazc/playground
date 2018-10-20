@@ -65,17 +65,18 @@ class Register extends Component {
                             name="companyAddressZip"
                             onChange={this.onChange}
                             value={this.state.companyAddressZip}/>
+                        
                         <hr/>
 
-                        <div className="form-group">
-                            <label htmlFor="exampleInputEmail1">Email address</label>
-                            <input type="email" className="form-control" id="exampleInputEmail1"
-                                   aria-describedby="emailHelp" placeholder="Enter email"/>
-                            <small id="emailHelp" className="form-text text-muted">We'll never share your email with
-                                anyone else.
-                            </small>
-                        </div>
-                        
+                        <InputField
+                            label="Email address"
+                            name="adminUserEmail"
+                            onChange={this.onChange}
+                            value={this.state.adminUserEmail}
+                            type="email"
+                            help="We'll never share your email with anyone else."
+                        />
+
                         <InputField
                             label="Password"
                             name="adminUserPassword"
