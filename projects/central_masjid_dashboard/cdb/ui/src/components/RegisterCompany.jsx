@@ -1,8 +1,10 @@
 import React, {Component} from "react";
+import {connect} from "react-redux";
 import StateSelect from "./partials/StateSelect";
 import InputField from "./partials/InputField";
+import {createCompanyAction} from "../store/action/company-actions";
 
-class Register extends Component {
+class RegisterCompany extends Component {
 
     constructor(props) {
         super(props);
@@ -158,4 +160,18 @@ class Register extends Component {
    }
 }
  */
-export default Register;
+
+
+const actions = {
+    createCompany: createCompanyAction
+};
+
+
+const mapStateToProps = state => {
+    return {
+        users: state.companyReducer.user
+    };
+};
+
+export default connect(mapStateToProps, actions)(RegisterCompany);
+

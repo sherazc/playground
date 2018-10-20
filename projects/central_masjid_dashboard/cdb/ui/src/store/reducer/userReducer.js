@@ -1,3 +1,9 @@
+/**
+ *
+ * THIS IS JUST FOR REFERENCE. DELETE IT ONCE ITS NOT NEEDED ANYMORE.
+ *
+ */
+
 import {USER_CREATE, USER_FETCH_ALL} from "../action/user-actions";
 
 const initialState = {

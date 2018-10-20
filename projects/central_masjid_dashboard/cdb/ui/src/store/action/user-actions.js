@@ -1,3 +1,8 @@
+/**
+ *
+ * THIS IS JUST FOR REFERENCE. DELETE IT ONCE ITS NOT NEEDED ANYMORE.
+ *
+ */
 import axios from "axios";
 
 export const USER_FETCH_ALL = "USERS_FETCH_ALL";

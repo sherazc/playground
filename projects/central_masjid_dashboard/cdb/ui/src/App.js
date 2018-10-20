@@ -9,7 +9,7 @@ import history from "./services/app-browse-history";
 import './App.scss';
 import Home from "./components/Home";
 import Login from "./components/Login";
-import Register from "./components/Register";
+import RegisterCompany from "./components/RegisterCompany";
 
 class App extends Component {
     render() {
@@ -21,7 +21,7 @@ class App extends Component {
                         <Switch>
                             <Route path='/' component={Home} exact/>
                             <Route path='/login' component={Login}/>
-                            <Route path='/register' component={Register}/>
+                            <Route path='/register' component={RegisterCompany}/>
                         </Switch>
                     </div>
                 </Router>

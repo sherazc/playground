@@ -1,3 +1,8 @@
+/**
+ *
+ * THIS IS JUST FOR REFERENCE. DELETE IT ONCE ITS NOT NEEDED ANYMORE.
+ *
+ */
 import {COUNT_ADD, COUNT_SUBTRACT} from "../action/counter-actions";
 
 const initialState = {
