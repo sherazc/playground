@@ -1,4 +1,4 @@
-import {HIDE_ALERT, SHOW_ALERT} from "../action/alert-actions";
+import {HIDE_ALERT, SHOW_ALERT} from "./alert-actions";
 
 const initialState = {
     currentAlert: {

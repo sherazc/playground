@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import "./Alert.scss"
-import {hideAlert, ALERT_SUCCESS, ALERT_WARN, ALERT_ERROR} from "../../store/action/alert-actions";
+import {hideAlert, ALERT_SUCCESS, ALERT_WARN, ALERT_ERROR} from "../../store/common/alert/alert-actions";
 
 class Alert extends Component {
     render() {
@@ -48,7 +48,7 @@ const actions = {
 
 const mapStateToProps = state => {
     return {
-        currentAlert: state.alertReducer.currentAlert
+        currentAlert: state.common.alertReducer.currentAlert
     };
 };
 
