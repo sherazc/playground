@@ -11,6 +11,7 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import RegisterCompany from "./components/RegisterCompany";
 import Alert from "./components/alert/Alert";
+import Loading from "./components/loading/Loading";
 
 class App extends Component {
     render() {
@@ -19,6 +20,7 @@ class App extends Component {
                 <Router history={history}>
                     <div className="container">
                         <Alert/>
+                        <Loading/>
                         <Navigation/>
                         <Switch>
                             <Route path='/' component={Home} exact/>
