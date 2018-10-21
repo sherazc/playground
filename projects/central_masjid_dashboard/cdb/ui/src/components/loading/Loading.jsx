@@ -16,7 +16,7 @@ const Loading = (props) => {
 
 const mapStateToProps = state => {
     return {
-        loading: state.loadingReducer.loading
+        loading: state.common.loadingReducer.loading
     };
 };
 

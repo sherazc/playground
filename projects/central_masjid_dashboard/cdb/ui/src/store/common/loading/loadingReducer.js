@@ -1,4 +1,4 @@
-import {HIDE_LOADING, SHOW_LOADING} from "../action/loading-action";
+import {HIDE_LOADING, SHOW_LOADING} from "./loading-action";
 
 const hideLoadingState = {loading: {show: false}};
 const showLoadingState = {loading: {show: true}};

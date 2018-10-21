@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {showAlert, ALERT_SUCCESS, ALERT_ERROR, ALERT_WARN} from "../store/common/alert/alert-actions";
-import {showLoading, hideLoading} from "../store/action/loading-action";
+import {showLoading, hideLoading} from "../store/common/loading/loading-action";
 
 class Login extends Component {
 
