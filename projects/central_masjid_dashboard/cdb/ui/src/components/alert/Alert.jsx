@@ -1,21 +1,44 @@
 import React, {Component} from "react";
-import "./Alert.scss"
-import {hideAlert, showAlert} from "../../store/action/alert-actions";
 import {connect} from "react-redux";
+import "./Alert.scss"
+import {hideAlert, ALERT_SUCCESS, ALERT_WARN, ALERT_ERROR} from "../../store/action/alert-actions";
 
 class Alert extends Component {
-
-
     render() {
         return (
             <div id="snackbar" className={this.showAlertClass()}>
-                Alert
+                <img
+                    src={this.getAlertIcon(this.props.currentAlert.type)}
+                    className="alertIcon"
+                    alt="icon"/>
+                {this.props.currentAlert.message}
             </div>
         );
     }
 
     showAlertClass() {
-        return this.props.currentAlert.show ? "show" : "";
+        if (this.props.currentAlert.show) {
+            const self = this;
+            setTimeout(()=> {
+                self.props.hideAlert();
+            }, 3000);
+            return "show";
+        } else {
+            return "";
+        }
+    }
+
+    getAlertIcon(type) {
+        switch (type) {
+            case ALERT_SUCCESS:
+                return "images/icons/check.svg";
+            case ALERT_WARN:
+                return "images/icons/warn.svg";
+            case ALERT_ERROR:
+                return "images/icons/cross.svg";
+            default:
+                return "";
+        }
     }
 }
 
