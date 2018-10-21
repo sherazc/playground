@@ -19,8 +19,8 @@ class App extends Component {
             <Provider store={store}>
                 <Router history={history}>
                     <div className="container">
-                        <Alert/>
                         <Loading/>
+                        <Alert/>
                         <Navigation/>
                         <Switch>
                             <Route path='/' component={Home} exact/>

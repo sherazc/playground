@@ -11,8 +11,7 @@ const initialState = {
 export const alertReducer = (state = initialState, action) => {
     switch (action.type) {
         case SHOW_ALERT:
-            return {...state, currentAlert: action.payload};
-            case HIDE_ALERT:
+        case HIDE_ALERT:
             return {...state, currentAlert: action.payload};
         default: return state;
     }

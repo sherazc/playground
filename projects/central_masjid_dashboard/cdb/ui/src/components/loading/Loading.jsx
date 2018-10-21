@@ -1,13 +1,23 @@
-import React, {Component} from "react";
+import React from "react";
 import {connect} from "react-redux";
 import "./Loading.scss"
 
-class Loading extends Component {
-    render() {
-        return (
-            <div className="loading">Loading&#8230;</div>
-        );
-    }
-}
+const Loading = (props) => {
+    const getLoadingDiv = () => {
+        if (props.loading.show) {
+            return <div className="loading">Loading&#8230;</div>;
+        } else {
+            return <></>;
+        }
+    };
 
-export default Loading;
+    return getLoadingDiv();
+};
+
+const mapStateToProps = state => {
+    return {
+        loading: state.loadingReducer.loading
+    };
+};
+
+export default connect(mapStateToProps)(Loading);
