@@ -1,4 +1,4 @@
-import {CREATE_UPDATE_COMPANY} from "../action/company-actions";
+import {CREATE_UPDATE_COMPANY} from "./company-actions";
 
 const initialState = {
     createUpdateCompany: {}
