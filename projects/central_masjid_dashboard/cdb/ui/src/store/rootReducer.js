@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
-import {companyReducer} from "./company/companyReducer";
+import {company} from "./company/index";
 import common from "./common";
 
 export default combineReducers({
     common,
-    companyReducer,
+    company,
 });

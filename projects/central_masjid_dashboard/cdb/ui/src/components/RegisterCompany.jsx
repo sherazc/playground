@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import StateSelect from "./partials/StateSelect";
 import InputField from "./partials/InputField";
-import {createUpdateCompanyAction} from "../store/company/company-actions";
+import {createUpdateCompanyAction} from "../store/company/actions";
 
 class RegisterCompany extends Component {
 
@@ -171,7 +171,7 @@ const actions = {
 
 const mapStateToProps = state => {
     return {
-        createUpdateCompany: state.companyReducer.createUpdateCompany
+        createUpdateCompany: state.company.createUpdateCompany
     };
 };
 

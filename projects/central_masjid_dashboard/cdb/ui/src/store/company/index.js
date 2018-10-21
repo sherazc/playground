@@ -1,10 +1,10 @@
-import {CREATE_UPDATE_COMPANY} from "./company-actions";
+import {CREATE_UPDATE_COMPANY} from "./actions";
 
 const initialState = {
     createUpdateCompany: {}
 };
 
-export const companyReducer = (state = initialState, action) => {
+export const company = (state = initialState, action) => {
     switch (action.type) {
         case CREATE_UPDATE_COMPANY:
             return {...state, createUpdateCompany: action.payload};
