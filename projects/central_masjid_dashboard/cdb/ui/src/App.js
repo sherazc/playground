@@ -12,6 +12,9 @@ import Login from "./components/Login";
 import RegisterCompany from "./components/RegisterCompany";
 import Alert from "./components/alert/Alert";
 import Loading from "./components/loading/Loading";
+import setupInterceptor from "./services/http-interceptor";
+
+setupInterceptor();
 
 class App extends Component {
     render() {
