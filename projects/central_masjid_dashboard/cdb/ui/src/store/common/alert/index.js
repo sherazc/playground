@@ -1,4 +1,4 @@
-import {HIDE_ALERT, SHOW_ALERT} from "./alert-actions";
+import {HIDE_ALERT, SHOW_ALERT} from "./actions";
 
 const initialState = {
     currentAlert: {
@@ -8,7 +8,7 @@ const initialState = {
     }
 };
 
-export const alertReducer = (state = initialState, action) => {
+export const alert = (state = initialState, action) => {
     switch (action.type) {
         case SHOW_ALERT:
         case HIDE_ALERT:

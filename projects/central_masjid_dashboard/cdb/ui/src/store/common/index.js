@@ -1,9 +1,9 @@
 import {combineReducers} from 'redux';
-import {alertReducer} from "./alert/alertReducer";
-import {loadingReducer} from "./loading/loadingReducer";
+import {alert} from "./alert";
+import {loading} from "./loading";
 
 const common = combineReducers({
-    alertReducer,loadingReducer
+    alert,loading
 });
 
 export default common;
