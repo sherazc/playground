@@ -14,7 +14,7 @@ import Alert from "./components/alert/Alert";
 import Loading from "./components/loading/Loading";
 import setupInterceptor from "./services/http-interceptor";
 
-setupInterceptor();
+setupInterceptor(store);
 
 class App extends Component {
     render() {
