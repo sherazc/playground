@@ -16,8 +16,15 @@ const InputField = (props) => {
         }
     };
 
+    const requiredMarker = required => {
+        if (required) {
+            return <span style={{color:'red'}}>*</span>;
+        }
+    };
+
     return (
         <div className="form-group">
+            {requiredMarker(props.required)}
             <label htmlFor={props.name}>{props.label}</label>
             <input
                 onChange={props.onChange}
@@ -26,6 +33,7 @@ const InputField = (props) => {
                 className="form-control"
                 name={props.name}
                 id={props.name}
+                required={props.required}
                 placeholder={placeholder}/>
             {makeHelpSection(props.help)}
         </div>

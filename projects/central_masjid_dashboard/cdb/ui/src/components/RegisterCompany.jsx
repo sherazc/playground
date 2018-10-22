@@ -64,74 +64,108 @@ class RegisterCompany extends Component {
     }
 
     render() {
+        const registrationComplete = this.props.createUpdateCompany.successful;
+
+        let formOrConfirm;
+        if (registrationComplete) {
+            formOrConfirm = this.registrationConfimation();
+        } else {
+            formOrConfirm = this.registrationForm();
+        }
+
         return (
             <div className="row">
                 <div className="col-sm-6">
                     <h3>Register</h3>
-                    <form onSubmit={this.onSubmit}>
-                        <InputField
-                            label="Masjid Name"
-                            name="companyName"
-                            onChange={this.onChange}
-                            value={this.state.companyName}/>
-
-                        <InputField
-                            label="Street"
-                            name="companyAddressStreet"
-                            onChange={this.onChange}
-                            value={this.state.companyAddressStreet}/>
-
-                        <InputField
-                            label="City"
-                            name="companyAddressCity"
-                            onChange={this.onChange}
-                            value={this.state.companyAddressCity}/>
-
-                        <StateSelect
-                            label="State"
-                            selectedStateAbv={this.state.companyAddressState}
-                            name="companyAddressState"
-                            onChange={this.onChange}/>
-
-                        <InputField
-                            label="Zip"
-                            name="companyAddressZip"
-                            onChange={this.onChange}
-                            value={this.state.companyAddressZip}/>
-
-                        <hr/>
-
-                        <InputField
-                            label="Email address"
-                            name="adminUserEmail"
-                            onChange={this.onChange}
-                            value={this.state.adminUserEmail}
-                            type="email"
-                            help="We'll never share your email with anyone else."
-                        />
-
-                        <InputField
-                            label="Password"
-                            name="adminUserPassword"
-                            type="password"
-                            onChange={this.onChange}
-                            value={this.state.adminUserPassword}/>
-
-                        <InputField
-                            label="First Name"
-                            name="adminUserFirstName"
-                            onChange={this.onChange}
-                            value={this.state.adminUserFirstName}/>
-
-                        <InputField
-                            label="Last Name"
-                            name="adminUserLastName"
-                            onChange={this.onChange}
-                            value={this.state.adminUserLastName}/>
-
-                        <button type="submit" className="btn btn-primary">Submit</button>
-                    </form>
+                    {formOrConfirm}
                 </div>
+            </div>
+        );
+    }
+
+    registrationForm() {
+        return (
+            <form onSubmit={this.onSubmit}>
+                <InputField
+                    label="Masjid Name"
+                    name="companyName"
+                    onChange={this.onChange}
+                    required={true}
+                    value={this.state.companyName}/>
+
+                <InputField
+                    label="Street"
+                    name="companyAddressStreet"
+                    onChange={this.onChange}
+                    required={true}
+                    value={this.state.companyAddressStreet}/>
+
+                <InputField
+                    label="City"
+                    name="companyAddressCity"
+                    onChange={this.onChange}
+                    required={true}
+                    value={this.state.companyAddressCity}/>
+
+                <StateSelect
+                    label="State"
+                    selectedStateAbv={this.state.companyAddressState}
+                    name="companyAddressState"
+                    required={true}
+                    onChange={this.onChange}/>
+
+                <InputField
+                    label="Zip"
+                    name="companyAddressZip"
+                    onChange={this.onChange}
+                    required={true}
+                    value={this.state.companyAddressZip}/>
+
+                <hr/>
+
+                <InputField
+                    label="Email address"
+                    name="adminUserEmail"
+                    onChange={this.onChange}
+                    required={true}
+                    value={this.state.adminUserEmail}
+                    type="email"
+                    help="We'll never share your email with anyone else."
+                />
+
+                <InputField
+                    label="Password"
+                    name="adminUserPassword"
+                    type="password"
+                    onChange={this.onChange}
+                    required={true}
+                    value={this.state.adminUserPassword}/>
+
+                <InputField
+                    label="First Name"
+                    name="adminUserFirstName"
+                    onChange={this.onChange}
+                    value={this.state.adminUserFirstName}/>
+
+                <InputField
+                    label="Last Name"
+                    name="adminUserLastName"
+                    onChange={this.onChange}
+                    value={this.state.adminUserLastName}/>
+
+                <button type="submit" className="btn btn-primary">Submit</button>
+            </form>
+        );
+    }
+
+    registrationConfimation() {
+        const {name} = this.props.createUpdateCompany.target.company;
+        const {email} = this.props.createUpdateCompany.target.adminUser;
+        return (
+            <div>
+                Registration Complete
+                <br/>
+                {name} registered by {email}.
             </div>
         );
     }
