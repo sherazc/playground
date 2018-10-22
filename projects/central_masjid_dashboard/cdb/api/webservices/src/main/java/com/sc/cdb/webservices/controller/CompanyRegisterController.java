@@ -43,6 +43,12 @@ public class CompanyRegisterController {
     public ResponseEntity<?> registerCompany(
             @Valid @RequestBody CompanyRegisterModel companyRegisterModel,
             BindingResult bindingResult) {
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         if (bindingResult.hasErrors()) {
             ServiceResponse<Object> invalidResponse = ServiceResponse.builder().target(companyRegisterModel).build();
             return ResponseEntity.badRequest().body(

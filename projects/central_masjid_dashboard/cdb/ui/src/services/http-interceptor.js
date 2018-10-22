@@ -1,11 +1,11 @@
 import axios from "axios";
 import history from './app-browse-history';
-import {showLoadingState, hideLoadingState} from '../store/common/loading'
-import {SHOW_ALERT} from "../store/common/alert/actions";
+import {showLoadingAction, hideLoadingAction} from '../store/common/loading'
+import {ALERT_ERROR, SHOW_ALERT} from "../store/common/alert/actions";
 
 const setupInterceptor = (store) => {
     axios.interceptors.request.use((configs) => {
-        store.dispatch(showLoadingState);
+        store.dispatch(showLoadingAction);
         configs.headers['my_custom_header'] = 'Custom Header Value';
         console.log("Request interceptor headers", configs.headers);
         console.log("Request interceptor body", configs.data);
@@ -13,24 +13,31 @@ const setupInterceptor = (store) => {
         console.log("Request interceptor method", configs.method);
 
         // TODO: Use this technique to replace if authentication fails.
-        // if (configs.url.indexOf("/un-auth")) {
-        //    history.replace("/all-users");
-        // }
+        if (configs.url.indexOf("/un-auth") > -1) {
+            history.replace("/all-users");
+        }
         return configs;
     });
 
 
     axios.interceptors.response.use(function (response) {
         console.log("response", response);
-        store.dispatch(hideLoadingState);
+        store.dispatch(hideLoadingAction);
         return response;
     }, function (error) {
         // Do something with response error
-        console.log("response error", error);
-        store.dispatch(hideLoadingState);
+        let errorMessage = "Error occurred!";
+        if (error.response && error.response.data && error.response.data.message) {
+           errorMessage =  error.response.data.message;
+        }
+        store.dispatch(hideLoadingAction);
         store.dispatch({
             type: SHOW_ALERT,
-                payload: {show: true, type, message}
+            payload: {
+                show: true,
+                type: ALERT_ERROR,
+                message: errorMessage
+            }
         });
         return Promise.reject(error);
     });
