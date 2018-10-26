@@ -36,31 +36,20 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public Optional<Company> findCompanyByName(String name) {
-        if (StringUtils.isBlank(name)) {
-            return Optional.empty();
-        }
-        return companyRepository.findByNameIgnoreCase(name);
-    }
-
-
-    @Override
-    public ServiceResponse<Company> registerCompany(Company company) {
+    public ServiceResponse<Company> createOrUpdate(Company company) {
+        LOG.debug("Registering company {}", company.getName());
 
         ServiceResponse.ServiceResponseBuilder<Company> builder = ServiceResponse.builder();
         builder.target(company);
 
         Optional<Company> existingCompanyOptional = this.companyRepository.findByNameIgnoreCase(company.getName());
         if (existingCompanyOptional.isPresent()) {
-            String errorMessage =
+            return builder.build().rejectField(
+                    "company.name",
                     MessageFormat.format(
-                            "Can not register company. Company Name {0} already exist.",
-                            existingCompanyOptional.get().getName());
-            LOG.error(errorMessage);
-            return builder.build().reject(errorMessage);
+                            "{0} already exists.", existingCompanyOptional.get().getName()));
         }
 
-        LOG.debug("Registering company {}", company.getName());
         Company savedCompany = companyRepository.save(company);
         builder.target(savedCompany);
 
@@ -80,7 +69,7 @@ public class CompanyServiceImpl implements CompanyService {
 
 
 
-    // TODO Remove this method once separate registerCompany and registerUser is created.
+    // TODO Remove this method once separate createOrUpdate and registerUser is created.
     @Override
     @Deprecated
     public ServiceResponse<CompanyRegisterModelDeprecated> registerCompanyDeprecated(CompanyRegisterModelDeprecated companyRegisterModel) {

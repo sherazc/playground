@@ -35,7 +35,7 @@
       "verified": true
    }
 }</con:request><con:originalUri>http://localhost/company</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request><con:request name="Create Company POST" id="dc303d87-6e41-4ff5-897a-db998b0a89f4" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8085</con:endpoint><con:request>{
-    "name": "Company Name 3",
+    "name": "Company Name 4",
     "address": {
         "street": "123 St",
         "city": "City",

@@ -40,17 +40,17 @@ public class CompanyController {
     }
 
     @PostMapping
-    public ResponseEntity<?> registerCompany(@Valid @RequestBody Company company, BindingResult bindingResult) {
+    public ResponseEntity<?> create(@Valid @RequestBody Company company, BindingResult bindingResult) {
+        ServiceResponse<Object> invalidResponse = ServiceResponse.builder().target(company).build();
 
         if (bindingResult.hasErrors()) {
-            ServiceResponse<Object> invalidResponse = ServiceResponse.builder().target(company).build();
             return ResponseEntity.badRequest().body(
                     errorResponseDecorator.rejectBindingErrors(
                             invalidResponse,
                             bindingResult.getAllErrors()));
         }
 
-        ServiceResponse<Company> response = companyService.registerCompany(company);
+        ServiceResponse<Company> response = companyService.createOrUpdate(company);
         if (response.isSuccessful()) {
             return ResponseEntity.ok(response);
         } else {
@@ -83,8 +83,10 @@ public class CompanyController {
 
     }
 
+    // TODO: delete it once this example is not needed anymore
     @GetMapping("secure")
     @PreAuthorize("hasRole('USER')")
+    @Deprecated
     public ResponseEntity<Object> getCompanyById() {
         Address address = new Address("123 St", "City", "ST", "12345", "1.1", "2.2");
         Company company = new Company("xyz.abc", "Company Name", address, "icon", true, new Date());
@@ -102,8 +104,10 @@ public class CompanyController {
         return ResponseEntity.ok(companyRegisterModel);
     }
 
+    // TODO: delete it once this example is not needed anymore
     @GetMapping("open")
     @PreAuthorize("permitAll()")
+    @Deprecated
     public ResponseEntity<Object> getCompanyById2() {
         Address address = new Address("123 St", "City", "ST", "12345", "1.1", "2.2");
         Company company = new Company("xyz.abc", "Company Name", address, "icon", true, new Date());

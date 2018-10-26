@@ -9,10 +9,8 @@ import java.util.Optional;
 public interface CompanyService {
     Optional<Company> findCompanyById(String companyId);
 
-    Optional<Company> findCompanyByName(String name);
-
     @Deprecated
     ServiceResponse<CompanyRegisterModelDeprecated> registerCompanyDeprecated(CompanyRegisterModelDeprecated companyRegisterModel);
 
-    ServiceResponse<Company> registerCompany(Company company);
+    ServiceResponse<Company> createOrUpdate(Company company);
 }
