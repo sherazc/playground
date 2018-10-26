@@ -4,7 +4,7 @@ import com.sc.cdb.data.model.Address;
 import com.sc.cdb.data.model.Company;
 import com.sc.cdb.data.model.User;
 import com.sc.cdb.services.CompanyService;
-import com.sc.cdb.services.model.CompanyRegisterModel;
+import com.sc.cdb.services.model.CompanyRegisterModelDeprecated;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.webservices.decorator.ErrorResponseDecorator;
 import org.springframework.http.HttpStatus;
@@ -40,15 +40,31 @@ public class CompanyRegisterController {
     }
 
     @PostMapping
-    public ResponseEntity<?> registerCompany(
-            @Valid @RequestBody CompanyRegisterModel companyRegisterModel,
-            BindingResult bindingResult) {
+    public ResponseEntity<?> registerCompany(@Valid @RequestBody Company company, BindingResult bindingResult) {
 
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (bindingResult.hasErrors()) {
+            ServiceResponse<Object> invalidResponse = ServiceResponse.builder().target(company).build();
+            return ResponseEntity.badRequest().body(
+                    errorResponseDecorator.rejectBindingErrors(
+                            invalidResponse,
+                            bindingResult.getAllErrors()));
         }
+
+        ServiceResponse<Company> response = companyService.registerCompany(company);
+        if (response.isSuccessful()) {
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+
+    @PostMapping
+    @Deprecated
+    @RequestMapping("deprecated")
+    public ResponseEntity<?> registerCompanyDeprecated(
+            @Valid @RequestBody CompanyRegisterModelDeprecated companyRegisterModel,
+            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             ServiceResponse<Object> invalidResponse = ServiceResponse.builder().target(companyRegisterModel).build();
             return ResponseEntity.badRequest().body(
@@ -58,7 +74,7 @@ public class CompanyRegisterController {
         }
         companyRegisterModel.getAdminUser().setPassword(passwordEncoder.encode(companyRegisterModel.getAdminUser().getPassword()));
 
-        ServiceResponse<CompanyRegisterModel> response = companyService.registerCompany(companyRegisterModel);
+        ServiceResponse<CompanyRegisterModelDeprecated> response = companyService.registerCompanyDeprecated(companyRegisterModel);
         if (response.isSuccessful()) {
             return ResponseEntity.ok(response);
         } else {
@@ -82,7 +98,7 @@ public class CompanyRegisterController {
                 Arrays.asList("USER"),
                 true, true
         );
-        CompanyRegisterModel companyRegisterModel = new CompanyRegisterModel(company, user);
+        CompanyRegisterModelDeprecated companyRegisterModel = new CompanyRegisterModelDeprecated(company, user);
         return ResponseEntity.ok(companyRegisterModel);
     }
 
@@ -101,7 +117,7 @@ public class CompanyRegisterController {
                 Arrays.asList("USER"),
                 true, true
         );
-        CompanyRegisterModel companyRegisterModel = new CompanyRegisterModel(company, user);
+        CompanyRegisterModelDeprecated companyRegisterModel = new CompanyRegisterModelDeprecated(company, user);
         return ResponseEntity.ok(companyRegisterModel);
     }
 }

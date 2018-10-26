@@ -12,7 +12,8 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CompanyRegisterModel {
+@Deprecated
+public class CompanyRegisterModelDeprecated {
     @NotNull
     @Valid
     private Company company;

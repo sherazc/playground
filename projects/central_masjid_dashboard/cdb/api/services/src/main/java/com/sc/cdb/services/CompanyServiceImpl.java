@@ -4,7 +4,7 @@ import com.sc.cdb.data.model.Company;
 import com.sc.cdb.data.model.User;
 import com.sc.cdb.data.repository.CompanyRepository;
 import com.sc.cdb.data.repository.UserRepository;
-import com.sc.cdb.services.model.CompanyRegisterModel;
+import com.sc.cdb.services.model.CompanyRegisterModelDeprecated;
 import com.sc.cdb.services.model.ServiceResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -36,8 +36,35 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public ServiceResponse<CompanyRegisterModel> registerCompany(CompanyRegisterModel companyRegisterModel) {
-        ServiceResponse.ServiceResponseBuilder<CompanyRegisterModel> builder = ServiceResponse.builder();
+    public Optional<Company> findCompanyByName(String name) {
+        if (StringUtils.isBlank(name)) {
+            return Optional.empty();
+        }
+        return companyRepository.findByNameIgnoreCase(name);
+    }
+
+
+    @Override
+    public ServiceResponse<Company> registerCompany(Company company) {
+        return null;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    // TODO Remove this method
+    @Override
+    @Deprecated
+    public ServiceResponse<CompanyRegisterModelDeprecated> registerCompanyDeprecated(CompanyRegisterModelDeprecated companyRegisterModel) {
+        ServiceResponse.ServiceResponseBuilder<CompanyRegisterModelDeprecated> builder = ServiceResponse.builder();
         builder.target(companyRegisterModel);
 
         if (companyRegisterModel.getCompany() == null
@@ -71,4 +98,6 @@ public class CompanyServiceImpl implements CompanyService {
 
         return builder.build().accept("Company and it's admin user registered.");
     }
+
+
 }
