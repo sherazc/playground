@@ -24,8 +24,6 @@ public class UserServiceImpl implements UserService {
             LOG.info("Can not find user. Email is empty");
             return Optional.empty();
         }
-        User user = userRepository.findByEmail(email);
-        LOG.debug("User found: {}", user);
-        return Optional.ofNullable(user);
+        return userRepository.findByEmailIgnoreCase(email);
     }
 }

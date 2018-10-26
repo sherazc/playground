@@ -24,13 +24,13 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("/company")
-public class CompanyRegisterController {
+public class CompanyController {
 
     private CompanyService companyService;
     private PasswordEncoder passwordEncoder;
     private ErrorResponseDecorator errorResponseDecorator;
 
-    public CompanyRegisterController(
+    public CompanyController(
             CompanyService companyService,
             PasswordEncoder passwordEncoder,
             ErrorResponseDecorator errorResponseDecorator) {

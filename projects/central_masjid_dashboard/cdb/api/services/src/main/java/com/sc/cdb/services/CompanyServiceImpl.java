@@ -46,7 +46,27 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public ServiceResponse<Company> registerCompany(Company company) {
-        return null;
+
+        ServiceResponse.ServiceResponseBuilder<Company> builder = ServiceResponse.builder();
+        builder.target(company);
+
+        Optional<Company> existingCompanyOptional = this.companyRepository.findByNameIgnoreCase(company.getName());
+        if (existingCompanyOptional.isPresent()) {
+            String errorMessage =
+                    MessageFormat.format(
+                            "Can not register company. Company Name {0} already exist.",
+                            existingCompanyOptional.get().getName());
+            LOG.error(errorMessage);
+            return builder.build().reject(errorMessage);
+        }
+
+        LOG.debug("Registering company {}", company.getName());
+        Company savedCompany = companyRepository.save(company);
+        builder.target(savedCompany);
+
+        return builder.build().accept(MessageFormat.format(
+                "Company {0} successfully created.",
+                company.getName()));
     }
 
 
@@ -60,7 +80,7 @@ public class CompanyServiceImpl implements CompanyService {
 
 
 
-    // TODO Remove this method
+    // TODO Remove this method once separate registerCompany and registerUser is created.
     @Override
     @Deprecated
     public ServiceResponse<CompanyRegisterModelDeprecated> registerCompanyDeprecated(CompanyRegisterModelDeprecated companyRegisterModel) {
@@ -74,8 +94,8 @@ public class CompanyServiceImpl implements CompanyService {
             return builder.build().reject(errorMessage);
         }
 
-        User existingUser = this.userRepository.findByEmail(companyRegisterModel.getAdminUser().getEmail());
-        if (existingUser != null) {
+        Optional<User> existingUserOptional = this.userRepository.findByEmailIgnoreCase(companyRegisterModel.getAdminUser().getEmail());
+        if (existingUserOptional.isPresent()) {
             String errorMessage = MessageFormat.format(
                     "Can not register company. Admin email {0} already exist",
                     companyRegisterModel.getAdminUser().getEmail());
