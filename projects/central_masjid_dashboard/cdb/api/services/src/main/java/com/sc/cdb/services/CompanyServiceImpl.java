@@ -1,10 +1,8 @@
 package com.sc.cdb.services;
 
 import com.sc.cdb.data.model.Company;
-import com.sc.cdb.data.model.User;
 import com.sc.cdb.data.repository.CompanyRepository;
 import com.sc.cdb.data.repository.UserRepository;
-import com.sc.cdb.services.model.CompanyRegisterModelDeprecated;
 import com.sc.cdb.services.model.ServiceResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -19,12 +17,9 @@ public class CompanyServiceImpl implements CompanyService {
     private static final Logger LOG = LoggerFactory.getLogger(CompanyServiceImpl.class);
 
     private CompanyRepository companyRepository;
-    private UserRepository userRepository;
 
-    public CompanyServiceImpl(CompanyRepository companyRepository,
-                              UserRepository userRepository) {
+    public CompanyServiceImpl(CompanyRepository companyRepository) {
         this.companyRepository = companyRepository;
-        this.userRepository = userRepository;
     }
 
     @Override

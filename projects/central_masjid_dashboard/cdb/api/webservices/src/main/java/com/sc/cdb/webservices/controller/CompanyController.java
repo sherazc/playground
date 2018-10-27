@@ -4,7 +4,6 @@ import com.sc.cdb.data.model.Address;
 import com.sc.cdb.data.model.Company;
 import com.sc.cdb.data.model.User;
 import com.sc.cdb.services.CompanyService;
-import com.sc.cdb.services.model.CompanyRegisterModelDeprecated;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.webservices.decorator.ErrorResponseDecorator;
 import org.springframework.http.HttpStatus;
@@ -58,31 +57,6 @@ public class CompanyController {
         }
     }
 
-
-    @PostMapping
-    @Deprecated
-    @RequestMapping("deprecated")
-    public ResponseEntity<?> registerCompanyDeprecated(
-            @Valid @RequestBody CompanyRegisterModelDeprecated companyRegisterModel,
-            BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            ServiceResponse<Object> invalidResponse = ServiceResponse.builder().target(companyRegisterModel).build();
-            return ResponseEntity.badRequest().body(
-                    errorResponseDecorator.rejectBindingErrors(
-                            invalidResponse,
-                            bindingResult.getAllErrors()));
-        }
-        companyRegisterModel.getAdminUser().setPassword(passwordEncoder.encode(companyRegisterModel.getAdminUser().getPassword()));
-
-        ServiceResponse<CompanyRegisterModelDeprecated> response = companyService.registerCompanyDeprecated(companyRegisterModel);
-        if (response.isSuccessful()) {
-            return ResponseEntity.ok(response);
-        } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-        }
-
-    }
-
     // TODO: delete it once this example is not needed anymore
     @GetMapping("secure")
     @PreAuthorize("hasRole('USER')")
@@ -100,8 +74,8 @@ public class CompanyController {
                 Arrays.asList("USER"),
                 true, true
         );
-        CompanyRegisterModelDeprecated companyRegisterModel = new CompanyRegisterModelDeprecated(company, user);
-        return ResponseEntity.ok(companyRegisterModel);
+        // CompanyRegisterModelDeprecated companyRegisterModel = new CompanyRegisterModelDeprecated(company, user);
+        return ResponseEntity.ok("Works");
     }
 
     // TODO: delete it once this example is not needed anymore
@@ -121,7 +95,7 @@ public class CompanyController {
                 Arrays.asList("USER"),
                 true, true
         );
-        CompanyRegisterModelDeprecated companyRegisterModel = new CompanyRegisterModelDeprecated(company, user);
-        return ResponseEntity.ok(companyRegisterModel);
+        // CompanyRegisterModelDeprecated companyRegisterModel = new CompanyRegisterModelDeprecated(company, user);
+        return ResponseEntity.ok("Works");
     }
 }
