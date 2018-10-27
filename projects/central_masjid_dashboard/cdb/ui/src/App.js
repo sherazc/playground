@@ -9,10 +9,10 @@ import history from "./services/app-browse-history";
 import './App.scss';
 import Home from "./components/Home";
 import Login from "./components/Login";
-import RegisterCompany from "./components/RegisterCompany";
 import Alert from "./components/alert/Alert";
 import Loading from "./components/loading/Loading";
 import setupInterceptor from "./services/http-interceptor";
+import RegisterCompany from "./components/register/RegisterCompany";
 
 setupInterceptor(store);
 

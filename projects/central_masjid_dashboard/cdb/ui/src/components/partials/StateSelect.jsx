@@ -9,10 +9,9 @@ const StateSelect = (props) => {
     };
 
     return (
-        <div className="form-group">
+        <div>
             <label htmlFor={props.name}>{props.label}</label>
             <select
-                className="form-control"
                 id={props.name}
                 name={props.name}
                 value={props.selectedStateAbv}

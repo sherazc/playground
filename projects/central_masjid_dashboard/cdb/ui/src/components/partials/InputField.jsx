@@ -7,7 +7,7 @@ const InputField = (props) => {
     const makeHelpSection = (helpText) => {
         if (helpText) {
             return (
-                <small id="emailHelp" className="form-text text-muted">
+                <small id="emailHelp">
                     {helpText}
                 </small>
             );
@@ -23,14 +23,13 @@ const InputField = (props) => {
     };
 
     return (
-        <div className="form-group">
+        <div>
             {requiredMarker(props.required)}
             <label htmlFor={props.name}>{props.label}</label>
             <input
                 onChange={props.onChange}
                 value={props.value}
                 type={type}
-                className="form-control"
                 name={props.name}
                 id={props.name}
                 required={props.required}

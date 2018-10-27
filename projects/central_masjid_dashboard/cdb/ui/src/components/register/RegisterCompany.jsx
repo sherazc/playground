@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import StateSelect from "./partials/StateSelect";
-import InputField from "./partials/InputField";
-import {createUpdateCompanyAction} from "../store/company/actions";
+import StateSelect from "../partials/StateSelect";
+import InputField from "../partials/InputField";
+import {createUpdateCompanyAction} from "../../store/company/actions";
 
 class RegisterCompany extends Component {
 
@@ -74,87 +74,60 @@ class RegisterCompany extends Component {
         }
 
         return (
-            <div className="row">
-                <div className="col-sm-6">
-                    <h3>Register</h3>
-                    {formOrConfirm}
-                </div>
+            <div>
+                <h3>Register Masjid</h3>
+                {formOrConfirm}
             </div>
         );
     }
 
     registrationForm() {
         return (
-            <form onSubmit={this.onSubmit}>
-                <InputField
-                    label="Masjid Name"
-                    name="companyName"
-                    onChange={this.onChange}
-                    required={true}
-                    value={this.state.companyName}/>
+            <div>
+                <div>
+                    <img src="images/company_create_update.svg" alt="Company create update"/>
+                </div>
+                <div>
+                    <form onSubmit={this.onSubmit}>
+                        <InputField
+                            label="Masjid Name"
+                            name="companyName"
+                            onChange={this.onChange}
+                            required={true}
+                            value={this.state.companyName}/>
 
-                <InputField
-                    label="Street"
-                    name="companyAddressStreet"
-                    onChange={this.onChange}
-                    required={true}
-                    value={this.state.companyAddressStreet}/>
+                        <InputField
+                            label="Street"
+                            name="companyAddressStreet"
+                            onChange={this.onChange}
+                            required={true}
+                            value={this.state.companyAddressStreet}/>
 
-                <InputField
-                    label="City"
-                    name="companyAddressCity"
-                    onChange={this.onChange}
-                    required={true}
-                    value={this.state.companyAddressCity}/>
+                        <InputField
+                            label="City"
+                            name="companyAddressCity"
+                            onChange={this.onChange}
+                            required={true}
+                            value={this.state.companyAddressCity}/>
 
-                <StateSelect
-                    label="State"
-                    selectedStateAbv={this.state.companyAddressState}
-                    name="companyAddressState"
-                    required={true}
-                    onChange={this.onChange}/>
+                        <StateSelect
+                            label="State"
+                            selectedStateAbv={this.state.companyAddressState}
+                            name="companyAddressState"
+                            required={true}
+                            onChange={this.onChange}/>
 
-                <InputField
-                    label="Zip"
-                    name="companyAddressZip"
-                    onChange={this.onChange}
-                    required={true}
-                    value={this.state.companyAddressZip}/>
+                        <InputField
+                            label="Zip"
+                            name="companyAddressZip"
+                            onChange={this.onChange}
+                            required={true}
+                            value={this.state.companyAddressZip}/>
 
-                <hr/>
-
-                <InputField
-                    label="Email address"
-                    name="adminUserEmail"
-                    onChange={this.onChange}
-                    required={true}
-                    value={this.state.adminUserEmail}
-                    type="email"
-                    help="We'll never share your email with anyone else."
-                />
-
-                <InputField
-                    label="Password"
-                    name="adminUserPassword"
-                    type="password"
-                    onChange={this.onChange}
-                    required={true}
-                    value={this.state.adminUserPassword}/>
-
-                <InputField
-                    label="First Name"
-                    name="adminUserFirstName"
-                    onChange={this.onChange}
-                    value={this.state.adminUserFirstName}/>
-
-                <InputField
-                    label="Last Name"
-                    name="adminUserLastName"
-                    onChange={this.onChange}
-                    value={this.state.adminUserLastName}/>
-
-                <button type="submit" className="btn btn-primary">Submit</button>
-            </form>
+                        <button type="submit">Next</button>
+                    </form>
+                </div>
+            </div>
         );
     }
 
