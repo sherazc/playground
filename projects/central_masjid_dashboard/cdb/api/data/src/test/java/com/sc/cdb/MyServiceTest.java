@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest("service.message=Hello")
+@Deprecated
 public class MyServiceTest {
 
     @Autowired

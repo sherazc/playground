@@ -2,7 +2,6 @@ package com.sc.cdb.services;
 
 import com.sc.cdb.data.model.Company;
 import com.sc.cdb.data.repository.CompanyRepository;
-import com.sc.cdb.data.repository.UserRepository;
 import com.sc.cdb.services.model.ServiceResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -30,15 +29,12 @@ public class CompanyServiceImpl implements CompanyService {
         return companyRepository.findById(companyId);
     }
 
-
-    // TODO implement update logic like UserService.createOrUpdate()
     @Override
     public ServiceResponse<Company> createOrUpdate(Company company) {
         LOG.debug("Registering company {}", company.getName());
 
         ServiceResponse.ServiceResponseBuilder<Company> builder = ServiceResponse.builder();
         builder.target(company);
-
 
         boolean update = StringUtils.isNotBlank(company.getId());
         Optional<Company> existingCompanyOptional = getExistingCompany(company, update);

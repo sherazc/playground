@@ -3,6 +3,7 @@ package com.sc.cdb;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties("service")
+@Deprecated
 public class ServiceProperties {
 
     private String message;

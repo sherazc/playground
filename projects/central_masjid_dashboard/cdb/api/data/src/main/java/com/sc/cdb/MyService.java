@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @EnableConfigurationProperties(ServiceProperties.class)
+@Deprecated
 public class MyService {
 
     private final ServiceProperties serviceProperties;

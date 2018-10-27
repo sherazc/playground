@@ -63,7 +63,7 @@ public class CompanyController {
     @Deprecated
     public ResponseEntity<Object> getCompanyById() {
         Address address = new Address("123 St", "City", "ST", "12345", "1.1", "2.2");
-        Company company = new Company("xyz.abc", "Company Name", address, "icon", true, new Date());
+        Company company = new Company("xyz.abc", "Company Name", address,true, new Date());
         User user = new User(
                 "abc.xyz",
                 "xyz.abc",
@@ -84,7 +84,7 @@ public class CompanyController {
     @Deprecated
     public ResponseEntity<Object> getCompanyById2() {
         Address address = new Address("123 St", "City", "ST", "12345", "1.1", "2.2");
-        Company company = new Company("xyz.abc", "Company Name", address, "icon", true, new Date());
+        Company company = new Company("xyz.abc", "Company Name", address, true, new Date());
         User user = new User(
                 "abc.xyz",
                 "xyz.abc",

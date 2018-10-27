@@ -5,14 +5,11 @@ import com.sc.cdb.data.model.Company;
 import com.sc.cdb.data.model.User;
 import com.sc.cdb.data.repository.CompanyRepository;
 import com.sc.cdb.data.repository.UserRepository;
-import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -48,10 +45,10 @@ public class Application implements CommandLineRunner {
                 "12345",
                 "1.1",
                 "2.2");
-        Company company1 = new Company("company1", "Company Name 1", address, "icon", true, new Date());
+        Company company1 = new Company("company1", "Company Name 1", address, true, new Date());
         companyRepository.save(company1);
 
-        Company company2 = new Company("company2", "Company Name 2", address, "icon", true, new Date());
+        Company company2 = new Company("company2", "Company Name 2", address, true, new Date());
         companyRepository.save(company2);
 
 
