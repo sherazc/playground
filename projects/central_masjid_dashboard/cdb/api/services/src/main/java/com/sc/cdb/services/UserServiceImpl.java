@@ -6,6 +6,7 @@ import com.sc.cdb.services.model.ServiceResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.text.MessageFormat;
@@ -15,9 +16,11 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
     private UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Optional<User> findUserByEmail(String email) {
@@ -44,6 +47,8 @@ public class UserServiceImpl implements UserService {
             LOG.error(errorMessage);
             return builder.build().rejectField("user.email", errorMessage);
         }
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         User savedUser = userRepository.save(user);
         builder.target(savedUser);
