@@ -36,8 +36,8 @@ public class UserServiceImpl implements UserService {
         ServiceResponse.ServiceResponseBuilder<User> builder = ServiceResponse.builder();
         builder.target(user);
 
-        boolean userUpdate = StringUtils.isNotBlank(user.getId());
-        Optional<User> existingUserOptional = getExistingUser(user, userUpdate);
+        boolean update = StringUtils.isNotBlank(user.getId());
+        Optional<User> existingUserOptional = getExistingUser(user, update);
 
         if (existingUserOptional.isPresent()) {
             return builder.build().rejectField(
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
         builder.target(savedUser);
 
         String successMessage;
-        if (userUpdate) {
+        if (update) {
             successMessage = MessageFormat.format(
                     "User {0} successfully updated.",
                     user.getEmail());
@@ -63,9 +63,9 @@ public class UserServiceImpl implements UserService {
         return builder.build().accept(successMessage);
     }
 
-    private Optional<User> getExistingUser(User user, boolean userUpdate) {
+    private Optional<User> getExistingUser(User user, boolean update) {
         Optional<User> existingUserOptional;
-        if (userUpdate) {
+        if (update) {
             existingUserOptional = this.userRepository.findByIdIsNotAndEmailIgnoreCase(user.getId(), user.getEmail());
         } else {
             existingUserOptional = this.userRepository.findByEmailIgnoreCase(user.getEmail());

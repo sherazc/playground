@@ -44,7 +44,10 @@ public class CompanyServiceImpl implements CompanyService {
         ServiceResponse.ServiceResponseBuilder<Company> builder = ServiceResponse.builder();
         builder.target(company);
 
-        Optional<Company> existingCompanyOptional = this.companyRepository.findByNameIgnoreCase(company.getName());
+
+        boolean update = StringUtils.isNotBlank(company.getId());
+        Optional<Company> existingCompanyOptional = getExistingCompany(company, update);
+
         if (existingCompanyOptional.isPresent()) {
             return builder.build().rejectField(
                     "company.name",
@@ -55,8 +58,28 @@ public class CompanyServiceImpl implements CompanyService {
         Company savedCompany = companyRepository.save(company);
         builder.target(savedCompany);
 
-        return builder.build().accept(MessageFormat.format(
-                "Company {0} successfully created.",
-                company.getName()));
+        String successMessage;
+        if (update) {
+            successMessage = MessageFormat.format(
+                    "Company {0} successfully updated.",
+                    company.getName());
+        } else {
+            successMessage = MessageFormat.format(
+                    "Company {0} successfully created.",
+                    company.getName());
+        }
+
+        return builder.build().accept(successMessage);
+    }
+
+    private Optional<Company> getExistingCompany(Company company, boolean update) {
+
+        Optional<Company> existingUserOptional;
+        if (update) {
+            existingUserOptional = this.companyRepository.findByIdIsNotAndNameIgnoreCase(company.getId(), company.getName());
+        } else {
+            existingUserOptional = this.companyRepository.findByNameIgnoreCase(company.getName());
+        }
+        return existingUserOptional;
     }
 }
