@@ -35,6 +35,8 @@ public class CompanyServiceImpl implements CompanyService {
         return companyRepository.findById(companyId);
     }
 
+
+    // TODO implement update logic like UserService.createOrUpdate()
     @Override
     public ServiceResponse<Company> createOrUpdate(Company company) {
         LOG.debug("Registering company {}", company.getName());
@@ -57,56 +59,4 @@ public class CompanyServiceImpl implements CompanyService {
                 "Company {0} successfully created.",
                 company.getName()));
     }
-
-
-
-
-
-
-
-
-
-
-
-
-    // TODO Remove this method once separate createOrUpdate and registerUser is created.
-    @Override
-    @Deprecated
-    public ServiceResponse<CompanyRegisterModelDeprecated> registerCompanyDeprecated(CompanyRegisterModelDeprecated companyRegisterModel) {
-        ServiceResponse.ServiceResponseBuilder<CompanyRegisterModelDeprecated> builder = ServiceResponse.builder();
-        builder.target(companyRegisterModel);
-
-        if (companyRegisterModel.getCompany() == null
-                || companyRegisterModel.getAdminUser() == null) {
-            String errorMessage = "Can not register company. Company or Admin user missing";
-            LOG.error(errorMessage);
-            return builder.build().reject(errorMessage);
-        }
-
-        Optional<User> existingUserOptional = this.userRepository.findByEmailIgnoreCase(companyRegisterModel.getAdminUser().getEmail());
-        if (existingUserOptional.isPresent()) {
-            String errorMessage = MessageFormat.format(
-                    "Can not register company. Admin email {0} already exist",
-                    companyRegisterModel.getAdminUser().getEmail());
-            LOG.error(errorMessage);
-            return builder.build().reject(errorMessage);
-        }
-
-        Company company = companyRegisterModel.getCompany();
-        LOG.debug("Registering company {}", company.getName());
-        Company savedCompany = companyRepository.save(company);
-
-        User adminUser = companyRegisterModel.getAdminUser();
-        adminUser.setCompanyId(savedCompany.getId());
-        LOG.debug("Adding admin user {} for company {} id {}",
-                adminUser.getEmail(), savedCompany.getName(), adminUser.getCompanyId());
-        User savedAdminUser = this.userRepository.save(adminUser);
-
-        companyRegisterModel.setCompany(savedCompany);
-        companyRegisterModel.setAdminUser(savedAdminUser);
-
-        return builder.build().accept("Company and it's admin user registered.");
-    }
-
-
 }

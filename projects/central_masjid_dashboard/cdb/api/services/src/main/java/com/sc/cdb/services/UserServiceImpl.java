@@ -37,12 +37,7 @@ public class UserServiceImpl implements UserService {
         builder.target(user);
 
         boolean userUpdate = StringUtils.isNotBlank(user.getId());
-        Optional<User> existingUserOptional;
-        if (userUpdate) {
-            existingUserOptional = this.userRepository.findByIdIsNotAndEmailIgnoreCase(user.getId(), user.getEmail());
-        } else {
-            existingUserOptional = this.userRepository.findByEmailIgnoreCase(user.getEmail());
-        }
+        Optional<User> existingUserOptional = getExistingUser(user, userUpdate);
 
         if (existingUserOptional.isPresent()) {
             return builder.build().rejectField(
@@ -66,5 +61,15 @@ public class UserServiceImpl implements UserService {
         }
 
         return builder.build().accept(successMessage);
+    }
+
+    private Optional<User> getExistingUser(User user, boolean userUpdate) {
+        Optional<User> existingUserOptional;
+        if (userUpdate) {
+            existingUserOptional = this.userRepository.findByIdIsNotAndEmailIgnoreCase(user.getId(), user.getEmail());
+        } else {
+            existingUserOptional = this.userRepository.findByEmailIgnoreCase(user.getEmail());
+        }
+        return existingUserOptional;
     }
 }

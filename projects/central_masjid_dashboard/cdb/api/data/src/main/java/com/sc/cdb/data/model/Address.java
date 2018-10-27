@@ -4,19 +4,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address {
-    @NotNull
+    @NotBlank
     private String street;
-    @NotNull
+    @NotBlank
     private String city;
-    @NotNull
+    @NotBlank
     private String state;
-    @NotNull
+    @NotBlank
     private String zip;
     private String longitude;
     private String latitude;

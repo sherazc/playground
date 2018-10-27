@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Data
@@ -18,10 +18,11 @@ import java.util.List;
 public class User extends BaseModel {
     @Id
     private String id;
+    @NotBlank
     private String companyId;
-    @NotNull
+    @NotBlank
     private String email;
-    @NotNull
+    @NotBlank
     private String password;
     private String firstName, lastName;
     private List<String> roles;

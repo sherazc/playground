@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Data
@@ -17,7 +17,7 @@ import java.util.Date;
 public class Company extends BaseModel {
     @Id
     private String id;
-    @NotNull
+    @NotBlank
     private String name;
     @Valid
     private Address address;
