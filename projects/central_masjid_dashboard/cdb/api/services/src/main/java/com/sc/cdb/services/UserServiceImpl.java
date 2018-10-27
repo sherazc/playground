@@ -36,7 +36,14 @@ public class UserServiceImpl implements UserService {
         ServiceResponse.ServiceResponseBuilder<User> builder = ServiceResponse.builder();
         builder.target(user);
 
-        Optional<User> existingUserOptional = this.userRepository.findByEmailIgnoreCase(user.getEmail());
+        boolean userUpdate = StringUtils.isNotBlank(user.getId());
+        Optional<User> existingUserOptional;
+        if (userUpdate) {
+            existingUserOptional = this.userRepository.findByIdIsNotAndEmailIgnoreCase(user.getId(), user.getEmail());
+        } else {
+            existingUserOptional = this.userRepository.findByEmailIgnoreCase(user.getEmail());
+        }
+
         if (existingUserOptional.isPresent()) {
             return builder.build().rejectField(
                     "user.email",
@@ -44,14 +51,20 @@ public class UserServiceImpl implements UserService {
                             "{0} already exists.", existingUserOptional.get().getEmail()));
         }
 
-        Company savedCompany = companyRepository.save(company);
-        builder.target(savedCompany);
+        User savedUser = userRepository.save(user);
+        builder.target(savedUser);
 
-        return builder.build().accept(MessageFormat.format(
-                "Company {0} successfully created.",
-                company.getName()));
+        String successMessage;
+        if (userUpdate) {
+            successMessage = MessageFormat.format(
+                    "User {0} successfully updated.",
+                    user.getEmail());
+        } else {
+            successMessage = MessageFormat.format(
+                    "User {0} successfully created.",
+                    user.getEmail());
+        }
 
-
-        return null;
+        return builder.build().accept(successMessage);
     }
 }

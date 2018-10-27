@@ -19,9 +19,13 @@ import javax.validation.Valid;
 @RequestMapping("/company/user")
 public class CompanyUserController {
 
-
     private UserService userService;
     private ErrorResponseDecorator errorResponseDecorator;
+
+    public CompanyUserController(UserService userService, ErrorResponseDecorator errorResponseDecorator) {
+        this.userService = userService;
+        this.errorResponseDecorator = errorResponseDecorator;
+    }
 
     @PostMapping
     public ResponseEntity<?> create(@Valid @RequestBody User user, BindingResult bindingResult) {
@@ -34,7 +38,7 @@ public class CompanyUserController {
                             bindingResult.getAllErrors()));
         }
 
-        ServiceResponse<Company> response = userService.createOrUpdate(user);
+        ServiceResponse<User> response = userService.createOrUpdate(user);
         if (response.isSuccessful()) {
             return ResponseEntity.ok(response);
         } else {
