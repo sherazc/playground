@@ -39,10 +39,10 @@ public class UserServiceImpl implements UserService {
         Optional<User> existingUserOptional = getExistingUser(user, update);
 
         if (existingUserOptional.isPresent()) {
-            return builder.build().rejectField(
-                    "user.email",
-                    MessageFormat.format(
-                            "{0} already exists.", existingUserOptional.get().getEmail()));
+            String errorMessage = MessageFormat.format(
+                    "{0} already exists.", existingUserOptional.get().getEmail());
+            LOG.error(errorMessage);
+            return builder.build().rejectField("user.email", errorMessage);
         }
 
         User savedUser = userRepository.save(user);
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
                     "User {0} successfully created.",
                     user.getEmail());
         }
-
+        LOG.debug(successMessage);
         return builder.build().accept(successMessage);
     }
 

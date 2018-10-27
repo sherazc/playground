@@ -40,10 +40,10 @@ public class CompanyServiceImpl implements CompanyService {
         Optional<Company> existingCompanyOptional = getExistingCompany(company, update);
 
         if (existingCompanyOptional.isPresent()) {
-            return builder.build().rejectField(
-                    "company.name",
-                    MessageFormat.format(
-                            "{0} already exists.", existingCompanyOptional.get().getName()));
+            String errorMessage = MessageFormat.format(
+                    "{0} already exists.", existingCompanyOptional.get().getName());
+            LOG.error(errorMessage);
+            return builder.build().rejectField("company.name", errorMessage);
         }
 
         Company savedCompany = companyRepository.save(company);
@@ -59,7 +59,7 @@ public class CompanyServiceImpl implements CompanyService {
                     "Company {0} successfully created.",
                     company.getName());
         }
-
+        LOG.debug(successMessage);
         return builder.build().accept(successMessage);
     }
 
