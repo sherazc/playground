@@ -34,8 +34,8 @@ class RegisterCompany extends Component {
     }
 
     createFlatCompany(companyServiceResponse) {
-        if (companyServiceResponse.target) {
-            const company = companyServiceResponse.target;
+        const company = companyServiceResponse.target;
+        if (company) {
             return {
                 id: company.id,
                 name: company.name,
@@ -55,6 +55,14 @@ class RegisterCompany extends Component {
             }
         }
     }
+    static getDerivedStateFromProps(props, state) {
+        let company = props.companyServiceResponse.target;
+        if (company.id && company.id.length > 0) {
+            return {...state, id: company.id};
+        } else {
+            return null;
+        }
+    }
 
     render() {
         return (
@@ -66,12 +74,6 @@ class RegisterCompany extends Component {
     }
 
     registrationForm() {
-        const company = this.props.companyServiceResponse.target;
-        let companyId = "";
-        if (company && company.id) {
-            companyId = this.props.companyServiceResponse.target.id;
-        }
-
         return (
             <div>
                 <div>
@@ -80,7 +82,7 @@ class RegisterCompany extends Component {
                 <div>
                     <form onSubmit={this.onSubmit}>
                         {/*<input name="id" value={this.props.companyServiceResponse.target.id}/>*/}
-                        <input name="id" value={companyId} readOnly/>
+                        <input name="id" value={this.state.id} readOnly/>
                         <InputField
                             label="Masjid Name"
                             name="name"
