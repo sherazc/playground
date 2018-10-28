@@ -1,7 +1,6 @@
-import {CREATE_UPDATE_COMPANY} from "./actions";
+import {SAVE_COMPANY} from "./actions";
 
 const initialState = {
-    createUpdateCompany: {},
     companyServiceResponse: {
         "successful": undefined,
         "message": "",
@@ -22,8 +21,8 @@ const initialState = {
 
 export const registerCompany = (state = initialState, action) => {
     switch (action.type) {
-        case CREATE_UPDATE_COMPANY:
-            return {...state, createUpdateCompany: action.payload};
+        case SAVE_COMPANY:
+            return {...state, companyServiceResponse: action.payload};
         default:
             return state;
     }

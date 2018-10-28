@@ -3,14 +3,18 @@ import history from './app-browse-history';
 import {showLoadingAction, hideLoadingAction} from '../store/common/loading'
 import {ALERT_ERROR, SHOW_ALERT} from "../store/common/alert/actions";
 
+const DEBUG_INTERCEPTOR = false;
+
 const setupInterceptor = (store) => {
     axios.interceptors.request.use((configs) => {
         store.dispatch(showLoadingAction);
-        configs.headers['my_custom_header'] = 'Custom Header Value';
-        console.log("Request interceptor headers", configs.headers);
-        console.log("Request interceptor body", configs.data);
-        console.log("Request interceptor URL", configs.url);
-        console.log("Request interceptor method", configs.method);
+        if (DEBUG_INTERCEPTOR) {
+            configs.headers['my_custom_header'] = 'Custom Header Value';
+            console.log("Request interceptor headers", configs.headers);
+            console.log("Request interceptor body", configs.data);
+            console.log("Request interceptor URL", configs.url);
+            console.log("Request interceptor method", configs.method);
+        }
 
         // TODO: Use this technique to replace if authentication fails.
         if (configs.url.indexOf("/un-auth") > -1) {
@@ -21,10 +25,17 @@ const setupInterceptor = (store) => {
 
 
     axios.interceptors.response.use(function (response) {
-        console.log("response", response);
+        if (DEBUG_INTERCEPTOR) {
+            console.log("Success response", response);
+        }
+
         store.dispatch(hideLoadingAction);
         return response;
     }, function (error) {
+        if (DEBUG_INTERCEPTOR) {
+            console.error("error request", error.request);
+            console.error("error response", error.response);
+        }
         // Do something with response error
         let errorMessage = "Error occurred!";
         if (error.response && error.response.data && error.response.data.message) {

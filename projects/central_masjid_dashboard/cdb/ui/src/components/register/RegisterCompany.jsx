@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import StateSelect from "../partials/StateSelect";
 import InputField from "../partials/InputField";
+import {saveCompanyAction} from "../../store/register-company/actions";
 
 class RegisterCompany extends Component {
 
@@ -29,10 +30,7 @@ class RegisterCompany extends Component {
                 zip: this.state.addressZip
             }
         };
-
-        console.log(saveCompany);
-
-        // this.props.createUpdateCompanyAction(createUpdateCompany);
+        this.props.saveCompanyAction(saveCompany);
     }
 
     createFlatCompany(companyServiceResponse) {
@@ -48,6 +46,7 @@ class RegisterCompany extends Component {
     }
 
     render() {
+        // console.log("Render called", this.props.companyServiceResponse);
         return (
             <div>
                 <h3>Register Masjid</h3>
@@ -110,16 +109,13 @@ class RegisterCompany extends Component {
 
 
 const actions = {
-    //createUpdateCompanyAction: createUpdateCompanyAction
+    saveCompanyAction: saveCompanyAction
 };
 
 
 const mapStateToProps = state => {
     return {
-        createUpdateCompany: state.registerCompany.createUpdateCompany,
-        companyServiceResponse: state.registerCompany.companyServiceResponse,
-
-
+        companyServiceResponse: state.registerCompany.companyServiceResponse
     };
 };
 
