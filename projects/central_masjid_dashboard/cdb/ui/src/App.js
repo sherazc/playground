@@ -13,6 +13,7 @@ import Alert from "./components/alert/Alert";
 import Loading from "./components/loading/Loading";
 import setupInterceptor from "./services/http-interceptor";
 import RegisterCompany from "./components/register/RegisterCompany";
+import RegisterCompanyUser from "./components/register/RegisterCompanyUser";
 
 setupInterceptor(store);
 
@@ -28,7 +29,8 @@ class App extends Component {
                         <Switch>
                             <Route path='/' component={Home} exact/>
                             <Route path='/login' component={Login}/>
-                            <Route path='/register' component={RegisterCompany}/>
+                            <Route path='/register' component={RegisterCompany} exact/>
+                            <Route path='/register/user' component={RegisterCompanyUser} exact/>
                         </Switch>
                     </div>
                 </Router>
