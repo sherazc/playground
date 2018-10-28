@@ -4,15 +4,15 @@ const initialState = {
     companyServiceResponse: {
         "successful": undefined,
         "message": "",
-        "fieldErrors": [],
+        "fieldErrors": {},
         "target": {
             "id": "",
-            "name": "Test CN",
+            "name": "",
             "address": {
-                "street": "123 st",
-                "city": "test city",
-                "state": "GA",
-                "zip": "30004"
+                "street": "",
+                "city": "",
+                "state": "",
+                "zip": ""
             },
             "active": true
         }
