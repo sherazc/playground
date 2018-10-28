@@ -2,13 +2,12 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import StateSelect from "../partials/StateSelect";
 import InputField from "../partials/InputField";
-import {createUpdateCompanyAction} from "../../store/company/actions";
 
 class RegisterCompany extends Component {
 
     constructor(props) {
         super(props);
-        this.state = this.createBlankFlatCompany();
+        this.state = this.createFlatCompany(this.props.companyServiceResponse);
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -20,63 +19,39 @@ class RegisterCompany extends Component {
 
     onSubmit(event) {
         event.preventDefault();
-        // const state = this.state;
-
-        const createUpdateCompany = {
-            company: {
-                name: this.state.companyName,
-                address: {
-                    street: this.state.companyAddressStreet,
-                    city: this.state.companyAddressCity,
-                    state: this.state.companyAddressState,
-                    zip: this.state.companyAddressZip
-                }
-            },
-            adminUser: {
-                email: this.state.adminUserEmail,
-                password: this.state.adminUserPassword,
-                firstName: this.state.adminUserFirstName,
-                lastName: this.state.adminUserLastName,
-                roles: ["ADMIN"],
-                active: true,
-                verified: true
+        const saveCompany = {
+            id: this.state.id,
+            name: this.state.name,
+            address: {
+                street: this.state.addressStreet,
+                city: this.state.addressCity,
+                state: this.state.addressState,
+                zip: this.state.addressZip
             }
         };
-        this.props.createUpdateCompanyAction(createUpdateCompany);
+
+        console.log(saveCompany);
+
+        // this.props.createUpdateCompanyAction(createUpdateCompany);
     }
 
-    createBlankFlatCompany() {
+    createFlatCompany(companyServiceResponse) {
+        const company = companyServiceResponse.target;
         return {
-            companyName: "",
-            companyAddressStreet: "",
-            companyAddressCity: "",
-            companyAddressState: "",
-            companyAddressZip: "",
-            companyAddressLongitude: "",
-            companyAddressLatitude: "",
-            companyIcon: "",
-            adminUserEmail: "",
-            adminUserPassword: "",
-            adminUserFirstName: "",
-            adminUserLastName: "",
-            adminUserRoles: []
+            id: company.id,
+            name: company.name,
+            addressStreet: company.address.street,
+            addressCity: company.address.city,
+            addressState: company.address.state,
+            addressZip: company.address.zip,
         }
     }
 
     render() {
-        const registrationComplete = this.props.createUpdateCompany.successful;
-
-        let formOrConfirm;
-        if (registrationComplete) {
-            formOrConfirm = this.registrationConfimation();
-        } else {
-            formOrConfirm = this.registrationForm();
-        }
-
         return (
             <div>
                 <h3>Register Masjid</h3>
-                {formOrConfirm}
+                {this.registrationForm()}
             </div>
         );
     }
@@ -89,40 +64,41 @@ class RegisterCompany extends Component {
                 </div>
                 <div>
                     <form onSubmit={this.onSubmit}>
+                        <input name="id" value={this.state.id} onChange={this.onChange}/>
                         <InputField
                             label="Masjid Name"
-                            name="companyName"
+                            name="name"
                             onChange={this.onChange}
                             required={true}
-                            value={this.state.companyName}/>
+                            value={this.state.name}/>
 
                         <InputField
                             label="Street"
-                            name="companyAddressStreet"
+                            name="addressStreet"
                             onChange={this.onChange}
                             required={true}
-                            value={this.state.companyAddressStreet}/>
+                            value={this.state.addressStreet}/>
 
                         <InputField
                             label="City"
-                            name="companyAddressCity"
+                            name="addressCity"
                             onChange={this.onChange}
                             required={true}
-                            value={this.state.companyAddressCity}/>
+                            value={this.state.addressCity}/>
 
                         <StateSelect
                             label="State"
-                            selectedStateAbv={this.state.companyAddressState}
-                            name="companyAddressState"
+                            selectedStateAbv={this.state.addressState}
+                            name="addressState"
                             required={true}
                             onChange={this.onChange}/>
 
                         <InputField
                             label="Zip"
-                            name="companyAddressZip"
+                            name="addressZip"
                             onChange={this.onChange}
                             required={true}
-                            value={this.state.companyAddressZip}/>
+                            value={this.state.addressZip}/>
 
                         <button type="submit">Next</button>
                     </form>
@@ -130,55 +106,20 @@ class RegisterCompany extends Component {
             </div>
         );
     }
-
-    registrationConfimation() {
-        const {name} = this.props.createUpdateCompany.target.company;
-        const {email} = this.props.createUpdateCompany.target.adminUser;
-        return (
-            <div>
-                Registration Complete
-                <br/>
-                {name} registered by {email}.
-            </div>
-        );
-    }
 }
-
-/*
-{
-   "company":    {
-      "name": "Company Name",
-      "address":       {
-         "street": "123 St",
-         "city": "City",
-         "state": "ST",
-         "zip": "12345",
-         "longitude": "1.1",
-         "latitude": "2.2"
-      },
-      "icon": "icon"
-   },
-   "adminUser": {
-      "email": "email@email.com",
-      "password": "password123",
-      "firstName": "First",
-      "lastName": "Last",
-      "roles": ["ADMIN"],
-      "active": true,
-      "verified": true
-   }
-}
- */
 
 
 const actions = {
-    createUpdateCompanyAction: createUpdateCompanyAction
+    //createUpdateCompanyAction: createUpdateCompanyAction
 };
 
 
 const mapStateToProps = state => {
     return {
-        createUpdateCompany: state.company.createUpdateCompany
+        createUpdateCompany: state.registerCompany.createUpdateCompany,
+        companyServiceResponse: state.registerCompany.companyServiceResponse,
+
+
     };
 };
 

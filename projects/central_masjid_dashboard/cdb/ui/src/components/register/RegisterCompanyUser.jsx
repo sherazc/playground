@@ -23,12 +23,12 @@ class RegisterCompany extends Component {
 
         const createUpdateCompany = {
             company: {
-                name: this.state.companyName,
+                name: this.state.name,
                 address: {
-                    street: this.state.companyAddressStreet,
-                    city: this.state.companyAddressCity,
-                    state: this.state.companyAddressState,
-                    zip: this.state.companyAddressZip
+                    street: this.state.addressStreet,
+                    city: this.state.addressCity,
+                    state: this.state.addressState,
+                    zip: this.state.addressZip
                 }
             },
             adminUser: {
@@ -46,11 +46,11 @@ class RegisterCompany extends Component {
 
     createBlankFlatCompany() {
         return {
-            companyName: "",
-            companyAddressStreet: "",
-            companyAddressCity: "",
-            companyAddressState: "",
-            companyAddressZip: "",
+            name: "",
+            addressStreet: "",
+            addressCity: "",
+            addressState: "",
+            addressZip: "",
             companyAddressLongitude: "",
             companyAddressLatitude: "",
             companyIcon: "",
