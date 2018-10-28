@@ -1,12 +1,13 @@
 import {SAVE_COMPANY} from "./actions";
 
 const initialState = {
+    /*
     companyServiceResponse: {
         "successful": undefined,
         "message": "",
         "fieldErrors": [],
         "target": {
-            "id": "123",
+            "id": undefined,
             "name": "Test CN",
             "address": {
                 "street": "123 st",
@@ -17,6 +18,8 @@ const initialState = {
             "active": true
         }
     }
+    */
+    companyServiceResponse: {}
 };
 
 export const registerCompany = (state = initialState, action) => {

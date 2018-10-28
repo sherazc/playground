@@ -3,7 +3,7 @@ import history from './app-browse-history';
 import {showLoadingAction, hideLoadingAction} from '../store/common/loading'
 import {ALERT_ERROR, SHOW_ALERT} from "../store/common/alert/actions";
 
-const DEBUG_INTERCEPTOR = false;
+const DEBUG_INTERCEPTOR = true;
 
 const setupInterceptor = (store) => {
     axios.interceptors.request.use((configs) => {

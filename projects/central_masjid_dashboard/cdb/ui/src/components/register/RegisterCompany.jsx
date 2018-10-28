@@ -34,19 +34,29 @@ class RegisterCompany extends Component {
     }
 
     createFlatCompany(companyServiceResponse) {
-        const company = companyServiceResponse.target;
-        return {
-            id: company.id,
-            name: company.name,
-            addressStreet: company.address.street,
-            addressCity: company.address.city,
-            addressState: company.address.state,
-            addressZip: company.address.zip,
+        if (companyServiceResponse.target) {
+            const company = companyServiceResponse.target;
+            return {
+                id: company.id,
+                name: company.name,
+                addressStreet: company.address.street,
+                addressCity: company.address.city,
+                addressState: company.address.state,
+                addressZip: company.address.zip,
+            }
+        } else {
+            return {
+                id: "",
+                name: "",
+                addressStreet: "",
+                addressCity: "",
+                addressState: "",
+                addressZip: "",
+            }
         }
     }
 
     render() {
-        // console.log("Render called", this.props.companyServiceResponse);
         return (
             <div>
                 <h3>Register Masjid</h3>
@@ -56,6 +66,12 @@ class RegisterCompany extends Component {
     }
 
     registrationForm() {
+        const company = this.props.companyServiceResponse.target;
+        let companyId = "";
+        if (company && company.id) {
+            companyId = this.props.companyServiceResponse.target.id;
+        }
+
         return (
             <div>
                 <div>
@@ -63,7 +79,8 @@ class RegisterCompany extends Component {
                 </div>
                 <div>
                     <form onSubmit={this.onSubmit}>
-                        <input name="id" value={this.state.id} onChange={this.onChange}/>
+                        {/*<input name="id" value={this.props.companyServiceResponse.target.id}/>*/}
+                        <input name="id" value={companyId} readOnly/>
                         <InputField
                             label="Masjid Name"
                             name="name"

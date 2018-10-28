@@ -36,6 +36,10 @@ public class CompanyServiceImpl implements CompanyService {
         ServiceResponse.ServiceResponseBuilder<Company> builder = ServiceResponse.builder();
         builder.target(company);
 
+        if (StringUtils.isBlank(company.getId())) {
+            company.setId(null);
+        }
+
         boolean update = StringUtils.isNotBlank(company.getId());
         Optional<Company> existingCompanyOptional = getExistingCompany(company, update);
 
