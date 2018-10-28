@@ -4,6 +4,16 @@ const InputField = (props) => {
     const type = props.type ? props.type : "text";
     const placeholder = props.placeholder ? props.placeholder : props.label;
 
+    const makeFieldError = (fieldError) => {
+        if (fieldError && fieldError.length > 0) {
+            return (
+                <div style={{color: "red"}}>
+                    {fieldError}
+                </div>
+            );
+        }
+    };
+
     const makeHelpSection = (helpText) => {
         if (helpText) {
             return (
@@ -14,13 +24,15 @@ const InputField = (props) => {
         } else {
             return "";
         }
-    };
 
+    };
     const requiredMarker = required => {
         if (required) {
             return <span style={{color:'red'}}>*</span>;
         }
+
     };
+
 
     return (
         <div>
@@ -34,6 +46,7 @@ const InputField = (props) => {
                 id={props.name}
                 required={props.required}
                 placeholder={placeholder}/>
+            {makeFieldError(props.fieldError)}
             {makeHelpSection(props.help)}
         </div>
     );

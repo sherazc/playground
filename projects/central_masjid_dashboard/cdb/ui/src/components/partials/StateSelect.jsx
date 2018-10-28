@@ -8,6 +8,16 @@ const StateSelect = (props) => {
         })
     };
 
+    const makeFieldError = (fieldError) => {
+        if (fieldError && fieldError.length > 0) {
+            return (
+                <div style={{color: "red"}}>
+                    {fieldError}
+                </div>
+            );
+        }
+    };
+
     return (
         <div>
             <label htmlFor={props.name}>{props.label}</label>
@@ -18,6 +28,7 @@ const StateSelect = (props) => {
                 onChange={props.onChange}>
                 {buildStateOptions(states)}
             </select>
+            {makeFieldError(props.fieldError)}
         </div>
     );
 };

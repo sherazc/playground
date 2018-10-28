@@ -8,7 +8,7 @@ class RegisterCompany extends Component {
 
     constructor(props) {
         super(props);
-        this.state = this.createFlatCompany(this.props.companyServiceResponse);
+        this.state = this.createFlatState(this.props.companyServiceResponse);
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -33,7 +33,7 @@ class RegisterCompany extends Component {
         this.props.saveCompanyAction(saveCompany);
     }
 
-    createFlatCompany(companyServiceResponse) {
+    createFlatState(companyServiceResponse) {
         const company = companyServiceResponse.target;
         if (company) {
             return {
@@ -45,6 +45,8 @@ class RegisterCompany extends Component {
                 addressZip: company.address.zip,
             }
         } else {
+            // Don't think else will ever be called, because
+            // companyServiceResponse.target will never be falsely
             return {
                 id: "",
                 name: "",
@@ -55,11 +57,16 @@ class RegisterCompany extends Component {
             }
         }
     }
+
+    // When props.companyServiceResponse.target.id is updated in the props
+    // then using it to update state
     static getDerivedStateFromProps(props, state) {
         let company = props.companyServiceResponse.target;
         if (company.id && company.id.length > 0) {
+            // creating a new state object with updated id.
             return {...state, id: company.id};
         } else {
+            // Return null if nothing needs to be updated.
             return null;
         }
     }
@@ -74,6 +81,7 @@ class RegisterCompany extends Component {
     }
 
     registrationForm() {
+        const fieldErrors = this.props.companyServiceResponse.fieldErrors;
         return (
             <div>
                 <div>
@@ -88,6 +96,7 @@ class RegisterCompany extends Component {
                             name="name"
                             onChange={this.onChange}
                             required={true}
+                            fieldError={fieldErrors["company.name"]}
                             value={this.state.name}/>
 
                         <InputField
@@ -95,6 +104,7 @@ class RegisterCompany extends Component {
                             name="addressStreet"
                             onChange={this.onChange}
                             required={true}
+                            fieldError={fieldErrors["company.address.street"]}
                             value={this.state.addressStreet}/>
 
                         <InputField
@@ -102,6 +112,7 @@ class RegisterCompany extends Component {
                             name="addressCity"
                             onChange={this.onChange}
                             required={true}
+                            fieldError={fieldErrors["company.address.city"]}
                             value={this.state.addressCity}/>
 
                         <StateSelect
@@ -109,6 +120,7 @@ class RegisterCompany extends Component {
                             selectedStateAbv={this.state.addressState}
                             name="addressState"
                             required={true}
+                            fieldError={fieldErrors["company.address.state"]}
                             onChange={this.onChange}/>
 
                         <InputField
@@ -116,6 +128,7 @@ class RegisterCompany extends Component {
                             name="addressZip"
                             onChange={this.onChange}
                             required={true}
+                            fieldError={fieldErrors["company.address.zip"]}
                             value={this.state.addressZip}/>
 
                         <button type="submit">Next</button>
