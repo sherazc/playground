@@ -5,7 +5,26 @@ import {connect} from "react-redux";
 
 class RegisterCompanyUser extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = this.createFlatState(this.props.companyUserServiceResponse);
+
+        this.onChange = this.onChange.bind(this);
+        // this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    onChange(event) {
+        this.setState({[event.target.name]: event.target.value});
+    }
+
+    createFlatState(companyUserServiceResponse) {
+        return {...companyUserServiceResponse.target}
+    }
+
+
+
     render() {
+        console.log(this.state);
         return (
             <div>
                 <h3>Register</h3>
@@ -26,46 +45,7 @@ class RegisterCompanyUser extends Component {
             </div>
         );
     }
-
-    registrationConfimation() {
-        const {name} = this.props.createUpdateCompany.target.company;
-        const {email} = this.props.createUpdateCompany.target.adminUser;
-        return (
-            <div>
-                Registration Complete
-                <br/>
-                {name} registered by {email}.
-            </div>
-        );
-    }
 }
-
-/*
-{
-   "company":    {
-      "name": "Company Name",
-      "address":       {
-         "street": "123 St",
-         "city": "City",
-         "state": "ST",
-         "zip": "12345",
-         "longitude": "1.1",
-         "latitude": "2.2"
-      },
-      "icon": "icon"
-   },
-   "adminUser": {
-      "email": "email@email.com",
-      "password": "password123",
-      "firstName": "First",
-      "lastName": "Last",
-      "roles": ["ADMIN"],
-      "active": true,
-      "verified": true
-   }
-}
- */
-
 
 const actions = {
     //createUpdateCompanyAction: createUpdateCompanyAction
@@ -74,7 +54,7 @@ const actions = {
 
 const mapStateToProps = state => {
     return {
-        //createUpdateCompany: state.company.createUpdateCompany
+        companyUserServiceResponse: state.registerCompany.companyUserServiceResponse
     };
 };
 

@@ -16,7 +16,22 @@ const initialState = {
             },
             "active": true
         }
-    }
+    },
+    companyUserServiceResponse: {
+        "successful": undefined,
+        "message": "",
+        "fieldErrors": {},
+        "target": {
+            "id": "",
+            "email": "email@email.com",
+            "password": "password123",
+            "firstName": "First",
+            "lastName": "Last",
+            "roles": ["ADMIN"],
+            "active": true,
+            "verified": true
+        }
+    },
 };
 
 export const registerCompany = (state = initialState, action) => {
