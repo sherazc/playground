@@ -20,8 +20,9 @@ class RegisterCompany extends Component {
 
     onSubmit(event) {
         event.preventDefault();
+        let company = this.props.companyServiceResponse.target;
         const saveCompany = {
-            id: this.state.id,
+            id: company.id,
             name: this.state.name,
             address: {
                 street: this.state.addressStreet,
@@ -44,30 +45,6 @@ class RegisterCompany extends Component {
                 addressState: company.address.state,
                 addressZip: company.address.zip,
             }
-        } else {
-            // Don't think else will ever be called, because
-            // companyServiceResponse.target will never be falsely
-            return {
-                id: "",
-                name: "",
-                addressStreet: "",
-                addressCity: "",
-                addressState: "",
-                addressZip: "",
-            }
-        }
-    }
-
-    // When props.companyServiceResponse.target.id is updated in the props
-    // then using it to update state
-    static getDerivedStateFromProps(props, state) {
-        let company = props.companyServiceResponse.target;
-        if (company.id && company.id.length > 0) {
-            // creating a new state object with updated id.
-            return {...state, id: company.id};
-        } else {
-            // Return null if nothing needs to be updated.
-            return null;
         }
     }
 
@@ -87,53 +64,49 @@ class RegisterCompany extends Component {
                 <div>
                     <img src="images/company_create_update.svg" alt="Company create update"/>
                 </div>
-                <div>
-                    <form onSubmit={this.onSubmit}>
-                        {/*<input name="id" value={this.props.companyServiceResponse.target.id}/>*/}
-                        <input name="id" value={this.state.id} readOnly/>
-                        <InputField
-                            label="Masjid Name"
-                            name="name"
-                            onChange={this.onChange}
-                            required={true}
-                            fieldError={fieldErrors["company.name"]}
-                            value={this.state.name}/>
+                <form onSubmit={this.onSubmit}>
+                    <InputField
+                        label="Masjid Name"
+                        name="name"
+                        onChange={this.onChange}
+                        required={true}
+                        fieldError={fieldErrors["company.name"]}
+                        value={this.state.name}/>
 
-                        <InputField
-                            label="Street"
-                            name="addressStreet"
-                            onChange={this.onChange}
-                            required={true}
-                            fieldError={fieldErrors["company.address.street"]}
-                            value={this.state.addressStreet}/>
+                    <InputField
+                        label="Street"
+                        name="addressStreet"
+                        onChange={this.onChange}
+                        required={true}
+                        fieldError={fieldErrors["company.address.street"]}
+                        value={this.state.addressStreet}/>
 
-                        <InputField
-                            label="City"
-                            name="addressCity"
-                            onChange={this.onChange}
-                            required={true}
-                            fieldError={fieldErrors["company.address.city"]}
-                            value={this.state.addressCity}/>
+                    <InputField
+                        label="City"
+                        name="addressCity"
+                        onChange={this.onChange}
+                        required={true}
+                        fieldError={fieldErrors["company.address.city"]}
+                        value={this.state.addressCity}/>
 
-                        <StateSelect
-                            label="State"
-                            selectedStateAbv={this.state.addressState}
-                            name="addressState"
-                            required={true}
-                            fieldError={fieldErrors["company.address.state"]}
-                            onChange={this.onChange}/>
+                    <StateSelect
+                        label="State"
+                        selectedStateAbv={this.state.addressState}
+                        name="addressState"
+                        required={true}
+                        fieldError={fieldErrors["company.address.state"]}
+                        onChange={this.onChange}/>
 
-                        <InputField
-                            label="Zip"
-                            name="addressZip"
-                            onChange={this.onChange}
-                            required={true}
-                            fieldError={fieldErrors["company.address.zip"]}
-                            value={this.state.addressZip}/>
+                    <InputField
+                        label="Zip"
+                        name="addressZip"
+                        onChange={this.onChange}
+                        required={true}
+                        fieldError={fieldErrors["company.address.zip"]}
+                        value={this.state.addressZip}/>
 
-                        <button type="submit">Next</button>
-                    </form>
-                </div>
+                    <button type="submit">Next</button>
+                </form>
             </div>
         );
     }

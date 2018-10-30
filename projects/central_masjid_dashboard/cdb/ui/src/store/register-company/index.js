@@ -1,4 +1,4 @@
-import {SAVE_COMPANY} from "./actions";
+import {SAVE_COMPANY, SAVE_COMPANY_USER} from "./actions";
 
 const initialState = {
     companyServiceResponse: {
@@ -6,7 +6,7 @@ const initialState = {
         "message": "",
         "fieldErrors": {},
         "target": {
-            "id": "",
+            "id": undefined,
             "name": "",
             "address": {
                 "street": "",
@@ -22,11 +22,12 @@ const initialState = {
         "message": "",
         "fieldErrors": {},
         "target": {
-            "id": "abc",
-            "email": "email@email.com",
-            "password": "password123",
-            "firstName": "First",
-            "lastName": "Last",
+            "id": undefined,
+            "companyId": undefined,
+            "email": "",
+            "password": "",
+            "firstName": "",
+            "lastName": "",
             "roles": ["ADMIN"],
             "active": true,
             "verified": true
@@ -38,6 +39,8 @@ export const registerCompany = (state = initialState, action) => {
     switch (action.type) {
         case SAVE_COMPANY:
             return {...state, companyServiceResponse: action.payload};
+        case SAVE_COMPANY_USER:
+            return {...state, companyUserServiceResponse: action.payload};
         default:
             return state;
     }

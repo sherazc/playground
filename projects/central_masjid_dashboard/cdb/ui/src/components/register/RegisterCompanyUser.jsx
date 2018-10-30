@@ -1,8 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import InputField from "../partials/InputField";
-// import InputField from "../partials/InputField";
-// import {saveCompanyAction} from "../../store/register-company/actions";
+import {saveCompanyUserAction} from "../../store/register-company/actions";
 
 class RegisterCompanyUser extends Component {
 
@@ -11,18 +10,41 @@ class RegisterCompanyUser extends Component {
         this.state = this.createFlatState(this.props.companyUserServiceResponse);
 
         this.onChange = this.onChange.bind(this);
-        // this.onSubmit = this.onSubmit.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     onChange(event) {
         this.setState({[event.target.name]: event.target.value});
     }
 
-    createFlatState(companyUserServiceResponse) {
-        return {...companyUserServiceResponse.target}
+    onSubmit(event) {
+        event.preventDefault();
+        let company = this.props.companyServiceResponse.target;
+        let user = this.props.companyUserServiceResponse.target;
+        const saveUser = {
+            id: user.id,
+            "companyId": company.id,
+            "email": this.state.email,
+            "password": this.state.password,
+            "firstName": this.state.firstName,
+            "lastName": this.state.lastName,
+            "roles": ["ADMIN"],
+            "active": true,
+            "verified": true
+
+        };
+        this.props.saveCompanyUserAction(saveUser);
+    }
+
+    componentDidMount() {
+        let company = this.props.companyServiceResponse.target;
+        console.log(company);
     }
 
 
+    createFlatState(companyUserServiceResponse) {
+        return {...companyUserServiceResponse.target}
+    }
 
     render() {
         console.log(this.state);
@@ -41,8 +63,7 @@ class RegisterCompanyUser extends Component {
                 <div>
                     <img src="../images/user_create_update.svg" alt="User create update"/>
                 </div>
-                <div>
-                    <input name="id" value={this.state.id} readOnly/>
+                <form onSubmit={this.onSubmit}>
                     <InputField
                         label="First Name"
                         name="firstName"
@@ -65,20 +86,28 @@ class RegisterCompanyUser extends Component {
                         required={true}
                         fieldError={fieldErrors["user.email"]}
                         value={this.state.email}/>
+                    <InputField
+                        label="Password"
+                        name="password"
+                        onChange={this.onChange}
+                        required={true}
+                        fieldError={fieldErrors["user.password"]}
+                        value={this.state.password}/>
                     <button type="submit">Submit</button>
-                </div>
+                </form>
             </div>
         );
     }
 }
 
 const actions = {
-    //createUpdateCompanyAction: createUpdateCompanyAction
+    saveCompanyUserAction: saveCompanyUserAction
 };
 
 
 const mapStateToProps = state => {
     return {
+        companyServiceResponse: state.registerCompany.companyServiceResponse,
         companyUserServiceResponse: state.registerCompany.companyUserServiceResponse
     };
 };
