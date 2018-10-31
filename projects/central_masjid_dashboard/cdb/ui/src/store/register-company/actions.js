@@ -1,5 +1,6 @@
 import axios from "axios";
 import {ALERT_SUCCESS, showAlert} from "../../store/common/alert/actions";
+import history from "../../services/app-browse-history";
 
 export const SAVE_COMPANY = "SAVE_COMPANY";
 export const SAVE_COMPANY_USER = "SAVE_COMPANY_USER";
@@ -35,6 +36,8 @@ export const saveCompanyUserAction = user => dispatch => {
                 });
 
                 dispatch(showAlert(ALERT_SUCCESS, "Successfully saved company user"));
+                // this is not working
+                history.replace("/register/user");
             }
         )
         .catch(error => {

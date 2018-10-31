@@ -20,6 +20,8 @@ const setupInterceptor = (store) => {
         if (configs.url.indexOf("/un-auth") > -1) {
             history.replace("/all-users");
         }
+        // TODO alternately we can use this technique
+        // https://github.com/salsita/redux-form-actions/issues/2
         return configs;
     });
 
