@@ -1,0 +1,35 @@
+    /* Converted SVG to Font using https://onlinefontconverter.com/*/
+@font-face {
+  font-family: 'sc_font';
+  src: url('sc_font.eot');
+  src: url('sc_font.eot?#iefix') format('embedded-opentype'),
+       url('sc_font.woff2') format('woff2'),
+       url('sc_font.woff') format('woff'),
+       url('sc_font.ttf') format('truetype'),
+       url('sc_font.svg#font4309') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+.sc_font {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'sc_font';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.sc_font_donation:before {
+  content: "A";
+}
+.sc_font_calendar:before {
+  content: "B";
+}
+.sc_font_news:before {
+  content: "C";
+}
+.sc_font_volunteer:before {
+  content: "D";
+}

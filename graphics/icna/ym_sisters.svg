@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="512"
+   height="256"
+   viewBox="0 0 512.00001 256"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="ym_sisters.svg">
+  <defs
+     id="defs4">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4190">
+      <stop
+         style="stop-color:#000000;stop-opacity:1"
+         offset="0"
+         id="stop4192" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1"
+         offset="1"
+         id="stop4194" />
+    </linearGradient>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter4227">
+      <feFlood
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood4229" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite4231" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="8"
+         result="blur"
+         id="feGaussianBlur4233" />
+      <feOffset
+         dx="8"
+         dy="8"
+         result="offset"
+         id="feOffset4235" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite4237" />
+    </filter>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath4243">
+      <ellipse
+         style="opacity:0.26100003;fill:#970500;fill-opacity:1;stroke:none;stroke-width:3.52041316;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="ellipse4245"
+         cx="724.60638"
+         cy="284.16486"
+         rx="301.16492"
+         ry="306.80161" />
+    </clipPath>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4190"
+       id="linearGradient4202"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-1341.4091,-1938.8815)"
+       x1="685.71704"
+       y1="936.71124"
+       x2="685.71704"
+       y2="1047.2853" />
+    <mask
+       maskUnits="userSpaceOnUse"
+       id="mask4198">
+      <rect
+         style="opacity:1;fill:url(#linearGradient4202);fill-opacity:1;stroke:none;stroke-width:8;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect4200"
+         width="779.57416"
+         height="73.331863"
+         x="-1060.4916"
+         y="-1006.1067"
+         transform="scale(-1,1)" />
+    </mask>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.82024028"
+     inkscape:cx="492.82019"
+     inkscape:cy="170.13141"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     borderlayer="true"
+     inkscape:showpageshadow="false"
+     inkscape:window-width="1440"
+     inkscape:window-height="851"
+     inkscape:window-x="0"
+     inkscape:window-y="1"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-796.36219)">
+    <g
+       id="g4257"
+       transform="matrix(0.36361937,0,0,0.36361937,-269.19893,854.58966)"
+       inkscape:export-filename="/Users/sheraz/Desktop/ym_sisters_ref.png"
+       inkscape:export-xdpi="73.469391"
+       inkscape:export-ydpi="73.469391">
+      <g
+         style="opacity:1"
+         transform="matrix(1.0980736,0,0,1.0980736,291.86253,-120.15049)"
+         clip-path="url(#clipPath4243)"
+         id="g4239">
+        <circle
+           style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3.52041316;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="circle4183"
+           cx="720.98926"
+           cy="274.91208"
+           r="297.54828" />
+        <path
+           inkscape:connector-curvature="0"
+           style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:3.52041316;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter4227)"
+           d="M 720.99029,-22.63675 A 297.54828,297.54828 0 0 0 423.44146,274.91208 297.54828,297.54828 0 0 0 720.99029,572.46091 297.54828,297.54828 0 0 0 1018.5371,274.91208 297.54828,297.54828 0 0 0 720.99029,-22.63675 Z M 745.78326,8.15622 A 266.75473,266.75473 0 0 1 1012.5371,274.91208 266.75473,266.75473 0 0 1 745.78326,541.66599 266.75473,266.75473 0 0 1 479.0274,274.91208 266.75473,266.75473 0 0 1 745.78326,8.15622 Z"
+           id="path4162" />
+      </g>
+      <path
+         inkscape:connector-curvature="0"
+         id="path4154"
+         d="m 1277.509,115.78304 c -11.3741,-0.11133 -23.0749,0.86649 -30.5397,2.88213 -11.5319,3.11369 -23.5443,9.40762 -32.4921,17.02597 -4.8072,4.09291 -6.6694,5.05789 -7.4228,3.84282 -1.9448,-3.13646 -13.4496,-11.82043 -19.9912,-15.08913 -12.5422,-6.26691 -23.7226,-8.44386 -43.489,-8.47047 -12.1732,-0.0168 -20.8834,0.62776 -27.1009,2.00651 -9.4167,2.08818 -23.7502,8.12043 -27.6228,11.62516 -2.0631,1.8671 -2.1843,1.58987 -2.1843,-5.01808 l 0,-6.99563 -8.6599,0 -8.6599,0 0,68.04214 0,0 0,68.04215 8.6599,0 8.6599,0 0,-48.47619 c 0,-46.40624 0.1099,-48.70195 2.5477,-53.73775 7.3113,-15.1032 28.8584,-25.21045 53.7417,-25.21045 19.3214,0 35.2198,5.24722 46.0019,15.18582 11.1757,10.30135 10.8569,8.50414 11.2695,63.68123 l 0.3634,48.55734 8.6058,0 8.6058,0 0,-46.79053 c 0,-53.98369 0.1027,-54.63907 9.9859,-64.52217 10.6762,-10.67613 26.621,-16.06704 47.5406,-16.07298 25.6986,-0.009 46.7227,10.20443 53.9524,26.2039 2.9265,6.47641 2.9595,7.01234 3.3325,53.86157 l 0.377,47.32021 8.5922,0 8.5923,0 -0.01,-42.99026 c 0,-23.64463 -0.5187,-46.10665 -1.1424,-49.91434 -3.4944,-21.33079 -20.4944,-36.55391 -47.7165,-42.7274 -6.3032,-1.42943 -14.9528,-2.17487 -23.7993,-2.26157 z m -394.96927,1.80928 0,42.00056 c 0,25.97962 0.52217,44.50233 1.37055,48.55736 4.58471,21.91341 24.32307,38.85586 52.44461,45.01795 14.91584,3.26841 44.75467,3.01969 59.05171,-0.49284 11.008,-2.70458 23.2508,-8.14785 30.1376,-13.39972 2.1055,-1.6056 4.1932,-2.91883 4.6393,-2.91883 1.1901,0 0.9444,10.48799 -0.4755,20.31208 -4.0845,28.25922 -26.5308,45.60626 -64.98416,50.22174 -23.46287,2.81611 -52.90451,-1.70358 -76.23044,-11.70058 -1.59986,-0.68567 -2.68348,0.27425 -4.63924,4.10768 -1.40339,2.75098 -2.55155,5.44691 -2.55155,5.99038 0,2.66814 30.49803,10.89595 46.78282,12.6207 43.5223,4.60954 82.39487,-5.11568 103.00267,-25.76902 8.7273,-8.74651 13.5391,-17.34626 15.8469,-28.3187 0.9201,-4.37439 1.3802,-29.79434 1.3802,-76.39278 l 0,-69.83598 -8.5652,0 -8.5633,0 -0.4504,44.22741 c -0.4338,42.70768 -0.5474,44.47194 -3.2958,51.3873 -5.508,13.85912 -22.1957,25.87412 -41.60041,29.94814 -11.26154,2.36451 -30.26334,2.35282 -41.67386,-0.0246 -20.37058,-4.24523 -36.51562,-15.73084 -41.73958,-29.69309 -2.42506,-6.48146 -2.56709,-9.34913 -2.56709,-51.35445 l 0,-44.49027 -8.65991,0 -8.65992,0 z"
+         style="fill:#00974c;fill-opacity:1" />
+    </g>
+    <g
+       id="g4175"
+       inkscape:export-filename="/Users/sheraz/Desktop/ym_sisters_ref.png"
+       inkscape:export-xdpi="73.469391"
+       inkscape:export-ydpi="73.469391">
+      <g
+         id="g4171">
+        <g
+           id="g4168">
+          <g
+             id="g4204"
+             transform="matrix(0.64788394,0,0,0.64788394,70.372285,328.95219)"
+             inkscape:export-filename="/Users/sheraz/Desktop/ym_sisters_ref.png"
+             inkscape:export-xdpi="73.469391"
+             inkscape:export-ydpi="73.469391">
+            <text
+               sodipodi:linespacing="125%"
+               id="text4180"
+               y="915.81403"
+               x="279.51132"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:70px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#00974c;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+               xml:space="preserve"><tspan
+                 y="915.81403"
+                 x="279.51132"
+                 id="tspan4182"
+                 sodipodi:role="line">Young Muslims Sisters</tspan></text>
+            <text
+               mask="url(#mask4198)"
+               transform="scale(1,-1)"
+               xml:space="preserve"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:70px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#00974c;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+               x="279.51132"
+               y="-949.19098"
+               id="text4184"
+               sodipodi:linespacing="125%"><tspan
+                 sodipodi:role="line"
+                 id="tspan4186"
+                 x="279.51132"
+                 y="-949.19098">Young Muslims Sisters</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
