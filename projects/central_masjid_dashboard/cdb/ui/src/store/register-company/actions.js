@@ -16,6 +16,7 @@ export const saveCompanyAction = company => dispatch => {
                 });
 
              dispatch(showAlert(ALERT_SUCCESS, "Successfully saved company"));
+             history.push("/register/user");
             }
         )
         .catch(error => {
@@ -37,7 +38,7 @@ export const saveCompanyUserAction = user => dispatch => {
 
                 dispatch(showAlert(ALERT_SUCCESS, "Successfully saved company user"));
                 // this is not working
-                history.replace("/register/user");
+
             }
         )
         .catch(error => {

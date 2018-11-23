@@ -1,5 +1,7 @@
 import {SAVE_COMPANY, SAVE_COMPANY_USER} from "./actions";
 
+// TODO create new or edit flags.
+// TODO create success company and user register summary start and its page.
 const initialState = {
     companyServiceResponse: {
         "successful": undefined,
