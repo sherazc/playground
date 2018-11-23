@@ -4,6 +4,7 @@ import history from "../../services/app-browse-history";
 
 export const SAVE_COMPANY = "SAVE_COMPANY";
 export const SAVE_COMPANY_USER = "SAVE_COMPANY_USER";
+export const SAVE_COMPANY_FINISH = "SAVE_COMPANY_FINISH";
 
 const baseUrl = 'http://localhost:8085';
 
@@ -37,8 +38,6 @@ export const saveCompanyUserAction = user => dispatch => {
                 });
 
                 dispatch(showAlert(ALERT_SUCCESS, "Successfully saved company user"));
-                // this is not working
-
             }
         )
         .catch(error => {

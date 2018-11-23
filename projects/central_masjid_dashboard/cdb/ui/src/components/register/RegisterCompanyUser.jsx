@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {Redirect} from "react-router";
 import {connect} from "react-redux";
 import InputField from "../partials/InputField";
 import {saveCompanyUserAction} from "../../store/register-company/actions";
@@ -36,18 +37,19 @@ class RegisterCompanyUser extends Component {
         this.props.saveCompanyUserAction(saveUser);
     }
 
-    componentDidMount() {
-        let company = this.props.companyServiceResponse.target;
-        console.log(company);
-    }
-
-
     createFlatState(companyUserServiceResponse) {
         return {...companyUserServiceResponse.target}
     }
 
+    isCompanyInState() {
+        let company = this.props.companyServiceResponse.target;
+        return company && company.id;
+    }
+
     render() {
-        console.log(this.state);
+        if (!this.isCompanyInState()) {
+            return <Redirect to="/register"/>
+        }
         return (
             <div>
                 <h3>Register</h3>

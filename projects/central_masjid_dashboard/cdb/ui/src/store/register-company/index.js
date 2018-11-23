@@ -2,40 +2,48 @@ import {SAVE_COMPANY, SAVE_COMPANY_USER} from "./actions";
 
 // TODO create new or edit flags.
 // TODO create success company and user register summary start and its page.
-const initialState = {
-    companyServiceResponse: {
-        "successful": undefined,
-        "message": "",
-        "fieldErrors": {},
-        "target": {
-            "id": undefined,
-            "name": "",
-            "address": {
+const initialStateCreator = () => {
+    return {
+        companyServiceResponse: {
+            "successful": undefined,
+                "message": "",
+                "fieldErrors": {},
+            "target": {
+                "id": undefined,
+                "name": "",
+                "address": {
                 "street": "",
-                "city": "",
-                "state": "",
-                "zip": ""
-            },
-            "active": true
+                    "city": "",
+                    "state": "",
+                    "zip": ""
+                },
+                "active": true
+            }
+        },
+        companyUserServiceResponse: {
+            "successful": undefined,
+                "message": "",
+                "fieldErrors": {},
+            "target": {
+                "id": undefined,
+                "companyId": undefined,
+                "email": "",
+                "password": "",
+                "firstName": "",
+                "lastName": "",
+                "roles": ["ADMIN"],
+                "active": true,
+                "verified": true
+            }
+        },
+        finishRegister: {
+            email: "",
+            companyName: ""
         }
-    },
-    companyUserServiceResponse: {
-        "successful": undefined,
-        "message": "",
-        "fieldErrors": {},
-        "target": {
-            "id": undefined,
-            "companyId": undefined,
-            "email": "",
-            "password": "",
-            "firstName": "",
-            "lastName": "",
-            "roles": ["ADMIN"],
-            "active": true,
-            "verified": true
-        }
-    },
+    }
 };
+
+const initialState = initialStateCreator();
 
 export const registerCompany = (state = initialState, action) => {
     switch (action.type) {
