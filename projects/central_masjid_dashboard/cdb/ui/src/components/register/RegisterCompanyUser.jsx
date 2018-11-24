@@ -9,7 +9,7 @@ class RegisterCompanyUser extends Component {
 
     constructor(props) {
         super(props);
-        this.state = this.createFlatState(this.props.companyUserServiceResponse);
+        this.state = this.createInitialState(this.props.companyUserServiceResponse);
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -38,7 +38,7 @@ class RegisterCompanyUser extends Component {
         this.props.saveCompanyUserAction(company, saveUser);
     }
 
-    createFlatState(companyUserServiceResponse) {
+    createInitialState(companyUserServiceResponse) {
         return {...companyUserServiceResponse.target}
     }
 

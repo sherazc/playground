@@ -8,7 +8,7 @@ class RegisterCompany extends Component {
 
     constructor(props) {
         super(props);
-        this.state = this.createFlatState(this.props.companyServiceResponse);
+        this.state = this.createInitialState(this.props.companyServiceResponse);
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -34,7 +34,7 @@ class RegisterCompany extends Component {
         this.props.saveCompanyAction(saveCompany);
     }
 
-    createFlatState(companyServiceResponse) {
+    createInitialState(companyServiceResponse) {
         const company = companyServiceResponse.target;
         if (company) {
             return {
