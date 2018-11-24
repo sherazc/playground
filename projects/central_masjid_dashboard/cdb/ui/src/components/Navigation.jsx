@@ -23,7 +23,10 @@ export default class Navigation extends Component {
                     <NavLink to="/register/finish">
                         Register Company Finish
                     </NavLink>
-
+                    |
+                    <NavLink to="/examples">
+                        Examples
+                    </NavLink>
                 </div>
                 <hr style={{height: 1, backgroundColor: 'green', margin: 0, marginBottom: 20}}/>
             </div>
