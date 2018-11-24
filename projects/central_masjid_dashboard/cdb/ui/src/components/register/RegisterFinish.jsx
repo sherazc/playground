@@ -3,6 +3,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Redirect} from "react-router";
 import {canNotBeOnRegisterFinish} from "../../services/register/RegisterServices";
+import {NavLink} from "react-router-dom";
 
 class RegisterFinish extends Component {
     render() {
@@ -12,8 +13,16 @@ class RegisterFinish extends Component {
         }
         return (
             <div>
-                Successfully register <b>{finishRegister.companyName}</b>
-                and added <b>{finishRegister.email}</b> as it's admin user.
+                <h3>Registration complete.</h3>
+                <p>
+                    Successfully register <b>{finishRegister.companyName}</b>
+                    and added <b>{finishRegister.email}</b> as it's admin user.
+                </p>
+                <p>
+                    <NavLink to="/login">
+                        Login
+                    </NavLink>
+                </p>
             </div>
         );
     }

@@ -1,4 +1,5 @@
 import {SAVE_COMPANY, SAVE_COMPANY_FINISH, SAVE_COMPANY_USER} from "./actions";
+import {createEmptyCompany, createEmptyFinishRegister, createEmptyUser} from "../../services/domain/EmptyObject";
 
 // TODO create new or edit flags.
 // TODO create success company and user register summary start and its page.
@@ -8,38 +9,15 @@ const initialStateCreator = () => {
             "successful": undefined,
                 "message": "",
                 "fieldErrors": {},
-            "target": {
-                "id": undefined,
-                "name": "",
-                "address": {
-                "street": "",
-                    "city": "",
-                    "state": "",
-                    "zip": ""
-                },
-                "active": true
-            }
+            "target": createEmptyCompany()
         },
         companyUserServiceResponse: {
             "successful": undefined,
                 "message": "",
                 "fieldErrors": {},
-            "target": {
-                "id": undefined,
-                "companyId": undefined,
-                "email": "",
-                "password": "",
-                "firstName": "",
-                "lastName": "",
-                "roles": ["ADMIN"],
-                "active": true,
-                "verified": true
-            }
+            "target": createEmptyUser()
         },
-        finishRegister: {
-            email: "",
-            companyName: ""
-        }
+        finishRegister: createEmptyFinishRegister()
     }
 };
 
