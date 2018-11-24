@@ -1,4 +1,4 @@
-import {SAVE_COMPANY, SAVE_COMPANY_USER} from "./actions";
+import {SAVE_COMPANY, SAVE_COMPANY_FINISH, SAVE_COMPANY_USER} from "./actions";
 
 // TODO create new or edit flags.
 // TODO create success company and user register summary start and its page.
@@ -51,6 +51,9 @@ export const registerCompany = (state = initialState, action) => {
             return {...state, companyServiceResponse: action.payload};
         case SAVE_COMPANY_USER:
             return {...state, companyUserServiceResponse: action.payload};
+        case SAVE_COMPANY_FINISH:
+            const cleanInitialState = initialStateCreator();
+            return {...cleanInitialState, finishRegister: action.payload};
         default:
             return state;
     }

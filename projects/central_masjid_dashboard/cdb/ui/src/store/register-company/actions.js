@@ -29,7 +29,7 @@ export const saveCompanyAction = company => dispatch => {
 };
 
 
-export const saveCompanyUserAction = user => dispatch => {
+export const saveCompanyUserAction = (company, user) => dispatch => {
     axios.post(`${baseUrl}/company/user`, user)
         .then(response => {
                 dispatch({
@@ -38,6 +38,14 @@ export const saveCompanyUserAction = user => dispatch => {
                 });
 
                 dispatch(showAlert(ALERT_SUCCESS, "Successfully saved company user"));
+                dispatch({
+                    type: SAVE_COMPANY_FINISH,
+                    payload: {
+                        email: user.email,
+                        companyName: company.name
+                    }
+                });
+                history.push("/register/finish");
             }
         )
         .catch(error => {

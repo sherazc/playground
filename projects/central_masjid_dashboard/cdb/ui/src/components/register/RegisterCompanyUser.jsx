@@ -34,7 +34,7 @@ class RegisterCompanyUser extends Component {
             "verified": true
 
         };
-        this.props.saveCompanyUserAction(saveUser);
+        this.props.saveCompanyUserAction(company, saveUser);
     }
 
     createFlatState(companyUserServiceResponse) {
