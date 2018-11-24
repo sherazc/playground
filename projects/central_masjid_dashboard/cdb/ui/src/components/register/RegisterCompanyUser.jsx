@@ -3,6 +3,7 @@ import {Redirect} from "react-router";
 import {connect} from "react-redux";
 import InputField from "../partials/InputField";
 import {saveCompanyUserAction} from "../../store/register-company/actions";
+import {canNotBeOnRegisterUser} from "../../services/register/RegisterServices";
 
 class RegisterCompanyUser extends Component {
 
@@ -41,14 +42,9 @@ class RegisterCompanyUser extends Component {
         return {...companyUserServiceResponse.target}
     }
 
-    isCompanyInState() {
-        let company = this.props.companyServiceResponse.target;
-        return company && company.id;
-    }
-
     render() {
-        if (!this.isCompanyInState()) {
-            return <Redirect to="/register"/>
+        if (canNotBeOnRegisterUser(this.props.companyServiceResponse.target)) {
+            return <Redirect to="/register"/>;
         }
         return (
             <div>
