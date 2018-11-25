@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Route, Router, Switch} from 'react-router-dom';
-import Navigation from "./components/Navigation";
 import {Provider} from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -19,6 +18,7 @@ import Examples from "./components/Examples";
 import Dashboard from "./components/Dashboard";
 import Forbidden from "./components/Forbidden";
 import Admin from "./components/Admin";
+import Navigation from "./components/common/navigation/Navigation";
 
 setupInterceptor(store);
 
