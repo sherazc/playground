@@ -45,13 +45,6 @@ class Login extends Component {
     }
 
     render() {
-
-        console.log("successful", this.props.successful);
-        console.log("token", this.props.token);
-        console.log("company", this.props.company);
-        console.log("user", this.props.user);
-        console.log("loginAction", this.props.loginAction);
-
         return (
             <div>
                 <h3>Login</h3>

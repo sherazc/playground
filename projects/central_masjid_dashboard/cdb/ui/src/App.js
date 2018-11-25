@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Router, Route, Switch} from 'react-router-dom';
+import {Route, Router, Switch} from 'react-router-dom';
 import Navigation from "./components/Navigation";
 import {Provider} from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -16,6 +16,7 @@ import RegisterCompany from "./components/register/RegisterCompany";
 import RegisterCompanyUser from "./components/register/RegisterCompanyUser";
 import RegisterFinish from "./components/register/RegisterFinish";
 import Examples from "./components/Examples";
+import Dashboard from "./components/Dashboard";
 
 setupInterceptor(store);
 
@@ -35,6 +36,7 @@ class App extends Component {
                             <Route path='/register/user' component={RegisterCompanyUser} exact/>
                             <Route path='/register/finish' component={RegisterFinish} exact/>
                             <Route path='/examples' component={Examples} exact/>
+                            <Route path='/dashboard' component={Dashboard} exact/>
                         </Switch>
                     </div>
                 </Router>

@@ -12,6 +12,10 @@ export default class Navigation extends Component {
                         Login
                     </NavLink>
                     |
+                    <NavLink to="/dashboard">
+                        Dashboard
+                    </NavLink>
+                    |
                     <NavLink to="/register">
                         Register Company
                     </NavLink>
