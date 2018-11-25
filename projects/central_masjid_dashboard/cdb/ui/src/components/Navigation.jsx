@@ -9,11 +9,15 @@ export default class Navigation extends Component {
                     <NavLink to="/" exact>Home</NavLink>
                     |
                     <NavLink to="/login">
-                        Login
+                        Login (click or auto redirect)
                     </NavLink>
                     |
                     <NavLink to="/dashboard">
-                        Dashboard
+                        Dashboard (all logged in user)
+                    </NavLink>
+                    |
+                    <NavLink to="/admin">
+                        Admin (admin only)
                     </NavLink>
                     |
                     <NavLink to="/register">
@@ -26,6 +30,10 @@ export default class Navigation extends Component {
                     |
                     <NavLink to="/register/finish">
                         Register Company Finish
+                    </NavLink>
+                    |
+                    <NavLink to="/forbidden">
+                        Forbidden (auto redirects)
                     </NavLink>
                     |
                     <NavLink to="/examples">

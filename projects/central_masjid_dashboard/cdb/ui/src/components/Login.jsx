@@ -13,7 +13,9 @@ class Login extends Component {
     }
 
     componentDidMount() {
-        this.props.loginResetAction();
+        if (this.props.token) {
+            this.props.loginResetAction();
+        }
     }
 
     onChange(event) {

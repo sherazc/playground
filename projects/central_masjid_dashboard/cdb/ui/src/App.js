@@ -17,6 +17,8 @@ import RegisterCompanyUser from "./components/register/RegisterCompanyUser";
 import RegisterFinish from "./components/register/RegisterFinish";
 import Examples from "./components/Examples";
 import Dashboard from "./components/Dashboard";
+import Forbidden from "./components/Forbidden";
+import Admin from "./components/Admin";
 
 setupInterceptor(store);
 
@@ -37,6 +39,8 @@ class App extends Component {
                             <Route path='/register/finish' component={RegisterFinish} exact/>
                             <Route path='/examples' component={Examples} exact/>
                             <Route path='/dashboard' component={Dashboard} exact/>
+                            <Route path='/forbidden' component={Forbidden} exact/>
+                            <Route path='/admin' component={Admin} exact/>
                         </Switch>
                     </div>
                 </Router>
