@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import InputField from "./partials/InputField";
+import {loginAction} from "../store/login/actions";
 
 class Login extends Component {
 
@@ -17,7 +18,12 @@ class Login extends Component {
 
     onSubmit(event) {
         event.preventDefault();
-        console.log("Submitting");
+        const loginRequest = {
+            companyId: this.state.companyId,
+            email: this.state.email,
+            password: this.state.password
+        };
+        this.props.loginAction(loginRequest);
     }
 
     createInitialState() {
@@ -26,22 +32,34 @@ class Login extends Component {
             email: "",
             password: ""
         }
-
     }
 
     render() {
+        console.log("token", this.props.token);
+        console.log("company", this.props.company);
+        console.log("user", this.props.user);
+        console.log("loginAction", this.props.loginAction);
         return (
             <div>
                 <h3>Login</h3>
                 <form onSubmit={this.onSubmit}>
                     <InputField
+                        label="Company ID"
+                        name="companyId"
+                        onChange={this.onChange}
+                        value={this.state.companyId}/>
+                    <InputField
                         label="Email"
                         name="email"
-                        required={true}/>
+                        required={true}
+                        onChange={this.onChange}
+                        value={this.state.email}/>
                     <InputField
                         label="Password"
                         name="password"
-                        required={true}/>
+                        required={true}
+                        onChange={this.onChange}
+                        value={this.state.password}/>
                     <button type="submit">Submit</button>
                 </form>
             </div>
@@ -49,5 +67,14 @@ class Login extends Component {
     }
 }
 
+const actions = {loginAction};
 
-export default connect(null, null)(Login);
+const mapStateToProps = state => {
+    return {
+        token: state.login.token,
+        company: state.login.company,
+        user: state.login.user
+    }
+};
+
+export default connect(mapStateToProps, actions)(Login);

@@ -112,11 +112,7 @@ class RegisterCompany extends Component {
     }
 }
 
-
-const actions = {
-    saveCompanyAction: saveCompanyAction
-};
-
+const actions = {saveCompanyAction};
 
 const mapStateToProps = state => {
     return {
@@ -125,4 +121,3 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, actions)(RegisterCompany);
-
