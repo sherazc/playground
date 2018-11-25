@@ -19,6 +19,7 @@ import Dashboard from "./components/Dashboard";
 import Forbidden from "./components/Forbidden";
 import Admin from "./components/Admin";
 import Navigation from "./components/common/navigation/Navigation";
+import AuthRoute from "./components/common/navigation/AuthRoute";
 
 setupInterceptor(store);
 
@@ -33,7 +34,7 @@ class App extends Component {
                         <Navigation/>
                         <Switch>
                             <Route path='/' component={Home} exact/>
-                            <Route path='/login' component={Login}/>
+                            <AuthRoute path='/login' component={Login}/>
                             <Route path='/register' component={RegisterCompany} exact/>
                             <Route path='/register/user' component={RegisterCompanyUser} exact/>
                             <Route path='/register/finish' component={RegisterFinish} exact/>
