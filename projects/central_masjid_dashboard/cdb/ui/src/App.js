@@ -34,14 +34,14 @@ class App extends Component {
                         <Navigation/>
                         <Switch>
                             <Route path='/' component={Home} exact/>
-                            <AuthRoute path='/login' component={Login}/>
+                            <Route path='/login' component={Login}/>
                             <Route path='/register' component={RegisterCompany} exact/>
                             <Route path='/register/user' component={RegisterCompanyUser} exact/>
                             <Route path='/register/finish' component={RegisterFinish} exact/>
                             <Route path='/examples' component={Examples} exact/>
-                            <Route path='/dashboard' component={Dashboard} exact/>
+                            <AuthRoute authenticate={true} path='/dashboard' component={Dashboard} exact/>
                             <Route path='/forbidden' component={Forbidden} exact/>
-                            <Route path='/admin' component={Admin} exact/>
+                            <AuthRoute authenticate={true} path='/admin' component={Admin} exact/>
                         </Switch>
                     </div>
                 </Router>
