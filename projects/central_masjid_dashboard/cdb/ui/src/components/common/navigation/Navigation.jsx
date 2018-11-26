@@ -8,7 +8,13 @@ import {loginResetAction} from "../../../store/login/actions";
 class Navigation extends Component {
     loginControls() {
         if (!verifyAuthentication(this.props.token, true)) {
-            return ""
+            return (
+                <div style={{marginTop: 20, marginBottom: 10, }}>
+                    <NavLink to="/login">
+                        Login (click or auto redirect)
+                    </NavLink>
+                </div>
+            );
         }
 
         return (
@@ -33,10 +39,6 @@ class Navigation extends Component {
             <div>
                 <div style={{padding: 20, backgroundColor: '#efefef'}}>
                     <NavLink to="/" exact>Home</NavLink>
-                    |
-                    <NavLink to="/login">
-                        Login (click or auto redirect)
-                    </NavLink>
                     |
                     <NavLink to="/dashboard">
                         Dashboard (all logged in user)

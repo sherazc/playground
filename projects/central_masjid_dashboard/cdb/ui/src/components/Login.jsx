@@ -3,6 +3,8 @@ import {connect} from "react-redux";
 import InputField from "./partials/InputField";
 import {loginAction, loginResetAction} from "../store/login/actions";
 import {loginMapStateToProps} from "../store/lib/utils";
+import {verifyAuthentication} from "../services/auth/AuthNZ";
+import {Redirect} from "react-router";
 
 class Login extends Component {
 
@@ -48,6 +50,9 @@ class Login extends Component {
     }
 
     render() {
+        if (verifyAuthentication(this.props.token, true)) {
+            return <Redirect to="/dashboard"/>
+        }
         return (
             <div>
                 <h3>Login</h3>
