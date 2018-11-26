@@ -1,5 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
+import {loginMapStateToProps} from "../store/lib/utils";
 
 const Dashboard = (props) => {
     return (
@@ -18,13 +19,5 @@ const Dashboard = (props) => {
     );
 };
 
-const mapStateToProps = state => {
-    return {
-        successful: state.login.successful,
-        token: state.login.token,
-        company: state.login.company,
-        user: state.login.user
-    }
-};
 
-export default connect(mapStateToProps)(Dashboard);
+export default connect(loginMapStateToProps)(Dashboard);

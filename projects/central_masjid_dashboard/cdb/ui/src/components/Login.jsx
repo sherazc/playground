@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import InputField from "./partials/InputField";
 import {loginAction, loginResetAction} from "../store/login/actions";
+import {loginMapStateToProps} from "../store/lib/utils";
 
 class Login extends Component {
 
@@ -79,13 +80,4 @@ class Login extends Component {
 
 const actions = {loginAction, loginResetAction};
 
-const mapStateToProps = state => {
-    return {
-        successful: state.login.successful,
-        token: state.login.token,
-        company: state.login.company,
-        user: state.login.user
-    }
-};
-
-export default connect(mapStateToProps, actions)(Login);
+export default connect(loginMapStateToProps, actions)(Login);

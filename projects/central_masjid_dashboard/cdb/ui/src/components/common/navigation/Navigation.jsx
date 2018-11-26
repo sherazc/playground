@@ -1,11 +1,37 @@
 import React, {Component} from "react";
 import {NavLink} from 'react-router-dom';
+import connect from "react-redux/es/connect/connect";
+import {loginMapStateToProps} from "../../../store/lib/utils";
+import {verifyAuthentication} from "../../../services/auth/AuthNZ";
+import {loginResetAction} from "../../../store/login/actions";
 
-export default class Navigation extends Component {
+class Navigation extends Component {
+    loginControls() {
+        if (!verifyAuthentication(this.props.token, true)) {
+            return ""
+        }
+
+        return (
+            <div style={{marginTop: 20, marginBottom: 10, }}>
+                Hi {this.props.user.firstName} {this.props.user.lastName}
+
+                <a href="#/" onClick={this.logout.bind(this)}>
+                    Logout
+                </a>
+            </div>
+        );
+
+    }
+
+    logout(event) {
+        event.preventDefault();
+        this.props.loginResetAction()
+    }
+
     render() {
         return (
             <div>
-                <div className="nav" style={{padding: 20, backgroundColor: '#efefef'}}>
+                <div style={{padding: 20, backgroundColor: '#efefef'}}>
                     <NavLink to="/" exact>Home</NavLink>
                     |
                     <NavLink to="/login">
@@ -39,9 +65,12 @@ export default class Navigation extends Component {
                     <NavLink to="/examples">
                         Examples
                     </NavLink>
+                    {this.loginControls()}
                 </div>
                 <hr style={{height: 1, backgroundColor: 'green', margin: 0, marginBottom: 20}}/>
             </div>
         );
     }
 }
+
+export default connect(loginMapStateToProps, {loginResetAction})(Navigation);
