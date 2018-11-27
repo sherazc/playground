@@ -10,7 +10,7 @@ class AuthRoute extends Route {
             return <Redirect to="/login"/>;
         }
 
-        if (!verifyAuthorization()) {
+        if (!verifyAuthorization(this.props.tokenPayload, this.props.roles)) {
             return <Redirect to="/forbidden"/>;
         }
 

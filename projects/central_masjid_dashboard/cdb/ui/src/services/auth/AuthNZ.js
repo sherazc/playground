@@ -11,7 +11,7 @@ export const verifyAuthentication = (tokenPayload, authenticate) => {
 };
 
 
-export const verifyAuthorization = (token, roles) => {
+export const verifyAuthorization = (tokenPayload, roles) => {
     // TODO validate if all roles are available in token
     return true;
 };
