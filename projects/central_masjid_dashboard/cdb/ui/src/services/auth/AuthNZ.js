@@ -10,8 +10,28 @@ export const verifyAuthentication = (tokenPayload, authenticate) => {
     }
 };
 
+/*
 
-export const verifyAuthorization = (tokenPayload, roles) => {
+tokenPayload: {
+      sub: 'user@email.com',
+      roles: [
+        'USER'
+      ],
+      exp: 1543321908
+    },
+ */
+
+
+export const verifyAuthorization = (tokenPayload, rolesAll, rolesAny) => {
+    const requireAuthorization = rolesAll || rolesAny;
+    const tokenRolesAvailable = tokenPayload && tokenPayload.roles && tokenPayload.roles.length > 0;
+    if (requireAuthorization && !tokenRolesAvailable) {
+        return false;
+    }
+
+    // https://stackoverflow.com/questions/15514907/determining-whether-one-array-contains-the-contents-of-another-array-in-javascri
+    // tokenPayload.roles.every()
+
     // TODO validate if all roles are available in token
     return true;
 };
