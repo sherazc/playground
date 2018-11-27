@@ -6,7 +6,7 @@ import {loginMapStateToProps} from "../../../store/lib/utils";
 
 class AuthRoute extends Route {
     render() {
-        if (!verifyAuthentication(this.props.token, this.props.authenticate)) {
+        if (!verifyAuthentication(this.props.tokenPayload, this.props.authenticate)) {
             return <Redirect to="/login"/>;
         }
 

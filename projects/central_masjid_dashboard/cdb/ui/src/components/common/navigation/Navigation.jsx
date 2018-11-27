@@ -7,7 +7,7 @@ import {loginResetAction} from "../../../store/login/actions";
 
 class Navigation extends Component {
     loginControls() {
-        if (!verifyAuthentication(this.props.token, true)) {
+        if (!verifyAuthentication(this.props.tokenPayload, true)) {
             return (
                 <div style={{marginTop: 20, marginBottom: 10, }}>
                     <NavLink to="/login">

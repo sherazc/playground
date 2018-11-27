@@ -50,7 +50,7 @@ class Login extends Component {
     }
 
     render() {
-        if (verifyAuthentication(this.props.token, true)) {
+        if (verifyAuthentication(this.props.tokenPayload, true)) {
             return <Redirect to="/dashboard"/>
         }
         return (
