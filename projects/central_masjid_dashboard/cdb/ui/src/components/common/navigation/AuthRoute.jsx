@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route, Redirect, withRouter} from 'react-router-dom';
-import connect from "react-redux/es/connect/connect";
+import {connect} from "react-redux";
 import {verifyAuthentication, verifyAuthorization} from "../../../services/auth/AuthNZ";
 import {loginMapStateToProps} from "../../../store/lib/utils";
 

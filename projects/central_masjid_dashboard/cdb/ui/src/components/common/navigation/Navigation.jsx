@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {NavLink} from 'react-router-dom';
-import connect from "react-redux/es/connect/connect";
+import {connect} from "react-redux";
 import {loginMapStateToProps} from "../../../store/lib/utils";
 import {verifyAuthentication} from "../../../services/auth/AuthNZ";
 import {loginResetAction} from "../../../store/login/actions";
