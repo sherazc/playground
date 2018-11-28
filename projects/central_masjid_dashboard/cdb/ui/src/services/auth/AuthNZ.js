@@ -23,17 +23,22 @@ tokenPayload: {
 
 
 export const verifyAuthorization = (tokenPayload, rolesAll, rolesAny) => {
-    const requireAuthorization = rolesAll || rolesAny;
+    const requireAuthorization = (rolesAll && rolesAll.length > 0) || (rolesAny && rolesAny.length > 0);
     const tokenRolesAvailable = tokenPayload && tokenPayload.roles && tokenPayload.roles.length > 0;
     if (requireAuthorization && !tokenRolesAvailable) {
         return false;
     }
 
-    // https://stackoverflow.com/questions/15514907/determining-whether-one-array-contains-the-contents-of-another-array-in-javascri
-    // tokenPayload.roles.every()
+    let result = true;
+    if (rolesAll && rolesAll.length > 0) {
+        result = rolesAll.every(role => tokenPayload.roles.indexOf(role) > -1);
+    }
 
-    // TODO validate if all roles are available in token
-    return true;
+    if (result && rolesAny && rolesAny.length > 0) {
+        result = rolesAny.some(role => tokenPayload.roles.indexOf(role) > -1);
+    }
+
+    return result;
 };
 
 export const decodeTokenPayload = (token) => {
