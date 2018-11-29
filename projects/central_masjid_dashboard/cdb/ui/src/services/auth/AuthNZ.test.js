@@ -14,10 +14,19 @@ describe("AuthNZ verifyAuthorization()", () => {
         expect(verifyAuthorization(createTokenPayload(undefined, ['A']), [], [])).toBeTruthy();
         expect(verifyAuthorization(createTokenPayload(undefined, []), ['A'], [])).toBeFalsy();
         expect(verifyAuthorization(createTokenPayload(undefined, ['A', 'B', 'C']), ['C', 'B', 'A'], [])).toBeTruthy();
+        expect(verifyAuthorization(createTokenPayload(undefined, ['A', 'B']), ['A', 'B', 'C'], [])).toBeFalsy();
         expect(verifyAuthorization(createTokenPayload(undefined, ['A', 'B', 'C']), ['A'], [])).toBeTruthy();
         expect(verifyAuthorization(createTokenPayload(undefined, ['A', 'B', 'C']), ['D'], [])).toBeFalsy();
         expect(verifyAuthorization(createTokenPayload(undefined, ['A']), ['B'], [])).toBeFalsy();
     });
+
+    it("should match any roles", () => {
+        expect(verifyAuthorization(createTokenPayload(), undefined, undefined)).toBeTruthy();
+        expect(verifyAuthorization(createTokenPayload(), [], ['A', 'B', 'C'])).toBeFalsy();
+        expect(verifyAuthorization(createTokenPayload(undefined, []), [], ['A', 'B', 'C'])).toBeFalsy();
+        expect(verifyAuthorization(createTokenPayload(undefined, ['A']), [], ['A', 'B', 'C'])).toBeTruthy();
+    });
+
 });
 
 const createTokenPayload = (subject, roles, exp) => {

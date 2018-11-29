@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {NavLink} from 'react-router-dom';
+import {NavLink, withRouter} from 'react-router-dom';
 import {connect} from "react-redux";
 import {loginMapStateToProps} from "../../../store/lib/utils";
 import {verifyAuthentication} from "../../../services/auth/AuthNZ";
@@ -31,7 +31,8 @@ class Navigation extends Component {
 
     logout(event) {
         event.preventDefault();
-        this.props.loginResetAction()
+        this.props.loginResetAction();
+        this.props.history.replace("/");
     }
 
     render() {
@@ -75,4 +76,4 @@ class Navigation extends Component {
     }
 }
 
-export default connect(loginMapStateToProps, {loginResetAction})(Navigation);
+export default connect(loginMapStateToProps, {loginResetAction})(withRouter(Navigation));

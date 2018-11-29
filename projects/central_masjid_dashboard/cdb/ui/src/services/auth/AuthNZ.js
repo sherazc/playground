@@ -28,7 +28,6 @@ export const verifyAuthorization = (tokenPayload, rolesAll, rolesAny) => {
     if (requireAuthorization && !tokenRolesAvailable) {
         return false;
     }
-
     let result = true;
     if (rolesAll && rolesAll.length > 0) {
         result = rolesAll.every(role => tokenPayload.roles.indexOf(role) > -1);

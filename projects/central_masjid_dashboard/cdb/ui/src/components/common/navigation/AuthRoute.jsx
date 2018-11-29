@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Redirect, withRouter} from 'react-router-dom';
+import {Route, Redirect} from 'react-router-dom';
 import {connect} from "react-redux";
 import {verifyAuthentication, verifyAuthorization} from "../../../services/auth/AuthNZ";
 import {loginMapStateToProps} from "../../../store/lib/utils";
@@ -18,4 +18,4 @@ class AuthRoute extends Route {
     }
 }
 
-export default connect(loginMapStateToProps)(withRouter(AuthRoute));
+export default connect(loginMapStateToProps)(AuthRoute);

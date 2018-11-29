@@ -41,7 +41,7 @@ class App extends Component {
                             <Route path='/examples' component={Examples} exact/>
                             <AuthRoute authenticate={true} path='/dashboard' component={Dashboard} exact/>
                             <Route path='/forbidden' component={Forbidden} exact/>
-                            <AuthRoute authenticate={true} rolesAll={["ADMIN"]} path='/admin' component={Admin} exact/>
+                            <AuthRoute authenticate={true} rolesAny={["ADMIN", "SUPER_ADMIN"]} path='/admin' component={Admin} exact/>
                         </Switch>
                     </div>
                 </Router>
