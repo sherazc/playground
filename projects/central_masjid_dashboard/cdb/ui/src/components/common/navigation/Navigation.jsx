@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {NavLink, withRouter} from 'react-router-dom';
 import {connect} from "react-redux";
-import {loginMapStateToProps} from "../../../store/lib/utils";
+import {createLoginMapStateToProps} from "../../../store/lib/utils";
 import {verifyAuthentication} from "../../../services/auth/AuthNZ";
 import {loginResetAction} from "../../../store/login/actions";
 
@@ -20,13 +20,15 @@ class Navigation extends Component {
         return (
             <div style={{marginTop: 20, marginBottom: 10, }}>
                 Hi {this.props.user.firstName} {this.props.user.lastName}
-
                 <a href="#/" onClick={this.logout.bind(this)}>
                     Logout
                 </a>
+                |
+                <NavLink to="/company/add-user">
+                    Add user to company
+                </NavLink>
             </div>
         );
-
     }
 
     logout(event) {
@@ -76,4 +78,4 @@ class Navigation extends Component {
     }
 }
 
-export default connect(loginMapStateToProps, {loginResetAction})(withRouter(Navigation));
+export default connect(createLoginMapStateToProps, {loginResetAction})(withRouter(Navigation));

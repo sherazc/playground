@@ -25,6 +25,9 @@ tokenPayload: {
 export const verifyAuthorization = (tokenPayload, rolesAll, rolesAny) => {
     const requireAuthorization = (rolesAll && rolesAll.length > 0) || (rolesAny && rolesAny.length > 0);
     const tokenRolesAvailable = tokenPayload && tokenPayload.roles && tokenPayload.roles.length > 0;
+    if (tokenRolesAvailable && tokenPayload.roles.indexOf("SUPER_ADMIN") > -1) {
+        return true;
+    }
     if (requireAuthorization && !tokenRolesAvailable) {
         return false;
     }

@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import InputField from "../partials/InputField";
 import {saveCompanyUserAction} from "../../store/register-company/actions";
 import {canNotBeOnRegisterUser} from "../../services/register/RegisterServices";
+import {createLoginMapStateToProps} from "../../store/lib/utils";
 
 class RegisterCompanyUser extends Component {
 
@@ -13,6 +14,10 @@ class RegisterCompanyUser extends Component {
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    componentDidMount() {
+        console.log(this.props);
     }
 
     onChange(event) {
@@ -102,11 +107,11 @@ const actions = {
     saveCompanyUserAction: saveCompanyUserAction
 };
 
-
 const mapStateToProps = state => {
     return {
         companyServiceResponse: state.registerCompany.companyServiceResponse,
-        companyUserServiceResponse: state.registerCompany.companyUserServiceResponse
+        companyUserServiceResponse: state.registerCompany.companyUserServiceResponse,
+        ...createLoginMapStateToProps(state)
     };
 };
 

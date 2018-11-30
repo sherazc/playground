@@ -1,4 +1,4 @@
-export const loginMapStateToProps = state => {
+export const createLoginMapStateToProps = state => {
     return {
         successful: state.login.successful,
         token: state.login.token,

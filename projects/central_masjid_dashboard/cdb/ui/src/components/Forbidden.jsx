@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {loginMapStateToProps} from "../store/lib/utils";
+import {createLoginMapStateToProps} from "../store/lib/utils";
 
 const Forbidden = (props) => {
     return (
@@ -13,4 +13,4 @@ const Forbidden = (props) => {
     );
 };
 
-export default connect(loginMapStateToProps)(Forbidden);
+export default connect(createLoginMapStateToProps)(Forbidden);

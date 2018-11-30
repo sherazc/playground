@@ -27,6 +27,13 @@ describe("AuthNZ verifyAuthorization()", () => {
         expect(verifyAuthorization(createTokenPayload(undefined, ['A']), [], ['A', 'B', 'C'])).toBeTruthy();
     });
 
+    it("should allow SUPER_ADMIN", () => {
+        expect(verifyAuthorization(createTokenPayload(undefined, ['SUPER_ADMIN']), undefined, undefined)).toBeTruthy();
+        expect(verifyAuthorization(createTokenPayload(undefined, ['SUPER_ADMIN']), [], [])).toBeTruthy();
+        expect(verifyAuthorization(createTokenPayload(undefined, ['SUPER_ADMIN']), ['A'], [])).toBeTruthy();
+        expect(verifyAuthorization(createTokenPayload(undefined, ['SUPER_ADMIN']), [], ['B'])).toBeTruthy();
+        expect(verifyAuthorization(createTokenPayload(undefined, ['SUPER_ADMIN']), ['A'], ['B'])).toBeTruthy();
+    });
 });
 
 const createTokenPayload = (subject, roles, exp) => {

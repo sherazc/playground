@@ -111,7 +111,6 @@ class RegisterCompany extends Component {
         );
     }
 }
-
 const actions = {saveCompanyAction};
 
 const mapStateToProps = state => {

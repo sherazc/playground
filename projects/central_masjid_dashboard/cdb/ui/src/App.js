@@ -33,6 +33,10 @@ class App extends Component {
                         <Alert/>
                         <Navigation/>
                         <Switch>
+                            {/*
+                            TODO: create an array of all the routes params and then
+                            run a loop over them to create Route and AuthRoute components.
+                            */}
                             <Route path='/' component={Home} exact/>
                             <Route path='/login' component={Login}/>
                             <Route path='/register' component={RegisterCompany} exact/>
@@ -41,7 +45,17 @@ class App extends Component {
                             <Route path='/examples' component={Examples} exact/>
                             <AuthRoute authenticate={true} path='/dashboard' component={Dashboard} exact/>
                             <Route path='/forbidden' component={Forbidden} exact/>
-                            <AuthRoute authenticate={true} rolesAny={["ADMIN", "SUPER_ADMIN"]} path='/admin' component={Admin} exact/>
+                            <AuthRoute
+                                authenticate={true}
+                                exact
+                                rolesAny={["ADMIN"]}
+                                path='/admin' component={Admin} />
+                            <AuthRoute
+                                authenticate={true}
+                                rolesAny={["ADMIN"]}
+                                path='/company/add-user'
+                                exact
+                                render={(props) => <RegisterCompanyUser {...props} addUser />}/>
                         </Switch>
                     </div>
                 </Router>

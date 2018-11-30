@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import InputField from "./partials/InputField";
 import {loginAction, loginResetAction} from "../store/login/actions";
-import {loginMapStateToProps} from "../store/lib/utils";
+import {createLoginMapStateToProps} from "../store/lib/utils";
 import {verifyAuthentication} from "../services/auth/AuthNZ";
 import {Redirect} from "react-router";
 
@@ -85,4 +85,4 @@ class Login extends Component {
 
 const actions = {loginAction, loginResetAction};
 
-export default connect(loginMapStateToProps, actions)(Login);
+export default connect(createLoginMapStateToProps, actions)(Login);

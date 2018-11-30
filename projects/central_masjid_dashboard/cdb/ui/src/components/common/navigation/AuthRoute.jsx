@@ -2,7 +2,7 @@ import React from 'react';
 import {Route, Redirect} from 'react-router-dom';
 import {connect} from "react-redux";
 import {verifyAuthentication, verifyAuthorization} from "../../../services/auth/AuthNZ";
-import {loginMapStateToProps} from "../../../store/lib/utils";
+import {createLoginMapStateToProps} from "../../../store/lib/utils";
 
 class AuthRoute extends Route {
     render() {
@@ -18,4 +18,4 @@ class AuthRoute extends Route {
     }
 }
 
-export default connect(loginMapStateToProps)(AuthRoute);
+export default connect(createLoginMapStateToProps)(AuthRoute);
