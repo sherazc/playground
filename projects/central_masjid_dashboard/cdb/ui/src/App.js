@@ -55,7 +55,7 @@ class App extends Component {
                                 rolesAny={["ADMIN"]}
                                 path='/company/add-user'
                                 exact
-                                render={(props) => <RegisterCompanyUser {...props} addUser />}/>
+                                render={(props) => <RegisterCompanyUser {...props} addUserFlow />}/>
                         </Switch>
                     </div>
                 </Router>

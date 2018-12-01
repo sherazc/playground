@@ -51,7 +51,7 @@ class RegisterCompany extends Component {
     render() {
         return (
             <div>
-                <h3>Register Masjid</h3>
+                <h3>Register Company</h3>
                 {this.registrationForm()}
             </div>
         );

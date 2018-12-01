@@ -1,5 +1,5 @@
-export const canNotBeOnRegisterUser = (company) => {
-    return !company || !company.id;
+export const shouldBeOnRegisterUser = (company, addUserFlow) => {
+    return addUserFlow || (company && company.id);
 };
 
 export const canNotBeOnRegisterFinish = (finishRegister) => {

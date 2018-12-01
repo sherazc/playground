@@ -3,7 +3,7 @@ import {Redirect} from "react-router";
 import {connect} from "react-redux";
 import InputField from "../partials/InputField";
 import {saveCompanyUserAction} from "../../store/register-company/actions";
-import {canNotBeOnRegisterUser} from "../../services/register/RegisterServices";
+import {shouldBeOnRegisterUser} from "../../services/register/RegisterServices";
 import {createLoginMapStateToProps} from "../../store/lib/utils";
 
 class RegisterCompanyUser extends Component {
@@ -26,7 +26,13 @@ class RegisterCompanyUser extends Component {
 
     onSubmit(event) {
         event.preventDefault();
-        let company = this.props.companyServiceResponse.target;
+        let company = undefined;
+        if (this.props.addUserFlow) {
+            company = this.props.company;
+        } else {
+            company = this.props.companyServiceResponse.target;
+        }
+
         let user = this.props.companyUserServiceResponse.target;
         const saveUser = {
             id: user.id,
@@ -48,12 +54,12 @@ class RegisterCompanyUser extends Component {
     }
 
     render() {
-        if (canNotBeOnRegisterUser(this.props.companyServiceResponse.target)) {
+        if (!shouldBeOnRegisterUser(this.props.companyServiceResponse.target, this.props.addUserFlow)) {
             return <Redirect to="/register"/>;
         }
         return (
             <div>
-                <h3>Register</h3>
+                <h3>Add user to company</h3>
                 {this.registrationForm()}
             </div>
         );
