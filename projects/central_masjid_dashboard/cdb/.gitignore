@@ -25,3 +25,8 @@
 /.nb-gradle/
 
 misc/logs
+
+target
+
+api/webservices/src/main/resources/static
+
