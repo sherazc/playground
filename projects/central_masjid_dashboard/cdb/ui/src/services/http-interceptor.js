@@ -18,7 +18,7 @@ const setupInterceptor = (store) => {
 
         // TODO: Use this technique to replace if authentication fails.
         if (configs.url.indexOf("/un-auth") > -1) {
-            history.replace("/all-users");
+            history.replace(`${process.env.PUBLIC_URL}/all-users`);
         }
         // TODO alternately we can use this technique
         // https://github.com/salsita/redux-form-actions/issues/2

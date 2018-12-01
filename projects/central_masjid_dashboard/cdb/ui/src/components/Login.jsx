@@ -51,7 +51,7 @@ class Login extends Component {
 
     render() {
         if (verifyAuthentication(this.props.tokenPayload, true)) {
-            return <Redirect to="/dashboard"/>
+            return <Redirect to={`${process.env.PUBLIC_URL}/dashboard`}/>
         }
         return (
             <div>

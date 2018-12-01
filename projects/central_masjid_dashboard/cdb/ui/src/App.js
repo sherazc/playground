@@ -27,7 +27,7 @@ class App extends Component {
     render() {
         return (
             <Provider store={store}>
-                <Router history={history}>
+                <Router history={history} basename={'/cdb'}>
                     <div className="container">
                         <Loading/>
                         <Alert/>
@@ -37,23 +37,23 @@ class App extends Component {
                             TODO: create an array of all the routes params and then
                             run a loop over them to create Route and AuthRoute components.
                             */}
-                            <Route path='/' component={Home} exact/>
-                            <Route path='/login' component={Login}/>
-                            <Route path='/register' component={RegisterCompany} exact/>
-                            <Route path='/register/user' component={RegisterCompanyUser} exact/>
-                            <Route path='/register/finish' component={RegisterFinish} exact/>
-                            <Route path='/examples' component={Examples} exact/>
-                            <AuthRoute authenticate={true} path='/dashboard' component={Dashboard} exact/>
-                            <Route path='/forbidden' component={Forbidden} exact/>
+                            <Route path={`${process.env.PUBLIC_URL}/`} component={Home} exact/>
+                            <Route path={`${process.env.PUBLIC_URL}/login`} component={Login}/>
+                            <Route path={`${process.env.PUBLIC_URL}/register`} component={RegisterCompany} exact/>
+                            <Route path={`${process.env.PUBLIC_URL}/register/user`} component={RegisterCompanyUser} exact/>
+                            <Route path={`${process.env.PUBLIC_URL}/register/finish`} component={RegisterFinish} exact/>
+                            <Route path={`${process.env.PUBLIC_URL}/examples`} component={Examples} exact/>
+                            <AuthRoute authenticate={true} path={`${process.env.PUBLIC_URL}/dashboard`} component={Dashboard} exact/>
+                            <Route path={`${process.env.PUBLIC_URL}/forbidden`} component={Forbidden} exact/>
                             <AuthRoute
                                 authenticate={true}
                                 exact
                                 rolesAny={["ADMIN"]}
-                                path='/admin' component={Admin} />
+                                path={`${process.env.PUBLIC_URL}/admin`} component={Admin} />
                             <AuthRoute
                                 authenticate={true}
                                 rolesAny={["ADMIN"]}
-                                path='/company/add-user'
+                                path={`${process.env.PUBLIC_URL}/company/add-user`}
                                 exact
                                 render={(props) => <RegisterCompanyUser {...props} addUserFlow />}/>
                         </Switch>

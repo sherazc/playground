@@ -10,7 +10,7 @@ class Navigation extends Component {
         if (!verifyAuthentication(this.props.tokenPayload, true)) {
             return (
                 <div style={{marginTop: 20, marginBottom: 10, }}>
-                    <NavLink to="/login">
+                    <NavLink to={`${process.env.PUBLIC_URL}/login`}>
                         Login (click or auto redirect)
                     </NavLink>
                 </div>
@@ -20,11 +20,11 @@ class Navigation extends Component {
         return (
             <div style={{marginTop: 20, marginBottom: 10, }}>
                 Hi {this.props.user.firstName} {this.props.user.lastName}
-                <a href="#/" onClick={this.logout.bind(this)}>
+                <a href={`${process.env.PUBLIC_URL}/#/`} onClick={this.logout.bind(this)}>
                     Logout
                 </a>
                 |
-                <NavLink to="/company/add-user">
+                <NavLink to={`${process.env.PUBLIC_URL}/company/add-user`}>
                     Add user to company
                 </NavLink>
             </div>
@@ -34,40 +34,40 @@ class Navigation extends Component {
     logout(event) {
         event.preventDefault();
         this.props.loginResetAction();
-        this.props.history.replace("/");
+        this.props.history.replace(`${process.env.PUBLIC_URL}/`);
     }
 
     render() {
         return (
             <div>
                 <div style={{padding: 20, backgroundColor: '#efefef'}}>
-                    <NavLink to="/" exact>Home</NavLink>
+                    <NavLink to={`${process.env.PUBLIC_URL}/`} exact>Home</NavLink>
                     |
-                    <NavLink to="/dashboard">
+                    <NavLink to={`${process.env.PUBLIC_URL}/dashboard`}>
                         Dashboard (all logged in user)
                     </NavLink>
                     |
-                    <NavLink to="/admin">
+                    <NavLink to={`${process.env.PUBLIC_URL}/admin`}>
                         Admin (admin only)
                     </NavLink>
                     |
-                    <NavLink to="/register">
+                    <NavLink to={`${process.env.PUBLIC_URL}/register`}>
                         Register Company
                     </NavLink>
                     |
-                    <NavLink to="/register/user">
+                    <NavLink to={`${process.env.PUBLIC_URL}/register/user`}>
                         Register Company User
                     </NavLink>
                     |
-                    <NavLink to="/register/finish">
+                    <NavLink to={`${process.env.PUBLIC_URL}/register/finish`}>
                         Register Company Finish
                     </NavLink>
                     |
-                    <NavLink to="/forbidden">
+                    <NavLink to={`${process.env.PUBLIC_URL}/forbidden`}>
                         Forbidden (auto redirects)
                     </NavLink>
                     |
-                    <NavLink to="/examples">
+                    <NavLink to={`${process.env.PUBLIC_URL}/examples`}>
                         Examples
                     </NavLink>
                     {this.loginControls()}

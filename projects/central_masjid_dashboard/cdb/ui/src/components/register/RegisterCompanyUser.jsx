@@ -55,7 +55,7 @@ class RegisterCompanyUser extends Component {
 
     render() {
         if (!shouldBeOnRegisterUser(this.props.companyServiceResponse.target, this.props.addUserFlow)) {
-            return <Redirect to="/register"/>;
+            return <Redirect to={`${process.env.PUBLIC_URL}/register`}/>;
         }
         return (
             <div>
@@ -70,7 +70,7 @@ class RegisterCompanyUser extends Component {
         return (
             <div>
                 <div>
-                    <img src="../images/user_create_update.svg" alt="User create update"/>
+                    <img src={`${process.env.PUBLIC_URL}/images/user_create_update.svg`} alt="User create update"/>
                 </div>
                 <form onSubmit={this.onSubmit}>
                     <InputField

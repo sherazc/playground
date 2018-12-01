@@ -62,7 +62,7 @@ class RegisterCompany extends Component {
         return (
             <div>
                 <div>
-                    <img src="images/company_create_update.svg" alt="Company create update"/>
+                    <img src={`${process.env.PUBLIC_URL}/images/company_create_update.svg`} alt="Company create update"/>
                 </div>
                 <form onSubmit={this.onSubmit}>
                     <InputField

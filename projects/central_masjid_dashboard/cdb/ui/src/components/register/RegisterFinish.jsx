@@ -9,7 +9,7 @@ class RegisterFinish extends Component {
     render() {
         const finishRegister = this.props.finishRegister;
         if (canNotBeOnRegisterFinish(finishRegister)) {
-            return <Redirect to="/register/user"/>;
+            return <Redirect to={`${process.env.PUBLIC_URL}/register/user`}/>;
         }
         return (
             <div>
@@ -19,7 +19,7 @@ class RegisterFinish extends Component {
                     and added <b>{finishRegister.email}</b> as it's admin user.
                 </p>
                 <p>
-                    <NavLink to="/login">
+                    <NavLink to={`${process.env.PUBLIC_URL}/login`}>
                         Login
                     </NavLink>
                 </p>

@@ -31,11 +31,11 @@ class Alert extends Component {
     getAlertIcon(type) {
         switch (type) {
             case ALERT_SUCCESS:
-                return "images/icons/check.svg";
+                return `${process.env.PUBLIC_URL}/images/icons/check.svg`;
             case ALERT_WARN:
-                return "images/icons/warn.svg";
+                return `${process.env.PUBLIC_URL}/images/icons/warn.svg`;
             case ALERT_ERROR:
-                return "images/icons/cross.svg";
+                return `${process.env.PUBLIC_URL}/images/icons/cross.svg`;
             default:
                 return "";
         }

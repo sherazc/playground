@@ -6,7 +6,7 @@ export const SAVE_COMPANY = "SAVE_COMPANY";
 export const SAVE_COMPANY_USER = "SAVE_COMPANY_USER";
 export const SAVE_COMPANY_FINISH = "SAVE_COMPANY_FINISH";
 
-const baseUrl = 'http://localhost:8085';
+const baseUrl = 'http://localhost:8085/cdb';
 
 export const saveCompanyAction = company => dispatch => {
     axios.post(`${baseUrl}/company`, company)
@@ -17,7 +17,7 @@ export const saveCompanyAction = company => dispatch => {
                 });
 
              dispatch(showAlert(ALERT_SUCCESS, "Successfully saved company"));
-             history.push("/register/user");
+             history.push(`${process.env.PUBLIC_URL}/register/user`);
             }
         )
         .catch(error => {
@@ -45,7 +45,7 @@ export const saveCompanyUserAction = (company, user) => dispatch => {
                         companyName: company.name
                     }
                 });
-                history.push("/register/finish");
+                history.push(`${process.env.PUBLIC_URL}/register/finish`);
             }
         )
         .catch(error => {
