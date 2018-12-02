@@ -6,7 +6,7 @@ export const SAVE_COMPANY = "SAVE_COMPANY";
 export const SAVE_COMPANY_USER = "SAVE_COMPANY_USER";
 export const SAVE_COMPANY_FINISH = "SAVE_COMPANY_FINISH";
 
-const baseUrl = 'http://localhost:8085/cdb';
+const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
 export const saveCompanyAction = company => dispatch => {
     axios.post(`${baseUrl}/company`, company)

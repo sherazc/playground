@@ -18,9 +18,9 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "cp ./environment/local.properties ./.env && react-scripts start",
+    "build": "cp ./environment/production.properties ./.env && react-scripts build",
+    "test": "cp ./environment/local.properties ./.env && react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

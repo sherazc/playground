@@ -25,6 +25,7 @@ setupInterceptor(store);
 
 class App extends Component {
     render() {
+        console.log("environment", process.env);
         return (
             <Provider store={store}>
                 <Router history={history} basename={'/cdb'}>

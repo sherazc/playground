@@ -4,7 +4,7 @@ export const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS";
 export const USER_LOGIN_FAILED = "USER_LOGIN_FAILED";
 export const USER_LOGIN_RESET = "USER_LOGIN_RESET";
 
-const baseUrl = 'http://localhost:8085/cdb';
+const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
 export const loginAction = loginRequest => dispatch => {
     axios.post(`${baseUrl}/auth/login`, loginRequest)
