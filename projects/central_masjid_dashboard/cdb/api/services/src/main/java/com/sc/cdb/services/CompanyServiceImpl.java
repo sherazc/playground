@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.text.MessageFormat;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -67,14 +68,19 @@ public class CompanyServiceImpl implements CompanyService {
         return builder.build().accept(successMessage);
     }
 
+    @Override
+    public List<Company> findAll() {
+        return this.companyRepository.findAll();
+    }
+
     private Optional<Company> getExistingCompany(Company company, boolean update) {
 
-        Optional<Company> existingUserOptional;
+        Optional<Company> existingCompanyOptional;
         if (update) {
-            existingUserOptional = this.companyRepository.findByIdIsNotAndNameIgnoreCase(company.getId(), company.getName());
+            existingCompanyOptional = this.companyRepository.findByIdIsNotAndNameIgnoreCase(company.getId(), company.getName());
         } else {
-            existingUserOptional = this.companyRepository.findByNameIgnoreCase(company.getName());
+            existingCompanyOptional = this.companyRepository.findByNameIgnoreCase(company.getName());
         }
-        return existingUserOptional;
+        return existingCompanyOptional;
     }
 }

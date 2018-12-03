@@ -20,9 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 @RestController
-@RequestMapping("/company")
+@RequestMapping("/api/auth/company")
 public class CompanyController {
 
     private CompanyService companyService;
@@ -38,8 +39,18 @@ public class CompanyController {
         this.errorResponseDecorator = errorResponseDecorator;
     }
 
+    @GetMapping
+    public ResponseEntity<?> getAllCompanies() {
+        return ResponseEntity.ok(
+                ServiceResponse.builder()
+                        .successful(true)
+                        .target(companyService.findAll())
+                        .build());
+    }
+
+
     @PostMapping
-    public ResponseEntity<?> create(@Valid @RequestBody Company company, BindingResult bindingResult) {
+    public ResponseEntity<?> createOrUpdate(@Valid @RequestBody Company company, BindingResult bindingResult) {
         ServiceResponse<Object> invalidResponse = ServiceResponse.builder().target(company).build();
 
         if (bindingResult.hasErrors()) {

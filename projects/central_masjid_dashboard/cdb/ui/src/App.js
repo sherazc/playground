@@ -28,7 +28,10 @@ class App extends Component {
         console.log("environment", process.env);
         return (
             <Provider store={store}>
-                <Router history={history} basename={'/cdb'}>
+                {/*
+                // Use this if context path or sub dir is defined
+                <Router history={history} basename={'/cdb'}>*/}
+                <Router history={history}>
                     <div className="container">
                         <Loading/>
                         <Alert/>
