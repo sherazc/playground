@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth/company")
@@ -40,12 +42,20 @@ public class CompanyController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getAllCompanies() {
-        return ResponseEntity.ok(
-                ServiceResponse.builder()
-                        .successful(true)
-                        .target(companyService.findAll())
-                        .build());
+        return ResponseEntity.ok(companyService.findAll());
+    }
+
+    @GetMapping("{id}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<Object> getCompanyById(@PathVariable("id") String id) {
+        Optional<Company> companyOptional = companyService.findCompanyById(id);
+        if(companyOptional.isPresent()) {
+            return ResponseEntity.ok(companyOptional.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 
@@ -66,47 +76,5 @@ public class CompanyController {
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
-    }
-
-    // TODO: delete it once this example is not needed anymore
-    @GetMapping("secure")
-    @PreAuthorize("hasRole('USER')")
-    @Deprecated
-    public ResponseEntity<Object> getCompanyById() {
-        Address address = new Address("123 St", "City", "ST", "12345", "1.1", "2.2");
-        Company company = new Company("xyz.abc", "Company Name", address,true, new Date());
-        User user = new User(
-                "abc.xyz",
-                "xyz.abc",
-                "email@email.com",
-                "password",
-                "First",
-                "Last",
-                Arrays.asList("USER"),
-                true, true
-        );
-        // CompanyRegisterModelDeprecated companyRegisterModel = new CompanyRegisterModelDeprecated(company, user);
-        return ResponseEntity.ok("Works");
-    }
-
-    // TODO: delete it once this example is not needed anymore
-    @GetMapping("open")
-    @PreAuthorize("permitAll()")
-    @Deprecated
-    public ResponseEntity<Object> getCompanyById2() {
-        Address address = new Address("123 St", "City", "ST", "12345", "1.1", "2.2");
-        Company company = new Company("xyz.abc", "Company Name", address, true, new Date());
-        User user = new User(
-                "abc.xyz",
-                "xyz.abc",
-                "email@email.com",
-                "password",
-                "First",
-                "Last",
-                Arrays.asList("USER"),
-                true, true
-        );
-        // CompanyRegisterModelDeprecated companyRegisterModel = new CompanyRegisterModelDeprecated(company, user);
-        return ResponseEntity.ok("Works");
     }
 }
