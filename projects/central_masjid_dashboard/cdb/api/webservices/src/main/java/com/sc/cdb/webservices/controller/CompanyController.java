@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -61,6 +62,25 @@ public class CompanyController {
 
     @PostMapping
     public ResponseEntity<?> createOrUpdate(@Valid @RequestBody Company company, BindingResult bindingResult) {
+        ServiceResponse<Object> invalidResponse = ServiceResponse.builder().target(company).build();
+
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body(
+                    errorResponseDecorator.rejectBindingErrors(
+                            invalidResponse,
+                            bindingResult.getAllErrors()));
+        }
+
+        ServiceResponse<Company> response = companyService.createOrUpdate(company);
+        if (response.isSuccessful()) {
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @PutMapping
+    public ResponseEntity<?> create(@Valid @RequestBody Company company, BindingResult bindingResult) {
         ServiceResponse<Object> invalidResponse = ServiceResponse.builder().target(company).build();
 
         if (bindingResult.hasErrors()) {
