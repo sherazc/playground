@@ -30,9 +30,13 @@ public class CompanyServiceImpl implements CompanyService {
         return companyRepository.findById(companyId);
     }
 
+    /*
+    companyRepository.save() works for both create or update.
+    That why created a service method that creates or updates.
+    */
     @Override
     public ServiceResponse<Company> createOrUpdate(Company company) {
-        LOG.debug("Registering company {}", company.getName());
+        LOG.debug("Saving company {}", company.getName());
 
         ServiceResponse.ServiceResponseBuilder<Company> builder = ServiceResponse.builder();
         builder.target(company);
@@ -70,11 +74,12 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public List<Company> findAll() {
+        LOG.debug("Retrieving all companies.");
         return this.companyRepository.findAll();
     }
 
     private Optional<Company> getExistingCompany(Company company, boolean update) {
-
+        LOG.debug("Search for existing company. Match name but not id. id={}, companyName={}", company.getId(), company.getName());
         Optional<Company> existingCompanyOptional;
         if (update) {
             existingCompanyOptional = this.companyRepository.findByIdIsNotAndNameIgnoreCase(company.getId(), company.getName());
