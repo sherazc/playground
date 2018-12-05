@@ -39,7 +39,7 @@ public class CompanyController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') ")
     public ResponseEntity<?> getAllCompanies() {
         return ResponseEntity.ok(companyService.findAll());
     }
@@ -56,15 +56,23 @@ public class CompanyController {
     }
 
     @PutMapping("{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> update(@Valid @RequestBody Company company, @PathVariable("id") String id, BindingResult bindingResult) {
-        if (StringUtils.isBlank(id) || !StringUtils.isNumeric(id)) {
+        ServiceResponse.ServiceResponseBuilder<Object> invalidResponseBuilder = ServiceResponse.builder().target(company);
+
+        if (StringUtils.isBlank(id)) {
             String errorMessage = MessageFormat.format("Can not update company. Bad companyId {0}.", id);
             LOG.error(errorMessage);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                    ServiceResponse.builder()
-                            .target(company)
-                            .message(errorMessage)
-                            .build());
+                    invalidResponseBuilder.message(errorMessage).build());
+        }
+
+        Optional<Company> companyOptional = companyService.findCompanyById(id);
+        if (!companyOptional.isPresent()) {
+            String errorMessage = MessageFormat.format("Can not update company. CompanyId {0} not found.", id);
+            LOG.error(errorMessage);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    invalidResponseBuilder.message(errorMessage).build());
         }
 
         if (company != null) {
@@ -75,6 +83,7 @@ public class CompanyController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createOrUpdate(@Valid @RequestBody Company company, BindingResult bindingResult) {
         ServiceResponse<Object> invalidResponse = ServiceResponse.builder().target(company).build();
 
