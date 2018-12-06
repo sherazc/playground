@@ -88,5 +88,17 @@ public class Application implements CommandLineRunner {
                 true, true
         );
         userRepository.save(user3);
+
+        User user4 = new User(
+                null,
+                company2.getId(),
+                "super.admin.user@company2.com",
+                "$2a$04$bl.8O/fUKciwtqKeMg8g.Ox/OGlEqleAgQq9Zuo5/HPPHhM8aLocG",
+                "Sheraz",
+                "At Company 2",
+                Arrays.asList("SUPER_ADMIN", "ADMIN", "USER"),
+                true, true
+        );
+        userRepository.save(user4);
     }
 }

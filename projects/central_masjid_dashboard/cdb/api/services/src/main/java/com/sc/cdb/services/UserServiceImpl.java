@@ -1,5 +1,6 @@
 package com.sc.cdb.services;
 
+import com.sc.cdb.data.common.util.Constants;
 import com.sc.cdb.data.model.User;
 import com.sc.cdb.data.repository.UserRepository;
 import com.sc.cdb.services.model.ServiceResponse;
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.text.MessageFormat;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -65,6 +67,15 @@ public class UserServiceImpl implements UserService {
         }
         LOG.debug(successMessage);
         return builder.build().accept(successMessage);
+    }
+
+    @Override
+    public List<User> findAllCompanyUsers(String companyId) {
+        if (Constants.COLLECTION_ALL.equalsIgnoreCase(companyId)) {
+            return this.userRepository.findAll();
+        } else {
+            return this.userRepository.findByCompanyId(companyId);
+        }
     }
 
     private Optional<User> getExistingUser(User user, boolean update) {
