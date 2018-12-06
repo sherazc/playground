@@ -19,10 +19,14 @@ public class UserServiceImpl implements UserService {
     private static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
+    private CompanyService companyService;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository,
+                           PasswordEncoder passwordEncoder,
+                           CompanyService companyService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.companyService = companyService;
     }
 
     public Optional<User> findUserByEmail(String email) {
@@ -34,6 +38,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmailIgnoreCase(email);
     }
 
+    // TODO reject if companyID not found
     @Override
     public ServiceResponse<User> createOrUpdate(User user) {
         LOG.debug("Registering user {}", user.getEmail());

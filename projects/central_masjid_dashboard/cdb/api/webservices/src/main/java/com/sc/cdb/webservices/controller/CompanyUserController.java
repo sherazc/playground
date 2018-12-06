@@ -37,8 +37,9 @@ public class CompanyUserController {
         return ResponseEntity.ok(userService.findAllCompanyUsers(companyId));
     }
 
+    // TODO use company id
     @PostMapping
-    public ResponseEntity<?> create(@Valid @RequestBody User user, BindingResult bindingResult) {
+    public ResponseEntity<?> create(@PathVariable("companyId") String companyId, @Valid @RequestBody User user, BindingResult bindingResult) {
         ServiceResponse<Object> invalidResponse = ServiceResponse.builder().target(user).build();
 
         if (bindingResult.hasErrors()) {
@@ -55,4 +56,6 @@ public class CompanyUserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
+
+    // TODO create PUT and Delete mapping
 }
