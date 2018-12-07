@@ -89,7 +89,7 @@ public class CompanyUserController {
             @Valid @RequestBody User user, BindingResult bindingResult) {
         ServiceResponse.ServiceResponseBuilder<Object> invalidResponseBuilder = ServiceResponse.builder().target(user);
 
-        Optional<User> userOptional = userService.findById(userId);
+        Optional<User> userOptional = userService.findCompanyUser(companyId, userId);
         if (!userOptional.isPresent()) {
             String errorMessage = MessageFormat.format("Can not update user. UserId {0} not found.", userId);
             LOG.error(errorMessage);
