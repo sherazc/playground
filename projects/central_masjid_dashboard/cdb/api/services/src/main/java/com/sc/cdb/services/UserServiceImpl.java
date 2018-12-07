@@ -1,6 +1,7 @@
 package com.sc.cdb.services;
 
 import com.sc.cdb.data.common.util.Constants;
+import com.sc.cdb.data.model.Company;
 import com.sc.cdb.data.model.User;
 import com.sc.cdb.data.repository.UserRepository;
 import com.sc.cdb.services.model.ServiceResponse;
@@ -38,12 +39,19 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmailIgnoreCase(email);
     }
 
-    // TODO reject if companyID not found
     @Override
     public ServiceResponse<User> createOrUpdate(User user) {
         LOG.debug("Registering user {}", user.getEmail());
         ServiceResponse.ServiceResponseBuilder<User> builder = ServiceResponse.builder();
         builder.target(user);
+
+        Optional<Company> companyOptional = companyService.findCompanyById(user.getCompanyId());
+
+        if (!companyOptional.isPresent()) {
+            String errorMessage = MessageFormat.format("Can not save user. CompanyId {0} not found.", user.getCompanyId());
+            LOG.error(errorMessage);
+            return builder.message(errorMessage).build();
+        }
 
         boolean update = StringUtils.isNotBlank(user.getId());
         Optional<User> existingUserOptional = getExistingUser(user, update);
@@ -81,6 +89,11 @@ public class UserServiceImpl implements UserService {
         } else {
             return this.userRepository.findByCompanyId(companyId);
         }
+    }
+
+    @Override
+    public Optional<User> findById(String userId) {
+        return this.userRepository.findById(userId);
     }
 
     private Optional<User> getExistingUser(User user, boolean update) {

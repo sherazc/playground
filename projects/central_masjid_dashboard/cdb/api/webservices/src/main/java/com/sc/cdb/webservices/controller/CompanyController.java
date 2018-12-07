@@ -40,7 +40,7 @@ public class CompanyController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN') ")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getAllCompanies() {
         return ResponseEntity.ok(companyService.findAll());
     }
@@ -103,9 +103,6 @@ public class CompanyController {
         }
     }
 
-    @DeleteMapping("{id}")
-    // @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> delete(@PathVariable("id") String id) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Delete method not implemented yet. ID " + id);
-    }
+
+
 }

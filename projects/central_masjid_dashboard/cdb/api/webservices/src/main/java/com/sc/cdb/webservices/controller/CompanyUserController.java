@@ -2,31 +2,40 @@ package com.sc.cdb.webservices.controller;
 
 import com.sc.cdb.data.model.Company;
 import com.sc.cdb.data.model.User;
+import com.sc.cdb.services.CompanyService;
 import com.sc.cdb.services.UserService;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.webservices.decorator.ErrorResponseDecorator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.text.MessageFormat;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth/companies/{companyId}/users")
 public class CompanyUserController {
+    private static final Logger LOG = LoggerFactory.getLogger(CompanyUserController.class);
 
     private UserService userService;
     private ErrorResponseDecorator errorResponseDecorator;
 
-    public CompanyUserController(UserService userService, ErrorResponseDecorator errorResponseDecorator) {
+    public CompanyUserController(
+            UserService userService,
+            ErrorResponseDecorator errorResponseDecorator) {
         this.userService = userService;
         this.errorResponseDecorator = errorResponseDecorator;
     }
@@ -37,9 +46,12 @@ public class CompanyUserController {
         return ResponseEntity.ok(userService.findAllCompanyUsers(companyId));
     }
 
-    // TODO use company id
     @PostMapping
-    public ResponseEntity<?> create(@PathVariable("companyId") String companyId, @Valid @RequestBody User user, BindingResult bindingResult) {
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> createOrUpdate(
+            @PathVariable("companyId") String companyId,
+            @Valid @RequestBody User user,
+            BindingResult bindingResult) {
         ServiceResponse<Object> invalidResponse = ServiceResponse.builder().target(user).build();
 
         if (bindingResult.hasErrors()) {
@@ -48,6 +60,7 @@ public class CompanyUserController {
                             invalidResponse,
                             bindingResult.getAllErrors()));
         }
+        user.setCompanyId(companyId);
 
         ServiceResponse<User> response = userService.createOrUpdate(user);
         if (response.isSuccessful()) {
@@ -57,5 +70,28 @@ public class CompanyUserController {
         }
     }
 
-    // TODO create PUT and Delete mapping
+    @PutMapping("{userId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> update(
+            @PathVariable("companyId") String companyId,
+            @PathVariable("userId") String userId,
+            @Valid @RequestBody User user, BindingResult bindingResult) {
+        ServiceResponse.ServiceResponseBuilder<Object> invalidResponseBuilder = ServiceResponse.builder().target(user);
+
+        Optional<User> userOptional = userService.findById(userId);
+        if (!userOptional.isPresent()) {
+            String errorMessage = MessageFormat.format("Can not update user. UserId {0} not found.", userId);
+            LOG.error(errorMessage);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    invalidResponseBuilder.message(errorMessage).build());
+        }
+
+        return this.createOrUpdate(companyId, user, bindingResult);
+    }
+
+    @DeleteMapping("{userId}")
+    // @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> delete(@PathVariable("companyId") String companyId, @PathVariable("id") String id) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Delete method not implemented yet. ID " + id);
+    }
 }
