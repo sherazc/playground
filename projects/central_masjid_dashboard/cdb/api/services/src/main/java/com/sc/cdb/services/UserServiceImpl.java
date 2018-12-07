@@ -96,7 +96,18 @@ public class UserServiceImpl implements UserService {
         return this.userRepository.findById(userId);
     }
 
+    @Override
+    public Optional<User> findCompanyUser(String companyId, String userId) {
+        LOG.debug("Searching for user. companyId = {}, userId = {}", companyId, userId);
+        if (StringUtils.isBlank(companyId) || StringUtils.isBlank(userId)) {
+            LOG.warn("Can not search for user. Bad arguments. companyId = {}, userId = {}", companyId, userId);
+            return Optional.empty();
+        }
+        return this.userRepository.findByCompanyIdAndId(companyId, userId);
+    }
+
     private Optional<User> getExistingUser(User user, boolean update) {
+        LOG.debug("Searching for user. email = {}, userId = {}", user.getEmail());
         Optional<User> existingUserOptional;
         if (update) {
             existingUserOptional = this.userRepository.findByIdIsNotAndEmailIgnoreCase(user.getId(), user.getEmail());

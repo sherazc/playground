@@ -1,8 +1,6 @@
 package com.sc.cdb.webservices.controller;
 
-import com.sc.cdb.data.model.Company;
 import com.sc.cdb.data.model.User;
-import com.sc.cdb.services.CompanyService;
 import com.sc.cdb.services.UserService;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.webservices.decorator.ErrorResponseDecorator;
@@ -44,6 +42,19 @@ public class CompanyUserController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getAllCompanyUsers(@PathVariable("companyId") String companyId) {
         return ResponseEntity.ok(userService.findAllCompanyUsers(companyId));
+    }
+
+    @GetMapping("{userId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> getAllCompanyUser(
+            @PathVariable("companyId") String companyId,
+            @PathVariable("userId") String userId) {
+        Optional<User> userOptional = userService.findCompanyUser(companyId, userId);
+        if (userOptional.isPresent()) {
+            return ResponseEntity.ok(userOptional.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping

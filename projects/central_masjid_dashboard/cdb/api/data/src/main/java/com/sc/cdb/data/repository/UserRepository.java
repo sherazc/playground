@@ -10,4 +10,5 @@ public interface UserRepository extends MongoRepository<User, String> {
     Optional<User> findByEmailIgnoreCase(String email);
     Optional<User> findByIdIsNotAndEmailIgnoreCase(String id, String email);
     List<User> findByCompanyId(String companyId);
+    Optional<User> findByCompanyIdAndId(String companyId, String userId);
 }

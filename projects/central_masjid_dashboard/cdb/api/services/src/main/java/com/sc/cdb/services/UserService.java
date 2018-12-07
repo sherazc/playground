@@ -11,4 +11,5 @@ public interface UserService {
     ServiceResponse<User> createOrUpdate(User user);
     List<User> findAllCompanyUsers(String companyId);
     Optional<User> findById(String userId);
+    Optional<User> findCompanyUser(String companyId, String userId);
 }
