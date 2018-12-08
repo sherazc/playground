@@ -45,3 +45,32 @@ curl \
 --header "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbi51c2VyQGVtYWlsLmNvbSIsInJvbGVzIjpbIkFETUlOIiwiVVNFUiJdLCJleHAiOjE1Mzg3MDUxMTd9.e89-FX8WI-2rPj6Q8dJxmngP6-aXxaGxPWtKk5wF2XewGKSRUePVeAhFhD_9iaQI9aIpjbz6crX_kideP6LM0Q" \
 http://localhost:8085/company/secure
 ```
+
+#To Add context path/Sub directory
+## UI 
+### package.json
+Add below in package.json if context path or sub dir is defined
+```
+"homepage": "/cdb",
+```
+
+### Router 
+```html
+<Router history={history} basename={'/cdb'}>
+```
+
+### Views
+Add **process.env.PUBLIC_URL** in all the image, 
+router, and link paths
+```
+<NavLink to={`${process.env.PUBLIC_URL}/company/add-user`}>
+    Add user to company
+</NavLink>
+```
+
+## Services
+
+### application.properties
+```
+server.servlet.context-path=/cdb
+```

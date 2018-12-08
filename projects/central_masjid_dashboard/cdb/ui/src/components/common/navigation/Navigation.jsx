@@ -63,6 +63,14 @@ class Navigation extends Component {
                         Register Company Finish
                     </NavLink>
                     |
+                    <NavLink to={`${process.env.PUBLIC_URL}/auth/company/list`}>
+                        All Company List (SUPER_ADMIN)
+                    </NavLink>
+                    |
+                    <NavLink to={`${process.env.PUBLIC_URL}/auth/company/user/list`}>
+                        Company User List (ADMIN)
+                    </NavLink>
+                    |
                     <NavLink to={`${process.env.PUBLIC_URL}/forbidden`}>
                         Forbidden (auto redirects)
                     </NavLink>
