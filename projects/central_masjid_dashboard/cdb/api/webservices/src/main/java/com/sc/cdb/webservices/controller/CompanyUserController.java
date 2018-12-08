@@ -4,6 +4,7 @@ import com.sc.cdb.data.model.User;
 import com.sc.cdb.services.UserService;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.webservices.decorator.ErrorResponseDecorator;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -95,6 +96,10 @@ public class CompanyUserController {
             LOG.error(errorMessage);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                     invalidResponseBuilder.message(errorMessage).build());
+        }
+
+        if (StringUtils.isBlank(user.getPassword())) {
+            user.setPassword(userOptional.get().getPassword());
         }
 
         return this.createOrUpdate(companyId, user, bindingResult);

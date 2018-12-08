@@ -54,16 +54,24 @@ public class UserServiceImpl implements UserService {
         }
 
         boolean update = StringUtils.isNotBlank(user.getId());
-        Optional<User> existingUserOptional = getExistingUser(user, update);
+        Optional<User> existingUserWithSameEmailOptional = getExistingUserWithSameEmail(user, update);
 
-        if (existingUserOptional.isPresent()) {
+        if (existingUserWithSameEmailOptional.isPresent()) {
             String errorMessage = MessageFormat.format(
-                    "{0} already exists.", existingUserOptional.get().getEmail());
+                    "{0} already exists.", existingUserWithSameEmailOptional.get().getEmail());
             LOG.error(errorMessage);
             return builder.build().rejectField("user.email", errorMessage);
         }
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (StringUtils.isBlank(user.getPassword())) {
+            String errorMessage = "Can not save user. Password is blank.";
+            LOG.error(errorMessage);
+            return builder.build().rejectField("user.password", errorMessage);
+        }
+
+        if (!isPasswordAlreadyEncoded(user.getPassword())) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
 
         User savedUser = userRepository.save(user);
         builder.target(savedUser);
@@ -80,6 +88,10 @@ public class UserServiceImpl implements UserService {
         }
         LOG.debug(successMessage);
         return builder.build().accept(successMessage);
+    }
+
+    private boolean isPasswordAlreadyEncoded(String password) {
+        return StringUtils.isNotBlank(password) && password.startsWith("$2");
     }
 
     @Override
@@ -106,7 +118,7 @@ public class UserServiceImpl implements UserService {
         return this.userRepository.findByCompanyIdAndId(companyId, userId);
     }
 
-    private Optional<User> getExistingUser(User user, boolean update) {
+    private Optional<User> getExistingUserWithSameEmail(User user, boolean update) {
         LOG.debug("Searching for user. email = {}, userId = {}", user.getEmail());
         Optional<User> existingUserOptional;
         if (update) {
