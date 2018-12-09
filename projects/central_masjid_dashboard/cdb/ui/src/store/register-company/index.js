@@ -1,22 +1,17 @@
 import {SAVE_COMPANY, SAVE_COMPANY_FINISH, SAVE_COMPANY_USER} from "./actions";
-import {createEmptyCompany, createEmptyFinishRegister, createEmptyUser} from "../../services/domain/EmptyObject";
+import {
+    createEmptyCompany,
+    createEmptyFinishRegister,
+    createEmptyServiceResponse,
+    createEmptyUser
+} from "../../services/domain/EmptyObject";
 
 // TODO create new or edit flags.
 // TODO create success company and user register summary start and its page.
 const initialStateCreator = () => {
     return {
-        companyServiceResponse: {
-            "successful": undefined,
-                "message": "",
-                "fieldErrors": {},
-            "target": createEmptyCompany()
-        },
-        companyUserServiceResponse: {
-            "successful": undefined,
-                "message": "",
-                "fieldErrors": {},
-            "target": createEmptyUser()
-        },
+        companyServiceResponse: createEmptyServiceResponse(createEmptyCompany),
+        companyUserServiceResponse: createEmptyServiceResponse(createEmptyUser),
         finishRegister: createEmptyFinishRegister()
     }
 };

@@ -46,7 +46,7 @@ public class CompanyController {
     }
 
     @GetMapping("{id}")
-    @PreAuthorize("hasRole('USER')")
+    // @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Object> getCompanyById(@PathVariable("id") String id) {
         Optional<Company> companyOptional = companyService.findCompanyById(id);
         if (companyOptional.isPresent()) {
@@ -57,7 +57,7 @@ public class CompanyController {
     }
 
     @PutMapping("{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    // @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> update(@Valid @RequestBody Company company, @PathVariable("id") String id, BindingResult bindingResult) {
         ServiceResponse.ServiceResponseBuilder<Object> invalidResponseBuilder = ServiceResponse.builder().target(company);
 
@@ -84,7 +84,7 @@ public class CompanyController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    // @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createOrUpdate(@Valid @RequestBody Company company, BindingResult bindingResult) {
         ServiceResponse<Object> invalidResponse = ServiceResponse.builder().target(company).build();
 

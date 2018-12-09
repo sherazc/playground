@@ -38,11 +38,17 @@ class CompanyGrid extends Component {
                                 {company.address.zip}
                             </td>
                             <td>
-                                <a href="#/" onClick={(e) => e.preventDefault()}>
+                                <a href="#/" onClick={(e) => {
+                                        e.preventDefault();
+                                        this.editCompany(company.id);
+                                    }}>
                                     Edit
                                 </a>
                                 &nbsp;
-                                <a href="#/" onClick={(e) => e.preventDefault()}>
+                                <a href="#/" onClick={(e) => {
+                                    e.preventDefault();
+                                    this.deleteCompany(company.id);
+                                }}>
                                     Delete
                                 </a>
                             </td>
@@ -54,6 +60,14 @@ class CompanyGrid extends Component {
             </table>
         );
     };
+
+    editCompany(companyId) {
+        this.props.editCompany(companyId);
+    }
+
+    deleteCompany(companyId) {
+        this.props.deleteCompany(companyId);
+    }
 
     render() {
         const companies = this.props.companies;

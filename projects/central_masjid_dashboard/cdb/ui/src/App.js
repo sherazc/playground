@@ -50,26 +50,28 @@ class App extends Component {
                             <Route path={`${process.env.PUBLIC_URL}/register/user`} component={RegisterCompanyUser} exact/>
                             <Route path={`${process.env.PUBLIC_URL}/register/finish`} component={RegisterFinish} exact/>
                             <Route path={`${process.env.PUBLIC_URL}/examples`} component={Examples} exact/>
-                            <AuthRoute authenticate={true} path={`${process.env.PUBLIC_URL}/dashboard`} component={Dashboard} exact/>
+                            <AuthRoute
+                                // authenticate={true}
+                                path={`${process.env.PUBLIC_URL}/dashboard`} component={Dashboard} exact/>
                             <Route path={`${process.env.PUBLIC_URL}/forbidden`} component={Forbidden} exact/>
                             <AuthRoute
-                                authenticate={true}
+                                // authenticate={true}
                                 exact
-                                rolesAny={["ADMIN"]}
+                                // rolesAny={["ADMIN"]}
                                 path={`${process.env.PUBLIC_URL}/admin`} component={Admin} />
                             <AuthRoute
-                                authenticate={true}
-                                rolesAny={["ADMIN"]}
+                                // authenticate={true}
+                                // rolesAny={["ADMIN"]}
                                 path={`${process.env.PUBLIC_URL}/company/add-user`}
                                 exact
                                 render={(props) => <RegisterCompanyUser {...props} addUserFlow />}/>
                             <AuthRoute
-                                authenticate={false}
+                                // authenticate={false}
                                 // rolesAny={["SUPER_ADMIN"]}
                                 path={`${process.env.PUBLIC_URL}/auth/company/list`}
                                 component={AuthCompanyList} exact/>
                             <AuthRoute
-                                authenticate={false}
+                                // authenticate={false}
                                 // rolesAny={["ADMIN"]}
                                 path={`${process.env.PUBLIC_URL}/auth/company/user/list`}
                                 component={AuthCompanyUserList} exact/>

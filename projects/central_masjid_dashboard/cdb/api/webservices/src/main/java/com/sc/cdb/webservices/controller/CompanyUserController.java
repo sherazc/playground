@@ -46,7 +46,7 @@ public class CompanyUserController {
     }
 
     @GetMapping("{userId}")
-    @PreAuthorize("hasRole('ADMIN')")
+    // @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getAllCompanyUser(
             @PathVariable("companyId") String companyId,
             @PathVariable("userId") String userId) {
@@ -59,7 +59,7 @@ public class CompanyUserController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    // @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createOrUpdate(
             @PathVariable("companyId") String companyId,
             @Valid @RequestBody User user,
@@ -83,7 +83,7 @@ public class CompanyUserController {
     }
 
     @PutMapping("{userId}")
-    @PreAuthorize("hasRole('ADMIN')")
+    // @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> update(
             @PathVariable("companyId") String companyId,
             @PathVariable("userId") String userId,

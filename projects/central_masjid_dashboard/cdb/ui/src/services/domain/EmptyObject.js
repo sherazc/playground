@@ -30,6 +30,15 @@ export const createEmptyCompany = () => {
     };
 };
 
+export const createEmptyServiceResponse = (targetCreatetor) => {
+    return {
+        "successful": undefined,
+        "message": "",
+        "fieldErrors": {},
+        "target": targetCreatetor()
+    };
+};
+
 
 export const createEmptyFinishRegister = () => {
     return {
