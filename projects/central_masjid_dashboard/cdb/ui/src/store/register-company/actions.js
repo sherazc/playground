@@ -9,7 +9,7 @@ export const SAVE_COMPANY_FINISH = "SAVE_COMPANY_FINISH";
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
 export const saveCompanyAction = company => dispatch => {
-    axios.post(`${baseUrl}/company`, company)
+    axios.post(`${baseUrl}/api/auth/companies`, company)
         .then(response => {
              dispatch({
                     type: SAVE_COMPANY,

@@ -67,6 +67,14 @@ router, and link paths
     Add user to company
 </NavLink>
 ```
+### .env - ui/environment/*.properties
+Modify ui/environment/*.properties files to set 
+```
+REACT_APP_API_BASE_PATH=http://localhost:8085
+```
+These properties files are used to create .env file 
+when starting or building react app.
+
 
 ## Services
 

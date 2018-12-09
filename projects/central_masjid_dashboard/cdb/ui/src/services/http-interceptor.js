@@ -8,8 +8,14 @@ const DEBUG_INTERCEPTOR = false;
 const setupInterceptor = (store) => {
     axios.interceptors.request.use((configs) => {
         store.dispatch(showLoadingAction);
+
+        // TODO. If token is invalid then redirect to login page.
+        const token = getTokenFromStore(store);
+        if (token) {
+            configs.headers['Authorization'] = `Bearer ${token}`;
+        }
+
         if (DEBUG_INTERCEPTOR) {
-            configs.headers['my_custom_header'] = 'Custom Header Value';
             console.log("Request interceptor headers", configs.headers);
             console.log("Request interceptor body", configs.data);
             console.log("Request interceptor URL", configs.url);
@@ -55,6 +61,13 @@ const setupInterceptor = (store) => {
         return Promise.reject(error);
     });
 
+};
+
+const getTokenFromStore = (store) => {
+    const loginState = store.getState().login;
+    if (loginState && loginState.successful && loginState.token && loginState.token.length > 0) {
+        return loginState.token;
+    }
 };
 
 export default setupInterceptor;
