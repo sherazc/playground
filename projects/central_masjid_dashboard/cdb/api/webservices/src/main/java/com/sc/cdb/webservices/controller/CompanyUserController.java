@@ -40,7 +40,7 @@ public class CompanyUserController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    // @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getAllCompanyUsers(@PathVariable("companyId") String companyId) {
         return ResponseEntity.ok(userService.findAllCompanyUsers(companyId));
     }

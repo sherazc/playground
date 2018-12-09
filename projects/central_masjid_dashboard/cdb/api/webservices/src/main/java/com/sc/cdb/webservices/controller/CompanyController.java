@@ -40,7 +40,7 @@ public class CompanyController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    // @PreAuthorize("hasRole('SUPER_ADMIN')")
     public ResponseEntity<?> getAllCompanies() {
         return ResponseEntity.ok(companyService.findAll());
     }
