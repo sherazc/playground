@@ -20,6 +20,9 @@ import Forbidden from "./components/Forbidden";
 import Admin from "./components/Admin";
 import Navigation from "./components/common/navigation/Navigation";
 import AuthRoute from "./components/common/navigation/AuthRoute";
+import PageNotFound from "./components/PageNotFound";
+import AuthCompanyList from "./components/auth/company/AuthCompanyList";
+import AuthCompanyUserList from "./components/auth/company/user/AuthCompanyUserList";
 
 setupInterceptor(store);
 
@@ -60,6 +63,17 @@ class App extends Component {
                                 path={`${process.env.PUBLIC_URL}/company/add-user`}
                                 exact
                                 render={(props) => <RegisterCompanyUser {...props} addUserFlow />}/>
+                            <AuthRoute
+                                authenticate={true}
+                                rolesAny={["SUPER_ADMIN"]}
+                                path={`${process.env.PUBLIC_URL}/auth/company/list`}
+                                component={AuthCompanyList} exact/>
+                            <AuthRoute
+                                authenticate={true}
+                                rolesAny={["ADMIN"]}
+                                path={`${process.env.PUBLIC_URL}/auth/company/user/list`}
+                                component={AuthCompanyUserList} exact/>
+                            <Route component={PageNotFound} />
                         </Switch>
                     </div>
                 </Router>
