@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import {getAllCompanies} from "../../../services/auth/CompanyListService";
 import CompanyGrid from "./CompanyGrid";
+import {connect} from "react-redux";
+import {prepareCompanyToEdit} from "../../../store/register-company/actions";
 
 class AuthCompanyList extends Component {
     constructor(props) {
@@ -17,12 +19,28 @@ class AuthCompanyList extends Component {
     }
 
     editCompany(companyId) {
-        console.log("Edit Company ID", companyId);
+        let company = this.findCompanyById(this.state.companies, companyId);
+        this.props.prepareCompanyToEdit(company);
+        console.log("Edit Company ID", company);
     }
 
     deleteCompany(companyId) {
         console.log("Delete Company ID", companyId);
     }
+
+    findCompanyById(companies, id) {
+        let result = null;
+
+        companies.some((element) => {
+            if (id === element.id) {
+                result = element;
+                return true;
+            } else {
+                return false;
+            }
+        });
+        return result;
+    };
 
     render() {
         return(
@@ -38,4 +56,6 @@ class AuthCompanyList extends Component {
     }
 }
 
-export default AuthCompanyList;
+
+
+export default connect(undefined, {prepareCompanyToEdit})(AuthCompanyList);

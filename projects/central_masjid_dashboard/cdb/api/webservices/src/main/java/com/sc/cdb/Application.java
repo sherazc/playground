@@ -41,7 +41,7 @@ public class Application implements CommandLineRunner {
         Address address = new Address(
                 "123 St",
                 "City",
-                "ST",
+                "GA",
                 "12345",
                 "1.1",
                 "2.2");

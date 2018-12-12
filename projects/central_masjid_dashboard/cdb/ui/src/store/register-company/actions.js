@@ -5,6 +5,7 @@ import history from "../../services/app-browse-history";
 export const SAVE_COMPANY = "SAVE_COMPANY";
 export const SAVE_COMPANY_USER = "SAVE_COMPANY_USER";
 export const SAVE_COMPANY_FINISH = "SAVE_COMPANY_FINISH";
+export const REGISTER_COMPANY_PREPARE_FOR_EDIT = "REGISTER_COMPANY_PREPARE_FOR_EDIT";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
@@ -54,4 +55,12 @@ export const saveCompanyUserAction = (company, user) => dispatch => {
                 payload: error.response.data
             });
         });
+};
+
+
+export const prepareCompanyToEdit = (company) => {
+    return {
+        type: REGISTER_COMPANY_PREPARE_FOR_EDIT,
+        payload: company
+    };
 };

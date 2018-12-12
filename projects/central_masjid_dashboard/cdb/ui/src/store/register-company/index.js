@@ -1,4 +1,4 @@
-import {SAVE_COMPANY, SAVE_COMPANY_FINISH, SAVE_COMPANY_USER} from "./actions";
+import {REGISTER_COMPANY_PREPARE_FOR_EDIT, SAVE_COMPANY, SAVE_COMPANY_FINISH, SAVE_COMPANY_USER} from "./actions";
 import {
     createEmptyCompany,
     createEmptyFinishRegister,
@@ -27,6 +27,9 @@ export const registerCompany = (state = initialState, action) => {
         case SAVE_COMPANY_FINISH:
             const cleanInitialState = initialStateCreator();
             return {...cleanInitialState, finishRegister: action.payload};
+        case REGISTER_COMPANY_PREPARE_FOR_EDIT:
+            const companyServiceResponse = createEmptyServiceResponse(() => action.payload);
+            return {...state, companyServiceResponse: companyServiceResponse};
         default:
             return state;
     }
