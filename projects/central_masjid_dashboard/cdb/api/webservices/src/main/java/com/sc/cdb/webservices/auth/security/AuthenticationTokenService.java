@@ -1,4 +1,4 @@
-package com.sc.cdb.webservices.security;
+package com.sc.cdb.webservices.auth.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;

@@ -1,4 +1,4 @@
-package com.sc.cdb.webservices.model;
+package com.sc.cdb.webservices.auth.model;
 
 import com.sc.cdb.data.model.User;
 import org.springframework.security.core.GrantedAuthority;

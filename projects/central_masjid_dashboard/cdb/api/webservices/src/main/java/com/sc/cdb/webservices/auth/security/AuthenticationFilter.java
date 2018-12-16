@@ -1,6 +1,5 @@
-package com.sc.cdb.webservices.security;
+package com.sc.cdb.webservices.auth.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;

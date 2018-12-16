@@ -1,7 +1,7 @@
-package com.sc.cdb.webservices.security;
+package com.sc.cdb.webservices.auth.security;
 
 import com.sc.cdb.services.UserService;
-import com.sc.cdb.webservices.model.AuthenticatedUserDetail;
+import com.sc.cdb.webservices.auth.model.AuthenticatedUserDetail;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

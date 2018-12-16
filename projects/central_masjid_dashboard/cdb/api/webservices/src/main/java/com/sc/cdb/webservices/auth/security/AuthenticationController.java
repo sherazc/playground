@@ -1,15 +1,14 @@
-package com.sc.cdb.webservices.security;
+package com.sc.cdb.webservices.auth.security;
 
 import com.sc.cdb.data.model.Company;
 import com.sc.cdb.data.model.User;
 import com.sc.cdb.services.CompanyService;
-import com.sc.cdb.webservices.model.AuthenticatedUserDetail;
-import com.sc.cdb.webservices.model.AuthenticationRequest;
-import com.sc.cdb.webservices.model.AuthenticationResponse;
+import com.sc.cdb.webservices.auth.model.AuthenticatedUserDetail;
+import com.sc.cdb.webservices.auth.model.AuthenticationRequest;
+import com.sc.cdb.webservices.auth.model.AuthenticationResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
