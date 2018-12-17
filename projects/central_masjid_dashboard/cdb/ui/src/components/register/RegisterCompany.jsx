@@ -49,6 +49,7 @@ class RegisterCompany extends Component {
     }
 
     render() {
+        console.log(this.props.match.params.action);
         return (
             <div>
                 <h3>Register Company</h3>

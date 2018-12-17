@@ -7,7 +7,7 @@ import {prepareCompanyToEdit} from "../../../store/register-company/actions";
 class AuthCompanyList extends Component {
     constructor(props) {
         super(props);
-        this.state = {companies: []};
+        this.state = {editCompanyPrepared: false, companies: []};
     }
 
     componentDidMount() {
@@ -21,7 +21,8 @@ class AuthCompanyList extends Component {
     editCompany(companyId) {
         let company = this.findCompanyById(this.state.companies, companyId);
         this.props.prepareCompanyToEdit(company);
-        console.log("Edit Company ID", company);
+        // console.log("Edit Company ID", company);
+        this.setState({editCompanyPrepared: true});
     }
 
     deleteCompany(companyId) {
