@@ -18,16 +18,24 @@ const StateSelect = (props) => {
         }
     };
 
-    return (
-        <div>
-            <label htmlFor={props.name}>{props.label}</label>
-            <select
+    const viewOrEdit = mode => {
+        if ("edit" === mode) {
+            return <select
                 id={props.name}
                 name={props.name}
                 value={props.selectedStateAbv}
                 onChange={props.onChange}>
                 {buildStateOptions(states)}
             </select>
+        } else {
+            return <>{props.selectedStateAbv}</>
+        }
+    };
+
+    return (
+        <div>
+            <label htmlFor={props.name}>{props.label}</label>
+            {viewOrEdit(props.mode)}
             {makeFieldError(props.fieldError)}
         </div>
     );

@@ -11,7 +11,6 @@ import Login from "./components/Login";
 import Alert from "./components/alert/Alert";
 import Loading from "./components/loading/Loading";
 import setupInterceptor from "./services/http-interceptor";
-import RegisterCompany from "./components/register/RegisterCompany";
 import RegisterCompanyUser from "./components/register/RegisterCompanyUser";
 import RegisterFinish from "./components/register/RegisterFinish";
 import Examples from "./components/Examples";
@@ -23,6 +22,7 @@ import AuthRoute from "./components/common/navigation/AuthRoute";
 import PageNotFound from "./components/PageNotFound";
 import AuthCompanyList from "./components/auth/company/AuthCompanyList";
 import AuthCompanyUserList from "./components/auth/company/user/AuthCompanyUserList";
+import AuthCompany from "./components/auth/company/AuthCompany";
 
 setupInterceptor(store);
 
@@ -52,7 +52,7 @@ class App extends Component {
                                 // rolesAny={["SUPER_ADMIN"]}
                                 path={`${process.env.PUBLIC_URL}/auth/company/list`}
                                 component={AuthCompanyList} exact/>
-                            <Route path={`${process.env.PUBLIC_URL}/auth/company/:action(create|update|view)`} component={RegisterCompany}/>
+                            <Route path={`${process.env.PUBLIC_URL}/auth/company/:action(create|edit|view)`} component={AuthCompany}/>
 
 
                             <AuthRoute
@@ -60,7 +60,7 @@ class App extends Component {
                                 // rolesAny={["ADMIN"]}
                                 path={`${process.env.PUBLIC_URL}/auth/company/user/list`}
                                 component={AuthCompanyUserList} exact/>
-                            <Route path={`${process.env.PUBLIC_URL}/auth/company/user/:action`} component={RegisterCompanyUser} exact/>
+                            <Route path={`${process.env.PUBLIC_URL}/auth/company/user/:action(create|edit|view)`} component={RegisterCompanyUser} exact/>
 
 
 

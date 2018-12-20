@@ -26,6 +26,7 @@ const InputField = (props) => {
         }
 
     };
+
     const requiredMarker = required => {
         if (required) {
             return <span style={{color:'red'}}>*</span>;
@@ -33,19 +34,28 @@ const InputField = (props) => {
 
     };
 
+    const viewOrEditField = mode => {
+
+        if ("edit" === mode) {
+            return <input
+                    onChange={props.onChange}
+                    value={props.value}
+                    type={type}
+                    name={props.name}
+                    id={props.name}
+                    required={props.required}
+                    placeholder={placeholder}/>
+        } else {
+            return <>{props.value}</>;
+        }
+
+    };
 
     return (
         <div>
             {requiredMarker(props.required)}
             <label htmlFor={props.name}>{props.label}</label>
-            <input
-                onChange={props.onChange}
-                value={props.value}
-                type={type}
-                name={props.name}
-                id={props.name}
-                required={props.required}
-                placeholder={placeholder}/>
+            {viewOrEditField(props.mode)}
             {makeFieldError(props.fieldError)}
             {makeHelpSection(props.help)}
         </div>

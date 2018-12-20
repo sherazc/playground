@@ -1,10 +1,11 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import StateSelect from "../partials/StateSelect";
-import InputField from "../partials/InputField";
-import {saveCompanyAction} from "../../store/register-company/actions";
+import StateSelect from "../../partials/StateSelect";
+import InputField from "../../partials/InputField";
+import {saveCompanyAction} from "../../../store/register-company/actions";
+import {NavLink} from "react-router-dom";
 
-class RegisterCompany extends Component {
+class AuthCompany extends Component {
 
     constructor(props) {
         super(props);
@@ -49,16 +50,28 @@ class RegisterCompany extends Component {
     }
 
     render() {
-        console.log(this.props.match.params.action);
+        const action = this.props.match.params.action;
         return (
             <div>
                 <h3>Register Company</h3>
-                {this.registrationForm()}
+                {this.registrationForm(action)}
+                <hr/>
+                <NavLink to={`${process.env.PUBLIC_URL}/auth/company/view`}>
+                    View Company
+                </NavLink>
+                <br/>
+                <NavLink to={`${process.env.PUBLIC_URL}/auth/company/edit`}>
+                    Edit Company
+                </NavLink>
+                <br/>
+                <NavLink to={`${process.env.PUBLIC_URL}/auth/company/list`}>
+                    Company List
+                </NavLink>
             </div>
         );
     }
 
-    registrationForm() {
+    registrationForm(action) {
         const fieldErrors = this.props.companyServiceResponse.fieldErrors;
         return (
             <div>
@@ -67,6 +80,7 @@ class RegisterCompany extends Component {
                 </div>
                 <form onSubmit={this.onSubmit}>
                     <InputField
+                        mode={action}
                         label="Masjid Name"
                         name="name"
                         onChange={this.onChange}
@@ -75,6 +89,7 @@ class RegisterCompany extends Component {
                         value={this.state.name}/>
 
                     <InputField
+                        mode={action}
                         label="Street"
                         name="addressStreet"
                         onChange={this.onChange}
@@ -83,6 +98,7 @@ class RegisterCompany extends Component {
                         value={this.state.addressStreet}/>
 
                     <InputField
+                        mode={action}
                         label="City"
                         name="addressCity"
                         onChange={this.onChange}
@@ -91,6 +107,7 @@ class RegisterCompany extends Component {
                         value={this.state.addressCity}/>
 
                     <StateSelect
+                        mode={action}
                         label="State"
                         selectedStateAbv={this.state.addressState}
                         name="addressState"
@@ -99,6 +116,7 @@ class RegisterCompany extends Component {
                         onChange={this.onChange}/>
 
                     <InputField
+                        mode={action}
                         label="Zip"
                         name="addressZip"
                         onChange={this.onChange}
@@ -112,6 +130,7 @@ class RegisterCompany extends Component {
         );
     }
 }
+
 const actions = {saveCompanyAction};
 
 const mapStateToProps = state => {
@@ -120,4 +139,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps, actions)(RegisterCompany);
+export default connect(mapStateToProps, actions)(AuthCompany);

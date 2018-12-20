@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {Redirect} from "react-router";
 import {getAllCompanies} from "../../../services/auth/CompanyListService";
 import CompanyGrid from "./CompanyGrid";
 import {connect} from "react-redux";
@@ -44,7 +45,11 @@ class AuthCompanyList extends Component {
     };
 
     render() {
-        return(
+        if (this.state.editCompanyPrepared) {
+            return <Redirect to={`${process.env.PUBLIC_URL}/auth/company/view`}/>;
+        }
+
+        return (
             <div>
                 <h3>Company List</h3>
                 <CompanyGrid
@@ -56,7 +61,5 @@ class AuthCompanyList extends Component {
         );
     }
 }
-
-
 
 export default connect(undefined, {prepareCompanyToEdit})(AuthCompanyList);

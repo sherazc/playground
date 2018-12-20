@@ -42,7 +42,7 @@ class CompanyGrid extends Component {
                                         e.preventDefault();
                                         this.editCompany(company.id);
                                     }}>
-                                    Edit
+                                    View
                                 </a>
                                 &nbsp;
                                 <a href="#/" onClick={(e) => {
