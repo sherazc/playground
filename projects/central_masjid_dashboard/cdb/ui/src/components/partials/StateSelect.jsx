@@ -19,7 +19,7 @@ const StateSelect = (props) => {
     };
 
     const viewOrEdit = mode => {
-        if ("edit" === mode) {
+        if ("edit" === mode || "create" === mode) {
             return <select
                 id={props.name}
                 name={props.name}

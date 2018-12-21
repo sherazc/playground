@@ -23,12 +23,12 @@ import PageNotFound from "./components/PageNotFound";
 import AuthCompanyList from "./components/auth/company/AuthCompanyList";
 import AuthCompanyUserList from "./components/auth/company/user/AuthCompanyUserList";
 import AuthCompany from "./components/auth/company/AuthCompany";
+// import {REGISTER_COMPANY_PREPARE_FOR_CREATE} from "./store/register-company/actions";
 
 setupInterceptor(store);
 
 class App extends Component {
     render() {
-        console.log("environment", process.env);
         return (
             <Provider store={store}>
                 {/*
@@ -52,8 +52,18 @@ class App extends Component {
                                 // rolesAny={["SUPER_ADMIN"]}
                                 path={`${process.env.PUBLIC_URL}/auth/company/list`}
                                 component={AuthCompanyList} exact/>
-                            <Route path={`${process.env.PUBLIC_URL}/auth/company/:action(create|edit|view)`} component={AuthCompany}/>
 
+                            <Route
+                                path={`${process.env.PUBLIC_URL}/auth/company/:action(create|edit|view)`}
+                                render={(props) => {
+
+                                    // console.log("Entered route", props);
+                                    if (props.match.params.action === "create") {
+                                        // store.dispatch({type: REGISTER_COMPANY_PREPARE_FOR_CREATE});
+                                    }
+
+                                    return <AuthCompany {...props} />;
+                                }}/>
 
                             <AuthRoute
                                 // authenticate={false}

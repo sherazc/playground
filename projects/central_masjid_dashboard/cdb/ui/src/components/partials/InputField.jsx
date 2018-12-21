@@ -36,7 +36,7 @@ const InputField = (props) => {
 
     const viewOrEditField = mode => {
 
-        if ("edit" === mode) {
+        if ("edit" === mode || "create" === mode) {
             return <input
                     onChange={props.onChange}
                     value={props.value}

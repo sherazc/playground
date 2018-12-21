@@ -6,6 +6,7 @@ export const SAVE_COMPANY = "SAVE_COMPANY";
 export const SAVE_COMPANY_USER = "SAVE_COMPANY_USER";
 export const SAVE_COMPANY_FINISH = "SAVE_COMPANY_FINISH";
 export const REGISTER_COMPANY_PREPARE_FOR_EDIT = "REGISTER_COMPANY_PREPARE_FOR_EDIT";
+export const REGISTER_COMPANY_PREPARE_FOR_CREATE = "REGISTER_COMPANY_PREPARE_FOR_CREATE";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
@@ -58,9 +59,15 @@ export const saveCompanyUserAction = (company, user) => dispatch => {
 };
 
 
-export const prepareCompanyToEdit = (company) => {
+export const prepareCompanyToEdit = company => {
     return {
         type: REGISTER_COMPANY_PREPARE_FOR_EDIT,
         payload: company
+    };
+};
+
+export const prepareCompanyToCreate = () => {
+    return {
+        type: REGISTER_COMPANY_PREPARE_FOR_CREATE
     };
 };

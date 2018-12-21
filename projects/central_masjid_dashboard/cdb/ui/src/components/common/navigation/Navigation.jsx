@@ -51,11 +51,11 @@ class Navigation extends Component {
                         Admin (admin only)
                     </NavLink>
                     |
-                    <NavLink to={`${process.env.PUBLIC_URL}/register`}>
+                    <NavLink to={`${process.env.PUBLIC_URL}/auth/company/create`}>
                         Register Company
                     </NavLink>
                     |
-                    <NavLink to={`${process.env.PUBLIC_URL}/register/user`}>
+                    <NavLink to={`${process.env.PUBLIC_URL}/auth/company/user/create`}>
                         Register Company User
                     </NavLink>
                     |

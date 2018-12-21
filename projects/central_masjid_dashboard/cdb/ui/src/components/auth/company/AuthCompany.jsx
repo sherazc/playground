@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import StateSelect from "../../partials/StateSelect";
 import InputField from "../../partials/InputField";
-import {saveCompanyAction} from "../../../store/register-company/actions";
+import {prepareCompanyToCreate, saveCompanyAction} from "../../../store/register-company/actions";
 import {NavLink} from "react-router-dom";
 
 class AuthCompany extends Component {
@@ -10,9 +10,22 @@ class AuthCompany extends Component {
     constructor(props) {
         super(props);
         this.state = this.createInitialState(this.props.companyServiceResponse);
-
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const prevAction = this.getMatchAction(prevProps);
+        const currentAction = this.getMatchAction(this.props);
+        if (currentAction === "create" && prevAction !== "create") {
+            this.setState(this.createInitialState(this.props.companyServiceResponse));
+        }
+    }
+
+    getMatchAction(props) {
+        if (props && props.match && props.match.params && props.match.params.action) {
+            return props.match.params.action;
+        }
     }
 
     onChange(event) {
@@ -53,7 +66,7 @@ class AuthCompany extends Component {
         const action = this.props.match.params.action;
         return (
             <div>
-                <h3>Register Company</h3>
+                <h3>Company {action}</h3>
                 {this.registrationForm(action)}
                 <hr/>
                 <NavLink to={`${process.env.PUBLIC_URL}/auth/company/view`}>
@@ -76,7 +89,8 @@ class AuthCompany extends Component {
         return (
             <div>
                 <div>
-                    <img src={`${process.env.PUBLIC_URL}/images/company_create_update.svg`} alt="Company create update"/>
+                    <img src={`${process.env.PUBLIC_URL}/images/company_create_update.svg`}
+                         alt="Company create update"/>
                 </div>
                 <form onSubmit={this.onSubmit}>
                     <InputField
@@ -131,7 +145,7 @@ class AuthCompany extends Component {
     }
 }
 
-const actions = {saveCompanyAction};
+const actions = {saveCompanyAction, prepareCompanyToCreate};
 
 const mapStateToProps = state => {
     return {
