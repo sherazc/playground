@@ -36,17 +36,18 @@ const InputField = (props) => {
 
     const viewOrEditField = mode => {
 
-        if ("edit" === mode || "create" === mode) {
-            return <input
-                    onChange={props.onChange}
-                    value={props.value}
-                    type={type}
-                    name={props.name}
-                    id={props.name}
-                    required={props.required}
-                    placeholder={placeholder}/>
-        } else {
+        if ("view" === mode) {
             return <>{props.value}</>;
+        } else {
+            return <input
+                onChange={props.onChange}
+                value={props.value}
+                type={type}
+                name={props.name}
+                id={props.name}
+                required={props.required}
+                placeholder={placeholder}/>
+
         }
 
     };

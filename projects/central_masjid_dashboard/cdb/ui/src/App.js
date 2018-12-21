@@ -68,7 +68,7 @@ class App extends Component {
                             <AuthRoute
                                 // authenticate={false}
                                 // rolesAny={["ADMIN"]}
-                                path={`${process.env.PUBLIC_URL}/auth/company/user/list`}
+                                path={`${process.env.PUBLIC_URL}/auth/company/user/list/:action(all|current)`}
                                 component={AuthCompanyUserList} exact/>
                             <Route path={`${process.env.PUBLIC_URL}/auth/company/user/:action(create|edit|view)`} component={RegisterCompanyUser} exact/>
 

@@ -4,6 +4,7 @@ import StateSelect from "../../partials/StateSelect";
 import InputField from "../../partials/InputField";
 import {prepareCompanyToCreate, saveCompanyAction} from "../../../store/register-company/actions";
 import {NavLink} from "react-router-dom";
+import {getPathParamFromProps} from "../../../services/utilities";
 
 class AuthCompany extends Component {
 
@@ -15,16 +16,10 @@ class AuthCompany extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const prevAction = this.getMatchAction(prevProps);
-        const currentAction = this.getMatchAction(this.props);
+        const prevAction = getPathParamFromProps(prevProps, "action");
+        const currentAction = getPathParamFromProps(this.props, "action");
         if (currentAction === "create" && prevAction !== "create") {
             this.setState(this.createInitialState(this.props.companyServiceResponse));
-        }
-    }
-
-    getMatchAction(props) {
-        if (props && props.match && props.match.params && props.match.params.action) {
-            return props.match.params.action;
         }
     }
 
