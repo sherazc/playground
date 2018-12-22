@@ -55,8 +55,7 @@ class AuthCompanyList extends Component {
                 <CompanyGrid
                     companies={this.state.companies}
                     editCompany={this.editCompany.bind(this)}
-                    deleteCompany={this.deleteCompany.bind(this)}
-                />
+                    deleteCompany={this.deleteCompany.bind(this)}/>
             </div>
         );
     }

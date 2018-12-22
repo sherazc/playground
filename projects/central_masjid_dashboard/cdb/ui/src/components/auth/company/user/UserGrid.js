@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 
-class CompanyGrid extends Component {
-    buildCompaniesGrid(companies) {
+class UserGrid extends Component {
+    buildUsersGrid(users) {
         return (
             <table border="1">
                 <thead>
@@ -10,13 +10,28 @@ class CompanyGrid extends Component {
                         Index
                     </th>
                     <th>
+                        User ID
+                    </th>
+                    <th>
                         Company ID
                     </th>
                     <th>
-                        Name
+                        Email
                     </th>
                     <th>
-                        Address
+                        First Name
+                    </th>
+                    <th>
+                        Last Name
+                    </th>
+                    <th>
+                        Roles
+                    </th>
+                    <th>
+                        Active
+                    </th>
+                    <th>
+                        Verified
                     </th>
                     <th>
                         Action
@@ -24,35 +39,47 @@ class CompanyGrid extends Component {
                 </tr>
                 </thead>
                 <tbody>
-                {companies.map((company, index) => {
+                {users.map((user, index) => {
                     return (
                         <tr key={index}>
                             <td>
                                 {index}
                             </td>
                             <td>
-                                {company.id}
+                                {user.id}
                             </td>
                             <td>
-                                {company.name}
+                                {user.companyId}
                             </td>
                             <td>
-                                {company.address.street},&nbsp;
-                                {company.address.city}&nbsp;
-                                {company.address.state}&nbsp;
-                                {company.address.zip}
+                                {user.email}
+                            </td>
+                            <td>
+                                {user.firstName}
+                            </td>
+                            <td>
+                                {user.lastName}
+                            </td>
+                            <td>
+                                {user.roles.map(roleName => roleName + ", ")}
+                            </td>
+                            <td>
+                                {user.active}
+                            </td>
+                            <td>
+                                {user.verified}
                             </td>
                             <td>
                                 <a href="#/" onClick={(e) => {
                                         e.preventDefault();
-                                        this.editCompany(company.id);
+                                        this.props.editUser(user.id);
                                     }}>
                                     View
                                 </a>
                                 &nbsp;
                                 <a href="#/" onClick={(e) => {
                                     e.preventDefault();
-                                    this.deleteCompany(company.id);
+                                    this.props.deleteUser(user.id);
                                 }}>
                                     Delete
                                 </a>
@@ -66,25 +93,18 @@ class CompanyGrid extends Component {
         );
     };
 
-    editCompany(companyId) {
-        this.props.editCompany(companyId);
-    }
-
-    deleteCompany(companyId) {
-        this.props.deleteCompany(companyId);
-    }
 
     render() {
-        const companies = this.props.companies;
+        const users = this.props.users;
         let content = undefined;
-        if (companies && companies.length > 0) {
-            content = this.buildCompaniesGrid(companies);
+        if (users && users.length > 0) {
+            content = this.buildUsersGrid(users);
         } else {
-            content = <div>No companies found</div>
+            content = <div>No users found</div>
         }
 
         return content;
     }
-};
+}
 
-export default CompanyGrid;
+export default UserGrid;

@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {getAllCompaniesAllUsers} from "../../../../services/auth/CompanyListService";
 import {getPathParamFromProps} from "../../../../services/utilities";
+import UserGrid from "./UserGrid";
 
 class AuthCompanyUserList extends Component {
     constructor(props) {
@@ -34,11 +35,22 @@ class AuthCompanyUserList extends Component {
         this.setState({users});
     }
 
-    render() {
+    editUser(userId) {
+        console.log("Edit", userId);
+    }
 
+    deleteUser(userId) {
+        console.log("Delete", userId);
+    }
+
+    render() {
         return(
             <div>
-                Auth Company User List {this.state.users.length}
+                <h3>User List</h3>
+                <UserGrid
+                    users={this.state.users}
+                    editUser={this.editUser.bind(this)}
+                    deleteUser={this.deleteUser.bind(this)}/>
             </div>
         );
     }
