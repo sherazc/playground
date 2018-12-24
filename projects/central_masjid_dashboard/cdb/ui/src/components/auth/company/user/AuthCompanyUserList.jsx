@@ -2,11 +2,14 @@ import React, {Component} from "react";
 import {getAllCompaniesAllUsers} from "../../../../services/auth/CompanyListService";
 import {getPathParamFromProps} from "../../../../services/utilities";
 import UserGrid from "./UserGrid";
+import {prepareCompanyUserToEdit} from "../../../../store/register-company/actions";
+import connect from "react-redux/es/connect/connect";
+import {Redirect} from "react-router";
 
 class AuthCompanyUserList extends Component {
     constructor(props) {
         super(props);
-        this.state = {editUserPrepared: false, users:[]};
+        this.state = {editCompanyUserPrepared: false, users:[]};
     }
 
     componentDidMount() {
@@ -35,25 +38,49 @@ class AuthCompanyUserList extends Component {
         this.setState({users});
     }
 
-    editUser(userId) {
-        console.log("Edit", userId);
+    editCompanyUser(userId) {
+        let user = this.findUserById(this.state.users, userId);
+        this.props.prepareCompanyUserToEdit(user);
+        this.setState({editCompanyUserPrepared: true});
     }
 
-    deleteUser(userId) {
+    findUserById(users, userId) {
+        let result = null;
+        users.some(user => {
+            if (userId === user.id) {
+                result = user;
+                return true;
+            } else {
+                return false;
+            }
+        });
+        return result;
+    }
+
+
+    deleteCompanyUser(userId) {
         console.log("Delete", userId);
     }
 
     render() {
+        if (this.state.editCompanyUserPrepared) {
+            return <Redirect to={`${process.env.PUBLIC_URL}/auth/company/user/view`}/>;
+        }
+
         return(
             <div>
                 <h3>User List</h3>
                 <UserGrid
                     users={this.state.users}
-                    editUser={this.editUser.bind(this)}
-                    deleteUser={this.deleteUser.bind(this)}/>
+                    editCompanyUser={this.editCompanyUser.bind(this)}
+                    deleteCompanyUser={this.deleteCompanyUser.bind(this)}/>
             </div>
         );
     }
+
+
 }
 
-export default AuthCompanyUserList;
+
+
+export default connect(undefined, {prepareCompanyUserToEdit})(AuthCompanyUserList);

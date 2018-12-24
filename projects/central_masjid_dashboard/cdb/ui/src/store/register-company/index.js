@@ -1,6 +1,6 @@
 import {
     REGISTER_COMPANY_PREPARE_FOR_CREATE,
-    REGISTER_COMPANY_PREPARE_FOR_EDIT,
+    REGISTER_COMPANY_PREPARE_FOR_EDIT, REGISTER_COMPANY_USER_PREPARE_FOR_EDIT,
     SAVE_COMPANY,
     SAVE_COMPANY_FINISH,
     SAVE_COMPANY_USER
@@ -38,6 +38,9 @@ export const registerCompany = (state = initialState, action) => {
             return {...state, companyServiceResponse: companyServiceResponse};
         case REGISTER_COMPANY_PREPARE_FOR_CREATE:
             return {...state, ...initialState};
+        case REGISTER_COMPANY_USER_PREPARE_FOR_EDIT:
+            const companyUserServiceResponse = createEmptyServiceResponse(() => action.payload);
+            return {...state, companyUserServiceResponse: companyUserServiceResponse};
         default:
             return state;
     }

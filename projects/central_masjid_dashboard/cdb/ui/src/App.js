@@ -11,7 +11,6 @@ import Login from "./components/Login";
 import Alert from "./components/alert/Alert";
 import Loading from "./components/loading/Loading";
 import setupInterceptor from "./services/http-interceptor";
-import RegisterCompanyUser from "./components/register/RegisterCompanyUser";
 import RegisterFinish from "./components/register/RegisterFinish";
 import Examples from "./components/Examples";
 import Dashboard from "./components/Dashboard";
@@ -23,7 +22,7 @@ import PageNotFound from "./components/PageNotFound";
 import AuthCompanyList from "./components/auth/company/AuthCompanyList";
 import AuthCompanyUserList from "./components/auth/company/user/AuthCompanyUserList";
 import AuthCompany from "./components/auth/company/AuthCompany";
-// import {REGISTER_COMPANY_PREPARE_FOR_CREATE} from "./store/register-company/actions";
+import AuthCompanyUser from "./components/auth/company/user/AuthCompanyUser";
 
 setupInterceptor(store);
 
@@ -70,7 +69,7 @@ class App extends Component {
                                 // rolesAny={["ADMIN"]}
                                 path={`${process.env.PUBLIC_URL}/auth/company/user/list/:action(all|current)`}
                                 component={AuthCompanyUserList} exact/>
-                            <Route path={`${process.env.PUBLIC_URL}/auth/company/user/:action(create|edit|view)`} component={RegisterCompanyUser} exact/>
+                            <Route path={`${process.env.PUBLIC_URL}/auth/company/user/:action(create|edit|view)`} component={AuthCompanyUser} exact/>
 
 
 
@@ -85,12 +84,6 @@ class App extends Component {
                                 exact
                                 // rolesAny={["ADMIN"]}
                                 path={`${process.env.PUBLIC_URL}/admin`} component={Admin} />
-                            <AuthRoute
-                                // authenticate={true}
-                                // rolesAny={["ADMIN"]}
-                                path={`${process.env.PUBLIC_URL}/company/add-user`}
-                                exact
-                                render={(props) => <RegisterCompanyUser {...props} addUserFlow />}/>
                             <Route component={PageNotFound} />
                         </Switch>
                     </div>

@@ -45,14 +45,14 @@ class CompanyGrid extends Component {
                             <td>
                                 <a href="#/" onClick={(e) => {
                                         e.preventDefault();
-                                        this.editCompany(company.id);
+                                        this.props.editCompany(company.id);
                                     }}>
                                     View
                                 </a>
                                 &nbsp;
                                 <a href="#/" onClick={(e) => {
                                     e.preventDefault();
-                                    this.deleteCompany(company.id);
+                                    this.props.deleteCompany(company.id);
                                 }}>
                                     Delete
                                 </a>
@@ -65,14 +65,6 @@ class CompanyGrid extends Component {
             </table>
         );
     };
-
-    editCompany(companyId) {
-        this.props.editCompany(companyId);
-    }
-
-    deleteCompany(companyId) {
-        this.props.deleteCompany(companyId);
-    }
 
     render() {
         const companies = this.props.companies;

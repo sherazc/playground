@@ -1,12 +1,10 @@
 import React, {Component} from "react";
-import {Redirect} from "react-router";
 import {connect} from "react-redux";
-import InputField from "../partials/InputField";
-import {saveCompanyUserAction} from "../../store/register-company/actions";
-import {shouldBeOnRegisterUser} from "../../services/register/RegisterServices";
-import {createLoginMapStateToProps} from "../../store/lib/utils";
+import InputField from "../../../partials/InputField";
+import {saveCompanyUserAction} from "../../../../store/register-company/actions";
+import {createLoginMapStateToProps} from "../../../../store/lib/utils";
 
-class RegisterCompanyUser extends Component {
+class AuthCompanyUser extends Component {
 
     constructor(props) {
         super(props);
@@ -14,10 +12,6 @@ class RegisterCompanyUser extends Component {
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-    }
-
-    componentDidMount() {
-        console.log(this.props);
     }
 
     onChange(event) {
@@ -54,9 +48,11 @@ class RegisterCompanyUser extends Component {
     }
 
     render() {
+        /*
         if (!shouldBeOnRegisterUser(this.props.companyServiceResponse.target, this.props.addUserFlow)) {
             return <Redirect to={`${process.env.PUBLIC_URL}/register`}/>;
         }
+        */
         return (
             <div>
                 <h3>Add user to company</h3>
@@ -67,6 +63,7 @@ class RegisterCompanyUser extends Component {
 
     registrationForm() {
         const fieldErrors = this.props.companyUserServiceResponse.fieldErrors;
+        const action = this.props.match.params.action;
         return (
             <div>
                 <div>
@@ -74,6 +71,7 @@ class RegisterCompanyUser extends Component {
                 </div>
                 <form onSubmit={this.onSubmit}>
                     <InputField
+                        mode={action}
                         label="First Name"
                         name="firstName"
                         onChange={this.onChange}
@@ -81,6 +79,7 @@ class RegisterCompanyUser extends Component {
                         fieldError={fieldErrors["user.firstName"]}
                         value={this.state.firstName}/>
                     <InputField
+                        mode={action}
                         label="Last Name"
                         name="lastName"
                         onChange={this.onChange}
@@ -88,6 +87,7 @@ class RegisterCompanyUser extends Component {
                         fieldError={fieldErrors["user.lastName"]}
                         value={this.state.lastName}/>
                     <InputField
+                        mode={action}
                         label="Email"
                         type="email"
                         name="email"
@@ -95,13 +95,16 @@ class RegisterCompanyUser extends Component {
                         required={true}
                         fieldError={fieldErrors["user.email"]}
                         value={this.state.email}/>
-                    <InputField
-                        label="Password"
-                        name="password"
-                        onChange={this.onChange}
-                        required={true}
-                        fieldError={fieldErrors["user.password"]}
-                        value={this.state.password}/>
+
+                    {action === "create" &&
+                        <InputField
+                            label="Password"
+                            name="password"
+                            onChange={this.onChange}
+                            required={true}
+                            fieldError={fieldErrors["user.password"]}
+                            value={this.state.password}/>
+                    }
                     <button type="submit">Submit</button>
                 </form>
             </div>
@@ -121,5 +124,5 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps, actions)(RegisterCompanyUser);
+export default connect(mapStateToProps, actions)(AuthCompanyUser);
 

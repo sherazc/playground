@@ -72,14 +72,14 @@ class UserGrid extends Component {
                             <td>
                                 <a href="#/" onClick={(e) => {
                                         e.preventDefault();
-                                        this.props.editUser(user.id);
+                                        this.props.editCompanyUser(user.id);
                                     }}>
                                     View
                                 </a>
                                 &nbsp;
                                 <a href="#/" onClick={(e) => {
                                     e.preventDefault();
-                                    this.props.deleteUser(user.id);
+                                    this.props.deleteCompanyUser(user.id);
                                 }}>
                                     Delete
                                 </a>
