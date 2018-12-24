@@ -1,8 +1,9 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import InputField from "../../../partials/InputField";
-import {saveCompanyUserAction} from "../../../../store/register-company/actions";
+import {createCompanyUserAction, updateCompanyUserAction} from "../../../../store/register-company/actions";
 import {createLoginMapStateToProps} from "../../../../store/lib/utils";
+import {NavLink} from "react-router-dom";
 
 class AuthCompanyUser extends Component {
 
@@ -20,6 +21,7 @@ class AuthCompanyUser extends Component {
 
     onSubmit(event) {
         event.preventDefault();
+
         let company = undefined;
         if (this.props.addUserFlow) {
             company = this.props.company;
@@ -28,6 +30,11 @@ class AuthCompanyUser extends Component {
         }
 
         let user = this.props.companyUserServiceResponse.target;
+
+
+        console.log(user);
+
+
         const saveUser = {
             id: user.id,
             "companyId": company.id,
@@ -40,7 +47,15 @@ class AuthCompanyUser extends Component {
             "verified": true
 
         };
-        this.props.saveCompanyUserAction(company, saveUser);
+
+        saveUser.companyId = user.companyId;
+
+        const action = this.props.match.params.action;
+        if (action === "create") {
+            this.props.createCompanyUserAction(company, saveUser);
+        } else {
+            this.props.updateCompanyUserAction(saveUser);
+        }
     }
 
     createInitialState(companyUserServiceResponse) {
@@ -107,14 +122,28 @@ class AuthCompanyUser extends Component {
                     }
                     <button type="submit">Submit</button>
                 </form>
+
+                <hr/>
+                <NavLink to={`${process.env.PUBLIC_URL}/auth/company/user/view`}>
+                    View Company User
+                </NavLink>
+                <br/>
+                <NavLink to={`${process.env.PUBLIC_URL}/auth/company/user/edit`}>
+                    Edit Company User
+                </NavLink>
+                <br/>
+                <NavLink to={`${process.env.PUBLIC_URL}/auth/company/user/list/all`}>
+                    All Companies, All Users; List
+                </NavLink>
+
             </div>
         );
     }
 }
 
-const actions = {
-    saveCompanyUserAction: saveCompanyUserAction
-};
+const actions = {saveCompanyUserAction: createCompanyUserAction, updateCompanyUserAction};
+
+
 
 const mapStateToProps = state => {
     return {

@@ -32,8 +32,24 @@ export const saveCompanyAction = company => dispatch => {
         });
 };
 
+export const updateCompanyUserAction = user => dispatch => {
+    axios.put(`${baseUrl}/api/auth/companies/${user.companyId}/users/${user.id}`, user)
+        .then(response => {
+            dispatch({
+                type: SAVE_COMPANY_USER,
+                payload: response.data
+            });
 
-export const saveCompanyUserAction = (company, user) => dispatch => {
+            dispatch(showAlert(ALERT_SUCCESS, "Successfully saved company user"));
+            history.push(`${process.env.PUBLIC_URL}/auth/company/user/view`);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+};
+
+
+export const createCompanyUserAction = (company, user) => dispatch => {
     axios.post(`${baseUrl}/company/user`, user)
         .then(response => {
                 dispatch({
@@ -53,6 +69,7 @@ export const saveCompanyUserAction = (company, user) => dispatch => {
             }
         )
         .catch(error => {
+            dispatch(showAlert(ALERT_SUCCESS, "Failed to save company user"));
             dispatch({
                 type: SAVE_COMPANY_USER,
                 payload: error.response.data
