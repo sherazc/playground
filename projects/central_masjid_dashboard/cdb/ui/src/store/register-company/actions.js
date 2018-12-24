@@ -7,6 +7,7 @@ export const SAVE_COMPANY_USER = "SAVE_COMPANY_USER";
 export const SAVE_COMPANY_FINISH = "SAVE_COMPANY_FINISH";
 export const REGISTER_COMPANY_PREPARE_FOR_EDIT = "REGISTER_COMPANY_PREPARE_FOR_EDIT";
 export const REGISTER_COMPANY_PREPARE_FOR_CREATE = "REGISTER_COMPANY_PREPARE_FOR_CREATE";
+export const REGISTER_COMPANY_USER_PREPARE_FOR_CREATE = "REGISTER_COMPANY_USER_PREPARE_FOR_CREATE";
 export const REGISTER_COMPANY_USER_PREPARE_FOR_EDIT = "REGISTER_COMPANY_USER_PREPARE_FOR_EDIT";
 
 
@@ -93,7 +94,9 @@ export const prepareCompanyUserToEdit = user => {
 };
 
 export const prepareCompanyToCreate = () => {
-    return {
-        type: REGISTER_COMPANY_PREPARE_FOR_CREATE
-    };
+    return {type: REGISTER_COMPANY_PREPARE_FOR_CREATE};
+};
+
+export const prepareCompanyUserToCreate = () => {
+    return {type: REGISTER_COMPANY_USER_PREPARE_FOR_CREATE};
 };

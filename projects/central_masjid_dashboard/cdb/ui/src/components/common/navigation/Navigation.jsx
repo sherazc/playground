@@ -1,13 +1,13 @@
 import React, {Component} from "react";
 import {NavLink, withRouter} from 'react-router-dom';
 import {connect} from "react-redux";
-import {createLoginMapStateToProps} from "../../../store/lib/utils";
 import {verifyAuthentication} from "../../../services/auth/AuthNZ";
 import {loginResetAction} from "../../../store/login/actions";
+import {mapStateLoginToProps} from "../../../store/lib/utils";
 
 class Navigation extends Component {
     loginControls() {
-        if (!verifyAuthentication(this.props.tokenPayload, true)) {
+        if (!verifyAuthentication(this.props.login.tokenPayload, true)) {
             return (
                 <div style={{marginTop: 20, marginBottom: 10, }}>
                     <NavLink to={`${process.env.PUBLIC_URL}/login`}>
@@ -19,7 +19,7 @@ class Navigation extends Component {
 
         return (
             <div style={{marginTop: 20, marginBottom: 10, }}>
-                Hi {this.props.user.firstName} {this.props.user.lastName}
+                Hi {this.props.login.user.firstName} {this.props.login.user.lastName}
                 <a href={`${process.env.PUBLIC_URL}/#/`} onClick={this.logout.bind(this)}>
                     Logout
                 </a>
@@ -150,4 +150,4 @@ class Navigation extends Component {
     }
 }
 
-export default connect(createLoginMapStateToProps, {loginResetAction})(withRouter(Navigation));
+export default connect(mapStateLoginToProps, {loginResetAction})(withRouter(Navigation));

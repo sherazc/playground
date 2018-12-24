@@ -2,9 +2,9 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import InputField from "./partials/InputField";
 import {loginAction, loginResetAction} from "../store/login/actions";
-import {createLoginMapStateToProps} from "../store/lib/utils";
 import {verifyAuthentication} from "../services/auth/AuthNZ";
 import {Redirect} from "react-router";
+import {mapStateLoginToProps} from "../store/lib/utils";
 
 class Login extends Component {
 
@@ -16,7 +16,7 @@ class Login extends Component {
     }
 
     componentDidMount() {
-        if (this.props.token) {
+        if (this.props.login.token) {
             this.props.loginResetAction();
         }
     }
@@ -50,13 +50,13 @@ class Login extends Component {
     }
 
     render() {
-        if (verifyAuthentication(this.props.tokenPayload, true)) {
+        if (verifyAuthentication(this.props.login.tokenPayload, true)) {
             return <Redirect to={`${process.env.PUBLIC_URL}/dashboard`}/>
         }
         return (
             <div>
                 <h3>Login</h3>
-                {this.props.token}
+                {this.props.login.token}
                 {this.loginFailedMessage()}
                 <form onSubmit={this.onSubmit}>
                     <InputField
@@ -85,4 +85,4 @@ class Login extends Component {
 
 const actions = {loginAction, loginResetAction};
 
-export default connect(createLoginMapStateToProps, actions)(Login);
+export default connect(mapStateLoginToProps, actions)(Login);

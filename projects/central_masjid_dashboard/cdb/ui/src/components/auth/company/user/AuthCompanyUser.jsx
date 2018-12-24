@@ -2,8 +2,9 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import InputField from "../../../partials/InputField";
 import {createCompanyUserAction, updateCompanyUserAction} from "../../../../store/register-company/actions";
-import {createLoginMapStateToProps} from "../../../../store/lib/utils";
+
 import {NavLink} from "react-router-dom";
+import {Redirect} from "react-router";
 
 class AuthCompanyUser extends Component {
 
@@ -63,11 +64,12 @@ class AuthCompanyUser extends Component {
     }
 
     render() {
-        /*
-        if (!shouldBeOnRegisterUser(this.props.companyServiceResponse.target, this.props.addUserFlow)) {
-            return <Redirect to={`${process.env.PUBLIC_URL}/register`}/>;
+        let user = this.props.companyUserServiceResponse.target;
+        const action = this.props.match.params.action;
+
+        if (action !== 'create' && (!user || !user.id)) {
+            return <Redirect to={`${process.env.PUBLIC_URL}/auth/company/user/create`}/>;
         }
-        */
         return (
             <div>
                 <h3>Add user to company</h3>
@@ -149,7 +151,7 @@ const mapStateToProps = state => {
     return {
         companyServiceResponse: state.registerCompany.companyServiceResponse,
         companyUserServiceResponse: state.registerCompany.companyUserServiceResponse,
-        ...createLoginMapStateToProps(state)
+        login: state.login
     };
 };
 
