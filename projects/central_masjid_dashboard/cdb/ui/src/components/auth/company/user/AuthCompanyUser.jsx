@@ -1,19 +1,30 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import InputField from "../../../partials/InputField";
-import {createCompanyUserAction, updateCompanyUserAction} from "../../../../store/register-company/actions";
+import {
+    createCompanyUserAction,
+    updateCompanyUserAction
+} from "../../../../store/register-company/actions";
 
 import {NavLink} from "react-router-dom";
 import {Redirect} from "react-router";
+import {getPathParamFromProps} from "../../../../services/utilities";
 
 class AuthCompanyUser extends Component {
 
     constructor(props) {
         super(props);
         this.state = this.createInitialState(this.props.companyUserServiceResponse);
-
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const prevAction = getPathParamFromProps(prevProps, "action");
+        const currentAction = getPathParamFromProps(this.props, "action");
+        if (currentAction === "create" && prevAction !== "create") {
+            this.setState(this.createInitialState(this.props.companyUserServiceResponse));
+        }
     }
 
     onChange(event) {
@@ -25,16 +36,12 @@ class AuthCompanyUser extends Component {
 
         let company = undefined;
         if (this.props.addUserFlow) {
-            company = this.props.company;
+            company = this.props.login.company;
         } else {
             company = this.props.companyServiceResponse.target;
         }
 
         let user = this.props.companyUserServiceResponse.target;
-
-
-        console.log(user);
-
 
         const saveUser = {
             id: user.id,
@@ -51,7 +58,7 @@ class AuthCompanyUser extends Component {
 
         saveUser.companyId = user.companyId;
 
-        const action = this.props.match.params.action;
+        const action = getPathParamFromProps(this.props, "action");
         if (action === "create") {
             this.props.createCompanyUserAction(company, saveUser);
         } else {
@@ -60,19 +67,21 @@ class AuthCompanyUser extends Component {
     }
 
     createInitialState(companyUserServiceResponse) {
-        return {...companyUserServiceResponse.target}
+        const companyUser = {...companyUserServiceResponse.target};
+        companyUser.password = "";
+        return companyUser
     }
 
     render() {
         let user = this.props.companyUserServiceResponse.target;
-        const action = this.props.match.params.action;
+        const action = getPathParamFromProps(this.props, "action");
 
         if (action !== 'create' && (!user || !user.id)) {
             return <Redirect to={`${process.env.PUBLIC_URL}/auth/company/user/create`}/>;
         }
         return (
             <div>
-                <h3>Add user to company</h3>
+                <h3>Company user {action}</h3>
                 {this.registrationForm()}
             </div>
         );
@@ -80,7 +89,7 @@ class AuthCompanyUser extends Component {
 
     registrationForm() {
         const fieldErrors = this.props.companyUserServiceResponse.fieldErrors;
-        const action = this.props.match.params.action;
+        const action = getPathParamFromProps(this.props, "action");
         return (
             <div>
                 <div>
@@ -114,13 +123,14 @@ class AuthCompanyUser extends Component {
                         value={this.state.email}/>
 
                     {action === "create" &&
-                        <InputField
-                            label="Password"
-                            name="password"
-                            onChange={this.onChange}
-                            required={true}
-                            fieldError={fieldErrors["user.password"]}
-                            value={this.state.password}/>
+                    <InputField
+                        mode={action}
+                        label="Password"
+                        name="password"
+                        onChange={this.onChange}
+                        required={true}
+                        fieldError={fieldErrors["user.password"]}
+                        value={this.state.password}/>
                     }
                     <button type="submit">Submit</button>
                 </form>
@@ -143,9 +153,7 @@ class AuthCompanyUser extends Component {
     }
 }
 
-const actions = {saveCompanyUserAction: createCompanyUserAction, updateCompanyUserAction};
-
-
+const actions = {createCompanyUserAction, updateCompanyUserAction};
 
 const mapStateToProps = state => {
     return {
@@ -156,4 +164,3 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, actions)(AuthCompanyUser);
-

@@ -54,15 +54,7 @@ class App extends Component {
 
                             <Route
                                 path={`${process.env.PUBLIC_URL}/auth/company/:action(create|edit|view)`}
-                                render={(props) => {
-
-                                    // console.log("Entered route", props);
-                                    if (props.match.params.action === "create") {
-                                        // store.dispatch({type: REGISTER_COMPANY_PREPARE_FOR_CREATE});
-                                    }
-
-                                    return <AuthCompany {...props} />;
-                                }}/>
+                                component={AuthCompany}/>
 
                             <AuthRoute
                                 // authenticate={false}

@@ -1,4 +1,4 @@
-export const createEmptyUser = () => {
+export const createEmptyCompanyUser = () => {
     return {
         "id": null,
         "companyId": null,

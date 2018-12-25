@@ -1,16 +1,23 @@
-import { createBrowserHistory } from 'history';
-import {REGISTER_COMPANY_PREPARE_FOR_CREATE} from "../store/register-company/actions";
+import {createBrowserHistory} from 'history';
+import {
+    REGISTER_COMPANY_PREPARE_FOR_CREATE,
+    REGISTER_COMPANY_USER_PREPARE_FOR_CREATE
+} from "../store/register-company/actions";
 import store from "../store";
 
 const history = createBrowserHistory();
 
 history.listen((location, action) => {
-    if (action === "PUSH" && location.pathname === "/auth/company/create") {
-        // console.log("Dispatch REGISTER_COMPANY_PREPARE_FOR_CREATE called");
-        store.dispatch({type: REGISTER_COMPANY_PREPARE_FOR_CREATE});
+    if (action !== "PUSH") {
+        return;
     }
 
-    //console.log(location, action);
+    if (location.pathname === "/auth/company/create") {
+        store.dispatch({type: REGISTER_COMPANY_PREPARE_FOR_CREATE});
+    }
+    if (location.pathname === "/auth/company/user/create") {
+        store.dispatch({type: REGISTER_COMPANY_USER_PREPARE_FOR_CREATE});
+    }
 });
 
 export default history;

@@ -58,7 +58,7 @@ class AuthCompany extends Component {
     }
 
     render() {
-        const action = this.props.match.params.action;
+        const action = getPathParamFromProps(this.props, "action");
         return (
             <div>
                 <h3>Company {action}</h3>

@@ -1,4 +1,4 @@
-import {createEmptyCompany, createEmptyUser} from "../../services/domain/EmptyObject";
+import {createEmptyCompany, createEmptyCompanyUser} from "../../services/domain/EmptyObject";
 import {USER_LOGIN_SUCCESS, USER_LOGIN_RESET, USER_LOGIN_FAILED} from "./actions";
 import {decodeTokenPayload} from "../../services/auth/AuthNZ";
 
@@ -7,7 +7,7 @@ const initialStateCreator = () => {
         successful: null,
         token: "",
         tokenPayload: null,
-        user: createEmptyUser(),
+        user: createEmptyCompanyUser(),
         company: createEmptyCompany()
     };
 };

@@ -1,6 +1,8 @@
 import {
     REGISTER_COMPANY_PREPARE_FOR_CREATE,
-    REGISTER_COMPANY_PREPARE_FOR_EDIT, REGISTER_COMPANY_USER_PREPARE_FOR_EDIT,
+    REGISTER_COMPANY_PREPARE_FOR_EDIT,
+    REGISTER_COMPANY_USER_PREPARE_FOR_CREATE,
+    REGISTER_COMPANY_USER_PREPARE_FOR_EDIT,
     SAVE_COMPANY,
     SAVE_COMPANY_FINISH,
     SAVE_COMPANY_USER
@@ -9,7 +11,7 @@ import {
     createEmptyCompany,
     createEmptyFinishRegister,
     createEmptyServiceResponse,
-    createEmptyUser
+    createEmptyCompanyUser
 } from "../../services/domain/EmptyObject";
 
 // TODO create new or edit flags.
@@ -17,7 +19,7 @@ import {
 const initialStateCreator = () => {
     return {
         companyServiceResponse: createEmptyServiceResponse(createEmptyCompany),
-        companyUserServiceResponse: createEmptyServiceResponse(createEmptyUser),
+        companyUserServiceResponse: createEmptyServiceResponse(createEmptyCompanyUser),
         finishRegister: createEmptyFinishRegister()
     }
 };
@@ -37,7 +39,9 @@ export const registerCompany = (state = initialState, action) => {
             const companyServiceResponse = createEmptyServiceResponse(() => action.payload);
             return {...state, companyServiceResponse: companyServiceResponse};
         case REGISTER_COMPANY_PREPARE_FOR_CREATE:
-            return {...state, ...initialState};
+            return {...state, companyServiceResponse: createEmptyServiceResponse(createEmptyCompany)};
+        case REGISTER_COMPANY_USER_PREPARE_FOR_CREATE:
+            return {...state, companyUserServiceResponse: createEmptyServiceResponse(createEmptyCompanyUser)};
         case REGISTER_COMPANY_USER_PREPARE_FOR_EDIT:
             const companyUserServiceResponse = createEmptyServiceResponse(() => action.payload);
             return {...state, companyUserServiceResponse: companyUserServiceResponse};
