@@ -4,38 +4,7 @@ const InputField = (props) => {
     const type = props.type ? props.type : "text";
     const placeholder = props.placeholder ? props.placeholder : props.label;
 
-    const makeFieldError = (fieldError) => {
-        if (fieldError && fieldError.length > 0) {
-            return (
-                <div style={{color: "red"}}>
-                    {fieldError}
-                </div>
-            );
-        }
-    };
-
-    const makeHelpSection = (helpText) => {
-        if (helpText) {
-            return (
-                <small id="emailHelp">
-                    {helpText}
-                </small>
-            );
-        } else {
-            return "";
-        }
-
-    };
-
-    const requiredMarker = required => {
-        if (required) {
-            return <span style={{color:'red'}}>*</span>;
-        }
-
-    };
-
     const viewOrEditField = mode => {
-
         if ("view" === mode) {
             return <>{props.value}</>;
         } else {
@@ -47,18 +16,24 @@ const InputField = (props) => {
                 id={props.name}
                 required={props.required}
                 placeholder={placeholder}/>
-
         }
-
     };
 
     return (
         <div>
-            {requiredMarker(props.required)}
+            {props.required && <span style={{color:'red'}}>*</span>}
             <label htmlFor={props.name}>{props.label}</label>
             {viewOrEditField(props.mode)}
-            {makeFieldError(props.fieldError)}
-            {makeHelpSection(props.help)}
+            {props.fieldError && props.fieldError.length > 0 &&
+                <div style={{color: "red"}}>
+                    {props.fieldError}
+                </div>
+            }
+            {props.help &&
+                <small id="emailHelp">
+                    {props.help}
+                </small>
+            }
         </div>
     );
 };
