@@ -9,6 +9,7 @@ import {
 import {NavLink} from "react-router-dom";
 import {Redirect} from "react-router";
 import {getPathParamFromProps} from "../../../../services/utilities";
+import {isAuthPresent, verifyAuthorization} from "../../../../services/auth/AuthNZ";
 
 class AuthCompanyUser extends Component {
 
@@ -72,12 +73,33 @@ class AuthCompanyUser extends Component {
         return companyUser
     }
 
-    render() {
-        let user = this.props.companyUserServiceResponse.target;
+    getRedirectUrl(props) {
         const action = getPathParamFromProps(this.props, "action");
+        const actionViewOrEdit = action === "view" || action === "edit";
+        const isLoggedIn = isAuthPresent(props.login);
+        const adminLogin = isLoggedIn && verifyAuthorization(this.props.login.tokenPayload, ['ADMIN']);
+        const isNewCompanyRegisterComplete = props.companyServiceResponse && props.companyServiceResponse.target && props.companyServiceResponse.target.id;
+        const companyUserSelected = props.companyUserServiceResponse && props.companyUserServiceResponse.target && props.companyUserServiceResponse.target.id;
 
-        if (action !== 'create' && (!user || !user.id)) {
-            return <Redirect to={`${process.env.PUBLIC_URL}/auth/company/user/create`}/>;
+        if (action === "create" && !isLoggedIn && !isNewCompanyRegisterComplete) {
+            return `${process.env.PUBLIC_URL}/auth/company/create`;
+        }
+
+        if (actionViewOrEdit && !adminLogin) {
+            return `${process.env.PUBLIC_URL}/forbidden`;
+        }
+
+        if (actionViewOrEdit && adminLogin && !companyUserSelected) {
+            return `${process.env.PUBLIC_URL}/auth/company/user/list/current`;
+        }
+    }
+
+    render() {
+        const action = getPathParamFromProps(this.props, "action");
+        // todo create new registration steps display e.g. 1 - 2 - 3
+        const redirectUrl = this.getRedirectUrl(this.props);
+        if (redirectUrl) {
+            return <Redirect to={redirectUrl}/>;
         }
         return (
             <div>

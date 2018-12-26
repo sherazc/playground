@@ -76,6 +76,7 @@ class App extends Component {
                                 exact
                                 // rolesAny={["ADMIN"]}
                                 path={`${process.env.PUBLIC_URL}/admin`} component={Admin} />
+                            <Route path={`${process.env.PUBLIC_URL}/404`} component={PageNotFound} exact/>
                             <Route component={PageNotFound} />
                         </Switch>
                     </div>

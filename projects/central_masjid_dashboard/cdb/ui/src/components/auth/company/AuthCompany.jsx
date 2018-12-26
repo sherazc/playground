@@ -5,6 +5,8 @@ import InputField from "../../partials/InputField";
 import {prepareCompanyToCreate, saveCompanyAction} from "../../../store/register-company/actions";
 import {NavLink} from "react-router-dom";
 import {getPathParamFromProps} from "../../../services/utilities";
+import {Redirect} from "react-router";
+import {isAuthPresent, verifyAuthorization} from "../../../services/auth/AuthNZ";
 
 class AuthCompany extends Component {
 
@@ -57,7 +59,28 @@ class AuthCompany extends Component {
         }
     }
 
+    getRedirectUrl(props) {
+        const action = getPathParamFromProps(this.props, "action");
+        const actionViewOrEdit = action === "view" || action === "edit";
+        const isLoggedIn = isAuthPresent(props.login);
+        const adminLogin = isLoggedIn && verifyAuthorization(this.props.login.tokenPayload, ['ADMIN']);
+        const isCompanySelected = props.companyServiceResponse && props.companyServiceResponse.target && props.companyServiceResponse.target.id;
+
+        if (actionViewOrEdit && !adminLogin) {
+            return `${process.env.PUBLIC_URL}/forbidden`;
+        }
+
+        if (actionViewOrEdit && adminLogin && !isCompanySelected) {
+            return `${process.env.PUBLIC_URL}/404`;
+        }
+    }
+
     render() {
+        const redirectUrl = this.getRedirectUrl(this.props);
+        if (redirectUrl) {
+            return <Redirect to={redirectUrl}/>;
+        }
+
         const action = getPathParamFromProps(this.props, "action");
         return (
             <div>
@@ -144,7 +167,8 @@ const actions = {saveCompanyAction, prepareCompanyToCreate};
 
 const mapStateToProps = state => {
     return {
-        companyServiceResponse: state.registerCompany.companyServiceResponse
+        companyServiceResponse: state.registerCompany.companyServiceResponse,
+        login: state.login
     };
 };
 
