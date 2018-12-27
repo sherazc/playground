@@ -5,6 +5,7 @@ import UserGrid from "./UserGrid";
 import {prepareCompanyUserToEdit} from "../../../../store/register-company/actions";
 import connect from "react-redux/es/connect/connect";
 import {Redirect} from "react-router";
+import {isAuthPresent, verifyAuthorization} from "../../../../services/auth/AuthNZ";
 
 class AuthCompanyUserList extends Component {
     constructor(props) {
@@ -26,6 +27,10 @@ class AuthCompanyUserList extends Component {
     }
 
     updateAllOrCurrentUsers(action) {
+        const redirectUrl = this.getRedirectUrl(action, this.props);
+        if (redirectUrl) {
+            return;
+        }
         if (action === "all") {
             getAllCompaniesAllUsers(this.updateCompaniesUsers.bind(this));
         } else {
@@ -56,19 +61,42 @@ class AuthCompanyUserList extends Component {
         return result;
     }
 
-
     deleteCompanyUser(userId) {
         console.log("Delete", userId);
     }
 
-    render() {
+    getRedirectUrl(action, props) {
+        const isLoggedIn = isAuthPresent(props.login);
+        const adminLogin = isLoggedIn && verifyAuthorization(this.props.login.tokenPayload, ['ADMIN']);
+        const superAdminLogin = isLoggedIn && verifyAuthorization(this.props.login.tokenPayload, ['SUPER_ADMIN']);
+
+        if (action === "current" && !adminLogin && !superAdminLogin) {
+            return `${process.env.PUBLIC_URL}/forbidden`;
+        }
+
+        if (action === "all" && !superAdminLogin) {
+            return `${process.env.PUBLIC_URL}/forbidden`;
+        }
+
         if (this.state.editCompanyUserPrepared) {
-            return <Redirect to={`${process.env.PUBLIC_URL}/auth/company/user/view`}/>;
+            return `${process.env.PUBLIC_URL}/auth/company/user/view`;
+        }
+    }
+
+    render() {
+        const action = getPathParamFromProps(this.props, "action");
+        const redirectUrl = this.getRedirectUrl(action, this.props);
+        if (redirectUrl) {
+            return <Redirect to={redirectUrl}/>;
         }
 
         return(
             <div>
-                <h3>User List</h3>
+                <h3>
+                    Users in&nbsp;
+                    {action === "current" ? `${this.props.login.company.name}` : `all companies.`}
+                </h3>
+
                 <UserGrid
                     users={this.state.users}
                     editCompanyUser={this.editCompanyUser.bind(this)}

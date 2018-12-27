@@ -24,7 +24,8 @@ class Navigation extends Component {
                     Logout
                 </a>
                 |
-                <NavLink to={`${process.env.PUBLIC_URL}/company/add-user`}>
+
+                <NavLink to={`${process.env.PUBLIC_URL}/auth/company/user/create`}>
                     Add user to company
                 </NavLink>
             </div>

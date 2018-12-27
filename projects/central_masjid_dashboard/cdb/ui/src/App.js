@@ -47,8 +47,8 @@ class App extends Component {
                             <Route path={`${process.env.PUBLIC_URL}/login`} component={Login}/>
 
                             <AuthRoute
-                                // authenticate={false}
-                                // rolesAny={["SUPER_ADMIN"]}
+                                authenticate={true}
+                                rolesAny={["SUPER_ADMIN"]}
                                 path={`${process.env.PUBLIC_URL}/auth/company/list`}
                                 component={AuthCompanyList} exact/>
 
@@ -57,8 +57,7 @@ class App extends Component {
                                 component={AuthCompany}/>
 
                             <AuthRoute
-                                // authenticate={false}
-                                // rolesAny={["ADMIN"]}
+                                authenticate={true}
                                 path={`${process.env.PUBLIC_URL}/auth/company/user/list/:action(all|current)`}
                                 component={AuthCompanyUserList} exact/>
                             <Route path={`${process.env.PUBLIC_URL}/auth/company/user/:action(create|edit|view)`} component={AuthCompanyUser} exact/>
@@ -66,13 +65,13 @@ class App extends Component {
                             <Route path={`${process.env.PUBLIC_URL}/register/finish`} component={RegisterFinish} exact/>
                             <Route path={`${process.env.PUBLIC_URL}/examples`} component={Examples} exact/>
                             <AuthRoute
-                                // authenticate={true}
+                                authenticate={true}
                                 path={`${process.env.PUBLIC_URL}/dashboard`} component={Dashboard} exact/>
                             <Route path={`${process.env.PUBLIC_URL}/forbidden`} component={Forbidden} exact/>
                             <AuthRoute
-                                // authenticate={true}
+                                authenticate={true}
                                 exact
-                                // rolesAny={["ADMIN"]}
+                                rolesAny={["ADMIN"]}
                                 path={`${process.env.PUBLIC_URL}/admin`} component={Admin} />
                             <Route path={`${process.env.PUBLIC_URL}/404`} component={PageNotFound} exact/>
                             <Route component={PageNotFound} />
