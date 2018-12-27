@@ -34,19 +34,11 @@ class AuthCompanyUser extends Component {
 
     onSubmit(event) {
         event.preventDefault();
-
-        let company = undefined;
-        if (this.props.addUserFlow) {
-            company = this.props.login.company;
-        } else {
-            company = this.props.companyServiceResponse.target;
-        }
-
         let user = this.props.companyUserServiceResponse.target;
 
         const saveUser = {
-            id: user.id,
-            "companyId": company.id,
+            "id": user.id,
+            "companyId": this.state.companyId,
             "email": this.state.email,
             "password": this.state.password,
             "firstName": this.state.firstName,
@@ -54,14 +46,14 @@ class AuthCompanyUser extends Component {
             "roles": ["ADMIN"],
             "active": true,
             "verified": true
-
         };
-
-        saveUser.companyId = user.companyId;
 
         const action = getPathParamFromProps(this.props, "action");
         if (action === "create") {
-            this.props.createCompanyUserAction(company, saveUser);
+            const loginInCompany = this.props.login.company;
+            const company = loginInCompany || this.props.companyServiceResponse.target;
+            saveUser.companyId = company.id;
+            this.props.createCompanyUserAction(company, saveUser, loginInCompany.id);
         } else {
             this.props.updateCompanyUserAction(saveUser);
         }
@@ -95,6 +87,7 @@ class AuthCompanyUser extends Component {
     }
 
     render() {
+        const loginInCompany = this.props.login.company;
         const action = getPathParamFromProps(this.props, "action");
         // todo create new registration steps display e.g. 1 - 2 - 3
         const redirectUrl = this.getRedirectUrl(this.props);
@@ -103,15 +96,14 @@ class AuthCompanyUser extends Component {
         }
         return (
             <div>
-                <h3>Company user {action}</h3>
-                {this.registrationForm()}
+                <h3>Company user, {action === "create" && loginInCompany.id ? `add user to ${loginInCompany.name}` : action}</h3>
+                {this.registrationForm(action, loginInCompany)}
             </div>
         );
     }
 
-    registrationForm() {
+    registrationForm(action, loginInCompany) {
         const fieldErrors = this.props.companyUserServiceResponse.fieldErrors;
-        const action = getPathParamFromProps(this.props, "action");
         return (
             <div>
                 <div>
@@ -145,16 +137,20 @@ class AuthCompanyUser extends Component {
                         value={this.state.email}/>
 
                     {action === "create" &&
-                    <InputField
-                        mode={action}
-                        label="Password"
-                        name="password"
-                        onChange={this.onChange}
-                        required={true}
-                        fieldError={fieldErrors["user.password"]}
-                        value={this.state.password}/>
+                        <InputField
+                            mode={action}
+                            label="Password"
+                            name="password"
+                            onChange={this.onChange}
+                            required={true}
+                            fieldError={fieldErrors["user.password"]}
+                            value={this.state.password}/>
                     }
-                    <button type="submit">Submit</button>
+                    {action !== "view" &&
+                        <button type="submit">
+                            {loginInCompany.id ? "Save" : "Next"}
+                        </button>
+                    }
                 </form>
 
                 <hr/>

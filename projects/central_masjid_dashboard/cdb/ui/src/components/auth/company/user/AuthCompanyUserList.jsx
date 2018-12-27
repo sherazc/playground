@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {getAllCompaniesAllUsers} from "../../../../services/auth/CompanyListService";
+import {getAllCompaniesAllUsers, getCompanyAllUsers} from "../../../../services/auth/CompanyListService";
 import {getPathParamFromProps} from "../../../../services/utilities";
 import UserGrid from "./UserGrid";
 import {prepareCompanyUserToEdit} from "../../../../store/register-company/actions";
@@ -17,7 +17,6 @@ class AuthCompanyUserList extends Component {
         this.updateAllOrCurrentUsers(action);
     }
 
-
     componentDidUpdate(prevProps, prevState, snapshot) {
         const prevAction = getPathParamFromProps(prevProps, "action");
         const currentAction = getPathParamFromProps(this.props, "action");
@@ -30,7 +29,7 @@ class AuthCompanyUserList extends Component {
         if (action === "all") {
             getAllCompaniesAllUsers(this.updateCompaniesUsers.bind(this));
         } else {
-            this.setState({users: []});
+            getCompanyAllUsers(this.updateCompaniesUsers.bind(this), this.props.login.company.id);
         }
     }
 
@@ -81,6 +80,8 @@ class AuthCompanyUserList extends Component {
 
 }
 
+const mapStateToProps = state => {
+    return {login: state.login};
+};
 
-
-export default connect(undefined, {prepareCompanyUserToEdit})(AuthCompanyUserList);
+export default connect(mapStateToProps, {prepareCompanyUserToEdit})(AuthCompanyUserList);

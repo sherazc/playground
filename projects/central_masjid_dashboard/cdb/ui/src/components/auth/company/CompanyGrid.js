@@ -28,7 +28,7 @@ class CompanyGrid extends Component {
                     return (
                         <tr key={index}>
                             <td>
-                                {index}
+                                {index + 1}
                             </td>
                             <td>
                                 {company.id}

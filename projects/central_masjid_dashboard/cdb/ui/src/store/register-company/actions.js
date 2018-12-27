@@ -1,5 +1,5 @@
 import axios from "axios";
-import {ALERT_SUCCESS, showAlert} from "../../store/common/alert/actions";
+import {ALERT_ERROR, ALERT_SUCCESS, showAlert} from "../../store/common/alert/actions";
 import history from "../../services/app-browse-history";
 
 export const REGISTER_COMPANY_SAVE = "REGISTER_COMPANY_SAVE";
@@ -58,36 +58,41 @@ export const updateCompanyUserAction = user => dispatch => {
                 payload: response.data
             });
 
-            dispatch(showAlert(ALERT_SUCCESS, "Successfully saved company user"));
+            dispatch(showAlert(ALERT_SUCCESS, "Successfully updated company user"));
             history.push(`${process.env.PUBLIC_URL}/auth/company/user/view`);
         })
         .catch(error => {
+            dispatch(showAlert(ALERT_ERROR, "Failed to update company user."));
             console.log(error);
         });
 };
 
 
-export const createCompanyUserAction = (company, user) => dispatch => {
-    axios.post(`${baseUrl}/company/user`, user)
+export const createCompanyUserAction = (company, user, addUserToLoggedInCompany) => dispatch => {
+    axios.post(`${baseUrl}/api/auth/companies/${company.id}/users`, user)
         .then(response => {
                 dispatch({
                     type: REGISTER_COMPANY_USER_SAVE,
                     payload: response.data
                 });
-
-                dispatch(showAlert(ALERT_SUCCESS, "Successfully saved company user"));
-                dispatch({
-                    type: REGISTER_COMPANY_FINISH,
-                    payload: {
-                        email: user.email,
-                        companyName: company.name
-                    }
-                });
-                history.push(`${process.env.PUBLIC_URL}/register/finish`);
+                if (addUserToLoggedInCompany) {
+                    dispatch(showAlert(ALERT_SUCCESS, "Successfully added company user"));
+                    history.push(`${process.env.PUBLIC_URL}/auth/company/user/view`);
+                } else {
+                    dispatch(showAlert(ALERT_SUCCESS, "Successfully created company user"));
+                    dispatch({
+                        type: REGISTER_COMPANY_FINISH,
+                        payload: {
+                            email: user.email,
+                            companyName: company.name
+                        }
+                    });
+                    history.push(`${process.env.PUBLIC_URL}/register/finish`);
+                }
             }
         )
         .catch(error => {
-            dispatch(showAlert(ALERT_SUCCESS, "Failed to save company user"));
+            dispatch(showAlert(ALERT_ERROR, "Failed to save company user"));
             dispatch({
                 type: REGISTER_COMPANY_USER_SAVE,
                 payload: error.response.data

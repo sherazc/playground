@@ -11,7 +11,6 @@ import Login from "./components/Login";
 import Alert from "./components/alert/Alert";
 import Loading from "./components/loading/Loading";
 import setupInterceptor from "./services/http-interceptor";
-import RegisterFinish from "./components/register/RegisterFinish";
 import Examples from "./components/Examples";
 import Dashboard from "./components/Dashboard";
 import Forbidden from "./components/Forbidden";
@@ -23,6 +22,7 @@ import AuthCompanyList from "./components/auth/company/AuthCompanyList";
 import AuthCompanyUserList from "./components/auth/company/user/AuthCompanyUserList";
 import AuthCompany from "./components/auth/company/AuthCompany";
 import AuthCompanyUser from "./components/auth/company/user/AuthCompanyUser";
+import RegisterFinish from "./components/auth/company/RegisterFinish";
 
 setupInterceptor(store);
 
@@ -62,8 +62,6 @@ class App extends Component {
                                 path={`${process.env.PUBLIC_URL}/auth/company/user/list/:action(all|current)`}
                                 component={AuthCompanyUserList} exact/>
                             <Route path={`${process.env.PUBLIC_URL}/auth/company/user/:action(create|edit|view)`} component={AuthCompanyUser} exact/>
-
-
 
                             <Route path={`${process.env.PUBLIC_URL}/register/finish`} component={RegisterFinish} exact/>
                             <Route path={`${process.env.PUBLIC_URL}/examples`} component={Examples} exact/>
