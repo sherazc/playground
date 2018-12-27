@@ -8,7 +8,7 @@ class RegisterFinish extends Component {
     render() {
         const finishRegister = this.props.finishRegister;
         if (canNotBeOnRegisterFinish(finishRegister)) {
-            return <Redirect to={`${process.env.PUBLIC_URL}/register/user`}/>;
+            return <Redirect to={`${process.env.PUBLIC_URL}/auth/company/create`}/>;
         }
         return (
             <div>

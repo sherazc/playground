@@ -2,7 +2,11 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import StateSelect from "../../partials/StateSelect";
 import InputField from "../../partials/InputField";
-import {prepareCompanyToCreate, saveCompanyAction} from "../../../store/register-company/actions";
+import {
+    createCompanyAction,
+    prepareCompanyToCreate,
+    updateCompanyAction
+} from "../../../store/register-company/actions";
 import {NavLink} from "react-router-dom";
 import {getPathParamFromProps} from "../../../services/utilities";
 import {Redirect} from "react-router";
@@ -31,9 +35,9 @@ class AuthCompany extends Component {
 
     onSubmit(event) {
         event.preventDefault();
-        let company = this.props.companyServiceResponse.target;
+        const action = getPathParamFromProps(this.props, "action");
+
         const saveCompany = {
-            id: company.id,
             name: this.state.name,
             address: {
                 street: this.state.addressStreet,
@@ -42,7 +46,15 @@ class AuthCompany extends Component {
                 zip: this.state.addressZip
             }
         };
-        this.props.saveCompanyAction(saveCompany);
+
+        if (action === "create") {
+            let company = this.props.companyServiceResponse.target;
+            saveCompany.id = company.id;
+            this.props.createCompanyAction(saveCompany);
+        } else {
+            saveCompany.id = this.state.id;
+            this.props.updateCompanyAction(saveCompany);
+        }
     }
 
     createInitialState(companyServiceResponse) {
@@ -113,7 +125,7 @@ class AuthCompany extends Component {
                 <form onSubmit={this.onSubmit}>
                     <InputField
                         mode={action}
-                        label="Masjid Name"
+                        label="Company Name"
                         name="name"
                         onChange={this.onChange}
                         required={true}
@@ -156,14 +168,19 @@ class AuthCompany extends Component {
                         fieldError={fieldErrors["company.address.zip"]}
                         value={this.state.addressZip}/>
 
-                    <button type="submit">Next</button>
+                    {action !== "view" &&
+                        <button type="submit">
+                            {action === "create" && "Next"}
+                            {action === "edit" && "Update"}
+                        </button>
+                    }
                 </form>
             </div>
         );
     }
 }
 
-const actions = {saveCompanyAction, prepareCompanyToCreate};
+const actions = {createCompanyAction, updateCompanyAction, prepareCompanyToCreate};
 
 const mapStateToProps = state => {
     return {
