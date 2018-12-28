@@ -1,4 +1,5 @@
 import axios from "axios";
+import {REGISTER_COMPANY_USER_PREPARE_FOR_PROFILE} from "../register-company/actions";
 
 export const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS";
 export const USER_LOGIN_FAILED = "USER_LOGIN_FAILED";
@@ -25,3 +26,8 @@ export const loginAction = loginRequest => dispatch => {
 export const loginResetAction = () => {
     return {type: USER_LOGIN_RESET};
 };
+
+export const viewMyProfileAction = (user) => {
+    return {type: REGISTER_COMPANY_USER_PREPARE_FOR_PROFILE, payload: user};
+};
+

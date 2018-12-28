@@ -44,6 +44,7 @@ class App extends Component {
                             run a loop over them to create Route and AuthRoute components.
                             */}
                             <Route path={`${process.env.PUBLIC_URL}/`} component={Home} exact/>
+
                             <Route path={`${process.env.PUBLIC_URL}/login`} component={Login}/>
 
                             <AuthRoute
@@ -60,20 +61,28 @@ class App extends Component {
                                 authenticate={true}
                                 path={`${process.env.PUBLIC_URL}/auth/company/user/list/:action(all|current)`}
                                 component={AuthCompanyUserList} exact/>
-                            <Route path={`${process.env.PUBLIC_URL}/auth/company/user/:action(create|edit|view)`} component={AuthCompanyUser} exact/>
+
+                            <Route
+                                path={`${process.env.PUBLIC_URL}/auth/company/user/:action(create|edit|view|profile)`}
+                                component={AuthCompanyUser} exact/>
 
                             <Route path={`${process.env.PUBLIC_URL}/register/finish`} component={RegisterFinish} exact/>
+
                             <Route path={`${process.env.PUBLIC_URL}/examples`} component={Examples} exact/>
+
                             <AuthRoute
                                 authenticate={true}
                                 path={`${process.env.PUBLIC_URL}/dashboard`} component={Dashboard} exact/>
                             <Route path={`${process.env.PUBLIC_URL}/forbidden`} component={Forbidden} exact/>
+
                             <AuthRoute
                                 authenticate={true}
                                 exact
                                 rolesAny={["ADMIN"]}
                                 path={`${process.env.PUBLIC_URL}/admin`} component={Admin} />
+
                             <Route path={`${process.env.PUBLIC_URL}/404`} component={PageNotFound} exact/>
+
                             <Route component={PageNotFound} />
                         </Switch>
                     </div>

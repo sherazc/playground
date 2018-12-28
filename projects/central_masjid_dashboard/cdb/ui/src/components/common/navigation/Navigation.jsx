@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {NavLink, withRouter} from 'react-router-dom';
 import {connect} from "react-redux";
 import {verifyAuthentication} from "../../../services/auth/AuthNZ";
-import {loginResetAction} from "../../../store/login/actions";
+import {loginResetAction, viewMyProfileAction} from "../../../store/login/actions";
 import {mapStateLoginToProps} from "../../../store/lib/utils";
 
 class Navigation extends Component {
@@ -25,6 +25,10 @@ class Navigation extends Component {
                 </a>
                 |
 
+                <a href={`${process.env.PUBLIC_URL}/#/`} onClick={this.viewMyProfile.bind(this)}>
+                    My Profile
+                </a>
+                |
                 <NavLink to={`${process.env.PUBLIC_URL}/auth/company/user/create`}>
                     Add user to company
                 </NavLink>
@@ -37,6 +41,13 @@ class Navigation extends Component {
         this.props.loginResetAction();
         this.props.history.replace(`${process.env.PUBLIC_URL}/`);
     }
+
+    viewMyProfile(event) {
+        event.preventDefault();
+        this.props.viewMyProfileAction(this.props.login.user);
+        this.props.history.replace(`${process.env.PUBLIC_URL}/auth/company/user/profile`);
+    }
+
 
     render() {
         return (
@@ -151,4 +162,4 @@ class Navigation extends Component {
     }
 }
 
-export default connect(mapStateLoginToProps, {loginResetAction})(withRouter(Navigation));
+export default connect(mapStateLoginToProps, {loginResetAction, viewMyProfileAction})(withRouter(Navigation));

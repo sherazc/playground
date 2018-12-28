@@ -23,7 +23,8 @@ class AuthCompanyUser extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         const prevAction = getPathParamFromProps(prevProps, "action");
         const currentAction = getPathParamFromProps(this.props, "action");
-        if (currentAction === "create" && prevAction !== "create") {
+        if ((currentAction === "create" && prevAction !== "create")
+            || (currentAction === "profile" && prevAction !== "profile")) {
             this.setState(this.createInitialState(this.props.companyUserServiceResponse));
         }
     }
@@ -73,6 +74,10 @@ class AuthCompanyUser extends Component {
         const isNewCompanyRegisterComplete = props.companyServiceResponse && props.companyServiceResponse.target && props.companyServiceResponse.target.id;
         const companyUserSelected = props.companyUserServiceResponse && props.companyUserServiceResponse.target && props.companyUserServiceResponse.target.id;
 
+        if (action === "profile" && !isLoggedIn) {
+            return `${process.env.PUBLIC_URL}/login`;
+        }
+
         if (action === "create" && !isLoggedIn && !isNewCompanyRegisterComplete) {
             return `${process.env.PUBLIC_URL}/auth/company/create`;
         }
@@ -96,7 +101,8 @@ class AuthCompanyUser extends Component {
         }
         return (
             <div>
-                <h3>Company user, {action === "create" && loginInCompany.id ? `add user to ${loginInCompany.name}` : action}</h3>
+                <h3>Company
+                    user, {action === "create" && loginInCompany.id ? `add user to ${loginInCompany.name}` : action}</h3>
                 {this.registrationForm(action, loginInCompany)}
             </div>
         );
@@ -137,19 +143,19 @@ class AuthCompanyUser extends Component {
                         value={this.state.email}/>
 
                     {action === "create" &&
-                        <InputField
-                            mode={action}
-                            label="Password"
-                            name="password"
-                            onChange={this.onChange}
-                            required={true}
-                            fieldError={fieldErrors["user.password"]}
-                            value={this.state.password}/>
+                    <InputField
+                        mode={action}
+                        label="Password"
+                        name="password"
+                        onChange={this.onChange}
+                        required={true}
+                        fieldError={fieldErrors["user.password"]}
+                        value={this.state.password}/>
                     }
                     {action !== "view" &&
-                        <button type="submit">
-                            {loginInCompany.id ? "Save" : "Next"}
-                        </button>
+                    <button type="submit">
+                        {loginInCompany.id ? "Save" : "Next"}
+                    </button>
                     }
                 </form>
 
