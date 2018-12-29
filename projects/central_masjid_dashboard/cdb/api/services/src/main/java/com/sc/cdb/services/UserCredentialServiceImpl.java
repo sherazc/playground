@@ -33,7 +33,20 @@ public class UserCredentialServiceImpl implements UserCredentialService {
             return responseBuilder.target(false).successful(false).message(errorMessage).build();
         }
 
-        return responseBuilder.build();
+        User user = userOptional.get();
+        user.setPassword(credential.getNewCredential());
+        ServiceResponse<User> userServiceResponse = userService.createOrUpdate(user);
+        if (userServiceResponse.isSuccessful()) {
+            String message = "Successfully updated user credentials.";
+            LOG.debug(message);
+            return responseBuilder.message(message).successful(true).target(true).build();
+        } else {
+            String errorMessage = "Failed to updated user credentials. " + userServiceResponse.getMessage();
+            return responseBuilder
+                    .fieldErrors(userServiceResponse.getFieldErrors())
+                    .message(errorMessage)
+                    .build();
+        }
     }
 
     @Override
