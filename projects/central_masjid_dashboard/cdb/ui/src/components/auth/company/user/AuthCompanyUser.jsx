@@ -74,6 +74,10 @@ class AuthCompanyUser extends Component {
         const isNewCompanyRegisterComplete = props.companyServiceResponse && props.companyServiceResponse.target && props.companyServiceResponse.target.id;
         const companyUserSelected = props.companyUserServiceResponse && props.companyUserServiceResponse.target && props.companyUserServiceResponse.target.id;
 
+        if (isLoggedIn && props.login.user.id === props.companyUserServiceResponse.target.id) {
+            return;
+        }
+
         if (action === "profile" && !isLoggedIn) {
             return `${process.env.PUBLIC_URL}/login`;
         }
@@ -110,6 +114,7 @@ class AuthCompanyUser extends Component {
 
     registrationForm(action, loginInCompany) {
         const fieldErrors = this.props.companyUserServiceResponse.fieldErrors;
+        const mode = action === "profile" || action === "view" ? "view" : "";
         return (
             <div>
                 <div>
@@ -117,7 +122,7 @@ class AuthCompanyUser extends Component {
                 </div>
                 <form onSubmit={this.onSubmit}>
                     <InputField
-                        mode={action}
+                        mode={mode}
                         label="First Name"
                         name="firstName"
                         onChange={this.onChange}
@@ -125,7 +130,7 @@ class AuthCompanyUser extends Component {
                         fieldError={fieldErrors["user.firstName"]}
                         value={this.state.firstName}/>
                     <InputField
-                        mode={action}
+                        mode={mode}
                         label="Last Name"
                         name="lastName"
                         onChange={this.onChange}
@@ -133,7 +138,7 @@ class AuthCompanyUser extends Component {
                         fieldError={fieldErrors["user.lastName"]}
                         value={this.state.lastName}/>
                     <InputField
-                        mode={action}
+                        mode={mode}
                         label="Email"
                         type="email"
                         name="email"
@@ -144,7 +149,7 @@ class AuthCompanyUser extends Component {
 
                     {action === "create" &&
                     <InputField
-                        mode={action}
+                        mode={mode}
                         label="Password"
                         name="password"
                         onChange={this.onChange}
@@ -152,7 +157,7 @@ class AuthCompanyUser extends Component {
                         fieldError={fieldErrors["user.password"]}
                         value={this.state.password}/>
                     }
-                    {action !== "view" &&
+                    {mode !== "view" &&
                     <button type="submit">
                         {loginInCompany.id ? "Save" : "Next"}
                     </button>
