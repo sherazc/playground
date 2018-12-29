@@ -10,6 +10,8 @@ import {NavLink} from "react-router-dom";
 import {Redirect} from "react-router";
 import {getPathParamFromProps} from "../../../../services/utilities";
 import {isAuthPresent, verifyAuthorization} from "../../../../services/auth/AuthNZ";
+import ResetCredentials from "./ResetCredentials";
+import UpdateCredentials from "./UpdateCredentials";
 
 class AuthCompanyUser extends Component {
 
@@ -61,9 +63,12 @@ class AuthCompanyUser extends Component {
     }
 
     createInitialState(companyUserServiceResponse) {
-        const companyUser = {...companyUserServiceResponse.target};
-        companyUser.password = "";
-        return companyUser
+        return {
+            ...companyUserServiceResponse.target,
+            password: "",
+            updateCredentials: false,
+            resetCredentials: false
+        };
     }
 
     getRedirectUrl(props) {
@@ -103,13 +108,38 @@ class AuthCompanyUser extends Component {
         if (redirectUrl) {
             return <Redirect to={redirectUrl}/>;
         }
+        if (this.state.resetCredentials) {
+            return <ResetCredentials back={this.backToFromResetUpdateCredentials.bind(this)}/>
+        }
+        if (this.state.updateCredentials) {
+            return <UpdateCredentials back={this.backToFromResetUpdateCredentials.bind(this)}/>
+        }
+
         return (
             <div>
                 <h3>Company
                     user, {action === "create" && loginInCompany.id ? `add user to ${loginInCompany.name}` : action}</h3>
                 {this.registrationForm(action, loginInCompany)}
+                <button onClick={this.resetCredentials.bind(this)}>
+                    Reset Password
+                </button>
+                <button onClick={this.updateCredentials.bind(this)}>
+                    Update Password
+                </button>
             </div>
         );
+    }
+
+    resetCredentials() {
+        this.setState({resetCredentials: true, updateCredentials: false});
+    }
+
+    updateCredentials() {
+        this.setState({resetCredentials: false, updateCredentials: true});
+    }
+
+    backToFromResetUpdateCredentials() {
+        this.setState({resetCredentials: false, updateCredentials: false});
     }
 
     registrationForm(action, loginInCompany) {
