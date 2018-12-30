@@ -5,6 +5,7 @@ import com.sc.cdb.services.UserCredentialService;
 import com.sc.cdb.services.model.ServiceResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -23,7 +24,7 @@ public class CredentialController {
     }
 
     @PutMapping("reset/user/{email}")
-    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> reset(
             @PathVariable("email") String email, @RequestBody Credential credential) {
         credential.setEmail(email);
@@ -35,9 +36,9 @@ public class CredentialController {
         }
     }
 
-
     @PutMapping("update/user/{email}")
-    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    @PreAuthorize("isAuthenticated()")
+    // @Secured("IS_AUTHENTICATED_FULLY")
     public ResponseEntity<Object> update(
             @PathVariable("email") String email, @RequestBody Credential credential) {
         credential.setEmail(email);

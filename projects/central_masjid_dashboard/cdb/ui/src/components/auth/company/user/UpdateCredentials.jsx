@@ -1,13 +1,13 @@
 import React, {Component} from "react";
 import InputField from "../../../partials/InputField";
 import NewCredentialFields from "./NewCredentialFields";
+import {companyUserCredentialsUpdate} from "../../../../services/auth/CredentialServices";
 
 class UpdateCredentials extends Component {
     state = {
         existingCredential: "",
         newCredential: "",
         confirmCredential: ""
-
     };
 
     onChange(event) {
@@ -16,11 +16,12 @@ class UpdateCredentials extends Component {
 
     onSubmit(event) {
         event.preventDefault();
-        console.log(this.state);
+        const email = this.props.login.user.email;
+        companyUserCredentialsUpdate(email, this.state.existingCredential, this.state.confirmCredential);
     }
 
     validateCredentials() {
-        return this.state.newCredential === this.state.confirmCredential && this.state.newCredential.length > 8;
+        return this.state.newCredential === this.state.confirmCredential && this.state.newCredential.length >= 8;
     }
 
     render() {
