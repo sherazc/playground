@@ -4,6 +4,7 @@ const InputField = (props) => {
     const type = props.type ? props.type : "text";
     const placeholder = props.placeholder ? props.placeholder : props.label;
 
+
     const viewOrEditField = mode => {
         if ("view" === mode) {
             return <>{props.value}</>;
@@ -15,7 +16,9 @@ const InputField = (props) => {
                 name={props.name}
                 id={props.name}
                 required={props.required}
-                placeholder={placeholder}/>
+                placeholder={placeholder}
+                onBlur={props.onBlur}
+            />
         }
     };
 

@@ -71,14 +71,20 @@ class AuthCompanyUser extends Component {
         };
     }
 
-    getRedirectUrl(props) {
-        const action = getPathParamFromProps(this.props, "action");
+    getRedirectUrl(state, props) {
+        const action = getPathParamFromProps(props, "action");
         const actionViewOrEdit = action === "view" || action === "edit";
         const isLoggedIn = isAuthPresent(props.login);
-        const adminLogin = isLoggedIn && verifyAuthorization(this.props.login.tokenPayload, ['ADMIN']);
+        const adminLogin = isLoggedIn && verifyAuthorization(props.login.tokenPayload, ['ADMIN']);
+        const superAdminLogin = isLoggedIn && verifyAuthorization(props.login.tokenPayload, ['SUPER_ADMIN']);
         const isNewCompanyRegisterComplete = props.companyServiceResponse && props.companyServiceResponse.target && props.companyServiceResponse.target.id;
         const companyUserSelected = props.companyUserServiceResponse && props.companyUserServiceResponse.target && props.companyUserServiceResponse.target.id;
 
+        if (state.resetCredentials && !superAdminLogin) {
+            return `${process.env.PUBLIC_URL}/forbidden`;
+        }
+
+        // Logged in user can do anything to it's profile.
         if (isLoggedIn && props.login.user.id === props.companyUserServiceResponse.target.id) {
             return;
         }
@@ -91,7 +97,8 @@ class AuthCompanyUser extends Component {
             return `${process.env.PUBLIC_URL}/auth/company/create`;
         }
 
-        if (actionViewOrEdit && !adminLogin) {
+        if ((actionViewOrEdit && !adminLogin)
+            || (state.updateCredentials && !adminLogin)) {
             return `${process.env.PUBLIC_URL}/forbidden`;
         }
 
@@ -104,15 +111,15 @@ class AuthCompanyUser extends Component {
         const loginInCompany = this.props.login.company;
         const action = getPathParamFromProps(this.props, "action");
         // todo create new registration steps display e.g. 1 - 2 - 3
-        const redirectUrl = this.getRedirectUrl(this.props);
+        const redirectUrl = this.getRedirectUrl(this.state, this.props);
         if (redirectUrl) {
             return <Redirect to={redirectUrl}/>;
         }
         if (this.state.resetCredentials) {
-            return <ResetCredentials back={this.backToFromResetUpdateCredentials.bind(this)}/>
+            return <ResetCredentials {...this.props} back={this.backToFromResetUpdateCredentials.bind(this)}/>
         }
         if (this.state.updateCredentials) {
-            return <UpdateCredentials back={this.backToFromResetUpdateCredentials.bind(this)}/>
+            return <UpdateCredentials {...this.props} back={this.backToFromResetUpdateCredentials.bind(this)}/>
         }
 
         return (
