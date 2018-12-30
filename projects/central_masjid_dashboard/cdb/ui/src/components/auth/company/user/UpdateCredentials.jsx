@@ -1,12 +1,12 @@
 import React, {Component} from "react";
 import InputField from "../../../partials/InputField";
-import CreateCredential from "./CreateCredential";
+import NewCredentialFields from "./NewCredentialFields";
 
 class UpdateCredentials extends Component {
     state = {
         existingCredential: "",
         newCredential: "",
-        confirmCredential: "",
+        confirmCredential: ""
 
     };
 
@@ -14,33 +14,39 @@ class UpdateCredentials extends Component {
         this.setState({[event.target.name]: event.target.value});
     }
 
-    matchCredentials(event) {
-        console.log("Changed " + event.target.name);
+    onSubmit(event) {
+        event.preventDefault();
+        console.log(this.state);
+    }
+
+    validateCredentials() {
+        return this.state.newCredential === this.state.confirmCredential && this.state.newCredential.length > 8;
     }
 
     render() {
+        const validCredential = this.validateCredentials();
+
         return (
             <div>
                 <h3>Update Credentials</h3>
+                <form onSubmit={this.onSubmit.bind(this)}>
+                    <InputField
+                        mode="edit"
+                        label="Existing password"
+                        name="existingCredential"
+                        onChange={this.onChange.bind(this)}
+                        required={true}
+                        value={this.state.existingCredential}
+                    />
 
-                <InputField
-                    mode="edit"
-                    label="Existing password"
-                    name="existingCredential"
-                    onChange={this.onChange.bind(this)}
-                    required={true}
-                    value={this.state.existingCredential}
-                />
+                    <NewCredentialFields
+                        newCredential={this.state.newCredential}
+                        confirmCredential={this.state.confirmCredential}
+                        newCredentialOnChange={this.onChange.bind(this)}
+                        confirmCredentialOnChange={this.onChange.bind(this)}/>
 
-                <CreateCredential
-                    newCredential={this.state.newCredential}
-                    confirmCredential={this.state.confirmCredential}
-                    newCredentialOnChange={this.onChange.bind(this)}
-                    confirmCredentialOnChange={this.onChange.bind(this)}
-                    matchCredentials={this.matchCredentials.bind(this)}/>
-
-                <button onClick={this.props.back}>Back</button>
-
+                    <button type="submit" disabled={!validCredential}>Update</button>
+                </form>
                 <hr/>
                 <button onClick={this.props.back}>Back</button>
             </div>

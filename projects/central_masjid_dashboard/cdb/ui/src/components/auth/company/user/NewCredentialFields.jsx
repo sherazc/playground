@@ -1,11 +1,7 @@
 import React from "react";
 import InputField from "../../../partials/InputField";
 
-const matchCredentials = (newCredential, confirmCredential) => {
-    console.log(`Chaged ${newCredential} = ${confirmCredential}`);
-};
-
-const CreateCredential = (props) => {
+const NewCredentialFields = (props) => {
     return (
         <>
             <InputField
@@ -23,10 +19,9 @@ const CreateCredential = (props) => {
                 required={true}
                 value={props.confirmCredential}
                 onChange={props.confirmCredentialOnChange}
-                onBlur={() => matchCredentials(props.newCredential, props.confirmCredential)}
             />
         </>
     );
 };
 
-export default CreateCredential;
+export default NewCredentialFields;
