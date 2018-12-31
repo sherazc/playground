@@ -3,6 +3,11 @@ import {isAuthPresent, verifyAuthorization} from "../../../../services/auth/Auth
 import {Redirect} from "react-router";
 import InputField from "../../../partials/InputField";
 import NewCredentialFields from "./NewCredentialFields";
+import {ALERT_SUCCESS, showAlert} from "../../../../store/common/alert/actions";
+import {collectErrorMessageFromResponseData} from "../../../../services/utilities";
+import axios from "axios";
+import connect from "react-redux/es/connect/connect";
+
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
 class ResetCredentials extends Component {
@@ -19,6 +24,8 @@ class ResetCredentials extends Component {
         super(props);
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.validateCredentials = this.validateCredentials.bind(this);
+        this.handleServerResponse = this.handleServerResponse.bind(this);
     }
 
     onChange(event) {
@@ -31,6 +38,27 @@ class ResetCredentials extends Component {
 
     onSubmit(event) {
         event.preventDefault();
+        const email = this.props.companyUserServiceResponse.target.email;
+        const request = {newCredential: this.state.newCredential};
+        axios.put(`${baseUrl}/api/auth/credential/reset/user/${email}`, request)
+            .then(response => this.handleServerResponse(response.data),
+                failResponse => this.handleServerResponse(failResponse.response.data))
+            .catch(errorResponse => console.log(errorResponse));
+    }
+
+    handleServerResponse(responseData) {
+        const successful = responseData && responseData.successful && responseData.target;
+        if (successful) {
+            this.props.showAlert(ALERT_SUCCESS, responseData.message);
+            this.setState({...this.initialState, successMessage: responseData.message});
+            this.props.back();
+        } else {
+            const errorMessage = collectErrorMessageFromResponseData(responseData, "Failed to update password.");
+            this.setState({
+                successMessage: "",
+                errorMessage: errorMessage
+            });
+        }
     }
 
     getRedirectUrl(state, props, user) {
@@ -92,4 +120,4 @@ class ResetCredentials extends Component {
     }
 }
 
-export default ResetCredentials;
+export default connect(undefined, {showAlert})(ResetCredentials);
