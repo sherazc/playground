@@ -39,9 +39,9 @@ class UpdateCredentials extends Component {
             newCredential: this.state.newCredential
         };
         axios.put(`${baseUrl}/api/auth/credential/update/user/${email}`, request)
-                .then(response => this.handleServerResponse(response.data),
-                    failResponse => this.handleServerResponse(failResponse.response.data))
-                .catch(errorResponse => this.handleServerResponse(errorResponse.response.data));
+            .then(response => this.handleServerResponse(response.data),
+                failResponse => this.handleServerResponse(failResponse.response.data))
+            .catch(errorResponse => this.handleServerResponse(errorResponse.response.data));
     }
 
     handleServerResponse(responseData) {
@@ -65,14 +65,15 @@ class UpdateCredentials extends Component {
 
     render() {
         const validCredential = this.validateCredentials();
+        const user = this.props.login.user.email;
 
         return (
             <div>
                 <h3>Update Credentials</h3>
                 {this.state.successMessage &&
-                    <div>
-                        {this.state.successMessage}
-                    </div>
+                <div>
+                    {this.state.successMessage}
+                </div>
                 }
                 {this.state.errorMessage &&
                 <div style={{color: "red"}}>
@@ -81,13 +82,18 @@ class UpdateCredentials extends Component {
                 }
                 <form onSubmit={this.onSubmit}>
                     <InputField
+                        mode="view"
+                        label="Email"
+                        name="email"
+                        required={true}
+                        value={user.email}/>
+                    <InputField
                         mode="edit"
                         label="Existing password"
                         name="existingCredential"
                         onChange={this.onChange}
                         required={true}
-                        value={this.state.existingCredential}
-                    />
+                        value={this.state.existingCredential}/>
 
                     <NewCredentialFields
                         newCredential={this.state.newCredential}

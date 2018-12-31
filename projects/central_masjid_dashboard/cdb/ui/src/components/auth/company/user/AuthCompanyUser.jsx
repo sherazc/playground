@@ -76,13 +76,8 @@ class AuthCompanyUser extends Component {
         const actionViewOrEdit = action === "view" || action === "edit";
         const isLoggedIn = isAuthPresent(props.login);
         const adminLogin = isLoggedIn && verifyAuthorization(props.login.tokenPayload, ['ADMIN']);
-        const superAdminLogin = isLoggedIn && verifyAuthorization(props.login.tokenPayload, ['SUPER_ADMIN']);
         const isNewCompanyRegisterComplete = props.companyServiceResponse && props.companyServiceResponse.target && props.companyServiceResponse.target.id;
         const companyUserSelected = props.companyUserServiceResponse && props.companyUserServiceResponse.target && props.companyUserServiceResponse.target.id;
-
-        if (state.resetCredentials && !superAdminLogin) {
-            return `${process.env.PUBLIC_URL}/forbidden`;
-        }
 
         // Logged in user can do anything to it's profile.
         if (isLoggedIn && props.login.user.id === props.companyUserServiceResponse.target.id) {
