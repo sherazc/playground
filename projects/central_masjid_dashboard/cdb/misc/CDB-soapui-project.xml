@@ -81,7 +81,7 @@
     "existingCredential": "password123",
     "newCredential": "password"
 }</con:request><con:originalUri>http://localhost/api/auth/credential/reset/user/email</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters>
-  <con:entry key="Authorization" value=""/>
+  <con:entry key="Authorization" value="Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdXBlci5hZG1pbi51c2VyQGVtYWlsLmNvbSIsInJvbGVzIjpbIlNVUEVSX0FETUlOIiwiVVNFUiJdLCJleHAiOjE1NDc1MzQ0NjB9.-Bp8RGD59BzqQK1E3X0evYZfWdQPLIftK3IIGxCPniEy2Kxo2AJeyhcrH2A7B-5hpHdjYDeaUvmkK3hdOn6bmw"/>
   <con:entry key="email" value="user@email.com"/>
 </con:parameters><con:parameterOrder><con:entry>email</con:entry><con:entry>Authorization</con:entry></con:parameterOrder></con:request><con:request name="Update password" id="1b9f7361-f8ae-4caf-909b-947db71bedb1" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8085/</con:endpoint><con:request>{
     "existingCredential": "password",
@@ -89,4 +89,10 @@
 }</con:request><con:originalUri>http://localhost/api/auth/credential/reset/user/email</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters>
   <con:entry key="Authorization" value="Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdXBlci5hZG1pbi51c2VyQGVtYWlsLmNvbSIsInJvbGVzIjpbIlNVUEVSX0FETUlOIiwiVVNFUiJdLCJleHAiOjE1NDc1MzQ0NjB9.-Bp8RGD59BzqQK1E3X0evYZfWdQPLIftK3IIGxCPniEy2Kxo2AJeyhcrH2A7B-5hpHdjYDeaUvmkK3hdOn6bmw"/>
   <con:entry key="email" value="user@email.com"/>
+</con:parameters><con:parameterOrder><con:entry>email</con:entry><con:entry>Authorization</con:entry></con:parameterOrder></con:request><con:request name="Update password bad email" id="1b9f7361-f8ae-4caf-909b-947db71bedb1" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8085/</con:endpoint><con:request>{
+    "existingCredential": "password",
+    "newCredential": "password"
+}</con:request><con:originalUri>http://localhost/api/auth/credential/reset/user/email</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters>
+  <con:entry key="Authorization" value="Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdXBlci5hZG1pbi51c2VyQGVtYWlsLmNvbSIsInJvbGVzIjpbIlNVUEVSX0FETUlOIiwiVVNFUiJdLCJleHAiOjE1NDc1MzQ0NjB9.-Bp8RGD59BzqQK1E3X0evYZfWdQPLIftK3IIGxCPniEy2Kxo2AJeyhcrH2A7B-5hpHdjYDeaUvmkK3hdOn6bmw"/>
+  <con:entry key="email" value="bad_email@email.com"/>
 </con:parameters><con:parameterOrder><con:entry>email</con:entry><con:entry>Authorization</con:entry></con:parameterOrder></con:request></con:method></con:resource></con:resource></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

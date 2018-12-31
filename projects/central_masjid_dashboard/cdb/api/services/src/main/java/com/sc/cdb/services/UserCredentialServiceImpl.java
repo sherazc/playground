@@ -44,7 +44,7 @@ public class UserCredentialServiceImpl implements UserCredentialService {
         LOG.debug("Updating password of {}", credential.getEmail());
         ServiceResponse.ServiceResponseBuilder<Boolean> responseBuilder = ServiceResponse.builder();
         if (StringUtils.isBlank(credential.getExistingCredential())) {
-            String errorMessage = "Failed to update user credentials. Existing password not provided.";
+            String errorMessage = "Failed to update user password. Existing password not provided.";
             LOG.error(errorMessage);
             return responseBuilder.target(false).successful(false).message(errorMessage).build();
         }
@@ -58,7 +58,7 @@ public class UserCredentialServiceImpl implements UserCredentialService {
         User user = userOptional.get();
 
         if (!passwordEncoder.matches(credential.getExistingCredential(), user.getPassword())) {
-            String errorMessage = "Failed to update user credentials. Existing password do not match.";
+            String errorMessage = "Failed to update user password. Wrong existing password entered.";
             LOG.error(errorMessage);
             return responseBuilder.target(false).successful(false).message(errorMessage).build();
         }
@@ -73,7 +73,7 @@ public class UserCredentialServiceImpl implements UserCredentialService {
             LOG.debug(message);
             return responseBuilder.message(message).successful(true).target(true).build();
         } else {
-            String errorMessage = "Failed to updated user. " + userServiceResponse.getMessage();
+            String errorMessage = "Failed to update user. " + userServiceResponse.getMessage();
             return responseBuilder
                     .fieldErrors(userServiceResponse.getFieldErrors())
                     .message(errorMessage)

@@ -1,14 +1,31 @@
 import React, {Component} from "react";
+import axios from "axios";
 import InputField from "../../../partials/InputField";
 import NewCredentialFields from "./NewCredentialFields";
-import {companyUserCredentialsUpdate} from "../../../../services/auth/CredentialServices";
+import {collectErrorMessageFromResponseData} from "../../../../services/utilities";
+import {ALERT_SUCCESS, showAlert} from "../../../../store/common/alert/actions";
+import connect from "react-redux/es/connect/connect";
+
+const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
 class UpdateCredentials extends Component {
-    state = {
+    initialState = {
         existingCredential: "",
         newCredential: "",
-        confirmCredential: ""
+        confirmCredential: "",
+        successMessage: "",
+        errorMessage: ""
     };
+
+    state = {...this.initialState};
+
+    constructor(props) {
+        super(props);
+        this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.validateCredentials = this.validateCredentials.bind(this);
+        this.handleServerResponse = this.handleServerResponse.bind(this);
+    }
 
     onChange(event) {
         this.setState({[event.target.name]: event.target.value});
@@ -17,7 +34,29 @@ class UpdateCredentials extends Component {
     onSubmit(event) {
         event.preventDefault();
         const email = this.props.login.user.email;
-        companyUserCredentialsUpdate(email, this.state.existingCredential, this.state.confirmCredential);
+        const request = {
+            existingCredential: this.state.existingCredential,
+            newCredential: this.state.newCredential
+        };
+        axios.put(`${baseUrl}/api/auth/credential/update/user/${email}`, request)
+                .then(response => this.handleServerResponse(response.data),
+                    failResponse => this.handleServerResponse(failResponse.response.data))
+                .catch(errorResponse => this.handleServerResponse(errorResponse.response.data));
+    }
+
+    handleServerResponse(responseData) {
+        const successful = responseData && responseData.successful && responseData.target;
+        if (successful) {
+            this.props.showAlert(ALERT_SUCCESS, responseData.message);
+            this.setState({...this.initialState, successMessage: responseData.message});
+            this.props.back();
+        } else {
+            const errorMessage = collectErrorMessageFromResponseData(responseData, "Failed to update password.");
+            this.setState({
+                successMessage: "",
+                errorMessage: errorMessage
+            });
+        }
     }
 
     validateCredentials() {
@@ -30,12 +69,22 @@ class UpdateCredentials extends Component {
         return (
             <div>
                 <h3>Update Credentials</h3>
-                <form onSubmit={this.onSubmit.bind(this)}>
+                {this.state.successMessage &&
+                    <div>
+                        {this.state.successMessage}
+                    </div>
+                }
+                {this.state.errorMessage &&
+                <div style={{color: "red"}}>
+                    {this.state.errorMessage}
+                </div>
+                }
+                <form onSubmit={this.onSubmit}>
                     <InputField
                         mode="edit"
                         label="Existing password"
                         name="existingCredential"
-                        onChange={this.onChange.bind(this)}
+                        onChange={this.onChange}
                         required={true}
                         value={this.state.existingCredential}
                     />
@@ -43,8 +92,8 @@ class UpdateCredentials extends Component {
                     <NewCredentialFields
                         newCredential={this.state.newCredential}
                         confirmCredential={this.state.confirmCredential}
-                        newCredentialOnChange={this.onChange.bind(this)}
-                        confirmCredentialOnChange={this.onChange.bind(this)}/>
+                        newCredentialOnChange={this.onChange}
+                        confirmCredentialOnChange={this.onChange}/>
 
                     <button type="submit" disabled={!validCredential}>Update</button>
                 </form>
@@ -55,4 +104,5 @@ class UpdateCredentials extends Component {
     }
 }
 
-export default UpdateCredentials;
+export default connect(undefined, {showAlert})(UpdateCredentials);
+
