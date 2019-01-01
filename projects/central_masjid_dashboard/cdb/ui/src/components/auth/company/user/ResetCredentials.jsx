@@ -32,9 +32,6 @@ class ResetCredentials extends Component {
         this.setState({[event.target.name]: event.target.value});
     }
 
-    validateCredentials() {
-        return this.state.newCredential === this.state.confirmCredential && this.state.newCredential.length >= 8;
-    }
 
     onSubmit(event) {
         event.preventDefault();
@@ -45,6 +42,12 @@ class ResetCredentials extends Component {
                 failResponse => this.handleServerResponse(failResponse.response.data))
             .catch(errorResponse => console.log(errorResponse));
     }
+
+    validateCredentials() {
+        return this.state.newCredential === this.state.confirmCredential && this.state.newCredential.length >= 8;
+    }
+
+
 
     handleServerResponse(responseData) {
         const successful = responseData && responseData.successful && responseData.target;

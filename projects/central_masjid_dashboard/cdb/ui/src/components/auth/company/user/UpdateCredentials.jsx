@@ -5,6 +5,8 @@ import NewCredentialFields from "./NewCredentialFields";
 import {collectErrorMessageFromResponseData} from "../../../../services/utilities";
 import {ALERT_SUCCESS, showAlert} from "../../../../store/common/alert/actions";
 import connect from "react-redux/es/connect/connect";
+import {isAuthPresent, verifyAuthorization} from "../../../../services/auth/AuthNZ";
+import {Redirect} from "react-router";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
@@ -33,15 +35,46 @@ class UpdateCredentials extends Component {
 
     onSubmit(event) {
         event.preventDefault();
-        const email = this.props.login.user.email;
-        const request = {
-            existingCredential: this.state.existingCredential,
-            newCredential: this.state.newCredential
-        };
-        axios.put(`${baseUrl}/api/auth/credential/update/user/${email}`, request)
+        let email = undefined;
+        let request = {newCredential: this.state.newCredential};
+        let requestUrl = undefined;
+
+        if (this.props.resetCredential) {
+            email = this.props.companyUserServiceResponse.target.email;
+            requestUrl = `${baseUrl}/api/auth/credential/reset/user/${email}`;
+        } else {
+            email = this.props.login.user.email;
+            request.existingCredential = this.state.existingCredential;
+            requestUrl = `${baseUrl}/api/auth/credential/update/user/${email}`;
+        }
+
+        axios.put(requestUrl, request)
             .then(response => this.handleServerResponse(response.data),
                 failResponse => this.handleServerResponse(failResponse.response.data))
             .catch(errorResponse => this.handleServerResponse(errorResponse.response.data));
+    }
+
+    getRedirectUrl(state, props, user) {
+        if (props.resetCredential) {
+            return;
+        }
+        const isLoggedIn = isAuthPresent(props.login);
+        const adminLogin = isLoggedIn && verifyAuthorization(props.login.tokenPayload, ['ADMIN']);
+        const superAdminLogin = isLoggedIn && verifyAuthorization(props.login.tokenPayload, ['SUPER_ADMIN']);
+
+        if (superAdminLogin) {
+            return;
+        }
+
+        const company = props.login.company;
+
+        if (!adminLogin || !user || !company || user.companyId !== company.id) {
+            return `${process.env.PUBLIC_URL}/forbidden`;
+        }
+    }
+
+    validateCredentials() {
+        return this.state.newCredential === this.state.confirmCredential && this.state.newCredential.length >= 8;
     }
 
     handleServerResponse(responseData) {
@@ -59,17 +92,26 @@ class UpdateCredentials extends Component {
         }
     }
 
-    validateCredentials() {
-        return this.state.newCredential === this.state.confirmCredential && this.state.newCredential.length >= 8;
-    }
-
     render() {
+        let user = undefined;
+        if (this.props.resetCredential) {
+            user = this.props.companyUserServiceResponse.target;
+        } else {
+            user = this.props.login.user;
+        }
+
+        const redirectUrl = this.getRedirectUrl(this.state, this.props, user);
+        if (redirectUrl) {
+            return <Redirect to={redirectUrl}/>;
+        }
+
         const validCredential = this.validateCredentials();
-        const user = this.props.login.user.email;
 
         return (
             <div>
-                <h3>Update Credentials</h3>
+                <h3>
+                    {this.props.resetCredential ? "Reset" : "Update"} Credentials
+                </h3>
                 {this.state.successMessage &&
                 <div>
                     {this.state.successMessage}

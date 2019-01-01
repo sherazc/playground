@@ -111,10 +111,10 @@ class AuthCompanyUser extends Component {
             return <Redirect to={redirectUrl}/>;
         }
         if (this.state.resetCredentials) {
-            return <ResetCredentials {...this.props} back={this.backToFromResetUpdateCredentials.bind(this)}/>
+            return <UpdateCredentials resetCredential {...this.props} back={this.backToFromResetUpdateCredentials.bind(this)}/>
         }
         if (this.state.updateCredentials) {
-            return <UpdateCredentials {...this.props} back={this.backToFromResetUpdateCredentials.bind(this)}/>
+            return <UpdateCredentials resetCredential={false} {...this.props} back={this.backToFromResetUpdateCredentials.bind(this)}/>
         }
 
         return (
