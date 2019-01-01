@@ -129,13 +129,16 @@ class UpdateCredentials extends Component {
                         name="email"
                         required={true}
                         value={user.email}/>
-                    <InputField
-                        mode="edit"
-                        label="Existing password"
-                        name="existingCredential"
-                        onChange={this.onChange}
-                        required={true}
-                        value={this.state.existingCredential}/>
+
+                    {!this.props.resetCredential &&
+                        <InputField
+                            mode="edit"
+                            label="Existing password"
+                            name="existingCredential"
+                            onChange={this.onChange}
+                            required={true}
+                            value={this.state.existingCredential}/>
+                    }
 
                     <NewCredentialFields
                         newCredential={this.state.newCredential}
