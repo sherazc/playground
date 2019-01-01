@@ -55,7 +55,7 @@ class UpdateCredentials extends Component {
     }
 
     getRedirectUrl(state, props, user) {
-        if (props.resetCredential) {
+        if (!props.resetCredential) {
             return;
         }
         const isLoggedIn = isAuthPresent(props.login);

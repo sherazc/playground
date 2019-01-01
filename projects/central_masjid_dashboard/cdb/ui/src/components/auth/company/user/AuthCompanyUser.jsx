@@ -10,7 +10,6 @@ import {NavLink} from "react-router-dom";
 import {Redirect} from "react-router";
 import {getPathParamFromProps} from "../../../../services/utilities";
 import {isAuthPresent, verifyAuthorization} from "../../../../services/auth/AuthNZ";
-import ResetCredentials from "./ResetCredentials";
 import UpdateCredentials from "./UpdateCredentials";
 
 class AuthCompanyUser extends Component {
