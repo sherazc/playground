@@ -9,7 +9,7 @@ import {
 import {NavLink} from "react-router-dom";
 import {Redirect} from "react-router";
 import {getPathParamFromProps} from "../../../../services/utilities";
-import {isAuthPresent, verifyAuthorization} from "../../../../services/auth/AuthNZ";
+import {isAdminLogin, isAuthPresent, isMyProfile, isSuperAdminLogin} from "../../../../services/auth/AuthNZ";
 import UpdateCredentials from "./UpdateCredentials";
 
 class AuthCompanyUser extends Component {
@@ -74,7 +74,7 @@ class AuthCompanyUser extends Component {
         const action = getPathParamFromProps(props, "action");
         const actionViewOrEdit = action === "view" || action === "edit";
         const isLoggedIn = isAuthPresent(props.login);
-        const adminLogin = isLoggedIn && verifyAuthorization(props.login.tokenPayload, ['ADMIN']);
+        const adminLogin = isAdminLogin(props);
         const isNewCompanyRegisterComplete = props.companyServiceResponse && props.companyServiceResponse.target && props.companyServiceResponse.target.id;
         const companyUserSelected = props.companyUserServiceResponse && props.companyUserServiceResponse.target && props.companyUserServiceResponse.target.id;
 
@@ -103,7 +103,10 @@ class AuthCompanyUser extends Component {
 
     render() {
         const loginInCompany = this.props.login.company;
+        const myProfile = isMyProfile(this.props);
         const action = getPathParamFromProps(this.props, "action");
+        const adminLogin = isAdminLogin(this.props);
+        const superAdminLogin = isSuperAdminLogin(this.props);
         // todo create new registration steps display e.g. 1 - 2 - 3
         const redirectUrl = this.getRedirectUrl(this.state, this.props);
         if (redirectUrl) {
@@ -121,12 +124,16 @@ class AuthCompanyUser extends Component {
                 <h3>Company
                     user, {action === "create" && loginInCompany.id ? `add user to ${loginInCompany.name}` : action}</h3>
                 {this.registrationForm(action, loginInCompany)}
-                <button onClick={this.resetCredentials.bind(this)}>
-                    Reset Password
-                </button>
-                <button onClick={this.updateCredentials.bind(this)}>
-                    Update Password
-                </button>
+                {(adminLogin || superAdminLogin) &&
+                    <button onClick={this.resetCredentials.bind(this)}>
+                        Reset Password
+                    </button>
+                }
+                {myProfile &&
+                    <button onClick={this.updateCredentials.bind(this)}>
+                        Update Password
+                    </button>
+                }
             </div>
         );
     }

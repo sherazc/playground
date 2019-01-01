@@ -14,6 +14,40 @@ export const isAuthPresent = (login) => {
     return login && login.tokenPayload && verifyAuthentication(login.tokenPayload, true);
 };
 
+export const isAdminLogin = (props) => {
+    if(!tokenPayloadObjectExist(props)) {
+        return false;
+    }
+    return isAuthPresent(props.login) && verifyAuthorization(props.login.tokenPayload, ['ADMIN']);
+};
+
+export const isSuperAdminLogin = (props) => {
+    if(!tokenPayloadObjectExist(props)) {
+        return false;
+    }
+    return isAuthPresent(props.login) && verifyAuthorization(props.login.tokenPayload, ['SUPER_ADMIN']);
+};
+
+
+const tokenPayloadObjectExist = (props) => {
+    return props && props.login && props.login.tokenPayload
+};
+
+export const isMyProfile = (props) => {
+    if(!props || !props.login || !props.login.user || !props.companyUserServiceResponse) {
+        return false;
+    }
+    const loginInUser = props.login.user;
+    const companyUserServiceResponse = props.companyUserServiceResponse.target;
+    return loginInUser
+        && loginInUser.id
+        && companyUserServiceResponse
+        && companyUserServiceResponse.id
+        && loginInUser.id === companyUserServiceResponse.id;
+};
+
+
+
 
 /*
 

@@ -5,7 +5,7 @@ import NewCredentialFields from "./NewCredentialFields";
 import {collectErrorMessageFromResponseData} from "../../../../services/utilities";
 import {ALERT_SUCCESS, showAlert} from "../../../../store/common/alert/actions";
 import connect from "react-redux/es/connect/connect";
-import {isAuthPresent, verifyAuthorization} from "../../../../services/auth/AuthNZ";
+import {isAdminLogin, isSuperAdminLogin} from "../../../../services/auth/AuthNZ";
 import {Redirect} from "react-router";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
@@ -58,9 +58,9 @@ class UpdateCredentials extends Component {
         if (!props.resetCredential) {
             return;
         }
-        const isLoggedIn = isAuthPresent(props.login);
-        const adminLogin = isLoggedIn && verifyAuthorization(props.login.tokenPayload, ['ADMIN']);
-        const superAdminLogin = isLoggedIn && verifyAuthorization(props.login.tokenPayload, ['SUPER_ADMIN']);
+
+        const adminLogin = isAdminLogin(props);
+        const superAdminLogin = isSuperAdminLogin(props);
 
         if (superAdminLogin) {
             return;
@@ -110,7 +110,7 @@ class UpdateCredentials extends Component {
         return (
             <div>
                 <h3>
-                    {this.props.resetCredential ? "Reset" : "Update"} Credentials
+                    {this.props.resetCredential ? "Reset" : "Update"} Password
                 </h3>
                 {this.state.successMessage &&
                 <div>

@@ -5,7 +5,7 @@ import UserGrid from "./UserGrid";
 import {prepareCompanyUserToEdit} from "../../../../store/register-company/actions";
 import connect from "react-redux/es/connect/connect";
 import {Redirect} from "react-router";
-import {isAuthPresent, verifyAuthorization} from "../../../../services/auth/AuthNZ";
+import {isAdminLogin, isSuperAdminLogin} from "../../../../services/auth/AuthNZ";
 
 class AuthCompanyUserList extends Component {
     constructor(props) {
@@ -66,9 +66,8 @@ class AuthCompanyUserList extends Component {
     }
 
     getRedirectUrl(action, props) {
-        const isLoggedIn = isAuthPresent(props.login);
-        const adminLogin = isLoggedIn && verifyAuthorization(this.props.login.tokenPayload, ['ADMIN']);
-        const superAdminLogin = isLoggedIn && verifyAuthorization(this.props.login.tokenPayload, ['SUPER_ADMIN']);
+        const adminLogin = isAdminLogin(props);
+        const superAdminLogin = isSuperAdminLogin(props);
 
         if (action === "current" && !adminLogin && !superAdminLogin) {
             return `${process.env.PUBLIC_URL}/forbidden`;
