@@ -19,3 +19,6 @@ cp -r ui/build/* api/webservices/src/main/resources/static
 # Building API + UI jar
 cd api
 mvn clean install
+
+# Do below only if spring-boot-maven-plugin's is <executable>true</executable>
+# chmod +x webservices/target/cdb.jar

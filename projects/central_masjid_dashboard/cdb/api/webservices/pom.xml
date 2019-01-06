@@ -44,10 +44,23 @@
             <!--
             spring-boot-maven-plugin plugin will create single spring-boot
             executable jar
+
+            Installation
+            https://docs.spring.io/spring-boot/docs/current/reference/html/deployment-install.html
             -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!--
+                    By doing <executable>true</executable> flag we don't need to do
+                    $ java -jar
+                    instead we can run out application by just doing
+                    $ chmod +x cdb.jar
+                    $ cdb.jar
+                    -->
+                    <!--<executable>true</executable>-->
+                </configuration>
             </plugin>
         </plugins>
     </build>
