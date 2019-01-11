@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 @Configuration
-@Profile({"prod"})
+@Profile({"prod", "prodlocal"})
 public class HttpsConfiguration {
     private static final Logger LOG = LoggerFactory.getLogger(HttpsConfiguration.class);
 
