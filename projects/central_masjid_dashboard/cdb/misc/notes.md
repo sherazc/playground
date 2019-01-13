@@ -82,3 +82,19 @@ when starting or building react app.
 ```
 server.servlet.context-path=/cdb
 ```
+
+## SCP - Secure Copy
+
+### Upload File or Folder
+```
+$ scp -i /Users/sheraz/.ssh/id_rsa \
+    -r ./local-file-or-folder \
+    ubuntu@54.165.184.232:/server-directory
+```
+
+### Download File or Folder
+```
+$ scp -i /Users/sheraz/.ssh/id_rsa \
+    -r ubuntu@54.165.184.232:/server-directory \
+    ./local-file-or-folder 
+```

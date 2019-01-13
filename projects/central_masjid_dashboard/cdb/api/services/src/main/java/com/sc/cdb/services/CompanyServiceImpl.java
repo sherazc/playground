@@ -1,5 +1,6 @@
 package com.sc.cdb.services;
 
+import com.sc.cdb.data.dao.UserDao;
 import com.sc.cdb.data.model.Company;
 import com.sc.cdb.data.repository.CompanyRepository;
 import com.sc.cdb.services.model.ServiceResponse;
@@ -17,9 +18,11 @@ public class CompanyServiceImpl implements CompanyService {
     private static final Logger LOG = LoggerFactory.getLogger(CompanyServiceImpl.class);
 
     private CompanyRepository companyRepository;
+    private UserDao userDao;
 
-    public CompanyServiceImpl(CompanyRepository companyRepository) {
+    public CompanyServiceImpl(CompanyRepository companyRepository, UserDao userDao) {
         this.companyRepository = companyRepository;
+        this.userDao = userDao;
     }
 
     @Override
@@ -75,6 +78,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public List<Company> findAll() {
         LOG.debug("Retrieving all companies.");
+        this.userDao.doStuff();
         return this.companyRepository.findAll();
     }
 
