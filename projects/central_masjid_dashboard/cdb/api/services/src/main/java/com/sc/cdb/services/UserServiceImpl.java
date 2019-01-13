@@ -1,8 +1,10 @@
 package com.sc.cdb.services;
 
 import com.sc.cdb.data.common.util.Constants;
+import com.sc.cdb.data.dao.UserDao;
 import com.sc.cdb.data.model.Company;
 import com.sc.cdb.data.model.User;
+import com.sc.cdb.data.model.UserCompany;
 import com.sc.cdb.data.repository.UserRepository;
 import com.sc.cdb.services.model.ServiceResponse;
 import org.apache.commons.lang3.StringUtils;
@@ -21,13 +23,16 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
     private CompanyService companyService;
+    private UserDao userDao;
 
     public UserServiceImpl(UserRepository userRepository,
                            PasswordEncoder passwordEncoder,
-                           CompanyService companyService) {
+                           CompanyService companyService,
+                           UserDao userDao) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.companyService = companyService;
+        this.userDao = userDao;
     }
 
     public Optional<User> findUserByEmail(String email) {
@@ -95,11 +100,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findAllCompanyUsers(String companyId) {
+    public List<UserCompany> findAllCompanyUsers(String companyId) {
         if (Constants.COLLECTION_ALL.equalsIgnoreCase(companyId)) {
-            return this.userRepository.findAll();
+            return this.userDao.findAll();
         } else {
-            return this.userRepository.findByCompanyId(companyId);
+            return this.userDao.findByCompanyId(companyId);
         }
     }
 
