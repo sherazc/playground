@@ -1,0 +1,317 @@
+{
+	"info": {
+		"_postman_id": "9426e6d9-144b-4567-a0ab-69abe7c231b3",
+		"name": "cdb",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login USER",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"user@email.com\",\n\t\"password\": \"password\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8085/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login ADMIN USER",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"admin.user@email.com\",\n\t\"password\": \"password\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8085/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login SUPER_ADMIN Default Company",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"super.admin.user@email.com\",\n\t\"password\": \"password\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8085/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login SUPER_ADMIN Company 2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"companyId\": \"company2\",\n\t\"email\": \"super.admin.user@email.com\",\n\t\"password\": \"password\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8085/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get Company Open",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/company/open",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"company",
+						"open"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get Company secure",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlbWFpbEBlbWFpbC5jb20iLCJyb2xlcyI6WyJVU0VSIl0sImV4cCI6MTUzODQ1MDA2MX0.AK9uZHUI8MzSTRtiMpZRvsyUpipU2b2U9wEO-bFzKNbV7nU5Nc214dRGx7KueDHKe-fHLPIRYtE1yRymAFJaYw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/company/secure",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"company",
+						"secure"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "devglan - 1 - create new user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"username\": \"user4\", \"password\": \"password\", \"age\": 33, \"salary\": 898999 }"
+				},
+				"url": {
+					"raw": "http://localhost:8090/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "devglan - 2 - generate token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"username\": \"user2\", \"password\": \"password\" }"
+				},
+				"url": {
+					"raw": "http://localhost:8090/token/generate-token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"token",
+						"generate-token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "devglan - 3 - Fetch All User(ADMIN Role)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMiIsInNjb3BlcyI6IlJPTEVfVVNFUiIsImlhdCI6MTUzODI3MTM5MywiZXhwIjoxNTM4Mjg5MzkzfQ.tkFcoe81qjCBuI2AWMFQ-Ta27uD_ZI_sswaX-0TS-8k",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"username\": \"user4\", \"password\": \"password5\" }"
+				},
+				"url": {
+					"raw": "http://localhost:8090/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "devglan - 4 - Fetch SingleUser(USER or ADMIN Role)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMiIsInNjb3BlcyI6IlJPTEVfVVNFUiIsImlhdCI6MTUzODI3MTM5MywiZXhwIjoxNTM4Mjg5MzkzfQ.tkFcoe81qjCBuI2AWMFQ-Ta27uD_ZI_sswaX-0TS-8k",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"username\": \"user4\", \"password\": \"password5\" }"
+				},
+				"url": {
+					"raw": "http://localhost:8090/user/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"user",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

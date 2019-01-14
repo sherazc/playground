@@ -1,0 +1,13 @@
+[Unit]
+Description=Central Dashboard
+After=syslog.target network.target mongodb.service
+
+[Service]
+# User=ubuntu
+Type=simple
+WorkingDirectory=/home/ubuntu/cdb/app
+ExecStart=/home/ubuntu/cdb/app/cdb.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
