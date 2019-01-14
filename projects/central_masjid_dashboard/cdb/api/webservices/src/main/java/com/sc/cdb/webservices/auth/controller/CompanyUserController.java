@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,13 +40,13 @@ public class CompanyUserController {
     }
 
     @GetMapping
-    // @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
     public ResponseEntity<?> getAllCompanyUsers(@PathVariable("companyId") String companyId) {
         return ResponseEntity.ok(userService.findAllCompanyUsers(companyId));
     }
 
     @GetMapping("{userId}")
-    // @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
     public ResponseEntity<?> getAllCompanyUser(
             @PathVariable("companyId") String companyId,
             @PathVariable("userId") String userId) {
@@ -58,7 +59,7 @@ public class CompanyUserController {
     }
 
     @PostMapping
-    // @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
     public ResponseEntity<?> createOrUpdate(
             @PathVariable("companyId") String companyId,
             @Valid @RequestBody User user,
@@ -82,7 +83,7 @@ public class CompanyUserController {
     }
 
     @PutMapping("{userId}")
-    // @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
     public ResponseEntity<?> update(
             @PathVariable("companyId") String companyId,
             @PathVariable("userId") String userId,
@@ -105,7 +106,7 @@ public class CompanyUserController {
     }
 
     @DeleteMapping("{userId}")
-    // @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
     public ResponseEntity<?> delete(@PathVariable("companyId") String companyId, @PathVariable("id") String id) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Delete method not implemented yet. ID " + id);
     }

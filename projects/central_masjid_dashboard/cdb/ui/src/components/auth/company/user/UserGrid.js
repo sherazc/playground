@@ -16,6 +16,9 @@ class UserGrid extends Component {
                         Company ID
                     </th>
                     <th>
+                        Company Name
+                    </th>
+                    <th>
                         Email
                     </th>
                     <th>
@@ -50,6 +53,9 @@ class UserGrid extends Component {
                             </td>
                             <td>
                                 {user.companyId}
+                            </td>
+                            <td>
+                                {user.company.name}
                             </td>
                             <td>
                                 {user.email}

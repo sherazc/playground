@@ -24,7 +24,7 @@ public class CredentialController {
     }
 
     @PutMapping("reset/user/{email}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
     public ResponseEntity<Object> reset(
             @PathVariable("email") String email, @RequestBody Credential credential) {
         credential.setEmail(email);
