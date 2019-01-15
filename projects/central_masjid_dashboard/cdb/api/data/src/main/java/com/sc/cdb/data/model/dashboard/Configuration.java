@@ -9,5 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Jummah {
+public class Configuration {
+    private String name;
+    private String value;
+    private String description;
 }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Document
@@ -18,8 +19,11 @@ public class Dashboard {
     @Id
     private String id;
 
+    @NotBlank
+    private String companyId;
+
     private List<Announcement> announcements;
-    private List<Config> configs;
+    private List<Configuration> configurations;
     private List<Event> events;
     private List<Expense> expenses;
     private List<Fund> funds;
