@@ -1,8 +1,8 @@
 package com.sc.cdb;
 
-import com.sc.cdb.data.model.Address;
-import com.sc.cdb.data.model.Company;
-import com.sc.cdb.data.model.User;
+import com.sc.cdb.data.model.auth.Address;
+import com.sc.cdb.data.model.auth.Company;
+import com.sc.cdb.data.model.auth.User;
 import com.sc.cdb.data.repository.CompanyRepository;
 import com.sc.cdb.data.repository.UserRepository;
 import org.slf4j.Logger;

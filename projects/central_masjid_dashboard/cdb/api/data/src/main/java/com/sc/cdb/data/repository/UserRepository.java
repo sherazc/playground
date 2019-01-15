@@ -1,6 +1,6 @@
 package com.sc.cdb.data.repository;
 
-import com.sc.cdb.data.model.User;
+import com.sc.cdb.data.model.auth.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;

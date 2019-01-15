@@ -1,7 +1,7 @@
 package com.sc.cdb.webservices.auth.controller;
 
-import com.sc.cdb.data.model.Company;
-import com.sc.cdb.services.CompanyService;
+import com.sc.cdb.data.model.auth.Company;
+import com.sc.cdb.services.auth.CompanyService;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.webservices.decorator.ErrorResponseDecorator;
 import org.apache.commons.lang3.StringUtils;

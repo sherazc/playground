@@ -1,4 +1,4 @@
-package com.sc.cdb.services;
+package com.sc.cdb.services.auth;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

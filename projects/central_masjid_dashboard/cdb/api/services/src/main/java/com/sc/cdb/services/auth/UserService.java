@@ -1,7 +1,7 @@
-package com.sc.cdb.services;
+package com.sc.cdb.services.auth;
 
-import com.sc.cdb.data.model.User;
-import com.sc.cdb.data.model.UserCompany;
+import com.sc.cdb.data.model.auth.User;
+import com.sc.cdb.data.model.auth.UserCompany;
 import com.sc.cdb.services.model.ServiceResponse;
 
 import java.util.List;

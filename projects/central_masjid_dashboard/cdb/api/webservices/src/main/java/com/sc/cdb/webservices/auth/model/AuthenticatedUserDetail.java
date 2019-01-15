@@ -1,6 +1,6 @@
 package com.sc.cdb.webservices.auth.model;
 
-import com.sc.cdb.data.model.User;
+import com.sc.cdb.data.model.auth.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

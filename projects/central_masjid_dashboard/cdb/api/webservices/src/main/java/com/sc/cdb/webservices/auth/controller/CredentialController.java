@@ -1,11 +1,10 @@
 package com.sc.cdb.webservices.auth.controller;
 
-import com.sc.cdb.data.model.Credential;
-import com.sc.cdb.services.UserCredentialService;
+import com.sc.cdb.data.model.auth.Credential;
+import com.sc.cdb.services.auth.UserCredentialService;
 import com.sc.cdb.services.model.ServiceResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;

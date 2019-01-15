@@ -1,4 +1,4 @@
-package com.sc.cdb.data.model;
+package com.sc.cdb.data.model.auth;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;

@@ -1,6 +1,6 @@
-package com.sc.cdb.services;
+package com.sc.cdb.services.auth;
 
-import com.sc.cdb.data.model.Credential;
+import com.sc.cdb.data.model.auth.Credential;
 import com.sc.cdb.services.model.ServiceResponse;
 
 public interface UserCredentialService {

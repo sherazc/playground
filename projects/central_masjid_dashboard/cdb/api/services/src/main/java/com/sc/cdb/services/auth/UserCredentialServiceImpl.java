@@ -1,7 +1,7 @@
-package com.sc.cdb.services;
+package com.sc.cdb.services.auth;
 
-import com.sc.cdb.data.model.Credential;
-import com.sc.cdb.data.model.User;
+import com.sc.cdb.data.model.auth.Credential;
+import com.sc.cdb.data.model.auth.User;
 import com.sc.cdb.services.model.ServiceResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

@@ -1,7 +1,6 @@
 package com.sc.cdb.data.dao;
 
-import com.sc.cdb.data.model.User;
-import com.sc.cdb.data.model.UserCompany;
+import com.sc.cdb.data.model.auth.UserCompany;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.LookupOperation;

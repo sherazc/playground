@@ -1,6 +1,6 @@
-package com.sc.cdb.services;
+package com.sc.cdb.services.auth;
 
-import com.sc.cdb.data.model.Company;
+import com.sc.cdb.data.model.auth.Company;
 import com.sc.cdb.data.repository.CompanyRepository;
 import com.sc.cdb.services.model.ServiceResponse;
 import org.apache.commons.lang3.StringUtils;

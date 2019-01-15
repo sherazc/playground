@@ -1,10 +1,10 @@
-package com.sc.cdb.services;
+package com.sc.cdb.services.auth;
 
 import com.sc.cdb.data.common.util.Constants;
 import com.sc.cdb.data.dao.UserDao;
-import com.sc.cdb.data.model.Company;
-import com.sc.cdb.data.model.User;
-import com.sc.cdb.data.model.UserCompany;
+import com.sc.cdb.data.model.auth.Company;
+import com.sc.cdb.data.model.auth.User;
+import com.sc.cdb.data.model.auth.UserCompany;
 import com.sc.cdb.data.repository.UserRepository;
 import com.sc.cdb.services.model.ServiceResponse;
 import org.apache.commons.lang3.StringUtils;
