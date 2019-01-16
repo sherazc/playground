@@ -1,8 +1,10 @@
 package com.sc.cdb;
 
+import com.sc.cdb.data.dao.DashboardDao;
 import com.sc.cdb.data.model.auth.Address;
 import com.sc.cdb.data.model.auth.Company;
 import com.sc.cdb.data.model.auth.User;
+import com.sc.cdb.data.model.dashboard.*;
 import com.sc.cdb.data.repository.CompanyRepository;
 import com.sc.cdb.data.repository.UserRepository;
 import org.slf4j.Logger;
@@ -12,6 +14,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 
 @SpringBootApplication(scanBasePackages = "com.sc")
@@ -22,13 +25,15 @@ public class Application implements CommandLineRunner {
     private final MyService myService;
     private final CompanyRepository companyRepository;
     private final UserRepository userRepository;
+    private final DashboardDao dashboardDao;
 
     public Application(MyService myService,
                        CompanyRepository companyRepository,
-                       UserRepository userRepository) {
+                       UserRepository userRepository, DashboardDao dashboardDao) {
         this.myService = myService;
         this.companyRepository = companyRepository;
         this.userRepository = userRepository;
+        this.dashboardDao = dashboardDao;
     }
 
     public static void main(String[] args) {
@@ -100,5 +105,37 @@ public class Application implements CommandLineRunner {
                 true, true
         );
         userRepository.save(user4);
+
+        // Dashboard
+        Dashboard dashboard = new Dashboard();
+
+        dashboard.setCompanyId(company1.getId());
+
+        dashboard.setAnnouncements(Collections.singletonList(new Announcement("Announcement Detail 1")));
+
+        dashboard.setConfigurations(Arrays.asList(
+                new Configuration("configuration 1", "value 1", "description 1"),
+                new Configuration("configuration 2", "value 2", "description 2")
+        ));
+
+        dashboard.setEvents(Arrays.asList(
+                new Event(new Date(), "Title 1", "Time 1", "description 1"),
+                new Event(new Date(), "Title 2", "Time 2", "description 2")
+        ));
+
+        dashboard.setExpenses(Arrays.asList(
+                new Expense("Line item 1", 100D),
+                new Expense("Line item 2", 200D)
+        ));
+
+        dashboard.setFunds(Arrays.asList(
+                new Fund("Fund Name 1", 1000D, 100D, 10D, new Date()),
+                new Fund("Fund Name 2", 2000D, 200D, 20D, new Date())
+        ));
+
+        dashboard.setJummahs(Collections.singletonList(new Jummah(new Date(), "Khateeb 1", true)));
+
+        dashboardDao.dropCollection();
+        dashboardDao.save(dashboard);
     }
 }
