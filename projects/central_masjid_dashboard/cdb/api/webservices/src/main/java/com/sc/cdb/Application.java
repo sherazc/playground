@@ -137,5 +137,6 @@ public class Application implements CommandLineRunner {
 
         dashboardDao.dropCollection();
         dashboardDao.save(dashboard);
+        dashboardDao.updateComplexObject();
     }
 }
