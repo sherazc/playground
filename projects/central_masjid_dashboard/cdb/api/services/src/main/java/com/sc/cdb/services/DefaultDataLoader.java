@@ -20,6 +20,7 @@ import java.util.*;
 @Service
 public class DefaultDataLoader {
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultDataLoader.class);
+    private static final String INIT_DATA_dir = "init-data";
 
     private final CompanyRepository companyRepository;
     private final UserRepository userRepository;
@@ -35,43 +36,34 @@ public class DefaultDataLoader {
 
 
     public void load() {
-
-        getAllClasspathResources("directoryName");
-
         loadTempTestData();
+        List<String> dataResources = listClasspathDirectory(INIT_DATA_dir);
+        dataResources.forEach(System.out::println);
     }
 
-    private List<String> getAllClasspathResources(String classpathDirectory) {
+    private List<String> listClasspathDirectory(String classpathDirectory) {
         List<String> resourceNames = new ArrayList<>();
+        try (InputStream inputStream = getResourceAsStream(classpathDirectory);
+             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
+
+            String resource;
+
+            while ((resource = br.readLine()) != null) {
+                resourceNames.add(classpathDirectory + "/" + resource);
+            }
+        } catch (IOException e) {
+            String errorMessage = "Error occurred loading file names in " + classpathDirectory;
+            LOGGER.error(errorMessage, e);
+            throw new RuntimeException(errorMessage, e);
+        }
 
         return resourceNames;
     }
 
-    private List<String> getResourceFiles(String path) throws IOException {
-        List<String> filenames = new ArrayList<>();
-
-        try (
-                InputStream in = getResourceAsStream(path);
-                BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
-            String resource;
-
-            while ((resource = br.readLine()) != null) {
-                filenames.add(resource);
-            }
-        }
-
-        return filenames;
-    }
 
     private InputStream getResourceAsStream(String resource) {
-        final InputStream in
-                = getContextClassLoader().getResourceAsStream(resource);
-
-        return in == null ? getClass().getResourceAsStream(resource) : in;
-    }
-
-    private ClassLoader getContextClassLoader() {
-        return Thread.currentThread().getContextClassLoader();
+        final InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream(resource);
+        return inputStream == null ? getClass().getResourceAsStream(resource) : inputStream;
     }
 
 
