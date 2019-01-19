@@ -1,0 +1,68 @@
+[
+  {
+    "_id": "user1",
+    "companyId": "company1",
+    "email": "user@email.com",
+    "password": "$2a$04$bl.8O/fUKciwtqKeMg8g.Ox/OGlEqleAgQq9Zuo5/HPPHhM8aLocG",
+    "firstName": "Sheraz",
+    "lastName": "User",
+    "roles": [
+      "USER"
+    ],
+    "active": true,
+    "verified": true,
+    "_class": "com.sc.cdb.data.model.auth.User"
+  },
+  {
+    "_id": ObjectId(
+    "5c435378727b65472a2f1f57"
+    ),
+    "companyId": "company1",
+    "email": "admin.user@email.com",
+    "password": "$2a$04$bl.8O/fUKciwtqKeMg8g.Ox/OGlEqleAgQq9Zuo5/HPPHhM8aLocG",
+    "firstName": "Sheraz",
+    "lastName": "Admin",
+    "roles": [
+      "ADMIN",
+      "USER"
+    ],
+    "active": true,
+    "verified": true,
+    "_class": "com.sc.cdb.data.model.auth.User"
+  },
+  {
+    "_id": ObjectId(
+    "5c435378727b65472a2f1f58"
+    ),
+    "companyId": "company1",
+    "email": "super.admin.user@email.com",
+    "password": "$2a$04$bl.8O/fUKciwtqKeMg8g.Ox/OGlEqleAgQq9Zuo5/HPPHhM8aLocG",
+    "firstName": "Sheraz",
+    "lastName": "Super Admin",
+    "roles": [
+      "SUPER_ADMIN",
+      "USER"
+    ],
+    "active": true,
+    "verified": true,
+    "_class": "com.sc.cdb.data.model.auth.User"
+  },
+  {
+    "_id": ObjectId(
+    "5c435378727b65472a2f1f59"
+    ),
+    "companyId": "company2",
+    "email": "super.admin.user@company2.com",
+    "password": "$2a$04$bl.8O/fUKciwtqKeMg8g.Ox/OGlEqleAgQq9Zuo5/HPPHhM8aLocG",
+    "firstName": "Sheraz",
+    "lastName": "At Company 2",
+    "roles": [
+      "SUPER_ADMIN",
+      "ADMIN",
+      "USER"
+    ],
+    "active": true,
+    "verified": true,
+    "_class": "com.sc.cdb.data.model.auth.User"
+  }
+]

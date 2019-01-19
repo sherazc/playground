@@ -1,0 +1,36 @@
+[
+  {
+    "_id": "company1",
+    "name": "Company Name 1",
+    "address": {
+      "street": "123 St",
+      "city": "City",
+      "state": "GA",
+      "zip": "12345",
+      "longitude": "1.1",
+      "latitude": "2.2"
+    },
+    "active": true,
+    "expirationDate": ISODate(
+    "2019-01-19T16:42:32.669Z"
+    ),
+    "_class": "com.sc.cdb.data.model.auth.Company"
+  },
+  {
+    "_id": "company2",
+    "name": "Company Name 2",
+    "address": {
+      "street": "123 St",
+      "city": "City",
+      "state": "GA",
+      "zip": "12345",
+      "longitude": "1.1",
+      "latitude": "2.2"
+    },
+    "active": true,
+    "expirationDate": ISODate(
+    "2019-01-19T16:42:32.720Z"
+    ),
+    "_class": "com.sc.cdb.data.model.auth.Company"
+  }
+]

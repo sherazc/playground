@@ -7,14 +7,17 @@ import com.sc.cdb.data.model.auth.User;
 import com.sc.cdb.data.model.dashboard.*;
 import com.sc.cdb.data.repository.CompanyRepository;
 import com.sc.cdb.data.repository.UserRepository;
+import org.bson.BsonArray;
+import org.bson.BsonDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 @Service
@@ -25,20 +28,50 @@ public class DefaultDataLoader {
     private final CompanyRepository companyRepository;
     private final UserRepository userRepository;
     private final DashboardDao dashboardDao;
+    private final MongoTemplate mongoTemplate;
 
     public DefaultDataLoader(CompanyRepository companyRepository,
                              UserRepository userRepository,
-                             DashboardDao dashboardDao) {
+                             DashboardDao dashboardDao, MongoTemplate mongoTemplate) {
         this.companyRepository = companyRepository;
         this.userRepository = userRepository;
         this.dashboardDao = dashboardDao;
+        this.mongoTemplate = mongoTemplate;
     }
 
 
     public void load() {
-        loadTempTestData();
+        // loadTempTestData();
         List<String> dataResources = listClasspathDirectory(INIT_DATA_dir);
-        dataResources.forEach(System.out::println);
+        dataResources.forEach(this::updateInitData);
+    }
+
+    private void updateInitData(String resourceName) {
+        try {
+            LOGGER.debug("Updating data with {}", resourceName);
+            Path resourcePath = Paths.get(ClassLoader.getSystemResource(resourceName).toURI());
+            String collectionName = getCollectionName(resourcePath);
+
+            String fileContent = new String(Files.readAllBytes(resourcePath));
+
+            BsonArray bsonArray = BsonArray.parse(fileContent);
+            mongoTemplate.dropCollection(collectionName);
+
+            bsonArray.forEach(bsonValue -> {
+                if (bsonValue instanceof BsonDocument) {
+                    mongoTemplate.save(((BsonDocument) bsonValue).toJson(), collectionName);
+                }
+            });
+
+        } catch (Exception e) {
+            LOGGER.error("Error reading database init file: " + resourceName, e);
+        }
+    }
+
+    private String getCollectionName(Path resourcePath) {
+        File resourceFile = resourcePath.toFile();
+        String fileName = resourceFile.getName();
+        return fileName.substring(0, fileName.lastIndexOf('.'));
     }
 
     private List<String> listClasspathDirectory(String classpathDirectory) {

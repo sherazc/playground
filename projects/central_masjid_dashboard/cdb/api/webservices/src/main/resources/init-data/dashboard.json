@@ -1,7 +1,7 @@
 [
   {
     "_id": ObjectId(
-    "5c4159f7727b65432d2bddf3"
+    "5c435106727b65470983851f"
     ),
     "companyId": "company1",
     "announcements": [
@@ -24,7 +24,7 @@
     "events": [
       {
         "date": ISODate(
-        "2019-01-18T04:45:43.237Z"
+        "2019-01-19T16:32:06.580Z"
         ),
         "title": "Title 1",
         "time": "Time 1",
@@ -32,7 +32,7 @@
       },
       {
         "date": ISODate(
-        "2019-01-18T04:45:43.237Z"
+        "2019-01-19T16:32:06.580Z"
         ),
         "title": "Title 2",
         "time": "Time 2",
@@ -56,7 +56,7 @@
         "current": 100.0,
         "pledge": 10.0,
         "endDate": ISODate(
-        "2019-01-18T04:45:43.237Z"
+        "2019-01-19T16:32:06.580Z"
         )
       },
       {
@@ -65,14 +65,14 @@
         "current": 200.0,
         "pledge": 20.0,
         "endDate": ISODate(
-        "2019-01-18T04:45:43.237Z"
+        "2019-01-19T16:32:06.580Z"
         )
       }
     ],
     "jummahs": [
       {
         "date": ISODate(
-        "2019-01-18T04:45:43.237Z"
+        "2019-01-19T16:32:06.580Z"
         ),
         "khateeb": "Kateeb 1 Changed again",
         "enabled": true
