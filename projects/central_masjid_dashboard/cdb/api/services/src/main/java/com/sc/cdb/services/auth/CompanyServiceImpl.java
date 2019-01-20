@@ -46,13 +46,21 @@ public class CompanyServiceImpl implements CompanyService {
         }
 
         boolean update = StringUtils.isNotBlank(company.getId());
-        Optional<Company> existingCompanyOptional = getExistingCompany(company, update);
 
-        if (existingCompanyOptional.isPresent()) {
+        Optional<Company> existingCompanyByNameOptional = getExistingCompanyByName(company, update);
+        if (existingCompanyByNameOptional.isPresent()) {
             String errorMessage = MessageFormat.format(
-                    "{0} already exists.", existingCompanyOptional.get().getName());
+                    "{0} already exists.", existingCompanyByNameOptional.get().getName());
             LOG.error(errorMessage);
             return builder.build().rejectField("company.name", errorMessage);
+        }
+
+        Optional<Company> existingCompanyByUrlOptional = getExistingCompanyByUrl(company, update);
+        if (existingCompanyByUrlOptional.isPresent()) {
+            String errorMessage = MessageFormat.format(
+                    "{0} already exists.", existingCompanyByNameOptional.get().getName());
+            LOG.error(errorMessage);
+            return builder.build().rejectField("company.url", errorMessage);
         }
 
         Company savedCompany = companyRepository.save(company);
@@ -78,13 +86,24 @@ public class CompanyServiceImpl implements CompanyService {
         return this.companyRepository.findAll();
     }
 
-    private Optional<Company> getExistingCompany(Company company, boolean update) {
-        LOG.debug("Search for existing company. Match name but not id. id={}, companyName={}", company.getId(), company.getName());
+    private Optional<Company> getExistingCompanyByName(Company company, boolean update) {
+        LOG.debug("Searching for existing company. Match name but not id. id={}, companyName={}", company.getId(), company.getName());
         Optional<Company> existingCompanyOptional;
         if (update) {
             existingCompanyOptional = this.companyRepository.findByIdIsNotAndNameIgnoreCase(company.getId(), company.getName());
         } else {
             existingCompanyOptional = this.companyRepository.findByNameIgnoreCase(company.getName());
+        }
+        return existingCompanyOptional;
+    }
+
+    private Optional<Company> getExistingCompanyByUrl(Company company, boolean update) {
+        LOG.debug("Searching for existing company. Match Url but not id. id={}, companyName={}", company.getId(), company.getName());
+        Optional<Company> existingCompanyOptional;
+        if (update) {
+            existingCompanyOptional = this.companyRepository.findByIdIsNotAndUrlIgnoreCase(company.getId(), company.getUrl());
+        } else {
+            existingCompanyOptional = this.companyRepository.findByNameIgnoreCase(company.getUrl());
         }
         return existingCompanyOptional;
     }

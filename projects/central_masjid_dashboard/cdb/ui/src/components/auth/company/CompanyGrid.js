@@ -16,6 +16,9 @@ class CompanyGrid extends Component {
                         Name
                     </th>
                     <th>
+                        URL
+                    </th>
+                    <th>
                         Address
                     </th>
                     <th>
@@ -35,6 +38,9 @@ class CompanyGrid extends Component {
                             </td>
                             <td>
                                 {company.name}
+                            </td>
+                            <td>
+                                {company.url}
                             </td>
                             <td>
                                 {company.address.street},&nbsp;

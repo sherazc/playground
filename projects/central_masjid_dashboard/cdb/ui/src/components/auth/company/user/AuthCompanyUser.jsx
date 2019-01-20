@@ -53,7 +53,12 @@ class AuthCompanyUser extends Component {
         const action = getPathParamFromProps(this.props, "action");
         if (action === "create") {
             const loginInCompany = this.props.login.company;
-            const company = loginInCompany || this.props.companyServiceResponse.target;
+            let company;
+            if (loginInCompany && loginInCompany.id) {
+                company = loginInCompany;
+            } else {
+                company = this.props.companyServiceResponse.target;
+            }
             saveUser.companyId = company.id;
             this.props.createCompanyUserAction(company, saveUser, loginInCompany.id);
         } else {

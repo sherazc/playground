@@ -19,6 +19,8 @@ public class Company extends BaseModel {
     private String id;
     @NotBlank
     private String name;
+    @NotBlank
+    private String url;
     @Valid
     private Address address;
     private boolean active;

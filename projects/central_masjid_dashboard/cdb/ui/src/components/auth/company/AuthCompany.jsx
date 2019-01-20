@@ -39,6 +39,7 @@ class AuthCompany extends Component {
 
         const saveCompany = {
             name: this.state.name,
+            url: this.state.url,
             address: {
                 street: this.state.addressStreet,
                 city: this.state.addressCity,
@@ -63,6 +64,7 @@ class AuthCompany extends Component {
             return {
                 id: company.id,
                 name: company.name,
+                url: company.url,
                 addressStreet: company.address.street,
                 addressCity: company.address.city,
                 addressState: company.address.state,
@@ -130,6 +132,15 @@ class AuthCompany extends Component {
                         required={true}
                         fieldError={fieldErrors["company.name"]}
                         value={this.state.name}/>
+
+                    <InputField
+                        mode={action}
+                        label="URL"
+                        name="url"
+                        onChange={this.onChange}
+                        required={true}
+                        fieldError={fieldErrors["company.url"]}
+                        value={this.state.url}/>
 
                     <InputField
                         mode={action}
