@@ -70,7 +70,7 @@ class Navigation extends Component {
                             </NavLink>
                         </li>
 
-                        <NavLink to={`${process.env.PUBLIC_URL}/register/finish`}>
+                        <NavLink to={`${process.env.PUBLIC_URL}/auth/register/finish`}>
                             Register Company Finish
                         </NavLink>
 
@@ -79,7 +79,7 @@ class Navigation extends Component {
                     <h5>Business</h5>
                     <ul>
                         <li>
-                            <NavLink to={`${process.env.PUBLIC_URL}/dashboard`}>
+                            <NavLink to={`${process.env.PUBLIC_URL}/auth/dashboard`}>
                                 Dashboard (all logged in user)
                             </NavLink>
                         </li>

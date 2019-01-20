@@ -12,7 +12,6 @@ import Alert from "./components/alert/Alert";
 import Loading from "./components/loading/Loading";
 import setupInterceptor from "./services/http-interceptor";
 import Examples from "./components/Examples";
-import Dashboard from "./components/Dashboard";
 import Forbidden from "./components/Forbidden";
 import Admin from "./components/Admin";
 import Navigation from "./components/common/navigation/Navigation";
@@ -23,6 +22,7 @@ import AuthCompanyUserList from "./components/auth/company/user/AuthCompanyUserL
 import AuthCompany from "./components/auth/company/AuthCompany";
 import AuthCompanyUser from "./components/auth/company/user/AuthCompanyUser";
 import RegisterFinish from "./components/auth/company/RegisterFinish";
+import Dashboard from "./components/auth/Dashboard";
 
 setupInterceptor(store);
 
@@ -66,13 +66,13 @@ class App extends Component {
                                 path={`${process.env.PUBLIC_URL}/auth/company/user/:action(create|edit|view|profile)`}
                                 component={AuthCompanyUser} exact/>
 
-                            <Route path={`${process.env.PUBLIC_URL}/register/finish`} component={RegisterFinish} exact/>
+                            <Route path={`${process.env.PUBLIC_URL}/auth/register/finish`} component={RegisterFinish} exact/>
 
                             <Route path={`${process.env.PUBLIC_URL}/examples`} component={Examples} exact/>
 
                             <AuthRoute
                                 authenticate={true}
-                                path={`${process.env.PUBLIC_URL}/dashboard`} component={Dashboard} exact/>
+                                path={`${process.env.PUBLIC_URL}/auth/dashboard`} component={Dashboard} exact/>
                             <Route path={`${process.env.PUBLIC_URL}/forbidden`} component={Forbidden} exact/>
 
                             <AuthRoute

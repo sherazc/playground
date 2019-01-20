@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {mapStateLoginToProps} from "../store/lib/utils";
+import {mapStateLoginToProps} from "../../store/lib/utils";
 
 const Dashboard = (props) => {
     return (

@@ -88,7 +88,7 @@ export const createCompanyUserAction = (company, user, addUserToLoggedInCompany)
                             companyName: company.name
                         }
                     });
-                    history.push(`${process.env.PUBLIC_URL}/register/finish`);
+                    history.push(`${process.env.PUBLIC_URL}/auth/register/finish`);
                 }
             }
         )
