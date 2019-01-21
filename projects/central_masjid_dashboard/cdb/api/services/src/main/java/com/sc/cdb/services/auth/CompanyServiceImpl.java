@@ -50,7 +50,7 @@ public class CompanyServiceImpl implements CompanyService {
         Optional<Company> existingCompanyByNameOptional = getExistingCompanyByName(company, update);
         if (existingCompanyByNameOptional.isPresent()) {
             String errorMessage = MessageFormat.format(
-                    "{0} already exists.", existingCompanyByNameOptional.get().getName());
+                    "{0} name already exists.", existingCompanyByNameOptional.get().getName());
             LOG.error(errorMessage);
             return builder.build().rejectField("company.name", errorMessage);
         }
@@ -58,7 +58,7 @@ public class CompanyServiceImpl implements CompanyService {
         Optional<Company> existingCompanyByUrlOptional = getExistingCompanyByUrl(company, update);
         if (existingCompanyByUrlOptional.isPresent()) {
             String errorMessage = MessageFormat.format(
-                    "{0} already exists.", existingCompanyByNameOptional.get().getName());
+                    "{0} url already exists.", existingCompanyByUrlOptional.get().getUrl());
             LOG.error(errorMessage);
             return builder.build().rejectField("company.url", errorMessage);
         }
@@ -98,12 +98,12 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     private Optional<Company> getExistingCompanyByUrl(Company company, boolean update) {
-        LOG.debug("Searching for existing company. Match Url but not id. id={}, companyName={}", company.getId(), company.getName());
+        LOG.debug("Searching for existing company. Match Url but not id. id={}, url={}", company.getId(), company.getUrl());
         Optional<Company> existingCompanyOptional;
         if (update) {
             existingCompanyOptional = this.companyRepository.findByIdIsNotAndUrlIgnoreCase(company.getId(), company.getUrl());
         } else {
-            existingCompanyOptional = this.companyRepository.findByNameIgnoreCase(company.getUrl());
+            existingCompanyOptional = this.companyRepository.findByUrlIgnoreCase(company.getUrl());
         }
         return existingCompanyOptional;
     }
