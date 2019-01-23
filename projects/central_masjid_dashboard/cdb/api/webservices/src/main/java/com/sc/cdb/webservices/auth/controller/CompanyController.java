@@ -101,4 +101,10 @@ public class CompanyController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
+
+    @PostMapping
+    @RequestMapping("/url")
+    public ResponseEntity<?> findAllCompanyUrl() {
+        return ResponseEntity.ok(this.companyService.findAllCompanyUrl());
+    }
 }

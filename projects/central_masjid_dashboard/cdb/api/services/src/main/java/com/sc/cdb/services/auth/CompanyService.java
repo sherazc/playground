@@ -12,4 +12,7 @@ public interface CompanyService {
     ServiceResponse<Company> createOrUpdate(Company company);
 
     List<Company> findAll();
+
+    List<Company> findAllCompanyUrl();
+
 }

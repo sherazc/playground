@@ -86,6 +86,11 @@ public class CompanyServiceImpl implements CompanyService {
         return this.companyRepository.findAll();
     }
 
+    @Override
+    public List<Company> findAllCompanyUrl() {
+        return this.companyRepository.findAllCompanyUrl();
+    }
+
     private Optional<Company> getExistingCompanyByName(Company company, boolean update) {
         LOG.debug("Searching for existing company. Match name but not id. id={}, companyName={}", company.getId(), company.getName());
         Optional<Company> existingCompanyOptional;
