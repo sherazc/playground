@@ -1,4 +1,4 @@
-package com.sc.cdb.data.model.business;
+package com.sc.cdb.data.model.cc;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,8 +11,11 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Jummah {
-    private Date date;
-    private String khateeb;
-    private Boolean enabled;
+public class Fund {
+    private String name;
+    private Double goal;
+    private Double current;
+    private Double pledge;
+    private Date endDate;
+
 }

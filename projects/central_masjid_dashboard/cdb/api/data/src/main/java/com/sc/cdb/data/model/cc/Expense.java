@@ -1,4 +1,4 @@
-package com.sc.cdb.data.model.business;
+package com.sc.cdb.data.model.cc;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Configuration {
-    private String name;
-    private String value;
-    private String description;
+public class Expense {
+    private String lineItem;
+    private Double amount;
 }

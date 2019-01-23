@@ -3,7 +3,5 @@ package com.sc.cdb.webservices.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class DashboardController {
-
-
+public class CentralControlController {
 }

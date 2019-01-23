@@ -1,6 +1,6 @@
 package com.sc.cdb.data.dao;
 
-import com.sc.cdb.data.model.business.CentralControl;
+import com.sc.cdb.data.model.cc.CentralControl;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -38,7 +38,7 @@ public class CentralControlDao {
         List<CentralControl> centralControls = mongoTemplate.find(new Query(Criteria.where("companyId").is("company1")), CentralControl.class);
         System.out.println(centralControls);
 
-        List<CentralControl> dashboards1 = mongoTemplate.findAll(CentralControl.class);
-        dashboards1.forEach(System.out::println);
+        List<CentralControl> centralControls1 = mongoTemplate.findAll(CentralControl.class);
+        centralControls1.forEach(System.out::println);
     }
 }

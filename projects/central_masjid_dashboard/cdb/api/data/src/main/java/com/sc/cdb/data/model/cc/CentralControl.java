@@ -1,4 +1,4 @@
-package com.sc.cdb.data.model.business;
+package com.sc.cdb.data.model.cc;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
