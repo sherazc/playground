@@ -31,7 +31,7 @@ public class DefaultDataLoader {
     private Map<String, String> getCollectionResources() {
         String initDataDirectory = "/init-data/";
         Map<String, String> collectionResources = new HashMap<>();
-        collectionResources.put("dashboard", initDataDirectory + "dashboard.json");
+        collectionResources.put("centralControl", initDataDirectory + "centralControl.json");
         collectionResources.put("company", initDataDirectory + "company.json");
         collectionResources.put("user", initDataDirectory + "user.json");
         return collectionResources;

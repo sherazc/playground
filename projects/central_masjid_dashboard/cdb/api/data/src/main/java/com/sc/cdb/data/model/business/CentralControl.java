@@ -1,4 +1,4 @@
-package com.sc.cdb.data.model.dashboard;
+package com.sc.cdb.data.model.business;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,12 +10,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
-@Document
+@Document(collection = "centralControl")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Dashboard {
+public class CentralControl {
     @Id
     private String id;
 

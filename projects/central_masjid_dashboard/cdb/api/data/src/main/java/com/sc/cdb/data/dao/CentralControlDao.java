@@ -1,6 +1,6 @@
 package com.sc.cdb.data.dao;
 
-import com.sc.cdb.data.model.dashboard.Dashboard;
+import com.sc.cdb.data.model.business.CentralControl;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -10,20 +10,20 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class DashboardDao {
+public class CentralControlDao {
 
     private MongoTemplate mongoTemplate;
 
-    public DashboardDao(MongoTemplate mongoTemplate) {
+    public CentralControlDao(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
     }
 
-    public void save(Dashboard dashboard) {
-        mongoTemplate.save(dashboard);
+    public void save(CentralControl centralControl) {
+        mongoTemplate.save(centralControl);
     }
 
     public void dropCollection() {
-        mongoTemplate.dropCollection(Dashboard.class);
+        mongoTemplate.dropCollection(CentralControl.class);
     }
 
     // TODO remove below method this is just for testing updating complex object
@@ -34,11 +34,11 @@ public class DashboardDao {
         // https://www.baeldung.com/queries-in-spring-data-mongodb
         Query query = new Query(Criteria.where("companyId").is("company1"));
         Update update = new Update().set("jummahs.0.khateeb", "Kateeb 1 Changed again");
-        mongoTemplate.updateMulti(query, update, Dashboard.class);
-        List<Dashboard> dashboards = mongoTemplate.find(new Query(Criteria.where("companyId").is("company1")), Dashboard.class);
-        System.out.println(dashboards);
+        mongoTemplate.updateMulti(query, update, CentralControl.class);
+        List<CentralControl> centralControls = mongoTemplate.find(new Query(Criteria.where("companyId").is("company1")), CentralControl.class);
+        System.out.println(centralControls);
 
-        List<Dashboard> dashboards1 = mongoTemplate.findAll(Dashboard.class);
+        List<CentralControl> dashboards1 = mongoTemplate.findAll(CentralControl.class);
         dashboards1.forEach(System.out::println);
     }
 }

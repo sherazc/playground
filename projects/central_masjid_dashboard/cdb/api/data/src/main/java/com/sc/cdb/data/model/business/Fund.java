@@ -1,16 +1,21 @@
-package com.sc.cdb.data.model.dashboard;
+package com.sc.cdb.data.model.business;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Configuration {
+public class Fund {
     private String name;
-    private String value;
-    private String description;
+    private Double goal;
+    private Double current;
+    private Double pledge;
+    private Date endDate;
+
 }

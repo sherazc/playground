@@ -1,15 +1,18 @@
-package com.sc.cdb.data.model.dashboard;
+package com.sc.cdb.data.model.business;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Expense {
-    private String lineItem;
-    private Double amount;
+public class Jummah {
+    private Date date;
+    private String khateeb;
+    private Boolean enabled;
 }
