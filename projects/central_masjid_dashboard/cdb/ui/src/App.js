@@ -13,7 +13,6 @@ import Loading from "./components/loading/Loading";
 import setupInterceptor from "./services/http-interceptor";
 import Examples from "./components/Examples";
 import Forbidden from "./components/Forbidden";
-import Navigation from "./components/common/navigation/Navigation";
 import AuthRoute from "./components/common/navigation/AuthRoute";
 import PageNotFound from "./components/PageNotFound";
 import AuthCompanyList from "./components/auth/company/AuthCompanyList";
@@ -37,7 +36,6 @@ class App extends Component {
                     <div className="container">
                         <Loading/>
                         <Alert/>
-                        <Navigation/>
                         <Switch>
                             {/*
                             TODO: create an array of all the routes params and then

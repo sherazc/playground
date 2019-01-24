@@ -5,7 +5,7 @@ import {verifyAuthentication} from "../../../services/auth/AuthNZ";
 import {loginResetAction, viewMyProfileAction} from "../../../store/login/actions";
 import {mapStateLoginToProps} from "../../../store/lib/utils";
 
-class Navigation extends Component {
+class AdminNavigation extends Component {
     loginControls() {
         if (!verifyAuthentication(this.props.login.tokenPayload, true)) {
             return (
@@ -157,4 +157,4 @@ class Navigation extends Component {
     }
 }
 
-export default connect(mapStateLoginToProps, {loginResetAction, viewMyProfileAction})(withRouter(Navigation));
+export default connect(mapStateLoginToProps, {loginResetAction, viewMyProfileAction})(withRouter(AdminNavigation));

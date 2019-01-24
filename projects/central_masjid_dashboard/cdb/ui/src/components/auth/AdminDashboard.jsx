@@ -1,10 +1,12 @@
 import React from "react";
 import {connect} from "react-redux";
 import {mapStateLoginToProps} from "../../store/lib/utils";
+import AdminNavigation from "../common/navigation/AdminNavigation";
 
 const AdminDashboard = (props) => {
     return (
         <div>
+            <AdminNavigation/>
             <h3>Admin Dashboard</h3>
             <div>
                 Login token: {props.login.token}
