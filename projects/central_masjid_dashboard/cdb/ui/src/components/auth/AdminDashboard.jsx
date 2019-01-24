@@ -2,10 +2,10 @@ import React from "react";
 import {connect} from "react-redux";
 import {mapStateLoginToProps} from "../../store/lib/utils";
 
-const Dashboard = (props) => {
+const AdminDashboard = (props) => {
     return (
         <div>
-            <h3>Dashboard</h3>
+            <h3>Admin Dashboard</h3>
             <div>
                 Login token: {props.login.token}
             </div>
@@ -19,4 +19,4 @@ const Dashboard = (props) => {
     );
 };
 
-export default connect(mapStateLoginToProps)(Dashboard);
+export default connect(mapStateLoginToProps)(AdminDashboard);

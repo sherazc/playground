@@ -80,12 +80,7 @@ class Navigation extends Component {
                     <ul>
                         <li>
                             <NavLink to={`${process.env.PUBLIC_URL}/auth/dashboard`}>
-                                Dashboard (all logged in user)
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to={`${process.env.PUBLIC_URL}/admin`}>
-                                Admin (admin only)
+                                Admin Dashboard (all logged in user)
                             </NavLink>
                         </li>
                     </ul>

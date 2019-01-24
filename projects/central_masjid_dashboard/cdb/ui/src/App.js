@@ -13,7 +13,6 @@ import Loading from "./components/loading/Loading";
 import setupInterceptor from "./services/http-interceptor";
 import Examples from "./components/Examples";
 import Forbidden from "./components/Forbidden";
-import Admin from "./components/Admin";
 import Navigation from "./components/common/navigation/Navigation";
 import AuthRoute from "./components/common/navigation/AuthRoute";
 import PageNotFound from "./components/PageNotFound";
@@ -22,7 +21,8 @@ import AuthCompanyUserList from "./components/auth/company/user/AuthCompanyUserL
 import AuthCompany from "./components/auth/company/AuthCompany";
 import AuthCompanyUser from "./components/auth/company/user/AuthCompanyUser";
 import RegisterFinish from "./components/auth/company/RegisterFinish";
-import Dashboard from "./components/auth/Dashboard";
+import Dashboard from "./components/auth/AdminDashboard";
+import CompanyDashboard from "./components/business/CompanyDashboard";
 
 setupInterceptor(store);
 
@@ -75,13 +75,11 @@ class App extends Component {
                                 path={`${process.env.PUBLIC_URL}/auth/dashboard`} component={Dashboard} exact/>
                             <Route path={`${process.env.PUBLIC_URL}/forbidden`} component={Forbidden} exact/>
 
-                            <AuthRoute
-                                authenticate={true}
-                                exact
-                                rolesAny={["ADMIN"]}
-                                path={`${process.env.PUBLIC_URL}/admin`} component={Admin} />
-
                             <Route path={`${process.env.PUBLIC_URL}/404`} component={PageNotFound} exact/>
+
+                            <Route
+                                path={`${process.env.PUBLIC_URL}/:companyDashboardUrl`}
+                                component={CompanyDashboard}/>
 
                             <Route component={PageNotFound} />
                         </Switch>

@@ -1,11 +1,18 @@
 import React, {Component} from "react";
 import axios from "axios";
+import {Redirect} from "react-router";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
 class Home extends Component {
 
     state = this.createInitialState();
+
+    constructor(props) {
+        super(props);
+        this.selectDashboard = this.selectDashboard.bind(this);
+    }
+
 
     createInitialState() {
         return {
@@ -20,22 +27,45 @@ class Home extends Component {
         );
     }
 
+    selectDashboard(event) {
+        this.setState({
+           selectedCompanyUrl: event.target.value
+        });
+    }
+
+    getRedirectUrl(url) {
+        if (url) {
+            if (url.startsWith('/')) {
+                return `${process.env.PUBLIC_URL}${url.trim()}`;
+            } else {
+                return `${process.env.PUBLIC_URL}/${url.trim()}`;
+            }
+        }
+    }
+
     render() {
+        const redirectUrl = this.getRedirectUrl(this.state.selectedCompanyUrl);
+        if (redirectUrl) {
+            return <Redirect to={redirectUrl}/>;
+        }
+
         return (
             <div>
                 <h3>Home</h3>
                 Select Dashboard
-                <select className="form-control">
+                <select className="form-control" onChange={this.selectDashboard}>
+                    <option value="">Please select</option>
                     {this.state.companyUrls.map((companyUrl, index) => {
-                        return (<option key={index}>{companyUrl.name}</option>);
+                        return (
+                            <option key={index} value={companyUrl.url}>
+                                {companyUrl.name}
+                            </option>
+                        );
                     })}
                 </select>
-
-
             </div>
         );
     }
 }
-
 
 export default Home;
