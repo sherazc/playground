@@ -4,7 +4,7 @@ import InputField from "../../../partials/InputField";
 import NewCredentialFields from "./NewCredentialFields";
 import {collectErrorMessageFromResponseData} from "../../../../services/utilities";
 import {ALERT_SUCCESS, showAlert} from "../../../../store/common/alert/actions";
-import connect from "react-redux/es/connect/connect";
+import {connect} from "react-redux";
 import {isAdminLogin, isSuperAdminLogin} from "../../../../services/auth/AuthNZ";
 import {Redirect} from "react-router";
 

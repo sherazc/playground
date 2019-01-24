@@ -3,7 +3,7 @@ import {getAllCompaniesAllUsers, getCompanyAllUsers} from "../../../../services/
 import {getPathParamFromProps} from "../../../../services/utilities";
 import UserGrid from "./UserGrid";
 import {prepareCompanyUserToEdit} from "../../../../store/register-company/actions";
-import connect from "react-redux/es/connect/connect";
+import {connect} from "react-redux";
 import {Redirect} from "react-router";
 import {isAdminLogin, isSuperAdminLogin} from "../../../../services/auth/AuthNZ";
 
