@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {getPathParamFromProps} from "../../services/utilities";
-
+import Button from '@material-ui/core/Button';
 
 class CompanyDashboard extends Component {
 
@@ -20,6 +20,11 @@ class CompanyDashboard extends Component {
                 <h3>Company Dashboard</h3>
                 <div>
                     This is company dashboard. {this.state.companyDashboardUrl}
+
+                    <Button variant="contained" color="primary">
+                        Hello World
+                    </Button>
+
                 </div>
             </div>
         );
