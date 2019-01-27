@@ -5,7 +5,8 @@ import {withStyles} from '@material-ui/core/styles';
 
 const styles = theme => {
     const main = {height: "100%", textAlign: "center", color: "white"};
-    const mainCenter = {...main,
+    const mainCenter = {
+        ...main,
         backgroundColor: "#c7e7b5",
         backgroundImage: `url(${process.env.PUBLIC_URL}/images/center_box.svg)`,
         backgroundRepeat: "no-repeat",
@@ -15,20 +16,46 @@ const styles = theme => {
         ...main
     };
 
+    // Deprecated
     const sideBox = {
-        width: 350, height: 550,
+        //width: 423, height: 550,
         backgroundColor: "#ddb167",
         position: "relative",
-        top: 100,
-        marginLeft: "auto",
-        marginRight: "auto",
+        top: "20%",
+        margin: "0 auto",
         backgroundImage: `url(${process.env.PUBLIC_URL}/images/side_box.svg)`,
         backgroundRepeat: "no-repeat",
-        backgroundSize: "100% 100%"
+        backgroundSize: "100% 100%",
+        // [theme.breakpoints.up("lg")]: {width: 400, height: 520, top: 150},
+        // [theme.breakpoints.up("1900")]: {width: 580, height: 750, top: 300}
+    };
+
+
+    const sideBoxBackground = {
+        backgroundColor: "#ddb167",
+        margin: "0 auto",
+        backgroundImage: `url(${process.env.PUBLIC_URL}/images/side_box.svg)`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "100% 100%",
+        paddingTop: "calc(1.17 * 100%)",
+        height: 0,
+        width: "90%",
+        overflow: "hidden",
+        position: "relative",
+        top: "20%"
+    };
+
+    const sideBoxContent = {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        padding: "calc(.095 * 100%)"
     };
 
     return ({
-        mainSide, mainCenter, sideBox,
+        mainSide, mainCenter, sideBox, sideBoxBackground, sideBoxContent,
         mainLeftSide: {...mainSide, backgroundColor: "#a7d9d3"},
         mainRightSide: {...mainSide, backgroundColor: "#e5afd3"}
     })
@@ -45,10 +72,10 @@ class CompanyDashboard extends Component {
         this.setState({
             companyDashboardUrl: getPathParamFromProps(this.props, "companyDashboardUrl")
         });
+
         document.getElementsByTagName("html")[0].style.height = "100%";
         document.getElementsByTagName("body")[0].style.height = "100%";
         document.getElementById("root").style.height = "100%";
-
     }
 
     componentWillUnmount() {
@@ -66,17 +93,39 @@ class CompanyDashboard extends Component {
         return (
             <Grid container justify="center" style={{height: "100%"}}>
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={classes.mainLeftSide}>
+                    {/*
                     <div className={classes.sideBox}>
                     Left side
                     </div>
+                    */}
+
+                    <div className={classes.sideBoxBackground}>
+                        <div className={classes.sideBoxContent}>
+                            <div style={{backgroundColor: "#dd5893", height: "100%"}}>
+                                left
+                            </div>
+                        </div>
+                    </div>
+
                 </Grid>
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={classes.mainCenter}>
                     Center
                 </Grid>
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={classes.mainRightSide}>
+                    {/*
                     <div className={classes.sideBox}>
                         Right side
                     </div>
+                    */}
+
+                    <div className={classes.sideBoxBackground}>
+                        <div className={classes.sideBoxContent}>
+                            <div style={{backgroundColor: "#dd5893", height: "100%"}}>
+                                right
+                            </div>
+                        </div>
+                    </div>
+
                 </Grid>
             </Grid>
         );
