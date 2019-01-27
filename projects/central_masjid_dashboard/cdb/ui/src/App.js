@@ -23,7 +23,7 @@ import Dashboard from "./components/auth/AdminDashboard";
 import CompanyDashboard from "./components/business/CompanyDashboard";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
-import { createMuiTheme } from '@material-ui/core/styles';
+import {createMuiTheme} from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 
 const theme = createMuiTheme({
@@ -50,56 +50,54 @@ class App extends Component {
                 <Router history={history}>
                     <MuiThemeProvider theme={theme}>
                         <CssBaseline/>
-                        <div>
-                            <Loading/>
-                            <Alert/>
-                            <Switch>
-                                {/*
+                        <Loading/>
+                        <Alert/>
+                        <Switch>
+                            {/*
                             TODO: create an array of all the routes params and then
                             run a loop over them to create Route and AuthRoute components.
                             */}
-                                <Route path={`${process.env.PUBLIC_URL}/`} component={Home} exact/>
+                            <Route path={`${process.env.PUBLIC_URL}/`} component={Home} exact/>
 
-                                <Route path={`${process.env.PUBLIC_URL}/login`} component={Login}/>
+                            <Route path={`${process.env.PUBLIC_URL}/login`} component={Login}/>
 
-                                <AuthRoute
-                                    authenticate={true}
-                                    rolesAny={["SUPER_ADMIN"]}
-                                    path={`${process.env.PUBLIC_URL}/auth/company/list`}
-                                    component={AuthCompanyList} exact/>
+                            <AuthRoute
+                                authenticate={true}
+                                rolesAny={["SUPER_ADMIN"]}
+                                path={`${process.env.PUBLIC_URL}/auth/company/list`}
+                                component={AuthCompanyList} exact/>
 
-                                <Route
-                                    path={`${process.env.PUBLIC_URL}/auth/company/:action(create|edit|view)`}
-                                    component={AuthCompany}/>
+                            <Route
+                                path={`${process.env.PUBLIC_URL}/auth/company/:action(create|edit|view)`}
+                                component={AuthCompany}/>
 
-                                <AuthRoute
-                                    authenticate={true}
-                                    path={`${process.env.PUBLIC_URL}/auth/company/user/list/:action(all|current)`}
-                                    component={AuthCompanyUserList} exact/>
+                            <AuthRoute
+                                authenticate={true}
+                                path={`${process.env.PUBLIC_URL}/auth/company/user/list/:action(all|current)`}
+                                component={AuthCompanyUserList} exact/>
 
-                                <Route
-                                    path={`${process.env.PUBLIC_URL}/auth/company/user/:action(create|edit|view|profile)`}
-                                    component={AuthCompanyUser} exact/>
+                            <Route
+                                path={`${process.env.PUBLIC_URL}/auth/company/user/:action(create|edit|view|profile)`}
+                                component={AuthCompanyUser} exact/>
 
-                                <Route path={`${process.env.PUBLIC_URL}/auth/register/finish`}
-                                       component={RegisterFinish} exact/>
+                            <Route path={`${process.env.PUBLIC_URL}/auth/register/finish`}
+                                   component={RegisterFinish} exact/>
 
-                                <Route path={`${process.env.PUBLIC_URL}/examples`} component={Examples} exact/>
+                            <Route path={`${process.env.PUBLIC_URL}/examples`} component={Examples} exact/>
 
-                                <AuthRoute
-                                    authenticate={true}
-                                    path={`${process.env.PUBLIC_URL}/auth/dashboard`} component={Dashboard} exact/>
-                                <Route path={`${process.env.PUBLIC_URL}/forbidden`} component={Forbidden} exact/>
+                            <AuthRoute
+                                authenticate={true}
+                                path={`${process.env.PUBLIC_URL}/auth/dashboard`} component={Dashboard} exact/>
+                            <Route path={`${process.env.PUBLIC_URL}/forbidden`} component={Forbidden} exact/>
 
-                                <Route path={`${process.env.PUBLIC_URL}/404`} component={PageNotFound} exact/>
+                            <Route path={`${process.env.PUBLIC_URL}/404`} component={PageNotFound} exact/>
 
-                                <Route
-                                    path={`${process.env.PUBLIC_URL}/:companyDashboardUrl`}
-                                    component={CompanyDashboard}/>
+                            <Route
+                                path={`${process.env.PUBLIC_URL}/:companyDashboardUrl`}
+                                component={CompanyDashboard}/>
 
-                                <Route component={PageNotFound}/>
-                            </Switch>
-                        </div>
+                            <Route component={PageNotFound}/>
+                        </Switch>
                     </MuiThemeProvider>
                 </Router>
             </Provider>

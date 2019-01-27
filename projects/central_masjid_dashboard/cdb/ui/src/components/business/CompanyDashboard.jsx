@@ -3,9 +3,8 @@ import {getPathParamFromProps} from "../../services/utilities";
 import Grid from '@material-ui/core/Grid';
 import {withStyles} from '@material-ui/core/styles';
 
-
 const styles = theme => {
-    const main = {height: 300, textAlign: "center", color: "white"};
+    const main = {height: "100%", textAlign: "center", color: "white"};
     const mainCenter = {...main,
         backgroundColor: "#c7e7b5",
         backgroundImage: `url(${process.env.PUBLIC_URL}/images/center_box.svg)`,
@@ -17,10 +16,10 @@ const styles = theme => {
     };
 
     const sideBox = {
-        width: 115, height: 150,
+        width: 350, height: 550,
         backgroundColor: "#ddb167",
         position: "relative",
-        top: 10,
+        top: 100,
         marginLeft: "auto",
         marginRight: "auto",
         backgroundImage: `url(${process.env.PUBLIC_URL}/images/side_box.svg)`,
@@ -46,6 +45,16 @@ class CompanyDashboard extends Component {
         this.setState({
             companyDashboardUrl: getPathParamFromProps(this.props, "companyDashboardUrl")
         });
+        document.getElementsByTagName("html")[0].style.height = "100%";
+        document.getElementsByTagName("body")[0].style.height = "100%";
+        document.getElementById("root").style.height = "100%";
+
+    }
+
+    componentWillUnmount() {
+        document.getElementsByTagName("html")[0].style.height = "auto";
+        document.getElementsByTagName("body")[0].style.height = "auto";
+        document.getElementById("root").style.height = "auto";
     }
 
     render() {
@@ -55,7 +64,7 @@ class CompanyDashboard extends Component {
         const mdBreakPoint = 4;
 
         return (
-            <Grid container justify="center">
+            <Grid container justify="center" style={{height: "100%"}}>
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={classes.mainLeftSide}>
                     <div className={classes.sideBox}>
                     Left side
