@@ -3,61 +3,76 @@ import {getPathParamFromProps} from "../../services/utilities";
 import Grid from '@material-ui/core/Grid';
 import {withStyles} from '@material-ui/core/styles';
 
+
+const sideBoxBackgroundRatio = 1.17;
+const sideBoxPaddingRatio = .095;
+
+const centerBoxBackgroundRatio = 1.40;
+const centerBoxPaddingRatio = .08;
+
 const styles = theme => {
-    const main = {height: "100%", textAlign: "center", color: "white"};
-    const mainCenter = {
-        ...main,
-        backgroundColor: "#c7e7b5",
-        backgroundImage: `url(${process.env.PUBLIC_URL}/images/center_box.svg)`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "100% 100%"
-    };
-    const mainSide = {
-        ...main
-    };
-
-    // Deprecated
-    const sideBox = {
-        //width: 423, height: 550,
-        backgroundColor: "#ddb167",
-        position: "relative",
-        top: "20%",
+    const boxBackground = {
+        textAlign: "center",
+        color: "black",
         margin: "0 auto",
-        backgroundImage: `url(${process.env.PUBLIC_URL}/images/side_box.svg)`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "100% 100%",
-        // [theme.breakpoints.up("lg")]: {width: 400, height: 520, top: 150},
-        // [theme.breakpoints.up("1900")]: {width: 580, height: 750, top: 300}
-    };
-
-
-    const sideBoxBackground = {
-        backgroundColor: "#ddb167",
-        margin: "0 auto",
-        backgroundImage: `url(${process.env.PUBLIC_URL}/images/side_box.svg)`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "100% 100%",
-        paddingTop: "calc(1.17 * 100%)",
         height: 0,
-        width: "90%",
         overflow: "hidden",
         position: "relative",
-        top: "20%"
+        width: "90%",
     };
 
-    const sideBoxContent = {
+    const centerBoxBackground = {
+        ...boxBackground,
+        backgroundColor: "#ace7d9",
+        backgroundImage: `url(${process.env.PUBLIC_URL}/images/center_box.svg)`,
+        paddingTop: `calc(${centerBoxBackgroundRatio} * 100%)`,
+        top: "5%",
+    };
+
+    const sideBoxBackground = {
+        ...boxBackground,
+        backgroundColor: "#ddb167",
+        backgroundImage: `url(${process.env.PUBLIC_URL}/images/side_box.svg)`,
+        paddingTop: `calc(${sideBoxBackgroundRatio} * 100%)`,
+        top: "20%",
+    };
+
+    const boxPadding = {
         position: "absolute",
         top: 0,
         left: 0,
         width: "100%",
         height: "100%",
-        padding: "calc(.095 * 100%)"
+    };
+
+    const sideBoxPadding = {
+        ...boxPadding,
+        padding: `calc(${sideBoxPaddingRatio} * 100%)`
+    };
+
+    const centerBoxPadding = {
+        ...boxPadding,
+        padding: `calc(${centerBoxPaddingRatio} * 100%)`,
+
+    };
+
+    const sideBoxContent = {
+        backgroundColor: "#dd5893", height: "100%"
+    };
+
+    const centerBoxContent = {
+        backgroundColor: "rgba(255,0,0,0.3)",
+        height: "100%"
     };
 
     return ({
-        mainSide, mainCenter, sideBox, sideBoxBackground, sideBoxContent,
-        mainLeftSide: {...mainSide, backgroundColor: "#a7d9d3"},
-        mainRightSide: {...mainSide, backgroundColor: "#e5afd3"}
+        centerBoxBackground, centerBoxPadding, centerBoxContent,
+        sideBoxBackground, sideBoxPadding, sideBoxContent,
+        mainCenter: {backgroundColor: "#a5d082"},
+        mainLeftSide: {backgroundColor: "#a7d9d3"},
+        mainRightSide: {backgroundColor: "#e5afd3"}
     })
 };
 
@@ -91,41 +106,34 @@ class CompanyDashboard extends Component {
         const mdBreakPoint = 4;
 
         return (
-            <Grid container justify="center" style={{height: "100%"}}>
+            <Grid container  direction="row-reverse" justify="center" style={{height: "100%"}}>
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={classes.mainLeftSide}>
-                    {/*
-                    <div className={classes.sideBox}>
-                    Left side
-                    </div>
-                    */}
-
                     <div className={classes.sideBoxBackground}>
-                        <div className={classes.sideBoxContent}>
-                            <div style={{backgroundColor: "#dd5893", height: "100%"}}>
-                                left
+                        <div className={classes.sideBoxPadding}>
+                            <div className={classes.sideBoxContent}>
+                                Left
                             </div>
                         </div>
                     </div>
 
                 </Grid>
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={classes.mainCenter}>
-                    Center
-                </Grid>
-                <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={classes.mainRightSide}>
-                    {/*
-                    <div className={classes.sideBox}>
-                        Right side
-                    </div>
-                    */}
-
-                    <div className={classes.sideBoxBackground}>
-                        <div className={classes.sideBoxContent}>
-                            <div style={{backgroundColor: "#dd5893", height: "100%"}}>
-                                right
+                    <div className={classes.centerBoxBackground}>
+                        <div className={classes.centerBoxPadding}>
+                            <div className={classes.centerBoxContent}>
+                                Center
                             </div>
                         </div>
                     </div>
-
+                </Grid>
+                <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={classes.mainRightSide}>
+                    <div className={classes.sideBoxBackground}>
+                        <div className={classes.sideBoxPadding}>
+                            <div className={classes.sideBoxContent}>
+                                Right
+                            </div>
+                        </div>
+                    </div>
                 </Grid>
             </Grid>
         );
