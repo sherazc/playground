@@ -11,6 +11,34 @@ const centerBoxBackgroundRatio = 1.40;
 const centerBoxPaddingRatio = .08;
 
 const styles = theme => {
+    const main = {
+        paddingBottom: 20
+    };
+
+    const mainCenter = {
+        ...main, backgroundColor: "#a5d082",
+        order: 1,
+        [theme.breakpoints.up("md")]: {
+            order: 2
+        }
+    };
+
+    const mainLeftSide = {
+        ...main, backgroundColor: "#a7d9d3",
+        order: 2,
+        [theme.breakpoints.up("md")]: {
+            order: 3
+        }
+    };
+
+    const mainRightSide = {
+        ...main, backgroundColor: "#e5afd3",
+        order: 3,
+        [theme.breakpoints.up("md")]: {
+            order: 1
+        }
+    };
+
     const boxBackground = {
         textAlign: "center",
         color: "black",
@@ -28,7 +56,7 @@ const styles = theme => {
         backgroundColor: "#ace7d9",
         backgroundImage: `url(${process.env.PUBLIC_URL}/images/center_box.svg)`,
         paddingTop: `calc(${centerBoxBackgroundRatio} * 100%)`,
-        top: "5%",
+        marginTop: "5%",
     };
 
     const sideBoxBackground = {
@@ -36,7 +64,7 @@ const styles = theme => {
         backgroundColor: "#ddb167",
         backgroundImage: `url(${process.env.PUBLIC_URL}/images/side_box.svg)`,
         paddingTop: `calc(${sideBoxBackgroundRatio} * 100%)`,
-        top: "20%",
+        marginTop: "20%",
     };
 
     const boxPadding = {
@@ -68,11 +96,9 @@ const styles = theme => {
     };
 
     return ({
+        mainCenter, mainLeftSide, mainRightSide,
         centerBoxBackground, centerBoxPadding, centerBoxContent,
         sideBoxBackground, sideBoxPadding, sideBoxContent,
-        mainCenter: {backgroundColor: "#a5d082"},
-        mainLeftSide: {backgroundColor: "#a7d9d3"},
-        mainRightSide: {backgroundColor: "#e5afd3"}
     })
 };
 
@@ -106,7 +132,7 @@ class CompanyDashboard extends Component {
         const mdBreakPoint = 4;
 
         return (
-            <Grid container  direction="row-reverse" justify="center" style={{height: "100%"}}>
+            <Grid container direction="row-reverse" justify="center" style={{height: "100%", }}>
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={classes.mainLeftSide}>
                     <div className={classes.sideBoxBackground}>
                         <div className={classes.sideBoxPadding}>
