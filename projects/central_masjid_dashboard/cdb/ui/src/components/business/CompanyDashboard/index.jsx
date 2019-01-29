@@ -1,7 +1,10 @@
 import React, {Component} from "react";
-import {getPathParamFromProps} from "../../services/utilities";
+import {getPathParamFromProps} from "../../../services/utilities";
 import Grid from '@material-ui/core/Grid';
 import {withStyles} from '@material-ui/core/styles';
+import SalahTime from "./SalahTime";
+import Funds from "./Funds";
+import Updates from "./Updates";
 
 
 const sideBoxBackgroundRatio = 1.17;
@@ -64,7 +67,10 @@ const styles = theme => {
         backgroundColor: "#ddb167",
         backgroundImage: `url(${process.env.PUBLIC_URL}/images/side_box.svg)`,
         paddingTop: `calc(${sideBoxBackgroundRatio} * 100%)`,
-        marginTop: "20%",
+        marginTop: 20,
+        [theme.breakpoints.up("md")]: {
+            marginTop: "30%",
+        }
     };
 
     const boxPadding = {
@@ -137,7 +143,7 @@ class CompanyDashboard extends Component {
                     <div className={classes.sideBoxBackground}>
                         <div className={classes.sideBoxPadding}>
                             <div className={classes.sideBoxContent}>
-                                Left
+                                <Funds/>
                             </div>
                         </div>
                     </div>
@@ -147,7 +153,7 @@ class CompanyDashboard extends Component {
                     <div className={classes.centerBoxBackground}>
                         <div className={classes.centerBoxPadding}>
                             <div className={classes.centerBoxContent}>
-                                Center
+                                <SalahTime/>
                             </div>
                         </div>
                     </div>
@@ -156,7 +162,7 @@ class CompanyDashboard extends Component {
                     <div className={classes.sideBoxBackground}>
                         <div className={classes.sideBoxPadding}>
                             <div className={classes.sideBoxContent}>
-                                Right
+                                <Updates/>
                             </div>
                         </div>
                     </div>
