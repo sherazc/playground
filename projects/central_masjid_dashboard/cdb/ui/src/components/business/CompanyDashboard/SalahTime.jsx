@@ -1,21 +1,17 @@
 import React, {Component} from "react";
+import "./SalahTime.scss";
 
-const styles = {
-    todayDate: {
-        fontSize: 12
-    }
-};
 
 class SalahTime extends Component {
     render() {
         return (
             <div>
-                <div style={styles.todayDate}>
-                    Jumada al-awwal 23, 1440
-                    <br/>
+                <div className="salahTimeDateHeading">
                     January 29, 2019
+                    <br/>
+                    Jumada al-awwal 23, 1440
                 </div>
-                <table border="1" style={{margin: "0 auto"}}>
+                <table className="salahTimeTable">
                     <thead>
                     <tr>
                         <th>&nbsp;</th>
@@ -33,7 +29,7 @@ class SalahTime extends Component {
                     </tr>
                     <tr>
                         <th>Shurooq</th>
-                        <td colspan="3">7:36 am</td>
+                        <td colSpan="3">7:36 am</td>
                     </tr>
                     <tr>
                         <th>Thuhr</th>
@@ -61,7 +57,7 @@ class SalahTime extends Component {
                     </tr>
                     <tr>
                         <th>Jum'ah</th>
-                        <td colspan="3">
+                        <td colSpan="3">
                             Jum'ah salah starts 2:00pm
                         </td>
                     </tr>

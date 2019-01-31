@@ -20,14 +20,26 @@ const styles = theme => {
 
     const mainCenter = {
         ...main, backgroundColor: "#a5d082",
+        order: 1,
+        [theme.breakpoints.up("md")]: {
+            order: 2
+        }
     };
 
     const mainLeftSide = {
         ...main, backgroundColor: "#a7d9d3",
+        order: 2,
+        [theme.breakpoints.up("md")]: {
+            order: 3
+        }
     };
 
     const mainRightSide = {
         ...main, backgroundColor: "#e5afd3",
+        order: 3,
+        [theme.breakpoints.up("md")]: {
+            order: 1
+        }
     };
 
     const boxBackground = {
@@ -126,12 +138,12 @@ class CompanyDashboard extends Component {
         const mdBreakPoint = 4;
 
         return (
-            <Grid container justify="center" style={{height: "100%", }}>
+            <Grid container direction="row-reverse" justify="center" style={{height: "100%", }}>
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={classes.mainLeftSide}>
                     <div className={classes.sideBoxBackground}>
                         <div className={classes.sideBoxPadding}>
                             <div className={classes.sideBoxContent}>
-                                <SalahTime/>
+                                <Funds/>
                             </div>
                         </div>
                     </div>
@@ -141,7 +153,7 @@ class CompanyDashboard extends Component {
                     <div className={classes.centerBoxBackground}>
                         <div className={classes.centerBoxPadding}>
                             <div className={classes.centerBoxContent}>
-                                <Funds/>
+                                <SalahTime/>
                             </div>
                         </div>
                     </div>
