@@ -45,7 +45,7 @@ const styles = theme => {
     const centerBoxBackground = {
         ...boxBackground,
         backgroundColor: "#ace7d9",
-        backgroundImage: `url(${process.env.PUBLIC_URL}/images/center_box.svg)`,
+        backgroundImage: `url(${process.env.PUBLIC_URL}/images/center_box_background.svg)`,
         paddingTop: `calc(${centerBoxBackgroundRatio} * 100%)`,
         marginTop: "5%",
     };
@@ -53,7 +53,7 @@ const styles = theme => {
     const sideBoxBackground = {
         ...boxBackground,
         backgroundColor: "#ddb167",
-        backgroundImage: `url(${process.env.PUBLIC_URL}/images/side_box.svg)`,
+        backgroundImage: `url(${process.env.PUBLIC_URL}/images/side_box_background.svg)`,
         paddingTop: `calc(${sideBoxBackgroundRatio} * 100%)`,
         marginTop: 20,
         [theme.breakpoints.up("md")]: {
@@ -81,7 +81,7 @@ const styles = theme => {
     };
 
     const sideBoxContent = {
-        backgroundColor: "#dd5893", height: "100%"
+        backgroundColor: "rgba(0,255,0,0.3)", height: "100%"
     };
 
     const centerBoxContent = {
