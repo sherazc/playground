@@ -6,7 +6,7 @@ class Funds extends Component {
             <div>
                 <svg width="500" height="500" version="1.1" viewBox="0 0 132.29166 132.29167" xmlns="http://www.w3.org/2000/svg">
                     <g transform="translate(0 -164.71)">
-                        <path transform="scale(-1,1)" d="m-91.823 240.85a25.677 25.677 0 0 1 25.677 -25.677 25.677 25.677 0 0 1 25.677 25.677" fill="none" stroke="#000" stroke-linecap="round" stroke-width="1vw"/>
+                        <path transform="scale(-1,1)" d="m-91.823 240.85a25.677 25.677 0 0 1 25.677 -25.677 25.677 25.677 0 0 1 25.677 25.677" fill="none" stroke="#000" strokeLinecap="round" strokeWidth="1vw"/>
                     </g>
                 </svg>
 

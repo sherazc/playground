@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {withStyles} from '@material-ui/core/styles';
+import {Link} from "react-router-dom";
 
 const styles = theme => {
 
@@ -17,6 +18,7 @@ const styles = theme => {
         marginRight: "auto",
         zIndex: "5",
     };
+
     const clockHands = {
         position: "absolute",
         width: "8px",
@@ -48,13 +50,63 @@ const styles = theme => {
 };
 
 class AnalogClock extends Component {
+    hoursInterval;
+    minutesInterval;
+    secondsInterval;
+
+    state = {
+        secondsStyle: {},
+        minutesStyle: {},
+        hoursStyle: {}
+    };
+
+    componentDidMount() {
+        this.secondsInterval = setInterval(() => {
+            const seconds = new Date().getSeconds();
+            const degree = seconds * 6;
+            const rotate = "rotate(" + degree + "deg)";
+            this.setState({
+                secondsStyle: {"MozTransform": rotate, "WebkitTransform": rotate, "transform": rotate}
+            });
+        }, 1000);
+
+        this.minutesInterval = setInterval(() => {
+            const minutes = new Date().getMinutes();
+            const degree = minutes * 6;
+            const rotate = "rotate(" + degree + "deg)";
+            this.setState({
+                minutesStyle: {"MozTransform": rotate, "WebkitTransform": rotate, "transform": rotate}
+            });
+        }, 1000);
+
+        this.secondsInterval = setInterval(() => {
+            const hours = new Date().getHours();
+            const minutes = new Date().getMinutes();
+            const degree = hours * 30 + (minutes / 2);
+            const rotate = "rotate(" + degree + "deg)";
+            this.setState({
+                hoursStyle: {"MozTransform": rotate, "WebkitTransform": rotate, "transform": rotate}
+            });
+        }, 1000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.secondsInterval);
+        clearInterval(this.minutesInterval);
+        clearInterval(this.hoursInterval);
+
+    }
+
     render() {
         const {classes} = this.props;
         return (
             <ul className={classes.clockDial}>
-                <li className={classes.secondHand}></li>
-                <li className={classes.minuteHand}></li>
-                <li className={classes.hourHand}></li>
+                <Link to="/">home</Link>
+                <Link to="/c1">c1</Link>
+                <Link to="/c2">c2</Link>
+                <li className={classes.secondHand} style={this.state.secondsStyle}></li>
+                <li className={classes.minuteHand} style={this.state.minutesStyle}></li>
+                <li className={classes.hourHand} style={this.state.hoursStyle}></li>
             </ul>
         );
     }
