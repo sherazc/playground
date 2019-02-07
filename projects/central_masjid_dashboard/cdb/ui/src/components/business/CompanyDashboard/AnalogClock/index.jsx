@@ -2,14 +2,33 @@ import React, {Component} from "react";
 import {withStyles} from '@material-ui/core/styles';
 import {Link} from "react-router-dom";
 
+const addUnit = (num) => {
+    return num + "vw";
+};
+
 const styles = theme => {
+
+    const width = 50;
+    const height = width;
+
+    const clockHandsHeight = height;
+    const clockHandsWidth = width / 10;
+    const clockHandsCenter = width / 2 - clockHandsWidth / 2;
+
+
+    const widthUnit = addUnit(width);
+    const heightUnit = addUnit(height);
+    const clockHandsHeightUnit = addUnit(clockHandsHeight);
+    const clockHandsWidthUnit = addUnit(clockHandsWidth);
+    const clockHandsCenterUnit = addUnit(clockHandsCenter)
+
 
     const clockDial = {
         position: "absolute",
-        width: "160px",
-        height: "160px",
+        width: widthUnit,
+        height: heightUnit,
         background: `url(${process.env.PUBLIC_URL}/images/clock_analog/dial.svg) no-repeat`,
-        backgroundSize: "160px",
+        backgroundSize: widthUnit,
         listStyle: "none",
         left: "30px",
         right: "auto",
@@ -21,11 +40,11 @@ const styles = theme => {
 
     const clockHands = {
         position: "absolute",
-        width: "8px",
-        height: "160px",
-        top: "0px",
-        left: "76px",
-        backgroundSize: "8px 160px",
+        width: clockHandsWidthUnit,
+        height: clockHandsHeightUnit,
+        top: "0",
+        left: clockHandsCenterUnit,
+        backgroundSize: `${clockHandsWidthUnit} ${clockHandsHeightUnit}`,
     };
 
     const secondHand = {
