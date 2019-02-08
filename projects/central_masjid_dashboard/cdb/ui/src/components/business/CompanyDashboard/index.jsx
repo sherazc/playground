@@ -6,6 +6,7 @@ import SalahTime from "./SalahTime";
 import Funds from "./Funds";
 import Updates from "./Updates";
 import AnalogClock from "./AnalogClock";
+import DigitalClock from "./DigitalClock";
 
 
 const sideBoxBackgroundRatio = 1.17;
@@ -129,7 +130,8 @@ class CompanyDashboard extends Component {
         return (
             <Grid container justify="center" style={{height: "100%", }}>
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={classes.mainLeftSide}>
-                    <AnalogClock/>
+                    {this.props.match.params.companyDashboardUrl == "c1"&& <AnalogClock/>}
+                    {this.props.match.params.companyDashboardUrl == "c2"&& <DigitalClock/>}
                     <div className={classes.sideBoxBackground}>
                         <div className={classes.sideBoxPadding}>
                             <div className={classes.sideBoxContent}>
