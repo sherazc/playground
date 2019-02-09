@@ -8,7 +8,7 @@ class DigitalClockDigit extends Component {
         super(props);
         const widthHeightRatio = 1.3333;
 
-        const widthHeightClockRatio = 0.07;
+        const widthHeightClockRatio = 0.115;
 
         const widthLandscape = this.props.sizeLandscapeWidth * widthHeightClockRatio;
         const heightLandscape = widthLandscape * widthHeightRatio;
@@ -37,7 +37,7 @@ class DigitalClockDigit extends Component {
                 width: widthLandscapeUnit,
                 height: heightLandscapeUnit,
                 float: "left",
-                backgroundColor: "green",
+                // backgroundColor: "green",
                 overflow: "hidden"
             }
         };
