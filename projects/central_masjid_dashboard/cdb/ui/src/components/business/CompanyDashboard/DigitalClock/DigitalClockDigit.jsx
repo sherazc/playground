@@ -1,13 +1,24 @@
 import React, {Component} from "react";
+import {addUnit} from "../../../../services/utilities";
 
 const digitImageBasePath = `${process.env.PUBLIC_URL}/images/clock_digital`;
 
 class DigitalClockDigit extends Component {
     constructor(props) {
         super(props);
+        const widthHeightRatio = 1.3333;
+
+        const widthHeightClockRatio = 0.07;
+
+        const widthLandscape = this.props.sizeLandscapeWidth * widthHeightClockRatio;
+        const heightLandscape = widthLandscape * widthHeightRatio;
+
+        const widthLandscapeUnit = addUnit(widthLandscape);
+        const heightLandscapeUnit = addUnit(heightLandscape);
+
         const numberStyle = {
-            width: "22px",
-            height: "30px",
+            width: widthLandscapeUnit,
+            height: heightLandscapeUnit,
             position: "relative",
             top: '0px',
             backgroundImage: `url(${digitImageBasePath}/0.svg)`,
@@ -23,19 +34,13 @@ class DigitalClockDigit extends Component {
 
         this.styles = {
             digitContainer : {
-                height: "30px",
-                width: "22px",
+                width: widthLandscapeUnit,
+                height: heightLandscapeUnit,
                 float: "left",
                 backgroundColor: "green",
                 overflow: "hidden"
             }
         };
-
-        console.log(this.props);
-    }
-
-
-    componentDidMount() {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -45,7 +50,7 @@ class DigitalClockDigit extends Component {
         if (previousDigit !== currentDigit) {
             const slideStyle = {
                 transition: "top 500ms ease-out 0s",
-                top: "-30px",
+                top: "-100%",
             };
             this.flipNumber(previousDigit, currentDigit, slideStyle);
             setTimeout(() => {
@@ -82,16 +87,6 @@ class DigitalClockDigit extends Component {
                 <div style={this.state.numberPreviousStyle}></div>
                 <div style={this.state.numberCurrentStyle}></div>
             </div>
-
-            /*
-            <div>
-                previousDigit = {this.state.previousDigit}
-                <br/>
-                currentDigit = {this.props.digit}
-
-            </div>
-            */
-
         );
     }
 }

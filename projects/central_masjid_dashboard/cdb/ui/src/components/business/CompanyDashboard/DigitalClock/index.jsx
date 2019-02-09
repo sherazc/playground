@@ -1,10 +1,7 @@
 import React, {Component} from "react";
 import {withStyles} from '@material-ui/core/styles';
 import DigitalClockDigit from "./DigitalClockDigit";
-
-const addUnit = (num) => {
-    return num + "vw";
-};
+import {addUnit} from "../../../../services/utilities";
 
 const styles = theme => {
 
@@ -29,7 +26,7 @@ class DigitalClock extends Component {
 
     constructor(props) {
         super(props);
-        const sizeRatio = 0.2666;
+        const widthHeightRatio = 0.2666;
 
         this.state = {
             hoursDigitLeft: 0,
@@ -42,11 +39,10 @@ class DigitalClock extends Component {
 
         this.styles = {
             digitalContainerStyle: {
-                width: `${this.props.sizeLandscapeWidth}vw`,
-                height: `${this.props.sizeLandscapeWidth * sizeRatio}vw`,
+                width: addUnit(this.props.sizeLandscapeWidth),
+                height: addUnit(this.props.sizeLandscapeWidth * widthHeightRatio),
             }
         };
-        console.log(this.styles);
     }
 
 

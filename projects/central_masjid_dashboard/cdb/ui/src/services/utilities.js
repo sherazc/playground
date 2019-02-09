@@ -23,3 +23,7 @@ export const collectErrorMessageFromResponseData = (responseData, defaultMessage
 
     return errorMessage
 };
+
+export const addUnit = (num) => {
+    return num + "vw";
+};
