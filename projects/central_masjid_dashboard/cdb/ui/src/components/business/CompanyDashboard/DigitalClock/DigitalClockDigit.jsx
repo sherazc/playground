@@ -1,16 +1,5 @@
 import React, {Component} from "react";
 
-
-const styles = {
-    digitContainer : {
-        height: "30px",
-        width: "22px",
-        float: "left",
-        backgroundColor: "green",
-        overflow: "hidden"
-    }
-};
-
 const digitImageBasePath = `${process.env.PUBLIC_URL}/images/clock_digital`;
 
 class DigitalClockDigit extends Component {
@@ -31,6 +20,18 @@ class DigitalClockDigit extends Component {
             numberPreviousStyle: {...numberStyle},
             numberCurrentStyle: {...numberStyle},
         };
+
+        this.styles = {
+            digitContainer : {
+                height: "30px",
+                width: "22px",
+                float: "left",
+                backgroundColor: "green",
+                overflow: "hidden"
+            }
+        };
+
+        console.log(this.props);
     }
 
 
@@ -77,7 +78,7 @@ class DigitalClockDigit extends Component {
     render() {
 
         return(
-            <div style={styles.digitContainer}>
+            <div style={this.styles.digitContainer}>
                 <div style={this.state.numberPreviousStyle}></div>
                 <div style={this.state.numberCurrentStyle}></div>
             </div>

@@ -9,8 +9,6 @@ const addUnit = (num) => {
 const styles = theme => {
 
     const dClockContainer = {
-        width: "174px",
-        height: "66px",
         background: `url(${process.env.PUBLIC_URL}/images/clock_digital/bg1.svg) no-repeat`,
         backgroundSize: "100% 100%",
         backgroundColor: "red",
@@ -28,14 +26,31 @@ const styles = theme => {
 };
 
 class DigitalClock extends Component {
-    state = {
-        hoursDigitLeft: 0,
-        hoursDigitRight: 0,
-        minutesDigitLeft: 0,
-        minutesDigitRight: 0,
-        secondsDigitLeft: 0,
-        secondsDigitRight: 0,
-    };
+
+    constructor(props) {
+        super(props);
+        const sizeRatio = 0.2666;
+
+        this.state = {
+            hoursDigitLeft: 0,
+            hoursDigitRight: 0,
+            minutesDigitLeft: 0,
+            minutesDigitRight: 0,
+            secondsDigitLeft: 0,
+            secondsDigitRight: 0,
+        };
+
+        this.styles = {
+            digitalContainerStyle: {
+                width: `${this.props.sizeLandscapeWidth}vw`,
+                height: `${this.props.sizeLandscapeWidth * sizeRatio}vw`,
+            }
+        };
+        console.log(this.styles);
+    }
+
+
+
 
     componentDidMount() {
         setInterval(() => {
@@ -55,13 +70,13 @@ class DigitalClock extends Component {
     render() {
         const {classes} = this.props;
         return (
-            <div className={classes.dClockContainer}>
-                <DigitalClockDigit digit={this.state.hoursDigitLeft}/>
-                <DigitalClockDigit digit={this.state.hoursDigitRight}/>
-                <DigitalClockDigit digit={this.state.minutesDigitLeft}/>
-                <DigitalClockDigit digit={this.state.minutesDigitRight}/>
-                <DigitalClockDigit digit={this.state.secondsDigitLeft}/>
-                <DigitalClockDigit digit={this.state.secondsDigitRight}/>
+            <div className={classes.dClockContainer} style={this.styles.digitalContainerStyle}>
+                <DigitalClockDigit {...this.props} digit={this.state.hoursDigitLeft}/>
+                <DigitalClockDigit {...this.props} digit={this.state.hoursDigitRight}/>
+                <DigitalClockDigit {...this.props} digit={this.state.minutesDigitLeft}/>
+                <DigitalClockDigit {...this.props} digit={this.state.minutesDigitRight}/>
+                <DigitalClockDigit {...this.props} digit={this.state.secondsDigitLeft}/>
+                <DigitalClockDigit {...this.props} digit={this.state.secondsDigitRight}/>
             </div>
         );
     }
