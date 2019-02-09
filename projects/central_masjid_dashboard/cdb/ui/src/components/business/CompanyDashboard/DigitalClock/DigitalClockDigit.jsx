@@ -21,7 +21,9 @@ class DigitalClockDigit extends Component {
             height: "30px",
             position: "relative",
             top: '0px',
+            backgroundImage: `url(${digitImageBasePath}/0.svg)`,
             backgroundSize: "100% 100%",
+
         };
 
         this.state = {
@@ -41,7 +43,7 @@ class DigitalClockDigit extends Component {
 
         if (previousDigit !== currentDigit) {
             const slideStyle = {
-                transition: "top 1000ms ease-out 0s",
+                transition: "top 500ms ease-out 0s",
                 top: "-30px",
             };
             this.flipNumber(previousDigit, currentDigit, slideStyle);
@@ -51,7 +53,7 @@ class DigitalClockDigit extends Component {
                     top: "0",
                 };
                 this.flipNumber(currentDigit, previousDigit, slideStyle);
-            }, 1000);
+            }, 500);
         }
     }
 

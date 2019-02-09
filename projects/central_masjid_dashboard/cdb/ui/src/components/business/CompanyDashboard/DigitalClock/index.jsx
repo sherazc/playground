@@ -29,26 +29,39 @@ const styles = theme => {
 
 class DigitalClock extends Component {
     state = {
-        secondDigit: 0
+        hoursDigitLeft: 0,
+        hoursDigitRight: 0,
+        minutesDigitLeft: 0,
+        minutesDigitRight: 0,
+        secondsDigitLeft: 0,
+        secondsDigitRight: 0,
     };
 
     componentDidMount() {
-    }
+        setInterval(() => {
+            const now = new Date();
 
-    componentWillUnmount() {
-    }
-
-    addSecond() {
-        this.setState({secondDigit: ++this.state.secondDigit});
+            this.setState({
+                hoursDigitLeft: Math.floor(now.getHours() / 10),
+                hoursDigitRight: Math.floor(now.getHours() % 10),
+                minutesDigitLeft: Math.floor(now.getMinutes() / 10),
+                minutesDigitRight: Math.floor(now.getMinutes() % 10),
+                secondsDigitLeft: Math.floor(now.getSeconds() / 10),
+                secondsDigitRight: Math.floor(now.getSeconds() % 10),
+            });
+        }, 1000);
     }
 
     render() {
         const {classes} = this.props;
         return (
             <div className={classes.dClockContainer}>
-                <DigitalClockDigit digit={Math.floor(this.state.secondDigit % 10)}/>
-                <br/>
-                <button onClick={this.addSecond.bind(this)}>Add Digit</button>
+                <DigitalClockDigit digit={this.state.hoursDigitLeft}/>
+                <DigitalClockDigit digit={this.state.hoursDigitRight}/>
+                <DigitalClockDigit digit={this.state.minutesDigitLeft}/>
+                <DigitalClockDigit digit={this.state.minutesDigitRight}/>
+                <DigitalClockDigit digit={this.state.secondsDigitLeft}/>
+                <DigitalClockDigit digit={this.state.secondsDigitRight}/>
             </div>
         );
     }
