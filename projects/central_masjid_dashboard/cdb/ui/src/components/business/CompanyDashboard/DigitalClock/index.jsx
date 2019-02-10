@@ -1,29 +1,13 @@
 import React, {Component} from "react";
-import {withStyles} from '@material-ui/core/styles';
 import DigitalClockDigit from "./DigitalClockDigit";
 import {addUnit} from "../../../../services/utilities";
-
-const styles = theme => {
-
-    const dClockContainer = {
-        background: `url(${process.env.PUBLIC_URL}/images/clock_digital/bg1.svg) no-repeat`,
-        backgroundSize: "100% 100%",
-        backgroundColor: "red",
-        marginLeft: "auto",
-        marginRight: "auto",
-        zIndex: "5",
-        position: "absolute",
-    };
-
-    return {
-        dClockContainer,
-    };
-};
 
 class DigitalClock extends Component {
 
     constructor(props) {
         super(props);
+
+        // Position and dimension Calculation
         const widthHeightRatio = 0.2666;
         const paddingTopRatio = 0.07; // digits padding
         const clockToDigitWidthRatio = 0.1; // digit width ratio
@@ -35,6 +19,9 @@ class DigitalClock extends Component {
         this.digitWidthLandscapeUnit = addUnit(this.digitWidthLandscape);
         this.digitHeightLandscapeUnit = addUnit(this.digitHeightLandscape);
 
+        const contentWidth = (this.props.sizeLandscapeWidth * clockToDigitWidthRatio) * 8; // digits content width
+
+        // State
         this.state = {
             hoursDigitLeft: 0,
             hoursDigitRight: 0,
@@ -44,10 +31,32 @@ class DigitalClock extends Component {
             secondsDigitRight: 0,
         };
 
-        const contentWidth = (this.props.sizeLandscapeWidth * clockToDigitWidthRatio) * 6;
+        // Styles
+
+        const digitStyle = {
+            width: addUnit(this.digitWidthLandscape),
+            height: addUnit(this.digitHeightLandscape),
+            float: "left",
+            position: "relative",
+            top: '0px'
+        };
+
+        const digitHalfWidth = {
+            ...digitStyle,
+            width: addUnit(this.digitWidthLandscape / 2)
+        };
+
+
 
         this.styles = {
             digitalContainerStyle: {
+                background: `url(${process.env.PUBLIC_URL}/images/clock_digital/bg1.svg) no-repeat`,
+                backgroundSize: "100% 100%",
+                backgroundColor: "red",
+                marginLeft: "auto",
+                marginRight: "auto",
+                zIndex: "5",
+                position: "absolute",
                 width: addUnit(this.props.sizeLandscapeWidth),
                 height: addUnit(this.props.sizeLandscapeWidth * widthHeightRatio),
                 paddingTop: addUnit(this.props.sizeLandscapeWidth * paddingTopRatio),
@@ -57,10 +66,12 @@ class DigitalClock extends Component {
                 width: addUnit(contentWidth)
             },
             colonStyle: {
-                background: `url(${process.env.PUBLIC_URL}/images/clock_digital/bg1.svg) no-repeat`,
-                width: addUnit(this.clockToDigitWidthRatio / 2),
-                height: addUnit(this.digitHeightLandscape)
-
+                ...digitHalfWidth,
+                background: `url(${process.env.PUBLIC_URL}/images/clock_digital/colon.svg) no-repeat`,
+            },
+            dotStyle: {
+                ...digitHalfWidth,
+                background: `url(${process.env.PUBLIC_URL}/images/clock_digital/dot.svg) no-repeat`,
             }
         };
     }
@@ -81,16 +92,15 @@ class DigitalClock extends Component {
     }
 
     render() {
-        const {classes} = this.props;
-
         return (
-            <div className={classes.dClockContainer} style={this.styles.digitalContainerStyle}>
+            <div style={this.styles.digitalContainerStyle}>
                 <div style={this.styles.digitalContent}>
                     <DigitalClockDigit digit={this.state.hoursDigitLeft} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
                     <DigitalClockDigit digit={this.state.hoursDigitRight} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
-
+                    <div style={this.styles.colonStyle}/>
                     <DigitalClockDigit digit={this.state.minutesDigitLeft} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
                     <DigitalClockDigit digit={this.state.minutesDigitRight} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
+                    <div style={this.styles.dotStyle}/>
                     <DigitalClockDigit digit={this.state.secondsDigitLeft} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
                     <DigitalClockDigit digit={this.state.secondsDigitRight} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
                 </div>
@@ -99,4 +109,4 @@ class DigitalClock extends Component {
     }
 }
 
-export default withStyles(styles)(DigitalClock);
+export default DigitalClock;
