@@ -1,29 +1,18 @@
 import React, {Component} from "react";
-import {addUnit} from "../../../../services/utilities";
 
 const digitImageBasePath = `${process.env.PUBLIC_URL}/images/clock_digital`;
 
 class DigitalClockDigit extends Component {
     constructor(props) {
         super(props);
-        const widthHeightRatio = 1.3333;
-
-        const widthHeightClockRatio = 0.115;
-
-        const widthLandscape = this.props.sizeLandscapeWidth * widthHeightClockRatio;
-        const heightLandscape = widthLandscape * widthHeightRatio;
-
-        const widthLandscapeUnit = addUnit(widthLandscape);
-        const heightLandscapeUnit = addUnit(heightLandscape);
 
         const numberStyle = {
-            width: widthLandscapeUnit,
-            height: heightLandscapeUnit,
+            width: this.props.width,
+            height: this.props.height,
             position: "relative",
             top: '0px',
             backgroundImage: `url(${digitImageBasePath}/0.svg)`,
             backgroundSize: "100% 100%",
-
         };
 
         this.state = {
@@ -34,10 +23,10 @@ class DigitalClockDigit extends Component {
 
         this.styles = {
             digitContainer : {
-                width: widthLandscapeUnit,
-                height: heightLandscapeUnit,
+                width: this.props.width,
+                height: this.props.height,
                 float: "left",
-                // backgroundColor: "green",
+                backgroundColor: "green",
                 overflow: "hidden"
             }
         };
@@ -49,7 +38,7 @@ class DigitalClockDigit extends Component {
 
         if (previousDigit !== currentDigit) {
             const slideStyle = {
-                transition: "top 500ms ease-out 0s",
+                transition: "top 500ms ease-in 0s",
                 top: "-100%",
             };
             this.flipNumber(previousDigit, currentDigit, slideStyle);

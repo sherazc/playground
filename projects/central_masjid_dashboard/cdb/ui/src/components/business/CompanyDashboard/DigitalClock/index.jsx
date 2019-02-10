@@ -25,8 +25,15 @@ class DigitalClock extends Component {
     constructor(props) {
         super(props);
         const widthHeightRatio = 0.2666;
-        const paddingTopRatio = 0.0555; // digits padding
-        const clockToDigitWidthRatio = 0.115; // digit size
+        const paddingTopRatio = 0.07; // digits padding
+        const clockToDigitWidthRatio = 0.1; // digit width ratio
+        const clockToDigitWidthHeightRatio = 1.3333; // digit width to height ratio
+
+        this.digitWidthLandscape = this.props.sizeLandscapeWidth * clockToDigitWidthRatio;
+        this.digitHeightLandscape = this.digitWidthLandscape * clockToDigitWidthHeightRatio;
+
+        this.digitWidthLandscapeUnit = addUnit(this.digitWidthLandscape);
+        this.digitHeightLandscapeUnit = addUnit(this.digitHeightLandscape);
 
         this.state = {
             hoursDigitLeft: 0,
@@ -37,8 +44,7 @@ class DigitalClock extends Component {
             secondsDigitRight: 0,
         };
 
-        const contentWidth = (this.props.sizeLandscapeWidth * clockToDigitWidthRatio) * 8;
-
+        const contentWidth = (this.props.sizeLandscapeWidth * clockToDigitWidthRatio) * 6;
 
         this.styles = {
             digitalContainerStyle: {
@@ -48,15 +54,16 @@ class DigitalClock extends Component {
             },
             digitalContent: {
                 margin: "0 auto",
-                width: addUnit(contentWidth),
-                backgroundColor: "yellow",
-                height: "30px"
+                width: addUnit(contentWidth)
+            },
+            colonStyle: {
+                background: `url(${process.env.PUBLIC_URL}/images/clock_digital/bg1.svg) no-repeat`,
+                width: addUnit(this.clockToDigitWidthRatio / 2),
+                height: addUnit(this.digitHeightLandscape)
+
             }
         };
     }
-
-
-
 
     componentDidMount() {
         setInterval(() => {
@@ -79,12 +86,13 @@ class DigitalClock extends Component {
         return (
             <div className={classes.dClockContainer} style={this.styles.digitalContainerStyle}>
                 <div style={this.styles.digitalContent}>
-                    <DigitalClockDigit {...this.props} digit={this.state.hoursDigitLeft}/>
-                    <DigitalClockDigit {...this.props} digit={this.state.hoursDigitRight}/>
-                    <DigitalClockDigit {...this.props} digit={this.state.minutesDigitLeft}/>
-                    <DigitalClockDigit {...this.props} digit={this.state.minutesDigitRight}/>
-                    <DigitalClockDigit {...this.props} digit={this.state.secondsDigitLeft}/>
-                    <DigitalClockDigit {...this.props} digit={this.state.secondsDigitRight}/>
+                    <DigitalClockDigit digit={this.state.hoursDigitLeft} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
+                    <DigitalClockDigit digit={this.state.hoursDigitRight} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
+
+                    <DigitalClockDigit digit={this.state.minutesDigitLeft} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
+                    <DigitalClockDigit digit={this.state.minutesDigitRight} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
+                    <DigitalClockDigit digit={this.state.secondsDigitLeft} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
+                    <DigitalClockDigit digit={this.state.secondsDigitRight} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
                 </div>
             </div>
         );
