@@ -32,18 +32,21 @@ class DigitalClock extends Component {
         };
 
         // Styles
-
         const digitStyle = {
             width: addUnit(this.digitWidthLandscape),
             height: addUnit(this.digitHeightLandscape),
             float: "left",
+
             position: "relative",
-            top: '0px'
+            backgroundSize: "cover",
+            // overflow: "hidden",
+            top: "0px"
         };
 
         const digitHalfWidth = {
             ...digitStyle,
-            width: addUnit(this.digitWidthLandscape / 2)
+            //width: addUnit(this.digitWidthLandscape / 2),
+            backgroundColor: "pink"
         };
 
 
@@ -61,19 +64,23 @@ class DigitalClock extends Component {
                 height: addUnit(this.props.sizeLandscapeWidth * widthHeightRatio),
                 paddingTop: addUnit(this.props.sizeLandscapeWidth * paddingTopRatio),
             },
-            digitalContent: {
+            digitContent: {
                 margin: "0 auto",
                 width: addUnit(contentWidth)
             },
             colonStyle: {
                 ...digitHalfWidth,
-                background: `url(${process.env.PUBLIC_URL}/images/clock_digital/colon.svg) no-repeat`,
+                background: `url(${process.env.PUBLIC_URL}/images/clock_digital/0.svg) no-repeat`,
+                backgroundColor: "pink",
+                backgroundSize: "auto"
             },
             dotStyle: {
                 ...digitHalfWidth,
-                background: `url(${process.env.PUBLIC_URL}/images/clock_digital/dot.svg) no-repeat`,
+                background: `url(${process.env.PUBLIC_URL}/images/clock_digital/dot.svg)`,
             }
         };
+
+        console.log("colonStyle", this.styles.colonStyle);
     }
 
     componentDidMount() {
@@ -94,10 +101,27 @@ class DigitalClock extends Component {
     render() {
         return (
             <div style={this.styles.digitalContainerStyle}>
-                <div style={this.styles.digitalContent}>
+                <div style={this.styles.digitContent}>
                     <DigitalClockDigit digit={this.state.hoursDigitLeft} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
                     <DigitalClockDigit digit={this.state.hoursDigitRight} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
-                    <div style={this.styles.colonStyle}/>
+                    <div style={{
+                        backgroundColor: "yellow",
+                        float: "left",
+                        height: "5.3332vw",
+                        width: "4vw"
+
+                    }}>
+                        <div style={{
+                            backgroundImage: "url(/images/clock_digital/5.svg)",
+                            backgroundSize: "100% 100%",
+                            height: "5.3332vw",
+                            position: "relative",
+                            top: "0px",
+                            width: "4vw"
+                        }} >
+                        </div>
+
+                    </div>
                     <DigitalClockDigit digit={this.state.minutesDigitLeft} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
                     <DigitalClockDigit digit={this.state.minutesDigitRight} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
                     <div style={this.styles.dotStyle}/>
