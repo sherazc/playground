@@ -1,6 +1,9 @@
 import React, {Component} from "react";
 import DigitalClockDigit from "./DigitalClockDigit";
 import {addUnit} from "../../../../services/utilities";
+import ImageSeparator from "./ImageSeparator";
+import six from "./6.svg"
+import colon from "./colon.svg"
 
 class DigitalClock extends Component {
 
@@ -96,7 +99,10 @@ class DigitalClock extends Component {
                 secondsDigitRight: Math.floor(now.getSeconds() % 10),
             });
         }, 1000);
+
+        console.log("image colon", six);
     }
+
 
     render() {
         return (
@@ -104,24 +110,11 @@ class DigitalClock extends Component {
                 <div style={this.styles.digitContent}>
                     <DigitalClockDigit digit={this.state.hoursDigitLeft} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
                     <DigitalClockDigit digit={this.state.hoursDigitRight} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
-                    <div style={{
-                        backgroundColor: "yellow",
-                        float: "left",
-                        height: "5.3332vw",
-                        width: "4vw"
-
-                    }}>
-                        <div style={{
-                            backgroundImage: "url(/images/clock_digital/5.svg)",
-                            backgroundSize: "100% 100%",
-                            height: "5.3332vw",
-                            position: "relative",
-                            top: "0px",
-                            width: "4vw"
-                        }} >
-                        </div>
-
-                    </div>
+                    <ImageSeparator
+                        width={this.digitWidthLandscape}
+                        height={this.digitHeightLandscape}
+                        image={six}
+                    />
                     <DigitalClockDigit digit={this.state.minutesDigitLeft} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
                     <DigitalClockDigit digit={this.state.minutesDigitRight} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
                     <div style={this.styles.dotStyle}/>
