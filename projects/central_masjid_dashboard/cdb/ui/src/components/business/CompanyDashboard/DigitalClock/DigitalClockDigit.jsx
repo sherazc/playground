@@ -1,17 +1,27 @@
 import React, {Component} from "react";
-
-const digitImageBasePath = `${process.env.PUBLIC_URL}/images/clock_digital`;
+import zero from "../../../../images/clock_digital/0.svg";
+import one from "../../../../images/clock_digital/1.svg";
+import two from "../../../../images/clock_digital/2.svg";
+import three from "../../../../images/clock_digital/3.svg";
+import four from "../../../../images/clock_digital/4.svg";
+import five from "../../../../images/clock_digital/5.svg";
+import six from "../../../../images/clock_digital/6.svg";
+import seven from "../../../../images/clock_digital/7.svg";
+import eight from "../../../../images/clock_digital/8.svg";
+import nine from "../../../../images/clock_digital/9.svg";
 
 class DigitalClockDigit extends Component {
     constructor(props) {
         super(props);
+
+        this.digitsImages = this.createDigitsArray();
 
         const numberStyle = {
             width: this.props.width,
             height: this.props.height,
             position: "relative",
             top: '0px',
-            backgroundImage: `url(${digitImageBasePath}/0.svg)`,
+            backgroundImage: `url(${this.digitsImages[0]})`,
             backgroundSize: "100% 100%",
         };
 
@@ -59,16 +69,20 @@ class DigitalClockDigit extends Component {
         const numberPreviousStyle = {
             ...this.state.numberPreviousStyle,
             ...slideStyle,
-            backgroundImage: `url(${digitImageBasePath}/${previousDigit}.svg)`
+            backgroundImage: `url(${this.digitsImages[previousDigit]})`
         };
 
         const numberCurrentStyle = {
             ...this.state.numberCurrentStyle,
             ...slideStyle,
-            backgroundImage: `url(${digitImageBasePath}/${currentDigit}.svg)`
+            backgroundImage: `url(${this.digitsImages[currentDigit]})`
         };
 
         this.setState({numberPreviousStyle, numberCurrentStyle});
+    }
+
+    createDigitsArray() {
+        return [zero, one, two, three, four, five, six, seven, eight, nine];
     }
 
     render() {

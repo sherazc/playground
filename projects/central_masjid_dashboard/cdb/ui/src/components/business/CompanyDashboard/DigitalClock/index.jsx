@@ -2,8 +2,11 @@ import React, {Component} from "react";
 import DigitalClockDigit from "./DigitalClockDigit";
 import {addUnit} from "../../../../services/utilities";
 import ImageSeparator from "./ImageSeparator";
-import six from "./6.svg"
-import colon from "./colon.svg"
+import bg1 from "../../../../images/clock_digital/bg1.svg";
+import colon from "../../../../images/clock_digital/colon.svg";
+import dot from "../../../../images/clock_digital/dot.svg";
+import am from "../../../../images/clock_digital/am.svg";
+import pm from "../../../../images/clock_digital/pm.svg";
 
 class DigitalClock extends Component {
 
@@ -32,6 +35,7 @@ class DigitalClock extends Component {
             minutesDigitRight: 0,
             secondsDigitLeft: 0,
             secondsDigitRight: 0,
+            amPmImage: am
         };
 
         // Styles
@@ -56,7 +60,7 @@ class DigitalClock extends Component {
 
         this.styles = {
             digitalContainerStyle: {
-                background: `url(${process.env.PUBLIC_URL}/images/clock_digital/bg1.svg) no-repeat`,
+                background: `url(${bg1}) no-repeat`,
                 backgroundSize: "100% 100%",
                 backgroundColor: "red",
                 marginLeft: "auto",
@@ -89,18 +93,29 @@ class DigitalClock extends Component {
     componentDidMount() {
         setInterval(() => {
             const now = new Date();
+            const currentHour24 = now.getHours();
+
+            let currentHour12;
+            if (currentHour24 == 0){
+                currentHour12 = 12;
+            } else if (currentHour24 > 12) {
+                currentHour12 = currentHour24 - 12;
+            } else {
+                currentHour12 = currentHour24;
+            }
+
+            let amPmImage = currentHour24 > 11 ? pm : am;
 
             this.setState({
-                hoursDigitLeft: Math.floor(now.getHours() / 10),
-                hoursDigitRight: Math.floor(now.getHours() % 10),
+                hoursDigitLeft: Math.floor(currentHour12 / 10),
+                hoursDigitRight: Math.floor(currentHour12 % 10),
                 minutesDigitLeft: Math.floor(now.getMinutes() / 10),
                 minutesDigitRight: Math.floor(now.getMinutes() % 10),
                 secondsDigitLeft: Math.floor(now.getSeconds() / 10),
                 secondsDigitRight: Math.floor(now.getSeconds() % 10),
+                amPmImage
             });
         }, 1000);
-
-        console.log("image colon", six);
     }
 
 
@@ -110,16 +125,13 @@ class DigitalClock extends Component {
                 <div style={this.styles.digitContent}>
                     <DigitalClockDigit digit={this.state.hoursDigitLeft} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
                     <DigitalClockDigit digit={this.state.hoursDigitRight} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
-                    <ImageSeparator
-                        width={this.digitWidthLandscape}
-                        height={this.digitHeightLandscape}
-                        image={six}
-                    />
+                    <ImageSeparator width={this.digitWidthLandscape / 2} height={this.digitHeightLandscape} image={colon}/>
                     <DigitalClockDigit digit={this.state.minutesDigitLeft} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
                     <DigitalClockDigit digit={this.state.minutesDigitRight} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
-                    <div style={this.styles.dotStyle}/>
+                    <ImageSeparator width={this.digitWidthLandscape / 2} height={this.digitHeightLandscape} image={dot}/>
                     <DigitalClockDigit digit={this.state.secondsDigitLeft} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
                     <DigitalClockDigit digit={this.state.secondsDigitRight} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
+                    <ImageSeparator width={this.digitWidthLandscape} height={this.digitHeightLandscape} image={this.state.amPmImage}/>
                 </div>
             </div>
         );
