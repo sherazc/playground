@@ -7,7 +7,6 @@ const ImageSeparator = (props) => {
     const heightUnit = addUnit(props.height);
 
     const container = {
-        backgroundColor: "yellow",
         float: "left",
         height: heightUnit,
         width: widthUnit
@@ -21,11 +20,9 @@ const ImageSeparator = (props) => {
         height: heightUnit,
         width: widthUnit
     };
-    //console.log("image", props.image);
 
     return (
         <div style={container}>
-            {/*<img src={props.image} style={image}/>*/}
             <div style={image}></div>
         </div>
     );

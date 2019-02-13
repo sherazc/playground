@@ -39,30 +39,10 @@ class DigitalClock extends Component {
         };
 
         // Styles
-        const digitStyle = {
-            width: addUnit(this.digitWidthLandscape),
-            height: addUnit(this.digitHeightLandscape),
-            float: "left",
-
-            position: "relative",
-            backgroundSize: "cover",
-            // overflow: "hidden",
-            top: "0px"
-        };
-
-        const digitHalfWidth = {
-            ...digitStyle,
-            //width: addUnit(this.digitWidthLandscape / 2),
-            backgroundColor: "pink"
-        };
-
-
-
         this.styles = {
             digitalContainerStyle: {
                 background: `url(${bg1}) no-repeat`,
                 backgroundSize: "100% 100%",
-                backgroundColor: "red",
                 marginLeft: "auto",
                 marginRight: "auto",
                 zIndex: "5",
@@ -75,19 +55,7 @@ class DigitalClock extends Component {
                 margin: "0 auto",
                 width: addUnit(contentWidth)
             },
-            colonStyle: {
-                ...digitHalfWidth,
-                background: `url(${process.env.PUBLIC_URL}/images/clock_digital/0.svg) no-repeat`,
-                backgroundColor: "pink",
-                backgroundSize: "auto"
-            },
-            dotStyle: {
-                ...digitHalfWidth,
-                background: `url(${process.env.PUBLIC_URL}/images/clock_digital/dot.svg)`,
-            }
         };
-
-        console.log("colonStyle", this.styles.colonStyle);
     }
 
     componentDidMount() {
@@ -96,7 +64,7 @@ class DigitalClock extends Component {
             const currentHour24 = now.getHours();
 
             let currentHour12;
-            if (currentHour24 == 0){
+            if (currentHour24 == 0) {
                 currentHour12 = 12;
             } else if (currentHour24 > 12) {
                 currentHour12 = currentHour24 - 12;
@@ -117,7 +85,6 @@ class DigitalClock extends Component {
             });
         }, 1000);
     }
-
 
     render() {
         return (

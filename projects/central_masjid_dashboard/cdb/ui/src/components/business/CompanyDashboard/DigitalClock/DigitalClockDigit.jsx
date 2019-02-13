@@ -36,12 +36,9 @@ class DigitalClockDigit extends Component {
                 width: this.props.width,
                 height: this.props.height,
                 float: "left",
-                backgroundColor: "green",
-                //overflow: "hidden"
+                overflow: "hidden"
             }
         };
-        console.log("digitContainer",this.styles.digitContainer);
-        console.log("numberCurrentStyle",this.state.numberCurrentStyle);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
