@@ -58,13 +58,38 @@ class DigitalClock extends Component {
         };
     }
 
+    updateSizeObserver(mediaQuery) {
+
+        /*
+        TODO:
+        Pass 2 sizes for lg and md
+        Pass 2 margins for lg and md
+        Move the styles in state.
+        Update styles in the if below.
+        Do the same in
+         */
+        if(mediaQuery.matches) {
+            console.log("Small Screen", this.state);
+        } else {
+            console.log("Big Screen", this.state);
+        }
+    }
+
     componentDidMount() {
+        let mediaQuery = window.matchMedia("(max-width: 960px)");
+        this.updateSizeObserver(mediaQuery);
+        mediaQuery.addListener(this.updateSizeObserver.bind(this));
+
+        this.startClock();
+    }
+
+    startClock() {
         setInterval(() => {
             const now = new Date();
             const currentHour24 = now.getHours();
 
             let currentHour12;
-            if (currentHour24 == 0) {
+            if (currentHour24 === 0) {
                 currentHour12 = 12;
             } else if (currentHour24 > 12) {
                 currentHour12 = currentHour24 - 12;
@@ -85,6 +110,8 @@ class DigitalClock extends Component {
             });
         }, 1000);
     }
+
+
 
     render() {
         return (
