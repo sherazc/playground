@@ -43,8 +43,8 @@ class DigitalClock extends Component {
             digitalContainerStyle: {
                 background: `url(${bg1}) no-repeat`,
                 backgroundSize: "100% 100%",
-                marginLeft: "auto",
-                marginRight: "auto",
+                marginLeft: "2vw",
+                marginTop: "2vw",
                 zIndex: "5",
                 position: "absolute",
                 width: addUnit(this.props.sizeLandscapeWidth),
@@ -58,6 +58,27 @@ class DigitalClock extends Component {
         };
     }
 
+    // stateless
+    createDigitalContainerStyle(size) {
+
+        /*
+        return {
+            background: `url(${bg1}) no-repeat`,
+            backgroundSize: "100% 100%",
+            marginLeft: "2vw",
+            marginTop: "2vw",
+            zIndex: "5",
+            position: "absolute",
+            width: addUnit(this.props.sizeLandscapeWidth),
+            height: addUnit(this.props.sizeLandscapeWidth * widthHeightRatio),
+            paddingTop: addUnit(this.props.sizeLandscapeWidth * paddingTopRatio),
+        }
+
+        */
+    }
+
+
+
     updateSizeObserver(mediaQuery) {
 
         /*
@@ -67,6 +88,32 @@ class DigitalClock extends Component {
         Move the styles in state.
         Update styles in the if below.
         Do the same in
+
+
+
+
+        component  flow:
+        -- set
+
+        -- get size from media query. pass it LG and
+        -- get LG or MD size by media query
+        -- using given size calculate height and width
+        -- container
+
+        All ratios should be in one place
+
+        State should contain:
+        -- digit width
+        -- digit height
+        -- container style
+        -- container content style
+
+        Create method for calculation of all state elements
+
+        Set state values in update size updateSizeObserver
+
+
+
          */
         if(mediaQuery.matches) {
             console.log("Small Screen", this.state);
@@ -110,8 +157,6 @@ class DigitalClock extends Component {
             });
         }, 1000);
     }
-
-
 
     render() {
         return (
