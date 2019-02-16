@@ -13,6 +13,8 @@ class DigitalClock extends Component {
     constructor(props) {
         super(props);
 
+
+        // @Deprecated use getSizeRatios()
         // Position and dimension Calculation
         const widthHeightRatio = 0.2666;
         const paddingTopRatio = 0.07; // digits padding
@@ -25,6 +27,7 @@ class DigitalClock extends Component {
         this.digitWidthLandscapeUnit = addUnit(this.digitWidthLandscape);
         this.digitHeightLandscapeUnit = addUnit(this.digitHeightLandscape);
 
+        // @Deprecated use createClockContentStyle();
         const contentWidth = (this.props.sizeLandscapeWidth * clockToDigitWidthRatio) * 8; // digits content width
 
         // State
@@ -35,11 +38,16 @@ class DigitalClock extends Component {
             minutesDigitRight: 0,
             secondsDigitLeft: 0,
             secondsDigitRight: 0,
-            amPmImage: am
+            amPmImage: am,
+            digitWidth: 0,
+            digitHeight: 0,
+            clockContainerStyle: {},
+            clockContentStyle: {}
         };
 
         // Styles
         this.styles = {
+            // @Deprecated use createDigitalContainerStyle()
             digitalContainerStyle: {
                 background: `url(${bg1}) no-repeat`,
                 backgroundSize: "100% 100%",
@@ -51,6 +59,7 @@ class DigitalClock extends Component {
                 height: addUnit(this.props.sizeLandscapeWidth * widthHeightRatio),
                 paddingTop: addUnit(this.props.sizeLandscapeWidth * paddingTopRatio),
             },
+            // @Deprecated use createClockContentStyle()
             digitContent: {
                 margin: "0 auto",
                 width: addUnit(contentWidth)
@@ -59,9 +68,18 @@ class DigitalClock extends Component {
     }
 
     // stateless
-    createDigitalContainerStyle(size) {
+    getSizeRatios() {
+        // Position and dimension Calculation
+        const widthHeightRatio = 0.2666;
+        const paddingTopRatio = 0.07; // digits padding
+        const clockToDigitWidthRatio = 0.1; // digit width ratio
+        const clockToDigitWidthHeightRatio = 1.3333; // digit width to height ratio
 
-        /*
+        return {widthHeightRatio, paddingTopRatio, clockToDigitWidthRatio, clockToDigitWidthHeightRatio};
+    }
+
+    // stateless
+    createClockContainerStyle(size, sizeRatios) {
         return {
             background: `url(${bg1}) no-repeat`,
             backgroundSize: "100% 100%",
@@ -69,12 +87,19 @@ class DigitalClock extends Component {
             marginTop: "2vw",
             zIndex: "5",
             position: "absolute",
-            width: addUnit(this.props.sizeLandscapeWidth),
-            height: addUnit(this.props.sizeLandscapeWidth * widthHeightRatio),
-            paddingTop: addUnit(this.props.sizeLandscapeWidth * paddingTopRatio),
-        }
+            width: addUnit(size),
+            height: addUnit(size * sizeRatios.widthHeightRatio),
+            paddingTop: addUnit(size * sizeRatios.paddingTopRatio),
+        };
+    }
 
-        */
+    // stateless creates digitContent
+    createClockContentStyle(size, sizeRatios) {
+        const contentWidth = (size * sizeRatios.clockToDigitWidthRatio) * 8; // digits content width
+        return {
+            margin: "0 auto",
+            width: addUnit(contentWidth)
+        };
     }
 
 
@@ -89,9 +114,6 @@ class DigitalClock extends Component {
         Update styles in the if below.
         Do the same in
 
-
-
-
         component  flow:
         -- set
 
@@ -100,7 +122,7 @@ class DigitalClock extends Component {
         -- using given size calculate height and width
         -- container
 
-        All ratios should be in one place
+        All ratios should be in one place. create a method to get it
 
         State should contain:
         -- digit width
@@ -126,7 +148,6 @@ class DigitalClock extends Component {
         let mediaQuery = window.matchMedia("(max-width: 960px)");
         this.updateSizeObserver(mediaQuery);
         mediaQuery.addListener(this.updateSizeObserver.bind(this));
-
         this.startClock();
     }
 
