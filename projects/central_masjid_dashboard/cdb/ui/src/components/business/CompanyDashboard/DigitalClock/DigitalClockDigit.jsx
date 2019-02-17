@@ -13,7 +13,7 @@ import nine from "../../../../images/clock_digital/9.svg";
 class DigitalClockDigit extends Component {
     constructor(props) {
         super(props);
-
+        console.log(this.props.width, this.props.height);
         this.digitsImages = this.createDigitsArray();
 
         const numberStyle = {
@@ -83,7 +83,6 @@ class DigitalClockDigit extends Component {
     }
 
     render() {
-
         return(
             <div style={this.styles.digitContainer}>
                 <div style={this.state.numberPreviousStyle}></div>

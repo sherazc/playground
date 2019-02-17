@@ -32,6 +32,7 @@ class DigitalClock extends Component {
 
         // State
         this.state = {
+            // Time
             hoursDigitLeft: 0,
             hoursDigitRight: 0,
             minutesDigitLeft: 0,
@@ -39,6 +40,8 @@ class DigitalClock extends Component {
             secondsDigitLeft: 0,
             secondsDigitRight: 0,
             amPmImage: am,
+
+            // styles
             digitWidth: 0,
             digitHeight: 0,
             clockContainerStyle: {},
@@ -116,15 +119,14 @@ class DigitalClock extends Component {
     }
 
     resizeClock(size, margin) {
-        // console.log("Resizing ", size, margin);
         const sizeRatios = this.getSizeRatios();
-        const clockContainerSytle = this.createClockContainerStyle(bg1, size, margin, sizeRatios);
-        const ClockContentStyle = this.createClockContentStyle(size, sizeRatios);
+        const clockContainerStyle = this.createClockContainerStyle(bg1, size, margin, sizeRatios);
+        const clockContentStyle = this.createClockContentStyle(size, sizeRatios);
         const digitWidth = size * sizeRatios.clockToDigitWidthRatio;
         const digitHeight = digitWidth * sizeRatios.clockToDigitWidthHeightRatio;
 
-
-
+        this.setState({clockContainerStyle, clockContentStyle, digitWidth, digitHeight});
+        console.log("Resizing ", size, margin);
     }
 
     // stateless
@@ -198,18 +200,49 @@ class DigitalClock extends Component {
     }
 
     render() {
+
+        // this.setState({clockContainerStyle, clockContentStyle, digitWidth, digitHeight});
+        const {clockContainerStyle, clockContentStyle, digitWidth, digitHeight,
+            hoursDigitLeft, hoursDigitRight, minutesDigitLeft, minutesDigitRight,
+            secondsDigitLeft, secondsDigitRight, amPmImage} = this.state;
+        const digitWidthUnit = addUnit(digitWidth) + "";
+        const digitHeightUnit = addUnit(digitHeight) + "";
+
+        //console.log(digitWidthUnit, digitWidth);
+
+
         return (
-            <div style={this.styles.digitalContainerStyle}>
-                <div style={this.styles.digitContent}>
-                    <DigitalClockDigit digit={this.state.hoursDigitLeft} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
-                    <DigitalClockDigit digit={this.state.hoursDigitRight} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
-                    <ImageSeparator width={this.digitWidthLandscape / 2} height={this.digitHeightLandscape} image={colon}/>
-                    <DigitalClockDigit digit={this.state.minutesDigitLeft} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
-                    <DigitalClockDigit digit={this.state.minutesDigitRight} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
-                    <ImageSeparator width={this.digitWidthLandscape / 2} height={this.digitHeightLandscape} image={dot}/>
-                    <DigitalClockDigit digit={this.state.secondsDigitLeft} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
-                    <DigitalClockDigit digit={this.state.secondsDigitRight} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
-                    <ImageSeparator width={this.digitWidthLandscape} height={this.digitHeightLandscape} image={this.state.amPmImage}/>
+            <div style={clockContainerStyle}>
+                <div style={clockContentStyle}>
+                    {/*}
+                    <DigitalClockDigit digit={hoursDigitLeft} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
+                    <DigitalClockDigit digit={hoursDigitRight} width={addUnit(digitWidth)} height={addUnit(digitHeight)}/>
+                    <ImageSeparator width={digitWidth / 2} height={digitHeight} image={colon}/>
+                    <DigitalClockDigit digit={minutesDigitLeft} width={digitWidthUnit} height={digitHeightUnit}/>
+                    <DigitalClockDigit digit={minutesDigitRight} width={digitWidthUnit} height={digitHeightUnit}/>
+                    <ImageSeparator width={digitWidth / 2} height={digitHeight} image={dot}/>
+                    <DigitalClockDigit digit={secondsDigitLeft} width={digitWidthUnit} height={digitHeightUnit}/>
+                    */}
+
+{/*
+
+
+                    <DigitalClockDigit digit={secondsDigitRight} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
+
+
+                    <DigitalClockDigit digit={secondsDigitRight} width={digitWidth + "vw"} height={digitHeight + "vw"}/>
+
+                    */}
+
+                    <DigitalClockDigit digit={secondsDigitRight} width={digitWidthUnit} height={digitHeightUnit}/>
+                    <DigitalClockDigit digit={secondsDigitRight} width="4vw" height="5.3332vw"/>
+
+
+
+
+                    {/*
+                    <ImageSeparator width={digitWidth} height={digitHeight} image={amPmImage}/>
+                    */}
                 </div>
             </div>
         );
