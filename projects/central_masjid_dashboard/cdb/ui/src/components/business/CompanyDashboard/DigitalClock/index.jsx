@@ -67,42 +67,13 @@ class DigitalClock extends Component {
         };
     }
 
-    // stateless
-    getSizeRatios() {
-        // Position and dimension Calculation
-        const widthHeightRatio = 0.2666;
-        const paddingTopRatio = 0.07; // digits padding
-        const clockToDigitWidthRatio = 0.1; // digit width ratio
-        const clockToDigitWidthHeightRatio = 1.3333; // digit width to height ratio
 
-        return {widthHeightRatio, paddingTopRatio, clockToDigitWidthRatio, clockToDigitWidthHeightRatio};
+    componentDidMount() {
+        let mediaQuery = window.matchMedia("(max-width: 960px)");
+        this.updateSizeObserver(mediaQuery);
+        mediaQuery.addListener(this.updateSizeObserver.bind(this));
+        this.startClock();
     }
-
-    // stateless
-    createClockContainerStyle(size, sizeRatios) {
-        return {
-            background: `url(${bg1}) no-repeat`,
-            backgroundSize: "100% 100%",
-            marginLeft: "2vw",
-            marginTop: "2vw",
-            zIndex: "5",
-            position: "absolute",
-            width: addUnit(size),
-            height: addUnit(size * sizeRatios.widthHeightRatio),
-            paddingTop: addUnit(size * sizeRatios.paddingTopRatio),
-        };
-    }
-
-    // stateless creates digitContent
-    createClockContentStyle(size, sizeRatios) {
-        const contentWidth = (size * sizeRatios.clockToDigitWidthRatio) * 8; // digits content width
-        return {
-            margin: "0 auto",
-            width: addUnit(contentWidth)
-        };
-    }
-
-
 
     updateSizeObserver(mediaQuery) {
 
@@ -134,22 +105,69 @@ class DigitalClock extends Component {
 
         Set state values in update size updateSizeObserver
 
-
-
          */
         if(mediaQuery.matches) {
-            console.log("Small Screen", this.state);
+            // small screen
+            this.resizeClock(this.props.sizeMd, this.props.marginMd);
         } else {
-            console.log("Big Screen", this.state);
+            // large screen
+            this.resizeClock(this.props.sizeLg, this.props.marginLg);
         }
     }
 
-    componentDidMount() {
-        let mediaQuery = window.matchMedia("(max-width: 960px)");
-        this.updateSizeObserver(mediaQuery);
-        mediaQuery.addListener(this.updateSizeObserver.bind(this));
-        this.startClock();
+    resizeClock(size, margin) {
+        // console.log("Resizing ", size, margin);
+        const sizeRatios = this.getSizeRatios();
+        const clockContainerSytle = this.createClockContainerStyle(bg1, size, margin, sizeRatios);
+        const ClockContentStyle = this.createClockContentStyle(size, sizeRatios);
+        const digitWidth = size * sizeRatios.clockToDigitWidthRatio;
+        const digitHeight = digitWidth * sizeRatios.clockToDigitWidthHeightRatio;
+
+
+
     }
+
+    // stateless
+    getSizeRatios() {
+        // Position and dimension Calculation
+        const widthHeightRatio = 0.2666;
+        const paddingTopRatio = 0.07; // digits padding
+        const clockToDigitWidthRatio = 0.1; // digit width ratio
+        const clockToDigitWidthHeightRatio = 1.3333; // digit width to height ratio
+
+        return {widthHeightRatio, paddingTopRatio, clockToDigitWidthRatio, clockToDigitWidthHeightRatio};
+    }
+
+    // stateless
+    createClockContainerStyle(backgroundImage, size, margin, sizeRatios) {
+        return {
+            background: `url(${backgroundImage}) no-repeat`,
+            backgroundSize: "100% 100%",
+            margin: addUnit(margin),
+            zIndex: "5",
+            position: "absolute",
+            width: addUnit(size),
+            height: addUnit(size * sizeRatios.widthHeightRatio),
+            paddingTop: addUnit(size * sizeRatios.paddingTopRatio),
+        };
+    }
+
+    // stateless creates digitContent
+    createClockContentStyle(size, sizeRatios) {
+        const contentWidth = (size * sizeRatios.clockToDigitWidthRatio) * 8; // digits content width
+        return {
+            margin: "0 auto",
+            width: addUnit(contentWidth)
+        };
+    }
+
+
+
+
+
+
+
+
 
     startClock() {
         setInterval(() => {
