@@ -7,29 +7,12 @@ import colon from "../../../../images/clock_digital/colon.svg";
 import dot from "../../../../images/clock_digital/dot.svg";
 import am from "../../../../images/clock_digital/am.svg";
 import pm from "../../../../images/clock_digital/pm.svg";
+import {createClockContainerStyle, createClockContentStyle, getSizeRatios} from "./DigitalClockServices";
 
 class DigitalClock extends Component {
 
     constructor(props) {
         super(props);
-
-
-        // @Deprecated use getSizeRatios()
-        // Position and dimension Calculation
-        const widthHeightRatio = 0.2666;
-        const paddingTopRatio = 0.07; // digits padding
-        const clockToDigitWidthRatio = 0.1; // digit width ratio
-        const clockToDigitWidthHeightRatio = 1.3333; // digit width to height ratio
-
-        this.digitWidthLandscape = this.props.sizeLandscapeWidth * clockToDigitWidthRatio;
-        this.digitHeightLandscape = this.digitWidthLandscape * clockToDigitWidthHeightRatio;
-
-        this.digitWidthLandscapeUnit = addUnit(this.digitWidthLandscape);
-        this.digitHeightLandscapeUnit = addUnit(this.digitHeightLandscape);
-
-        // @Deprecated use createClockContentStyle();
-        const contentWidth = (this.props.sizeLandscapeWidth * clockToDigitWidthRatio) * 8; // digits content width
-
         // State
         this.state = {
             // Time
@@ -47,29 +30,7 @@ class DigitalClock extends Component {
             clockContainerStyle: {},
             clockContentStyle: {}
         };
-
-        // Styles
-        this.styles = {
-            // @Deprecated use createDigitalContainerStyle()
-            digitalContainerStyle: {
-                background: `url(${bg1}) no-repeat`,
-                backgroundSize: "100% 100%",
-                marginLeft: "2vw",
-                marginTop: "2vw",
-                zIndex: "5",
-                position: "absolute",
-                width: addUnit(this.props.sizeLandscapeWidth),
-                height: addUnit(this.props.sizeLandscapeWidth * widthHeightRatio),
-                paddingTop: addUnit(this.props.sizeLandscapeWidth * paddingTopRatio),
-            },
-            // @Deprecated use createClockContentStyle()
-            digitContent: {
-                margin: "0 auto",
-                width: addUnit(contentWidth)
-            },
-        };
     }
-
 
     componentDidMount() {
         let mediaQuery = window.matchMedia("(max-width: 960px)");
@@ -79,36 +40,6 @@ class DigitalClock extends Component {
     }
 
     updateSizeObserver(mediaQuery) {
-
-        /*
-        TODO:
-        Pass 2 sizes for lg and md
-        Pass 2 margins for lg and md
-        Move the styles in state.
-        Update styles in the if below.
-        Do the same in
-
-        component  flow:
-        -- set
-
-        -- get size from media query. pass it LG and
-        -- get LG or MD size by media query
-        -- using given size calculate height and width
-        -- container
-
-        All ratios should be in one place. create a method to get it
-
-        State should contain:
-        -- digit width
-        -- digit height
-        -- container style
-        -- container content style
-
-        Create method for calculation of all state elements
-
-        Set state values in update size updateSizeObserver
-
-         */
         if(mediaQuery.matches) {
             // small screen
             this.resizeClock(this.props.sizeMd, this.props.marginMd);
@@ -119,57 +50,14 @@ class DigitalClock extends Component {
     }
 
     resizeClock(size, margin) {
-        const sizeRatios = this.getSizeRatios();
-        const clockContainerStyle = this.createClockContainerStyle(bg1, size, margin, sizeRatios);
-        const clockContentStyle = this.createClockContentStyle(size, sizeRatios);
+        const sizeRatios = getSizeRatios();
+        const clockContainerStyle = createClockContainerStyle(bg1, size, margin, sizeRatios);
+        const clockContentStyle = createClockContentStyle(size, sizeRatios);
         const digitWidth = size * sizeRatios.clockToDigitWidthRatio;
         const digitHeight = digitWidth * sizeRatios.clockToDigitWidthHeightRatio;
 
         this.setState({clockContainerStyle, clockContentStyle, digitWidth, digitHeight});
-        console.log("Resizing ", size, margin);
     }
-
-    // stateless
-    getSizeRatios() {
-        // Position and dimension Calculation
-        const widthHeightRatio = 0.2666;
-        const paddingTopRatio = 0.07; // digits padding
-        const clockToDigitWidthRatio = 0.1; // digit width ratio
-        const clockToDigitWidthHeightRatio = 1.3333; // digit width to height ratio
-
-        return {widthHeightRatio, paddingTopRatio, clockToDigitWidthRatio, clockToDigitWidthHeightRatio};
-    }
-
-    // stateless
-    createClockContainerStyle(backgroundImage, size, margin, sizeRatios) {
-        return {
-            background: `url(${backgroundImage}) no-repeat`,
-            backgroundSize: "100% 100%",
-            margin: addUnit(margin),
-            zIndex: "5",
-            position: "absolute",
-            width: addUnit(size),
-            height: addUnit(size * sizeRatios.widthHeightRatio),
-            paddingTop: addUnit(size * sizeRatios.paddingTopRatio),
-        };
-    }
-
-    // stateless creates digitContent
-    createClockContentStyle(size, sizeRatios) {
-        const contentWidth = (size * sizeRatios.clockToDigitWidthRatio) * 8; // digits content width
-        return {
-            margin: "0 auto",
-            width: addUnit(contentWidth)
-        };
-    }
-
-
-
-
-
-
-
-
 
     startClock() {
         setInterval(() => {
@@ -200,14 +88,11 @@ class DigitalClock extends Component {
     }
 
     render() {
-
-        // this.setState({clockContainerStyle, clockContentStyle, digitWidth, digitHeight});
         const {clockContainerStyle, clockContentStyle, digitWidth, digitHeight,
             hoursDigitLeft, hoursDigitRight, minutesDigitLeft, minutesDigitRight,
             secondsDigitLeft, secondsDigitRight, amPmImage} = this.state;
         const digitWidthUnit = addUnit(digitWidth) + "";
         const digitHeightUnit = addUnit(digitHeight) + "";
-
 
         return (
             <div style={clockContainerStyle}>
