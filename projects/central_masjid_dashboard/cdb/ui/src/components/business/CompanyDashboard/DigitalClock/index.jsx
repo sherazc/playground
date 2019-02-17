@@ -208,8 +208,6 @@ class DigitalClock extends Component {
         const digitWidthUnit = addUnit(digitWidth) + "";
         const digitHeightUnit = addUnit(digitHeight) + "";
 
-        console.log(hoursDigitLeft);
-
 
         return (
             <div style={clockContainerStyle}>

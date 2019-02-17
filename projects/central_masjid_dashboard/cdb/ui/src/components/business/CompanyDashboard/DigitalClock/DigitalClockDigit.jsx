@@ -28,7 +28,7 @@ class DigitalClockDigit extends Component {
             numberCurrentStyle: {...numberStyle},
             digitContainerStyle : {
                 float: "left",
-                //overflow: "hidden"
+                overflow: "hidden"
             }
         };
     }
@@ -37,7 +37,7 @@ class DigitalClockDigit extends Component {
         const previousDigit = prevProps.digit;
         const currentDigit = this.props.digit;
 
-        if (previousDigit !== currentDigit) {
+        if (previousDigit !== currentDigit || this.props.width !== prevProps.width) {
             const slideStyle = {
                 transition: "top 500ms ease-in 0s",
                 top: "-100%",
