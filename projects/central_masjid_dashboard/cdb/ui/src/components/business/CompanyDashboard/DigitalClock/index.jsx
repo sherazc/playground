@@ -208,41 +208,21 @@ class DigitalClock extends Component {
         const digitWidthUnit = addUnit(digitWidth) + "";
         const digitHeightUnit = addUnit(digitHeight) + "";
 
-        //console.log(digitWidthUnit, digitWidth);
+        console.log(hoursDigitLeft);
 
 
         return (
             <div style={clockContainerStyle}>
                 <div style={clockContentStyle}>
-                    {/*}
-                    <DigitalClockDigit digit={hoursDigitLeft} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
-                    <DigitalClockDigit digit={hoursDigitRight} width={addUnit(digitWidth)} height={addUnit(digitHeight)}/>
-                    <ImageSeparator width={digitWidth / 2} height={digitHeight} image={colon}/>
+                    <DigitalClockDigit digit={hoursDigitLeft} width={digitWidthUnit} height={digitHeightUnit}/>
+                    <DigitalClockDigit digit={hoursDigitRight} width={digitWidthUnit} height={digitHeightUnit}/>
+                    <ImageSeparator image={colon} width={digitWidth / 2} height={digitHeight} />
                     <DigitalClockDigit digit={minutesDigitLeft} width={digitWidthUnit} height={digitHeightUnit}/>
                     <DigitalClockDigit digit={minutesDigitRight} width={digitWidthUnit} height={digitHeightUnit}/>
-                    <ImageSeparator width={digitWidth / 2} height={digitHeight} image={dot}/>
+                    <ImageSeparator image={dot} width={digitWidth / 2} height={digitHeight}/>
                     <DigitalClockDigit digit={secondsDigitLeft} width={digitWidthUnit} height={digitHeightUnit}/>
-                    */}
-
-{/*
-
-
-                    <DigitalClockDigit digit={secondsDigitRight} width={this.digitWidthLandscapeUnit} height={this.digitHeightLandscapeUnit}/>
-
-
-                    <DigitalClockDigit digit={secondsDigitRight} width={digitWidth + "vw"} height={digitHeight + "vw"}/>
-
-                    */}
-
                     <DigitalClockDigit digit={secondsDigitRight} width={digitWidthUnit} height={digitHeightUnit}/>
-                    <DigitalClockDigit digit={secondsDigitRight} width="4vw" height="5.3332vw"/>
-
-
-
-
-                    {/*
-                    <ImageSeparator width={digitWidth} height={digitHeight} image={amPmImage}/>
-                    */}
+                    <ImageSeparator image={amPmImage} width={digitWidth} height={digitHeight} />
                 </div>
             </div>
         );

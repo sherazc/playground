@@ -13,12 +13,9 @@ import nine from "../../../../images/clock_digital/9.svg";
 class DigitalClockDigit extends Component {
     constructor(props) {
         super(props);
-        console.log(this.props.width, this.props.height);
         this.digitsImages = this.createDigitsArray();
 
         const numberStyle = {
-            width: this.props.width,
-            height: this.props.height,
             position: "relative",
             top: '0px',
             backgroundImage: `url(${this.digitsImages[0]})`,
@@ -29,14 +26,9 @@ class DigitalClockDigit extends Component {
             previousDigit: 0,
             numberPreviousStyle: {...numberStyle},
             numberCurrentStyle: {...numberStyle},
-        };
-
-        this.styles = {
-            digitContainer : {
-                width: this.props.width,
-                height: this.props.height,
+            digitContainerStyle : {
                 float: "left",
-                overflow: "hidden"
+                //overflow: "hidden"
             }
         };
     }
@@ -63,19 +55,28 @@ class DigitalClockDigit extends Component {
 
     flipNumber(previousDigit, currentDigit, slideStyle) {
 
+        const size = {
+            width: this.props.width,
+            height: this.props.height
+        };
+
         const numberPreviousStyle = {
             ...this.state.numberPreviousStyle,
             ...slideStyle,
-            backgroundImage: `url(${this.digitsImages[previousDigit]})`
+            backgroundImage: `url(${this.digitsImages[previousDigit]})`,
+            ...size
         };
 
         const numberCurrentStyle = {
             ...this.state.numberCurrentStyle,
             ...slideStyle,
-            backgroundImage: `url(${this.digitsImages[currentDigit]})`
+            backgroundImage: `url(${this.digitsImages[currentDigit]})`,
+            ...size
         };
 
-        this.setState({numberPreviousStyle, numberCurrentStyle});
+        const digitContainerStyle = {...this.state.digitContainerStyle, ...size};
+
+        this.setState({numberPreviousStyle, numberCurrentStyle, digitContainerStyle});
     }
 
     createDigitsArray() {
@@ -84,7 +85,7 @@ class DigitalClockDigit extends Component {
 
     render() {
         return(
-            <div style={this.styles.digitContainer}>
+            <div style={this.state.digitContainerStyle}>
                 <div style={this.state.numberPreviousStyle}></div>
                 <div style={this.state.numberCurrentStyle}></div>
             </div>
