@@ -1,13 +1,20 @@
 import React, {Component} from "react";
 import {withStyles} from '@material-ui/core/styles';
 import {Link} from "react-router-dom";
+import {addUnit} from "../../../../services/utilities";
+import {createHoursRotateStyle, createMinutesRotateStyle, createSecondsRotateStyle} from "./AnalogClockServices";
 
-const addUnit = (num) => {
-    return num + "vw";
-};
+/*
+TODO:
+
+-- Move all global styles inside class
+-- Remove dependency on material UI
+-- Pass LG and MD sizes and margin props
+-- Move images inside react app instead of public
+ */
+
 
 const styles = theme => {
-
     const width = 50;
     const height = width;
 
@@ -15,13 +22,11 @@ const styles = theme => {
     const clockHandsWidth = width / 10;
     const clockHandsCenter = width / 2 - clockHandsWidth / 2;
 
-
     const widthUnit = addUnit(width);
     const heightUnit = addUnit(height);
     const clockHandsHeightUnit = addUnit(clockHandsHeight);
     const clockHandsWidthUnit = addUnit(clockHandsWidth);
-    const clockHandsCenterUnit = addUnit(clockHandsCenter)
-
+    const clockHandsCenterUnit = addUnit(clockHandsCenter);
 
     const clockDial = {
         position: "absolute",
@@ -80,32 +85,19 @@ class AnalogClock extends Component {
     };
 
     componentDidMount() {
+        // Seconds
         this.secondsInterval = setInterval(() => {
-            const seconds = new Date().getSeconds();
-            const degree = seconds * 6;
-            const rotate = "rotate(" + degree + "deg)";
-            this.setState({
-                secondsStyle: {"MozTransform": rotate, "WebkitTransform": rotate, "transform": rotate}
-            });
+            this.setState({secondsStyle: createSecondsRotateStyle()});
         }, 1000);
 
+        // Minutes
         this.minutesInterval = setInterval(() => {
-            const minutes = new Date().getMinutes();
-            const degree = minutes * 6;
-            const rotate = "rotate(" + degree + "deg)";
-            this.setState({
-                minutesStyle: {"MozTransform": rotate, "WebkitTransform": rotate, "transform": rotate}
-            });
+            this.setState({minutesStyle: createMinutesRotateStyle()});
         }, 1000);
 
-        this.secondsInterval = setInterval(() => {
-            const hours = new Date().getHours();
-            const minutes = new Date().getMinutes();
-            const degree = hours * 30 + (minutes / 2);
-            const rotate = "rotate(" + degree + "deg)";
-            this.setState({
-                hoursStyle: {"MozTransform": rotate, "WebkitTransform": rotate, "transform": rotate}
-            });
+        // Hours
+        this.hoursInterval = setInterval(() => {
+            this.setState({hoursStyle: createHoursRotateStyle()});
         }, 1000);
     }
 
