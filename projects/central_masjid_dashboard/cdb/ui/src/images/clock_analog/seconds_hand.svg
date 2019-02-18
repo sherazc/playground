@@ -1,0 +1,12 @@
+<svg width="7.4545mm" height="149.42mm" version="1.1" viewBox="0 0 7.4545455 149.42343" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(-93.035 -26.497)">
+  <g transform="matrix(.26458 0 0 .26458 -258.02 -41.648)">
+   <rect x="1326.8" y="257.55" width="28.175" height="564.75" fill-opacity="0"/>
+   <g transform="translate(380.9)" fill="#f00" fill-rule="evenodd">
+    <rect x="958.06" y="343.41" width="3.8873" height="219.15"/>
+    <rect x="954.41" y="558.67" width="11.176" height="43.246"/>
+    <circle cx="960" cy="540" r="7.7746"/>
+   </g>
+  </g>
+ </g>
+</svg>

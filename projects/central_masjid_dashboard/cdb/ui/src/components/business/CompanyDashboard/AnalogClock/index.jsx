@@ -2,7 +2,17 @@ import React, {Component} from "react";
 import {withStyles} from '@material-ui/core/styles';
 import {Link} from "react-router-dom";
 import {addUnit} from "../../../../services/utilities";
-import {createHoursRotateStyle, createMinutesRotateStyle, createSecondsRotateStyle} from "./AnalogClockServices";
+import {
+    createDialStyle, createHoursHandStyle,
+    createHoursRotateStyle, createMinutesHandStyle,
+    createMinutesRotateStyle, createSecondsHandSytle,
+    createSecondsRotateStyle
+} from "./AnalogClockServices";
+import dial from "../../../../images/clock_analog/dial.svg";
+import hours_hand from "../../../../images/clock_analog/hours_hand.svg";
+import minutes_hand from "../../../../images/clock_analog/minutes_hand.svg";
+import seconds_hand from "../../../../images/clock_analog/seconds_hand.svg";
+
 
 /*
 TODO:
@@ -15,58 +25,14 @@ TODO:
 
 
 const styles = theme => {
-    const width = 50;
-    const height = width;
+    const size = 50;
+    const margin = 5;
 
-    const clockHandsHeight = height;
-    const clockHandsWidth = width / 10;
-    const clockHandsCenter = width / 2 - clockHandsWidth / 2;
+    const clockDial = createDialStyle(size, margin);
 
-    const widthUnit = addUnit(width);
-    const heightUnit = addUnit(height);
-    const clockHandsHeightUnit = addUnit(clockHandsHeight);
-    const clockHandsWidthUnit = addUnit(clockHandsWidth);
-    const clockHandsCenterUnit = addUnit(clockHandsCenter);
-
-    const clockDial = {
-        position: "absolute",
-        width: widthUnit,
-        height: heightUnit,
-        background: `url(${process.env.PUBLIC_URL}/images/clock_analog/dial.svg) no-repeat`,
-        backgroundSize: widthUnit,
-        listStyle: "none",
-        left: "30px",
-        right: "auto",
-        marginTop: "30px",
-        marginLeft: "auto",
-        marginRight: "auto",
-        zIndex: "5",
-    };
-
-    const clockHands = {
-        position: "absolute",
-        width: clockHandsWidthUnit,
-        height: clockHandsHeightUnit,
-        top: "0",
-        left: clockHandsCenterUnit,
-        backgroundSize: `${clockHandsWidthUnit} ${clockHandsHeightUnit}`,
-    };
-
-    const secondHand = {
-        ...clockHands,
-        background: `url(${process.env.PUBLIC_URL}/images/clock_analog/seconds_hand.svg) no-repeat`,
-        zIndex: "30"
-    };
-    const minuteHand = {
-        ...clockHands,
-        background: `url(${process.env.PUBLIC_URL}/images/clock_analog/minutes_hand.svg) no-repeat`,
-        zIndex: "20"
-    };
-    const hourHand = {
-        ...clockHands,
-        background: `url(${process.env.PUBLIC_URL}/images/clock_analog/hours_hand.svg) no-repeat`,
-        zIndex: "10"
-    };
+    const secondHand = createSecondsHandSytle(size);
+    const minuteHand = createMinutesHandStyle(size);
+    const hourHand = createHoursHandStyle(size);
 
     return {
         clockDial, secondHand, minuteHand, hourHand
