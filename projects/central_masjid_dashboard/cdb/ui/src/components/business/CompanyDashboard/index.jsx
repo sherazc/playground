@@ -130,8 +130,8 @@ class CompanyDashboard extends Component {
         return (
             <Grid container justify="center" style={{height: "100%", }}>
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={classes.mainLeftSide}>
-                    {this.props.match.params.companyDashboardUrl === "c1"&& <AnalogClock/>}
-                    {this.props.match.params.companyDashboardUrl === "c2"&& <DigitalClock sizeLandscapeWidth="40" sizeLg="20" sizeMd="25" marginLg="3" marginMd="3"/>}
+                    {this.props.match.params.companyDashboardUrl === "c1"&& <AnalogClock sizeLg="20" sizeMd="25" marginLg="3" marginMd="3"/>}
+                    {this.props.match.params.companyDashboardUrl === "c2"&& <DigitalClock sizeLg="20" sizeMd="25" marginLg="3" marginMd="3"/>}
                     <div className={classes.sideBoxBackground}>
                         <div className={classes.sideBoxPadding}>
                             <div className={classes.sideBoxContent}>

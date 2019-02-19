@@ -8,21 +8,14 @@ import {
     createMinutesRotateStyle, createSecondsHandSytle,
     createSecondsRotateStyle
 } from "./AnalogClockServices";
-import dial from "../../../../images/clock_analog/dial.svg";
-import hours_hand from "../../../../images/clock_analog/hours_hand.svg";
-import minutes_hand from "../../../../images/clock_analog/minutes_hand.svg";
-import seconds_hand from "../../../../images/clock_analog/seconds_hand.svg";
-
 
 /*
 TODO:
-
 -- Move all global styles inside class
 -- Remove dependency on material UI
 -- Pass LG and MD sizes and margin props
 -- Move images inside react app instead of public
  */
-
 
 const styles = theme => {
     const size = 50;
@@ -40,17 +33,43 @@ const styles = theme => {
 };
 
 class AnalogClock extends Component {
-    hoursInterval;
-    minutesInterval;
-    secondsInterval;
+    constructor(props) {
+        super(props);
 
-    state = {
-        secondsStyle: {},
-        minutesStyle: {},
-        hoursStyle: {}
-    };
+        this.state = {
+            dialStyle: {},
+            secondsStyle: {},
+            minutesStyle: {},
+            hoursStyle: {}
+        };
+    }
 
     componentDidMount() {
+        let mediaQuery = window.matchMedia("(max-width: 960px)");
+        this.updateSizeObserver(mediaQuery);
+        mediaQuery.addListener(this.updateSizeObserver.bind(this));
+        this.startClock();
+    }
+
+    updateSizeObserver(mediaQuery) {
+        if(mediaQuery.matches) {
+            this.resizeClock(this.props.sizeMd, this.props.marginMd);
+        } else {
+            this.resizeClock(this.props.sizeLg, this.props.marginLg);
+        }
+    }
+
+
+    resizeClock(size, margin) {
+        const dialStyle = createDialStyle(size, margin);
+        const secondsStyle = createSecondsHandSytle(size);
+        const minutesStyle = createMinutesHandStyle(size);
+        const hoursStyle = createHoursHandStyle(size);
+
+    }
+
+
+    startClock() {
         // Seconds
         this.secondsInterval = setInterval(() => {
             this.setState({secondsStyle: createSecondsRotateStyle()});
@@ -66,6 +85,7 @@ class AnalogClock extends Component {
             this.setState({hoursStyle: createHoursRotateStyle()});
         }, 1000);
     }
+
 
     componentWillUnmount() {
         clearInterval(this.secondsInterval);

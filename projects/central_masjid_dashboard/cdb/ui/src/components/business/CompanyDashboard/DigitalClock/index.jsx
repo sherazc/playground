@@ -41,10 +41,8 @@ class DigitalClock extends Component {
 
     updateSizeObserver(mediaQuery) {
         if(mediaQuery.matches) {
-            // small screen
             this.resizeClock(this.props.sizeMd, this.props.marginMd);
         } else {
-            // large screen
             this.resizeClock(this.props.sizeLg, this.props.marginLg);
         }
     }
