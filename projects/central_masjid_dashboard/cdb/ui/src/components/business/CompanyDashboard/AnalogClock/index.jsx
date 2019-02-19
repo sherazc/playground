@@ -66,6 +66,7 @@ class AnalogClock extends Component {
         const minutesStyle = createMinutesHandStyle(size);
         const hoursStyle = createHoursHandStyle(size);
 
+        this.setState({dialStyle, secondsStyle, minutesStyle, hoursStyle});
     }
 
 
@@ -96,7 +97,19 @@ class AnalogClock extends Component {
 
     render() {
         const {classes} = this.props;
+        const {dialStyle, secondsStyle, minutesStyle, hoursStyle} = this.state;
+
         return (
+            <ul style={dialStyle}>
+                <Link to="/">home</Link>
+                <Link to="/c1">c1</Link>
+                <Link to="/c2">c2</Link>
+                <li style={secondsStyle}></li>
+                <li style={minutesStyle}></li>
+                <li style={hoursStyle}></li>
+            </ul>
+
+            /*
             <ul className={classes.clockDial}>
                 <Link to="/">home</Link>
                 <Link to="/c1">c1</Link>
@@ -105,6 +118,8 @@ class AnalogClock extends Component {
                 <li className={classes.minuteHand} style={this.state.minutesStyle}></li>
                 <li className={classes.hourHand} style={this.state.hoursStyle}></li>
             </ul>
+            */
+
         );
     }
 }
