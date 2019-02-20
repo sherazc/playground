@@ -66,24 +66,24 @@ const createClockHandStyle = (size) => {
 
 export const createSecondsHandSytle = (size) => {
     return {
-        ...createClockHandStyle(size),
         background: `url(${seconds_hand}) no-repeat`,
-        zIndex: "30"
+        zIndex: "30",
+        ...createClockHandStyle(size)
     }
 };
 
 export const createMinutesHandStyle = (size) => {
     return {
-        ...createClockHandStyle(size),
         background: `url(${minutes_hand}) no-repeat`,
-        zIndex: "20"
+        zIndex: "20",
+        ...createClockHandStyle(size)
     }
 };
 
 export const createHoursHandStyle = (size) => {
     return {
-        ...createClockHandStyle(size),
         background: `url(${hours_hand}) no-repeat`,
-        zIndex: "10"
+        zIndex: "10",
+        ...createClockHandStyle(size)
     }
 };

@@ -36,7 +36,6 @@ class AnalogClock extends Component {
     }
 
     resizeClock(size, margin) {
-        console.log("Resize called", size, margin);
         const dialStyle = createDialStyle(size, margin);
         const secondsStyle = createSecondsHandSytle(size);
         const minutesStyle = createMinutesHandStyle(size);
@@ -70,7 +69,6 @@ class AnalogClock extends Component {
 
     render() {
         const {dialStyle, secondsStyle, minutesStyle, hoursStyle} = this.state;
-
         return (
             <ul style={dialStyle}>
                 <Link to="/">home</Link>
