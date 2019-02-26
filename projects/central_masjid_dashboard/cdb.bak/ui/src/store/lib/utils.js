@@ -1,1 +1,0 @@
-export const mapStateLoginToProps = state => {return {login: state.login}};

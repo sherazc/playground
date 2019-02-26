@@ -1,7 +1,7 @@
 <?php
 // $db = new mysqli("localhost", "dbuser", "password123", "web");
 
-$db = new mysqli("127.0.0.1", "sheraz", "password123", "sa");
+$db = new mysqli("db774511780.hosting-data.io", "dbo774511780", "DbConn!0", "db774511780");
 
 if ($db->connect_errno) {
     echo $db->connect_error;
