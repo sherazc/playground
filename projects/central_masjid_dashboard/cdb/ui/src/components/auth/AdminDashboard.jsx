@@ -1,23 +1,17 @@
 import React from "react";
 import {connect} from "react-redux";
 import {mapStateLoginToProps} from "../../store/lib/utils";
-import AdminNavigation from "../common/navigation/AdminNavigation";
+import ContainerGridLayout01 from "../layout/ContainerGridLayout01";
 
 const AdminDashboard = (props) => {
     return (
-        <div>
-            <AdminNavigation/>
-            <h3>Admin Dashboard</h3>
+        <ContainerGridLayout01>
             <div>
-                Login token: {props.login.token}
+                {/*<AdminNavigation/>*/}
+                test
             </div>
-            <div>
-                Company: {props.login.company.name}
-            </div>
-            <div>
-                User: {props.login.user.firstName} {props.login.user.lastName}
-            </div>
-        </div>
+        </ContainerGridLayout01>
+
     );
 };
 

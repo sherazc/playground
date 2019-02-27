@@ -9,27 +9,33 @@ const styles = theme => {
         root: {
             flexGrow: 1,
         },
-        demo: {
-            background: "#f00",
+        container: {
+            background: "#fff",
             [theme.breakpoints.up("lg")]: {
                 width: 1170
             }
-        }
+        },
+
     });
 };
 
-class ContainerGridLayout extends Component {
+class ContainerGridLayout01 extends Component {
     render() {
         const {classes} = this.props;
         return (
             <Grid container justify="center">
                 <Grid
                     container
-                    className={classes.demo}
+                    className={classes.container}
                     alignItems="center"
                     justify="flex-start">
-                    {this.props.children}
+                    <div>
+                        <div>Header</div>
+                        {this.props.children}
+                        <div>Footer</div>
+                    </div>
                 </Grid>
+
             </Grid>
         );
     }
@@ -38,4 +44,4 @@ class ContainerGridLayout extends Component {
 }
 
 
-export default withStyles(styles)(ContainerGridLayout);
+export default withStyles(styles)(ContainerGridLayout01);

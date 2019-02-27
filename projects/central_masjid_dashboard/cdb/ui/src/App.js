@@ -85,9 +85,16 @@ class App extends Component {
 
                             <Route path={`${process.env.PUBLIC_URL}/examples`} component={Examples} exact/>
 
+                            {/*
                             <AuthRoute
                                 authenticate={true}
                                 path={`${process.env.PUBLIC_URL}/auth/dashboard`} component={Dashboard} exact/>
+                            */}
+
+                            <Route
+                                authenticate={true}
+                                path={`${process.env.PUBLIC_URL}/auth/dashboard`} component={Dashboard} exact/>
+
                             <Route path={`${process.env.PUBLIC_URL}/forbidden`} component={Forbidden} exact/>
 
                             <Route path={`${process.env.PUBLIC_URL}/404`} component={PageNotFound} exact/>
