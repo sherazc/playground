@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import Grid from '@material-ui/core/Grid';
 import {withStyles} from '@material-ui/core/styles';
 
-
 const styles = theme => {
     console.log(theme.breakpoints.up("lg"));
     return ({
@@ -29,10 +28,10 @@ class ContainerGridLayout01 extends Component {
                     className={classes.container}
                     alignItems="center"
                     justify="flex-start">
-                    <div>
-                        <div>Header</div>
+                    <div style={{width: "100%"}}>
+                        <div style={{backgroundColor: "#c3ecba", padding: "20px",}}>Header</div>
                         {this.props.children}
-                        <div>Footer</div>
+                        <div style={{backgroundColor: "#9c9c9c", padding: "20px", color: "white"}}>Footer</div>
                     </div>
                 </Grid>
 
