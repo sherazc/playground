@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 
-class SalahTab extends Component {
+class TabSahah extends Component {
     render() {
         return (
             <div>Salah Control</div>
@@ -8,4 +8,4 @@ class SalahTab extends Component {
     }
 }
 
-export default SalahTab;
+export default TabSahah;

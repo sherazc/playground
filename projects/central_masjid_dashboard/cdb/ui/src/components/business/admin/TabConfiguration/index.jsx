@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 
-class ConfigurationTab extends Component {
+class TabConfiguration extends Component {
     render() {
         return (
             <div>Configuration Control</div>
@@ -8,4 +8,4 @@ class ConfigurationTab extends Component {
     }
 }
 
-export default ConfigurationTab;
+export default TabConfiguration;

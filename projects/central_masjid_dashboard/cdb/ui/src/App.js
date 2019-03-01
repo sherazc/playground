@@ -89,12 +89,12 @@ class App extends Component {
                             {/*
                             <AuthRoute
                                 authenticate={true}
-                                path={`${process.env.PUBLIC_URL}/auth/dashboard`} component={Dashboard} exact/>
+                                path={`${process.env.PUBLIC_URL}/auth/admin`} component={Dashboard} exact/>
                             */}
 
                             <Route
                                 authenticate={true}
-                                path={`${process.env.PUBLIC_URL}/auth/dashboard`} component={AdminControl} exact/>
+                                path={`${process.env.PUBLIC_URL}/auth/admin`} component={AdminControl} exact/>
 
                             <Route path={`${process.env.PUBLIC_URL}/forbidden`} component={Forbidden} exact/>
 
