@@ -19,7 +19,7 @@ const styles = theme => {
             backgroundColor: "#ffffff",
         },
         "& tr:hover": {
-            backgroundColor: "#f4f4f4",
+            backgroundColor: "#dce0f4",
         }
     };
 

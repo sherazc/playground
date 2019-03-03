@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import {Button} from "@material-ui/core";
 import SahahMonth from "./SalahMonth";
 import ResetSalahLocation from "./ResetSalahLocation";
 
@@ -8,6 +7,9 @@ class TabSahah extends Component {
         return (
             <div>
                 <ResetSalahLocation/>
+                <SahahMonth/>
+                <SahahMonth/>
+                <SahahMonth/>
                 <SahahMonth/>
             </div>
         );
