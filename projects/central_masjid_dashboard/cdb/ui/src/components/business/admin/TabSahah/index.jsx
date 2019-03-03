@@ -1,12 +1,13 @@
 import React, {Component} from "react";
 import {Button} from "@material-ui/core";
 import SahahMonth from "./SalahMonth";
+import ResetSalahLocation from "./ResetSalahLocation";
 
 class TabSahah extends Component {
     render() {
         return (
             <div>
-                <Button variant="contained" color="primary">Reset Salah Time</Button>
+                <ResetSalahLocation/>
                 <SahahMonth/>
             </div>
         );
