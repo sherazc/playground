@@ -9,11 +9,16 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 class ResetSalahLocation extends Component {
-    state = {
-        open: false,
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            open: false,
+            location: ""
+        };
+        this.onChange = this.onChange.bind(this);
+    }
 
-    handleClickOpen = () => {
+    handleOpen = () => {
         this.setState({ open: true });
     };
 
@@ -21,10 +26,21 @@ class ResetSalahLocation extends Component {
         this.setState({ open: false });
     };
 
+    onChange(event) {
+        console.log(event.target.name);
+        console.log(event.target.value);
+        this.setState({[event.target.name]: event.target.value});
+    }
+
+    geoCodeLocation() {
+
+    }
+
+
     render() {
         return (
             <div>
-                <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+                <Button variant="outlined" color="primary" onClick={this.handleOpen}>
                     Reset Salah Location
                 </Button>
                 <Dialog
@@ -41,10 +57,12 @@ class ResetSalahLocation extends Component {
                         <TextField
                             autoFocus
                             margin="dense"
-                            id="name"
+                            name="location"
                             label="Location/Address"
                             type="text"
                             fullWidth
+                            value={this.state.location}
+                            onChange={this.onChange}
                         />
                     </DialogContent>
                     <DialogActions>
