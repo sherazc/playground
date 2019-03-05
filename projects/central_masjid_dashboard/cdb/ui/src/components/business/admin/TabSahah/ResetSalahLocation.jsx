@@ -52,7 +52,7 @@ class ResetSalahLocation extends Component {
                             Cancel
                         </Button>
                         <Button onClick={this.handleClose} color="primary">
-                            Reset
+                            Next
                         </Button>
                     </DialogActions>
                 </Dialog>

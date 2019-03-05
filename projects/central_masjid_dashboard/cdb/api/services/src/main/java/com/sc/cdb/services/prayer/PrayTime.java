@@ -1,4 +1,4 @@
-package com.sc.cdb.services.prayertime;
+package com.sc.cdb.services.prayer;
 //--------------------- Copyright Block ----------------------
 /*
 
