@@ -78,7 +78,6 @@ class SahahMonth extends Component {
 
     render() {
         const classes = this.props.classes;
-        console.log(classes);
         return (
             <div className={classes.single_month_grid}>
                 <table className={classes.salah_table}>
