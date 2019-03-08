@@ -24,7 +24,11 @@ class ResetSalahLocation extends Component {
             location: "",
             latitude: undefined,
             longitude: undefined,
-            step: 0
+            step: 0,
+            timezone: -5,
+            calculationMethod: 1,
+            asrJuristic: 0,
+            prayerOffsetMinutes: [0, 0, 0, 0, 0, 0, 0]
         };
     }
 
@@ -78,11 +82,11 @@ class ResetSalahLocation extends Component {
         );
     }
 
-    step2(invalidLocation) {
+    step2() {
         return (
             <div>
                 <DialogContentText>
-                    Advance Salah configuration
+                    Advance Prayer configuration
                 </DialogContentText>
             </div>
         );
