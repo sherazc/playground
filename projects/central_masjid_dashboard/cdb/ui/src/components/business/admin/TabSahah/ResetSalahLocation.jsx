@@ -12,20 +12,24 @@ import {geoCodeLocation} from "../../../../services/business/PrayerServices";
 class ResetSalahLocation extends Component {
     constructor(props) {
         super(props);
-        this.state = {
+        this.state = this.createInitState();
+        this.onChange = this.onChange.bind(this);
+        this.handleLatitudeLongitude = this.handleLatitudeLongitude.bind(this)
+        this.validateLocation = this.validateLocation.bind(this)
+    }
+
+    createInitState() {
+        return {
             open: false,
             location: "",
             latitude: undefined,
             longitude: undefined,
             step: 0
         };
-        this.onChange = this.onChange.bind(this);
-        this.handleLatitudeLongitude = this.handleLatitudeLongitude.bind(this)
-        this.validateLocation = this.validateLocation.bind(this)
     }
 
     handleOpen = () => {
-        this.setState({open: true});
+        this.setState({...this.createInitState(), open: true});
     };
 
     handleClose = () => {
@@ -77,7 +81,9 @@ class ResetSalahLocation extends Component {
     step2(invalidLocation) {
         return (
             <div>
-                This is step 2
+                <DialogContentText>
+                    Advance Salah configuration
+                </DialogContentText>
             </div>
         );
     }
@@ -99,14 +105,21 @@ class ResetSalahLocation extends Component {
                     <DialogTitle id="form-dialog-title">Reset Salah Location</DialogTitle>
                     <DialogContent>
                         {this.state.step === 0 && this.step1_selectPrayerLocationDialogContent(invalidLocation)}
+                        {this.state.step === 1 && this.step2()}
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">
                             Cancel
                         </Button>
+
+                        {this.state.step === 0 &&
+                        <Button onClick={this.validateLocation} color="primary">
+                        Validate Location
+                        </Button>}
+                        {this.state.step === 1 &&
                         <Button onClick={this.validateLocation} color="primary">
                             Validate Location
-                        </Button>
+                        </Button>}
                     </DialogActions>
                 </Dialog>
             </div>
