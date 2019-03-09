@@ -22,18 +22,18 @@ class ResetSalahLocation extends Component {
 
     createInitState() {
 
-/*
-        return {
-            open: false,
-            location: "",
-            locationValid: undefined,
-            step: 0,
-            geoCode: this.createInitGeoCode(),
-            calculationMethod: 1,
-            asrJuristic: 0,
-            prayerOffsetMinutes: [0, 0, 0, 0, 0, 0, 0],
-        };
-*/
+        /*
+                return {
+                    open: false,
+                    location: "",
+                    locationValid: undefined,
+                    step: 0,
+                    geoCode: this.createInitGeoCode(),
+                    calculationMethod: 1,
+                    asrJuristic: 0,
+                    prayerOffsetMinutes: [0, 0, 0, 0, 0, 0, 0],
+                };
+        */
 
         return {
             "open": true,
@@ -115,7 +115,6 @@ class ResetSalahLocation extends Component {
     }
 
     step2() {
-        const {classes} = this.props;
         /*
         "calculationMethod": 1,
         "asrJuristic": 0,
@@ -137,76 +136,54 @@ class ResetSalahLocation extends Component {
                     &nbsp;- {this.state.geoCode.timezoneName}
                     &nbsp;- {this.state.geoCode.timezoneId}
                 </DialogContentText>
-                <b>Azan offset minutes</b>
-                <div className={classes.azanOffsetContainer}>
-                    <TextField className={classes.azanOffset}
-                               error={this.state.locationValid === false}
-                               autoFocus
-                               margin="dense"
-                               name="location"
-                               label="Fajer"
-                               type="text"
-                               fullWidth
-                               value={this.state.location}
-                               onChange={this.onChange}/>
-
-                    <TextField className={classes.azanOffset}
-                               error={this.state.locationValid === false}
-                               autoFocus
-                               margin="dense"
-                               name="location"
-                               label="Fajer"
-                               type="text"
-                               fullWidth
-                               value={this.state.location}
-                               onChange={this.onChange}/>
-                    <TextField className={classes.azanOffset}
-                               error={this.state.locationValid === false}
-                               autoFocus
-                               margin="dense"
-                               name="location"
-                               label="Fajer"
-                               type="text"
-                               fullWidth
-                               value={this.state.location}
-                               onChange={this.onChange}/>
-
-                    <TextField className={classes.azanOffset}
-                               error={this.state.locationValid === false}
-                               autoFocus
-                               margin="dense"
-                               name="location"
-                               label="Fajer"
-                               type="text"
-                               fullWidth
-                               value={this.state.location}
-                               onChange={this.onChange}/>
-
-                    <TextField className={classes.azanOffset}
-                               error={this.state.locationValid === false}
-                               autoFocus
-                               margin="dense"
-                               name="location"
-                               label="Fajer"
-                               type="text"
-                               fullWidth
-                               value={this.state.location}
-                               onChange={this.onChange}/>
-                    <TextField className={classes.azanOffset}
-                               error={this.state.locationValid === false}
-                               autoFocus
-                               margin="dense"
-                               name="location"
-                               label="Fajer"
-                               type="text"
-                               fullWidth
-                               value={this.state.location}
-                               onChange={this.onChange}/>
-                </div>
+                {this.createPrayerOffsetFields()}
             </div>
         );
     }
 
+
+    createPrayerOffsetFields() {
+        const {classes} = this.props;
+
+        const offsetNames = ["Fajr", "Sunrise", "Dhuhr", "Asr", "Sunset", "Maghrib", "Isha"];
+
+        const offsetFields = offsetNames.map((offsetName, index) => {
+
+
+            const onChangeFunction = (event) => {
+                const value = event.target.value;
+                if (value > 60 || value < -60) {
+                    return;
+                }
+                this.state.prayerOffsetMinutes[index] = value;
+                this.setState({prayerOffsetMinutes: this.state.prayerOffsetMinutes})
+            };
+
+            const offsetTextField = (
+                <TextField key={index} className={classes.azanOffset}
+                           autoFocus
+                           margin="dense"
+                           name={offsetName}
+                           label={offsetName}
+                           type="number"
+                           fullWidth
+                           value={this.state.prayerOffsetMinutes[index]}
+                           onChange={onChangeFunction}/>
+            );
+
+            return offsetTextField;
+        });
+
+
+        return (
+            <div>
+                <b>Azan offset minutes</b>
+                <div className={classes.azanOffsetContainer}>
+                    {offsetFields}
+                </div>
+            </div>
+        );
+    }
 
     render() {
         return (

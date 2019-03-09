@@ -3,10 +3,10 @@ export const styles = theme => {
         display: "flex"
     };
     const azanOffset = {
-        width: "20%"
+        width: "20%",
+        padding: "5px"
     };
 
-    // {fajr, sunrise, dhuhr, asr, sunset, maghrib, isha}
     return ({
         azanOffsetContainer, azanOffset
     });
