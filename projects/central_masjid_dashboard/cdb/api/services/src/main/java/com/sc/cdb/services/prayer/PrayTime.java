@@ -29,6 +29,7 @@ PLEASE DO NOT REMOVE THIS COPYRIGHT BLOCK.
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.TimeZone;
 
@@ -310,7 +311,9 @@ public class PrayTime {
   // convert a calendar date to julian date (second method)
   private double calcJD(int year, int month, int day) {
     double J1970 = 2440588.0;
-    Date date = new Date(year, month - 1, day);
+    // Sheraz Changed
+    // Date date = new Date(year, month - 1, day);
+    Date date = new GregorianCalendar(year + 1900, month - 1, day).getTime();
 
     double ms = date.getTime(); // # of milliseconds since midnight Jan 1,
     // 1970
@@ -698,9 +701,42 @@ public class PrayTime {
   }
 
   /**
-   * @param args
+   * https://www.islamicfinder.org/world/india/1275339/mumbai-prayer-times/
    */
-  public static void main(String[] args) {
+  public static void main_Mumbai() {
+    double latitude = 19.075983;
+    double longitude = 72.877655;
+    double timezone = 5.5;
+    // Test Prayer times here
+    PrayTime prayers = new PrayTime();
+
+    prayers.setTimeFormat(prayers.Time12);
+    prayers.setCalcMethod(prayers.MWL);
+
+    prayers.setAsrJuristic(prayers.Shafii);
+    prayers.setAdjustHighLats(prayers.AngleBased);
+    int[] offsets = {0, 0, 0, 0, 0, 0, 0}; // {Fajr,Sunrise,Dhuhr,Asr,Sunset,Maghrib,Isha}
+    prayers.tune(offsets);
+
+    Date now = new Date();
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(now);
+
+    ArrayList<String> prayerTimes = prayers.getPrayerTimes(cal,
+        latitude, longitude, timezone);
+    ArrayList<String> prayerNames = prayers.getTimeNames();
+
+    for (int i = 0; i < prayerTimes.size(); i++) {
+      System.out.println(prayerNames.get(i) + " - " + prayerTimes.get(i));
+    }
+
+  }
+
+
+  /**
+   * https://www.islamicfinder.org/world/united-states/4179574/alpharetta-prayer-times/
+   */
+  public static void main_Alpharetta() {
     double latitude = 34.125401;
     double longitude = -84.277672;
     double timezone = -5;
@@ -726,6 +762,13 @@ public class PrayTime {
       System.out.println(prayerNames.get(i) + " - " + prayerTimes.get(i));
     }
 
+  }
+
+  public static void main(String[] args) {
+    System.out.println("\n\nAlpharetta, GA\n======");
+    main_Alpharetta();
+    System.out.println("\n\nMumbai, India\n======");
+    main_Mumbai();
   }
 
   public int getCalcMethod() {

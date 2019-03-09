@@ -1,9 +1,12 @@
 package com.sc.cdb.services.prayer;
 
 import java.text.MessageFormat;
+import java.util.TimeZone;
 
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
+import com.google.maps.PendingResult;
+import com.google.maps.TimeZoneApi;
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
 import com.sc.cdb.data.model.prayer.GeoCode;
@@ -37,15 +40,30 @@ public class PrayerServiceImpl implements PrayerService {
         try {
             LatLng latLng = pullLatLng(GeocodingApi.geocode(context, location).await());
             if (latLng != null) {
-                LOG.info("Successfully found location's latitude={}, longitude={}",
+                LOG.info("Successfully found location's latitude={}, longitude={}. Now calling Google timezone API.",
                     latLng.lat, latLng.lng);
-                GeoCode geoCode = new GeoCode(latLng.lat, latLng.lng);
-                serviceResponseBuilder.target(geoCode);
-                serviceResponseBuilder.successful(true);
+
+                TimeZone timeZoneResponse = TimeZoneApi.getTimeZone(context, latLng).await();
+                if (timeZoneResponse != null) {
+                    LOG.info("Successfully found timezone {}.", timeZoneResponse.getID());
+                    GeoCode geoCode = new GeoCode();
+                    geoCode.setLatitude(latLng.lat);
+                    geoCode.setLongitude(latLng.lng);
+                    geoCode.setTimezone(timeZoneResponse.getRawOffset() / 3600000D); // convert milliseconds to hours
+                    geoCode.setTimezoneId(timeZoneResponse.getID());
+                    geoCode.setTimezoneName(timeZoneResponse.getDisplayName());
+
+                    serviceResponseBuilder.target(geoCode);
+                    serviceResponseBuilder.successful(true);
+                } else {
+                    LOG.error("Can not find timezone for latitude={}, longitude={}.", latLng.lat, latLng.lng);
+                }
+            } else {
+                LOG.error("Can not Geocode {}. Unable to find latitude, longitude.", location);
             }
         } catch (Exception e) {
             String errorMessage = MessageFormat.format(
-                "Failed to call Google Geo Code API. location={0}. {1}",
+                "Failed to call Google Geo Code and timezone API. location={0}. {1}",
                 location, e.getMessage());
             LOG.error(errorMessage, e);
             serviceResponseBuilder.message(errorMessage);

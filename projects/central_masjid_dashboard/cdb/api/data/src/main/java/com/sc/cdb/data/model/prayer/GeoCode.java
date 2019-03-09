@@ -12,4 +12,7 @@ import lombok.NoArgsConstructor;
 public class GeoCode {
     private double latitude;
     private double longitude;
+    private double timezone;
+    private String timezoneId;
+    private String timezoneName;
 }
