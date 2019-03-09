@@ -6,7 +6,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import {geoCodeLocation} from "../../../../services/business/PrayerServices";
+import {geoCodeLocation} from "./PrayerServices";
+import {styles} from "./ResetSalahLocationStyles";
+import {withStyles} from '@material-ui/core/styles';
 
 
 class ResetSalahLocation extends Component {
@@ -14,21 +16,50 @@ class ResetSalahLocation extends Component {
         super(props);
         this.state = this.createInitState();
         this.onChange = this.onChange.bind(this);
-        this.handleLatitudeLongitude = this.handleLatitudeLongitude.bind(this)
-        this.validateLocation = this.validateLocation.bind(this)
+        this.handleGeocode = this.handleGeocode.bind(this);
+        this.validateLocation = this.validateLocation.bind(this);
     }
 
     createInitState() {
+
+/*
         return {
             open: false,
             location: "",
-            latitude: undefined,
-            longitude: undefined,
+            locationValid: undefined,
             step: 0,
-            timezone: -5,
+            geoCode: this.createInitGeoCode(),
             calculationMethod: 1,
             asrJuristic: 0,
-            prayerOffsetMinutes: [0, 0, 0, 0, 0, 0, 0]
+            prayerOffsetMinutes: [0, 0, 0, 0, 0, 0, 0],
+        };
+*/
+
+        return {
+            "open": true,
+            "location": "30004",
+            "locationValid": true,
+            "step": 1,
+            "geoCode": {
+                "latitude": 34.17630630000001,
+                "longitude": -84.2910759,
+                "timezone": -5,
+                "timezoneId": "America/New_York",
+                "timezoneName": "Eastern Standard Time"
+            },
+            "calculationMethod": 1,
+            "asrJuristic": 0,
+            "prayerOffsetMinutes": [0, 0, 0, 0, 0, 0, 0]
+        }
+    }
+
+    createInitGeoCode() {
+        return {
+            latitude: 0,
+            longitude: 0,
+            timezone: 0,
+            timezoneId: "",
+            timezoneName: ""
         };
     }
 
@@ -44,21 +75,22 @@ class ResetSalahLocation extends Component {
         this.setState({[event.target.name]: event.target.value});
     }
 
-    handleLatitudeLongitude(latitude, longitude) {
-        this.setState({latitude, longitude});
-        if (latitude !== 0 && longitude !== 0) {
-            this.setState({step: 1});
+    handleGeocode(locationValid, geoCode) {
+        if (locationValid) {
+            this.setState({step: 1, locationValid, geoCode});
+        } else {
+            this.setState({step: 0, locationValid: false, geoCode: this.createInitGeoCode()});
         }
     }
 
     validateLocation() {
-        geoCodeLocation(this.state.location, this.handleLatitudeLongitude);
+        geoCodeLocation(this.state.location, this.handleGeocode);
     }
 
 
-    step1_selectPrayerLocationDialogContent(invalidLocation) {
+    step1() {
         const locationHelperMessage = "Enter zip-code or city and state or full address";
-        const locationMessage = invalidLocation ? `Invalid Location. ${locationHelperMessage}` : locationHelperMessage;
+        const locationMessage = this.state.locationValid === false ? `Invalid Location. ${locationHelperMessage}` : locationHelperMessage;
         return (
             <div>
                 <DialogContentText>
@@ -68,7 +100,7 @@ class ResetSalahLocation extends Component {
                     <br/>
                 </DialogContentText>
                 <TextField
-                    error={invalidLocation}
+                    error={this.state.locationValid === false}
                     helperText={locationMessage}
                     autoFocus
                     margin="dense"
@@ -83,20 +115,100 @@ class ResetSalahLocation extends Component {
     }
 
     step2() {
+        const {classes} = this.props;
+        /*
+        "calculationMethod": 1,
+        "asrJuristic": 0,
+        "prayerOffsetMinutes": [0, 0, 0, 0, 0, 0, 0]
+         */
+
+        const latitude = `${this.state.geoCode.latitude}`.substring(0, 10);
+        const longitude = `${this.state.geoCode.longitude}`.substring(0, 10);
+
         return (
             <div>
                 <DialogContentText>
-                    Advance Prayer configuration
+                    <b>Location</b> {this.state.location}
+                    <br/>
+                    <b>Geocode</b> {latitude}/{longitude}
+                    <br/>
+                    <b>Time Zone</b>
+                    &nbsp;{this.state.geoCode.timezone}
+                    &nbsp;- {this.state.geoCode.timezoneName}
+                    &nbsp;- {this.state.geoCode.timezoneId}
                 </DialogContentText>
+                <b>Azan offset minutes</b>
+                <div className={classes.azanOffsetContainer}>
+                    <TextField className={classes.azanOffset}
+                               error={this.state.locationValid === false}
+                               autoFocus
+                               margin="dense"
+                               name="location"
+                               label="Fajer"
+                               type="text"
+                               fullWidth
+                               value={this.state.location}
+                               onChange={this.onChange}/>
+
+                    <TextField className={classes.azanOffset}
+                               error={this.state.locationValid === false}
+                               autoFocus
+                               margin="dense"
+                               name="location"
+                               label="Fajer"
+                               type="text"
+                               fullWidth
+                               value={this.state.location}
+                               onChange={this.onChange}/>
+                    <TextField className={classes.azanOffset}
+                               error={this.state.locationValid === false}
+                               autoFocus
+                               margin="dense"
+                               name="location"
+                               label="Fajer"
+                               type="text"
+                               fullWidth
+                               value={this.state.location}
+                               onChange={this.onChange}/>
+
+                    <TextField className={classes.azanOffset}
+                               error={this.state.locationValid === false}
+                               autoFocus
+                               margin="dense"
+                               name="location"
+                               label="Fajer"
+                               type="text"
+                               fullWidth
+                               value={this.state.location}
+                               onChange={this.onChange}/>
+
+                    <TextField className={classes.azanOffset}
+                               error={this.state.locationValid === false}
+                               autoFocus
+                               margin="dense"
+                               name="location"
+                               label="Fajer"
+                               type="text"
+                               fullWidth
+                               value={this.state.location}
+                               onChange={this.onChange}/>
+                    <TextField className={classes.azanOffset}
+                               error={this.state.locationValid === false}
+                               autoFocus
+                               margin="dense"
+                               name="location"
+                               label="Fajer"
+                               type="text"
+                               fullWidth
+                               value={this.state.location}
+                               onChange={this.onChange}/>
+                </div>
             </div>
         );
     }
 
 
     render() {
-        const invalidLocation = this.state.latitude === 0 && this.state.longitude === 0;
-        const validLocation = !!(this.state.latitude && this.state.longitude);
-
         return (
             <div>
                 <Button variant="outlined" color="primary" onClick={this.handleOpen}>
@@ -108,7 +220,7 @@ class ResetSalahLocation extends Component {
                     aria-labelledby="form-dialog-title">
                     <DialogTitle id="form-dialog-title">Reset Salah Location</DialogTitle>
                     <DialogContent>
-                        {this.state.step === 0 && this.step1_selectPrayerLocationDialogContent(invalidLocation)}
+                        {this.state.step === 0 && this.step1()}
                         {this.state.step === 1 && this.step2()}
                     </DialogContent>
                     <DialogActions>
@@ -118,7 +230,7 @@ class ResetSalahLocation extends Component {
 
                         {this.state.step === 0 &&
                         <Button onClick={this.validateLocation} color="primary">
-                        Validate Location
+                            Validate Location
                         </Button>}
                         {this.state.step === 1 &&
                         <Button onClick={this.validateLocation} color="primary">
@@ -131,4 +243,4 @@ class ResetSalahLocation extends Component {
     }
 }
 
-export default ResetSalahLocation;
+export default withStyles(styles)(ResetSalahLocation);
