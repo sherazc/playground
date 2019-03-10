@@ -9,6 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import {geoCodeLocation} from "./PrayerServices";
 import {styles} from "./ResetSalahLocationStyles";
 import {withStyles} from '@material-ui/core/styles';
+import PrayerOffsetFields from "./PrayerOffsetFields";
 
 
 class ResetSalahLocation extends Component {
@@ -18,6 +19,7 @@ class ResetSalahLocation extends Component {
         this.onChange = this.onChange.bind(this);
         this.handleGeocode = this.handleGeocode.bind(this);
         this.validateLocation = this.validateLocation.bind(this);
+        this.updatePrayerOffsetMinutes = this.updatePrayerOffsetMinutes.bind(this);
     }
 
     createInitState() {
@@ -114,6 +116,11 @@ class ResetSalahLocation extends Component {
         );
     }
 
+    updatePrayerOffsetMinutes(prayerOffsetMinutes) {
+        console.log(prayerOffsetMinutes);
+        this.setState({prayerOffsetMinutes});
+    }
+
     step2() {
         /*
         "calculationMethod": 1,
@@ -136,11 +143,13 @@ class ResetSalahLocation extends Component {
                     &nbsp;- {this.state.geoCode.timezoneName}
                     &nbsp;- {this.state.geoCode.timezoneId}
                 </DialogContentText>
-                {this.createPrayerOffsetFields()}
+                <PrayerOffsetFields
+                    prayerOffsetMinutes={this.state.prayerOffsetMinutes}
+                    updatePrayerOffsetMinutes={this.updatePrayerOffsetMinutes}/>
+                {/*{this.createPrayerOffsetFields()}*/}
             </div>
         );
     }
-
 
     createPrayerOffsetFields() {
         const {classes} = this.props;
