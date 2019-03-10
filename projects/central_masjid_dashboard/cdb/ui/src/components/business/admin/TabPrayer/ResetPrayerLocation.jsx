@@ -147,7 +147,7 @@ class ResetPrayerLocation extends Component {
                     prayerOffsetMinutes={this.state.prayerOffsetMinutes}
                     updatePrayerOffsetMinutes={this.updatePrayerOffsetMinutes}/>
                 */}
-                {/*{this.createPrayerOffsetFields()}*/}
+                {this.createPrayerOffsetFields()}
             </div>
         );
     }
@@ -158,15 +158,14 @@ class ResetPrayerLocation extends Component {
         const offsetNames = ["Fajr", "Sunrise", "Dhuhr", "Asr", "Sunset", "Maghrib", "Isha"];
 
         const offsetFields = offsetNames.map((offsetName, index) => {
-
-
             const onChangeFunction = (event) => {
                 const value = event.target.value;
                 if (value > 60 || value < -60) {
                     return;
                 }
-                this.state.prayerOffsetMinutes[index] = value;
-                this.setState({prayerOffsetMinutes: this.state.prayerOffsetMinutes})
+                const prayerOffsetMinutes = this.state.prayerOffsetMinutes;
+                prayerOffsetMinutes[index] = value;
+                this.setState({prayerOffsetMinutes})
             };
 
             const offsetTextField = (
