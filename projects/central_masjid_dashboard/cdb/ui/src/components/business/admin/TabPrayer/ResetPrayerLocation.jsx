@@ -7,12 +7,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {geoCodeLocation} from "./PrayerServices";
-import {styles} from "./ResetSalahLocationStyles";
+import {styles} from "./ResetPrayerLocationStyles";
 import {withStyles} from '@material-ui/core/styles';
-import PrayerOffsetFields from "./PrayerOffsetFields";
+import {allCalculationMethods, allJuristicMethods} from "./prayerCollections";
 
 
-class ResetSalahLocation extends Component {
+class ResetPrayerLocation extends Component {
     constructor(props) {
         super(props);
         this.state = this.createInitState();
@@ -117,7 +117,6 @@ class ResetSalahLocation extends Component {
     }
 
     updatePrayerOffsetMinutes(prayerOffsetMinutes) {
-        console.log("ResetSalah", prayerOffsetMinutes);
         this.setState({prayerOffsetMinutes});
     }
 
@@ -148,7 +147,7 @@ class ResetSalahLocation extends Component {
                     prayerOffsetMinutes={this.state.prayerOffsetMinutes}
                     updatePrayerOffsetMinutes={this.updatePrayerOffsetMinutes}/>
                 */}
-                {this.createPrayerOffsetFields()}
+                {/*{this.createPrayerOffsetFields()}*/}
             </div>
         );
     }
@@ -171,20 +170,16 @@ class ResetSalahLocation extends Component {
             };
 
             const offsetTextField = (
-                <TextField key={index} className={classes.azanOffset}
-                           autoFocus
-                           margin="dense"
-                           name={offsetName}
-                           label={offsetName}
-                           type="number"
-                           fullWidth
-                           value={this.state.prayerOffsetMinutes[index]}
-                           onChange={onChangeFunction}/>
+                <TextField
+                    key={index} className={classes.azanOffset}
+                    margin="dense" name={offsetName}
+                    label={offsetName} type="number" fullWidth
+                    value={this.state.prayerOffsetMinutes[index]}
+                    onChange={onChangeFunction}/>
             );
 
             return offsetTextField;
         });
-
 
         return (
             <div>
@@ -231,4 +226,4 @@ class ResetSalahLocation extends Component {
     }
 }
 
-export default withStyles(styles)(ResetSalahLocation);
+export default withStyles(styles)(ResetPrayerLocation);

@@ -1,13 +1,13 @@
 import React, {Component} from "react";
-import SahahMonth from "./SalahMonth";
-import ResetSalahLocation from "./ResetSalahLocation";
+import SahahMonth from "./PrayerMonth";
+import ResetPrayerLocation from "./ResetPrayerLocation";
 import {Button} from "@material-ui/core";
 
-class TabSahah extends Component {
+class TabPrayer extends Component {
     render() {
         return (
             <div>
-                <ResetSalahLocation/>
+                <ResetPrayerLocation/>
                 <Button variant="outlined" color="primary">
                     Batch update
                 </Button>
@@ -20,4 +20,4 @@ class TabSahah extends Component {
     }
 }
 
-export default TabSahah;
+export default TabPrayer;

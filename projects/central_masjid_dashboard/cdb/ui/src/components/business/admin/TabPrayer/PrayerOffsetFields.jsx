@@ -34,8 +34,6 @@ class PrayerOffsetFields extends Component {
         const {classes, prayerOffsetMinutes, updatePrayerOffsetMinutes} = this.props;
 
         const offsetFields = offsetNames.map((offsetName, index) => {
-
-
             const onChangeFunction = (event) => {
                 const value = event.target.value;
                 if (value > 60 || value < -60) {
@@ -44,29 +42,18 @@ class PrayerOffsetFields extends Component {
                 prayerOffsetMinutes[index] = value;
                 this.setState({prayerOffsetMinutes});
                 updatePrayerOffsetMinutes(prayerOffsetMinutes);
-                console.log("PrayerOffsetFields", prayerOffsetMinutes);
             };
 
 
             const offsetTextField = (
 
-                <div key={index}>
-                <TextField key={index} className={classes.azanOffset}
-                           autoFocus
-                           margin="dense"
-                           name={offsetName}
-                           label={offsetName}
-                           type="number"
-                           fullWidth
-                           value={this.state.prayerOffsetMinutes[index]}
-                           onChange={onChangeFunction}
-                />
-
-                    {this.state.prayerOffsetMinutes[index]}
-                </div>
+                <TextField
+                    key={index} className={classes.azanOffset}
+                    margin="dense" name={offsetName} label={offsetName}
+                    type="number" fullWidth
+                    value={this.state.prayerOffsetMinutes[index]}
+                    onChange={onChangeFunction}/>
             );
-
-            console.log("one ", index, new Date());
             return offsetTextField;
         });
 

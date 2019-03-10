@@ -5,7 +5,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import ContainerGridLayout01 from "../../layout/ContainerGridLayout01";
 import {mapStateLoginToProps} from "../../../store/lib/utils";
-import TabSahah from "./TabSahah";
+import TabPrayer from "./TabSahah";
 import TabConfiguration from "./TabConfiguration";
 import TabAccounting from "./TabAccounting";
 
@@ -33,7 +33,7 @@ class AdminControl extends Component {
                             <Tab label="Accounting"/>
                         </Tabs>
                     </AppBar>
-                    {this.state.tabIndex === 0 && <TabSahah/>}
+                    {this.state.tabIndex === 0 && <TabPrayer/>}
                     {this.state.tabIndex === 1 && <TabConfiguration/>}
                     {this.state.tabIndex === 2 && <TabAccounting/>}
                 </div>
