@@ -20,10 +20,14 @@ const styles = theme => {
 class PrayerOffsetFields extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            prayerOffsetMinutes: this.props.prayerOffsetMinutes
+        }
+    }
+
+    componentDidMount() {
         const offsetNames = ["Fajr", "Sunrise", "Dhuhr", "Asr", "Sunset", "Maghrib", "Isha"];
         this.offsetFields = this.createOffsetFields(offsetNames);
-
-
     }
 
     createOffsetFields(offsetNames) {
@@ -38,11 +42,15 @@ class PrayerOffsetFields extends Component {
                     return;
                 }
                 prayerOffsetMinutes[index] = value;
+                this.setState({prayerOffsetMinutes});
                 updatePrayerOffsetMinutes(prayerOffsetMinutes);
+                console.log("PrayerOffsetFields", prayerOffsetMinutes);
             };
 
 
             const offsetTextField = (
+
+                <div key={index}>
                 <TextField key={index} className={classes.azanOffset}
                            autoFocus
                            margin="dense"
@@ -50,9 +58,12 @@ class PrayerOffsetFields extends Component {
                            label={offsetName}
                            type="number"
                            fullWidth
-                           value={this.props.prayerOffsetMinutes[index]}
+                           value={this.state.prayerOffsetMinutes[index]}
                            onChange={onChangeFunction}
                 />
+
+                    {this.state.prayerOffsetMinutes[index]}
+                </div>
             );
 
             console.log("one ", index, new Date());

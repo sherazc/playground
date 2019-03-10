@@ -117,7 +117,7 @@ class ResetSalahLocation extends Component {
     }
 
     updatePrayerOffsetMinutes(prayerOffsetMinutes) {
-        console.log(prayerOffsetMinutes);
+        console.log("ResetSalah", prayerOffsetMinutes);
         this.setState({prayerOffsetMinutes});
     }
 
@@ -143,10 +143,12 @@ class ResetSalahLocation extends Component {
                     &nbsp;- {this.state.geoCode.timezoneName}
                     &nbsp;- {this.state.geoCode.timezoneId}
                 </DialogContentText>
+                {/*
                 <PrayerOffsetFields
                     prayerOffsetMinutes={this.state.prayerOffsetMinutes}
                     updatePrayerOffsetMinutes={this.updatePrayerOffsetMinutes}/>
-                {/*{this.createPrayerOffsetFields()}*/}
+                */}
+                {this.createPrayerOffsetFields()}
             </div>
         );
     }
