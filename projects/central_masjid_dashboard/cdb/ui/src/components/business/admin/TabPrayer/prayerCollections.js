@@ -7,7 +7,7 @@ export const allCalculationMethods = [
     {id: 6, name: "Institute of Geophysics, University of Tehran"},
     {id: 0, name: "Ithna Ashari"},
 ];
-export const allJuristicMethods = [
+export const allAsrJuristicMethods = [
     {id: 0, name: "Shafii (standard)"},
     {id: 1, name: "Hanafi"},
 ];

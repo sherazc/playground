@@ -1,41 +1,38 @@
 import React, {Component} from "react";
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import {geoCodeLocation} from "./PrayerServices";
 import {styles} from "./ResetPrayerLocationStyles";
 import {withStyles} from '@material-ui/core/styles';
-import {allCalculationMethods, allJuristicMethods} from "./prayerCollections";
-
+import {
+    Button, TextField, Dialog, DialogActions, DialogContent, DialogContentText,
+    DialogTitle, FormControl, InputLabel, MenuItem, Select
+} from "@material-ui/core";
+import {allCalculationMethods, allAsrJuristicMethods} from "./prayerCollections";
 
 class ResetPrayerLocation extends Component {
     constructor(props) {
         super(props);
         this.state = this.createInitState();
-        this.onChange = this.onChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.handleGeocode = this.handleGeocode.bind(this);
         this.validateLocation = this.validateLocation.bind(this);
         this.updatePrayerOffsetMinutes = this.updatePrayerOffsetMinutes.bind(this);
     }
 
     createInitState() {
+/*
 
-        /*
-                return {
-                    open: false,
-                    location: "",
-                    locationValid: undefined,
-                    step: 0,
-                    geoCode: this.createInitGeoCode(),
-                    calculationMethod: 1,
-                    asrJuristic: 0,
-                    prayerOffsetMinutes: [0, 0, 0, 0, 0, 0, 0],
-                };
-        */
+        return {
+            open: false,
+            location: "",
+            locationValid: undefined,
+            step: 0,
+            geoCode: this.createInitGeoCode(),
+            calculationMethod: 1,
+            asrJuristicMethod: 0,
+            prayerOffsetMinutes: [0, 0, 0, 0, 0, 0, 0],
+        };
+
+*/
 
         return {
             "open": true,
@@ -49,10 +46,10 @@ class ResetPrayerLocation extends Component {
                 "timezoneId": "America/New_York",
                 "timezoneName": "Eastern Standard Time"
             },
-            "calculationMethod": 1,
-            "asrJuristic": 0,
+            "calculationMethod": "",
+            "asrJuristicMethod": "",
             "prayerOffsetMinutes": [0, 0, 0, 0, 0, 0, 0]
-        }
+        };
     }
 
     createInitGeoCode() {
@@ -73,7 +70,7 @@ class ResetPrayerLocation extends Component {
         this.setState({open: false});
     };
 
-    onChange(event) {
+    handleChange(event) {
         this.setState({[event.target.name]: event.target.value});
     }
 
@@ -111,7 +108,7 @@ class ResetPrayerLocation extends Component {
                     type="text"
                     fullWidth
                     value={this.state.location}
-                    onChange={this.onChange}/>
+                    onChange={this.handleChange}/>
             </div>
         );
     }
@@ -121,6 +118,7 @@ class ResetPrayerLocation extends Component {
     }
 
     step2() {
+        const {classes} = this.props;
         /*
         "calculationMethod": 1,
         "asrJuristic": 0,
@@ -147,6 +145,44 @@ class ResetPrayerLocation extends Component {
                     prayerOffsetMinutes={this.state.prayerOffsetMinutes}
                     updatePrayerOffsetMinutes={this.updatePrayerOffsetMinutes}/>
                 */}
+
+
+                <FormControl className={classes.formControl}>
+                    <InputLabel htmlFor="calculationMethod">Calculation Method</InputLabel>
+                    <Select
+                        value={this.state.calculationMethod}
+                        onChange={this.handleChange}
+                        inputProps={{
+                            name: 'calculationMethod',
+                            id: 'calculationMethod',
+                        }} className={classes.selectEmpty}>
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+                        {allCalculationMethods.map((calculationMethod, index) => {
+                            return <MenuItem key={index} value={calculationMethod.id}>{calculationMethod.name}</MenuItem>
+                        })}
+                    </Select>
+                </FormControl>
+
+                <FormControl className={classes.formControl}>
+                    <InputLabel htmlFor="asrJuristicMethod">Asr Juristic Method</InputLabel>
+                    <Select
+                        value={this.state.asrJuristicMethod}
+                        onChange={this.handleChange}
+                        inputProps={{
+                            name: 'asrJuristicMethod',
+                            id: 'asrJuristicMethod',
+                        }} className={classes.selectEmpty}>
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+                        {allAsrJuristicMethods.map((asrJuristicMethod, index) => {
+                            return <MenuItem key={index} value={asrJuristicMethod.id}>{asrJuristicMethod.name}</MenuItem>
+                        })}
+                    </Select>
+                </FormControl>
+
                 {this.createPrayerOffsetFields()}
             </div>
         );

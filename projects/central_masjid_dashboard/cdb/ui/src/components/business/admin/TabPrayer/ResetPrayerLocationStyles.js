@@ -1,4 +1,11 @@
 export const styles = theme => {
+    const formControl = {
+        margin: theme.spacing.unit,
+            minWidth: 220,
+    };
+    const selectEmpty = {
+        marginTop: theme.spacing.unit * 2,
+    };
     const azanOffsetContainer = {
         display: "flex"
     };
@@ -7,7 +14,9 @@ export const styles = theme => {
         padding: "5px"
     };
 
+
     return ({
-        azanOffsetContainer, azanOffset
+        azanOffsetContainer, azanOffset,
+        formControl, selectEmpty
     });
 };
