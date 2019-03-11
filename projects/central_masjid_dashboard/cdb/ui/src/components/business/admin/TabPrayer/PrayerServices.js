@@ -18,3 +18,20 @@ export const geoCodeLocation = (location, handleGeoCode) => {
             console.log(errorResponse.response.data)
         });
 };
+
+
+export const updatePrayerLocation = () => {
+    const requestUrl = `${baseUrl}/api/prayer/location`;
+
+    axios.put(requestUrl).then(response => {
+            handleGeoCode(response.data.successful, response.data.target);
+        },
+        failResponse => {
+            handleGeoCode(false);
+            console.log(failResponse.response.data)
+        })
+        .catch(errorResponse => {
+            handleGeoCode(false);
+            console.log(errorResponse.response.data)
+        });
+};

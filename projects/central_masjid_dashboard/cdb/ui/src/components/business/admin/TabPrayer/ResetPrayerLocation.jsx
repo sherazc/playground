@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {geoCodeLocation} from "./PrayerServices";
+import {geoCodeLocation, updatePrayerLocation} from "./PrayerServices";
 import {styles} from "./ResetPrayerLocationStyles";
 import {withStyles} from '@material-ui/core/styles';
 import {
@@ -13,9 +13,9 @@ class ResetPrayerLocation extends Component {
         super(props);
         this.state = this.createInitState();
         this.handleChange = this.handleChange.bind(this);
-        this.handleGeocode = this.handleGeocode.bind(this);
-        this.validateLocation = this.validateLocation.bind(this);
+        this.handleValidateLocation = this.handleValidateLocation.bind(this);
         this.updatePrayerOffsetMinutes = this.updatePrayerOffsetMinutes.bind(this);
+        this.handleGeocode = this.handleGeocode.bind(this);
     }
 
     createInitState() {
@@ -34,6 +34,7 @@ class ResetPrayerLocation extends Component {
 
 */
 
+
         return {
             "open": true,
             "location": "30004",
@@ -50,6 +51,8 @@ class ResetPrayerLocation extends Component {
             "asrJuristicMethod": "",
             "prayerOffsetMinutes": [0, 0, 0, 0, 0, 0, 0]
         };
+
+
     }
 
     createInitGeoCode() {
@@ -82,7 +85,7 @@ class ResetPrayerLocation extends Component {
         }
     }
 
-    validateLocation() {
+    handleValidateLocation() {
         geoCodeLocation(this.state.location, this.handleGeocode);
     }
 
@@ -226,6 +229,10 @@ class ResetPrayerLocation extends Component {
         );
     }
 
+    handleFinish() {
+        updatePrayerLocation(this.state.location, this.handleGeocode);
+    }
+
     render() {
         return (
             <div>
@@ -247,12 +254,12 @@ class ResetPrayerLocation extends Component {
                         </Button>
 
                         {this.state.step === 0 &&
-                        <Button onClick={this.validateLocation} color="primary">
+                        <Button onClick={this.handleValidateLocation} color="primary">
                             Validate Location
                         </Button>}
                         {this.state.step === 1 &&
-                        <Button onClick={this.validateLocation} color="primary">
-                            Validate Location
+                        <Button onClick={this.handleFinish} color="primary">
+                            Finish
                         </Button>}
                     </DialogActions>
                 </Dialog>
