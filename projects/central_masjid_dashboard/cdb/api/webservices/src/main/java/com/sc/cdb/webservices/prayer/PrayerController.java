@@ -1,8 +1,12 @@
 package com.sc.cdb.webservices.prayer;
 
+import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.services.prayer.PrayerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,5 +24,12 @@ public class PrayerController {
     @GetMapping("location/geocode")
     public ResponseEntity<?> geoCode(@RequestParam String location) {
         return ResponseEntity.ok(prayerService.geoCode(location));
+    }
+
+    @PutMapping("{companyId}/config")
+    public ResponseEntity<?> updatePrayerConfig(
+            @PathVariable String companyId,
+            @RequestBody PrayerConfig prayerConfig) {
+        return ResponseEntity.ok("Working");
     }
 }

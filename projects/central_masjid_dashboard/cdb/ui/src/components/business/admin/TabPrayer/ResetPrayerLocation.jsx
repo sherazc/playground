@@ -230,7 +230,7 @@ class ResetPrayerLocation extends Component {
     }
 
     handleFinish() {
-        updatePrayerLocation(this.state.location, this.handleGeocode);
+        updatePrayerLocation({}, this.handleGeocode);
     }
 
     render() {
