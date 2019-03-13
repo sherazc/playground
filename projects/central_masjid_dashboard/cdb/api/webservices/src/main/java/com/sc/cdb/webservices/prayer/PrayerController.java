@@ -1,5 +1,7 @@
 package com.sc.cdb.webservices.prayer;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.services.prayer.PrayerService;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +32,16 @@ public class PrayerController {
     public ResponseEntity<?> updatePrayerConfig(
             @PathVariable String companyId,
             @RequestBody PrayerConfig prayerConfig) {
+
+
         return ResponseEntity.ok("Working");
     }
+
+    public static void main(String[] args) throws Exception {
+        PrayerConfig prayerConfig = new PrayerConfig();
+        ObjectMapper objMapper = new ObjectMapper();
+        String jsonString = objMapper.writeValueAsString(prayerConfig);
+        System.out.println(jsonString);
+    }
+
 }
