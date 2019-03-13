@@ -2,6 +2,7 @@ package com.sc.cdb.webservices.prayer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sc.cdb.data.model.prayer.GeoCode;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.services.prayer.PrayerService;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +39,13 @@ public class PrayerController {
     }
 
     public static void main(String[] args) throws Exception {
-        PrayerConfig prayerConfig = new PrayerConfig();
+        GeoCode geoCode = new GeoCode(
+                1.2, 2.3, 5.5,
+                "timezoneId", "timezoneName");
+        PrayerConfig prayerConfig = new PrayerConfig(
+                "location", 1, 2,
+                new int[7], geoCode);
+        prayerConfig.setGeoCode(geoCode);
         ObjectMapper objMapper = new ObjectMapper();
         String jsonString = objMapper.writeValueAsString(prayerConfig);
         System.out.println(jsonString);
