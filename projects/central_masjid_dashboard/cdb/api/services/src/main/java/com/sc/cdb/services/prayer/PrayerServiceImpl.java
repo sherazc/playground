@@ -10,6 +10,7 @@ import com.google.maps.TimeZoneApi;
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
 import com.sc.cdb.data.model.prayer.GeoCode;
+import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.services.model.ServiceResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -69,6 +70,13 @@ public class PrayerServiceImpl implements PrayerService {
             serviceResponseBuilder.message(errorMessage);
         }
 
+        return serviceResponseBuilder.build();
+    }
+
+    @Override
+    public ServiceResponse<String> updatePrayerConfig(String companyId, PrayerConfig prayerConfig) {
+        ServiceResponse.ServiceResponseBuilder<String> serviceResponseBuilder = ServiceResponse.builder();
+        serviceResponseBuilder.target("Yes");
         return serviceResponseBuilder.build();
     }
 

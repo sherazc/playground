@@ -4,7 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sc.cdb.data.model.prayer.GeoCode;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
+import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.services.prayer.PrayerService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/prayer")
+@RequestMapping(value = "/api/prayer", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PrayerController {
 
     private PrayerService prayerService;
@@ -33,9 +35,7 @@ public class PrayerController {
     public ResponseEntity<?> updatePrayerConfig(
             @PathVariable String companyId,
             @RequestBody PrayerConfig prayerConfig) {
-
-
-        return ResponseEntity.ok("Working");
+        return ResponseEntity.ok(prayerService.updatePrayerConfig(companyId, prayerConfig));
     }
 
     public static void main(String[] args) throws Exception {
