@@ -1,10 +1,8 @@
 package com.sc.cdb.webservices.prayer;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sc.cdb.data.model.prayer.GeoCode;
-import com.sc.cdb.data.model.prayer.PrayerConfig;
-import com.sc.cdb.services.model.ServiceResponse;
+import com.sc.cdb.data.model.cc.GeoCode;
+import com.sc.cdb.data.model.cc.PrayerConfig;
 import com.sc.cdb.services.prayer.PrayerService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

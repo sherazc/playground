@@ -1,4 +1,4 @@
-package com.sc.cdb.data.model.prayer;
+package com.sc.cdb.data.model.cc;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
