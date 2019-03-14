@@ -25,5 +25,15 @@ public class Application implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         this.defaultDataLoader.load();
+        /*
+        CentralControl cc = new CentralControl();
+        cc.setCompanyId("company1");
+        cc.setEvents(Collections.singletonList(new Event(null, "test", null, null)));
+
+        centralControlDao.save(cc);
+
+
+        centralControlDao.updateComplexObject();
+        */
     }
 }

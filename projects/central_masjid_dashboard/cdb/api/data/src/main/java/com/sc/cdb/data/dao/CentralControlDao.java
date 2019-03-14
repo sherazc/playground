@@ -1,5 +1,6 @@
 package com.sc.cdb.data.dao;
 
+import com.mongodb.client.result.UpdateResult;
 import com.sc.cdb.data.model.cc.CentralControl;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -34,7 +35,8 @@ public class CentralControlDao {
         // https://www.baeldung.com/queries-in-spring-data-mongodb
         Query query = new Query(Criteria.where("companyId").is("company1"));
         Update update = new Update().set("jummahs.0.khateeb", "Kateeb 1 Changed again");
-        mongoTemplate.updateMulti(query, update, CentralControl.class);
+        UpdateResult updateResult = mongoTemplate.updateMulti(query, update, CentralControl.class);
+        System.out.println(updateResult);
         List<CentralControl> centralControls = mongoTemplate.find(new Query(Criteria.where("companyId").is("company1")), CentralControl.class);
         System.out.println(centralControls);
 

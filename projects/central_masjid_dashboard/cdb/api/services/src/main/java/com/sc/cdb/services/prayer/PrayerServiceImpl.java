@@ -5,7 +5,6 @@ import java.util.TimeZone;
 
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
-import com.google.maps.PendingResult;
 import com.google.maps.TimeZoneApi;
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
@@ -42,7 +41,7 @@ public class PrayerServiceImpl implements PrayerService {
             LatLng latLng = pullLatLng(GeocodingApi.geocode(context, location).await());
             if (latLng != null) {
                 LOG.info("Successfully found location's latitude={}, longitude={}. Now calling Google timezone API.",
-                    latLng.lat, latLng.lng);
+                        latLng.lat, latLng.lng);
 
                 TimeZone timeZoneResponse = TimeZoneApi.getTimeZone(context, latLng).await();
                 if (timeZoneResponse != null) {
@@ -64,8 +63,8 @@ public class PrayerServiceImpl implements PrayerService {
             }
         } catch (Exception e) {
             String errorMessage = MessageFormat.format(
-                "Failed to call Google Geo Code and timezone API. location={0}. {1}",
-                location, e.getMessage());
+                    "Failed to call Google Geo Code and timezone API. location={0}. {1}",
+                    location, e.getMessage());
             LOG.error(errorMessage, e);
             serviceResponseBuilder.message(errorMessage);
         }
@@ -82,10 +81,10 @@ public class PrayerServiceImpl implements PrayerService {
 
     private LatLng pullLatLng(GeocodingResult[] geocodingResults) {
         if (geocodingResults != null && geocodingResults.length > 0
-            && geocodingResults[0].geometry != null
-            && geocodingResults[0].geometry.location != null
-            && geocodingResults[0].geometry.location.lat != 0
-            && geocodingResults[0].geometry.location.lng != 0) {
+                && geocodingResults[0].geometry != null
+                && geocodingResults[0].geometry.location != null
+                && geocodingResults[0].geometry.location.lat != 0
+                && geocodingResults[0].geometry.location.lng != 0) {
             return geocodingResults[0].geometry.location;
         } else {
             return null;
