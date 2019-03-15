@@ -16,13 +16,13 @@ public class CentralControlDaoImpl extends BaseDaoImpl<CentralControl> implement
     @Override
     public boolean isCentralControlExists(String companyId) {
         return this.getMongoTemplate().exists(
-                new Query(Criteria.where("companyId").is(companyId)),
+                createCompanyIdQuery(companyId),
                 CentralControl.class);
     }
 
     @Override
     public boolean updatePrayerConfig(String companyId, PrayerConfig prayerConfig) {
-        Query query = new Query(Criteria.where("companyId").is(companyId));
+        Query query = createCompanyIdQuery(companyId);
         Update update = new Update().set("prayerConfig", prayerConfig);
         UpdateResult updateResult = this.getMongoTemplate().updateMulti(query, update, CentralControl.class);
         return updateResult != null && updateResult.isModifiedCountAvailable();
@@ -34,17 +34,20 @@ public class CentralControlDaoImpl extends BaseDaoImpl<CentralControl> implement
     public void updateComplexObject() {
         // Query reference
         // https://www.baeldung.com/queries-in-spring-data-mongodb
-        Query query = new Query(Criteria.where("companyId").is("company1"));
+        Query query = createCompanyIdQuery("company1");
         Update update = new Update().set("jummahs.0.khateeb", "Kateeb 1 Changed again");
         UpdateResult updateResult = this.getMongoTemplate().updateMulti(query, update, CentralControl.class);
         System.out.println(updateResult);
-        List<CentralControl> centralControls = this.getMongoTemplate().find(new Query(Criteria.where("companyId").is("company1")), CentralControl.class);
+        List<CentralControl> centralControls = this.getMongoTemplate().find(query, CentralControl.class);
         System.out.println(centralControls);
 
         List<CentralControl> centralControls1 = this.getMongoTemplate().findAll(CentralControl.class);
         centralControls1.forEach(System.out::println);
     }
 
+    private Query createCompanyIdQuery(String companyId) {
+        return new Query(Criteria.where("companyId").is(companyId));
+    }
     @Override
     protected Class getType() {
         return CentralControl.class;
