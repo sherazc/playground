@@ -3,7 +3,6 @@ package com.sc.cdb.data.dao;
 import com.mongodb.client.result.UpdateResult;
 import com.sc.cdb.data.model.cc.CentralControl;
 import com.sc.cdb.data.model.cc.PrayerConfig;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -12,17 +11,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class CentralControlDaoImpl implements CentralControlDao {
-
-    private MongoTemplate mongoTemplate;
-
-    public CentralControlDaoImpl(MongoTemplate mongoTemplate) {
-        this.mongoTemplate = mongoTemplate;
-    }
+public class CentralControlDaoImpl extends BaseDaoImpl<CentralControl> implements CentralControlDao {
 
     @Override
     public boolean isCentralControlExists(String companyId) {
-        return this.mongoTemplate.exists(
+        return this.getMongoTemplate().exists(
                 new Query(Criteria.where("companyId").is(companyId)),
                 CentralControl.class);
     }
@@ -31,17 +24,8 @@ public class CentralControlDaoImpl implements CentralControlDao {
     public boolean updatePrayerConfig(String companyId, PrayerConfig prayerConfig) {
         Query query = new Query(Criteria.where("companyId").is(companyId));
         Update update = new Update().set("prayerConfig", prayerConfig);
-        UpdateResult updateResult = mongoTemplate.updateMulti(query, update, CentralControl.class);
+        UpdateResult updateResult = this.getMongoTemplate().updateMulti(query, update, CentralControl.class);
         return updateResult != null && updateResult.isModifiedCountAvailable();
-    }
-
-
-    public void save(CentralControl centralControl) {
-        mongoTemplate.save(centralControl);
-    }
-
-    public void dropCollection() {
-        mongoTemplate.dropCollection(CentralControl.class);
     }
 
     // TODO remove below method this is just for testing updating complex object
@@ -52,12 +36,17 @@ public class CentralControlDaoImpl implements CentralControlDao {
         // https://www.baeldung.com/queries-in-spring-data-mongodb
         Query query = new Query(Criteria.where("companyId").is("company1"));
         Update update = new Update().set("jummahs.0.khateeb", "Kateeb 1 Changed again");
-        UpdateResult updateResult = mongoTemplate.updateMulti(query, update, CentralControl.class);
+        UpdateResult updateResult = this.getMongoTemplate().updateMulti(query, update, CentralControl.class);
         System.out.println(updateResult);
-        List<CentralControl> centralControls = mongoTemplate.find(new Query(Criteria.where("companyId").is("company1")), CentralControl.class);
+        List<CentralControl> centralControls = this.getMongoTemplate().find(new Query(Criteria.where("companyId").is("company1")), CentralControl.class);
         System.out.println(centralControls);
 
-        List<CentralControl> centralControls1 = mongoTemplate.findAll(CentralControl.class);
+        List<CentralControl> centralControls1 = this.getMongoTemplate().findAll(CentralControl.class);
         centralControls1.forEach(System.out::println);
+    }
+
+    @Override
+    protected Class getType() {
+        return CentralControl.class;
     }
 }
