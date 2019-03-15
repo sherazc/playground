@@ -102,9 +102,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserCompany> findAllCompanyUsers(String companyId) {
         if (Constants.COLLECTION_ALL.equalsIgnoreCase(companyId)) {
-            return this.userDao.findAll();
+            return this.userDao.findAllUserCompany();
         } else {
-            return this.userDao.findByCompanyId(companyId);
+            return this.userDao.findUserCompanyByCompanyId(companyId);
         }
     }
 
