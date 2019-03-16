@@ -14,13 +14,11 @@ class ResetPrayerLocation extends Component {
         this.state = this.createInitState();
         this.handleChange = this.handleChange.bind(this);
         this.handleValidateLocation = this.handleValidateLocation.bind(this);
-        this.updatePrayerOffsetMinutes = this.updatePrayerOffsetMinutes.bind(this);
         this.handleGeocode = this.handleGeocode.bind(this);
     }
 
     createInitState() {
 /*
-
         return {
             open: false,
             location: "",
@@ -31,10 +29,7 @@ class ResetPrayerLocation extends Component {
             asrJuristicMethod: 0,
             prayerOffsetMinutes: [0, 0, 0, 0, 0, 0, 0],
         };
-
 */
-
-
         return {
             "open": true,
             "location": "30004",
@@ -51,8 +46,6 @@ class ResetPrayerLocation extends Component {
             "asrJuristicMethod": "",
             "prayerOffsetMinutes": [0, 0, 0, 0, 0, 0, 0]
         };
-
-
     }
 
     createInitGeoCode() {
@@ -65,6 +58,10 @@ class ResetPrayerLocation extends Component {
         };
     }
 
+    handleChange(event) {
+        this.setState({[event.target.name]: event.target.value});
+    }
+
     handleOpen = () => {
         this.setState({...this.createInitState(), open: true});
     };
@@ -72,10 +69,6 @@ class ResetPrayerLocation extends Component {
     handleClose = () => {
         this.setState({open: false});
     };
-
-    handleChange(event) {
-        this.setState({[event.target.name]: event.target.value});
-    }
 
     handleGeocode(locationValid, geoCode) {
         if (locationValid) {
@@ -89,6 +82,9 @@ class ResetPrayerLocation extends Component {
         geoCodeLocation(this.state.location, this.handleGeocode);
     }
 
+    handleFinish() {
+        updatePrayerLocation({}, this.handleGeocode);
+    }
 
     step1() {
         const locationHelperMessage = "Enter zip-code or city and state or full address";
@@ -114,10 +110,6 @@ class ResetPrayerLocation extends Component {
                     onChange={this.handleChange}/>
             </div>
         );
-    }
-
-    updatePrayerOffsetMinutes(prayerOffsetMinutes) {
-        this.setState({prayerOffsetMinutes});
     }
 
     step2() {
@@ -227,10 +219,6 @@ class ResetPrayerLocation extends Component {
                 </div>
             </div>
         );
-    }
-
-    handleFinish() {
-        updatePrayerLocation({}, this.handleGeocode);
     }
 
     render() {
