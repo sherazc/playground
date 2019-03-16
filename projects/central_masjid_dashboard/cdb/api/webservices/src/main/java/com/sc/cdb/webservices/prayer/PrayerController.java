@@ -33,7 +33,7 @@ public class PrayerController {
     public ResponseEntity<?> updatePrayerConfig(
             @PathVariable String companyId,
             @RequestBody PrayerConfig prayerConfig) {
-        return ResponseEntity.ok(prayerService.updatePrayerConfig(companyId, prayerConfig));
+        return ResponseEntity.ok(prayerService.savePrayerConfig(companyId, prayerConfig));
     }
 
     public static void main(String[] args) throws Exception {

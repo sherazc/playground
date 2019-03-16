@@ -8,6 +8,8 @@ import com.google.maps.GeocodingApi;
 import com.google.maps.TimeZoneApi;
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
+import com.sc.cdb.data.dao.CentralControlDao;
+import com.sc.cdb.data.model.cc.CentralControl;
 import com.sc.cdb.data.model.cc.GeoCode;
 import com.sc.cdb.data.model.cc.PrayerConfig;
 import com.sc.cdb.services.model.ServiceResponse;
@@ -23,8 +25,13 @@ public class PrayerServiceImpl implements PrayerService {
 
     private String googleApiKey;
 
-    public PrayerServiceImpl(@Value("${google.geocode.api.key}") String googleApiKey) {
+    private CentralControlDao centralControlDao;
+
+    public PrayerServiceImpl(
+            @Value("${google.geocode.api.key}") String googleApiKey,
+            CentralControlDao centralControlDao) {
         this.googleApiKey = googleApiKey;
+        this.centralControlDao = centralControlDao;
     }
 
     public ServiceResponse<GeoCode> geoCode(String location) {
@@ -73,10 +80,44 @@ public class PrayerServiceImpl implements PrayerService {
     }
 
     @Override
-    public ServiceResponse<String> updatePrayerConfig(String companyId, PrayerConfig prayerConfig) {
+    public ServiceResponse<String> savePrayerConfig(String companyId, PrayerConfig prayerConfig) {
+        LOG.debug("Saving prayer config of {}", companyId);
+
         ServiceResponse.ServiceResponseBuilder<String> serviceResponseBuilder = ServiceResponse.builder();
-        serviceResponseBuilder.target("Yes");
+        if (StringUtils.isBlank(companyId) || !isValid(prayerConfig)) {
+            String errorMessage =
+                    "Can not process request. CompanyId is blank or prayer configs not sent.";
+            LOG.error(errorMessage);
+            serviceResponseBuilder.message(errorMessage);
+            return serviceResponseBuilder.build();
+        }
+
+        if (centralControlDao.isCentralControlExists(companyId)) {
+            boolean updated = centralControlDao.updatePrayerConfig(companyId, prayerConfig);
+            if (updated) {
+                serviceResponseBuilder.successful(true);
+                String message = String.format("Updated Prayer config of %s", companyId);
+                serviceResponseBuilder.message(message);
+                LOG.debug(message);
+            }
+        } else {
+            CentralControl centralControl = new CentralControl();
+            centralControl.setCompanyId(companyId);
+            centralControl.setPrayerConfig(prayerConfig);
+            CentralControl savedCentralControl = centralControlDao.save(centralControl);
+            if (savedCentralControl != null && StringUtils.isNotBlank(savedCentralControl.getId())) {
+                serviceResponseBuilder.successful(true);
+                String message = String.format("Saved Prayer config of %s", companyId);
+                serviceResponseBuilder.message(message);
+                LOG.debug(message);
+            }
+        }
         return serviceResponseBuilder.build();
+    }
+
+    private boolean isValid(PrayerConfig prayerConfig) {
+        // TODO validate full prayer config.
+        return prayerConfig != null && prayerConfig.getGeoCode() != null;
     }
 
     private LatLng pullLatLng(GeocodingResult[] geocodingResults) {
