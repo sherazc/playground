@@ -20,18 +20,16 @@ export const geoCodeLocation = (location, handleGeoCode) => {
 };
 
 
-export const updatePrayerLocation = (locationConfig, handlePrayerLocationUpdate) => {
-    const requestUrl = `${baseUrl}/api/prayer/location`;
+export const updatePrayerLocation = (companyId, locationConfig, handleUpdatedPrayerTime) => {
+    const requestUrl = `${baseUrl}/api/prayer/${companyId}/config`;
 
-    axios.put(requestUrl).then(response => {
-            handlePrayerLocationUpdate(response.data.successful, response.data.target);
+    axios.put(requestUrl, locationConfig).then(response => {
+            handleUpdatedPrayerTime(response.data);
         },
         failResponse => {
-            handlePrayerLocationUpdate(false);
-            console.log(failResponse.response.data)
+            handleUpdatedPrayerTime(failResponse.response.data);
         })
         .catch(errorResponse => {
-            handlePrayerLocationUpdate(false);
-            console.log(errorResponse.response.data)
+            handleUpdatedPrayerTime(errorResponse.response.data);
         });
 };

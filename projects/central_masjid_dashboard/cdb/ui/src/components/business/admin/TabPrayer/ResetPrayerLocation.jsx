@@ -15,6 +15,8 @@ class ResetPrayerLocation extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleValidateLocation = this.handleValidateLocation.bind(this);
         this.handleGeocode = this.handleGeocode.bind(this);
+        this.handleFinish = this.handleFinish.bind(this);
+        this.handleUpdatedPrayerTime = this.handleUpdatedPrayerTime.bind(this);
     }
 
     createInitState() {
@@ -83,7 +85,19 @@ class ResetPrayerLocation extends Component {
     }
 
     handleFinish() {
-        updatePrayerLocation({}, this.handleGeocode);
+        const prayerConfig = {
+            location: this.state.location,
+            calculationMethod: this.state.calculationMethod,
+            asrJuristicMethod: this.state.asrJuristicMethod,
+            prayerOffsetMinutes: this.state.prayerOffsetMinutes,
+            geoCode: this.state.geoCode
+        };
+
+        updatePrayerLocation(1234, prayerConfig, this.handleUpdatedPrayerTime);
+    }
+
+    handleUpdatedPrayerTime(serviceResponse) {
+        console.log("handleUpdatedPrayerTime", serviceResponse);
     }
 
     step1() {
