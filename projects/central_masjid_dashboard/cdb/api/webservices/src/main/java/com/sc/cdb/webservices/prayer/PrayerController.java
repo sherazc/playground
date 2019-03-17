@@ -1,8 +1,7 @@
 package com.sc.cdb.webservices.prayer;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sc.cdb.data.model.cc.GeoCode;
 import com.sc.cdb.data.model.cc.PrayerConfig;
+import com.sc.cdb.services.location.SiteLocator;
 import com.sc.cdb.services.prayer.PrayerService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,16 +16,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/api/prayer", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PrayerController {
-
     private PrayerService prayerService;
+    private SiteLocator siteLocator;
 
-    public PrayerController(PrayerService prayerService) {
+    public PrayerController(PrayerService prayerService, SiteLocator siteLocator) {
         this.prayerService = prayerService;
+        this.siteLocator = siteLocator;
     }
 
     @GetMapping("location/geocode")
     public ResponseEntity<?> geoCode(@RequestParam String location) {
-        return ResponseEntity.ok(prayerService.geoCode(location));
+        return ResponseEntity.ok(siteLocator.geoCode(location));
     }
 
     @PutMapping("{companyId}/config")
@@ -35,18 +35,4 @@ public class PrayerController {
             @RequestBody PrayerConfig prayerConfig) {
         return ResponseEntity.ok(prayerService.savePrayerConfig(companyId, prayerConfig));
     }
-
-    public static void main(String[] args) throws Exception {
-        GeoCode geoCode = new GeoCode(
-                1.2, 2.3, 5.5,
-                "timezoneId", "timezoneName");
-        PrayerConfig prayerConfig = new PrayerConfig(
-                "location", 1, 2,
-                new int[7], geoCode);
-        prayerConfig.setGeoCode(geoCode);
-        ObjectMapper objMapper = new ObjectMapper();
-        String jsonString = objMapper.writeValueAsString(prayerConfig);
-        System.out.println(jsonString);
-    }
-
 }
