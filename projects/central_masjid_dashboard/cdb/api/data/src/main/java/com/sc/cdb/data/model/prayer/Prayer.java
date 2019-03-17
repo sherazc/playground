@@ -16,16 +16,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Prayer {
     private Date date;
 
-    private PrayerDate fajrAzan;
+    private PrayerDate fajr;
     private PrayerDate fajrIqama;
-    private PrayerDate zuharAzan;
-    private PrayerDate zuharIqama;
-    private PrayerDate asrAzan;
+    private PrayerDate dhuhr;
+    private PrayerDate dhuhrIqama;
+    private PrayerDate asr;
     private PrayerDate asrIqama;
-    private PrayerDate maghribAzan;
+    private PrayerDate maghrib;
     private PrayerDate maghribIqama;
-    private PrayerDate ishaAzan;
+    private PrayerDate isha;
     private PrayerDate ishaIqama;
 
-    private PrayerDate Shurooq;
+    private PrayerDate sunrise;
 }

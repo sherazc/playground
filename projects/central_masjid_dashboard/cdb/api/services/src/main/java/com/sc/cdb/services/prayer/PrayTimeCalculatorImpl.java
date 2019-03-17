@@ -37,15 +37,7 @@ public class PrayTimeCalculatorImpl implements PrayTimeCalculator {
     }
 
 
-    /*
-    Fajr - 10:07
-Sunrise - 11:25
-Dhuhr - 17:28
-Asr - 22:17
-Sunset - 23:32
-Maghrib - 23:33
-Isha - 00:57
-     */
+
     private Prayer generatePrayerDay(PrayTime prayTime, int yearDateIndex, PrayerConfig prayerConfig) {
         Calendar calendar = createPrayerCalendar(yearDateIndex);
 
@@ -59,18 +51,35 @@ Isha - 00:57
             LOG.error("Failed to calculate prayer time for {}", calendar.getTime());
             return null;
         }
+        Prayer prayer = createPrayer(calendar, prayerTimes);
+
+
+        return prayer;
+    }
+
+
+    /*
+
+Fajr - 10:07
+Sunrise - 11:25
+Dhuhr - 17:28
+Asr - 22:17
+Sunset - 23:32
+Maghrib - 23:33
+Isha - 00:57
+
+*/
+    private Prayer createPrayer(Calendar calendar, List<String> prayerTimes) {
         Prayer prayer = new Prayer();
         prayer.setDate(calendar.getTime());
-        prayer.setFajrAzan(new PrayerDate(prayerTimes.get(0)));
-
-
-
-
-
-
-
-
-        return null;
+        prayer.setFajr(new PrayerDate(calendar, prayerTimes.get(0)));
+        prayer.setSunrise(new PrayerDate(calendar, prayerTimes.get(1)));
+        prayer.setDhuhr(new PrayerDate(calendar, prayerTimes.get(2)));
+        prayer.setAsr(new PrayerDate(calendar, prayerTimes.get(3)));
+        // Skipping sunset prayer.setSunset(new PrayerDate(calendar, prayerTimes.get(4)));
+        prayer.setMaghrib(new PrayerDate(calendar, prayerTimes.get(5)));
+        prayer.setIsha(new PrayerDate(calendar, prayerTimes.get(6)));
+        return prayer;
     }
 
     /*
