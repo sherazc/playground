@@ -1,16 +1,14 @@
 package com.sc.cdb.data.model.prayer;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
 public class PrayerDate extends Date {
-    private static final DateFormat dateFormat = new SimpleDateFormat();
-
+    public static final TimeZone UTC_TIMEZONE = TimeZone.getTimeZone("UTC");
     public PrayerDate() {
         super();
     }
@@ -26,7 +24,7 @@ public class PrayerDate extends Date {
                     "Failed to create PrayerDate. initialDate=%tc time24String=%s",
                     initialDate, time24hString));
         }
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance(UTC_TIMEZONE);
         calendar.setTime(initialDate.getTime());
         calendar.set(Calendar.HOUR_OF_DAY, NumberUtils.toInt(time24hParts[0]));
         calendar.set(Calendar.MINUTE, NumberUtils.toInt(time24hParts[1]));

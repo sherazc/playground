@@ -22,7 +22,6 @@ public class PrayTimeCalculatorImpl implements PrayTimeCalculator {
         List<Prayer> prayers = new ArrayList<>(366);
         PrayTime prayTime = new PrayTime();
 
-
         prayTime.setTimeFormat(0); // 0 = 24h, 1 = 12h
         prayTime.setCalcMethod(prayerConfig.getCalculationMethod());
         prayTime.setAsrJuristic(prayerConfig.getAsrJuristicMethod());
@@ -35,8 +34,6 @@ public class PrayTimeCalculatorImpl implements PrayTimeCalculator {
 
         return prayers;
     }
-
-
 
     private Prayer generatePrayerDay(PrayTime prayTime, int yearDateIndex, PrayerConfig prayerConfig) {
         Calendar calendar = createPrayerCalendar(yearDateIndex);
@@ -51,24 +48,10 @@ public class PrayTimeCalculatorImpl implements PrayTimeCalculator {
             LOG.error("Failed to calculate prayer time for {}", calendar.getTime());
             return null;
         }
-        Prayer prayer = createPrayer(calendar, prayerTimes);
 
-
-        return prayer;
+        return createPrayer(calendar, prayerTimes);
     }
 
-
-    /*
-
-Fajr - 10:07
-Sunrise - 11:25
-Dhuhr - 17:28
-Asr - 22:17
-Sunset - 23:32
-Maghrib - 23:33
-Isha - 00:57
-
-*/
     private Prayer createPrayer(Calendar calendar, List<String> prayerTimes) {
         Prayer prayer = new Prayer();
         prayer.setDate(calendar.getTime());
@@ -82,36 +65,8 @@ Isha - 00:57
         return prayer;
     }
 
-    /*
-    double latitude = 34.125401;
-    double longitude = -84.277672;
-    double timezone = -5;
-    // Test Prayer times here
-    PrayTime prayers = new PrayTime();
-
-    prayers.setTimeFormat(prayers.Time12);
-    prayers.setCalcMethod(prayers.ISNA);
-    prayers.setAsrJuristic(prayers.Shafii);
-    prayers.setAdjustHighLats(prayers.AngleBased);
-    int[] offsets = {0, 0, 0, 0, 0, 0, 0}; // {Fajr,Sunrise,Dhuhr,Asr,Sunset,Maghrib,Isha}
-    prayers.tune(offsets);
-
-    Date now = new Date();
-    Calendar cal = Calendar.getInstance();
-    cal.setTime(now);
-
-    ArrayList<String> prayerTimes = prayers.getPrayerTimes(cal,
-        latitude, longitude, timezone);
-    ArrayList<String> prayerNames = prayers.getTimeNames();
-
-    for (int i = 0; i < prayerTimes.size(); i++) {
-      System.out.println(prayerNames.get(i) + " - " + prayerTimes.get(i));
-    }
-
-     */
-
     private Calendar createPrayerCalendar(int yearDateIndex) {
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance(PrayerDate.UTC_TIMEZONE);
         calendar.set(PrayTimeCalculatorImpl.SAMPLE_LEAP_YEAR,
                 0, 1, 0, 0, 0);
         calendar.add(Calendar.DATE, yearDateIndex);

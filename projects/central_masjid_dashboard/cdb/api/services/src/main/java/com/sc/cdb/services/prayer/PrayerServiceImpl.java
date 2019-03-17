@@ -25,10 +25,10 @@ public class PrayerServiceImpl implements PrayerService {
     }
 
     @Override
-    public ServiceResponse<String> createYearPrayerTimes(String companyId, PrayerConfig prayerConfig) {
+    public ServiceResponse<List<Prayer>> createYearPrayerTimes(String companyId, PrayerConfig prayerConfig) {
         LOG.debug("Saving prayer config of {}", companyId);
 
-        ServiceResponse.ServiceResponseBuilder<String> serviceResponseBuilder = ServiceResponse.builder();
+        ServiceResponse.ServiceResponseBuilder<List<Prayer>> serviceResponseBuilder = ServiceResponse.builder();
         if (StringUtils.isBlank(companyId) || !isValid(prayerConfig)) {
             String errorMessage =
                     "Can not process request. CompanyId is blank or prayer configs not sent.";
@@ -40,6 +40,8 @@ public class PrayerServiceImpl implements PrayerService {
         boolean saved = this.savePrayerConfig(companyId, prayerConfig);
         if (saved) {
             List<Prayer> prayers = prayTimeCalculator.generate(prayerConfig);
+
+            serviceResponseBuilder.target(prayers);
         }
 
         return serviceResponseBuilder.build();
