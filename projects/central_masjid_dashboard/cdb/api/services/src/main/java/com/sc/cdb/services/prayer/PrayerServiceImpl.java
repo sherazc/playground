@@ -14,13 +14,15 @@ public class PrayerServiceImpl implements PrayerService {
     private static final Logger LOG = LoggerFactory.getLogger(PrayerServiceImpl.class);
 
     private CentralControlDao centralControlDao;
+    private PrayTimeCalculator prayTimeCalculator;
 
-    public PrayerServiceImpl(CentralControlDao centralControlDao) {
+    public PrayerServiceImpl(CentralControlDao centralControlDao, PrayTimeCalculator prayTimeCalculator) {
         this.centralControlDao = centralControlDao;
+        this.prayTimeCalculator = prayTimeCalculator;
     }
 
     @Override
-    public ServiceResponse<String> savePrayerConfig(String companyId, PrayerConfig prayerConfig) {
+    public ServiceResponse<String> createYearPrayerTimes(String companyId, PrayerConfig prayerConfig) {
         LOG.debug("Saving prayer config of {}", companyId);
 
         ServiceResponse.ServiceResponseBuilder<String> serviceResponseBuilder = ServiceResponse.builder();
@@ -32,27 +34,36 @@ public class PrayerServiceImpl implements PrayerService {
             return serviceResponseBuilder.build();
         }
 
+        boolean saved = this.savePrayerConfig(companyId, prayerConfig);
+        if (saved) {
+
+        }
+
+        return serviceResponseBuilder.build();
+    }
+
+    private boolean savePrayerConfig(String companyId, PrayerConfig prayerConfig) {
+        boolean saved;
         if (centralControlDao.isCentralControlExists(companyId)) {
-            boolean updated = centralControlDao.updatePrayerConfig(companyId, prayerConfig);
-            if (updated) {
-                serviceResponseBuilder.successful(true);
-                String message = String.format("Updated Prayer config of %s", companyId);
-                serviceResponseBuilder.message(message);
-                LOG.debug(message);
+            saved = centralControlDao.updatePrayerConfig(companyId, prayerConfig);
+            if (saved) {
+                LOG.debug("Updated Prayer config of {}", companyId);
+            } else {
+                LOG.error("Failed to update Prayer config of {}", companyId);
             }
         } else {
             CentralControl centralControl = new CentralControl();
             centralControl.setCompanyId(companyId);
             centralControl.setPrayerConfig(prayerConfig);
             CentralControl savedCentralControl = centralControlDao.save(centralControl);
-            if (savedCentralControl != null && StringUtils.isNotBlank(savedCentralControl.getId())) {
-                serviceResponseBuilder.successful(true);
-                String message = String.format("Saved Prayer config of %s", companyId);
-                serviceResponseBuilder.message(message);
-                LOG.debug(message);
+            saved = savedCentralControl != null && StringUtils.isNotBlank(savedCentralControl.getId());
+            if (saved) {
+                LOG.debug("Saved new Prayer config of {}", companyId);
+            } else {
+                LOG.error("Failed to save new Prayer config of {}", companyId);
             }
         }
-        return serviceResponseBuilder.build();
+        return saved;
     }
 
     public boolean isValid(PrayerConfig prayerConfig) {

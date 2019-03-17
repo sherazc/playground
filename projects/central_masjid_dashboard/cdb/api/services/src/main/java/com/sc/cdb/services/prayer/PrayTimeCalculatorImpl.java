@@ -1,6 +1,7 @@
 package com.sc.cdb.services.prayer;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import com.sc.cdb.data.model.cc.PrayerConfig;
@@ -11,26 +12,40 @@ import org.springframework.stereotype.Service;
 public class PrayTimeCalculatorImpl implements PrayTimeCalculator {
 
     private static final int SAMPLE_LEAP_YEAR = 2016;
-    private PrayTime prayTime;
-
-    public PrayTimeCalculatorImpl() {
-        prayTime = new PrayTime();
-    }
 
     @Override
     public List<Prayer> generate(PrayerConfig prayerConfig) {
         List<Prayer> prayers = new ArrayList<>(366);
+        PrayTime prayTime = new PrayTime();
+
+
+        prayTime.setTimeFormat(0); // 0 = 24h, 1 = 12h
+        prayTime.setCalcMethod(prayerConfig.getCalculationMethod());
+        prayTime.setAsrJuristic(prayerConfig.getAsrJuristicMethod());
+        // prayTime.setAdjustHighLats(prayers.AngleBased);
+        prayTime.tune(prayerConfig.getPrayerOffsetMinutes());
+
         for (int i = 0; i < 366; i++) {
-            prayers.add(generatePrayerDay(i, prayerConfig));
+            prayers.add(generatePrayerDay(prayTime, i, prayerConfig));
         }
 
         return prayers;
     }
 
-    private Prayer generatePrayerDay(int yearDateIndex, PrayerConfig prayerConfig) {
+    private Prayer generatePrayerDay(PrayTime prayTime, int yearDateIndex, PrayerConfig prayerConfig) {
+        Calendar calendar = createPrayerCalendar(yearDateIndex);
+
+
+        ArrayList<String> prayerTimes = prayTime.getPrayerTimes(calendar,
+                prayerConfig.getGeoCode().getLatitude(), prayerConfig.getGeoCode().getLongitude(), prayerConfig.getGeoCode().getTimezone());
+        ArrayList<String> prayerNames = prayTime.getTimeNames();
+
+        for (int i = 0; i < prayerTimes.size(); i++) {
+            System.out.println(prayerNames.get(i) + " - " + prayerTimes.get(i));
+        }
+
         return null;
     }
-
 
     /*
     double latitude = 34.125401;
@@ -59,4 +74,12 @@ public class PrayTimeCalculatorImpl implements PrayTimeCalculator {
     }
 
      */
+
+    private Calendar createPrayerCalendar(int yearDateIndex) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(PrayTimeCalculatorImpl.SAMPLE_LEAP_YEAR,
+                0, 1, 0, 0, 0);
+        calendar.add(Calendar.DATE, yearDateIndex);
+        return calendar;
+    }
 }

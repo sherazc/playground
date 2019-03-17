@@ -407,7 +407,7 @@ public class PrayTime {
   }
 
   // return prayer times for a given date
-  private ArrayList<String> getPrayerTimes(Calendar date, double latitude,
+  public ArrayList<String> getPrayerTimes(Calendar date, double latitude,
                                            double longitude, double tZone) {
 
     int year = date.get(Calendar.YEAR);

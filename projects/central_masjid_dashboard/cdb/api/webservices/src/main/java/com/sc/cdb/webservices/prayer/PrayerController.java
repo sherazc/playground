@@ -33,6 +33,6 @@ public class PrayerController {
     public ResponseEntity<?> updatePrayerConfig(
             @PathVariable String companyId,
             @RequestBody PrayerConfig prayerConfig) {
-        return ResponseEntity.ok(prayerService.savePrayerConfig(companyId, prayerConfig));
+        return ResponseEntity.ok(prayerService.createYearPrayerTimes(companyId, prayerConfig));
     }
 }
