@@ -6,10 +6,14 @@ import java.util.List;
 
 import com.sc.cdb.data.model.cc.PrayerConfig;
 import com.sc.cdb.data.model.prayer.Prayer;
+import com.sc.cdb.data.model.prayer.PrayerDate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PrayTimeCalculatorImpl implements PrayTimeCalculator {
+    private static final Logger LOG = LoggerFactory.getLogger(PrayTimeCalculatorImpl.class);
 
     private static final int SAMPLE_LEAP_YEAR = 2016;
 
@@ -32,17 +36,39 @@ public class PrayTimeCalculatorImpl implements PrayTimeCalculator {
         return prayers;
     }
 
+
+    /*
+    Fajr - 10:07
+Sunrise - 11:25
+Dhuhr - 17:28
+Asr - 22:17
+Sunset - 23:32
+Maghrib - 23:33
+Isha - 00:57
+     */
     private Prayer generatePrayerDay(PrayTime prayTime, int yearDateIndex, PrayerConfig prayerConfig) {
         Calendar calendar = createPrayerCalendar(yearDateIndex);
 
+        List<String> prayerTimes = prayTime.getPrayerTimes(
+                calendar,
+                prayerConfig.getGeoCode().getLatitude(),
+                prayerConfig.getGeoCode().getLongitude(),
+                prayerConfig.getGeoCode().getTimezone());
 
-        ArrayList<String> prayerTimes = prayTime.getPrayerTimes(calendar,
-                prayerConfig.getGeoCode().getLatitude(), prayerConfig.getGeoCode().getLongitude(), prayerConfig.getGeoCode().getTimezone());
-        ArrayList<String> prayerNames = prayTime.getTimeNames();
-
-        for (int i = 0; i < prayerTimes.size(); i++) {
-            System.out.println(prayerNames.get(i) + " - " + prayerTimes.get(i));
+        if (prayerTimes == null || prayerTimes.size() < 7) {
+            LOG.error("Failed to calculate prayer time for {}", calendar.getTime());
+            return null;
         }
+        Prayer prayer = new Prayer();
+        prayer.setDate(calendar.getTime());
+        prayer.setFajrAzan(new PrayerDate(prayerTimes.get(0)));
+
+
+
+
+
+
+
 
         return null;
     }
