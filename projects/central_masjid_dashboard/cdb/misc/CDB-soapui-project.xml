@@ -110,9 +110,9 @@
   "asrJuristicMethod": 2,
   "prayerOffsetMinutes": [1, 2, 3, 4, 5, 6],
   "geoCode": {
-    "latitude": 1.2,
-    "longitude": 2.3,
-    "timezone": 5.5,
+    "latitude": 34.125401,
+    "longitude": -84.277672,
+    "timezone": -5,
     "timezoneId": "timezoneId",
     "timezoneName": "timezoneName"
   }
