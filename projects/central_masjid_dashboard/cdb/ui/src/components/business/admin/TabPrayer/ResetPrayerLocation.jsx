@@ -27,7 +27,7 @@ class ResetPrayerLocation extends Component {
             locationValid: undefined,
             step: 0,
             geoCode: this.createInitGeoCode(),
-            calculationMethod: 1,
+            calculationMethod: 2,
             asrJuristicMethod: 0,
             prayerOffsetMinutes: [0, 0, 0, 0, 0, 0, 0],
         };
@@ -44,8 +44,8 @@ class ResetPrayerLocation extends Component {
                 "timezoneId": "America/New_York",
                 "timezoneName": "Eastern Standard Time"
             },
-            "calculationMethod": "",
-            "asrJuristicMethod": "",
+            "calculationMethod": "2",
+            "asrJuristicMethod": "0",
             "prayerOffsetMinutes": [0, 0, 0, 0, 0, 0, 0]
         };
     }
@@ -159,16 +159,12 @@ class ResetPrayerLocation extends Component {
                 <FormControl className={classes.formControl}>
                     <InputLabel htmlFor="calculationMethod">Calculation Method</InputLabel>
                     <Select
-                        error={true}
                         value={this.state.calculationMethod}
                         onChange={this.handleChange}
                         inputProps={{
                             name: 'calculationMethod',
                             id: 'calculationMethod',
                         }} className={classes.selectEmpty}>
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
                         {allCalculationMethods.map((calculationMethod, index) => {
                             return <MenuItem key={index} value={calculationMethod.id}>{calculationMethod.name}</MenuItem>
                         })}
@@ -184,9 +180,6 @@ class ResetPrayerLocation extends Component {
                             name: 'asrJuristicMethod',
                             id: 'asrJuristicMethod',
                         }} className={classes.selectEmpty}>
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
                         {allAsrJuristicMethods.map((asrJuristicMethod, index) => {
                             return <MenuItem key={index} value={asrJuristicMethod.id}>{asrJuristicMethod.name}</MenuItem>
                         })}
