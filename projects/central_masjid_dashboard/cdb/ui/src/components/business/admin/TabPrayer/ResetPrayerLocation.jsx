@@ -159,6 +159,7 @@ class ResetPrayerLocation extends Component {
                 <FormControl className={classes.formControl}>
                     <InputLabel htmlFor="calculationMethod">Calculation Method</InputLabel>
                     <Select
+                        error={true}
                         value={this.state.calculationMethod}
                         onChange={this.handleChange}
                         inputProps={{

@@ -4,6 +4,9 @@ import ResetPrayerLocation from "./ResetPrayerLocation";
 import {Button} from "@material-ui/core";
 
 class TabPrayer extends Component {
+
+
+
     render() {
         return (
             <div>

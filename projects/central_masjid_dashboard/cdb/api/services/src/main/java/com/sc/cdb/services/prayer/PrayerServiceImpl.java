@@ -41,7 +41,10 @@ public class PrayerServiceImpl implements PrayerService {
         if (saved) {
             List<Prayer> prayers = prayTimeCalculator.generate(prayerConfig);
 
-            serviceResponseBuilder.target(prayers);
+            if (prayers != null && prayers.size() == 366) {
+                serviceResponseBuilder.successful(true);
+                serviceResponseBuilder.target(prayers);
+            }
         }
 
         return serviceResponseBuilder.build();
