@@ -11,11 +11,11 @@ export const geoCodeLocation = (location, handleGeoCode) => {
         },
         failResponse => {
             handleGeoCode(false);
-            console.log(failResponse.response.data)
+            console.log(failResponse.response)
         })
         .catch(errorResponse => {
             handleGeoCode(false);
-            console.log(errorResponse.response.data)
+            console.log(errorResponse.response)
         });
 };
 
@@ -27,9 +27,9 @@ export const updatePrayerLocation = (companyId, locationConfig, handleUpdatedPra
             handleUpdatedPrayerTime(response.data);
         },
         failResponse => {
-            handleUpdatedPrayerTime(failResponse.response.data);
+            handleUpdatedPrayerTime(failResponse.response);
         })
         .catch(errorResponse => {
-            handleUpdatedPrayerTime(errorResponse.response.data);
+            handleUpdatedPrayerTime(errorResponse.response);
         });
 };

@@ -32,6 +32,8 @@ class ResetPrayerLocation extends Component {
             prayerOffsetMinutes: [0, 0, 0, 0, 0, 0, 0],
         };
 */
+
+
         return {
             "open": true,
             "location": "30004",
@@ -97,7 +99,14 @@ class ResetPrayerLocation extends Component {
     }
 
     handleUpdatedPrayerTime(serviceResponse) {
-        console.log("handleUpdatedPrayerTime", serviceResponse);
+        if(serviceResponse
+            && serviceResponse.successful
+            && serviceResponse.target
+            && serviceResponse.target.length > 0) {
+            this.props.handleUpdatedPrayerTime(serviceResponse.target)
+        } else {
+            console.error("Error getting updated prayer time, or parsing updated prayer times.");
+        }
     }
 
     step1() {
