@@ -103,8 +103,10 @@ class ResetPrayerLocation extends Component {
             && serviceResponse.successful
             && serviceResponse.target
             && serviceResponse.target.length > 0) {
-            this.props.handleUpdatedPrayerTime(serviceResponse.target)
+            this.props.handleUpdatedPrayerTime(serviceResponse.target);
+            this.handleClose();
         } else {
+            // TODO: show error message
             console.error("Error getting updated prayer time, or parsing updated prayer times.");
         }
     }
