@@ -1,9 +1,11 @@
-package com.sc.reminder.api.service;
+package com.sc.cdb.webservices.quran;
 // package com.sc.reminder.ws.services;
 
 // import com.sc.reminder.ws.util.CommonUtil;
 
 import java.io.InputStream;
+
+import com.sc.reminder.api.service.SearchService;
 
 /**
  * Created by sheraz on 11/5/15.
@@ -15,24 +17,32 @@ public class ResourceSearchService extends SearchService {
     public static final String QURAN_FILE_NAME = RESOURCE_QURAN_DIRECTORY + "/quran-uthmani.txt";
 
     public ResourceSearchService() {
-        // super(CommonUtil.openResourceInputStream(DATA_INDEX_FILE_NAME));
-        super(null);
+        super(ResourceSearchService.openResourceInputStream(DATA_INDEX_FILE_NAME));
     }
 
     @Override
     protected InputStream openTranslationStream() {
-        // return CommonUtil.openResourceInputStream(getTranslationResourceFileName());
-        return null;
+        return ResourceSearchService.openResourceInputStream(
+            getTranslationResourceFileName());
     }
 
     @Override
     protected InputStream openQuranStream() {
-        // return CommonUtil.openResourceInputStream(QURAN_FILE_NAME);
-        return null;
+        return ResourceSearchService.openResourceInputStream(QURAN_FILE_NAME);
     }
 
 
     private String getTranslationResourceFileName() {
         return RESOURCE_QURAN_DIRECTORY + "/" + getTranslationDisplayName() + ".txt";
+    }
+
+    private static InputStream openResourceInputStream(String resourceName) {
+        InputStream inputStream = null;
+        try {
+            inputStream = ResourceSearchService.class.getResourceAsStream(resourceName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return inputStream;
     }
 }
