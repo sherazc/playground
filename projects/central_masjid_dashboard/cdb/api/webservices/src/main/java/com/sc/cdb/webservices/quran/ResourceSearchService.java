@@ -39,7 +39,7 @@ public class ResourceSearchService extends SearchService {
     private static InputStream openResourceInputStream(String resourceName) {
         InputStream inputStream = null;
         try {
-            inputStream = ResourceSearchService.class.getResourceAsStream(resourceName);
+            inputStream = ResourceSearchService.class.getResource(resourceName).openStream();
         } catch (Exception e) {
             e.printStackTrace();
         }
