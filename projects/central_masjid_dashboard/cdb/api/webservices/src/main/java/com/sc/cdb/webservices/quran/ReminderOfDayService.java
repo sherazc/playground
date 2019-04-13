@@ -2,20 +2,38 @@ package com.sc.cdb.webservices.quran;
 
 import java.util.List;
 
+import com.sc.cdb.webservices.utils.Parser;
 import com.sc.reminder.api.domain.AyaDetail;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ReminderOfDayService {
-  boolean validCallback(String callback) {
-    int length = StringUtils.length(callback);
-    return length > 1
-        && length < 10
-        callback.matches("^[a-zA-Z]+$");
+  private static final int MIN_CB_LENGTH = 1;
+  private static final int MAX_CB_LENGTH = 10;
+
+  private Parser parser;
+
+  @Autowired
+  public ReminderOfDayService(Parser parser) {
+    this.parser = parser;
   }
 
-  String makeJsonpScript(List<AyaDetail> ayaDetails) {
-    return null;
+  boolean validCallback(String callback) {
+    int length = StringUtils.length(callback);
+    return length > MIN_CB_LENGTH
+        && length < MAX_CB_LENGTH
+        && callback.matches("^[a-zA-Z]+$");
+  }
+
+  String makeJsonpScript(String callback, Object object) {
+    String ayaDetailsJson = parser.serializeObject(object);
+
+    return new StringBuilder(callback)
+        .append("(")
+        .append(ayaDetailsJson)
+        .append(")")
+        .toString();
   }
 }

@@ -24,13 +24,14 @@ public class ReminderOfDay {
     this.reminderOfDayService = reminderOfDayService;
   }
 
+
   @GetMapping
-  public ResponseEntity<?> todayReminder(
+  public ResponseEntity<?> reminderHistory(
       @RequestParam(value = "translation", defaultValue = "English_-_Saheeh_International")
           String translation,
       @RequestParam(value = "history", defaultValue = "0")
           int history,
-      @RequestParam("cb")
+      @RequestParam(value = "cb", required = false)
           String cb) {
 
     SearchService searchService = new ResourceSearchService();
@@ -38,8 +39,15 @@ public class ReminderOfDay {
 
     List<AyaDetail> ayaDetails = searchService.search(history);
 
+    if (ayaDetails != null && ayaDetails.size() == 1 && history == 0) {
+      return generateResponse()
+    } else {
+      return generateResponse();
+    }
+
+
     if(reminderOfDayService.validCallback(cb)) {
-      return ResponseEntity.ok(reminderOfDayService.makeJsonpScript(ayaDetails));
+      return ResponseEntity.ok(reminderOfDayService.makeJsonpScript(cb, ayaDetails));
     } else {
       return ResponseEntity.ok(ayaDetails);
     }
