@@ -2,7 +2,6 @@ package com.sc.cdb.webservices.quran;
 
 import java.util.List;
 
-import com.sc.cdb.webservices.utils.Parser;
 import com.sc.reminder.api.domain.AyaDetail;
 import com.sc.reminder.api.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,6 @@ public class ReminderOfDay {
     this.reminderOfDayService = reminderOfDayService;
   }
 
-
   @GetMapping
   public ResponseEntity<?> reminderHistory(
       @RequestParam(value = "translation", defaultValue = "English_-_Saheeh_International")
@@ -40,16 +38,17 @@ public class ReminderOfDay {
     List<AyaDetail> ayaDetails = searchService.search(history);
 
     if (ayaDetails != null && ayaDetails.size() == 1 && history == 0) {
-      return generateResponse()
+      return generateResponse(ayaDetails.get(0), cb);
     } else {
-      return generateResponse();
+      return generateResponse(ayaDetails, cb);
     }
+  }
 
-
-    if(reminderOfDayService.validCallback(cb)) {
-      return ResponseEntity.ok(reminderOfDayService.makeJsonpScript(cb, ayaDetails));
+  private ResponseEntity<?> generateResponse(Object responseObject, String cb) {
+    if (reminderOfDayService.validCallback(cb)) {
+      return ResponseEntity.ok(reminderOfDayService.makeJsonpScript(cb, responseObject));
     } else {
-      return ResponseEntity.ok(ayaDetails);
+      return ResponseEntity.ok(responseObject);
     }
   }
 }
