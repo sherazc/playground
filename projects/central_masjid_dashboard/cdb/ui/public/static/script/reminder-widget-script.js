@@ -73,14 +73,14 @@ function buildReminderWidgetContainerHTML(reminderDetail) {
     resultHtml += "<tr><td colspan='2' class='bismillah'>            بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</td></tr>";
 
     for (i = 0; i < ayas.length; i++) {
-        resultHtml += "<tr><td class='ayaNumber'>("
+        resultHtml += "<tr><td class='ayaNumber'>(";
         resultHtml += ayas[i].ayaNumber;
         resultHtml += ")</td><td class='ayaArabic'>";
-        resultHtml += ayas[i].lineString
+        resultHtml += ayas[i].lineString;
         resultHtml += "</td></tr>";
 
         resultHtml += "<tr><td></td><td class='ayaTranslation'>";
-        resultHtml += translations[i].lineString
+        resultHtml += translations[i].lineString;
         resultHtml += "</td></tr>";
 
     }
