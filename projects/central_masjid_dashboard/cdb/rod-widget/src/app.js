@@ -1,4 +1,4 @@
-const rodAppDiv = document.getElementById(rotdAppDivId);
+const rodAppDiv = document.getElementById(rodAppDivId);
 
 rodAppDiv.innerHTML = "<div style=\'font-weight: bold\'>Test</div>";
 
