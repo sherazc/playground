@@ -31,3 +31,7 @@ target
 api/webservices/src/main/resources/static
 
 *.log
+
+*.min.js
+*.min.js.map
+
