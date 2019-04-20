@@ -1,9 +1,18 @@
 #!/usr/bin/env bash
 
-# Build UI
+# Install/Update npm and yarn
 npm install npm -g
 npm install yarn -g
-cd ui
+
+
+# Build ROTD Widget
+cd rotd-widget
+yarn install
+yarn build
+
+
+# Build UI
+cd ../ui
 rm -rf build
 yarn install
 yarn build
