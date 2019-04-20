@@ -1,10 +1,10 @@
 {
-  "name": "rotd-widget",
+  "name": "rod-widget",
   "version": "1.0.0",
   "description": "\"Reminder of the day - Widget\"",
   "main": "index.js",
   "scripts": {
-    "clean": "rm -f ../ui/public/static/quran-reminder/app.min.js&rm -f ../ui/public/static/quran-reminder/app.min.js.map",
+    "clean": "rm -f ../ui/public/static/rod-widget/app.min.js&rm -f ../ui/public/static/rod-widget/app.min.js.map",
     "dev": "npm run clean&webpack --mode development --watch",
     "build": "npm run clean & webpack --mode production"
   },

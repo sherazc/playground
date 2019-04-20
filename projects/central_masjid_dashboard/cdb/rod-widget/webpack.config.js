@@ -12,7 +12,7 @@ if (process.env.BUILD_TYPE === "PROD") {
 module.exports = {
     entry: "./src/app.js",
     output: {
-        path: path.resolve(__dirname, "../ui/public/static/quran-reminder"),
+        path: path.resolve(__dirname, "../ui/public/static/rod-widget"),
         filename: "app.min.js",
         // publicPath: "/dist"
     },

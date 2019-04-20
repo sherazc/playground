@@ -5,8 +5,8 @@ npm install npm -g
 npm install yarn -g
 
 
-# Build ROTD Widget
-cd rotd-widget
+# Build ROD Widget
+cd rod-widget
 yarn install
 yarn build
 
