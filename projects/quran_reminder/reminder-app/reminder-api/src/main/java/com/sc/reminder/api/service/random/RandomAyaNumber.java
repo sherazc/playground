@@ -24,18 +24,30 @@ public class RandomAyaNumber {
     }
 
     public int daysSinceEpoch() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(0);
-        calendar.set(Calendar.YEAR, 2000);
-        // calendar.setTimeInMillis(Calendar.getInstance().getTimeInMillis() - calendar.getTimeInMillis());
-        long currentMilli = calendar.getTimeInMillis();
-        long seconds = currentMilli / 1000;
-        long minutes = seconds / 60;
-        long hours = minutes / 60;
-        int days = (int) (hours / 24);
-        LOG.debug("Epoch date: {}", calendar.getTime());
-        LOG.debug("Days since epoch: {}", days);
-        return days;
+        Calendar epochCalendar = createEpochCalendar();
+
+        long millisSinceEpoch =
+            Calendar.getInstance().getTimeInMillis() - epochCalendar.getTimeInMillis();
+
+        long secondsSinceEpoch = millisSinceEpoch / 1000;
+        long minutesSinceEpoch = secondsSinceEpoch / 60;
+        long hoursSinceEpoch = minutesSinceEpoch / 60;
+        int daysSinceEpoch = (int) (hoursSinceEpoch / 24);
+        LOG.debug("Epoch date: {}", epochCalendar.getTime());
+        LOG.debug("Days since epoch: {}", daysSinceEpoch);
+        return daysSinceEpoch;
+    }
+
+    private Calendar createEpochCalendar() {
+        Calendar epochCalendar = Calendar.getInstance();
+        epochCalendar.set(Calendar.MILLISECOND, 0);
+        epochCalendar.set(Calendar.SECOND, 0);
+        epochCalendar.set(Calendar.HOUR, 0);
+        epochCalendar.set(Calendar.DATE, 0);
+        epochCalendar.set(Calendar.MONTH, 0);
+        epochCalendar.set(Calendar.MONTH, 0);
+        epochCalendar.set(Calendar.YEAR, 2000);
+        return epochCalendar;
     }
 
     public int generateRandomAyaNumber() {
