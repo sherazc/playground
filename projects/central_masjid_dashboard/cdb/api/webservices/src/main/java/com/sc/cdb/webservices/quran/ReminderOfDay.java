@@ -3,6 +3,8 @@ package com.sc.cdb.webservices.quran;
 import java.util.List;
 
 import com.sc.reminder.api.domain.AyaDetail;
+import com.sc.reminder.api.domain.ReminderDetail;
+import com.sc.reminder.api.service.ReminderDecorator;
 import com.sc.reminder.api.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -17,10 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class ReminderOfDay {
 
   private ReminderOfDayService reminderOfDayService;
+  private ReminderDecorator reminderDecorator;
 
   @Autowired
-  public ReminderOfDay(ReminderOfDayService reminderOfDayService) {
+  public ReminderOfDay(ReminderOfDayService reminderOfDayService,
+                       ReminderDecorator reminderDecorator) {
     this.reminderOfDayService = reminderOfDayService;
+    this.reminderDecorator = reminderDecorator;
   }
 
   @GetMapping
@@ -37,10 +42,13 @@ public class ReminderOfDay {
 
     List<AyaDetail> ayaDetails = searchService.search(history);
 
-    if (ayaDetails != null && ayaDetails.size() == 1 && history == 0) {
-      return generateResponse(ayaDetails.get(0), cb);
+    List<ReminderDetail> reminderDetails = reminderDecorator.decorate(
+        ayaDetails, translation);
+
+    if (reminderDetails.size() == 1 && history == 0) {
+      return generateResponse(reminderDetails.get(0), cb);
     } else {
-      return generateResponse(ayaDetails, cb);
+      return generateResponse(reminderDetails, cb);
     }
   }
 

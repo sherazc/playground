@@ -1,8 +1,3 @@
-const rodAppDiv = document.getElementById(rodAppDivId);
-
-rodAppDiv.innerHTML = "<div style=\'font-weight: bold\'>Test</div>";
-
-
 function buildReminderWidgetContainerHTML(reminderDetail) {
 
     var ayas = reminderDetail.ayaDetail.ayas;
@@ -49,11 +44,25 @@ console.log(fetch);
 
 
 const main = () => {
-    const rodAppDiv = document.getElementById(rotdAppDivId);
 
+    const rodAppDiv = document.getElementById(rodAppDivId);
 
+    const currentMillis = (new Date()).getTime();
 
-    console.log(location);
+    // const serviceUrl = "http://localhost:8085/api/rod?history=0&cb=cb";
+    const serviceUrl = "http://localhost:8085/api/rod";
+
+    fetch(serviceUrl).then(
+        response => response.json()
+            .then(data => {
+                console.log(data)
+                rodAppDiv.innerHTML = buildReminderWidgetContainerHTML(data);
+            })
+        ,
+        (error) => {
+            console.log(error);
+        }
+    );
 
 };
 
