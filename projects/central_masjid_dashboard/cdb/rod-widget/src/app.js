@@ -1,18 +1,19 @@
-buildReminderWidgetContainerHTML = (reminderDetail) => {
+import "./app.css";
 
-    var ayas = reminderDetail.ayaDetail.ayas;
-    var translations = reminderDetail.ayaDetail.translations;
+const buildReminderWidgetContainerHTML = (reminderDetail) => {
+    let ayas = reminderDetail.ayaDetail.ayas;
+    let translations = reminderDetail.ayaDetail.translations;
 
-    var translationName = reminderDetail.translationName;
-    var suraNumber = reminderDetail.suraNumber;
-    var suraNameArabic = reminderDetail.suraNameArabic;
-    var suraDescription = reminderDetail.suraDescription;
-    var suraNameEnglish = reminderDetail.suraNameEnglish;
+    let translationName = reminderDetail.translationName;
+    let suraNumber = reminderDetail.suraNumber;
+    let suraNameArabic = reminderDetail.suraNameArabic;
+    let suraDescription = reminderDetail.suraDescription;
+    let suraNameEnglish = reminderDetail.suraNameEnglish;
 
-    var resultHtml = "<table id='reminder_table' border='1'>";
+    let resultHtml = "<table id='reminder_table' border='0'>";
     resultHtml += "<tr><td colspan='2' class='bismillah'>            بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</td></tr>";
 
-    for (i = 0; i < ayas.length; i++) {
+    for (let i = 0; i < ayas.length; i++) {
         resultHtml += "<tr><td class='ayaNumber'>(";
         resultHtml += ayas[i].ayaNumber;
         resultHtml += ")</td><td class='ayaArabic'>";

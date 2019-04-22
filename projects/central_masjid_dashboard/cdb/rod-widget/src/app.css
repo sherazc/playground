@@ -1,0 +1,51 @@
+#reminder-widget-container {
+    /*width: 800px;*/
+}
+
+#reminder_table {
+    font-family: Arial;
+    text-align: center;
+    background-color: #fff8eb;
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px #888888;
+    border: 0;
+    border-spacing: 0px;
+    border-collapse: separate;
+    font-size: 80%;
+    color: #444;
+}
+
+.surahTitle {
+    font-family: 'saleem';
+    font-size: 100%;
+}
+
+.bismillah {
+    font-family: 'saleem';
+    color: #062707;
+    font-size: 200%;
+}
+
+.surahTitleDescription {
+    font-size: 70%;
+}
+
+.ayaArabic {
+    font-family: 'saleem';
+    color: #062707;
+    font-size: 200%;
+    background-color: #cbdfcc;
+}
+
+.ayaTranslation {
+
+}
+
+.ayaNumber {
+    background-color: #cbdfcc;
+}
+
+.ayaTranslationName {
+    font-size: 70%;
+    color: #666;
+}
