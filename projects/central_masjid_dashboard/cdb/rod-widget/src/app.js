@@ -1,4 +1,4 @@
-function buildReminderWidgetContainerHTML(reminderDetail) {
+buildReminderWidgetContainerHTML = (reminderDetail) => {
 
     var ayas = reminderDetail.ayaDetail.ayas;
     var translations = reminderDetail.ayaDetail.translations;
@@ -9,7 +9,7 @@ function buildReminderWidgetContainerHTML(reminderDetail) {
     var suraDescription = reminderDetail.suraDescription;
     var suraNameEnglish = reminderDetail.suraNameEnglish;
 
-    var resultHtml = "<table id='reminder_table' border='0'>";
+    var resultHtml = "<table id='reminder_table' border='1'>";
     resultHtml += "<tr><td colspan='2' class='bismillah'>            بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</td></tr>";
 
     for (i = 0; i < ayas.length; i++) {
@@ -38,34 +38,18 @@ function buildReminderWidgetContainerHTML(reminderDetail) {
     resultHtml += "</td></tr>";
     resultHtml += "</table>";
     return resultHtml;
-}
-
-console.log(fetch);
-
+};
 
 const main = () => {
-
     const rodAppDiv = document.getElementById(rodAppDivId);
-
-    const currentMillis = (new Date()).getTime();
-
-    // const serviceUrl = "http://localhost:8085/api/rod?history=0&cb=cb";
-    const serviceUrl = "http://localhost:8085/api/rod";
-
-    fetch(serviceUrl).then(
+    fetch(rodServiceUrl).then(
         response => response.json()
-            .then(data => {
-                console.log(data)
-                rodAppDiv.innerHTML = buildReminderWidgetContainerHTML(data);
-            })
+            .then(
+                data => rodAppDiv.innerHTML = buildReminderWidgetContainerHTML(data)
+            )
         ,
-        (error) => {
-            console.log(error);
-        }
+        (error) => console.log(error)
     );
-
 };
 
 main();
-
-// buildReminderWidgetContainerHTML()
