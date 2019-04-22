@@ -24,7 +24,7 @@ public class ReminderOfDayService {
     int length = StringUtils.length(callback);
     return length > MIN_CB_LENGTH
         && length < MAX_CB_LENGTH
-        && callback.matches("^[a-zA-Z]+$");
+        && callback.matches("^[a-zA-Z]\\w+$");
   }
 
   String makeJsonpScript(String callback, Object object) {

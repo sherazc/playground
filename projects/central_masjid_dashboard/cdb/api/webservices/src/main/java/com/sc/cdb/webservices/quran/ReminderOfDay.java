@@ -1,5 +1,6 @@
 package com.sc.cdb.webservices.quran;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import com.sc.reminder.api.domain.AyaDetail;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/rod", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/rod")
 public class ReminderOfDay {
 
   private ReminderOfDayService reminderOfDayService;
@@ -54,7 +55,10 @@ public class ReminderOfDay {
 
   private ResponseEntity<?> generateResponse(Object responseObject, String cb) {
     if (reminderOfDayService.validCallback(cb)) {
-      return ResponseEntity.ok(reminderOfDayService.makeJsonpScript(cb, responseObject));
+      return ResponseEntity
+          .ok()
+          .contentType(new MediaType("application", "javascript", StandardCharsets.UTF_8))
+          .body(reminderOfDayService.makeJsonpScript(cb, responseObject));
     } else {
       return ResponseEntity.ok(responseObject);
     }

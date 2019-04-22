@@ -40,16 +40,35 @@ buildReminderWidgetContainerHTML = (reminderDetail) => {
     return resultHtml;
 };
 
-const main = () => {
-    const rodAppDiv = document.getElementById(rodAppDivId);
-    fetch(rodServiceUrl).then(
-        response => response.json()
-            .then(
-                data => rodAppDiv.innerHTML = buildReminderWidgetContainerHTML(data)
-            )
-        ,
-        (error) => console.log(error)
-    );
+const createRodCallbackName = () => {
+    const randomNumber = Math.round(100000 * Math.random());
+    return `cb_${randomNumber}`;
 };
 
+const rodCallback = (reminderDetails) => {
+    const rodAppDiv = document.getElementById(rodAppDivId);
+    rodAppDiv.innerHTML = buildReminderWidgetContainerHTML(reminderDetails);
+};
+
+function createJasonScriptElement() {
+    const serviceUrl = `${rodServiceUrl}?cb=${rodCallbackName}`;
+    const jsonpScriptElement = document.createElement("script");
+
+    jsonpScriptElement.src = serviceUrl;
+    jsonpScriptElement.id = rodCallbackName;
+    return jsonpScriptElement;
+}
+
+const main = () => {
+    const bodyElement = document.getElementsByTagName("body")[0];
+
+    window[rodCallbackName] = (reminderDetail) => {
+        rodCallback(reminderDetail);
+    };
+    const jsonpScriptElement = createJasonScriptElement();
+    bodyElement.appendChild(jsonpScriptElement);
+    document.getElementById(rodCallbackName).remove();
+};
+
+const rodCallbackName = createRodCallbackName();
 main();
