@@ -51,25 +51,59 @@ const rodCallback = (reminderDetails) => {
     rodAppDiv.innerHTML = buildReminderWidgetContainerHTML(reminderDetails);
 };
 
-function createJasonScriptElement() {
-    const serviceUrl = `${rodServiceUrl}?cb=${rodCallbackName}`;
+const createJasonScriptElement = () => {
     const jsonpScriptElement = document.createElement("script");
-
-    jsonpScriptElement.src = serviceUrl;
+    jsonpScriptElement.src = `${rodServerUrl}/api/rod?cb=${rodCallbackName}`;
     jsonpScriptElement.id = rodCallbackName;
     return jsonpScriptElement;
-}
+};
+
+const addArabicFontStyle = () => {
+    const arabicFontStyle = "arabicFontStyle";
+    const existingStyleElement = document.getElementById(arabicFontStyle);
+    if (existingStyleElement) {
+        return;
+    }
+    const fontMeQuran = `${rodServerUrl}/static/fonts/me_quran.ttf`;
+    const fontSaleem = `${rodServerUrl}/static/fonts/saleem.ttf`;
+
+    const styleElement = document.createElement("style");
+    styleElement.id = arabicFontStyle;
+
+    styleElement.appendChild(document.createTextNode(`
+        @font-face {
+            font-family: 'saleem';
+            src: url('${fontSaleem}') format('truetype')
+        }
+        
+        @font-face {
+            font-family: 'me_quran';
+            src: url('${fontMeQuran}') format('truetype')
+        }
+    `));
+
+    document.getElementsByTagName("head")[0].appendChild(styleElement);
+
+};
 
 const main = () => {
     const bodyElement = document.getElementsByTagName("body")[0];
 
+    // jsonp callback function. This function will receive
     window[rodCallbackName] = (reminderDetail) => {
         rodCallback(reminderDetail);
     };
+
+    // jsonp script element
     const jsonpScriptElement = createJasonScriptElement();
     bodyElement.appendChild(jsonpScriptElement);
+
+    addArabicFontStyle();
+
+    // Clean up
     document.getElementById(rodCallbackName).remove();
 };
 
 const rodCallbackName = createRodCallbackName();
+
 main();
