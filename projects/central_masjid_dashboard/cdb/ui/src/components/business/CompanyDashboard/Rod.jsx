@@ -27,6 +27,42 @@ class Rod extends Component {
     render() {
         return (
             <div>
+
+
+                <table border="1" style={{width: "100%"}}>
+                    <tbody>
+                    <tr>
+                        <td colSpan="2"> بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</td>
+                    </tr>
+                    <tr>
+                        <td>(72)</td>
+                        <td>وَٱللَّهُ جَعَلَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَٰجًۭا وَجَعَلَ لَكُم مِّنْ
+                            أَزْوَٰجِكُم بَنِينَ وَحَفَدَةًۭ وَرَزَقَكُم مِّنَ ٱلطَّيِّبَٰتِ ۚ أَفَبِٱلْبَٰطِلِ
+                            يُؤْمِنُونَ وَبِنِعْمَتِ ٱللَّهِ هُمْ يَكْفُرُونَ
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>And Allah has made for you from yourselves mates and has made for you
+                            from your mates sons and grandchildren and has provided for you from the good things. Then
+                            in falsehood do they believe and in the favor of Allah they disbelieve?
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colSpan="2">
+                            <span >An-Naĥl - The Bee (16) </span>
+                            &nbsp;|&nbsp;
+                            <span>النحل</span>
+                            &nbsp;|&nbsp;
+                            <span>Translation - English_-_Saheeh_International</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+
+
             </div>
         );
     }
