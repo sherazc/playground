@@ -25,6 +25,15 @@ class Rod extends Component {
     }
 
     render() {
+        const {reminderDetail} = this.state;
+        const ayas = reminderDetail.ayaDetail.ayas;
+        let translations = reminderDetail.ayaDetail.translations;
+
+        let translationName = reminderDetail.translationName;
+        let suraNumber = reminderDetail.suraNumber;
+        let suraNameArabic = reminderDetail.suraNameArabic;
+        let suraDescription = reminderDetail.suraDescription;
+        let suraNameEnglish = reminderDetail.suraNameEnglish;
         return (
             <div>
 
@@ -34,6 +43,9 @@ class Rod extends Component {
                     <tr>
                         <td colSpan="2"> بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</td>
                     </tr>
+
+
+
                     <tr>
                         <td>(72)</td>
                         <td>وَٱللَّهُ جَعَلَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَٰجًۭا وَجَعَلَ لَكُم مِّنْ
@@ -48,13 +60,17 @@ class Rod extends Component {
                             in falsehood do they believe and in the favor of Allah they disbelieve?
                         </td>
                     </tr>
+
+
                     <tr>
                         <td colSpan="2">
-                            <span >An-Naĥl - The Bee (16) </span>
+                            <span>
+                                {reminderDetail.suraNameEnglish} - {reminderDetail.suraDescription} ({reminderDetail.suraNumber})
+                            </span>
                             &nbsp;|&nbsp;
-                            <span>النحل</span>
+                            <span>{reminderDetail.suraNameArabic}</span>
                             &nbsp;|&nbsp;
-                            <span>Translation - English_-_Saheeh_International</span>
+                            <span>Translation - {reminderDetail.translationName}</span>
                         </td>
                     </tr>
                     </tbody>
