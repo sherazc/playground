@@ -24,16 +24,21 @@ class Rod extends Component {
         );
     }
 
-    render() {
-        const {reminderDetail} = this.state;
-        const ayas = reminderDetail.ayaDetail.ayas;
-        let translations = reminderDetail.ayaDetail.translations;
+    createAyaRows(ayaDetails) {
+        return <div>Hello</div>
+    }
 
-        let translationName = reminderDetail.translationName;
-        let suraNumber = reminderDetail.suraNumber;
-        let suraNameArabic = reminderDetail.suraNameArabic;
-        let suraDescription = reminderDetail.suraDescription;
-        let suraNameEnglish = reminderDetail.suraNameEnglish;
+    render() {
+        const {
+            ayaDetail,
+            translationName,
+            suraNumber,
+            suraNameArabic,
+            suraDescription,
+            suraNameEnglish} = this.state.reminderDetail;
+        // const ayas = reminderDetail.ayaDetail.ayas;
+        // let translations = reminderDetail.ayaDetail.translations;
+
         return (
             <div>
 
@@ -51,6 +56,8 @@ class Rod extends Component {
                         <td>وَٱللَّهُ جَعَلَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَٰجًۭا وَجَعَلَ لَكُم مِّنْ
                             أَزْوَٰجِكُم بَنِينَ وَحَفَدَةًۭ وَرَزَقَكُم مِّنَ ٱلطَّيِّبَٰتِ ۚ أَفَبِٱلْبَٰطِلِ
                             يُؤْمِنُونَ وَبِنِعْمَتِ ٱللَّهِ هُمْ يَكْفُرُونَ
+
+                            {this.createAyaRows(ayaDetail)}
                         </td>
                     </tr>
                     <tr>
@@ -65,12 +72,12 @@ class Rod extends Component {
                     <tr>
                         <td colSpan="2">
                             <span>
-                                {reminderDetail.suraNameEnglish} - {reminderDetail.suraDescription} ({reminderDetail.suraNumber})
+                                {suraNameEnglish} - {suraDescription} ({suraNumber})
                             </span>
                             &nbsp;|&nbsp;
-                            <span>{reminderDetail.suraNameArabic}</span>
+                            <span>{suraNameArabic}</span>
                             &nbsp;|&nbsp;
-                            <span>Translation - {reminderDetail.translationName}</span>
+                            <span>Translation - {translationName}</span>
                         </td>
                     </tr>
                     </tbody>
