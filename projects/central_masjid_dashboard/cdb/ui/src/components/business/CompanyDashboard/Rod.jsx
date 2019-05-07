@@ -1,14 +1,10 @@
-import React, {Component} from "react";
+import React, {Component, Fragment} from "react";
 import axios from "axios";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
 class Rod extends Component {
     state = this.createInitialState();
-
-    constructor(props) {
-        super(props);
-    }
 
     createInitialState() {
         return {
@@ -24,8 +20,25 @@ class Rod extends Component {
         );
     }
 
-    createAyaRows(ayaDetails) {
-        return <div>Hello</div>
+    createAyaRows(ayaDetail) {
+        if (!ayaDetail || !ayaDetail.ayas || ayaDetail.ayas.lenght < 1) {
+            return;
+        }
+
+        const {ayas, translations} = ayaDetail;
+
+        return ayas.map((aya, index) => {
+            return (<Fragment key={index}>
+                <tr>
+                    <td>{aya.ayaNumber}</td>
+                    <td>{aya.lineString}</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>{translations[index].lineString}</td>
+                </tr>
+            </Fragment>);
+        });
     }
 
     render() {
@@ -49,26 +62,7 @@ class Rod extends Component {
                         <td colSpan="2"> بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</td>
                     </tr>
 
-
-
-                    <tr>
-                        <td>(72)</td>
-                        <td>وَٱللَّهُ جَعَلَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَٰجًۭا وَجَعَلَ لَكُم مِّنْ
-                            أَزْوَٰجِكُم بَنِينَ وَحَفَدَةًۭ وَرَزَقَكُم مِّنَ ٱلطَّيِّبَٰتِ ۚ أَفَبِٱلْبَٰطِلِ
-                            يُؤْمِنُونَ وَبِنِعْمَتِ ٱللَّهِ هُمْ يَكْفُرُونَ
-
-                            {this.createAyaRows(ayaDetail)}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>And Allah has made for you from yourselves mates and has made for you
-                            from your mates sons and grandchildren and has provided for you from the good things. Then
-                            in falsehood do they believe and in the favor of Allah they disbelieve?
-                        </td>
-                    </tr>
-
-
+                    {this.createAyaRows(ayaDetail)}
                     <tr>
                         <td colSpan="2">
                             <span>

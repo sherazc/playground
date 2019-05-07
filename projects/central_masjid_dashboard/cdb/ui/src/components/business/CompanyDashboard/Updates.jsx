@@ -5,10 +5,6 @@ class Updates extends Component {
 
     state = this.createInitialState();
 
-    constructor(props) {
-        super(props);
-    }
-
     createInitialState() {
         return {};
     }
