@@ -20,10 +20,9 @@ const buildReminderWidgetContainerHTML = (reminderDetail) => {
         resultHtml += ayas[i].lineString;
         resultHtml += "</td></tr>";
 
-        resultHtml += "<tr><td></td><td class='ayaTranslation'>";
+        resultHtml += "<tr><td colspan='2' class='ayaTranslation'>";
         resultHtml += translations[i].lineString;
         resultHtml += "</td></tr>";
-
     }
 
     resultHtml += "<tr><td colspan='2'>";
