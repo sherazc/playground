@@ -11,7 +11,7 @@ const buildReminderWidgetContainerHTML = (reminderDetail) => {
     let suraNameEnglish = reminderDetail.suraNameEnglish;
 
     let resultHtml = "<table id='reminder_table' border='0'>";
-    resultHtml += "<tr><td colspan='2' class='bismillah'>            بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</td></tr>";
+    resultHtml += "<tr><td>&nbsp;</td><td class='bismillah'>            بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</td></tr>";
 
     for (let i = 0; i < ayas.length; i++) {
         resultHtml += "<tr><td class='ayaNumber'>(";
@@ -20,12 +20,12 @@ const buildReminderWidgetContainerHTML = (reminderDetail) => {
         resultHtml += ayas[i].lineString;
         resultHtml += "</td></tr>";
 
-        resultHtml += "<tr><td colspan='2' class='ayaTranslation'>";
+        resultHtml += "<tr><td>&nbsp;</td><td class='ayaTranslation'>";
         resultHtml += translations[i].lineString;
         resultHtml += "</td></tr>";
     }
 
-    resultHtml += "<tr><td colspan='2'>";
+    resultHtml += "<tr><td>&nbsp;</td><td>";
     resultHtml += "<span class='surahTitleDescription'>";
     resultHtml += (suraNameEnglish + " - " + suraDescription + " (" + suraNumber + ") ");
     resultHtml += "</span>&nbsp;|&nbsp;";
