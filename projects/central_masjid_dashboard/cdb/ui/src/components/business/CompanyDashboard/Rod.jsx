@@ -65,9 +65,6 @@ class Rod extends Component {
                 src: url('${fontMeQuran}') format('truetype')
             }
         `));
-
-        console.log(styleElement);
-
         document.getElementsByTagName("head")[0].appendChild(styleElement);
     };
 
@@ -92,7 +89,7 @@ class Rod extends Component {
                     {this.createAyaRows(ayaDetail)}
                     <tr>
                         <td colSpan="2">
-                            <span class='surahTitleDescription'>
+                            <span className='surahTitleDescription'>
                                 {suraNameEnglish} - {suraDescription} ({suraNumber})
                             </span>
                             &nbsp;|&nbsp;
