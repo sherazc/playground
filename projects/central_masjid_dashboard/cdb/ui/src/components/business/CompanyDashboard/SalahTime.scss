@@ -1,19 +1,21 @@
+@import "theme";
+
 .salahTimeTable {
     margin: 0 auto;
     font-size: 1.15vw;
     border-collapse: collapse;
-
-    @media screen and (max-width: 959px) {
-        font-size: 3vw;
+    @media screen and (max-width: $screen-break) {
+        font-size: 3.8vw;
     }
 }
 
 .salahTimeDateHeading {
-    padding: 30px 0 30px 0;
-    font-size: 2vw;
+    padding: 3vw 0 3vw 0;
+    font-size: 1.5vw;
     white-space: nowrap;
-    @media screen and (max-width: 959px) {
-        font-size: 5vw;
+    @media screen and (max-width: $screen-break) {
+        font-size: 4vw;
+        padding: 9vw 0 8vw 0;
     }
 }
 

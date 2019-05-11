@@ -1,3 +1,5 @@
+@import "theme";
+
 #reminder-widget-container {
     /*width: 800px;*/
 }
@@ -14,7 +16,7 @@
     font-size: .5vw;
     color: #444;
     margin: 0 auto;
-    @media screen and (max-width: 959px) {
+    @media screen and (max-width: $screen-break) {
         font-size: 1.8vw;
     }
 }
@@ -22,7 +24,7 @@
 .surahTitle {
     font-family: 'saleem';
     font-size: .5vw;
-    @media screen and (max-width: 959px) {
+    @media screen and (max-width: $screen-break) {
         font-size: 1.5vw;
     }
 }
@@ -31,14 +33,14 @@
     font-family: 'saleem';
     color: #062707;
     font-size: 1vw;
-    @media screen and (max-width: 959px) {
+    @media screen and (max-width: $screen-break) {
         font-size: 3vw;
     }
 }
 
 .surahTitleDescription {
     font-size: .3vw;
-    @media screen and (max-width: 959px) {
+    @media screen and (max-width: $screen-break) {
         font-size: 1vw;
     }
 }
@@ -48,7 +50,7 @@
     color: #062707;
     font-size: 1vw;
     background-color: #cbdfcc;
-    @media screen and (max-width: 959px) {
+    @media screen and (max-width: $screen-break) {
         font-size: 3vw;
     }
 }
@@ -64,7 +66,7 @@
 .ayaTranslationName {
     font-size: .3vw;
     color: #666;
-    @media screen and (max-width: 959px) {
+    @media screen and (max-width: $screen-break) {
         font-size: 1vw;
     }
 }
