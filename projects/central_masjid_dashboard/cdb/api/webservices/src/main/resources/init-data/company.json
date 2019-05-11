@@ -12,9 +12,9 @@
       "latitude": "2.2"
     },
     "active": true,
-    "expirationDate": ISODate(
-    "2019-01-19T16:42:32.669Z"
-    ),
+    "expirationDate": {
+      "$date": "2019-01-19T16:42:32.669Z"
+    },
     "_class": "com.sc.cdb.data.model.auth.Company"
   },
   {
@@ -30,9 +30,9 @@
       "latitude": "2.2"
     },
     "active": true,
-    "expirationDate": ISODate(
-    "2019-01-19T16:42:32.720Z"
-    ),
+    "expirationDate": {
+      "$date": "2019-01-19T16:42:32.720Z"
+    },
     "_class": "com.sc.cdb.data.model.auth.Company"
   }
 ]
