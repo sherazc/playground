@@ -37,3 +37,105 @@ $screen-break: 959px;
     font-size: 2vw;
   }
 }
+
+
+.textXLarge {
+  font-size: 3vw;
+  @media screen and (max-width: $screen-break) {
+    font-size: 4vw;
+  }
+}
+
+
+.textLarge {
+  font-size: 2vw;
+  @media screen and (max-width: $screen-break) {
+    font-size: 3vw;
+  }
+}
+
+.textRegular {
+  font-size: 1vw;
+  @media screen and (max-width: $screen-break) {
+    font-size: 2vw;
+  }
+}
+
+.textSmall {
+  font-size: .5vw;
+  @media screen and (max-width: $screen-break) {
+    font-size: 1vw;
+  }
+}
+
+.textXSmall {
+  font-size: .3vw;
+  @media screen and (max-width: $screen-break) {
+    font-size: .5vw;
+  }
+}
+
+.vMargin1 {
+  margin-top: .2vw;
+  @media screen and (max-width: $screen-break) {
+    margin-top: 1vw;
+  }
+}
+
+.vMargin2 {
+  margin-top: .5vw;
+  @media screen and (max-width: $screen-break) {
+    margin-top: 1.5vw;
+  }
+}
+
+.vMargin3 {
+  margin-top: 1vw;
+  @media screen and (max-width: $screen-break) {
+    margin-top: 4vw;
+  }
+}
+
+
+.vMargin4 {
+  margin-top: 1.5vw;
+  @media screen and (max-width: $screen-break) {
+    margin-top: 5vw;
+  }
+}
+
+.vMargin5 {
+  margin-top: 2vw;
+  @media screen and (max-width: $screen-break) {
+    margin-top: 6.5vw;
+  }
+}
+
+.vMargin6 {
+  margin-top: 3vw;
+  @media screen and (max-width: $screen-break) {
+    margin-top: 9vw;
+  }
+}
+
+.vMargin7 {
+  margin-top: 4vw;
+  @media screen and (max-width: $screen-break) {
+    margin-top: 12vw;
+  }
+}
+
+.vMargin8 {
+  margin-top: 5.5vw;
+  @media screen and (max-width: $screen-break) {
+    margin-top: 16vw;
+  }
+}
+
+
+.vMargin9 {
+  margin-top: 7vw;
+  @media screen and (max-width: $screen-break) {
+    margin-top: 22vw;
+  }
+}
