@@ -12,7 +12,10 @@ class Updates extends Component {
     render() {
         return (
             <div>
-                <Rod/>
+
+                <div className="sectionHeading">Reminders</div>
+                <div>Quran</div>
+                <div><Rod/></div>
             </div>
         );
     }
