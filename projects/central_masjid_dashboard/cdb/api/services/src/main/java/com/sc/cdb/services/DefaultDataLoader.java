@@ -34,6 +34,7 @@ public class DefaultDataLoader {
         // collectionResources.put("centralControl", initDataDirectory + "centralControl.json");
         collectionResources.put("company", initDataDirectory + "company.json");
         collectionResources.put("user", initDataDirectory + "user.json");
+        collectionResources.put("hadith", initDataDirectory + "hadith.json");
         return collectionResources;
     }
 
