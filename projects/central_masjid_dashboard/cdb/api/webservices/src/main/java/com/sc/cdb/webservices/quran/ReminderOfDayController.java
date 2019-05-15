@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/api/rod")
-public class ReminderOfDay {
+public class ReminderOfDayController {
 
   private ReminderOfDayService reminderOfDayService;
   private ReminderDecorator reminderDecorator;
 
   @Autowired
-  public ReminderOfDay(ReminderOfDayService reminderOfDayService,
-                       ReminderDecorator reminderDecorator) {
+  public ReminderOfDayController(ReminderOfDayService reminderOfDayService,
+                                 ReminderDecorator reminderDecorator) {
     this.reminderOfDayService = reminderOfDayService;
     this.reminderDecorator = reminderDecorator;
   }
