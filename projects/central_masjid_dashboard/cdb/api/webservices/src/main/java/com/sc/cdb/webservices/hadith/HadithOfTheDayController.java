@@ -1,5 +1,8 @@
 package com.sc.cdb.webservices.hadith;
 
+import java.util.Optional;
+
+import com.sc.cdb.data.model.cc.Hadith;
 import com.sc.cdb.services.hadith.HadithOfTheDayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,6 +25,11 @@ public class HadithOfTheDayController {
 
   @GetMapping
   public ResponseEntity<?> reminderHistory() {
-    return ResponseEntity.ok(this.hadithOfTheDayService.todaysHadith());
+    Optional<Hadith> hadithOptional = this.hadithOfTheDayService.todaysHadith();
+    if (hadithOptional.isPresent()) {
+      return ResponseEntity.ok(hadithOptional.get());
+    } else {
+      return ResponseEntity.noContent().build();
+    }
   }
 }
