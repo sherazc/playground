@@ -1,0 +1,80 @@
+[
+  {
+    "_id": "company1",
+    "companyId": "company1",
+    "announcements": [
+      {
+        "detail": "Announcement Detail 1"
+      }
+    ],
+    "configurations": [
+      {
+        "name": "configuration 1",
+        "value": "value 1",
+        "description": "description 1"
+      },
+      {
+        "name": "configuration 2",
+        "value": "value 2",
+        "description": "description 2"
+      }
+    ],
+    "events": [
+      {
+        "date": ISODate(
+        "2019-01-19T16:32:06.580Z"
+        ),
+        "title": "Title 1",
+        "time": "Time 1",
+        "description": "description 1"
+      },
+      {
+        "date": ISODate(
+        "2019-01-19T16:32:06.580Z"
+        ),
+        "title": "Title 2",
+        "time": "Time 2",
+        "description": "description 2"
+      }
+    ],
+    "expenses": [
+      {
+        "lineItem": "Line item 1",
+        "amount": 100.0
+      },
+      {
+        "lineItem": "Line item 2",
+        "amount": 200.0
+      }
+    ],
+    "funds": [
+      {
+        "name": "Fund Name 1",
+        "goal": 1000.0,
+        "current": 100.0,
+        "pledge": 10.0,
+        "endDate": ISODate(
+        "2019-01-19T16:32:06.580Z"
+        )
+      },
+      {
+        "name": "Fund Name 2",
+        "goal": 2000.0,
+        "current": 200.0,
+        "pledge": 20.0,
+        "endDate": ISODate(
+        "2019-01-19T16:32:06.580Z"
+        )
+      }
+    ],
+    "jummahs": [
+      {
+        "date": ISODate(
+        "2019-01-19T16:32:06.580Z"
+        ),
+        "khateeb": "Kateeb 1 Changed again",
+        "enabled": true
+      }
+    ]
+  }
+]
