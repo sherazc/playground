@@ -30,6 +30,7 @@ node_modules
 .classpath
 **/bin/
 .project
+.metadata
 package-lock.json
 yarn.lock
 
