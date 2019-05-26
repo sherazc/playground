@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import {Link} from "react-router-dom";
 
 import {
     createDialStyle, createHoursHandStyle,
@@ -71,9 +70,6 @@ class AnalogClock extends Component {
         const {dialStyle, secondsStyle, minutesStyle, hoursStyle} = this.state;
         return (
             <ul style={dialStyle}>
-                <Link to="/">home</Link>
-                <Link to="/c1">c1</Link>
-                <Link to="/c2">c2</Link>
                 <li style={secondsStyle}></li>
                 <li style={minutesStyle}></li>
                 <li style={hoursStyle}></li>

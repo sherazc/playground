@@ -2,6 +2,7 @@ import React, {Component} from "react";
 
 class Funds extends Component {
     render() {
+        console.log(this.props.centralControl);
         return (
             <div>
                 <div className="heading1">Expenses</div>

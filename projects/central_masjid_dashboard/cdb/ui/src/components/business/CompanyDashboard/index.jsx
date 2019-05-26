@@ -2,12 +2,17 @@ import React, {Component} from "react";
 import {getPathParamFromProps} from "../../../services/utilities";
 import Grid from '@material-ui/core/Grid';
 import {withStyles} from '@material-ui/core/styles';
+import axios from "axios";
+
 import SalahTime from "./SalahTime";
 import Funds from "./Funds";
 import Updates from "./Updates";
 import AnalogClock from "./AnalogClock";
 import DigitalClock from "./DigitalClock";
 import "./index.scss";
+import {Link} from "react-router-dom";
+
+const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
 const sideBoxBackgroundRatio = 1.17;
 const sideBoxPaddingRatio = .095;
@@ -102,7 +107,8 @@ const styles = theme => {
 class CompanyDashboard extends Component {
 
     state = {
-        companyDashboardUrl: ""
+        companyDashboardUrl: "",
+        centralControl: {}
     };
 
     componentWillMount() {
@@ -113,6 +119,19 @@ class CompanyDashboard extends Component {
         document.getElementsByTagName("html")[0].style.height = "100%";
         document.getElementsByTagName("body")[0].style.height = "100%";
         document.getElementById("root").style.height = "100%";
+    }
+
+    componentDidMount() {
+        this.updateCentralControl();
+    }
+
+    updateCentralControl() {
+        axios
+            .get(`${baseUrl}/api/companies/url/${this.state.companyDashboardUrl}/central-control`)
+            .then(response => this.setState({
+                    centralControl: response.data
+                })
+            );
     }
 
     componentWillUnmount() {
@@ -128,10 +147,15 @@ class CompanyDashboard extends Component {
         const mdBreakPoint = 4;
 
         return (
-            <Grid container justify="center" style={{height: "100%", }}>
+            <Grid container justify="center" style={{height: "100%",}}>
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={classes.mainLeftSide}>
-                    {this.props.match.params.companyDashboardUrl === "c1"&& <AnalogClock sizeLg="10" sizeMd="20" marginLg="2" marginMd="2"/>}
-                    {this.props.match.params.companyDashboardUrl === "c2"&& <DigitalClock sizeLg="15" sizeMd="25" marginLg="2" marginMd="2"/>}
+                    {this.props.match.params.companyDashboardUrl === "c1" &&
+                    <AnalogClock sizeLg="10" sizeMd="20" marginLg="2" marginMd="2"/>}
+                    {this.props.match.params.companyDashboardUrl === "c2" &&
+                    <DigitalClock sizeLg="15" sizeMd="25" marginLg="2" marginMd="2"/>}
+                    <Link to="/">home</Link>
+                    <Link to="/c1">c1</Link>
+                    <Link to="/c2">c2</Link>
                     <div className={classes.sideBoxBackground}>
                         <div className={classes.sideBoxPadding}>
                             <div className={classes.sideBoxContent}>
@@ -145,7 +169,7 @@ class CompanyDashboard extends Component {
                     <div className={classes.centerBoxBackground}>
                         <div className={classes.centerBoxPadding}>
                             <div className={classes.centerBoxContent}>
-                                <Funds/>
+                                <Funds centralControl={this.state.centralControl}/>
                             </div>
                         </div>
                     </div>
