@@ -44,8 +44,8 @@ public class CentralControlDaoImpl extends BaseDaoImpl<CentralControl> implement
 
     Aggregation aggregation = Aggregation
         .newAggregation(
-            Aggregation.match(criteria),
-            DaoConstants.COMPANY_LOOKUP_OPERATION);
+            DaoConstants.COMPANY_LOOKUP_OPERATION,
+            Aggregation.match(criteria));
 
     return this.getMongoTemplate()
         .aggregate(
