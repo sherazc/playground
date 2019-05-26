@@ -1,0 +1,25 @@
+@keyframes slideUpAnimate {
+  from {height: 100vh;}
+  to {height: 0;}
+}
+
+.slideUp {
+  height: 0;
+  background-color: red;
+  overflow: hidden;
+  animation-name: slideUpAnimate;
+  animation-timing-function: ease-in;
+}
+
+@keyframes slideDownAnimate {
+  from {height: 0;}
+  to {height: 100vh;}
+}
+
+.slideDown {
+  height: 100vh;
+  background-color: red;
+  overflow: hidden;
+  animation-name: slideDownAnimate;
+  animation-timing-function: ease-in;
+}

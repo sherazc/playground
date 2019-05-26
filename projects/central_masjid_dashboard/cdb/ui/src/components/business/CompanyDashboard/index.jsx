@@ -5,7 +5,7 @@ import {withStyles} from '@material-ui/core/styles';
 import axios from "axios";
 
 import SalahTime from "./SalahTime";
-import Funds from "./Funds";
+import Accounts from "./Accounts";
 import Updates from "./Updates";
 import AnalogClock from "./AnalogClock";
 import DigitalClock from "./DigitalClock";
@@ -169,7 +169,7 @@ class CompanyDashboard extends Component {
                     <div className={classes.centerBoxBackground}>
                         <div className={classes.centerBoxPadding}>
                             <div className={classes.centerBoxContent}>
-                                <Funds centralControl={this.state.centralControl}/>
+                                <Accounts centralControl={this.state.centralControl}/>
                             </div>
                         </div>
                     </div>
