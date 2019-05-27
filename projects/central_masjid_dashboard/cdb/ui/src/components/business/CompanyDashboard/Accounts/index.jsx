@@ -9,32 +9,29 @@ class Accounts extends Component {
         super(props);
 
         this.animationSeconds = 1;
-        this.slideStaySeconds = 5;
+        this.slideStaySeconds = 2;
         this.currentSlide = 0;
 
-        this.slideDownAnimate = this.slideDownAnimate.bind(this);
-        this.slideUpAnimate = this.slideUpAnimate.bind(this);
         this.startSlides = this.startSlides.bind(this);
 
         this.slides = [<Funds/>, <Expenses/>];
         this.state = this.createInitialState(this.slides.length);
     }
 
-    createInitialState(numberOfComponents) {
-        let state = {
+    createInitialState(totalSlides) {
+        const state = {
             fundsClasses : "slideUp",
-            slidesClasses: []
+            slidesClasses: this.createDefaultSlideClasses(totalSlides)
         };
 
-        for(let i = 0; i < numberOfComponents; i++) {
-            state.slidesClasses.push("sliderHeightZero");
-        }
-
+        state.slidesClasses[0] = "sliderHeightFull";
         return state;
     }
 
     componentDidMount() {
-        this.slideInterval = setInterval(this.startSlides, this.slideStaySeconds * 1000);
+        if (this.slides.length > 1) {
+            this.slideInterval = setInterval(this.startSlides, this.slideStaySeconds * 1000);
+        }
     }
 
     componentWillUnmount() {
@@ -43,17 +40,28 @@ class Accounts extends Component {
 
     startSlides() {
         const totalSlides = this.slides.length;
+        const slidesClassesClone = this.state.slidesClasses.map(c => c);
+        slidesClassesClone[this.currentSlide] = "slideUp";
+        this.setState({slidesClasses: slidesClassesClone});
 
+        this.currentSlide++;
+
+        if (this.currentSlide >= totalSlides) {
+            this.currentSlide = 0;
+        }
+
+        setTimeout(() => {
+            slidesClassesClone[this.currentSlide] = "slideDown";
+            this.setState({slidesClasses: slidesClassesClone});
+        }, this.animationSeconds * 1000);
     }
 
-    slideDownAnimate() {
-        this.state.slidesClasses[0] = "slideDown";
-        this.setState({slidesClasses: this.state.slidesClasses});
-    }
-
-    slideUpAnimate() {
-        this.state.slidesClasses[0] = "slideUp";
-        this.setState({slidesClasses: this.state.slidesClasses});
+    createDefaultSlideClasses(totalSlides) {
+        let slidesClasses = [];
+        for(let i = 0; i < totalSlides; i++) {
+            slidesClasses.push("sliderHeightZero");
+        }
+        return slidesClasses;
     }
 
     createSlidesDivs() {
@@ -68,11 +76,8 @@ class Accounts extends Component {
     }
 
     render() {
-        console.log(this.props.centralControl);
         return (
             <div>
-                <button onClick={this.slideDownAnimate}>Animate Down</button>
-                <button onClick={this.slideUpAnimate}>Animate Up</button>
                 <div className="heading1">Expenses</div>
                 {this.createSlidesDivs()}
             </div>
