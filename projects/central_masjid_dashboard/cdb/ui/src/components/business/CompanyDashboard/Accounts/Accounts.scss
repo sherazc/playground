@@ -1,25 +1,45 @@
-@keyframes slideUpAnimate {
-  from {height: 100vh;}
-  to {height: 0;}
-}
+@import "../theme";
 
-.slideUp {
-  height: 0;
-  background-color: red;
-  overflow: hidden;
-  animation-name: slideUpAnimate;
-  animation-timing-function: ease-in;
+$contentFullHeight: 100vh;
+
+@keyframes slideUpAnimate {
+  from {height: $contentFullHeight;}
+  to {height: 0;}
 }
 
 @keyframes slideDownAnimate {
   from {height: 0;}
-  to {height: 100vh;}
+  to {height: $contentFullHeight;}
+}
+
+.commonSliderContent {
+  overflow: hidden;
+  background-color: red;
+}
+
+.commonSliderContentAnimate {
+  @extend .commonSliderContent;
+  animation-timing-function: ease-in;
+}
+
+.slideUp {
+  @extend .commonSliderContentAnimate;
+  height: 0;
+  animation-name: slideUpAnimate;
 }
 
 .slideDown {
-  height: 100vh;
-  background-color: red;
-  overflow: hidden;
+  @extend .commonSliderContentAnimate;
+  height: $contentFullHeight;
   animation-name: slideDownAnimate;
-  animation-timing-function: ease-in;
+}
+
+.sliderHeightZero {
+  @extend .commonSliderContent;
+  height: 0;
+}
+
+.sliderHeightFull {
+  @extend .commonSliderContent;
+  height: $contentFullHeight;
 }
