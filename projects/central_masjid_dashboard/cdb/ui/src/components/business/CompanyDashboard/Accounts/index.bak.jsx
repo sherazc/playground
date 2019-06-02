@@ -3,27 +3,35 @@ import Funds from "./Funds";
 import Expenses from "./Expenses";
 import "./Accounts.scss"
 
-const TOTAL_SLIDES = 2;
-
 class Accounts extends Component {
 
     constructor(props) {
         super(props);
 
         this.animationSeconds = 1;
-        this.slideStaySeconds = 5;
+        this.slideStaySeconds = 2;
         this.currentSlide = 0;
 
         this.startSlides = this.startSlides.bind(this);
 
-        this.state = {
-            slidesClasses: this.createDefaultSlideClasses(TOTAL_SLIDES)
-        }
+
+        this.slides = [<Funds/>, <Expenses/>];
+        this.state = this.createInitialState(this.slides.length);
+    }
+
+    createInitialState(totalSlides) {
+        const state = {
+            slidesClasses: this.createDefaultSlideClasses(totalSlides)
+        };
+
+        state.slidesClasses[0] = "sliderHeightFull";
+        return state;
     }
 
     componentDidMount() {
-        this.startSlides();
-        this.slideInterval = setInterval(this.startSlides, this.slideStaySeconds * 1000);
+        if (this.slides.length > 1) {
+            this.slideInterval = setInterval(this.startSlides, this.slideStaySeconds * 1000);
+        }
     }
 
     componentWillUnmount() {
@@ -50,33 +58,17 @@ class Accounts extends Component {
 
     createDefaultSlideClasses(totalSlides) {
         let slidesClasses = [];
-        for (let i = 0; i < totalSlides; i++) {
+        for(let i = 0; i < totalSlides; i++) {
             slidesClasses.push("sliderHeightZero");
         }
         return slidesClasses;
     }
 
-
-    createSlides() {
-        if (!this.slides) {
-            this.slides = [];
-        }
-
-        if (this.slides.length < 1 && this.props.centralControl.id !== undefined) {
-            this.slides = [
-                <Funds funds={this.props.centralControl.funds}/>,
-                <Expenses expenses={this.props.centralControl.expenses}/>
-                ];
-        }
-    }
-
     createSlidesDivs() {
-        this.createSlides();
-
         return this.slides.map((component, index) => {
+            // component.props.centralControl = this.props.centralControl;
             return (
-                <div key={index}
-                     className={this.state.slidesClasses[index]}
+                <div key={index} className={this.state.slidesClasses[index]}
                      style={{animationDuration: `${this.animationSeconds}s`}}>
                     {component}
                 </div>
@@ -85,6 +77,13 @@ class Accounts extends Component {
     }
 
     render() {
+/*
+
+        const {funds, expenses} = this.props.centralControl;
+        console.log(this.props);
+        console.log(funds, expenses);
+*/
+
         return (
             <div>
                 <div className="heading1">Expenses</div>

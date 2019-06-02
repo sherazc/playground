@@ -1,6 +1,10 @@
 import React, {Component} from "react";
 
 class Funds extends Component {
+    constructor(props) {
+        super(props);
+        console.log("Funds created", this.props)
+    }
     render() {
         return (
             <div>
