@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {dateToDisplayDate} from "../../../../services/utilities";
 
 class Funds extends Component {
     constructor(props) {
@@ -10,7 +11,7 @@ class Funds extends Component {
         return (
             <div>
                 <div>{fund.name}</div>
-                <table border="1">
+                <table border="1" style={{margin: "0 auto"}}>
                     <tbody>
                     <tr>
                         <th>Target</th>
@@ -18,7 +19,7 @@ class Funds extends Component {
                     </tr>
                     <tr>
                         <th>End Date</th>
-                        <td>{fund.endDate}</td>
+                        <td>{dateToDisplayDate(fund.endDate)}</td>
                     </tr>
 
                     <tr>

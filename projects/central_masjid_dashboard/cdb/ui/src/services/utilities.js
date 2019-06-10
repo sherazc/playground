@@ -27,3 +27,11 @@ export const collectErrorMessageFromResponseData = (responseData, defaultMessage
 export const addUnit = (num) => {
     return num + "vw";
 };
+
+export const dateToDisplayDate = (date) => {
+    if (!date) {
+        return;
+    }
+    const d = date instanceof Date ? date : new Date(date);
+    return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
+};

@@ -1,12 +1,12 @@
 let now = () => {
     let systemNow = new Date();
     let utcMillis = Date.UTC(
-        systemNow.getFullYear(), 
-        systemNow.getMonth(), 
-        systemNow.getDate(), 
-        systemNow.getHours(), 
-        systemNow.getMinutes(), 
-        systemNow.getSeconds(), 
+        systemNow.getFullYear(),
+        systemNow.getMonth(),
+        systemNow.getDate(),
+        systemNow.getHours(),
+        systemNow.getMinutes(),
+        systemNow.getSeconds(),
         systemNow.getMilliseconds());
     return new Date(utcMillis);
 };
@@ -15,7 +15,7 @@ let fromISO = (isoDateString) => {
     if(!isoDateString || isoDateString.length < 4) {
         return;
     }
-   
+
     let year = subStringToNumber(isoDateString, 0, 4);
     let month = subStringToNumber(isoDateString, 5, 7);
     let date = subStringToNumber(isoDateString, 8, 10);
@@ -25,7 +25,7 @@ let fromISO = (isoDateString) => {
     let milliseconds = subStringToNumber(isoDateString, 20, 23);
 
     if (
-        year > 1899 && year < 3000 
+        year > 1899 && year < 3000
         && month > 0 && month < 13
         && date > 0 && date < 32
         && hours > -1 && hours < 24
