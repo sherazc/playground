@@ -51,7 +51,6 @@
 			"name": "Fund Name 1",
 			"goal": 1000.0,
 			"current": 100.0,
-			"pledge": 10.0,
 			"endDate": {
 				"$date": "2019-01-19T16:32:06.580Z"
 			}
