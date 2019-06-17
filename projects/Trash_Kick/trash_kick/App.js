@@ -1,8 +1,12 @@
-import React, {Component} from 'react';
-import {Platform, StyleSheet} from 'react-native';
+import React, { Component } from 'react';
+import { Platform, StyleSheet } from 'react-native';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <Container>
