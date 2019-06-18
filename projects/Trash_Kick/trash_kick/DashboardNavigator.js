@@ -1,41 +1,24 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
+import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, View } from 'native-base';
 import TrashPickup from "./src/screens/Dashboard/TrashPickup"
 import Booking from './src/screens/Dashboard/Booking';
 import Dashboard from './src/screens/Dashboard';
 
-const DashboardNavigator = createStackNavigator(
-    {
-        Dashboard: {
-            screen: Dashboard,
-        },
-        TrashPickup: {
-            screen: TrashPickup,
-        },
-        Details: {
-            screen: Booking,
-        },
+const routes = {
+    Dashboard: {
+        screen: Dashboard,
     },
-    {
-        initialRouteName: 'Dashboard',
-    }
-);
+    TrashPickup: {
+        screen: TrashPickup,
+    },
+    Details: {
+        screen: Booking,
+    },
+};
 
-export default DashboardNavigator;
-
-/*
-
-class DashboardNavigator extends Component {
-
-    render() {
-        return(
-            <View>
-                <Text>DashboardNavigator</Text>
-            </View>
-        );
-    }
+const config ={
+    initialRouteName: 'Dashboard'
 }
 
-export default DashboardNavigator;
-*/
+export default createStackNavigator(routes, config);
