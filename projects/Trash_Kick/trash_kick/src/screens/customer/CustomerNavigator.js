@@ -18,14 +18,13 @@ const routes = {
     },
 };
 
-const globalNavigationOptions = {
+const navigatorNavigationOptions = {
     initialRouteName: 'Dashboard',
     // headerMode: 'none', // Removes header from all screens
     navigationOptions: {
         // Removes navigation buttons like back button on header
         headerVisible: false,
     }
-
 }
 
-export default createStackNavigator(routes, globalNavigationOptions);
+export default createStackNavigator(routes, navigatorNavigationOptions);

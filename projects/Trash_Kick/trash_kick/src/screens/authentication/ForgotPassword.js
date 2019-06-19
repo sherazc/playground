@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 import {View, Text} from 'react-native';
 
-class Splash extends Component {
+class ForgotPassword extends Component {
 
     render() {
         return(
             <View>
-                <Text>Splash Screen</Text>
+                <Text>Forgot Password</Text>
             </View>
         );
     }
 }
 
-export default Splash;
+export default ForgotPassword;

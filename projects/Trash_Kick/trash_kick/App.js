@@ -1,11 +1,20 @@
 import React, {Component} from 'react';
-import { createAppContainer } from 'react-navigation';
-import DashboardNavigator from './src/screens/customer/DashboardNavigator';
-
-const AppContainer =  createAppContainer(DashboardNavigator);
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import CustomerNavigator from './src/screens/customer/CustomerNavigator';
+import AuthenticationNavigator from './src/screens/authentication/AuthenticationNavigator';
 
 export default class App extends React.Component {
   render() {
     return <AppContainer />;
   }
 }
+
+const AppNavigator = createSwitchNavigator({
+  Authentication: AuthenticationNavigator,
+  Customer: CustomerNavigator,
+}, {
+  initialRouteName: "Authentication"
+});
+
+const AppContainer =  createAppContainer(AppNavigator);
+
