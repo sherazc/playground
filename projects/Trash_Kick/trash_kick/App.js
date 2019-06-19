@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
-import { Platform, StyleSheet } from 'react-native';
+import React, {Component} from 'react';
 import { createAppContainer } from 'react-navigation';
-import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, View } from 'native-base';
-import Dashboard from './src/screens/Dashboard';
-import TrashPickup from './src/screens/Dashboard/TrashPickup';
-import Booking from './src/screens/Dashboard/Booking';
-import DashboardNavigator from './DashboardNavigator';
+import DashboardNavigator from './src/screens/customer/DashboardNavigator';
 
-export default createAppContainer(DashboardNavigator);
+const AppContainer =  createAppContainer(DashboardNavigator);
+
+export default class App extends React.Component {
+  render() {
+    return <AppContainer />;
+  }
+}
