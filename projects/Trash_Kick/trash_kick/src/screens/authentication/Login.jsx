@@ -6,7 +6,7 @@ class Login extends Component {
     render() {
         return(
             <View>
-                <Text>Splash Screen</Text>
+                <Text>Login Screen</Text>
             </View>
         );
     }

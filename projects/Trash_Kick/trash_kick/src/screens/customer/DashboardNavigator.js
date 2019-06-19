@@ -6,6 +6,9 @@ import Dashboard from './Dashboard';
 const routes = {
     Dashboard: {
         screen: Dashboard,
+        navigationOptions: {
+            header: null
+        }
     },
     TrashPickup: {
         screen: TrashPickup,
@@ -15,8 +18,14 @@ const routes = {
     },
 };
 
-const config ={
-    initialRouteName: 'Dashboard'
+const globalNavigationOptions = {
+    initialRouteName: 'Dashboard',
+    // headerMode: 'none', // Removes header from all screens
+    navigationOptions: {
+        // Removes navigation buttons like back button on header
+        headerVisible: false,
+    }
+
 }
 
-export default createStackNavigator(routes, config);
+export default createStackNavigator(routes, globalNavigationOptions);
