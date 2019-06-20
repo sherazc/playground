@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import CustomerNavigator from './src/screens/customer/CustomerNavigator';
 import AuthenticationNavigator from './src/screens/authentication/AuthenticationNavigator';
+import AppDrawerNavigator from './src/screens/appDrawer/AppDrawerNavigator';
 
-export default class App extends React.Component {
+export default class App extends Component {
   render() {
     return <AppContainer />;
   }
@@ -11,9 +12,9 @@ export default class App extends React.Component {
 
 const AppNavigator = createSwitchNavigator({
   Authentication: AuthenticationNavigator,
-  Customer: CustomerNavigator,
+  AppDrawer: AppDrawerNavigator,
 }, {
-  initialRouteName: "Authentication"
+  initialRouteName: "AppDrawer"
 });
 
 const AppContainer =  createAppContainer(AppNavigator);
