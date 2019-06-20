@@ -1,13 +1,26 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import { Container, Button, Header, Content, Body, Title, Text, View } from 'native-base';
 
 class ForgotPassword extends Component {
 
     render() {
         return(
-            <View>
-                <Text>Forgot Password</Text>
-            </View>
+            <Container>
+                <Header>
+                <Body>
+                    <Title>ForgotPassword</Title>
+                </Body>
+                </Header>
+                <Content>
+                    <Text></Text>
+                        <View style={{marginTop: 50}}>
+                            <Button onPress={() => this.props.navigation.goBack()}>
+                                <Text>Back</Text>
+                            </Button>
+                        </View>
+
+                </Content>
+            </Container>
         );
     }
 }

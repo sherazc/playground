@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import CustomerNavigator from './src/screens/customer/CustomerNavigator';
 import AuthenticationNavigator from './src/screens/authentication/AuthenticationNavigator';
 import AppDrawerNavigator from './src/screens/appDrawer/AppDrawerNavigator';
 
@@ -14,7 +13,7 @@ const AppNavigator = createSwitchNavigator({
   Authentication: AuthenticationNavigator,
   AppDrawer: AppDrawerNavigator,
 }, {
-  initialRouteName: "AppDrawer"
+  initialRouteName: "Authentication"
 });
 
 const AppContainer =  createAppContainer(AppNavigator);
