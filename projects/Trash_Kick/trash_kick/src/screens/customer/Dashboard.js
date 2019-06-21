@@ -19,13 +19,31 @@ class Dashboard extends Component {
                     <Right />
                 </Header>
                 <Content>
-                    <Text></Text>
+                    <View style={{ marginTop: 50 }}>
+                        <Button onPress={() => this.props.navigation.navigate("TrashPickup")}>
+                            <Text>Trash Pick</Text>
+                        </Button>
+                    </View>
+                    <View style={{ marginTop: 50 }}>
+                        <Button onPress={() => this.props.navigation.navigate("Booking")}>
+                            <Text>Booking</Text>
+                        </Button>
+                    </View>
+                    <View style={{ marginTop: 50 }}>
+                        <Button onPress={() => this.props.navigation.navigate("Messages")}>
+                            <Text>Messages</Text>
+                        </Button>
+                    </View>
+                    <View style={{ marginTop: 50 }}>
+                        <Button onPress={() => this.props.navigation.navigate("MyProfile")}>
+                            <Text>My Profile</Text>
+                        </Button>
+                    </View>
                     <View style={{ marginTop: 50 }}>
                         <Button onPress={() => this.props.navigation.navigate("Login")}>
                             <Text>Logout</Text>
                         </Button>
                     </View>
-
                 </Content>
             </Container>
         );

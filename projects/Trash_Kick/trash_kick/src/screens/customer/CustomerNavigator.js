@@ -2,6 +2,8 @@ import { createStackNavigator } from 'react-navigation';
 import TrashPickup from "./TrashPickup"
 import Booking from './Booking';
 import Dashboard from './Dashboard';
+import Messages from './Messages';
+import MyProfile from './MyProfile';
 
 const routes = {
     Dashboard: {
@@ -13,8 +15,14 @@ const routes = {
     TrashPickup: {
         screen: TrashPickup,
     },
-    Details: {
+    Booking: {
         screen: Booking,
+    },
+    Messages: {
+        screen: Messages,
+    },
+    MyProfile: {
+        screen: MyProfile,
     },
 };
 
