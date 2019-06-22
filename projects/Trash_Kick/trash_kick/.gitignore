@@ -58,4 +58,4 @@ buck-out/
 # Trash Kick ignores
 *.jks
 .env
-./src/environment/app-production.properties
+src/environment/*.properties
