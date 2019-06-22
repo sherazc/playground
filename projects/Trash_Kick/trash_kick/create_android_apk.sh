@@ -18,6 +18,7 @@
 
 cd android
 
+./gradlew clean
 ./gradlew assembleRelease
 
 echo "##################"

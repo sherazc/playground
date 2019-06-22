@@ -1,7 +1,5 @@
 
-import { API_BASE_URL, GOOGLE_MAPS_API_KEY } from 'react-native-dotenv';
-
 export default {
-    API_BASE_URL,
-    GOOGLE_MAPS_API_KEY
+    API_BASE_URL: "NA - API_BASE_URL",
+    GOOGLE_MAPS_API_KEY: "NA GOOGLE_MAPS_API_KEY"
 };
