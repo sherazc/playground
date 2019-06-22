@@ -3,6 +3,10 @@ import { Container, Button, Header, Content, Body, Title, Text, View, Icon, Left
 
 class AboutUs extends Component {
 
+    printKey() {
+        console.log(process.env);
+    }
+
     render() {
         return(
             <Container>
@@ -18,6 +22,7 @@ class AboutUs extends Component {
                     <Right />
                 </Header>
                 <Content>
+                    <Button onPress={this.printKey}><Icon name='menu' /></Button>
                     <Text>About Us</Text>
                 </Content>
             </Container>
