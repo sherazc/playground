@@ -3,10 +3,6 @@ import { Container, Button, Header, Content, Body, Title, Text, View, Icon, Left
 
 class AboutUs extends Component {
 
-    printKey() {
-        console.log(process.env);
-    }
-
     render() {
         return(
             <Container>
