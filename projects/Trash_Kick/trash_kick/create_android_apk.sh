@@ -20,4 +20,6 @@ cd android
 
 ./gradlew assembleRelease
 
-echo "release apk exist in app/build/outputs/apk/release"
+echo "##################"
+echo "# Built release apk in app/build/outputs/apk/release"
+echo "##################"

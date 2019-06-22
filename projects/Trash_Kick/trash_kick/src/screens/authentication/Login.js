@@ -8,7 +8,7 @@ class Login extends Component {
     printKey() {
         console.log(process.env);
         console.log(config.API_BASE_URL);
-        console.log(config.REACT_APP_GOOGLE_API_KEY);
+        console.log(config.GOOGLE_MAPS_API_KEY);
     }
 
     render() {
@@ -43,7 +43,7 @@ class Login extends Component {
                         </View>
                     </Form>
                     <Text>config.API_BASE_URL = {config.API_BASE_URL}</Text>
-                    <Text>config.REACT_APP_GOOGLE_API_KEY = {config.REACT_APP_GOOGLE_API_KEY}</Text>
+                    <Text>config.GOOGLE_MAPS_API_KEY = {config.GOOGLE_MAPS_API_KEY}</Text>
                 </Content>
             </Container>
         );

@@ -6,6 +6,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "run-ios": "cp ./src/environment/app-production.properties ./.env && react-native run-ios",
     "run-android": "cp ./src/environment/app-production.properties ./.env && react-native run-android",
+    "build-android": "cp ./src/environment/app-production.properties ./.env && ./create_android_apk.sh",
     "test": "jest"
   },
   "dependencies": {
