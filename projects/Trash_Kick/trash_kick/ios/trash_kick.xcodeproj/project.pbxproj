@@ -51,6 +51,7 @@
 		6B80C1110C7940648A1FD3E3 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA57E1F047904959A4ADBE60 /* MaterialIcons.ttf */; };
 		70C555DABC5D4861A03C2723 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8A7C83B69EE64790ABE16537 /* Foundation.ttf */; };
 		71994AA6292943C2901184F8 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 20DDFF082EFC4263B4E3E663 /* FontAwesome5_Solid.ttf */; };
+		7592221E87DB2F5535D22EFF /* Pods_trash_kick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8CF0BD8FB8C12D6B1C18C0 /* Pods_trash_kick.framework */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		9702796C1C6A4113A55EAC72 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3834526FD7C46C49F611451 /* Zocial.ttf */; };
 		A05BD8E27C3B4514A92DEA97 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 338DFA048C3E4FAE85BACD0C /* rubicon-icon-font.ttf */; };
@@ -396,6 +397,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = trash_kick/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = trash_kick/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		1B8CF0BD8FB8C12D6B1C18C0 /* Pods_trash_kick.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_trash_kick.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		20DDFF082EFC4263B4E3E663 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		21516BAFBB5A4E94ACD6DDE6 /* libRNGestureHandler.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGestureHandler.a; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* trash_kick-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "trash_kick-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -403,6 +405,7 @@
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		338DFA048C3E4FAE85BACD0C /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; };
 		39F4CFE97BF4403391921FF4 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/native-base/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
+		53A95631F53AD57D4A868CD4 /* Pods-trash_kick.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trash_kick.release.xcconfig"; path = "Target Support Files/Pods-trash_kick/Pods-trash_kick.release.xcconfig"; sourceTree = "<group>"; };
 		552E3D75E3A44F83B8004555 /* libReactNativeConfig.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativeConfig.a; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		6AD71D7DE1A34B4ABF0C5AAD /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
@@ -414,6 +417,7 @@
 		8A7C83B69EE64790ABE16537 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		963C40D0AEA54AD3B3BC52C2 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		A6DFAF097A7D48B9B46A020F /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
+		A78EA0B2EF8A9E00866B50F6 /* Pods-trash_kick.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trash_kick.debug.xcconfig"; path = "Target Support Files/Pods-trash_kick/Pods-trash_kick.debug.xcconfig"; sourceTree = "<group>"; };
 		AA8085526BD448258560634C /* ReactNativeConfig.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeConfig.xcodeproj; path = "../node_modules/react-native-config/ios/ReactNativeConfig.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B0F6C5C0A1084EDB975C3DB7 /* Roboto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto.ttf; path = "../node_modules/native-base/Fonts/Roboto.ttf"; sourceTree = "<group>"; };
@@ -462,6 +466,7 @@
 				1783E60DD90A4684996623C3 /* libRNGestureHandler.a in Frameworks */,
 				AE3FAE35183144209C7E46A6 /* libReactNativeConfig.a in Frameworks */,
 				22D5C27B353541A0A1411F76 /* libAirMaps.a in Frameworks */,
+				7592221E87DB2F5535D22EFF /* Pods_trash_kick.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -553,6 +558,16 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		0EA40E84E20CEED3EBF143A3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A78EA0B2EF8A9E00866B50F6 /* Pods-trash_kick.debug.xcconfig */,
+				53A95631F53AD57D4A868CD4 /* Pods-trash_kick.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		139105B71AF99BAD00B5F7CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -616,6 +631,7 @@
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
+				1B8CF0BD8FB8C12D6B1C18C0 /* Pods_trash_kick.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -717,6 +733,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				F3A0C49DF83C4792AD99BB07 /* Resources */,
 				58F5887B22BEFAC00036E44A /* Recovered References */,
+				0EA40E84E20CEED3EBF143A3 /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -793,6 +810,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "trash_kick" */;
 			buildPhases = (
+				D2E2D10BC5DAF2DB51E33EDF /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
@@ -1329,6 +1347,28 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
+		D2E2D10BC5DAF2DB51E33EDF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-trash_kick-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1463,6 +1503,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A78EA0B2EF8A9E00866B50F6 /* Pods-trash_kick.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1491,6 +1532,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 53A95631F53AD57D4A868CD4 /* Pods-trash_kick.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;

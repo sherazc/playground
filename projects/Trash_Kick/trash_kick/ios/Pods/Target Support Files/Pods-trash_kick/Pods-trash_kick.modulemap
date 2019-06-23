@@ -1,0 +1,6 @@
+framework module Pods_trash_kick {
+  umbrella header "Pods-trash_kick-umbrella.h"
+
+  export *
+  module * { export * }
+}
