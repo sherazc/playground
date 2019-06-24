@@ -51,7 +51,6 @@
 		6B80C1110C7940648A1FD3E3 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA57E1F047904959A4ADBE60 /* MaterialIcons.ttf */; };
 		70C555DABC5D4861A03C2723 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8A7C83B69EE64790ABE16537 /* Foundation.ttf */; };
 		71994AA6292943C2901184F8 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 20DDFF082EFC4263B4E3E663 /* FontAwesome5_Solid.ttf */; };
-		7592221E87DB2F5535D22EFF /* Pods_trash_kick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8CF0BD8FB8C12D6B1C18C0 /* Pods_trash_kick.framework */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		9702796C1C6A4113A55EAC72 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3834526FD7C46C49F611451 /* Zocial.ttf */; };
 		A05BD8E27C3B4514A92DEA97 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 338DFA048C3E4FAE85BACD0C /* rubicon-icon-font.ttf */; };
@@ -61,6 +60,7 @@
 		D650A6A258AE4A8B995C03E8 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39F4CFE97BF4403391921FF4 /* AntDesign.ttf */; };
 		DB8753E156484DE28C02670F /* Roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EDDFEF4914FD42C8ACD626CD /* Roboto_medium.ttf */; };
 		E30F0CC491DC4538B05086CE /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EB18D10471BC46EAA44385F0 /* FontAwesome.ttf */; };
+		E53DDE56247D96E4BA83CBAF /* libPods-trash_kick.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38A8A3C81A9F01938EC751CC /* libPods-trash_kick.a */; };
 		EBDD74118D414040BF6205EE /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A6DFAF097A7D48B9B46A020F /* FontAwesome5_Regular.ttf */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
@@ -397,13 +397,13 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = trash_kick/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = trash_kick/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
-		1B8CF0BD8FB8C12D6B1C18C0 /* Pods_trash_kick.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_trash_kick.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		20DDFF082EFC4263B4E3E663 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		21516BAFBB5A4E94ACD6DDE6 /* libRNGestureHandler.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGestureHandler.a; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* trash_kick-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "trash_kick-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* trash_kick-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "trash_kick-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		338DFA048C3E4FAE85BACD0C /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; };
+		38A8A3C81A9F01938EC751CC /* libPods-trash_kick.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-trash_kick.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		39F4CFE97BF4403391921FF4 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/native-base/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		53A95631F53AD57D4A868CD4 /* Pods-trash_kick.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trash_kick.release.xcconfig"; path = "Target Support Files/Pods-trash_kick/Pods-trash_kick.release.xcconfig"; sourceTree = "<group>"; };
 		552E3D75E3A44F83B8004555 /* libReactNativeConfig.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativeConfig.a; sourceTree = "<group>"; };
@@ -466,7 +466,7 @@
 				1783E60DD90A4684996623C3 /* libRNGestureHandler.a in Frameworks */,
 				AE3FAE35183144209C7E46A6 /* libReactNativeConfig.a in Frameworks */,
 				22D5C27B353541A0A1411F76 /* libAirMaps.a in Frameworks */,
-				7592221E87DB2F5535D22EFF /* Pods_trash_kick.framework in Frameworks */,
+				E53DDE56247D96E4BA83CBAF /* libPods-trash_kick.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -564,7 +564,6 @@
 				A78EA0B2EF8A9E00866B50F6 /* Pods-trash_kick.debug.xcconfig */,
 				53A95631F53AD57D4A868CD4 /* Pods-trash_kick.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -631,7 +630,7 @@
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
-				1B8CF0BD8FB8C12D6B1C18C0 /* Pods_trash_kick.framework */,
+				38A8A3C81A9F01938EC751CC /* libPods-trash_kick.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -815,6 +814,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				D14BE5FCBB23B6E274B9493E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1347,6 +1347,24 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
+		D14BE5FCBB23B6E274B9493E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-trash_kick/Pods-trash_kick-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-trash_kick/Pods-trash_kick-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		D2E2D10BC5DAF2DB51E33EDF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1521,8 +1539,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-ObjC",
 					"-lc++",
+					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = trash_kick;
@@ -1549,8 +1567,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-ObjC",
 					"-lc++",
+					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = trash_kick;

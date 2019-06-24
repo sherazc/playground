@@ -10,7 +10,7 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-// #import <GoogleMaps/GoogleMaps.h>
+#import <GoogleMaps/GoogleMaps.h>
 #import "ReactNativeConfig.h"
 
 @implementation AppDelegate
@@ -22,8 +22,8 @@
                                                    moduleName:@"trash_kick"
                                             initialProperties:nil];
 
-  // NSString *googleAPIKey = [ReactNativeConfig envFor:@"GOOGLE_MAPS_API_KEY"];
-  // [GMSServices provideAPIKey:googleAPIKey];
+  NSString *googleAPIKey = [ReactNativeConfig envFor:@"GOOGLE_MAPS_API_KEY"];
+  [GMSServices provideAPIKey:googleAPIKey];
 
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
 
