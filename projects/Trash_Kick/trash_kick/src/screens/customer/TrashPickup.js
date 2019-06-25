@@ -3,22 +3,45 @@ import { View, Text } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 class TrashPickup extends Component {
+    state = {
+        latitude: 20.9948891,
+        longitude: 105.799677,
+        // latitude: 34.075375,
+        // longitude: -84.294090,
+        latitudeDelta: 0.002,
+        longitudeDelta: 0.002
+    }
 
     render() {
         return (
-            <View>
-                <Text>Trash Pickup</Text>
-                <MapView provider={PROVIDER_GOOGLE}
-                    initialRegion={{
-                        latitude: 37.78825,
-                        longitude: -122.4324,
-                        latitudeDelta: 0.0922,
-                        longitudeDelta: 0.0421,
-                    }}
-                />
+            <View style={styles.container}>
+                <Text style={styles.text}>TrashPickup</Text>
+                <MapView style={styles.map} initialRegion={this.state} provider={PROVIDER_GOOGLE}>
+                    <MapView.Marker coordinate={this.state} />
+                </MapView>
             </View>
         );
     }
 }
+
+const styles = {
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff'
+    },
+    text: {
+        fontSize: 30,
+        fontWeight: '700',
+        color: '#59656C',
+        marginBottom: 10,
+    },
+    map: {
+        width: 300,
+        height: 300,
+        flex: 1
+    }
+};
 
 export default TrashPickup;
