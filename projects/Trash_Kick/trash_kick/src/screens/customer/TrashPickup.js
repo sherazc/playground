@@ -7,9 +7,9 @@ class TrashPickup extends Component {
         latitude: 20.9948891,
         longitude: 105.799677,
         // latitude: 34.075375,
-        // longitude: -84.294090,
-        latitudeDelta: 0.002,
-        longitudeDelta: 0.002
+        //longitude: -84.294090,
+        latitudeDelta: 0.02,
+        longitudeDelta: 0.02
     }
 
     render() {
