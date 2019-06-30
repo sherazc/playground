@@ -4,10 +4,10 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 class TrashPickup extends Component {
     state = {
-        latitude: 20.9948891,
-        longitude: 105.799677,
-        // latitude: 34.075375,
-        //longitude: -84.294090,
+        // latitude: 20.9948891,
+        // longitude: 105.799677,
+        latitude: 34.075375,
+        longitude: -84.294090,
         latitudeDelta: 0.02,
         longitudeDelta: 0.02
     }

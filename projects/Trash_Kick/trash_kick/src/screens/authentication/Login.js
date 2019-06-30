@@ -43,7 +43,8 @@ class Login extends Component {
                         </View>
                     </Form>
                     <Text>config.API_BASE_URL = {config.API_BASE_URL}</Text>
-                    <Text>config.GOOGLE_MAPS_API_KEY = {config.GOOGLE_MAPS_API_KEY}</Text>
+                    <Text>config.ANDROID_GOOGLE_MAPS_API_KEY = {config.ANDROID_GOOGLE_MAPS_API_KEY}</Text>
+                    <Text>config.IOS_GOOGLE_MAPS_API_KEY = {config.IOS_GOOGLE_MAPS_API_KEY}</Text>
                 </Content>
             </Container>
         );

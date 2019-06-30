@@ -22,7 +22,7 @@
                                                    moduleName:@"trash_kick"
                                             initialProperties:nil];
 
-  NSString *googleAPIKey = [ReactNativeConfig envFor:@"GOOGLE_MAPS_API_KEY"];
+  NSString *googleAPIKey = [ReactNativeConfig envFor:@"IOS_GOOGLE_MAPS_API_KEY"];
   [GMSServices provideAPIKey:googleAPIKey];
 
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
