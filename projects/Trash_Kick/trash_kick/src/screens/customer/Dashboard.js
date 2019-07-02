@@ -9,7 +9,6 @@ class Dashboard extends Component {
                 <Header>
                     <Left>
                         <Button transparent onPress={() => this.props.navigation.openDrawer()}>
-
                             <Icon name='menu' />
                         </Button>
                     </Left>
@@ -22,6 +21,11 @@ class Dashboard extends Component {
                     <View style={{ marginTop: 50 }}>
                         <Button onPress={() => this.props.navigation.navigate("TrashPickup")}>
                             <Text>Trash Pick</Text>
+                        </Button>
+                    </View>
+                    <View style={{ marginTop: 50 }}>
+                        <Button onPress={() => this.props.navigation.navigate("TrashPickup2")}>
+                            <Text>Trash Pick 2</Text>
                         </Button>
                     </View>
                     <View style={{ marginTop: 50 }}>

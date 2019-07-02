@@ -16,7 +16,13 @@ class TrashPickup extends Component {
         return (
             <View style={styles.container}>
                 <Text style={styles.text}>TrashPickup</Text>
-                <MapView style={styles.map} initialRegion={this.state} provider={PROVIDER_GOOGLE}>
+                <MapView
+                    style={styles.map}
+                    initialRegion={this.state}
+                    provider={PROVIDER_GOOGLE}
+                    mapType='hybrid'
+                    showsUserLocation={true}
+                    >
                     <MapView.Marker coordinate={this.state} />
                 </MapView>
             </View>
@@ -38,8 +44,8 @@ const styles = {
         marginBottom: 10,
     },
     map: {
-        width: 300,
-        height: 300,
+        width: "100%",
+        height: "100%",
         flex: 1
     }
 };

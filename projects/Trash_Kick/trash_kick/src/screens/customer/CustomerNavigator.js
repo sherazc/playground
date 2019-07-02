@@ -4,6 +4,7 @@ import Booking from './Booking';
 import Dashboard from './Dashboard';
 import Messages from './Messages';
 import MyProfile from './MyProfile';
+import TrashPickup2 from './TrashPickup2';
 
 const routes = {
     Dashboard: {
@@ -14,6 +15,9 @@ const routes = {
     },
     TrashPickup: {
         screen: TrashPickup,
+    },
+    TrashPickup2: {
+        screen: TrashPickup2,
     },
     Booking: {
         screen: Booking,
