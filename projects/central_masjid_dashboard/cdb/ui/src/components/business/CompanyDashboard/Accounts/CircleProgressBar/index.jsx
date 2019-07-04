@@ -23,23 +23,22 @@ path.style.strokeDashoffset = '0';
  */
 
 class CircleProgressBar extends Component {
+    static cpbCounter = 0;
+    constructor(props) {
+        super(props);
+        this.cpbSvgPathId = "cpb_svg_path_" + CircleProgressBar.cpbCounter++;
+    }
+
+    componentDidMount() {
+        const path = document.getElementById(this.cpbSvgPathId);
+        console.log(path);
+    }
 
     render() {
         return (
             <div>
-                Circle Progress Bar
-                <CircleProgressBarSvg fill="Orange" stroke="blue" width="10vh"/>
-
-                {/*
-                <svg version="1.1" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" width="10vh">
-                    <g transform="translate(0 -164.71)">
-                        <path d="m490 414.71a240 240 0 0 1 -240 240 240 240 0 0 1 -240 -240 240 240 0 0 1 240 -240 240 240 0 0 1 240 240z" fill="none" stroke="#000" strokeMiterlimit="2" strokeWidth="20"
-                              strokeDasharray="1540 1540"
-                              strokeDashoffset="0"
-                        />
-                    </g>
-                </svg>
-*/}
+                Circle Progress Bar changed
+                <CircleProgressBarSvg id={this.cpbSvgPathId} fill="orange" stroke="blue" width="10vh"/>
             </div>
 
         );
