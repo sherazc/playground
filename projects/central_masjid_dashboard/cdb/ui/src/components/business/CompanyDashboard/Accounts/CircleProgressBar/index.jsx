@@ -31,13 +31,19 @@ class CircleProgressBar extends Component {
 
     componentDidMount() {
         const percentage = 75;
-
         const path = document.getElementById(this.cpbSvgPathId);
         const pathLenght = path.getTotalLength();
+
+        path.style.transition = path.style.WebkitTransition = 'none';
+        path.style.strokeDashoffset = pathLenght;
+
+        path.getBoundingClientRect();
         path.style.strokeDasharray = `${pathLenght} ${pathLenght}`;
 
-        console.log(this.calculateStrokeDashoffset(percentage, pathLenght));
-        path.style.strokeDashoffset = this.calculateStrokeDashoffset(percentage, pathLenght);
+        setTimeout(() => {
+            path.style.transition = path.style.WebkitTransition = 'stroke-dashoffset 2s ease-in-out';
+            path.style.strokeDashoffset = this.calculateStrokeDashoffset(percentage, pathLenght);
+        }, 1000);
     }
 
     calculateStrokeDashoffset(percentage, pathLenght) {
