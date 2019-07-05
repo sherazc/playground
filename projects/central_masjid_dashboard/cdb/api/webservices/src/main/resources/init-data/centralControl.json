@@ -50,7 +50,7 @@
 		{
 			"name": "Fund Name 1",
 			"goal": 1000.0,
-			"current": 100.0,
+			"current": 550.0,
 			"endDate": {
 				"$date": "2019-01-19T16:32:06.580Z"
 			}
@@ -58,7 +58,7 @@
 		{
 			"name": "Fund Name 2",
 			"goal": 2000.0,
-			"current": 200.0,
+			"current": 1550.0,
 			"pledge": 20.0,
 			"endDate": {
 				"$date": "2019-01-19T16:32:06.580Z"

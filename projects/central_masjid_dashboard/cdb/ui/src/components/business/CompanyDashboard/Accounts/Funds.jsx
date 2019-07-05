@@ -9,10 +9,11 @@ class Funds extends Component {
     }
 
     makeFund(fund) {
+        const progressPercentage = fund.current / fund.goal * 100;
         return (
             <div>
 
-                <CircleProgressBar/>
+                <CircleProgressBar percentage={progressPercentage}/>
                 <div>{fund.name}</div>
                 <table border="1" style={{margin: "0 auto"}}>
                     <tbody>

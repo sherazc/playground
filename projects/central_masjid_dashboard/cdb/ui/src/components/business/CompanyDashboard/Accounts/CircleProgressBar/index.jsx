@@ -30,7 +30,7 @@ class CircleProgressBar extends Component {
     }
 
     componentDidMount() {
-        const percentage = 75;
+        const percentage = this.props.percentage;
         const path = document.getElementById(this.cpbSvgPathId);
         const pathLenght = path.getTotalLength();
 
