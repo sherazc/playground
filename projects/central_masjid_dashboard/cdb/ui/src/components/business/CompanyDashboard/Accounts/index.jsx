@@ -11,7 +11,7 @@ class Accounts extends Component {
         super(props);
 
         this.animationSeconds = 1;
-        this.slideStaySeconds = 500;
+        this.animationStaySeconds = 6;
         this.currentSlide = 0;
 
         this.startSlides = this.startSlides.bind(this);
@@ -23,11 +23,11 @@ class Accounts extends Component {
 
     componentDidMount() {
         this.startSlides();
-        this.slideInterval = setInterval(this.startSlides, this.slideStaySeconds * 1000);
+        this.animationInterval = setInterval(this.startSlides, this.animationStaySeconds * 1000);
     }
 
     componentWillUnmount() {
-        clearInterval(this.slideInterval);
+        clearInterval(this.animationInterval);
     }
 
     startSlides() {
@@ -66,7 +66,7 @@ class Accounts extends Component {
             console.log("Creating Slides", this.props.centralControl);
             this.slides = [
                 <Funds funds={this.props.centralControl.funds}/>,
-                // <Expenses expenses={this.props.centralControl.expenses}/>
+                <Expenses expenses={this.props.centralControl.expenses}/>
                 ];
         }
     }

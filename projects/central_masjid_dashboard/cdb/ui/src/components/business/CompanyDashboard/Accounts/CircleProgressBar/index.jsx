@@ -1,35 +1,29 @@
 import React, {Component} from "react";
 import CircleProgressBarSvg from "./CircleProgressBarSvg";
-/*
 
-var path = document.querySelector('.squiggle-animated path');
-var length = path.getTotalLength();
-// Clear any previous transition
-path.style.transition = path.style.WebkitTransition =
-  'none';
-// Set up the starting positions
-path.style.strokeDasharray = length + ' ' + length;
-path.style.strokeDashoffset = length;
-// Trigger a layout so styles are calculated & the browser
-// picks up the starting position before animating
-path.getBoundingClientRect();
-// Define our transition
-path.style.transition = path.style.WebkitTransition =
-  'stroke-dashoffset 2s ease-in-out';
-// Go!
-path.style.strokeDashoffset = '0';
-
-
- */
+// https://jakearchibald.com/2013/animated-line-drawing-svg/
 
 class CircleProgressBar extends Component {
     static cpbCounter = 0;
     constructor(props) {
         super(props);
+        this.animationSeconds = 2;
+        this.animationStaySeconds = 5;
+
         this.cpbSvgPathId = "cpb_svg_path_" + CircleProgressBar.cpbCounter++;
+        this.setupProgressBar = this.setupProgressBar.bind(this);
     }
 
     componentDidMount() {
+        this.setupProgressBar();
+        this.animationInterval = setInterval(this.setupProgressBar, this.animationStaySeconds * 1000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.animationInterval);
+    }
+
+    setupProgressBar() {
         const percentage = this.props.percentage;
         const path = document.getElementById(this.cpbSvgPathId);
         const pathLenght = path.getTotalLength();
@@ -41,9 +35,9 @@ class CircleProgressBar extends Component {
         path.style.strokeDasharray = `${pathLenght} ${pathLenght}`;
 
         setTimeout(() => {
-            path.style.transition = path.style.WebkitTransition = 'stroke-dashoffset 2s ease-in-out';
+            path.style.transition = path.style.WebkitTransition = `stroke-dashoffset ${this.animationSeconds}s ease-in-out`;
             path.style.strokeDashoffset = this.calculateStrokeDashoffset(percentage, pathLenght);
-        }, 1000);
+        }, 500);
     }
 
     calculateStrokeDashoffset(percentage, pathLenght) {
@@ -60,13 +54,12 @@ class CircleProgressBar extends Component {
     render() {
         return (
             <div>
-                Circle Progress Bar changed
+                Circle Progress Bar
                 <CircleProgressBarSvg id={this.cpbSvgPathId} fill="orange" stroke="blue" width="10vh"/>
             </div>
 
         );
     }
 }
-
 
 export default CircleProgressBar;
