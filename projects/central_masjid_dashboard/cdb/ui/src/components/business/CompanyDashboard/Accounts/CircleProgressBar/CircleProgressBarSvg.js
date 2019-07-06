@@ -22,6 +22,8 @@ export default ({
             xmlns="http://www.w3.org/2000/svg"
             className={`svg-icon ${className || ""}`}
             xmlnsXlink="http://www.w3.org/1999/xlink">
+
+            {/*
             <g transform="translate(0 -164.71)">
                 <path id={id}
                     d="m490 414.71a240 240 0 0 1 -240 240 240 240 0 0 1 -240 -240 240 240 0 0 1 240 -240 240 240 0 0 1 240 240z"
@@ -33,6 +35,26 @@ export default ({
                     strokeDashoffset={strokeDashoffset}
                 />
             </g>
+ */}
+
+
+            <g transform="translate(0 -164.71)">
+                <g fill="none" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="2">
+                    <circle cx="250" cy="414.71" r="230" stroke="#d3d3d3" strokeWidth="30" />
+                </g>
+                <path id={id}
+                    d="m480 414.71a230 230 0 0 1 -230 230 230 230 0 0 1 -230 -230 230 230 0 0 1 230 -230 230 230 0 0 1 230 230z"
+                    fill={fill}
+                    stroke={stroke}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeMiterlimit="2"
+                    strokeWidth="30"
+                    strokeDasharray={strokeDasharray}
+                    strokeDashoffset={strokeDashoffset}
+                />
+            </g>
+
         </svg>
     )
 };
