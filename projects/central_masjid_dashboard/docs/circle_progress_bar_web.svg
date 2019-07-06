@@ -1,0 +1,14 @@
+<svg version="1.1" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(0 -164.71)">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="2">
+   <circle cx="250" cy="414.71" r="230" stroke="#d3d3d3" stroke-width="30"/>
+  </g>
+  <text x="157.2168" y="337.53894" fill="#000000" font-family="sans-serif" font-size="40px" letter-spacing="0px" stroke-width="1px" word-spacing="0px" style="line-height:125%" xml:space="preserve"><tspan x="157.2168" y="337.53894">Remaining</tspan></text>
+  <path d="m480 414.71a230 230 0 0 1 -230 230 230 230 0 0 1 -230 -230 230 230 0 0 1 230 -230 230 230 0 0 1 230 230z" fill="none" stroke="#4fc18a" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="2" stroke-width="30"/>
+  <g fill="#000000" font-family="sans-serif" letter-spacing="0px" stroke-width="1px" word-spacing="0px">
+   <text x="66.446701" y="438.20239" font-size="76.679px" style="line-height:125%" xml:space="preserve"><tspan x="66.446701" y="438.20239" stroke-width="1px">$999,999</tspan></text>
+   <text x="224.4043" y="513.79437" font-size="40px" style="line-height:125%" xml:space="preserve"><tspan x="224.4043" y="513.79437">20</tspan></text>
+   <text x="154.56055" y="550.39386" font-size="40px" style="line-height:125%" xml:space="preserve"><tspan x="154.56055" y="550.39386">Days Left</tspan></text>
+  </g>
+ </g>
+</svg>
