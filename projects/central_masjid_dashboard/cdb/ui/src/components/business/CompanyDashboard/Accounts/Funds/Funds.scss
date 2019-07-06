@@ -1,0 +1,19 @@
+@import "../../theme";
+
+.fundContainer {
+    height: 15.5vw;
+    @media screen and (max-width: $screen-break) {
+        height: 10vw;
+    }
+}
+
+.positionFundsGrid {
+    z-index: 10;
+    position: relative;
+    top: -15vw;
+}
+
+.positionCircleProgressBar {
+    z-index: 10;
+    position: relative;
+}

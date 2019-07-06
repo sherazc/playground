@@ -11,7 +11,7 @@ class Accounts extends Component {
         super(props);
 
         this.animationSeconds = 1;
-        this.animationStaySeconds = 6;
+        this.animationStaySeconds = 600;
         this.currentSlide = 0;
 
         this.startSlides = this.startSlides.bind(this);
