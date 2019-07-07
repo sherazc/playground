@@ -44,7 +44,7 @@ const styles = theme => {
         backgroundRepeat: "no-repeat",
         backgroundSize: "100% 100%",
         height: 0,
-        overflow: "hidden",
+        // overflow: "hidden",
         position: "relative",
         width: "90%",
     };
