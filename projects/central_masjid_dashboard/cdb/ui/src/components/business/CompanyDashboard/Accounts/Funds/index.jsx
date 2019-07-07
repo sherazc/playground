@@ -12,9 +12,11 @@ class Funds extends Component {
     makeFund(fund) {
         const progressPercentage = fund.current / fund.goal * 100;
         return (
-            <div>
-                <div className="heading4">{fund.name}</div>
-                <div className="fundContainer">
+            <div className="fundContainer">
+                <div className="fundHeader">
+                    {fund.name}
+                </div>
+                <div className="fundContent">
                     <div className="fundContainerLeft">
                         {this.makeFundGrid(fund)}
                     </div>

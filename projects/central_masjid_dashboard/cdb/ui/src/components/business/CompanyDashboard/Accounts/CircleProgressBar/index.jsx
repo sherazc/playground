@@ -59,7 +59,7 @@ class CircleProgressBar extends Component {
 
                 id={this.cpbSvgPathId}
                 //fill="orange"
-                stroke="blue"/>
+                stroke="green"/>
             </div>
         );
     }

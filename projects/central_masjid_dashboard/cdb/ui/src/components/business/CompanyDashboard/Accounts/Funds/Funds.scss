@@ -1,24 +1,40 @@
 @import "../../theme";
 
 .fundContainer {
+    margin-top: 20px;
+    border-radius: 5px;
+    background-color: aqua;
+    border: 1px solid #aaa;
+    padding: 3%;
+    -webkit-box-shadow: 2px 2px 3px 1px rgba(0,0,0,0.40);
+    -moz-box-shadow: 2px 2px 3px 1px rgba(0,0,0,0.40);
+    box-shadow: 2px 2px 3px 1px rgba(0,0,0,0.40);
+}
+
+.fundHeader {
+    background-color: brown;
+}
+
+.fundContent {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    background-color: yellow;
     @media screen and (max-width: $screen-break) {
     }
 }
 
 .fundContainerLeft {
     width: 60%;
-    // background-color: green;
+    background-color: green;
     @media screen and (max-width: $screen-break) {
     }
 }
 
 .fundContainerRight {
     width: 40%;
-    // background-color: purple;
+    background-color: purple;
     @media screen and (max-width: $screen-break) {
     }
 }
