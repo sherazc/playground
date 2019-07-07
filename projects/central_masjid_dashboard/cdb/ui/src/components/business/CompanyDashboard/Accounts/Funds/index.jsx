@@ -15,10 +15,10 @@ class Funds extends Component {
             <div>
                 <div className="heading4">{fund.name}</div>
                 <div className="fundContainer">
-                    <div className="fundContaierLeft">
+                    <div className="fundContainerLeft">
                         {this.makeFundGrid(fund)}
                     </div>
-                    <div className="fundContaierRight">
+                    <div className="fundContainerRight">
                         <CircleProgressBar percentage={progressPercentage} />
                     </div>
                 </div>
@@ -70,7 +70,6 @@ class Funds extends Component {
         return (
             <div>
                 {this.makeFund(funds[0])}
-                <hr />
                 {this.makeFund(funds[1])}
             </div>
         );

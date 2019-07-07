@@ -3,18 +3,22 @@
 .fundContainer {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
     @media screen and (max-width: $screen-break) {
     }
 }
 
 .fundContainerLeft {
-    width: 70%;
+    width: 60%;
+    // background-color: green;
     @media screen and (max-width: $screen-break) {
     }
 }
 
 .fundContainerRight {
-    width: 20px;
+    width: 40%;
+    // background-color: purple;
     @media screen and (max-width: $screen-break) {
     }
 }
@@ -28,13 +32,17 @@ table.fundGrid {
 
 table.fundGrid th, table.fundGrid td {
     border: 1px solid $fundGridBorderColor;
-    padding: 5px;
+    padding: .5vw;
+    @media screen and (max-width: $screen-break) {
+        padding: 2vw;
+    }
 }
 
 table.fundGrid td {
-    @extend .textRegular, .textLighter;
+    @extend .textLarge;
 }
 
 table.fundGrid th {
-    @extend .textRegular, .textBold;
+    @extend .textLarge, .textBold;
+    text-align: left;
 }
