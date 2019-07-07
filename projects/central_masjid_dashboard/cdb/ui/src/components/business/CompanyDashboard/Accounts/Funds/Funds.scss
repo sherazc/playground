@@ -1,6 +1,40 @@
 @import "../../theme";
 
 .fundContainer {
+    display: flex;
+    flex-direction: row;
     @media screen and (max-width: $screen-break) {
     }
+}
+
+.fundContainerLeft {
+    width: 70%;
+    @media screen and (max-width: $screen-break) {
+    }
+}
+
+.fundContainerRight {
+    width: 20px;
+    @media screen and (max-width: $screen-break) {
+    }
+}
+
+$fundGridBorderColor: rgb(70, 70, 70);
+
+table.fundGrid {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+table.fundGrid th, table.fundGrid td {
+    border: 1px solid $fundGridBorderColor;
+    padding: 5px;
+}
+
+table.fundGrid td {
+    @extend .textRegular, .textLighter;
+}
+
+table.fundGrid th {
+    @extend .textRegular, .textBold;
 }
