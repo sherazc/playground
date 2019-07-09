@@ -30,8 +30,10 @@ class Funds extends Component {
     }
 
     makeFundGrid(fund) {
+
+        //
         return (
-            <table className="fundGrid">
+            <table className="fundGrid" style={{backgroundImage: `url("${process.env.PUBLIC_URL}/images/center_box_background.svg")`}}>
                 <tbody>
                     <tr>
                         <th>Target</th>

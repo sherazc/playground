@@ -9,7 +9,8 @@ import Accounts from "./Accounts";
 import Updates from "./Updates";
 import AnalogClock from "./AnalogClock";
 import DigitalClock from "./DigitalClock";
-import "./index.scss";
+import s from "./index.module.scss";
+import c from "./index.module.css";
 import {Link} from "react-router-dom";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
@@ -44,7 +45,7 @@ const styles = theme => {
         backgroundRepeat: "no-repeat",
         backgroundSize: "100% 100%",
         height: 0,
-        // overflow: "hidden",
+        overflow: "hidden",
         position: "relative",
         width: "90%",
     };
@@ -73,7 +74,7 @@ const styles = theme => {
         top: 0,
         left: 0,
         width: "100%",
-        //height: "100%",
+        // height: "100%",
     };
 
     const sideBoxPadding = {
@@ -92,7 +93,7 @@ const styles = theme => {
     };
 
     const centerBoxContent = {
-        // backgroundColor: "rgba(255,0,0,0.3)",
+        backgroundColor: "rgba(255,0,0,0.3)",
         height: "100%"
     };
 
@@ -145,7 +146,7 @@ class CompanyDashboard extends Component {
         const xsBreakPoint = 12;
         const smBreakPoint = 12;
         const mdBreakPoint = 4;
-
+        console.log(s, c);
         return (
             <Grid container justify="center" style={{height: "100%",}}>
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={classes.mainLeftSide}>
@@ -156,6 +157,10 @@ class CompanyDashboard extends Component {
                     <Link to="/">home</Link>
                     <Link to="/c1">c1</Link>
                     <Link to="/c2">c2</Link>
+                    <div className={s.testClass}>1 Delete it</div>
+                    <div className={c.testClass2}>2 Delete it</div>
+                    <div className="testClass">3 Delete it</div>
+                    <div className="testClass2">4 Delete it</div>
                     <div className={classes.sideBoxBackground}>
                         <div className={classes.sideBoxPadding}>
                             <div className={classes.sideBoxContent}>

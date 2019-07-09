@@ -3,7 +3,7 @@
 .circleProgressBarSvg {
     width: 9.5vw;
     margin: 0 auto;
-    // background-color: red;
+    background-color: red;
     @media screen and (max-width: $screen-break) {
         width: 28vw;
     }
