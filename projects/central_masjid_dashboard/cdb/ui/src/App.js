@@ -20,7 +20,7 @@ import AuthCompany from "./components/auth/company/AuthCompany";
 import AuthCompanyUser from "./components/auth/company/user/AuthCompanyUser";
 import RegisterFinish from "./components/auth/company/RegisterFinish";
 import AdminControl from "./components/business/admin";
-import CompanyDashboard from "./components/business/CompanyDashboard";
+import CompanyDashboard from "./components/business/CompanyDashboard/CompanyDashboard";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import {createMuiTheme} from '@material-ui/core/styles';

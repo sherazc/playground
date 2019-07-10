@@ -2,10 +2,17 @@ import React, {Component} from "react";
 import {getPathParamFromProps} from "../../../services/utilities";
 import Grid from '@material-ui/core/Grid';
 import {withStyles} from '@material-ui/core/styles';
-import SalahTime from "./SalahTime";
-import Funds from "./Funds";
-import Updates from "./Updates";
+import axios from "axios";
 
+import SalahTime from "./SalahTime";
+import Accounts from "./Accounts";
+import Updates from "./Updates";
+import AnalogClock from "./AnalogClock";
+import DigitalClock from "./DigitalClock";
+import s from "./CompanyDashboard.module.scss";
+import {Link} from "react-router-dom";
+
+const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
 const sideBoxBackgroundRatio = 1.17;
 const sideBoxPaddingRatio = .095;
@@ -20,26 +27,14 @@ const styles = theme => {
 
     const mainCenter = {
         ...main, backgroundColor: "#a5d082",
-        order: 1,
-        [theme.breakpoints.up("md")]: {
-            order: 2
-        }
     };
 
     const mainLeftSide = {
         ...main, backgroundColor: "#a7d9d3",
-        order: 2,
-        [theme.breakpoints.up("md")]: {
-            order: 3
-        }
     };
 
     const mainRightSide = {
         ...main, backgroundColor: "#e5afd3",
-        order: 3,
-        [theme.breakpoints.up("md")]: {
-            order: 1
-        }
     };
 
     const boxBackground = {
@@ -57,7 +52,7 @@ const styles = theme => {
     const centerBoxBackground = {
         ...boxBackground,
         backgroundColor: "#ace7d9",
-        backgroundImage: `url(${process.env.PUBLIC_URL}/images/center_box.svg)`,
+        backgroundImage: `url(${process.env.PUBLIC_URL}/images/center_box_background.svg)`,
         paddingTop: `calc(${centerBoxBackgroundRatio} * 100%)`,
         marginTop: "5%",
     };
@@ -65,7 +60,7 @@ const styles = theme => {
     const sideBoxBackground = {
         ...boxBackground,
         backgroundColor: "#ddb167",
-        backgroundImage: `url(${process.env.PUBLIC_URL}/images/side_box.svg)`,
+        backgroundImage: `url(${process.env.PUBLIC_URL}/images/side_box_background.svg)`,
         paddingTop: `calc(${sideBoxBackgroundRatio} * 100%)`,
         marginTop: 20,
         [theme.breakpoints.up("md")]: {
@@ -78,7 +73,7 @@ const styles = theme => {
         top: 0,
         left: 0,
         width: "100%",
-        height: "100%",
+        // height: "100%",
     };
 
     const sideBoxPadding = {
@@ -93,7 +88,7 @@ const styles = theme => {
     };
 
     const sideBoxContent = {
-        backgroundColor: "#dd5893", height: "100%"
+        backgroundColor: "rgba(0,255,0,0.3)", height: "100%"
     };
 
     const centerBoxContent = {
@@ -112,7 +107,8 @@ const styles = theme => {
 class CompanyDashboard extends Component {
 
     state = {
-        companyDashboardUrl: ""
+        companyDashboardUrl: "",
+        centralControl: {}
     };
 
     componentWillMount() {
@@ -123,6 +119,19 @@ class CompanyDashboard extends Component {
         document.getElementsByTagName("html")[0].style.height = "100%";
         document.getElementsByTagName("body")[0].style.height = "100%";
         document.getElementById("root").style.height = "100%";
+    }
+
+    componentDidMount() {
+        this.updateCentralControl();
+    }
+
+    updateCentralControl() {
+        axios
+            .get(`${baseUrl}/api/companies/url/${this.state.companyDashboardUrl}/central-control`)
+            .then(response => this.setState({
+                    centralControl: response.data
+                })
+            );
     }
 
     componentWillUnmount() {
@@ -136,14 +145,21 @@ class CompanyDashboard extends Component {
         const xsBreakPoint = 12;
         const smBreakPoint = 12;
         const mdBreakPoint = 4;
-
+        console.log(s);
         return (
-            <Grid container direction="row-reverse" justify="center" style={{height: "100%", }}>
+            <Grid container justify="center" style={{height: "100%",}}>
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={classes.mainLeftSide}>
+                    {this.props.match.params.companyDashboardUrl === "c1" &&
+                    <AnalogClock sizeLg="10" sizeMd="20" marginLg="2" marginMd="2"/>}
+                    {this.props.match.params.companyDashboardUrl === "c2" &&
+                    <DigitalClock sizeLg="15" sizeMd="25" marginLg="2" marginMd="2"/>}
+                    <Link to="/" className={s.testClass}>home</Link>
+                    <Link to="/c1">c1</Link>
+                    <Link to="/c2">c2</Link>
                     <div className={classes.sideBoxBackground}>
                         <div className={classes.sideBoxPadding}>
                             <div className={classes.sideBoxContent}>
-                                <Funds/>
+                                <SalahTime/>
                             </div>
                         </div>
                     </div>
@@ -153,7 +169,7 @@ class CompanyDashboard extends Component {
                     <div className={classes.centerBoxBackground}>
                         <div className={classes.centerBoxPadding}>
                             <div className={classes.centerBoxContent}>
-                                <SalahTime/>
+                                <Accounts centralControl={this.state.centralControl}/>
                             </div>
                         </div>
                     </div>
