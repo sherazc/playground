@@ -4,9 +4,9 @@ import Grid from '@material-ui/core/Grid';
 import {withStyles} from '@material-ui/core/styles';
 import axios from "axios";
 
-import SalahTime from "./SalahTime";
+import SalahTime from "./SalahTime/SalahTime";
 import Accounts from "./Accounts";
-import Updates from "./Updates";
+import Updates from "./Updates/Updates";
 import AnalogClock from "./AnalogClock";
 import DigitalClock from "./DigitalClock";
 import s from "./CompanyDashboard.module.scss";

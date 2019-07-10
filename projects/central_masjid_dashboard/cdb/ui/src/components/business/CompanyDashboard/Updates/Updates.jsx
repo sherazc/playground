@@ -1,7 +1,7 @@
 import React, {Component} from "react";
-import Rod from "./Rod";
-import "./Update.scss";
-import Hod from "./Hod";
+import Rod from "./Rod/Rod";
+import "./Updates.scss";
+import Hod from "./Hod/Hod";
 
 class Updates extends Component {
 
