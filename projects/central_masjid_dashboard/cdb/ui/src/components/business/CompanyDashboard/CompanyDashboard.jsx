@@ -20,7 +20,7 @@ const sideBoxPaddingRatio = .095;
 const centerBoxBackgroundRatio = 1.40;
 const centerBoxPaddingRatio = .08;
 
-const styles = theme => {
+const stylesDep = theme => {
     const main = {
         paddingBottom: 20
     };
@@ -188,4 +188,4 @@ class CompanyDashboard extends Component {
     }
 }
 
-export default withStyles(styles)(CompanyDashboard);
+export default withStyles(stylesDep)(CompanyDashboard);
