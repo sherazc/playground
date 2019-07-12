@@ -9,7 +9,7 @@ import Accounts from "./Accounts";
 import Updates from "./Updates/Updates";
 import AnalogClock from "./AnalogClock";
 import DigitalClock from "./DigitalClock";
-import s from "./CompanyDashboard.module.scss";
+import styles from "./CompanyDashboard.module.scss";
 import {Link} from "react-router-dom";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
@@ -145,15 +145,14 @@ class CompanyDashboard extends Component {
         const xsBreakPoint = 12;
         const smBreakPoint = 12;
         const mdBreakPoint = 4;
-        console.log(s);
         return (
             <Grid container justify="center" style={{height: "100%",}}>
-                <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={classes.mainLeftSide}>
+                <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={styles.mainLeftSide}>
                     {this.props.match.params.companyDashboardUrl === "c1" &&
                     <AnalogClock sizeLg="10" sizeMd="20" marginLg="2" marginMd="2"/>}
                     {this.props.match.params.companyDashboardUrl === "c2" &&
                     <DigitalClock sizeLg="15" sizeMd="25" marginLg="2" marginMd="2"/>}
-                    <Link to="/" className={s.testClass}>home</Link>
+                    <Link to="/" className={styles.main}>home</Link>
                     <Link to="/c1">c1</Link>
                     <Link to="/c2">c2</Link>
                     <div className={classes.sideBoxBackground}>
@@ -165,7 +164,7 @@ class CompanyDashboard extends Component {
                     </div>
 
                 </Grid>
-                <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={classes.mainCenter}>
+                <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={styles.mainCenter}>
                     <div className={classes.centerBoxBackground}>
                         <div className={classes.centerBoxPadding}>
                             <div className={classes.centerBoxContent}>
@@ -174,7 +173,7 @@ class CompanyDashboard extends Component {
                         </div>
                     </div>
                 </Grid>
-                <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={classes.mainRightSide}>
+                <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={styles.mainRightSide}>
                     <div className={classes.sideBoxBackground}>
                         <div className={classes.sideBoxPadding}>
                             <div className={classes.sideBoxContent}>

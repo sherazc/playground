@@ -1,8 +1,37 @@
 @import "theme";
 
+$sideBoxBackgroundRatio: 1.17;
+$sideBoxPaddingRatio: .095;
+$centerBoxBackgroundRatio: 1.40;
+$centerBoxPaddingRatio: .08;
 
-.testClass {
-    background-color: coral;
+.main {
+    padding-bottom: 20px;
 }
 
+.mainCenter {
+    @extend .main;
+    background-color: #a5d082;
+}
 
+.mainLeftSide {
+    @extend .main;
+    background-color: #a7d9d3,
+}
+
+.mainRightSide {
+    @extend .main;
+    background-color: #e5afd3;
+}
+
+.boxBackground {
+    text-align: center;
+    color: black;
+    margin: 0 auto;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 0;
+    overflow: hidden;
+    position: relative;
+    width: 90%;
+};
