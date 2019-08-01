@@ -62,7 +62,6 @@ class AuthCompanyUserList extends Component {
     }
 
     deleteCompanyUser(userId) {
-        console.log("Delete", userId);
     }
 
     getRedirectUrl(action, props) {

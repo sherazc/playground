@@ -3,7 +3,6 @@ import Grid from '@material-ui/core/Grid';
 import {withStyles} from '@material-ui/core/styles';
 
 const styles = theme => {
-    console.log(theme.breakpoints.up("lg"));
     return ({
         root: {
             flexGrow: 1,

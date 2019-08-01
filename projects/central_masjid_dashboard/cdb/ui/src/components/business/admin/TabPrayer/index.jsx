@@ -31,11 +31,9 @@ class TabPrayer extends Component {
 
     makePrayerMonths() {
         const {prayersMonths} = this.state;
-        console.log(prayersMonths);
         if (!prayersMonths) {
             return;
         }
-        console.log("OK");
         return <div>Waooo</div>;
     }
 

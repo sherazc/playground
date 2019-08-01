@@ -1,12 +1,6 @@
 import React, {Component} from "react";
 
 class Expenses extends Component {
-
-    constructor(props) {
-        super(props);
-        console.log("Expenses created", this.props)
-    }
-
     renderTable() {
         const {expenses} = this.props;
         if(expenses && expenses.length > 0) {

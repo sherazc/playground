@@ -63,7 +63,6 @@ class Accounts extends Component {
         }
 
         if (this.slides.length < 1 && this.props.centralControl.id !== undefined) {
-            console.log("Creating Slides", this.props.centralControl);
             this.slides = [
                 <Funds funds={this.props.centralControl.funds}/>,
                 <Expenses expenses={this.props.centralControl.expenses}/>

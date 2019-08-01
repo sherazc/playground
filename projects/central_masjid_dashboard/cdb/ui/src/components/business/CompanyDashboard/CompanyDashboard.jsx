@@ -52,7 +52,7 @@ const stylesDep = theme => {
     const centerBoxBackground = {
         ...boxBackground,
         backgroundColor: "#ace7d9",
-        backgroundImage: `url(${process.env.PUBLIC_URL}/images/center_box_background.svg)`,
+        // backgroundImage: `url(${process.env.PUBLIC_URL}/images/center_box_background.svg)`,
         paddingTop: `calc(${centerBoxBackgroundRatio} * 100%)`,
         marginTop: "5%",
     };
@@ -145,9 +145,6 @@ class CompanyDashboard extends Component {
         const xsBreakPoint = 12;
         const smBreakPoint = 12;
         const mdBreakPoint = 4;
-        console.log("==================");
-        console.log(styles.centerBoxBackground);
-        console.log("==================");
         return (
             <Grid container justify="center" style={{height: "100%",}}>
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={styles.mainLeftSide}>
@@ -169,9 +166,9 @@ class CompanyDashboard extends Component {
                 </Grid>
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={styles.mainCenter}>
                     <div
-                        className={classes.centerBoxBackground}
-                        // className={styles.centerBoxBackground}
-                        // style={{backgroundImage: `url(${process.env.PUBLIC_URL}/images/center_box_background.svg)`}}
+                        // className={classes.centerBoxBackground}
+                        className={styles.centerBoxBackground}
+                        style={{backgroundImage: `url(${process.env.PUBLIC_URL}/images/center_box_background.svg)`}}
                         >
                         <div className={classes.centerBoxPadding}>
                             <div className={classes.centerBoxContent}>

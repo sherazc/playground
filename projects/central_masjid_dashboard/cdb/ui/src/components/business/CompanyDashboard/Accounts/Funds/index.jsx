@@ -4,11 +4,6 @@ import CircleProgressBar from "../CircleProgressBar";
 import "./Funds.scss"
 
 class Funds extends Component {
-    constructor(props) {
-        super(props);
-        console.log("Funds created", this.props)
-    }
-
     makeFund(fund) {
         const progressPercentage = fund.current / fund.goal * 100;
         return (

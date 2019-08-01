@@ -35,3 +35,12 @@ $centerBoxPaddingRatio: .08;
     position: relative;
     width: 90%;
 };
+
+.centerBoxBackground {
+    @extend .boxBackground;
+    background-color: #ace7d9;
+    padding-top: calc(1.40 * 100%);
+    // padding-top: calc($centerBoxBackgroundRatio * 100%);
+    margin-top: 5%;
+};
+

@@ -22,12 +22,10 @@ class AuthCompanyList extends Component {
     editCompany(companyId) {
         let company = this.findCompanyById(this.state.companies, companyId);
         this.props.prepareCompanyToEdit(company);
-        // console.log("Edit Company ID", company);
         this.setState({editCompanyPrepared: true});
     }
 
     deleteCompany(companyId) {
-        console.log("Delete Company ID", companyId);
     }
 
     findCompanyById(companies, id) {
