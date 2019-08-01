@@ -17,6 +17,7 @@ const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 const sideBoxBackgroundRatio = 1.17;
 const sideBoxPaddingRatio = .095;
 
+// deprecated
 const centerBoxBackgroundRatio = 1.40;
 const centerBoxPaddingRatio = .08;
 
@@ -49,6 +50,7 @@ const stylesDep = theme => {
         width: "90%",
     };
 
+    // deprecated
     const centerBoxBackground = {
         ...boxBackground,
         backgroundColor: "#ace7d9",
@@ -60,7 +62,6 @@ const stylesDep = theme => {
     const sideBoxBackground = {
         ...boxBackground,
         backgroundColor: "#ddb167",
-        backgroundImage: `url(${process.env.PUBLIC_URL}/images/side_box_background.svg)`,
         paddingTop: `calc(${sideBoxBackgroundRatio} * 100%)`,
         marginTop: 20,
         [theme.breakpoints.up("md")]: {
@@ -155,7 +156,8 @@ class CompanyDashboard extends Component {
                     <Link to="/" className={styles.main}>home</Link>
                     <Link to="/c1">c1</Link>
                     <Link to="/c2">c2</Link>
-                    <div className={classes.sideBoxBackground}>
+                    <div className={classes.sideBoxBackground}
+                        style={{backgroundImage: `url(${process.env.PUBLIC_URL}/images/side_box_background.svg)`}}>
                         <div className={classes.sideBoxPadding}>
                             <div className={classes.sideBoxContent}>
                                 <SalahTime/>
@@ -165,11 +167,8 @@ class CompanyDashboard extends Component {
 
                 </Grid>
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={styles.mainCenter}>
-                    <div
-                        // className={classes.centerBoxBackground}
-                        className={styles.centerBoxBackground}
-                        style={{backgroundImage: `url(${process.env.PUBLIC_URL}/images/center_box_background.svg)`}}
-                        >
+                    <div className={styles.centerBoxBackground}
+                        style={{backgroundImage: `url(${process.env.PUBLIC_URL}/images/center_box_background.svg)`}}>
                         <div className={classes.centerBoxPadding}>
                             <div className={classes.centerBoxContent}>
                                 <Accounts centralControl={this.state.centralControl}/>
@@ -178,7 +177,8 @@ class CompanyDashboard extends Component {
                     </div>
                 </Grid>
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={styles.mainRightSide}>
-                    <div className={classes.sideBoxBackground}>
+                    <div className={classes.sideBoxBackground}
+                        style={{backgroundImage: `url(${process.env.PUBLIC_URL}/images/side_box_background.svg)`}}>
                         <div className={classes.sideBoxPadding}>
                             <div className={classes.sideBoxContent}>
                                 <Updates/>

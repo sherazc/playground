@@ -39,8 +39,7 @@ $centerBoxPaddingRatio: .08;
 .centerBoxBackground {
     @extend .boxBackground;
     background-color: #ace7d9;
-    padding-top: calc(1.40 * 100%);
-    // padding-top: calc($centerBoxBackgroundRatio * 100%);
+    padding-top: calc(#{$centerBoxBackgroundRatio} * 100%);
     margin-top: 5%;
 };
 
