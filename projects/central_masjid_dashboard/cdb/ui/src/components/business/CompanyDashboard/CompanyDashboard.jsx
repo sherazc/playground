@@ -62,10 +62,12 @@ const stylesDep = theme => {
     const sideBoxBackground = {
         ...boxBackground,
         backgroundColor: "#ddb167",
-        paddingTop: `calc(${sideBoxBackgroundRatio} * 100%)`,
+        //paddingTop: `calc(${sideBoxBackgroundRatio} * 100%)`,
+        paddingTop: 500,
         marginTop: 20,
         [theme.breakpoints.up("md")]: {
-            marginTop: "30%",
+            // marginTop: "30%",
+            backgroundColor: "#8167dd"
         }
     };
 
@@ -146,6 +148,7 @@ class CompanyDashboard extends Component {
         const xsBreakPoint = 12;
         const smBreakPoint = 12;
         const mdBreakPoint = 4;
+        console.log(styles.sideBoxBackground);
         return (
             <Grid container justify="center" style={{height: "100%",}}>
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={styles.mainLeftSide}>
@@ -153,16 +156,21 @@ class CompanyDashboard extends Component {
                     <AnalogClock sizeLg="10" sizeMd="20" marginLg="2" marginMd="2"/>}
                     {this.props.match.params.companyDashboardUrl === "c2" &&
                     <DigitalClock sizeLg="15" sizeMd="25" marginLg="2" marginMd="2"/>}
-                    <Link to="/" className={styles.main}>home</Link>
-                    <Link to="/c1">c1</Link>
-                    <Link to="/c2">c2</Link>
-                    <div className={classes.sideBoxBackground}
+
+                    <div style={{position: "absolute"}}>
+                        <Link to="/" className={styles.main}>home</Link>
+                        <Link to="/c1">c1</Link>
+                        <Link to="/c2">c2</Link>
+                    </div>
+
+                    <div
+                        // className={classes.sideBoxBackground}
+                        // className={styles.sideBoxBackground}
+                        className={styles.sideBox}
                         style={{backgroundImage: `url(${process.env.PUBLIC_URL}/images/side_box_background.svg)`}}>
-                        <div className={classes.sideBoxPadding}>
-                            <div className={classes.sideBoxContent}>
-                                <SalahTime/>
-                            </div>
-                        </div>
+                        <SalahTime/>
+
+
                     </div>
 
                 </Grid>

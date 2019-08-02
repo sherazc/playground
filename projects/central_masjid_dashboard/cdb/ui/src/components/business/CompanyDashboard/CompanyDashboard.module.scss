@@ -30,10 +30,10 @@ $centerBoxPaddingRatio: .08;
     margin: 0 auto;
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    height: 0;
+    //height: 0;
     overflow: hidden;
     position: relative;
-    width: 90%;
+    width: 100%;
 };
 
 .centerBoxBackground {
@@ -43,3 +43,45 @@ $centerBoxPaddingRatio: .08;
     margin-top: 5%;
 };
 
+.sideBoxBackground {
+    @extend .boxBackground;
+    background-color: #8167dd;
+    padding-top: calc(#{$centerBoxBackgroundRatio} * 100%);
+    margin-top: 20;
+    // margin-top: 50%;
+    @media screen and (max-width: $screen-break) {
+        background-color: #ddb167;
+        margin-top: 20px;
+
+    }
+};
+
+.box {
+    text-align: center;
+    color: black;
+    margin: 0 auto;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 1000px;
+    overflow: hidden;
+    position: relative;
+    //width: 100%;
+};
+
+.sideBox {
+    @extend .box;
+
+}
+
+
+/*
+const sideBoxBackground = {
+    ...boxBackground,
+    backgroundColor: "#ddb167",
+    paddingTop: `calc(${sideBoxBackgroundRatio} * 100%)`,
+    marginTop: 20,
+    [theme.breakpoints.up("md")]: {
+        marginTop: "30%",
+    }
+};
+*/
