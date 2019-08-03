@@ -1,21 +1,21 @@
 import React, { Component } from "react";
 import { dateToDisplayDate } from "../../../../../services/utilities";
 import CircleProgressBar from "../CircleProgressBar";
-import "./Funds.scss"
+import styles from "./Funds.module.scss"
 
 class Funds extends Component {
     makeFund(fund) {
         const progressPercentage = fund.current / fund.goal * 100;
         return (
-            <div className="fundContainer">
-                <div className="fundHeader">
+            <div className={styles.fundContainer}>
+                <div className={styles.fundHeader}>
                     {fund.name}
                 </div>
-                <div className="fundContent">
-                    <div className="fundContainerLeft">
+                <div className={styles.fundContent}>
+                    <div className={styles.fundContainerLeft}>
                         {this.makeFundGrid(fund)}
                     </div>
-                    <div className="fundContainerRight">
+                    <div className={styles.fundContainerRight}>
                         <CircleProgressBar percentage={progressPercentage} />
                     </div>
                 </div>
@@ -28,7 +28,7 @@ class Funds extends Component {
 
         //
         return (
-            <table className="fundGrid" style={{backgroundImage: `url("${process.env.PUBLIC_URL}/images/center_box_background.svg")`}}>
+            <table className={styles.fundGrid} style={{backgroundImage: `url("${process.env.PUBLIC_URL}/images/center_box_background.svg")`}}>
                 <tbody>
                     <tr>
                         <th>Target</th>
