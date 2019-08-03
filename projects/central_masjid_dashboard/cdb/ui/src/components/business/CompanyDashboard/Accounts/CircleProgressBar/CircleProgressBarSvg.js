@@ -40,7 +40,7 @@ export default ({
 
             <g transform="translate(0 -164.71)">
                 <g fill="none" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="2">
-                    <circle cx="250" cy="414.71" r="230" stroke="#d3d3d3" strokeWidth="30" />
+                    <circle cx="250" cy="414.71" r="230" stroke="#ecedd1" strokeWidth="30" />
                 </g>
                 <path id={id}
                     d="m480 414.71a230 230 0 0 1 -230 230 230 230 0 0 1 -230 -230 230 230 0 0 1 230 -230 230 230 0 0 1 230 230z"
