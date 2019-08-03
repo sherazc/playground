@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from "react";
 import axios from "axios";
-import "./Rod.scss";
+import styles from "./Rod.module.scss";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
@@ -32,11 +32,11 @@ class Rod extends Component {
         return ayas.map((aya, index) => {
             return (<Fragment key={index}>
                 <tr>
-                    <td className='ayaNumber'>{aya.ayaNumber}</td>
-                    <td className='ayaArabic'>{aya.lineString}</td>
+                    <td className={styles.ayaNumber}>{aya.ayaNumber}</td>
+                    <td className={styles.ayaArabic}>{aya.lineString}</td>
                 </tr>
                 <tr>
-                    <td colSpan="2" className='ayaTranslation'>{translations[index].lineString}</td>
+                    <td colSpan="2" className={styles.ayaTranslation}>{translations[index].lineString}</td>
                 </tr>
             </Fragment>);
         });
@@ -59,7 +59,7 @@ class Rod extends Component {
                 font-family: 'saleem';
                 src: url('${fontSaleem}') format('truetype')
             }
-            
+
             @font-face {
                 font-family: 'me_quran';
                 src: url('${fontMeQuran}') format('truetype')
@@ -81,21 +81,21 @@ class Rod extends Component {
 
         return (
             <div>
-                <table className="rod_table">
+                <table className={styles.rod_table}>
                     <tbody>
                     <tr>
-                        <td colSpan="2" className='bismillah'> بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</td>
+                        <td colSpan="2" className={styles.bismillah}> بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</td>
                     </tr>
                     {this.createAyaRows(ayaDetail)}
                     <tr>
                         <td colSpan="2">
-                            <span className='surahTitleDescription'>
+                            <span className={styles.surahTitleDescription}>
                                 {suraNameEnglish} - {suraDescription} ({suraNumber})
                             </span>
                             &nbsp;|&nbsp;
-                            <span className='surahTitle'>{suraNameArabic}</span>
+                            <span className={styles.surahTitle}>{suraNameArabic}</span>
                             &nbsp;|&nbsp;
-                            <span className='ayaTranslationName'>Translation - {translationName}</span>
+                            <span className={styles.ayaTranslationName}>Translation - {translationName}</span>
                         </td>
                     </tr>
                     </tbody>

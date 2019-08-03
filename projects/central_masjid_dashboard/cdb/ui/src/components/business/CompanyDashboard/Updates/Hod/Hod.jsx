@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import axios from "axios";
-import "./Hod.scss"
+import styles from "./Hod.module.scss"
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
@@ -25,10 +25,10 @@ class Hod extends Component {
         const {text, reference} = this.state.hadeesDetail;
         return (
             <div>
-                <div className="textRegular">
+                <div className={styles.textRegular}>
                     {text}
                 </div>
-                <div className="textSmall">
+                <div className={styles.textSmall}>
                     {reference}
                 </div>
             </div>

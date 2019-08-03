@@ -1,0 +1,8 @@
+@import "../theme";
+
+.reminderContainer {
+    padding: 0 3vw;
+    @media screen and (max-width: $screen-break) {
+        padding: 0 8vw;
+    }
+}

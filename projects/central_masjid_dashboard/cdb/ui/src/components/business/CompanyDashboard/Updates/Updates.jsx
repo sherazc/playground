@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import Rod from "./Rod/Rod";
-import "./Updates.scss";
+import styles from "./Updates.module.scss";
 import Hod from "./Hod/Hod";
 
 class Updates extends Component {
@@ -14,11 +14,11 @@ class Updates extends Component {
     render() {
         return (
             <div>
-                <div className="heading1 vMargin5">Reminders</div>
-                <div className="heading3 vMargin6">Quran</div>
-                <div><Rod/></div>
-                <div className="heading3 vMargin3">Hadees</div>
-                <div><Hod/></div>
+                <div className={[styles.heading1, styles.vMargin8].join(' ')}>Reminders</div>
+                <div className={[styles.heading3, styles.vMargin6].join(' ')}>Quran</div>
+                <div className={styles.reminderContainer}><Rod/></div>
+                <div className={[styles.heading3, styles.vMargin3].join(' ')}>Hadees</div>
+                <div className={styles.reminderContainer}><Hod/></div>
             </div>
         );
     }
