@@ -8,7 +8,7 @@ class Funds extends Component {
         const progressPercentage = fund.current / fund.goal * 100;
         return (
             <div className={styles.fundContainer}>
-                <div className={styles.fundHeader}>
+                <div className={[styles.heading3, styles.fundHeader].join(' ')}>
                     {fund.name}
                 </div>
                 <div className={styles.fundContent}>
@@ -28,7 +28,7 @@ class Funds extends Component {
 
         //
         return (
-            <table className={styles.fundGrid} style={{backgroundImage: `url("${process.env.PUBLIC_URL}/images/center_box_background.svg")`}}>
+            <table className={styles.fundGrid}>
                 <tbody>
                     <tr>
                         <th>Target</th>

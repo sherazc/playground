@@ -1,18 +1,23 @@
 @import "../../theme";
 
 .fundContainer {
-    margin: 0vw 2.5vw 0vw 2.5vw;
+    margin: 4vw 2.5vw -2.5vw 2.5vw;
+
     border-radius: 2px;
     -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.40);
     -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.40);
     box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.40);
     @media screen and (max-width: $screen-break) {
-        margin: 0 10vw 5vw 10vw;
+        margin: 10vw 12vw -5vw 12vw;
     }
 }
 
 .fundHeader {
-    background-color: brown;
+    padding: .5vw;
+    background-color: $color2;
+    @media screen and (max-width: $screen-break) {
+        padding: 1vw;
+    }
 }
 
 .fundContent {
@@ -20,15 +25,16 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    background-color: yellow;
     @media screen and (max-width: $screen-break) {
     }
 }
 
 .fundContainerLeft {
     width: 60%;
-    background-color: green;
+
+    padding: 0.75vw;
     @media screen and (max-width: $screen-break) {
+        padding: 2vw;
     }
 }
 
@@ -39,7 +45,6 @@
     }
 }
 
-$fundGridBorderColor: rgb(70, 70, 70);
 
 table.fundGrid {
     border-collapse: collapse;
@@ -47,7 +52,7 @@ table.fundGrid {
 }
 
 table.fundGrid th, table.fundGrid td {
-    border: 1px solid $fundGridBorderColor;
+    border: 1px solid $color1;
     padding: .5vw;
     @media screen and (max-width: $screen-break) {
         padding: 2vw;
