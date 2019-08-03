@@ -185,13 +185,9 @@ class CompanyDashboard extends Component {
                     </div>
                 </Grid>
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={styles.mainRightSide}>
-                    <div className={classes.sideBoxBackground}
+                    <div className={styles.sideBox}
                         style={{backgroundImage: `url(${process.env.PUBLIC_URL}/images/side_box_background.svg)`}}>
-                        <div className={classes.sideBoxPadding}>
-                            <div className={classes.sideBoxContent}>
-                                <Updates/>
-                            </div>
-                        </div>
+                        <Updates/>
                     </div>
                 </Grid>
             </Grid>

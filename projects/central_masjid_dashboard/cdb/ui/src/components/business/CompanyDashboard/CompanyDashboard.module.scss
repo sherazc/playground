@@ -36,6 +36,7 @@ $centerBoxPaddingRatio: .08;
     width: 100%;
 };
 
+// deprecated
 .centerBoxBackground {
     @extend .boxBackground;
     background-color: #ace7d9;
@@ -43,6 +44,7 @@ $centerBoxPaddingRatio: .08;
     margin-top: 5%;
 };
 
+// deprecated
 .sideBoxBackground {
     @extend .boxBackground;
     background-color: #8167dd;
@@ -62,16 +64,24 @@ $centerBoxPaddingRatio: .08;
     margin: 0 auto;
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    height: 1000px;
     overflow: hidden;
     position: relative;
-    //width: 100%;
 };
 
 .sideBox {
     @extend .box;
-
+    background-color: rgb(55, 141, 221);
+    margin-top: 6.45vw;
+    height: 42vw;
+    width: 33vw;
+    @media screen and (max-width: $screen-break) {
+        background-color:blue;
+        height: 42vw;
+        width: 33vw;
+    }
 }
+
+
 
 
 /*
