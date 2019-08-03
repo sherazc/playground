@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import Funds from "./Funds";
-import Expenses from "./Expenses";
+import Funds from "./Funds/Funds";
+import Expenses from "./Expenses/Expenses";
 import "./Accounts.scss"
 
 const TOTAL_SLIDES = 2;

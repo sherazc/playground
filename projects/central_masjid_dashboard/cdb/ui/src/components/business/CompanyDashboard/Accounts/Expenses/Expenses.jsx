@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import styles from "./Expenses.module.scss"
 
 class Expenses extends Component {
     renderTable() {
