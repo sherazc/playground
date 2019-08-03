@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { dateToDisplayDate } from "../../../../../services/utilities";
-import CircleProgressBar from "../CircleProgressBar";
+import CircleProgressBar from "../CircleProgressBar/CircleProgressBar";
 import styles from "./Funds.module.scss"
 
 class Funds extends Component {

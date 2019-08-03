@@ -4,7 +4,6 @@ import {Provider} from 'react-redux';
 
 import store from "./store";
 import history from "./services/app-browse-history";
-import './App.scss';
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Alert from "./components/alert/Alert";

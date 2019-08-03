@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import CircleProgressBarSvg from "./CircleProgressBarSvg";
-import "./CircleProgressBar.scss";
+import styles from "./CircleProgressBar.module.scss";
 
 // https://jakearchibald.com/2013/animated-line-drawing-svg/
 
@@ -54,11 +54,11 @@ class CircleProgressBar extends Component {
 
     render() {
         return (
-            <div className="circleProgressBarSvg">
+            <div className={styles.circleProgressBarSvg}>
             <CircleProgressBarSvg
 
                 id={this.cpbSvgPathId}
-                //fill="orange"
+                // fill="orange"
                 stroke="green"/>
             </div>
         );
