@@ -1,17 +1,17 @@
 import React, {Component} from "react";
-import "./SalahTime.scss";
+import styles from "./SalahTime.module.scss";
 
 
 class SalahTime extends Component {
     render() {
         return (
             <div>
-                <div className="salahTimeDateHeading">
+                <div className={styles.salahTimeDateHeading}>
                     January 29, 2019
                     <br/>
                     Jumada al-awwal 23, 1440
                 </div>
-                <table className="salahTimeTable">
+                <table className={styles.salahTimeTable}>
                     <thead>
                     <tr>
                         <th>&nbsp;</th>

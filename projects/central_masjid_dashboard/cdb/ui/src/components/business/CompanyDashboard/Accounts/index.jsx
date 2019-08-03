@@ -87,7 +87,7 @@ class Accounts extends Component {
     render() {
         return (
             <div>
-                <div className="heading1 vMargin6">Expenses</div>
+                <div className="heading1 vMargin8">Expenses</div>
                 <div className="vMargin6">
                     {this.createSlidesDivs()}
                 </div>
