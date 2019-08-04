@@ -53,8 +53,10 @@ class CompanyDashboard extends Component {
         const smBreakPoint = 12;
         const mdBreakPoint = 4;
         return (
-            <Grid container justify="center" style={{height: "100%",}}>
-                <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} style={{backgroundColor: "#a7d9d3"}}>
+            <Grid container justify="center"
+                style={{backgroundImage: `url(${process.env.PUBLIC_URL}/images/dashboard_background.jpg)`}}
+                className={styles.gridContainer}>
+                <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={styles.gridSide}>
                     {this.props.match.params.companyDashboardUrl === "c1" &&
                     <AnalogClock sizeLg="8" sizeMd="20" marginLg="2" marginMd="2"/>}
                     {this.props.match.params.companyDashboardUrl === "c2" &&
@@ -72,13 +74,13 @@ class CompanyDashboard extends Component {
                         <SalahTime/>
                     </div>
                 </Grid>
-                <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} style={{backgroundColor: "#a5d082"}}>
+                <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={styles.gridCenter}>
                     <div className={styles.centerBox}
                         style={{backgroundImage: `url(${process.env.PUBLIC_URL}/images/center_box_background.svg)`}}>
                         <Accounts centralControl={this.state.centralControl}/>
                     </div>
                 </Grid>
-                <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} style={{backgroundColor: "#e5afd3"}}>
+                <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={styles.gridSide}>
                     <div className={styles.sideBox}
                         style={{backgroundImage: `url(${process.env.PUBLIC_URL}/images/side_box_background.svg)`}}>
                         <Updates/>

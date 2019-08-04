@@ -1,5 +1,33 @@
 @import "theme";
 
+
+
+.gridContainer {
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+    @media screen and (max-width: $screen-break) {
+        background-size: initial;
+        background-image: "url()";
+    }
+}
+
+.gridColor {
+    background-color: #2b2e3dc9;
+    @media screen and (max-width: $screen-break) {
+        background-color: #2b2e3d;
+    }
+}
+
+.gridSide {
+    @extend .gridColor;
+}
+
+.gridCenter {
+    @extend .gridColor;
+}
+
 .box {
     text-align: center;
     color: black;
@@ -12,12 +40,10 @@
 
 .sideBox {
     @extend .box;
-    background-color: rgb(55, 141, 221);
     margin-top: 8.5vw;
     height: 41.5vw;
     width: 32vw;
     @media screen and (max-width: $screen-break) {
-        background-color:rgb(208, 79, 212);
         margin-top: 6vw;
         height: 120vw;
         width: 92vw;
@@ -26,12 +52,10 @@
 
 .centerBox {
     @extend .box;
-    background-color: rgb(221, 55, 213);
     margin-top: 1vw;
     height: 49vw;
     width: 32vw;
     @media screen and (max-width: $screen-break) {
-        background-color:rgb(79, 185, 212);
         margin-top: 6vw;
         height: 142vw;
         width: 100vw;
