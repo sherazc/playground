@@ -6,10 +6,12 @@ import org.springframework.core.io.Resource;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.PathResourceResolver;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.io.IOException;
 
 @Configuration
+@EnableSwagger2
 public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
@@ -26,5 +28,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
                                 : new ClassPathResource("/static/index.html");
                     }
                 });
+
+        registry
+            .addResourceHandler("swagger-ui.html")
+            .addResourceLocations("classpath:/META-INF/resources/")
+        ;
     }
 }
