@@ -79,7 +79,7 @@ class AdminNavigation extends Component {
                     <h5>Business</h5>
                     <ul>
                         <li>
-                            <NavLink to={`${process.env.PUBLIC_URL}/auth/dashboard`}>
+                            <NavLink to={`${process.env.PUBLIC_URL}/auth/admin`}>
                                 Admin Dashboard (all logged in user)
                             </NavLink>
                         </li>

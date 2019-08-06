@@ -65,6 +65,8 @@ class Home extends Component {
                 </select>
                 <br/>
                 <a href="/static/rod-widget/index.html">ROD Widget</a>
+                <br/>
+                <a href="/login">Login</a>
             </div>
         );
     }
