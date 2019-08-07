@@ -35,7 +35,7 @@ class ResetPrayerLocation extends Component {
 
 
         return {
-            "open": true,
+            "open": false,
             "location": "30004",
             "locationValid": true,
             "step": 1,

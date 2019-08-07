@@ -76,14 +76,22 @@ const styles = theme => {
 
 class PrayersMonth extends Component {
 
+    constructor(props) {
+        super(props);
+        this.monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"];
+    }
+
     render() {
+        const monthName = this.monthNames[this.props.monthIndex];
+
         const classes = this.props.classes;
         return (
             <div className={classes.single_month_grid}>
                 <table className={classes.salah_table}>
                     <thead>
                     <tr>
-                        <th colSpan="100%" className={classes.month_name_cell}>Month Name</th>
+                        <th colSpan="100%" className={classes.month_name_cell}>{monthName}</th>
                     </tr>
                     <tr className={classes.salah_name_row}>
                         <th>Date</th>

@@ -9,7 +9,6 @@ class TabPrayer extends Component {
         super(props);
         this.handleUpdatedPrayerTime = this.handleUpdatedPrayerTime.bind(this);
         this.state = {prayersMonths: []};
-        this.monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     }
 
     handleUpdatedPrayerTime(yearPrayers) {
@@ -31,10 +30,11 @@ class TabPrayer extends Component {
         const {prayersMonths} = this.state;
         if (prayersMonths && prayersMonths.length > 0) {
             return prayersMonths.map(
-                    (prayersMonth, index) => <PrayersMonth prayersMonth key={index}/>
+                    (prayersMonth, index) => <PrayersMonth prayersMonth monthIndex={index} key={index}/>
                 );
         } else {
-            return <div>Prayers not setup</div>;
+            // return <div>Prayers not setup</div>;
+            return <PrayersMonth monthIndex="1" />;
         }
     }
 
