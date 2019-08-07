@@ -18,7 +18,7 @@ import AuthCompanyUserList from "./components/auth/company/user/AuthCompanyUserL
 import AuthCompany from "./components/auth/company/AuthCompany";
 import AuthCompanyUser from "./components/auth/company/user/AuthCompanyUser";
 import RegisterFinish from "./components/auth/company/RegisterFinish";
-import AdminControl from "./components/business/admin";
+import AdminControl from "./components/business/admin/AdminControl";
 import CompanyDashboard from "./components/business/CompanyDashboard/CompanyDashboard";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';

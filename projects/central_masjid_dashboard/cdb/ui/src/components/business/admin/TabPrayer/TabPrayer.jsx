@@ -1,10 +1,9 @@
 import React, {Component} from "react";
-import SahahMonth from "./PrayerMonth";
+import PrayersMonth from "./PrayersMonth";
 import ResetPrayerLocation from "./ResetPrayerLocation";
 import {Button} from "@material-ui/core";
 
 class TabPrayer extends Component {
-
 
     constructor(props) {
         super(props);
@@ -12,7 +11,6 @@ class TabPrayer extends Component {
         this.state = {prayersMonths: []};
         this.monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     }
-
 
     handleUpdatedPrayerTime(yearPrayers) {
         const prayersMonths = yearPrayers.reduce(this.prayerReducer, []);
@@ -31,10 +29,13 @@ class TabPrayer extends Component {
 
     makePrayerMonths() {
         const {prayersMonths} = this.state;
-        if (!prayersMonths) {
-            return;
+        if (prayersMonths && prayersMonths.length > 0) {
+            return prayersMonths.map(
+                    (prayersMonth, index) => <PrayersMonth prayersMonth key={index}/>
+                );
+        } else {
+            return <div>Prayers not setup</div>;
         }
-        return <div>Waooo</div>;
     }
 
     render() {
@@ -45,10 +46,7 @@ class TabPrayer extends Component {
                     Batch update
                 </Button>
                 {this.makePrayerMonths()}
-                <SahahMonth/>
-                <SahahMonth/>
-                <SahahMonth/>
-                <SahahMonth/>
+
             </div>
         );
     }

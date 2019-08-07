@@ -74,7 +74,7 @@ const styles = theme => {
     }
 };
 
-class SahahMonth extends Component {
+class PrayersMonth extends Component {
 
     render() {
         const classes = this.props.classes;
@@ -188,4 +188,4 @@ class SahahMonth extends Component {
     }
 }
 
-export default withStyles(styles)(SahahMonth);
+export default withStyles(styles)(PrayersMonth);
