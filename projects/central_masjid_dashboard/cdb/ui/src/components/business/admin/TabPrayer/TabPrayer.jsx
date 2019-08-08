@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import PrayersMonth from "./PrayersMonth";
+import PrayersMonth from "./PrayersMonth/PrayersMonth";
 import ResetPrayerLocation from "./ResetPrayerLocation";
 import {Button} from "@material-ui/core";
 
