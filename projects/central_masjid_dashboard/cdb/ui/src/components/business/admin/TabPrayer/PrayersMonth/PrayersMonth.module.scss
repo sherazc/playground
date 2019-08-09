@@ -2,54 +2,66 @@
 $backgroundColorMonth: #6392b0;
 $backgroundColorPrayer: #cdb622;
 $backgroundColorAzanIqama: #7e7e7e;
+$backgroundColorGridEven: #ededed;
+$backgroundColorGridOdd: #ffffff;
+$backgroundColorGridHover: #dce0f4;
+$borderColorGrid: #878787;
+$borderColorGridMonth: #4f7d9b;
+$borderColorGridPrayer: #a99221;
+$borderColorGridAzanIqama: #646464;
+
+.prayerMonthGridContainer{
+  text-align: center;
+  margin-top: 50px;
+}
 
 .prayerMonthGrid {
   text-align: center;
   display: inline-block;
-  border: 0px solid #878787;
+  border: 0px solid $borderColorGrid;
   border-spacing: 0;
   border-collapse: collapse;
 }
 
 .prayerMonthGrid th, td {
-  border: 1px solid #878787;
+  border: 1px solid $borderColorGrid;
 }
 
 .prayerMonthGrid tr:nth-child(even) {
-  background-color: #ededed;
+  background-color: $backgroundColorGridEven;
 }
 
 .prayerMonthGrid tr:nth-child(odd) {
-  background-color: #ffffff;
+  background-color: $backgroundColorGridOdd;
 }
 
 .prayerMonthGrid tr:hover {
-  background-color: #dce0f4;
+  background-color: $backgroundColorGridHover;
 }
 
 .prayerMonthGrid tr:nth-child(1) th {
   font-size: 3em;
-  background-color: #6392b0;
+  background-color: $backgroundColorMonth;
   color: white;
   font-weight: 100;
-  border: 1px solid #4f7d9b;
+  border: 1px solid $borderColorGridMonth;
 }
 
 .prayerMonthGrid tr:nth-child(2) th {
   font-size: 1.5em;
-  background-color: #cdb622;
+  background-color: $backgroundColorPrayer;
   color: white;
   font-weight: 200;
-  border: 1px solid #a99221;
+  border: 1px solid $borderColorGridPrayer;
   white-space: nowrap;
   padding: 8px;
   text-align: center;
 }
 
 .prayerMonthGrid thead tr:last-child td {
-  background-color: #7e7e7e;
+  background-color: $backgroundColorAzanIqama;
   color: white;
-  border: 1px solid #646464;
+  border: 1px solid $borderColorGridAzanIqama;
   white-space: nowrap;
   padding: 8px;
   text-align: center;

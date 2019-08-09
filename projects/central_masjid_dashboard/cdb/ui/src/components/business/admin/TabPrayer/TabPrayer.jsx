@@ -33,8 +33,8 @@ class TabPrayer extends Component {
                     (prayersMonth, index) => <PrayersMonth prayersMonth monthIndex={index} key={index}/>
                 );
         } else {
-            // return <div>Prayers not setup</div>;
-            return <PrayersMonth monthIndex="1" />;
+            return <div>Prayers not setup</div>;
+            // return <PrayersMonth monthIndex="0" />;
         }
     }
 
