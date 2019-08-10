@@ -12,40 +12,42 @@ class PrayersMonth extends Component {
 
     createDays(prayersMonth) {
         const prayersRows = prayersMonth.map((prayer, index) => {
-            console.log(prayer.date);
             return <tr key={index}>
                 <td>
                     {dateToDisplayDateShort(prayer.date)}
                 </td>
                 <td>
-                    b
+                    {prayer.fajr}
                 </td>
                 <td>
-                    c
+                    {prayer.fajrIqama}
                 </td>
                 <td>
-                    d
+                    {prayer.sunrise}
                 </td>
                 <td>
-                    e
+                    {prayer.dhuhr}
                 </td>
                 <td>
-                    f
+                    {prayer.dhuhrIqama}
+
                 </td>
                 <td>
-                    g
+                    {prayer.asr}
                 </td>
                 <td>
-                    h
+                    {prayer.asrIqama}
+
                 </td>
                 <td>
-                    i
+                    {prayer.maghrib}
+
                 </td>
                 <td>
-                    j
+                    {prayer.isha}
                 </td>
                 <td>
-                    k
+                    {prayer.ishaIqama}
                 </td>
             </tr>
         });
