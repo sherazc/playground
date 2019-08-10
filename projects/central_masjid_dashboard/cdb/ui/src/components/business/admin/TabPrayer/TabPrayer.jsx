@@ -30,11 +30,10 @@ class TabPrayer extends Component {
         const {prayersMonths} = this.state;
         if (prayersMonths && prayersMonths.length > 0) {
             return prayersMonths.map(
-                    (prayersMonth, index) => <PrayersMonth prayersMonth monthIndex={index} key={index}/>
+                    (prayersMonth, index) => <PrayersMonth prayersMonth={prayersMonth} monthIndex={index} key={index}/>
                 );
         } else {
             return <div>Prayers not setup</div>;
-            // return <PrayersMonth monthIndex="0" />;
         }
     }
 

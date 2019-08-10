@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import styles from "./PrayersMonth.module.scss"
+import {dateToDisplayDateShort} from "../../../../../services/utilities"
 
 class PrayersMonth extends Component {
 
@@ -9,61 +10,54 @@ class PrayersMonth extends Component {
             "July", "August", "September", "October", "November", "December"];
     }
 
-    createRows() {
-        const rows = [];
-        let i;
+    createDays(prayersMonth) {
+        const prayersRows = prayersMonth.map((prayer, index) => {
+            console.log(prayer.date);
+            return <tr key={index}>
+                <td>
+                    {dateToDisplayDateShort(prayer.date)}
+                </td>
+                <td>
+                    b
+                </td>
+                <td>
+                    c
+                </td>
+                <td>
+                    d
+                </td>
+                <td>
+                    e
+                </td>
+                <td>
+                    f
+                </td>
+                <td>
+                    g
+                </td>
+                <td>
+                    h
+                </td>
+                <td>
+                    i
+                </td>
+                <td>
+                    j
+                </td>
+                <td>
+                    k
+                </td>
+            </tr>
+        });
 
-        for (i = 0; i < 10; i++) {
-            rows[i] = (
-                <tr key={i}>
-                    <td>
-                        a
-                    </td>
-                    <td>
-                        b
-                    </td>
-                    <td>
-                        c
-                    </td>
-                    <td>
-                        d
-                    </td>
-                    <td>
-                        e
-                    </td>
-                    <td>
-                        f
-                    </td>
-                    <td>
-                        g
-                    </td>
-                    <td>
-                        h
-                    </td>
-                    <td>
-                        i
-                    </td>
-                    <td>
-                        j
-                    </td>
-                    <td>
-                        k
-                    </td>
-                </tr>
-            );
-        }
-        return rows;
+        return prayersRows;
     }
 
     render() {
         const monthName = this.monthNames[this.props.monthIndex];
 
-        const classes = this.props.classes;
         return (
-
-
             <div>
-
                 <div className={styles.prayerMonthGridContainer}>
                     <table className={styles.prayerMonthGrid}>
                         <thead>
@@ -94,7 +88,7 @@ class PrayersMonth extends Component {
                         </tr>
                         </thead>
                         <tbody>
-                        {this.createRows()}
+                        {this.createDays(this.props.prayersMonth)}
                         </tbody>
                     </table>
                 </div>

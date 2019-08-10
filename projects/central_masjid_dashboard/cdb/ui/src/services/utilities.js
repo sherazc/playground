@@ -35,3 +35,11 @@ export const dateToDisplayDate = (date) => {
     const d = date instanceof Date ? date : new Date(date);
     return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
 };
+
+export const dateToDisplayDateShort = (date) => {
+    if (!date) {
+        return;
+    }
+    const d = date instanceof Date ? date : new Date(date);
+    return `${d.getUTCMonth() + 1}/${d.getUTCDate()}`;
+};
