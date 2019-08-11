@@ -42,7 +42,7 @@ class TabPrayer extends Component {
             <div>
                 <ResetPrayerLocation handleUpdatedPrayerTime={this.handleUpdatedPrayerTime}/>
                 <Button variant="outlined" color="primary">
-                    Batch update
+                    Save
                 </Button>
                 {this.makePrayerMonths()}
 
