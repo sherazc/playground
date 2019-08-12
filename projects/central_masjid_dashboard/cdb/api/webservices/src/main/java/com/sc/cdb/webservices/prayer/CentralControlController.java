@@ -21,7 +21,7 @@ public class CentralControlController {
 
 
   @GetMapping("url/{url}/central-control")
-  public ResponseEntity<?> findByCompanyUrl(@PathVariable String url) {
+  public ResponseEntity<CentralControlCompany> findByCompanyUrl(@PathVariable String url) {
     CentralControlCompany centralControlCompany = centralControlService.findByCompanyUrl(url);
 
     if (centralControlCompany == null) {

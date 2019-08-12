@@ -46,7 +46,7 @@ public class CompanyController {
 
     @GetMapping("{id}")
     @PreAuthorize("hasAnyRole('USER')")
-    public ResponseEntity<Object> getCompanyById(@PathVariable("id") String id) {
+    public ResponseEntity<Company> getCompanyById(@PathVariable("id") String id) {
         Optional<Company> companyOptional = companyService.findCompanyById(id);
         if (companyOptional.isPresent()) {
             return ResponseEntity.ok(companyOptional.get());
