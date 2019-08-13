@@ -1,6 +1,6 @@
 package com.sc.cdb.webservices.prayer;
 
-import com.sc.cdb.data.model.cc.PrayerConfig;
+import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.services.location.SiteLocator;
 import com.sc.cdb.services.prayer.PrayerService;
 import org.springframework.http.MediaType;

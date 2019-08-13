@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
-import com.sc.cdb.data.model.cc.PrayerConfig;
+import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.data.model.prayer.Prayer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

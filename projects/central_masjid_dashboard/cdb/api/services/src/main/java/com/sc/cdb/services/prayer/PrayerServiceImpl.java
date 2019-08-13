@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.sc.cdb.data.dao.CentralControlDao;
 import com.sc.cdb.data.model.cc.CentralControl;
-import com.sc.cdb.data.model.cc.PrayerConfig;
+import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.services.model.ServiceResponse;
 import org.apache.commons.lang3.StringUtils;
@@ -24,6 +24,7 @@ public class PrayerServiceImpl implements PrayerService {
         this.prayTimeCalculator = prayTimeCalculator;
     }
 
+    // TODO: Work on save prayer config
     @Override
     public ServiceResponse<List<Prayer>> createYearPrayerTimes(String companyId, PrayerConfig prayerConfig) {
         LOG.debug("Saving prayer config of {}", companyId);
@@ -50,6 +51,7 @@ public class PrayerServiceImpl implements PrayerService {
         return serviceResponseBuilder.build();
     }
 
+    // TODO: Work on save prayer config
     private boolean savePrayerConfig(String companyId, PrayerConfig prayerConfig) {
         boolean saved;
         if (centralControlDao.isCentralControlExists(companyId)) {
@@ -62,7 +64,7 @@ public class PrayerServiceImpl implements PrayerService {
         } else {
             CentralControl centralControl = new CentralControl();
             centralControl.setCompanyId(companyId);
-            centralControl.setPrayerConfig(prayerConfig);
+            // centralControl.setPrayerConfig(prayerConfig);
             CentralControl savedCentralControl = centralControlDao.save(centralControl);
             saved = savedCentralControl != null && StringUtils.isNotBlank(savedCentralControl.getId());
             if (saved) {

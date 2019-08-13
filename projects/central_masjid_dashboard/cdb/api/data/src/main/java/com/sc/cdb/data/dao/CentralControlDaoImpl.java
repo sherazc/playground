@@ -5,7 +5,7 @@ import java.util.List;
 import com.mongodb.client.result.UpdateResult;
 import com.sc.cdb.data.model.cc.CentralControl;
 import com.sc.cdb.data.model.cc.CentralControlCompany;
-import com.sc.cdb.data.model.cc.PrayerConfig;
+import com.sc.cdb.data.model.prayer.PrayerConfig;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -62,6 +62,8 @@ public class CentralControlDaoImpl extends BaseDaoImpl<CentralControl> implement
         CentralControl.class);
   }
 
+  // Do it PrayerDao
+  @Deprecated
   @Override
   public boolean updatePrayerConfig(String companyId, PrayerConfig prayerConfig) {
     Query query = createCompanyIdQuery(companyId);

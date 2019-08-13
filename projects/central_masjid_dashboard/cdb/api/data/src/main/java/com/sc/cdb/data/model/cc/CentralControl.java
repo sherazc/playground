@@ -22,7 +22,6 @@ public class CentralControl {
     @NotBlank
     private String companyId;
 
-    private PrayerConfig prayerConfig;
     private List<Announcement> announcements;
     private List<Configuration> configurations;
     private List<Event> events;
