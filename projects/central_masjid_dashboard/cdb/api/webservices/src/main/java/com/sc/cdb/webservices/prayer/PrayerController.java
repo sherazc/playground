@@ -3,6 +3,7 @@ package com.sc.cdb.webservices.prayer;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.services.location.SiteLocator;
 import com.sc.cdb.services.prayer.PrayerService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +34,15 @@ public class PrayerController {
     public ResponseEntity<?> updatePrayerConfig(
             @PathVariable String companyId,
             @RequestBody PrayerConfig prayerConfig) {
+        if (StringUtils.isBlank(prayerConfig.getCompanyId())) {
+            prayerConfig.setCompanyId(companyId);
+        }
         return ResponseEntity.ok(prayerService.createYearPrayerTimes(companyId, prayerConfig));
+    }
+
+    @PutMapping("{companyId}/config")
+    public ResponseEntity<PrayerConfig> getPrayerConfig(@PathVariable String companyId) {
+
+        return ResponseEntity.notFound().build();
     }
 }

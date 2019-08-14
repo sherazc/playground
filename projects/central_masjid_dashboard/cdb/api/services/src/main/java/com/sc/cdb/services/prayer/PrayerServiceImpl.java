@@ -14,70 +14,73 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PrayerServiceImpl implements PrayerService {
-    private static final Logger LOG = LoggerFactory.getLogger(PrayerServiceImpl.class);
+  private static final Logger LOG = LoggerFactory.getLogger(PrayerServiceImpl.class);
 
-    private CentralControlDao centralControlDao;
-    private PrayTimeCalculator prayTimeCalculator;
+  private CentralControlDao centralControlDao;
+  private PrayTimeCalculator prayTimeCalculator;
 
-    public PrayerServiceImpl(CentralControlDao centralControlDao, PrayTimeCalculator prayTimeCalculator) {
-        this.centralControlDao = centralControlDao;
-        this.prayTimeCalculator = prayTimeCalculator;
+  public PrayerServiceImpl(CentralControlDao centralControlDao, PrayTimeCalculator prayTimeCalculator) {
+    this.centralControlDao = centralControlDao;
+    this.prayTimeCalculator = prayTimeCalculator;
+  }
+
+  @Override
+  public ServiceResponse<?> updatePrayerConfig(String companyId, PrayerConfig prayerConfig) {
+    return null;
+  }
+
+  // TODO: Work on save prayer config
+  @Override
+  public ServiceResponse<List<Prayer>> createYearPrayerTimes(String companyId, PrayerConfig prayerConfig) {
+    LOG.debug("Saving prayer config of {}", companyId);
+
+    ServiceResponse.ServiceResponseBuilder<List<Prayer>> serviceResponseBuilder = ServiceResponse.builder();
+    if (StringUtils.isBlank(companyId) || !isValid(prayerConfig)) {
+      String errorMessage =
+          "Can not process request. CompanyId is blank or prayer configs not sent.";
+      LOG.error(errorMessage);
+      serviceResponseBuilder.message(errorMessage);
+      return serviceResponseBuilder.build();
     }
 
-    // TODO: Work on save prayer config
-    @Override
-    public ServiceResponse<List<Prayer>> createYearPrayerTimes(String companyId, PrayerConfig prayerConfig) {
-        LOG.debug("Saving prayer config of {}", companyId);
+    List<Prayer> prayers = prayTimeCalculator.generate(prayerConfig);
 
-        ServiceResponse.ServiceResponseBuilder<List<Prayer>> serviceResponseBuilder = ServiceResponse.builder();
-        if (StringUtils.isBlank(companyId) || !isValid(prayerConfig)) {
-            String errorMessage =
-                    "Can not process request. CompanyId is blank or prayer configs not sent.";
-            LOG.error(errorMessage);
-            serviceResponseBuilder.message(errorMessage);
-            return serviceResponseBuilder.build();
-        }
-
-        boolean saved = this.savePrayerConfig(companyId, prayerConfig);
-        if (saved) {
-            List<Prayer> prayers = prayTimeCalculator.generate(prayerConfig);
-
-            if (prayers != null && prayers.size() == 366) {
-                serviceResponseBuilder.successful(true);
-                serviceResponseBuilder.target(prayers);
-            }
-        }
-
-        return serviceResponseBuilder.build();
+    if (prayers != null && prayers.size() == 366) {
+      serviceResponseBuilder.successful(true);
+      serviceResponseBuilder.target(prayers);
     }
 
-    // TODO: Work on save prayer config
-    private boolean savePrayerConfig(String companyId, PrayerConfig prayerConfig) {
-        boolean saved;
-        if (centralControlDao.isCentralControlExists(companyId)) {
-            saved = centralControlDao.updatePrayerConfig(companyId, prayerConfig);
-            if (saved) {
-                LOG.debug("Updated Prayer config of {}", companyId);
-            } else {
-                LOG.error("Failed to update Prayer config of {}", companyId);
-            }
-        } else {
-            CentralControl centralControl = new CentralControl();
-            centralControl.setCompanyId(companyId);
-            // centralControl.setPrayerConfig(prayerConfig);
-            CentralControl savedCentralControl = centralControlDao.save(centralControl);
-            saved = savedCentralControl != null && StringUtils.isNotBlank(savedCentralControl.getId());
-            if (saved) {
-                LOG.debug("Saved new Prayer config of {}", companyId);
-            } else {
-                LOG.error("Failed to save new Prayer config of {}", companyId);
-            }
-        }
-        return saved;
-    }
 
-    public boolean isValid(PrayerConfig prayerConfig) {
-        // TODO validate full prayer config.
-        return prayerConfig != null && prayerConfig.getGeoCode() != null;
+    return serviceResponseBuilder.build();
+  }
+
+  // TODO: Work on save prayer config
+  private boolean savePrayerConfig(String companyId, PrayerConfig prayerConfig) {
+    boolean saved;
+    if (centralControlDao.isCentralControlExists(companyId)) {
+      saved = centralControlDao.updatePrayerConfig(companyId, prayerConfig);
+      if (saved) {
+        LOG.debug("Updated Prayer config of {}", companyId);
+      } else {
+        LOG.error("Failed to update Prayer config of {}", companyId);
+      }
+    } else {
+      CentralControl centralControl = new CentralControl();
+      centralControl.setCompanyId(companyId);
+      // centralControl.setPrayerConfig(prayerConfig);
+      CentralControl savedCentralControl = centralControlDao.save(centralControl);
+      saved = savedCentralControl != null && StringUtils.isNotBlank(savedCentralControl.getId());
+      if (saved) {
+        LOG.debug("Saved new Prayer config of {}", companyId);
+      } else {
+        LOG.error("Failed to save new Prayer config of {}", companyId);
+      }
     }
+    return saved;
+  }
+
+  public boolean isValid(PrayerConfig prayerConfig) {
+    // TODO validate full prayer config.
+    return prayerConfig != null && prayerConfig.getGeoCode() != null;
+  }
 }

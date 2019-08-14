@@ -9,5 +9,6 @@ import com.sc.cdb.services.model.ServiceResponse;
 
 public interface PrayerService {
     boolean isValid(PrayerConfig prayerConfig);
+    ServiceResponse<?> updatePrayerConfig(String companyId, PrayerConfig prayerConfig);
     ServiceResponse<List<Prayer>> createYearPrayerTimes(String companyId, PrayerConfig prayerConfig);
 }
