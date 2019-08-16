@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import PrayersMonth from "./PrayersMonth/PrayersMonth";
 import ResetPrayerLocation from "./ResetPrayerLocation";
 import {Button} from "@material-ui/core";
+import {mapStateLoginToProps} from "../../../../store/lib/utils";
+import {connect} from "react-redux";
 
 class TabPrayer extends Component {
 
@@ -38,6 +40,7 @@ class TabPrayer extends Component {
     }
 
     render() {
+        console.log(this.props);
         return (
             <div>
                 <ResetPrayerLocation handleUpdatedPrayerTime={this.handleUpdatedPrayerTime}/>
@@ -51,4 +54,4 @@ class TabPrayer extends Component {
     }
 }
 
-export default TabPrayer;
+export default connect(mapStateLoginToProps)(TabPrayer);

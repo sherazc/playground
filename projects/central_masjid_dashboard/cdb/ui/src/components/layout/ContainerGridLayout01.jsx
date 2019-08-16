@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import Grid from '@material-ui/core/Grid';
 import {withStyles} from '@material-ui/core/styles';
+import AdminNavigation from "../common/navigation/AdminNavigation";
 
 const styles = theme => {
     return ({
@@ -28,9 +29,14 @@ class ContainerGridLayout01 extends Component {
                     alignItems="center"
                     justify="flex-start">
                     <div style={{width: "100%"}}>
-                        <div style={{backgroundColor: "#c3ecba", padding: "20px",}}>Header</div>
+                        <div style={{backgroundColor: "#c3ecba", padding: "20px",}}>
+                            Header
+                        </div>
                         {this.props.children}
-                        <div style={{backgroundColor: "#9c9c9c", padding: "20px", color: "white"}}>Footer</div>
+                        <div style={{backgroundColor: "#d6d6d6", padding: "20px", color: "black"}}>
+                            Footer
+                            <AdminNavigation/>
+                        </div>
                     </div>
                 </Grid>
 
