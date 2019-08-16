@@ -35,6 +35,7 @@ public class DefaultDataLoader {
         collectionResources.put("company", initDataDirectory + "company.json");
         collectionResources.put("user", initDataDirectory + "user.json");
         collectionResources.put("hadith", initDataDirectory + "hadith.json");
+        collectionResources.put("prayerConfig", initDataDirectory + "prayerConfig.json");
         return collectionResources;
     }
 

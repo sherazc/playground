@@ -40,7 +40,7 @@ public class PrayerController {
         return ResponseEntity.ok(prayerService.createYearPrayerTimes(companyId, prayerConfig));
     }
 
-    @PutMapping("{companyId}/config")
+    @GetMapping("{companyId}/config")
     public ResponseEntity<PrayerConfig> getPrayerConfig(@PathVariable String companyId) {
 
         return ResponseEntity.notFound().build();
