@@ -1,6 +1,7 @@
 package com.sc.cdb.services.prayer;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.data.model.prayer.Prayer;
@@ -9,6 +10,10 @@ import com.sc.cdb.services.model.ServiceResponse;
 
 public interface PrayerService {
     boolean isValid(PrayerConfig prayerConfig);
+
     ServiceResponse<?> updatePrayerConfig(String companyId, PrayerConfig prayerConfig);
+
     ServiceResponse<List<Prayer>> createYearPrayerTimes(String companyId, PrayerConfig prayerConfig);
+
+    Optional<PrayerConfig> getPrayerConfig(String companyId);
 }

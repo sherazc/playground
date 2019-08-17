@@ -1,5 +1,6 @@
 [
   {
+    "_id": "prayerConfig1",
     "companyId": "company1",
     "location": "30004",
     "calculationMethod": "2",

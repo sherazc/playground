@@ -1,5 +1,7 @@
 package com.sc.cdb.webservices.prayer;
 
+import java.util.Optional;
+
 import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.services.location.SiteLocator;
 import com.sc.cdb.services.prayer.PrayerService;
@@ -42,7 +44,11 @@ public class PrayerController {
 
     @GetMapping("{companyId}/config")
     public ResponseEntity<PrayerConfig> getPrayerConfig(@PathVariable String companyId) {
-
-        return ResponseEntity.notFound().build();
+        Optional<PrayerConfig> prayerConfigOptional = prayerService.getPrayerConfig(companyId);
+        if (prayerConfigOptional.isPresent()) {
+            return ResponseEntity.ok(prayerConfigOptional.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
