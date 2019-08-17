@@ -19,6 +19,8 @@ class CompanyDashboard extends Component {
         centralControl: {}
     };
 
+
+    // TODO: Deprecated. Do as it is done in Rod.jsx to add font styles
     componentWillMount() {
         this.setState({
             companyDashboardUrl: getPathParamFromProps(this.props, "companyDashboardUrl")
