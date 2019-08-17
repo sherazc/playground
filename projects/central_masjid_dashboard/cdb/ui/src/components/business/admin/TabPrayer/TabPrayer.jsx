@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import PrayersMonth from "./PrayersMonth/PrayersMonth";
 import ResetPrayerLocation from "./ResetPrayerLocation";
 import {Button} from "@material-ui/core";
-import {mapStateLoginToProps} from "../../../../store/lib/utils";
 import {connect} from "react-redux";
 
 class TabPrayer extends Component {
@@ -39,6 +38,32 @@ class TabPrayer extends Component {
         }
     }
 
+    /*
+    ✅ Get companyId of logged in user
+
+    Check if existing PrayerConfig exists in Redux store. Load PrayerConfig from redux store if exists
+
+    If PrayerConfig do not exist in redux store then Call Load existing PrayerConfig for a company API.
+    GET /api/prayer/{companyId}/config return PrayerConfig
+
+    If found PrayerConfig after API call then update redux store with PrayerConfig.
+    Load PrayerConfig from redux store and show on the page
+
+    If existing PrayerConfig are blank then show blank page
+     */
+
+    componentDidMount() {
+        const companyId = this.props.login.company.id;
+        const prayers = this.props.prayerConfig.prayers;
+
+
+        if (!prayers || prayers.length < 1) {
+            console.log("Calling api ", companyId);
+        }
+
+
+    }
+
     render() {
         console.log(this.props);
         return (
@@ -53,5 +78,7 @@ class TabPrayer extends Component {
         );
     }
 }
+
+const mapStateLoginToProps = state => {return {login: state.login, prayerConfig: state.admin.prayerConfig}};
 
 export default connect(mapStateLoginToProps)(TabPrayer);
