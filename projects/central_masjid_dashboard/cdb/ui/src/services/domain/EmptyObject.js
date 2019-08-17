@@ -47,3 +47,22 @@ export const createEmptyFinishRegister = () => {
         companyName: ""
     };
 };
+
+
+export const createEmptyPrayerConfig = () => {
+    return {
+        "companyId": "",
+        "location": "",
+        "calculationMethod": "",
+        "asrJuristicMethod": "",
+        "prayerOffsetMinutes": [0, 0, 0, 0, 0, 0, 0],
+        "geoCode": {
+            "latitude": 0,
+            "longitude": 0,
+            "timezone": 0,
+            "timezoneId": "",
+            "timezoneName": ""
+        },
+        "prayers": []
+    };
+};
