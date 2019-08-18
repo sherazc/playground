@@ -50,14 +50,18 @@ const setupInterceptor = (store) => {
            errorMessage =  error.response.data.message;
         }
         store.dispatch(hideLoadingAction);
-        store.dispatch({
-            type: SHOW_ALERT,
-            payload: {
-                show: true,
-                type: ALERT_ERROR,
-                message: errorMessage
-            }
-        });
+
+        if (error.status >= 500) {
+            store.dispatch({
+                type: SHOW_ALERT,
+                payload: {
+                    show: true,
+                    type: ALERT_ERROR,
+                    message: errorMessage
+                }
+            });
+        }
+
         return Promise.reject(error);
     });
 
