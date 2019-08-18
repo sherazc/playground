@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import PrayersMonth from "./PrayersMonth/PrayersMonth";
-import ResetPrayerLocation from "./ResetPrayerLocation";
+import ResetPrayerLocation from "./ResetPrayerConfig/ResetPrayerConfig";
 import {Button} from "@material-ui/core";
 import {connect} from "react-redux";
 import axios from "axios";
@@ -36,7 +36,11 @@ class TabPrayer extends Component {
 
     makePrayerMonths() {
         const {prayers} = this.props.prayerConfig;
-        let result = <div>Prayers not setup</div>;
+        let result = (
+            <div>
+                Prayers not setup. Click on reset to generate new Prayer times.
+            </div>
+        );
         if (prayers && prayers.length > 0) {
             const prayersMonths = prayers.reduce(this.prayerReducer, []);
             if (prayersMonths && prayersMonths.length > 0) {

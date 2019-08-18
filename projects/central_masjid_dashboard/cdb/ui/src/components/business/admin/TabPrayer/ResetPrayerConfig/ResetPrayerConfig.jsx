@@ -1,14 +1,15 @@
 import React, {Component} from "react";
-import {geoCodeLocation, updatePrayerLocation} from "./PrayerServices";
-import {styles} from "./ResetPrayerLocationStyles";
-import {withStyles} from '@material-ui/core/styles';
+import {geoCodeLocation, updatePrayerLocation} from "./../PrayerServices";
 import {
     Button, TextField, Dialog, DialogActions, DialogContent, DialogContentText,
     DialogTitle, FormControl, InputLabel, MenuItem, Select
 } from "@material-ui/core";
-import {allCalculationMethods, allAsrJuristicMethods} from "./prayerCollections";
+import {allCalculationMethods, allAsrJuristicMethods} from "./../prayerCollections";
+import styles from "./ResetPrayerConfig.module.scss";
 
-class ResetPrayerLocation extends Component {
+
+
+class ResetPrayerConfig extends Component {
     constructor(props) {
         super(props);
         this.state = this.createInitState();
@@ -35,7 +36,7 @@ class ResetPrayerLocation extends Component {
 
 
         return {
-            "open": false,
+            "open": true,
             "location": "30004",
             "locationValid": true,
             "step": 1,
@@ -138,7 +139,7 @@ class ResetPrayerLocation extends Component {
     }
 
     step2() {
-        const {classes} = this.props;
+
         /*
         "calculationMethod": 1,
         "asrJuristic": 0,
@@ -167,7 +168,7 @@ class ResetPrayerLocation extends Component {
                 */}
 
 
-                <FormControl className={classes.formControl}>
+                <FormControl className={styles.formControl}>
                     <InputLabel htmlFor="calculationMethod">Calculation Method</InputLabel>
                     <Select
                         value={this.state.calculationMethod}
@@ -175,14 +176,14 @@ class ResetPrayerLocation extends Component {
                         inputProps={{
                             name: 'calculationMethod',
                             id: 'calculationMethod',
-                        }} className={classes.selectEmpty}>
+                        }} className={styles.selectEmpty}>
                         {allCalculationMethods.map((calculationMethod, index) => {
                             return <MenuItem key={index} value={calculationMethod.id}>{calculationMethod.name}</MenuItem>
                         })}
                     </Select>
                 </FormControl>
 
-                <FormControl className={classes.formControl}>
+                <FormControl className={styles.formControl}>
                     <InputLabel htmlFor="asrJuristicMethod">Asr Juristic Method</InputLabel>
                     <Select
                         value={this.state.asrJuristicMethod}
@@ -190,7 +191,7 @@ class ResetPrayerLocation extends Component {
                         inputProps={{
                             name: 'asrJuristicMethod',
                             id: 'asrJuristicMethod',
-                        }} className={classes.selectEmpty}>
+                        }} className={styles.selectEmpty}>
                         {allAsrJuristicMethods.map((asrJuristicMethod, index) => {
                             return <MenuItem key={index} value={asrJuristicMethod.id}>{asrJuristicMethod.name}</MenuItem>
                         })}
@@ -203,8 +204,6 @@ class ResetPrayerLocation extends Component {
     }
 
     createPrayerOffsetFields() {
-        const {classes} = this.props;
-
         const offsetNames = ["Fajr", "Sunrise", "Dhuhr", "Asr", "Sunset", "Maghrib", "Isha"];
 
         const offsetFields = offsetNames.map((offsetName, index) => {
@@ -220,7 +219,7 @@ class ResetPrayerLocation extends Component {
 
             const offsetTextField = (
                 <TextField
-                    key={index} className={classes.azanOffset}
+                    key={index} className={styles.azanOffset}
                     margin="dense" name={offsetName}
                     label={offsetName} type="number" fullWidth
                     value={this.state.prayerOffsetMinutes[index]}
@@ -233,7 +232,7 @@ class ResetPrayerLocation extends Component {
         return (
             <div>
                 <b>Azan offset minutes</b>
-                <div className={classes.azanOffsetContainer}>
+                <div className={styles.azanOffsetContainer}>
                     {offsetFields}
                 </div>
             </div>
@@ -244,13 +243,13 @@ class ResetPrayerLocation extends Component {
         return (
             <div>
                 <Button variant="outlined" color="primary" onClick={this.handleOpen}>
-                    Reset Salah Location
+                    Reset Salah Location 2
                 </Button>
                 <Dialog
                     open={this.state.open}
                     onClose={this.handleClose}
                     aria-labelledby="form-dialog-title">
-                    <DialogTitle id="form-dialog-title">Reset Salah Location</DialogTitle>
+                    <DialogTitle id="form-dialog-title">Reset Salah Location34</DialogTitle>
                     <DialogContent>
                         {this.state.step === 0 && this.step1()}
                         {this.state.step === 1 && this.step2()}
@@ -275,4 +274,38 @@ class ResetPrayerLocation extends Component {
     }
 }
 
-export default withStyles(styles)(ResetPrayerLocation);
+export default ResetPrayerConfig;
+
+
+
+
+/*
+
+
+✅ Update Reset Dialog styles with SCSS
+
+Show Warning on the Dialog that only azan time will be changed
+
+Create location text box.
+
+If location is changed and blur the call google api to load Geocode and Timezone.
+While Geocode and timezone are loading show loading in geocode and timezone fields.
+
+auto load prayer configs in Reset salah location dialog.
+
+Show reset iqamah time checkbox
+
+Auto generate iqamah time checkbox. Auto generate iqamah time will be done in the backend.
+
+No save will be done on Reset. Show save button
+
+Disable Finish button if location is invalid.
+
+Once all reset salah location dialog values are complete the create a PrayerConfig object.
+
+Call Create Prayer times API. POST it PrayerConfig and pass it "reset iqamah time" and
+"auto generate iqamah times"  /api/prayer/{companyId}/config/time. API will return ServiceResponse<PrayerConfig>.
+Returned PrayerConfig will contain 366 List<Prayer>
+
+*/
+
