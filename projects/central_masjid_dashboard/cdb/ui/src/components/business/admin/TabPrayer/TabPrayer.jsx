@@ -82,7 +82,7 @@ class TabPrayer extends Component {
     }
 }
 
-const mapStateLoginToProps = state => {return {login: state.login, prayerConfig: state.admin.prayerConfig}};
+const mapStateToProps = state => {return {login: state.login, prayerConfig: state.admin.prayerConfig}};
 const actions = {adminPrayerConfigUpdate, adminPrayerConfigReset};
 
-export default connect(mapStateLoginToProps, actions)(TabPrayer);
+export default connect(mapStateToProps, actions)(TabPrayer);

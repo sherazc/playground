@@ -6,13 +6,12 @@ import {
 } from "@material-ui/core";
 import {allCalculationMethods, allAsrJuristicMethods} from "./../prayerCollections";
 import styles from "./ResetPrayerConfig.module.scss";
-
-
+import {connect} from "react-redux";
 
 class ResetPrayerConfig extends Component {
     constructor(props) {
         super(props);
-        this.state = this.createInitState();
+        this.state = this.createInitState(props.prayerConfig);
         this.handleChange = this.handleChange.bind(this);
         this.handleValidateLocation = this.handleValidateLocation.bind(this);
         this.handleGeocode = this.handleGeocode.bind(this);
@@ -20,36 +19,17 @@ class ResetPrayerConfig extends Component {
         this.handleUpdatedPrayerTime = this.handleUpdatedPrayerTime.bind(this);
     }
 
-    createInitState() {
-/*
+    createInitState(prayerConfig) {
+        console.log(prayerConfig);
         return {
-            open: false,
-            location: "",
+            open: true,
+            location: prayerConfig.location,
             locationValid: undefined,
             step: 0,
             geoCode: this.createInitGeoCode(),
-            calculationMethod: 2,
-            asrJuristicMethod: 0,
-            prayerOffsetMinutes: [0, 0, 0, 0, 0, 0, 0],
-        };
-*/
-
-
-        return {
-            "open": true,
-            "location": "30004",
-            "locationValid": true,
-            "step": 1,
-            "geoCode": {
-                "latitude": 34.17630630000001,
-                "longitude": -84.2910759,
-                "timezone": -5,
-                "timezoneId": "America/New_York",
-                "timezoneName": "Eastern Standard Time"
-            },
-            "calculationMethod": "2",
-            "asrJuristicMethod": "0",
-            "prayerOffsetMinutes": [0, 0, 0, 0, 0, 0, 0]
+            calculationMethod: prayerConfig.calculationMethod,
+            asrJuristicMethod: prayerConfig.asrJuristicMethod,
+            prayerOffsetMinutes: prayerConfig.prayerOffsetMinutes,
         };
     }
 
@@ -68,7 +48,7 @@ class ResetPrayerConfig extends Component {
     }
 
     handleOpen = () => {
-        this.setState({...this.createInitState(), open: true});
+        this.setState({...this.createInitState(this.props.prayerConfig), open: true});
     };
 
     handleClose = () => {
@@ -118,7 +98,7 @@ class ResetPrayerConfig extends Component {
         return (
             <div>
                 <DialogContentText>
-                    Are you sure, you want to reset location?
+                    Are you sure, you want to reset prayers?
                     <br/>
                     All Azan time will get reset. Even manually entered Azan times.
                     <br/>
@@ -243,13 +223,13 @@ class ResetPrayerConfig extends Component {
         return (
             <div>
                 <Button variant="outlined" color="primary" onClick={this.handleOpen}>
-                    Reset Salah Location 2
+                    Reset Prayers
                 </Button>
                 <Dialog
                     open={this.state.open}
                     onClose={this.handleClose}
                     aria-labelledby="form-dialog-title">
-                    <DialogTitle id="form-dialog-title">Reset Salah Location34</DialogTitle>
+                    <DialogTitle id="form-dialog-title">Reset Prayers</DialogTitle>
                     <DialogContent>
                         {this.state.step === 0 && this.step1()}
                         {this.state.step === 1 && this.step2()}
@@ -274,21 +254,19 @@ class ResetPrayerConfig extends Component {
     }
 }
 
-export default ResetPrayerConfig;
+const mapStateToProps = state => {return {login: state.login, prayerConfig: state.admin.prayerConfig}};
+const actions = {};
 
-
-
+export default connect(mapStateToProps, actions)(ResetPrayerConfig);
 
 /*
-
-
 ✅ Update Reset Dialog styles with SCSS
 
-Show Warning on the Dialog that only azan time will be changed
+✅ Show Warning on the Dialog that only azan time will be changed
 
-Create location text box.
+✅ Create location text box.
 
-If location is changed and blur the call google api to load Geocode and Timezone.
+✅ If location is changed and blur the call google api to load Geocode and Timezone.
 While Geocode and timezone are loading show loading in geocode and timezone fields.
 
 auto load prayer configs in Reset salah location dialog.
