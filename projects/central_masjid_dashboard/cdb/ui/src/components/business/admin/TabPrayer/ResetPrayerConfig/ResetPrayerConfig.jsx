@@ -1,10 +1,11 @@
 import React, {Component} from "react";
-import {geoCodeLocation, updatePrayerLocation} from "./../PrayerServices";
+import {geoCodeLocation, updatePrayerLocation} from "./PrayerServices";
 import {
     Button, TextField, Dialog, DialogActions, DialogContent, DialogContentText,
-    DialogTitle, FormControl, InputLabel, MenuItem, Select
+    DialogTitle, FormControl, InputLabel, MenuItem, Select,
+    FormControlLabel, Checkbox
 } from "@material-ui/core";
-import {allCalculationMethods, allAsrJuristicMethods} from "./../prayerCollections";
+import {allCalculationMethods, allAsrJuristicMethods} from "./prayerCollections";
 import styles from "./ResetPrayerConfig.module.scss";
 import {connect} from "react-redux";
 
@@ -13,6 +14,7 @@ class ResetPrayerConfig extends Component {
         super(props);
         this.state = this.createInitState(props.prayerConfig);
         this.handleChange = this.handleChange.bind(this);
+        this.handleChangeChecked = this.handleChangeChecked.bind(this);
         this.handleValidateLocation = this.handleValidateLocation.bind(this);
         this.handleGeocode = this.handleGeocode.bind(this);
         this.handleFinish = this.handleFinish.bind(this);
@@ -29,6 +31,7 @@ class ResetPrayerConfig extends Component {
             calculationMethod: prayerConfig.calculationMethod,
             asrJuristicMethod: prayerConfig.asrJuristicMethod,
             prayerOffsetMinutes: prayerConfig.prayerOffsetMinutes,
+            generateIqamah: true,
         };
     }
 
@@ -48,6 +51,10 @@ class ResetPrayerConfig extends Component {
 
     handleChange(event) {
         this.setState({[event.target.name]: event.target.value});
+    }
+
+    handleChangeChecked(event) {
+        this.setState({[event.target.name]: event.target.checked});
     }
 
     handleOpen = () => {
@@ -144,12 +151,16 @@ class ResetPrayerConfig extends Component {
                     &nbsp;- {this.state.geoCode.timezoneName}
                     &nbsp;- {this.state.geoCode.timezoneId}
                 </DialogContentText>
-                {/*
-                <PrayerOffsetFields
-                    prayerOffsetMinutes={this.state.prayerOffsetMinutes}
-                    updatePrayerOffsetMinutes={this.updatePrayerOffsetMinutes}/>
-                */}
 
+                <FormControl className={styles.formControl} style={{display: "block"}}>
+                    <FormControlLabel
+                        control={<Checkbox color="primary"
+                            name="generateIqamah"
+                            checked={this.state.generateIqamah}
+                            onChange={this.handleChangeChecked} />}
+                        label="Auto generate iqamah time"
+                        labelPlacement="end"/>
+                </FormControl>
 
                 <FormControl className={styles.formControl}>
                     <InputLabel htmlFor="calculationMethod">Calculation Method</InputLabel>
@@ -278,9 +289,11 @@ While Geocode and timezone are loading show loading in geocode and timezone fiel
 
 ✅ auto load prayer configs in Reset salah location dialog.
 
-Show reset iqamah time checkbox
+❌ Show reset iqamah time checkbox
 
-Auto generate iqamah time checkbox. Auto generate iqamah time will be done in the backend.
+✅ ‍️Auto generate iqamah time checkbox.
+
+🏃 Auto generate iqamah time will be done in the backend.
 
 No save will be done on Reset. Show save button
 
@@ -291,6 +304,8 @@ Once all reset salah location dialog values are complete the create a PrayerConf
 Call Create Prayer times API. POST it PrayerConfig and pass it "reset iqamah time" and
 "auto generate iqamah times"  /api/prayer/{companyId}/config/time. API will return ServiceResponse<PrayerConfig>.
 Returned PrayerConfig will contain 366 List<Prayer>
+
+Returned Prayer config will be stored in temporary admin redux store. call it EditPrayerConfig
 
 */
 
