@@ -20,27 +20,30 @@ class ResetPrayerConfig extends Component {
     }
 
     createInitState(prayerConfig) {
-        console.log(prayerConfig);
         return {
-            open: true,
+            open: false,
             location: prayerConfig.location,
             locationValid: undefined,
             step: 0,
-            geoCode: this.createInitGeoCode(),
+            geoCode: this.createInitGeoCode(prayerConfig.geoCode),
             calculationMethod: prayerConfig.calculationMethod,
             asrJuristicMethod: prayerConfig.asrJuristicMethod,
             prayerOffsetMinutes: prayerConfig.prayerOffsetMinutes,
         };
     }
 
-    createInitGeoCode() {
-        return {
-            latitude: 0,
-            longitude: 0,
-            timezone: 0,
-            timezoneId: "",
-            timezoneName: ""
-        };
+    createInitGeoCode(geoCode) {
+        if (geoCode) {
+            return {...geoCode}
+        } else {
+            return {
+                latitude: 0,
+                longitude: 0,
+                timezone: 0,
+                timezoneId: "",
+                timezoneName: ""
+            };
+        }
     }
 
     handleChange(event) {
@@ -80,7 +83,7 @@ class ResetPrayerConfig extends Component {
     }
 
     handleUpdatedPrayerTime(serviceResponse) {
-        if(serviceResponse
+        if (serviceResponse
             && serviceResponse.successful
             && serviceResponse.target
             && serviceResponse.target.length > 0) {
@@ -158,7 +161,8 @@ class ResetPrayerConfig extends Component {
                             id: 'calculationMethod',
                         }} className={styles.selectEmpty}>
                         {allCalculationMethods.map((calculationMethod, index) => {
-                            return <MenuItem key={index} value={calculationMethod.id}>{calculationMethod.name}</MenuItem>
+                            return <MenuItem key={index}
+                                             value={calculationMethod.id}>{calculationMethod.name}</MenuItem>
                         })}
                     </Select>
                 </FormControl>
@@ -173,7 +177,8 @@ class ResetPrayerConfig extends Component {
                             id: 'asrJuristicMethod',
                         }} className={styles.selectEmpty}>
                         {allAsrJuristicMethods.map((asrJuristicMethod, index) => {
-                            return <MenuItem key={index} value={asrJuristicMethod.id}>{asrJuristicMethod.name}</MenuItem>
+                            return <MenuItem key={index}
+                                             value={asrJuristicMethod.id}>{asrJuristicMethod.name}</MenuItem>
                         })}
                     </Select>
                 </FormControl>
@@ -254,7 +259,9 @@ class ResetPrayerConfig extends Component {
     }
 }
 
-const mapStateToProps = state => {return {login: state.login, prayerConfig: state.admin.prayerConfig}};
+const mapStateToProps = state => {
+    return {login: state.login, prayerConfig: state.admin.prayerConfig}
+};
 const actions = {};
 
 export default connect(mapStateToProps, actions)(ResetPrayerConfig);
@@ -269,7 +276,7 @@ export default connect(mapStateToProps, actions)(ResetPrayerConfig);
 ✅ If location is changed and blur the call google api to load Geocode and Timezone.
 While Geocode and timezone are loading show loading in geocode and timezone fields.
 
-auto load prayer configs in Reset salah location dialog.
+✅ auto load prayer configs in Reset salah location dialog.
 
 Show reset iqamah time checkbox
 

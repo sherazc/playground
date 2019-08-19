@@ -3,16 +3,16 @@
     "_id": "prayerConfig1",
     "companyId": "company1",
     "location": "30004",
-    "calculationMethod": "2",
-    "asrJuristicMethod": "0",
+    "calculationMethod": "3",
+    "asrJuristicMethod": "1",
     "prayerOffsetMinutes": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
     ],
     "geoCode": {
       "latitude": 34.17630630000001,
