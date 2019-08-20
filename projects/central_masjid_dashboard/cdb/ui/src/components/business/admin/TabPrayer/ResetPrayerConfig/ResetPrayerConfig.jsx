@@ -296,7 +296,7 @@ While Geocode and timezone are loading show loading in geocode and timezone fiel
 
 ✅ ‍️Auto generate iqamah time checkbox.
 
-🏃 Merge Existing iqamah times.
+🏃 Merge Existing iqamah times with the newly created salah times in the API.
 
 🏃 Auto generate iqamah time will be done in the backend.
 

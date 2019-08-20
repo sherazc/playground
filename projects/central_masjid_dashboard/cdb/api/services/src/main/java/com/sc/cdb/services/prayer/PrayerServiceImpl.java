@@ -36,7 +36,6 @@ public class PrayerServiceImpl implements PrayerService {
         return null;
     }
 
-    // TODO: Work on save prayer config
     @Override
     public ServiceResponse<PrayerConfig> createYearPrayerTimes(PrayerConfig prayerConfig, Boolean generateIqamah) {
         LOG.debug("Saving prayer config of {}", prayerConfig.getCompanyId());
@@ -53,12 +52,34 @@ public class PrayerServiceImpl implements PrayerService {
         List<Prayer> prayers = prayTimeCalculator.generate(prayerConfig);
 
         if (prayers != null && prayers.size() == 366) {
-            serviceResponseBuilder.successful(true);
             prayerConfig.setPrayers(prayers);
+            mergeExistingIqamahTimes(prayerConfig);
+            serviceResponseBuilder.successful(true);
             serviceResponseBuilder.target(prayerConfig);
         }
 
         return serviceResponseBuilder.build();
+    }
+
+    private void mergeExistingIqamahTimes(PrayerConfig prayerConfig) {
+        Optional<PrayerConfig> existingPrayerConfig = getPrayerConfig(prayerConfig.getCompanyId());
+
+        if (existingPrayerConfig.isPresent()
+                && existingPrayerConfig.get().getPrayers() != null
+                && existingPrayerConfig.get().getPrayers().size() > 0) {
+
+            List<Prayer> existingPrayers = existingPrayerConfig.get().getPrayers();
+            List<Prayer> newPrayers = prayerConfig.getPrayers();
+
+            newPrayers.forEach(prayer -> {
+                String monthDate = dateToMonthDateString(prayer.getDate());
+                existingPrayers.stream().filter(existingPrayer -> {
+
+                }).
+            });
+
+
+        }
     }
 
     @Override
