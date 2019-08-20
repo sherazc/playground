@@ -58,7 +58,7 @@ class TabPrayer extends Component {
 
         if (!prayers || prayers.length < 1 || companyId !== this.props.prayerConfig.companyId) {
             axios
-                .get(`${baseUrl}/api/prayer/${companyId}/config`)
+                .get(`${baseUrl}/api/prayer/config/${companyId}`)
                 .then(response => this.props.adminPrayerConfigUpdate(response.data))
                 .catch(() => this.props.adminPrayerConfigReset());
         }

@@ -32,17 +32,17 @@ public class PrayerServiceImpl implements PrayerService {
     }
 
     @Override
-    public ServiceResponse<?> updatePrayerConfig(String companyId, PrayerConfig prayerConfig) {
+    public ServiceResponse<?> updatePrayerConfig(PrayerConfig prayerConfig) {
         return null;
     }
 
     // TODO: Work on save prayer config
     @Override
-    public ServiceResponse<List<Prayer>> createYearPrayerTimes(String companyId, PrayerConfig prayerConfig) {
-        LOG.debug("Saving prayer config of {}", companyId);
+    public ServiceResponse<PrayerConfig> createYearPrayerTimes(PrayerConfig prayerConfig, Boolean generateIqamah) {
+        LOG.debug("Saving prayer config of {}", prayerConfig.getCompanyId());
 
-        ServiceResponse.ServiceResponseBuilder<List<Prayer>> serviceResponseBuilder = ServiceResponse.builder();
-        if (StringUtils.isBlank(companyId) || !isValid(prayerConfig)) {
+        ServiceResponse.ServiceResponseBuilder<PrayerConfig> serviceResponseBuilder = ServiceResponse.builder();
+        if (StringUtils.isBlank(prayerConfig.getCompanyId()) || !isValid(prayerConfig)) {
             String errorMessage =
                     "Can not process request. CompanyId is blank or prayer configs not sent.";
             LOG.error(errorMessage);
@@ -54,9 +54,9 @@ public class PrayerServiceImpl implements PrayerService {
 
         if (prayers != null && prayers.size() == 366) {
             serviceResponseBuilder.successful(true);
-            serviceResponseBuilder.target(prayers);
+            prayerConfig.setPrayers(prayers);
+            serviceResponseBuilder.target(prayerConfig);
         }
-
 
         return serviceResponseBuilder.build();
     }

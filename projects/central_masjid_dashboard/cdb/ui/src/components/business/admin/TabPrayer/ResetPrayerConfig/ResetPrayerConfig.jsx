@@ -78,7 +78,10 @@ class ResetPrayerConfig extends Component {
     }
 
     handleFinish() {
+        const companyId = this.props.login.company.id;
+
         const prayerConfig = {
+            companyId: companyId,
             location: this.state.location,
             calculationMethod: this.state.calculationMethod,
             asrJuristicMethod: this.state.asrJuristicMethod,
@@ -86,7 +89,7 @@ class ResetPrayerConfig extends Component {
             geoCode: this.state.geoCode
         };
 
-        updatePrayerLocation(1234, prayerConfig, this.handleUpdatedPrayerTime);
+        updatePrayerLocation(companyId, prayerConfig, this.state.generateIqamah, this.handleUpdatedPrayerTime);
     }
 
     handleUpdatedPrayerTime(serviceResponse) {
@@ -292,6 +295,8 @@ While Geocode and timezone are loading show loading in geocode and timezone fiel
 ❌ Show reset iqamah time checkbox
 
 ✅ ‍️Auto generate iqamah time checkbox.
+
+🏃 Merge Existing iqamah times.
 
 🏃 Auto generate iqamah time will be done in the backend.
 

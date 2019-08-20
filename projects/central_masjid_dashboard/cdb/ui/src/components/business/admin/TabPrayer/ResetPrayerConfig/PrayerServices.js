@@ -20,10 +20,10 @@ export const geoCodeLocation = (location, handleGeoCode) => {
 };
 
 
-export const updatePrayerLocation = (companyId, locationConfig, handleUpdatedPrayerTime) => {
-    const requestUrl = `${baseUrl}/api/prayer/${companyId}/config`;
+export const updatePrayerLocation = (companyId, locationConfig, generateIqamah, handleUpdatedPrayerTime) => {
+    const requestUrl = `${baseUrl}/api/prayer/config/create?generateIqamah=${generateIqamah}`;
 
-    axios.put(requestUrl, locationConfig).then(response => {
+    axios.post(requestUrl, locationConfig).then(response => {
             handleUpdatedPrayerTime(response.data);
         },
         failResponse => {
