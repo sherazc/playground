@@ -24,14 +24,17 @@ public class PrayerServiceImpl implements PrayerService {
     private CentralControlDao centralControlDao;
     private PrayTimeCalculator prayTimeCalculator;
     private PrayerConfigRepository prayerConfigRepository;
+    private IqamahCalculator iqamahCalculator;
 
     public PrayerServiceImpl(
             CentralControlDao centralControlDao,
             PrayTimeCalculator prayTimeCalculator,
-            PrayerConfigRepository prayerConfigRepository) {
+            PrayerConfigRepository prayerConfigRepository,
+            IqamahCalculator iqamahCalculator) {
         this.centralControlDao = centralControlDao;
         this.prayTimeCalculator = prayTimeCalculator;
         this.prayerConfigRepository = prayerConfigRepository;
+        this.iqamahCalculator = iqamahCalculator;
     }
 
     @Override
@@ -69,7 +72,30 @@ public class PrayerServiceImpl implements PrayerService {
     }
 
     private void autoGenerateIqamah(Prayer prayer) {
-        throw new RuntimeException("Implement autoGenerateIqamah(Prayer prayer)");
+        prayer.setFajrIqama(iqamahCalculator.calculate(
+                prayer.getDate(), prayer.getFajr(),
+                10, 40,
+                IqamahCalculator.MinutesRound.roundTo15));
+
+        prayer.setDhuhrIqama(iqamahCalculator.calculate(
+                prayer.getDate(), prayer.getDhuhr(),
+                20, 60,
+                IqamahCalculator.MinutesRound.roundTo30));
+
+        prayer.setAsrIqama(iqamahCalculator.calculate(
+                prayer.getDate(), prayer.getAsr(),
+                20, 60,
+                IqamahCalculator.MinutesRound.roundTo30));
+
+        prayer.setMaghribIqama(iqamahCalculator.calculate(
+                prayer.getDate(), prayer.getMaghrib(),
+                5, 10,
+                IqamahCalculator.MinutesRound.noRound));
+
+        prayer.setIshaIqama(iqamahCalculator.calculate(
+                prayer.getDate(), prayer.getIsha(),
+                10, 40,
+                IqamahCalculator.MinutesRound.roundTo15));
     }
 
 
