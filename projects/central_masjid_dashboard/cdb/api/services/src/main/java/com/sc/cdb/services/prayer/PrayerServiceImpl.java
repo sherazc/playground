@@ -56,13 +56,22 @@ public class PrayerServiceImpl implements PrayerService {
 
         if (prayers != null && prayers.size() == 366) {
             prayerConfig.setPrayers(prayers);
-            mergeExistingIqamahTimes(prayerConfig);
+            if (generateIqamah != null && generateIqamah) {
+                prayers.forEach(this::autoGenerateIqamah);
+            } else {
+                mergeExistingIqamahTimes(prayerConfig);
+            }
             serviceResponseBuilder.successful(true);
             serviceResponseBuilder.target(prayerConfig);
         }
 
         return serviceResponseBuilder.build();
     }
+
+    private void autoGenerateIqamah(Prayer prayer) {
+        throw new RuntimeException("Implement autoGenerateIqamah(Prayer prayer)");
+    }
+
 
     private void mergeExistingIqamahTimes(PrayerConfig prayerConfig) {
         Optional<PrayerConfig> existingPrayerConfig = getPrayerConfig(prayerConfig.getCompanyId());
