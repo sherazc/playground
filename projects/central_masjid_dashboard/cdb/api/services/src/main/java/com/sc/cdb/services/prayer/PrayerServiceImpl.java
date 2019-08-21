@@ -1,5 +1,7 @@
 package com.sc.cdb.services.prayer;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PrayerServiceImpl implements PrayerService {
     private static final Logger LOG = LoggerFactory.getLogger(PrayerServiceImpl.class);
+    private static final SimpleDateFormat MONTH_DATE_FORMAT = new SimpleDateFormat("MMdd");
 
     private CentralControlDao centralControlDao;
     private PrayTimeCalculator prayTimeCalculator;
@@ -33,7 +36,7 @@ public class PrayerServiceImpl implements PrayerService {
 
     @Override
     public ServiceResponse<?> updatePrayerConfig(PrayerConfig prayerConfig) {
-        return null;
+        throw new RuntimeException("Not implemented");
     }
 
     @Override
@@ -72,14 +75,31 @@ public class PrayerServiceImpl implements PrayerService {
             List<Prayer> newPrayers = prayerConfig.getPrayers();
 
             newPrayers.forEach(prayer -> {
-                String monthDate = dateToMonthDateString(prayer.getDate());
-                existingPrayers.stream().filter(existingPrayer -> {
 
-                }).
+                String newMonthDate = dateToMonthDateString(prayer.getDate());
+
+                existingPrayers
+                        .stream()
+                        .filter(existingPrayer -> StringUtils.equals(newMonthDate, dateToMonthDateString(existingPrayer.getDate())))
+                        .findFirst()
+                        .ifPresent(existingSameDatePrayer -> mergeExistingIqamahTime(existingSameDatePrayer, prayer));
             });
-
-
         }
+    }
+
+    private void mergeExistingIqamahTime(Prayer iqamahFromPrayer, Prayer iqamahToPrayer) {
+        iqamahToPrayer.setFajrIqama(iqamahFromPrayer.getFajrIqama());
+        iqamahToPrayer.setDhuhrIqama(iqamahFromPrayer.getDhuhrIqama());
+        iqamahToPrayer.setAsrIqama(iqamahFromPrayer.getAsrIqama());
+        iqamahToPrayer.setMaghribIqama(iqamahFromPrayer.getMaghribIqama());
+        iqamahToPrayer.setIshaIqama(iqamahFromPrayer.getIshaIqama());
+    }
+
+    private String dateToMonthDateString(Date date) {
+        if(date == null) {
+            return "";
+        }
+        return MONTH_DATE_FORMAT.format(date);
     }
 
     @Override

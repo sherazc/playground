@@ -35,6 +35,29 @@ public class PrayerController {
         return ResponseEntity.ok(siteLocator.geoCode(location));
     }
 
+
+    /*
+
+    Sample request
+
+    {
+        "companyId": "company1",
+        "location": "Karachi Pakistan",
+        "calculationMethod": 3,
+        "asrJuristicMethod": 1,
+        "prayerOffsetMinutes": [
+            "20", 2, 3, 4, 5, 6, 7
+        ],
+        "geoCode": {
+            "latitude": 24.8607343,
+            "longitude": 67.0011364,
+            "timezone": 5,
+            "timezoneId": "Asia/Karachi",
+            "timezoneName": "Pakistan Standard Time"
+        }
+    }
+     */
+
     @PostMapping("config/create")
     public ResponseEntity<ServiceResponse<PrayerConfig>> createPrayers(
             @RequestBody PrayerConfig prayerConfig,

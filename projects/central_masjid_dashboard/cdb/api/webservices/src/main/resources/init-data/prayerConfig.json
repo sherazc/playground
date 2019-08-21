@@ -27,11 +27,11 @@
           "$date": "2016-01-01T00:00:00.000Z"
         },
         "fajr": "06:29",
-        "fajrIqama": null,
+        "fajrIqama": "07:00",
         "dhuhr": "12:41",
         "dhuhrIqama": null,
         "asr": "15:20",
-        "asrIqama": null,
+        "asrIqama": "16:00",
         "maghrib": "17:38",
         "maghribIqama": null,
         "isha": "18:53",
@@ -43,7 +43,7 @@
           "$date": "2016-01-02T00:00:00.000Z"
         },
         "fajr": "06:29",
-        "fajrIqama": null,
+        "fajrIqama": "07:15",
         "dhuhr": "12:41",
         "dhuhrIqama": null,
         "asr": "15:21",
@@ -5867,7 +5867,7 @@
           "$date": "2016-12-31T00:00:00.000Z"
         },
         "fajr": "06:29",
-        "fajrIqama": null,
+        "fajrIqama": "06:45",
         "dhuhr": "12:40",
         "dhuhrIqama": null,
         "asr": "15:20",
