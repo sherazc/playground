@@ -1,22 +1,43 @@
 package com.sc.cdb.services.prayer;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import java.util.Calendar;
+import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Before;
+import org.junit.Test;
 
-class IqamahCalculatorTest {
 
-    @BeforeEach
-    void setUp() {
-    }
+public class IqamahCalculatorTest {
 
-    @AfterEach
-    void tearDown() {
+    private IqamahCalculator iqamahCalculator;
+
+    @Before
+    public void setUp() throws Exception {
+        iqamahCalculator = new IqamahCalculator();
     }
 
     @Test
-    void calculate() {
+    public void calculate() {
+
+
+        iqamahCalculator.calculate()
+
+        System.out.println(this.createCalendarFromTime(23, 59).getTime());
+    }
+
+    private Calendar createCalendarFromTime(int hour24, int minute) {
+        return this.createCalendar(2016, 0, 1, hour24, minute);
+    }
+
+    private Calendar createCalendar(int year, int month, int date, int hour24, int minute) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DATE, date);
+        calendar.set(Calendar.HOUR_OF_DAY, hour24);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar;
     }
 }
