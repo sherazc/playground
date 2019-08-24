@@ -43,6 +43,61 @@ public class IqamahCalculatorTest {
         Assert.assertEquals(iqamahTime, iqamahTimeResult);
     }
 
+
+    @Test
+    public void calculateB() {
+        // Setup
+        String azanTime = "6:3";
+        int[] azanTimeInt = {6, 3};
+        String iqamahTime = "06:30";
+        int[] iqamahTimeInt = {6, 30};
+
+        setupDateTimeCalculatorMock(azanTime, azanTimeInt, iqamahTime, iqamahTimeInt);
+
+        // Call
+        String iqamahTimeResult = iqamahCalculator.calculate(
+                azanTime, 10, IqamahCalculator.MinutesRound.roundTo30);
+
+        // Assert
+        Assert.assertEquals(iqamahTime, iqamahTimeResult);
+    }
+
+    @Test
+    public void calculateC() {
+        // Setup
+        String azanTime = "23:55";
+        int[] azanTimeInt = {23, 55};
+        String iqamahTime = "00:30";
+        int[] iqamahTimeInt = {0, 30};
+
+        setupDateTimeCalculatorMock(azanTime, azanTimeInt, iqamahTime, iqamahTimeInt);
+
+        // Call
+        String iqamahTimeResult = iqamahCalculator.calculate(
+                azanTime, 35, IqamahCalculator.MinutesRound.roundTo30);
+
+        // Assert
+        Assert.assertEquals(iqamahTime, iqamahTimeResult);
+    }
+
+    @Test
+    public void calculateD() {
+        // Setup
+        String azanTime = "13:25";
+        int[] azanTimeInt = {13, 25};
+        String iqamahTime = "14:00";
+        int[] iqamahTimeInt = {14, 0};
+
+        setupDateTimeCalculatorMock(azanTime, azanTimeInt, iqamahTime, iqamahTimeInt);
+
+        // Call
+        String iqamahTimeResult = iqamahCalculator.calculate(
+                azanTime, 15, IqamahCalculator.MinutesRound.roundTo30);
+
+        // Assert
+        Assert.assertEquals(iqamahTime, iqamahTimeResult);
+    }
+
     private void setupDateTimeCalculatorMock(String azanTime, int[] azanTimeInt,
                                              String iqamahTime, int[] iqamahTimeInt) {
         Mockito.when(
