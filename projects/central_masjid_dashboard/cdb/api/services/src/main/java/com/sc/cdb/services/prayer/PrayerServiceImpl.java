@@ -72,6 +72,7 @@ public class PrayerServiceImpl implements PrayerService {
     }
 
     private void autoGenerateIqamah(Prayer prayer) {
+        /*
         prayer.setFajrIqama(iqamahCalculator.calculate(
                 prayer.getDate(), prayer.getFajr(),
                 10, 40,
@@ -96,6 +97,8 @@ public class PrayerServiceImpl implements PrayerService {
                 prayer.getDate(), prayer.getIsha(),
                 10, 40,
                 IqamahCalculator.MinutesRound.roundTo15));
+
+        */
     }
 
 

@@ -3,6 +3,7 @@ package com.sc.cdb.services.prayer;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,9 +21,12 @@ public class IqamahCalculatorTest {
     public void calculate() {
 
 
-        iqamahCalculator.calculate()
+        // Date azanTime = this.createCalendarFromTime(23, 59).getTime();
+        String iqamahTime = iqamahCalculator.calculate("06:03", 10, IqamahCalculator.MinutesRound.roundTo15);
+        Assert.assertEquals("06:15", iqamahTime);
 
-        System.out.println(this.createCalendarFromTime(23, 59).getTime());
+
+        System.out.println();
     }
 
     private Calendar createCalendarFromTime(int hour24, int minute) {

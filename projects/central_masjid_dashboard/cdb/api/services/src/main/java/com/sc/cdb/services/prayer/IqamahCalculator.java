@@ -11,10 +11,7 @@ public class IqamahCalculator {
         roundTo15, roundTo30, noRound
     }
 
-    public String calculate(
-            Date date, String azanTime,
-            int minimumDelayMinutes, int maximumDelayMinutes,
-            MinutesRound roundTo) {
+    public String calculate(String azanTime, int minimumDelayMinutes, MinutesRound roundTo) {
 
         return "00:00";
     }
