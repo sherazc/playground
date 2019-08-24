@@ -20,7 +20,7 @@ public class DateTimeCalculator {
         return TIME_24_REGEX_PATTERN.matcher(timeInString).matches();
     }
 
-    public int[] parseHourMinute(String time24hour) {
+    public int[] hourMinuteStringToInt(String time24hour) {
         if (!isValid24Time(time24hour)) {
             return null;
         }
@@ -30,5 +30,32 @@ public class DateTimeCalculator {
         return new int[]{
                 Integer.parseInt(hourMinuteStrings[0]),
                 Integer.parseInt(hourMinuteStrings[1])};
+    }
+
+    public String hourMinuteIntToString(int[] time24hour) {
+        if (time24hour == null || time24hour.length != 2) {
+            return null;
+        }
+
+        String hourMinute = new StringBuilder(intToString(time24hour[0]))
+                .append(':')
+                .append(intToString(time24hour[1])).toString();
+
+        if (this.isValid24Time(hourMinute)) {
+            return hourMinute;
+        } else {
+            return null;
+        }
+    }
+
+    private String intToString(int i) {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (i < 0 || i > 59) {
+            return null;
+        } else if (i < 10) {
+            return stringBuilder.append(0).append(i).toString();
+        } else {
+            return stringBuilder.append(i).toString();
+        }
     }
 }

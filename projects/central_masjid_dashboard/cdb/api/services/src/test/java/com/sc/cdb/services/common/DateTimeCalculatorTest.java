@@ -45,26 +45,40 @@ public class DateTimeCalculatorTest {
     }
 
     @Test
-    public void parseHourMinute() {
-        int[] hourMinute = dateTimeCalculator.parseHourMinute("1:2");
+    public void hourMinuteStringToInt() {
+        int[] hourMinute = dateTimeCalculator.hourMinuteStringToInt("1:2");
         assertEquals(2, hourMinute.length);
         assertEquals(1, hourMinute[0]);
         assertEquals(2, hourMinute[1]);
 
-        hourMinute = dateTimeCalculator.parseHourMinute("23:59");
+        hourMinute = dateTimeCalculator.hourMinuteStringToInt("23:59");
         assertEquals(2, hourMinute.length);
         assertEquals(23, hourMinute[0]);
         assertEquals(59, hourMinute[1]);
     }
 
-
     @Test
-    public void parseHourMinute_invalid() {
-        assertNull(dateTimeCalculator.parseHourMinute(null));
-        assertNull(dateTimeCalculator.parseHourMinute("abc"));
-        assertNull(dateTimeCalculator.parseHourMinute(":"));
-        assertNull(dateTimeCalculator.parseHourMinute("1:"));
-        assertNull(dateTimeCalculator.parseHourMinute(":1"));
+    public void hourMinuteStringToInt_invalid() {
+        assertNull(dateTimeCalculator.hourMinuteStringToInt(null));
+        assertNull(dateTimeCalculator.hourMinuteStringToInt("abc"));
+        assertNull(dateTimeCalculator.hourMinuteStringToInt(":"));
+        assertNull(dateTimeCalculator.hourMinuteStringToInt("1:"));
+        assertNull(dateTimeCalculator.hourMinuteStringToInt(":1"));
     }
 
+    @Test
+    public void hourMinuteIntToString() {
+        assertEquals("00:00", dateTimeCalculator.hourMinuteIntToString(new int[]{0, 0}));
+        assertEquals("01:02", dateTimeCalculator.hourMinuteIntToString(new int[]{1, 2}));
+        assertEquals("23:59", dateTimeCalculator.hourMinuteIntToString(new int[]{23, 59}));
+    }
+
+    @Test
+    public void hourMinuteIntToString_invalid() {
+        assertNull(dateTimeCalculator.hourMinuteIntToString(null));
+        assertNull(dateTimeCalculator.hourMinuteIntToString(new int[0]));
+        assertNull(dateTimeCalculator.hourMinuteIntToString(new int[3]));
+        assertNull(dateTimeCalculator.hourMinuteIntToString(new int[]{24, 0}));
+        assertNull(dateTimeCalculator.hourMinuteIntToString(new int[]{10, 60}));
+    }
 }
