@@ -98,6 +98,24 @@ public class IqamahCalculatorTest {
         Assert.assertEquals(iqamahTime, iqamahTimeResult);
     }
 
+    @Test
+    public void calculateE() {
+        // Setup
+        String azanTime = "20:15";
+        int[] azanTimeInt = {20, 15};
+        String iqamahTime = "20:25";
+        int[] iqamahTimeInt = {20, 25};
+
+        setupDateTimeCalculatorMock(azanTime, azanTimeInt, iqamahTime, iqamahTimeInt);
+
+        // Call
+        String iqamahTimeResult = iqamahCalculator.calculate(
+                azanTime, 10, IqamahCalculator.MinutesRound.noRound);
+
+        // Assert
+        Assert.assertEquals(iqamahTime, iqamahTimeResult);
+    }
+
     private void setupDateTimeCalculatorMock(String azanTime, int[] azanTimeInt,
                                              String iqamahTime, int[] iqamahTimeInt) {
         Mockito.when(

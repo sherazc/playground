@@ -72,33 +72,26 @@ public class PrayerServiceImpl implements PrayerService {
     }
 
     private void autoGenerateIqamah(Prayer prayer) {
-        /*
+
         prayer.setFajrIqama(iqamahCalculator.calculate(
-                prayer.getDate(), prayer.getFajr(),
-                10, 40,
+                prayer.getFajr(), 10,
                 IqamahCalculator.MinutesRound.roundTo15));
 
         prayer.setDhuhrIqama(iqamahCalculator.calculate(
-                prayer.getDate(), prayer.getDhuhr(),
-                20, 60,
+                prayer.getDhuhr(), 20,
                 IqamahCalculator.MinutesRound.roundTo30));
 
         prayer.setAsrIqama(iqamahCalculator.calculate(
-                prayer.getDate(), prayer.getAsr(),
-                20, 60,
+                prayer.getAsr(), 20,
                 IqamahCalculator.MinutesRound.roundTo30));
 
         prayer.setMaghribIqama(iqamahCalculator.calculate(
-                prayer.getDate(), prayer.getMaghrib(),
-                5, 10,
+                prayer.getMaghrib(), 5,
                 IqamahCalculator.MinutesRound.noRound));
 
         prayer.setIshaIqama(iqamahCalculator.calculate(
-                prayer.getDate(), prayer.getIsha(),
-                10, 40,
+                prayer.getIsha(), 10,
                 IqamahCalculator.MinutesRound.roundTo15));
-
-        */
     }
 
 
