@@ -1,20 +1,32 @@
 package com.sc.cdb.services.prayer;
 
 import java.util.Calendar;
-import java.util.Date;
 
+import com.sc.cdb.services.common.DateTimeCalculator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 
 public class IqamahCalculatorTest {
 
     private IqamahCalculator iqamahCalculator;
 
+    @Mock
+    private DateTimeCalculator dateTimeCalculator;
+
     @Before
     public void setUp() throws Exception {
-        iqamahCalculator = new IqamahCalculator();
+        MockitoAnnotations.initMocks(this);
+
+        Mockito.when(
+                dateTimeCalculator.isValid24Time(Mockito.anyString()))
+                .thenReturn(true);
+
+        iqamahCalculator = new IqamahCalculator(dateTimeCalculator);
     }
 
     @Test

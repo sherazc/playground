@@ -1,18 +1,25 @@
 package com.sc.cdb.services.prayer;
 
-import java.util.Date;
-
+import com.sc.cdb.services.common.DateTimeCalculator;
 import org.springframework.stereotype.Service;
 
 @Service
 public class IqamahCalculator {
+
+    private DateTimeCalculator dateTimeCalculator;
+
+    public IqamahCalculator(DateTimeCalculator dateTimeCalculator) {
+        this.dateTimeCalculator = dateTimeCalculator;
+    }
 
     public enum MinutesRound {
         roundTo15, roundTo30, noRound
     }
 
     public String calculate(String azanTime, int minimumDelayMinutes, MinutesRound roundTo) {
-
+        if (this.dateTimeCalculator.isValid24Time(azanTime)) {
+            return null;
+        }
         return "00:00";
     }
 }
