@@ -59,41 +59,23 @@ public class PrayerServiceImpl implements PrayerService {
 
         if (prayers != null && prayers.size() == 366) {
             prayerConfig.setPrayers(prayers);
+
+            prayers.forEach(prayer -> {
+                if (generateIqamah != null && generateIqamah) {
+                    autoGenerateIqamah(prayer);
+                }
+            });
+
             if (generateIqamah != null && generateIqamah) {
-                prayers.forEach(this::autoGenerateIqamah);
-            } else {
                 mergeExistingIqamahTimes(prayerConfig);
             }
+
             serviceResponseBuilder.successful(true);
             serviceResponseBuilder.target(prayerConfig);
         }
 
         return serviceResponseBuilder.build();
     }
-
-    private void autoGenerateIqamah(Prayer prayer) {
-
-        prayer.setFajrIqama(iqamahCalculator.calculate(
-                prayer.getFajr(), 10,
-                IqamahCalculator.MinutesRound.roundTo15));
-
-        prayer.setDhuhrIqama(iqamahCalculator.calculate(
-                prayer.getDhuhr(), 20,
-                IqamahCalculator.MinutesRound.roundTo30));
-
-        prayer.setAsrIqama(iqamahCalculator.calculate(
-                prayer.getAsr(), 20,
-                IqamahCalculator.MinutesRound.roundTo30));
-
-        prayer.setMaghribIqama(iqamahCalculator.calculate(
-                prayer.getMaghrib(), 5,
-                IqamahCalculator.MinutesRound.noRound));
-
-        prayer.setIshaIqama(iqamahCalculator.calculate(
-                prayer.getIsha(), 10,
-                IqamahCalculator.MinutesRound.roundTo15));
-    }
-
 
     private void mergeExistingIqamahTimes(PrayerConfig prayerConfig) {
         Optional<PrayerConfig> existingPrayerConfig = getPrayerConfig(prayerConfig.getCompanyId());
@@ -124,6 +106,29 @@ public class PrayerServiceImpl implements PrayerService {
         iqamahToPrayer.setAsrIqama(iqamahFromPrayer.getAsrIqama());
         iqamahToPrayer.setMaghribIqama(iqamahFromPrayer.getMaghribIqama());
         iqamahToPrayer.setIshaIqama(iqamahFromPrayer.getIshaIqama());
+    }
+
+    private void autoGenerateIqamah(Prayer prayer) {
+
+        prayer.setFajrIqama(iqamahCalculator.calculate(
+                prayer.getFajr(), 10,
+                IqamahCalculator.MinutesRound.roundTo15));
+
+        prayer.setDhuhrIqama(iqamahCalculator.calculate(
+                prayer.getDhuhr(), 20,
+                IqamahCalculator.MinutesRound.roundTo30));
+
+        prayer.setAsrIqama(iqamahCalculator.calculate(
+                prayer.getAsr(), 20,
+                IqamahCalculator.MinutesRound.roundTo30));
+
+        prayer.setMaghribIqama(iqamahCalculator.calculate(
+                prayer.getMaghrib(), 5,
+                IqamahCalculator.MinutesRound.noRound));
+
+        prayer.setIshaIqama(iqamahCalculator.calculate(
+                prayer.getIsha(), 10,
+                IqamahCalculator.MinutesRound.roundTo15));
     }
 
     private String dateToMonthDateString(Date date) {
