@@ -22,34 +22,49 @@ public class IqamahCalculatorTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        Mockito.when(
-                dateTimeCalculator.isValid24Time(Mockito.anyString()))
-                .thenReturn(true);
-
         iqamahCalculator = new IqamahCalculator(dateTimeCalculator);
     }
 
     @Test
     public void calculate() {
+        // Setup
+
+        String azanTime = "06:03";
+        int[] azanTimeInt = {6, 3};
+        String iqamahTime = "06:15";
+        int[] iqamahTimeInt = {6, 15};
+
+        Mockito.when(
+                dateTimeCalculator.isValid24Time(Mockito.anyString()))
+                .thenReturn(true);
+
+        Mockito.when(
+                dateTimeCalculator.hourMinuteStringToInt(azanTime))
+                .thenReturn(azanTimeInt);
+
+        Mockito.when(
+                dateTimeCalculator.createCalendarFromTime(azanTimeInt[0], azanTimeInt[1]))
+                .thenReturn(this.createCalendarFromTime(azanTimeInt[0], azanTimeInt[1]));
+
+        Mockito.when(
+        dateTimeCalculator.hourMinuteIntToString(iqamahTimeInt))
+                .thenReturn(iqamahTime);
 
 
-        // Date azanTime = this.createCalendarFromTime(23, 59).getTime();
-        String iqamahTime = iqamahCalculator.calculate("06:03", 10, IqamahCalculator.MinutesRound.roundTo15);
-        Assert.assertEquals("06:15", iqamahTime);
+        // Call
+        String iqamahTimeResult = iqamahCalculator.calculate(azanTime, 10, IqamahCalculator.MinutesRound.roundTo15);
 
-
-        System.out.println();
+        // Assert
+        Assert.assertEquals("06:15", iqamahTimeResult);
     }
 
-    private Calendar createCalendarFromTime(int hour24, int minute) {
-        return this.createCalendar(2016, 0, 1, hour24, minute);
-    }
 
-    private Calendar createCalendar(int year, int month, int date, int hour24, int minute) {
+
+    public Calendar createCalendarFromTime(int hour24, int minute) {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month);
-        calendar.set(Calendar.DATE, date);
+        calendar.set(Calendar.YEAR, 2016);
+        calendar.set(Calendar.MONTH, 0);
+        calendar.set(Calendar.DATE, 1);
         calendar.set(Calendar.HOUR_OF_DAY, hour24);
         calendar.set(Calendar.MINUTE, minute);
         calendar.set(Calendar.SECOND, 0);
