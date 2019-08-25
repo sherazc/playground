@@ -102,9 +102,7 @@ class ResetPrayerConfig extends Component {
             && serviceResponse.target.prayers.length > 0) {
 
             this.props.adminPrayerConfigEdit(serviceResponse.target);
-
-            console.log("PrayerConfig", serviceResponse.target);
-
+            this.handleClose();
         } else {
             // TODO: show error message
             console.error("Error getting updated prayer time, or parsing updated prayer times.");

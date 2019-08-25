@@ -27,8 +27,11 @@ class TabPrayer extends Component {
         return prayersMonths;
     };
 
-    makePrayerMonths() {
-        const {prayers} = this.props.prayerConfig;
+    makePrayerMonths(editMode) {
+
+        // TODO: Change this logic to update component state instead of redux store
+        const prayers = editMode ? this.props.editPrayerConfig.prayers : this.props.prayerConfig.prayers;
+
         let result = (
             <div>
                 Prayers not setup. Click on reset to generate new Prayer times.
@@ -39,7 +42,13 @@ class TabPrayer extends Component {
             const prayersMonths = prayers.reduce(this.prayerReducer, []);
             if (prayersMonths && prayersMonths.length > 0) {
                 result = prayersMonths.map(
-                    (prayersMonth, index) => <PrayersMonth prayersMonth={prayersMonth} monthIndex={index} key={index}/>
+                    (prayersMonth, index) => {
+                        return <PrayersMonth
+                            editMode={editMode}
+                            prayersMonth={prayersMonth}
+                            monthIndex={index}
+                            key={index}/>
+                    }
                 );
             }
         }
@@ -63,20 +72,74 @@ class TabPrayer extends Component {
     }
 
     render() {
+        const editMode = this.props.editPrayerConfig
+            && this.props.editPrayerConfig.prayers
+            && this.props.editPrayerConfig.prayers.length > 0;
+
         return (
             <div>
                 <ResetPrayerLocation />
+
+                {editMode &&
                 <Button variant="outlined" color="primary">
                     Save
                 </Button>
-                {this.makePrayerMonths()}
+                }
+                {!editMode &&
+                <Button variant="outlined" color="primary">
+                    Edit
+                </Button>
+                }
+                {this.makePrayerMonths(editMode)}
 
             </div>
         );
     }
 }
 
-const mapStateToProps = state => {return {login: state.login, prayerConfig: state.admin.prayerConfig}};
+const mapStateToProps = state => {
+    return {
+        login: state.login,
+        prayerConfig: state.admin.prayerConfig,
+        editPrayerConfig: state.admin.editPrayerConfig
+    }
+};
 const actions = {adminPrayerConfigUpdate, adminPrayerConfigReset};
 
 export default connect(mapStateToProps, actions)(TabPrayer);
+/*
+
+add DST in PrayerConfig
+    {
+        auto: boolean,
+        start: date,
+        end: date
+    }
+
+Load prayers from state.admin.prayerConfig.prayers
+
+Have <ResetPrayerLocation /> pass PrayerConfig to <TabPrayer/>. TabPrayer
+will PrayerConfig in its state
+
+if Prayers[] exist in TabPrayer.state then edit mode is On
+
+
+On TabPrayer.componentWillUnmount()
+    - if TabPrayer.state.PrayerConfig exists
+    then copy it in redux store as redux.admin.editPrayerConfig
+
+
+On Edit
+
+
+On Save
+    - set companyId and prayerConfig id in TabPrayer.state.PrayerConfig
+    - if DST is on then remove DST from TabPrayer.state.PrayerConfig.prayers
+    - send TabPrayer.state.PrayerConfig to API
+    - On success response
+        - set TabPrayer.state.PrayerConfig as redux.admin.PrayerConfig
+        - remove TabPrayer.state.PrayerConfig and redux.admin.editPrayerConfig
+
+On DST
+
+ */

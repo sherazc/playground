@@ -7,7 +7,7 @@ const InputField = (props) => {
 
     const viewOrEditField = mode => {
         if ("view" === mode) {
-            return <>{props.value}</>;
+            return <span className={props.viewClass}>{props.value}</span>;
         } else {
             return <input
                 onChange={props.onChange}
@@ -25,7 +25,7 @@ const InputField = (props) => {
     return (
         <div>
             {props.required && <span style={{color:'red'}}>*</span>}
-            <label htmlFor={props.name}>{props.label}</label>
+            {props.label && <label htmlFor={props.name}>{props.label}</label>}
             {viewOrEditField(props.mode)}
             {props.fieldError && props.fieldError.length > 0 &&
                 <div style={{color: "red"}}>
