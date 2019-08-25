@@ -296,21 +296,32 @@ While Geocode and timezone are loading show loading in geocode and timezone fiel
 
 ✅ ‍️Auto generate iqamah time checkbox.
 
-🏃 Merge Existing iqamah times with the newly created salah times in the API.
+✅ Merge Existing iqamah times with the newly created salah times in the API.
 
-🏃 Auto generate iqamah time will be done in the backend.
+✅ Auto generate iqamah time will be done in the backend.
 
-No save will be done on Reset. Show save button
+❌ Disable Finish button if location is invalid.
 
-Disable Finish button if location is invalid.
+✅ Once all reset salah location dialog values are complete the create a PrayerConfig object without the prayers.
 
-Once all reset salah location dialog values are complete the create a PrayerConfig object.
-
-Call Create Prayer times API. POST it PrayerConfig and pass it "reset iqamah time" and
-"auto generate iqamah times"  /api/prayer/{companyId}/config/time. API will return ServiceResponse<PrayerConfig>.
+✅ Call Create Prayer times API. POST it PrayerConfig and pass it "reset iqamah time" and
+"auto generate iqamah times"  /api/prayer/{companyId}/config/create. API will return ServiceResponse<PrayerConfig>.
 Returned PrayerConfig will contain 366 List<Prayer>
 
 Returned Prayer config will be stored in temporary admin redux store. call it EditPrayerConfig
+
+If temporary PrayerConfig exists in the redux store then edit mode is On.
+
+If edit mode is on then create text field in all salah and iqamah times
+
+No save will be done on Reset. Show save button if edit mode is on
+
+Toggle save and edit button.
+
+On click edit button, create temporary PrayerConfig in redux store
+
+On click save button. call POST /api/prayer/{companyId}/config to save
+
 
 */
 
