@@ -15,13 +15,6 @@ class TabPrayer extends Component {
 
     constructor(props) {
         super(props);
-        this.handleUpdatedPrayerTime = this.handleUpdatedPrayerTime.bind(this);
-        this.state = {prayersMonths: []};
-    }
-
-    handleUpdatedPrayerTime(yearPrayers) {
-        const prayersMonths = yearPrayers.reduce(this.prayerReducer, []);
-        this.setState({prayersMonths});
     }
 
     prayerReducer(prayersMonths, prayer) {
@@ -41,6 +34,7 @@ class TabPrayer extends Component {
                 Prayers not setup. Click on reset to generate new Prayer times.
             </div>
         );
+
         if (prayers && prayers.length > 0) {
             const prayersMonths = prayers.reduce(this.prayerReducer, []);
             if (prayersMonths && prayersMonths.length > 0) {
@@ -71,7 +65,7 @@ class TabPrayer extends Component {
     render() {
         return (
             <div>
-                <ResetPrayerLocation handleUpdatedPrayerTime={this.handleUpdatedPrayerTime}/>
+                <ResetPrayerLocation />
                 <Button variant="outlined" color="primary">
                     Save
                 </Button>

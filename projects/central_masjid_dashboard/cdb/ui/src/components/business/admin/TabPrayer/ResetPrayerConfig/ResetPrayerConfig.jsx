@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {geoCodeLocation, updatePrayerLocation} from "./PrayerServices";
+import {geoCodeLocation, callCreatePrayerTimeApi} from "./PrayerServices";
 import {
     Button, TextField, Dialog, DialogActions, DialogContent, DialogContentText,
     DialogTitle, FormControl, InputLabel, MenuItem, Select,
@@ -8,6 +8,8 @@ import {
 import {allCalculationMethods, allAsrJuristicMethods} from "./prayerCollections";
 import styles from "./ResetPrayerConfig.module.scss";
 import {connect} from "react-redux";
+import {adminPrayerConfigEdit} from "../../../../../store/admin/adminActions";
+
 
 class ResetPrayerConfig extends Component {
     constructor(props) {
@@ -18,7 +20,7 @@ class ResetPrayerConfig extends Component {
         this.handleValidateLocation = this.handleValidateLocation.bind(this);
         this.handleGeocode = this.handleGeocode.bind(this);
         this.handleFinish = this.handleFinish.bind(this);
-        this.handleUpdatedPrayerTime = this.handleUpdatedPrayerTime.bind(this);
+        this.handleResetPrayerConfigApiResponse = this.handleResetPrayerConfigApiResponse.bind(this);
     }
 
     createInitState(prayerConfig) {
@@ -89,16 +91,20 @@ class ResetPrayerConfig extends Component {
             geoCode: this.state.geoCode
         };
 
-        updatePrayerLocation(companyId, prayerConfig, this.state.generateIqamah, this.handleUpdatedPrayerTime);
+        callCreatePrayerTimeApi(companyId, prayerConfig, this.state.generateIqamah, this.handleResetPrayerConfigApiResponse);
     }
 
-    handleUpdatedPrayerTime(serviceResponse) {
+    handleResetPrayerConfigApiResponse(serviceResponse) {
         if (serviceResponse
             && serviceResponse.successful
             && serviceResponse.target
-            && serviceResponse.target.length > 0) {
-            this.props.handleUpdatedPrayerTime(serviceResponse.target);
-            this.handleClose();
+            && serviceResponse.target.prayers
+            && serviceResponse.target.prayers.length > 0) {
+
+            this.props.adminPrayerConfigEdit(serviceResponse.target);
+
+            console.log("PrayerConfig", serviceResponse.target);
+
         } else {
             // TODO: show error message
             console.error("Error getting updated prayer time, or parsing updated prayer times.");
@@ -274,9 +280,13 @@ class ResetPrayerConfig extends Component {
 }
 
 const mapStateToProps = state => {
-    return {login: state.login, prayerConfig: state.admin.prayerConfig}
+    return {
+        login: state.login,
+        prayerConfig: state.admin.prayerConfig,
+        editPrayerConfig: state.admin.editPrayerConfig
+    }
 };
-const actions = {};
+const actions = {adminPrayerConfigEdit};
 
 export default connect(mapStateToProps, actions)(ResetPrayerConfig);
 
@@ -322,6 +332,13 @@ On click edit button, create temporary PrayerConfig in redux store
 
 On click save button. call POST /api/prayer/{companyId}/config to save
 
+--------
+
+Redefine DST logic
+
+Add DST to toggle (on/off) button in prayer tab
+
+Add auto and custom DST logic
 
 */
 
