@@ -109,37 +109,49 @@ const actions = {adminPrayerConfigUpdate, adminPrayerConfigReset};
 export default connect(mapStateToProps, actions)(TabPrayer);
 /*
 
-add DST in PrayerConfig
+Edit.onClick will copy redux.admin.prayerConfig in TabPrayer.state.PrayerConfig
+
+if TabPrayer.state.PrayerConfig.prayers exist then editMode is On
+
+On editMode show Save and Cancel button on always show hover bar at the bottom of the screen
+
+Load prayers from TabPrayer.state.PrayerConfig.prayers else from redux.admin.prayerConfig.prayers
+
+Have <ResetPrayerLocation /> pass PrayerConfig to TabPrayer.state.prayerConfig
+
+On TabPrayer.componentWillMount()
+    - if redux.admin.editPrayerConfig exists then set it in TabPrayer.state.PrayerConfig
+
+On TabPrayer.componentWillUnmount()
+    - if TabPrayer.state.PrayerConfig exists
+    then copy it in redux store as redux.admin.editPrayerConfig
+
+On Save
+    - set companyId and prayerConfig id in TabPrayer.state.PrayerConfig
+    ⏸ - if DST is on then remove DST from TabPrayer.state.PrayerConfig.prayers
+    - send TabPrayer.state.PrayerConfig to API
+    - On success response
+        - set TabPrayer.state.PrayerConfig as redux.admin.PrayerConfig
+        - remove TabPrayer.state.PrayerConfig and redux.admin.editPrayerConfig
+
+
+
+-----------------
+On DST
+
+add DST in PrayerConfig.java
     {
         auto: boolean,
         start: date,
         end: date
     }
 
-Load prayers from state.admin.prayerConfig.prayers
+Redefine DST logic
 
-Have <ResetPrayerLocation /> pass PrayerConfig to <TabPrayer/>. TabPrayer
-will PrayerConfig in its state
+Add DST to toggle (on/off) button in prayer tab
 
-if Prayers[] exist in TabPrayer.state then edit mode is On
-
-
-On TabPrayer.componentWillUnmount()
-    - if TabPrayer.state.PrayerConfig exists
-    then copy it in redux store as redux.admin.editPrayerConfig
+Add auto and custom DST logic
 
 
-On Edit
-
-
-On Save
-    - set companyId and prayerConfig id in TabPrayer.state.PrayerConfig
-    - if DST is on then remove DST from TabPrayer.state.PrayerConfig.prayers
-    - send TabPrayer.state.PrayerConfig to API
-    - On success response
-        - set TabPrayer.state.PrayerConfig as redux.admin.PrayerConfig
-        - remove TabPrayer.state.PrayerConfig and redux.admin.editPrayerConfig
-
-On DST
 
  */

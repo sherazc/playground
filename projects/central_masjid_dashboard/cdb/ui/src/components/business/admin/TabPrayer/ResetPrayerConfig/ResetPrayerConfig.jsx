@@ -316,27 +316,21 @@ While Geocode and timezone are loading show loading in geocode and timezone fiel
 "auto generate iqamah times"  /api/prayer/{companyId}/config/create. API will return ServiceResponse<PrayerConfig>.
 Returned PrayerConfig will contain 366 List<Prayer>
 
-Returned Prayer config will be stored in temporary admin redux store. call it EditPrayerConfig
+❌ Returned Prayer config will be stored in temporary admin redux store. call it EditPrayerConfig
 
-If temporary PrayerConfig exists in the redux store then edit mode is On.
+❌ If temporary PrayerConfig exists in the redux store then edit mode is On.
 
-If edit mode is on then create text field in all salah and iqamah times
+❌ If edit mode is on then create text field in all salah and iqamah times
 
-No save will be done on Reset. Show save button if edit mode is on
+❌ No save will be done on Reset. Show save button if edit mode is on
 
-Toggle save and edit button.
+❌ Toggle save and edit button.
 
-On click edit button, create temporary PrayerConfig in redux store
+❌ On click edit button, create temporary PrayerConfig in redux store
 
-On click save button. call POST /api/prayer/{companyId}/config to save
+❌ On click save button. call POST /api/prayer/{companyId}/config to save
 
 --------
-
-Redefine DST logic
-
-Add DST to toggle (on/off) button in prayer tab
-
-Add auto and custom DST logic
 
 */
 
