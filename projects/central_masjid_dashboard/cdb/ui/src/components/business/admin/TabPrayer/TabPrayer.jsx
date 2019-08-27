@@ -15,6 +15,11 @@ class TabPrayer extends Component {
 
     constructor(props) {
         super(props);
+        this.state = this.createInitialState();
+    }
+
+    createInitialState() {
+        return {prayerConfig: {}}
     }
 
     prayerReducer(prayersMonths, prayer) {
@@ -30,7 +35,7 @@ class TabPrayer extends Component {
     makePrayerMonths(editMode) {
 
         // TODO: Change this logic to update component state instead of redux store
-        const prayers = editMode ? this.props.editPrayerConfig.prayers : this.props.prayerConfig.prayers;
+        const prayers = editMode ? this.state.prayerConfig.prayers : this.props.prayerConfig.prayers;
 
         let result = (
             <div>
@@ -57,7 +62,7 @@ class TabPrayer extends Component {
 
     componentDidMount() {
         const companyId = this.props.login.company.id;
-        const prayers = this.getPrayers();
+        const prayers = this.props.prayerConfig.prayers;
 
         if (!prayers || prayers.length < 1 || companyId !== this.props.prayerConfig.companyId) {
             axios
@@ -67,29 +72,27 @@ class TabPrayer extends Component {
         }
     }
 
-    getPrayers() {
-        return this.props.prayerConfig.prayers;
+    onEdit() {
+        this.setState({prayerConfig: this.props.prayerConfig});
+    }
+
+    isEditMode() {
+        const prayerConfig = this.state.prayerConfig;
+        return prayerConfig && prayerConfig.prayers && prayerConfig.prayers.length > 0;
     }
 
     render() {
-        const editMode = this.props.editPrayerConfig
-            && this.props.editPrayerConfig.prayers
-            && this.props.editPrayerConfig.prayers.length > 0;
+        const editMode = this.isEditMode();
 
         return (
             <div>
                 <ResetPrayerLocation />
-
-                {editMode &&
-                <Button variant="outlined" color="primary">
-                    Save
-                </Button>
-                }
-                {!editMode &&
-                <Button variant="outlined" color="primary">
+                <Button onClick={this.onEdit.bind(this)}
+                    disabled={editMode}
+                    variant="outlined" color="primary">
                     Edit
                 </Button>
-                }
+
                 {this.makePrayerMonths(editMode)}
 
             </div>
@@ -109,7 +112,7 @@ const actions = {adminPrayerConfigUpdate, adminPrayerConfigReset};
 export default connect(mapStateToProps, actions)(TabPrayer);
 /*
 
-Edit.onClick will copy redux.admin.prayerConfig in TabPrayer.state.PrayerConfig
+▶️ Edit.onClick will copy redux.admin.prayerConfig in TabPrayer.state.PrayerConfig
 
 if TabPrayer.state.PrayerConfig.prayers exist then editMode is On
 
