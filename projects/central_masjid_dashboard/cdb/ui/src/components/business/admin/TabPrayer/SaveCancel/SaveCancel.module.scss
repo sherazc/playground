@@ -1,0 +1,20 @@
+
+
+.hoverActionBar {
+  background-color: #f6f6f6;
+  text-align: center;
+  padding: 10px;
+  box-shadow: 0px -1px 5px 0px rgba(119, 119, 119, 0.6);
+  -webkit-box-shadow: 0px -1px 5px 0px rgba(119, 119, 119, 0.6);
+  -moz-box-shadow: 0px -1px 5px 0px rgba(119, 119, 119, 0.6);
+
+  position: fixed;
+  width: 100%;
+  // bottom: -60px;
+  bottom: 0;
+  z-index: 200;
+}
+
+.button {
+  padding: 0 20px;
+}

@@ -8,6 +8,7 @@ import {
     adminPrayerConfigUpdate,
     adminPrayerConfigReset
 } from "../../../../store/admin/adminActions"
+import SaveCancel from "./SaveCancel/SaveCancel"
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
@@ -33,8 +34,6 @@ class TabPrayer extends Component {
     };
 
     makePrayerMonths(editMode) {
-
-        // TODO: Change this logic to update component state instead of redux store
         const prayers = editMode ? this.state.prayerConfig.prayers : this.props.prayerConfig.prayers;
 
         let result = (
@@ -95,6 +94,11 @@ class TabPrayer extends Component {
 
                 {this.makePrayerMonths(editMode)}
 
+                {editMode &&
+                    <SaveCancel
+                        saveLabel="Save"
+                        cancelLabel="Cancel"/>
+                }
             </div>
         );
     }
@@ -112,11 +116,11 @@ const actions = {adminPrayerConfigUpdate, adminPrayerConfigReset};
 export default connect(mapStateToProps, actions)(TabPrayer);
 /*
 
-▶️ Edit.onClick will copy redux.admin.prayerConfig in TabPrayer.state.PrayerConfig
+✅️ Edit.onClick will copy redux.admin.prayerConfig in TabPrayer.state.PrayerConfig
 
-if TabPrayer.state.PrayerConfig.prayers exist then editMode is On
+✅ if TabPrayer.state.PrayerConfig.prayers exist then editMode is On
 
-On editMode show Save and Cancel button on always show hover bar at the bottom of the screen
+▶️ On editMode show Save and Cancel button on always show hover bar at the bottom of the screen
 
 Load prayers from TabPrayer.state.PrayerConfig.prayers else from redux.admin.prayerConfig.prayers
 

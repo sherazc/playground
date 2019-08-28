@@ -5,6 +5,7 @@ import {loginAction, loginResetAction} from "../store/login/actions";
 import {verifyAuthentication} from "../services/auth/AuthNZ";
 import {Redirect} from "react-router";
 import {mapStateLoginToProps} from "../store/lib/utils";
+import SaveCancel from "./business/admin/TabPrayer/SaveCancel/SaveCancel";
 
 class Login extends Component {
 
@@ -78,6 +79,10 @@ class Login extends Component {
                         value={this.state.password}/>
                     <button type="submit">Submit</button>
                 </form>
+                <br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc
+                <SaveCancel
+                    saveLabel="Save"
+                    cancelLabel="Cancel"/>
             </div>
         );
     }
