@@ -1,36 +1,32 @@
-import React, {Component} from "react";
+import React from "react";
 import {Button} from "@material-ui/core";
 import styles from "./SaveCancel.module.scss"
 
-class SaveCancel extends Component {
+const SaveCancel = (props) => {
 
-    constructor(props) {
-        super(props);
-    }
+    const containerClasses = `${styles.hoverActionBar} ${props.show ? styles.hoverActionBarShow : styles.hoverActionBarHide}`;
 
-    render() {
-        const containerClasses = `${styles.hoverActionBar} ${this.props.show ? styles.hoverActionBarShow : styles.hoverActionBarHide}`;
-        return(
-            <div className={containerClasses}>
-
+    return (
+        <div className={containerClasses}>
+            {props.saveLabel &&
                 <span className={styles.button}>
                     <Button
-                        onClick={this.props.onSave}
+                        onClick={props.onSave}
                         variant="outlined" color="primary">
-                        {this.props.saveLabel}
+                        {props.saveLabel}
                     </Button>
                 </span>
+            }
+            {props.cancelLabel &&
                 <span className={styles.button}>
-                    <Button onClick={this.props.onCancel}
+                    <Button onClick={props.onCancel}
                             variant="outlined" color="primary">
-                        {this.props.cancelLabel}
+                        {props.cancelLabel}
                     </Button>
                 </span>
-
-
-            </div>
-        );
-    }
-}
+            }
+        </div>
+    );
+};
 
 export default SaveCancel;
