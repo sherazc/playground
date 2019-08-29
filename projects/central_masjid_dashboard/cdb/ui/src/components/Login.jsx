@@ -40,7 +40,8 @@ class Login extends Component {
         return {
             companyId: "",
             email: "",
-            password: ""
+            password: "",
+            show: true
         }
     }
 
@@ -78,11 +79,16 @@ class Login extends Component {
                         onChange={this.onChange}
                         value={this.state.password}/>
                     <button type="submit">Submit</button>
+                    <button type="button" onClick={() => this.setState({show: !this.state.show})}>show/hide</button>
                 </form>
                 <br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc
                 <SaveCancel
+                    show={this.state.show}
+                    onSave={() => console.log("Save Click")}
+                    onCancel={() => console.log("Cancle Click")}
                     saveLabel="Save"
-                    cancelLabel="Cancel"/>
+                    cancelLabel="Cancel"
+                />
             </div>
         );
     }

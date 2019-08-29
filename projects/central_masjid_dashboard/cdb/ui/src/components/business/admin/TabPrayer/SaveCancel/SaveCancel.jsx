@@ -9,8 +9,9 @@ class SaveCancel extends Component {
     }
 
     render() {
+        const containerClasses = `${styles.hoverActionBar} ${this.props.show ? styles.hoverActionBarShow : styles.hoverActionBarHide}`;
         return(
-            <div className={styles.hoverActionBar}>
+            <div className={containerClasses}>
 
                 <span className={styles.button}>
                     <Button
