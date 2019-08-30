@@ -1,10 +1,10 @@
-export const ADMIN_PRAYER_CONFIG_RESET = "ADMIN_PRAYER_CONFIG_RESET";
-export const ADMIN_PRAYER_CONFIG_UPDATE = "ADMIN_PRAYER_CONFIG_UPDATE";
+export const ADMIN_PRAYER_CONFIG = "ADMIN_PRAYER_CONFIG";
 export const ADMIN_PRAYER_CONFIG_EDIT = "ADMIN_PRAYER_CONFIG_EDIT";
+export const ADMIN_PRAYER_CONFIG_RESET = "ADMIN_PRAYER_CONFIG_RESET";
 
-export const adminPrayerConfigUpdate = (prayerConfig) => {
+export const setAdminPrayerConfig = (prayerConfig) => {
     return {
-        type: ADMIN_PRAYER_CONFIG_UPDATE,
+        type: ADMIN_PRAYER_CONFIG,
         payload: prayerConfig
     };
 };
@@ -13,7 +13,7 @@ export const adminPrayerConfigReset = () => {
     return {type: ADMIN_PRAYER_CONFIG_RESET};
 };
 
-export const adminPrayerConfigEdit = (prayerConfig) => {
+export const setAdminPrayerConfigEdit = (prayerConfig) => {
     return {
         type: ADMIN_PRAYER_CONFIG_EDIT,
         payload: prayerConfig

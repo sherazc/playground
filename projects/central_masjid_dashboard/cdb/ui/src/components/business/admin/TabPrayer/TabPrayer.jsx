@@ -5,9 +5,9 @@ import {Button} from "@material-ui/core";
 import {connect} from "react-redux";
 import axios from "axios";
 import {
-    adminPrayerConfigUpdate,
+    setAdminPrayerConfig,
+    setAdminPrayerConfigEdit,
     adminPrayerConfigReset,
-    adminPrayerConfigEdit
 } from "../../../../store/admin/adminActions"
 import SaveCancel from "./SaveCancel/SaveCancel"
 
@@ -22,7 +22,7 @@ class TabPrayer extends Component {
     }
 
     createInitialState() {
-        return {prayerConfig: {}}
+        return {prayerConfig: {}, prayerConfigDirty: false}
     }
 
     prayerReducer(prayersMonths, prayer) {
@@ -67,9 +67,10 @@ class TabPrayer extends Component {
         // Set prayers in state if prayers exists in edit prayer config
         let prayers;
         if (!this.prayersExistInPrayerConfig(this.state.prayerConfig)
-            && this.prayersExistInPrayerConfig(this.props.editPrayerConfig)) {
-            prayers = this.props.editPrayerConfig.prayers;
-            this.setState({prayerConfig: this.props.editPrayerConfig});
+            && this.prayersExistInPrayerConfig(this.props.prayerConfigEdit)) {
+            prayers = this.props.prayerConfigEdit.prayers;
+            this.setState({prayerConfig: this.props.prayerConfigEdit});
+
         }
 
         if (!prayers && this.prayersExistInPrayerConfig(this.props.prayerConfig)) {
@@ -79,21 +80,21 @@ class TabPrayer extends Component {
         if (!prayers || prayers.length < 1 || companyId !== this.props.prayerConfig.companyId) {
             axios
                 .get(`${baseUrl}/api/prayer/config/${companyId}`)
-                .then(response => this.props.adminPrayerConfigUpdate(response.data))
+                .then(response => this.props.setAdminPrayerConfig(response.data))
                 .catch(() => this.props.adminPrayerConfigReset());
         }
     }
 
     componentWillUnmount() {
-        this.props.adminPrayerConfigEdit(this.state.prayerConfig);
+        this.props.setAdminPrayerConfigEdit(this.state.prayerConfig);
     }
 
     onEdit() {
-        this.setState({prayerConfig: this.props.prayerConfig});
+        this.setState({prayerConfig: this.props.prayerConfig, prayerConfigDirty: false});
     }
 
     onCancel() {
-        this.setState({prayerConfig: {}});
+        this.setState({prayerConfig: {}, prayerConfigDirty: false});
     }
 
     isEditMode() {
@@ -132,10 +133,10 @@ const mapStateToProps = state => {
     return {
         login: state.login,
         prayerConfig: state.admin.prayerConfig,
-        editPrayerConfig: state.admin.editPrayerConfig
+        prayerConfigEdit: state.admin.prayerConfigEdit
     }
 };
-const actions = {adminPrayerConfigUpdate, adminPrayerConfigReset, adminPrayerConfigEdit};
+const actions = {setAdminPrayerConfig, setAdminPrayerConfigEdit, adminPrayerConfigReset};
 
 export default connect(mapStateToProps, actions)(TabPrayer);
 /*
@@ -153,11 +154,11 @@ Load prayers from TabPrayer.state.PrayerConfig.prayers else from redux.admin.pra
 Have <ResetPrayerLocation /> pass PrayerConfig to TabPrayer.state.prayerConfig
 
 ▶️ On TabPrayer.componentWillMount()
-    - if redux.admin.editPrayerConfig exists then set it in TabPrayer.state.PrayerConfig
+    - if redux.admin.prayerConfigEdit exists then set it in TabPrayer.state.PrayerConfig
 
 On TabPrayer.componentWillUnmount()
     - if TabPrayer.state.PrayerConfig exists
-    then copy it in redux store as redux.admin.editPrayerConfig
+    then copy it in redux store as redux.admin.prayerConfigEdit
 
 On Save
     - set companyId and prayerConfig id in TabPrayer.state.PrayerConfig
@@ -165,7 +166,7 @@ On Save
     - send TabPrayer.state.PrayerConfig to API
     - On success response
         - set TabPrayer.state.PrayerConfig as redux.admin.PrayerConfig
-        - remove TabPrayer.state.PrayerConfig and redux.admin.editPrayerConfig
+        - remove TabPrayer.state.PrayerConfig and redux.admin.prayerConfigEdit
 
 
 

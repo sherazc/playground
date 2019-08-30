@@ -8,7 +8,7 @@ import {
 import {allCalculationMethods, allAsrJuristicMethods} from "./prayerCollections";
 import styles from "./ResetPrayerConfig.module.scss";
 import {connect} from "react-redux";
-import {adminPrayerConfigEdit} from "../../../../../store/admin/adminActions";
+import {setAdminPrayerConfigEdit} from "../../../../../store/admin/adminActions";
 
 
 class ResetPrayerConfig extends Component {
@@ -101,7 +101,7 @@ class ResetPrayerConfig extends Component {
             && serviceResponse.target.prayers
             && serviceResponse.target.prayers.length > 0) {
 
-            this.props.adminPrayerConfigEdit(serviceResponse.target);
+            this.props.setAdminPrayerConfigEdit(serviceResponse.target);
             this.handleClose();
         } else {
             // TODO: show error message
@@ -284,7 +284,7 @@ const mapStateToProps = state => {
         editPrayerConfig: state.admin.editPrayerConfig
     }
 };
-const actions = {adminPrayerConfigEdit};
+const actions = {setAdminPrayerConfigEdit};
 
 export default connect(mapStateToProps, actions)(ResetPrayerConfig);
 
