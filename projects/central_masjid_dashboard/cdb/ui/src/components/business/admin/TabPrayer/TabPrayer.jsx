@@ -86,7 +86,14 @@ class TabPrayer extends Component {
     }
 
     componentWillUnmount() {
-        this.props.setAdminPrayerConfigEdit(this.state.prayerConfig);
+        if (this.isEditMode()
+            && (this.state.prayerConfigDirty || !this.prayersExistInPrayerConfig(this.props.prayerConfigEdit))) {
+            this.props.setAdminPrayerConfigEdit(this.state.prayerConfig);
+        }
+
+        if (!this.isEditMode() && this.prayersExistInPrayerConfig(this.props.prayerConfigEdit)) {
+            this.props.setAdminPrayerConfigEdit({});
+        }
     }
 
     onEdit() {
@@ -95,6 +102,7 @@ class TabPrayer extends Component {
 
     onCancel() {
         this.setState({prayerConfig: {}, prayerConfigDirty: false});
+        this.props.setAdminPrayerConfigEdit({});
     }
 
     isEditMode() {
