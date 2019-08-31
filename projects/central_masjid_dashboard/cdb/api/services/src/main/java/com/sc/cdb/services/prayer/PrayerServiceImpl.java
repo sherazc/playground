@@ -40,15 +40,12 @@ public class PrayerServiceImpl implements PrayerService {
     @Override
     public ServiceResponse<String> savePrayerConfig(PrayerConfig prayerConfig) {
         ServiceResponse.ServiceResponseBuilder<String> serviceResponseBuilder = ServiceResponse.builder();
-        PrayerConfig save = prayerConfigRepository.save(new PrayerConfig());
+        PrayerConfig save = prayerConfigRepository.save(prayerConfig);
         if (save == null || StringUtils.isBlank(save.getId())) {
-
-            serviceResponseBuilder.target("abc").successful(true).message("Successfully Saved");
+            serviceResponseBuilder.successful(false).message("Failed to save PrayerConfig");
         } else {
-
-            serviceResponseBuilder.target("abc").successful(true).message("Successfully Saved");
+            serviceResponseBuilder.target(save.getId()).successful(true).message("Successfully saved PrayerConfig");
         }
-
         return serviceResponseBuilder.build();
     }
 
