@@ -1,6 +1,9 @@
 import React, {Component} from "react";
 import styles from "./PrayersMonth.module.scss"
-import {dateToDisplayDateShort} from "../../../../../services/utilities"
+import {
+    dateToDisplayDateShort,
+    dateToMonthDate
+} from "../../../../../services/utilities"
 import InputField from "../../../../partials/InputField";
 
 class PrayersMonth extends Component {
@@ -9,23 +12,23 @@ class PrayersMonth extends Component {
         super(props);
         this.monthNames = ["January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"];
-        this.onChange = this.onChange.bind(this);
-    }
 
-    onChange(event) {
-        this.setState({[event.target.name]: event.target.value});
     }
 
     createDay(prayer, index, viewMode) {
-        return <tr key={index}>
+        const monthDate = dateToMonthDate(prayer.date)
+
+        return (
+            <tr key={index}>
                 <td>
                     {dateToDisplayDateShort(prayer.date)}
                 </td>
                 <td>
                     <InputField
-                        onChange={() => {}}
+                        onChange={this.props.onValueChange}
                         mode={viewMode}
                         value={prayer.fajr}
+                        name={`fajr_${monthDate}`}
                     />
                 </td>
                 <td>
@@ -59,6 +62,7 @@ class PrayersMonth extends Component {
                     {prayer.ishaIqama}
                 </td>
             </tr>
+        );
     }
 
     render() {

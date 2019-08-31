@@ -53,7 +53,8 @@ class TabPrayer extends Component {
                             editMode={editMode}
                             prayersMonth={prayersMonth}
                             monthIndex={index}
-                            key={index}/>
+                            key={index}
+                            onValueChange={this.onValueChange.bind(this)}/>
                     }
                 );
             }
@@ -124,6 +125,20 @@ class TabPrayer extends Component {
                 }
             })
             .catch((error) => console.log("Error occurred", error));
+    }
+
+    onValueChange(event) {
+        const fieldName = event.target.name;
+        const fieldValue = event.target.value;
+        const fieldNameMonthDate = fieldName.s
+        console.log(fieldName, fieldValue);
+
+
+        this.state.prayerConfig.prayers.forEach((prayer, index) => {
+            console.log(new Date(prayer.date));
+
+        });
+
     }
 
     isEditMode() {
