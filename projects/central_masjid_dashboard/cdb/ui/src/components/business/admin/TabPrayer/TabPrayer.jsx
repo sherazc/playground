@@ -131,17 +131,15 @@ class TabPrayer extends Component {
         const dateMonthStringLength = 6;
         const fieldName = event.target.name;
         const fieldValue = event.target.value;
-
         const fieldNameMonthDate = fieldName.substring(fieldName.length - dateMonthStringLength, fieldName.length);
         const fieldNameSalahName = fieldName.substring(0, fieldName.length - dateMonthStringLength);
-        // console.log(fieldName, fieldValue);
-        console.log(fieldNameSalahName, fieldNameMonthDate);
 
-        this.state.prayerConfig.prayers.forEach((prayer, index) => {
-            // console.log(new Date(prayer.date));
-
+        this.state.prayerConfig.prayers.forEach((prayer) => {
+            if (prayer.date.includes(fieldNameMonthDate)) {
+                prayer[fieldNameSalahName] = fieldValue;
+            }
         });
-
+        this.setState({prayerConfig: this.state.prayerConfig, prayerConfigDirty: true});
     }
 
     isEditMode() {
