@@ -7,11 +7,12 @@ import com.sc.cdb.services.model.ServiceResponse;
 
 
 public interface PrayerService {
-    boolean isValid(PrayerConfig prayerConfig);
 
-    ServiceResponse<?> updatePrayerConfig(PrayerConfig prayerConfig);
+    boolean isValid(PrayerConfig prayerConfig);
 
     ServiceResponse<PrayerConfig> createYearPrayerTimes(PrayerConfig prayerConfig, Boolean generateIqamah);
 
     Optional<PrayerConfig> getPrayerConfig(String companyId);
+
+    ServiceResponse<String> savePrayerConfig(PrayerConfig prayerConfig);
 }

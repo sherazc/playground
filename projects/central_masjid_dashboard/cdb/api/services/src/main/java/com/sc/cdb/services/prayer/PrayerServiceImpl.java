@@ -38,8 +38,18 @@ public class PrayerServiceImpl implements PrayerService {
     }
 
     @Override
-    public ServiceResponse<?> updatePrayerConfig(PrayerConfig prayerConfig) {
-        throw new RuntimeException("Not implemented");
+    public ServiceResponse<String> savePrayerConfig(PrayerConfig prayerConfig) {
+        ServiceResponse.ServiceResponseBuilder<String> serviceResponseBuilder = ServiceResponse.builder();
+        PrayerConfig save = prayerConfigRepository.save(new PrayerConfig());
+        if (save == null || StringUtils.isBlank(save.getId())) {
+
+            serviceResponseBuilder.target("abc").successful(true).message("Successfully Saved");
+        } else {
+
+            serviceResponseBuilder.target("abc").successful(true).message("Successfully Saved");
+        }
+
+        return serviceResponseBuilder.build();
     }
 
     @Override

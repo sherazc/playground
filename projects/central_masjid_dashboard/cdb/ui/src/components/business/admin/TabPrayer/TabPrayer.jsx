@@ -105,6 +105,12 @@ class TabPrayer extends Component {
         this.props.setAdminPrayerConfigEdit({});
     }
 
+    onSave() {
+        const prayerConfig = this.state.prayerConfig;
+
+
+    }
+
     isEditMode() {
         const prayerConfig = this.state.prayerConfig;
         return prayerConfig && prayerConfig.prayers && prayerConfig.prayers.length > 0;
@@ -157,14 +163,15 @@ export default connect(mapStateToProps, actions)(TabPrayer);
 
 ✅ On Cancel set TabPrayer.state.PrayerConfig = {}
 
-Load prayers from TabPrayer.state.PrayerConfig.prayers else from redux.admin.prayerConfig.prayers
+✅ Load prayers from TabPrayer.state.PrayerConfig.prayers else from redux.admin.prayerConfigEdit.prayers
+else from redux.admin.prayerConfig.prayers
 
 Have <ResetPrayerLocation /> pass PrayerConfig to TabPrayer.state.prayerConfig
 
-▶️ On TabPrayer.componentWillMount()
+✅ On TabPrayer.componentWillMount()
     - if redux.admin.prayerConfigEdit exists then set it in TabPrayer.state.PrayerConfig
 
-On TabPrayer.componentWillUnmount()
+✅ On TabPrayer.componentWillUnmount()
     - if TabPrayer.state.PrayerConfig exists
     then copy it in redux store as redux.admin.prayerConfigEdit
 
