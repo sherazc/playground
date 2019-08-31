@@ -16,21 +16,17 @@ class PrayersMonth extends Component {
         this.setState({[event.target.name]: event.target.value});
     }
 
-    createDays(prayersMonth, editMode) {
-        const viewMode = editMode ? "edit" : "view";
-
-        const prayersRows = prayersMonth.map((prayer, index) => {
-            return <tr key={index}>
+    createDay(prayer, index, viewMode) {
+        return <tr key={index}>
                 <td>
                     {dateToDisplayDateShort(prayer.date)}
                 </td>
                 <td>
-
                     <InputField
+                        onChange={() => {}}
                         mode={viewMode}
                         value={prayer.fajr}
                     />
-
                 </td>
                 <td>
                     {prayer.fajrIqama}
@@ -63,14 +59,11 @@ class PrayersMonth extends Component {
                     {prayer.ishaIqama}
                 </td>
             </tr>
-        });
-
-        return prayersRows;
     }
 
     render() {
         const monthName = this.monthNames[this.props.monthIndex];
-
+        const viewMode = this.props.editMode ? "edit" : "view";
         return (
             <div>
                 <div className={styles.prayerMonthGridContainer}>
@@ -103,7 +96,7 @@ class PrayersMonth extends Component {
                         </tr>
                         </thead>
                         <tbody>
-                        {this.createDays(this.props.prayersMonth, this.props.editMode)}
+                        {this.props.prayersMonth.map((prayer, index) => this.createDay(prayer, index, viewMode))}
                         </tbody>
                     </table>
                 </div>

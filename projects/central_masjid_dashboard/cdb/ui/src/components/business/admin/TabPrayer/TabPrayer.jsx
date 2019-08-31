@@ -107,8 +107,23 @@ class TabPrayer extends Component {
 
     onSave() {
         const prayerConfig = this.state.prayerConfig;
+        if (!prayerConfig) {
+            return;
+        }
 
-
+        prayerConfig.id = this.props.prayerConfig.id;
+        prayerConfig.companyId = this.props.login.company.id;
+        axios
+            .post(`${baseUrl}/api/prayer/config`, prayerConfig)
+            .then(response => {
+                const serviceResponse = response.data;
+                if (serviceResponse && serviceResponse.successful && serviceResponse.target) {
+                    this.props.setAdminPrayerConfig(prayerConfig);
+                    this.props.setAdminPrayerConfigEdit({});
+                    this.setState({prayerConfig: {}, prayerConfigDirty: false});
+                }
+            })
+            .catch((error) => console.log("Error occurred", error));
     }
 
     isEditMode() {
@@ -135,6 +150,7 @@ class TabPrayer extends Component {
                 {this.makePrayerMonths(editMode)}
                 <SaveCancel
                     show={editMode}
+                    onSave={this.onSave.bind(this)}
                     onCancel={this.onCancel.bind(this)}
                     saveLabel="Save"
                     cancelLabel="Cancel"/>
@@ -175,13 +191,13 @@ Have <ResetPrayerLocation /> pass PrayerConfig to TabPrayer.state.prayerConfig
     - if TabPrayer.state.PrayerConfig exists
     then copy it in redux store as redux.admin.prayerConfigEdit
 
-On Save
-    - set companyId and prayerConfig id in TabPrayer.state.PrayerConfig
-    ⏸ - if DST is on then remove DST from TabPrayer.state.PrayerConfig.prayers
-    - send TabPrayer.state.PrayerConfig to API
-    - On success response
-        - set TabPrayer.state.PrayerConfig as redux.admin.PrayerConfig
-        - remove TabPrayer.state.PrayerConfig and redux.admin.prayerConfigEdit
+▶️ On Save
+    ✅- set companyId and prayerConfig id in TabPrayer.state.PrayerConfig
+    ⏸- if DST is on then remove DST from TabPrayer.state.PrayerConfig.prayers
+    ✅- send TabPrayer.state.PrayerConfig to API
+    ✅- On success response
+        ✅- set TabPrayer.state.PrayerConfig as redux.admin.PrayerConfig
+        ✅- remove TabPrayer.state.PrayerConfig and redux.admin.prayerConfigEdit
 
 
 
