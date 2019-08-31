@@ -44,12 +44,12 @@ export const dateToDisplayDateShort = (date) => {
     return `${d.getUTCMonth() + 1}/${d.getUTCDate()}`;
 };
 
-export const dateToMonthDate = (date) => {
+export const datesMonthDatePart = (date) => {
     if (!date) {
         return;
     }
     const d = date instanceof Date ? date : new Date(date);
-    return `${numberTo2DigitsString(d.getUTCMonth() + 1)}${numberTo2DigitsString(d.getUTCDate())}`;
+    return `-${numberTo2DigitsString(d.getUTCMonth() + 1)}-${numberTo2DigitsString(d.getUTCDate())}`;
 };
 
 const numberTo2DigitsString = (number) => {

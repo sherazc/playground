@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import styles from "./PrayersMonth.module.scss"
 import {
     dateToDisplayDateShort,
-    dateToMonthDate
+    datesMonthDatePart
 } from "../../../../../services/utilities"
 import InputField from "../../../../partials/InputField";
 
@@ -16,8 +16,7 @@ class PrayersMonth extends Component {
     }
 
     createDay(prayer, index, viewMode) {
-        const monthDate = dateToMonthDate(prayer.date)
-
+        const monthDate = datesMonthDatePart(prayer.date)
         return (
             <tr key={index}>
                 <td>
@@ -28,7 +27,7 @@ class PrayersMonth extends Component {
                         onChange={this.props.onValueChange}
                         mode={viewMode}
                         value={prayer.fajr}
-                        name={`fajr_${monthDate}`}
+                        name={`fajr${monthDate}`}
                     />
                 </td>
                 <td>

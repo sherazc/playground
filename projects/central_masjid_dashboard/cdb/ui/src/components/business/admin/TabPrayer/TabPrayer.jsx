@@ -128,14 +128,17 @@ class TabPrayer extends Component {
     }
 
     onValueChange(event) {
+        const dateMonthStringLength = 6;
         const fieldName = event.target.name;
         const fieldValue = event.target.value;
-        const fieldNameMonthDate = fieldName.s
-        console.log(fieldName, fieldValue);
 
+        const fieldNameMonthDate = fieldName.substring(fieldName.length - dateMonthStringLength, fieldName.length);
+        const fieldNameSalahName = fieldName.substring(0, fieldName.length - dateMonthStringLength);
+        // console.log(fieldName, fieldValue);
+        console.log(fieldNameSalahName, fieldNameMonthDate);
 
         this.state.prayerConfig.prayers.forEach((prayer, index) => {
-            console.log(new Date(prayer.date));
+            // console.log(new Date(prayer.date));
 
         });
 
