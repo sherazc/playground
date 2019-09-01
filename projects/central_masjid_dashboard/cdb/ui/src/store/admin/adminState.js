@@ -2,13 +2,17 @@ import {createEmptyPrayerConfig} from "../../services/domain/EmptyObject";
 import {
     ADMIN_PRAYER_CONFIG_EDIT,
     ADMIN_PRAYER_CONFIG,
-    ADMIN_PRAYER_CONFIG_RESET
+    ADMIN_PRAYER_CONFIG_RESET,
+    ADMIN_CENTRAL_CONTROL,
+    ADMIN_CENTRAL_CONTROL_EDIT
 } from "./adminActions";
 
 const initialStateCreator = () => {
     return {
         prayerConfig: createEmptyPrayerConfig(),
-        prayerConfigEdit: {}
+        prayerConfigEdit: {},
+        centralControl: {},
+        centralControlEdit: {}
     };
 };
 
@@ -22,6 +26,10 @@ export const admin = (state = initialState, action) => {
             return {...state, prayerConfig: createEmptyPrayerConfig()};
         case ADMIN_PRAYER_CONFIG_EDIT:
             return {...state, prayerConfigEdit: action.payload};
+        case ADMIN_CENTRAL_CONTROL:
+            return {...state, centralControl: action.payload};
+        case ADMIN_CENTRAL_CONTROL_EDIT:
+            return {...state, centralControlEdit: action.payload};
         default:
             return state;
     }
