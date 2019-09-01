@@ -12,17 +12,21 @@ import {
 import SaveCancel from "./SaveCancel/SaveCancel"
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
-const TIME_24_REGEX_PATTERN = /^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$/;
 
 class TabPrayer extends Component {
 
     constructor(props) {
         super(props);
         this.state = this.createInitialState();
+        this.setPrayerConfigInState = this.setPrayerConfigInState.bind(this);
     }
 
     createInitialState() {
         return {prayerConfig: {}, prayerConfigDirty: false}
+    }
+
+    setPrayerConfigInState(prayerConfig, dirty) {
+       this.setState({prayerConfig: prayerConfig, prayerConfigDirty: dirty});
     }
 
     prayerReducer(prayersMonths, prayer) {
@@ -70,8 +74,7 @@ class TabPrayer extends Component {
         if (!this.prayersExistInPrayerConfig(this.state.prayerConfig)
             && this.prayersExistInPrayerConfig(this.props.prayerConfigEdit)) {
             prayers = this.props.prayerConfigEdit.prayers;
-            this.setState({prayerConfig: this.props.prayerConfigEdit});
-
+            this.setPrayerConfigInState(this.props.prayerConfigEdit, true)
         }
 
         if (!prayers && this.prayersExistInPrayerConfig(this.props.prayerConfig)) {
@@ -95,14 +98,15 @@ class TabPrayer extends Component {
     }
 
     onEdit() {
-        this.setState({prayerConfig: this.props.prayerConfig, prayerConfigDirty: false});
+        this.setPrayerConfigInState(this.props.prayerConfig, false);
     }
 
     onCancel() {
         if (this.state.prayerConfigDirty) {
             this.apiGetPrayerConfig(this.props.login.company.id);
         }
-        this.setState({prayerConfig: {}, prayerConfigDirty: false});
+
+        this.setPrayerConfigInState({}, false);
         this.props.setAdminPrayerConfigEdit({});
     }
 
@@ -121,7 +125,7 @@ class TabPrayer extends Component {
                 if (serviceResponse && serviceResponse.successful && serviceResponse.target) {
                     this.props.setAdminPrayerConfig(prayerConfig);
                     this.props.setAdminPrayerConfigEdit({});
-                    this.setState({prayerConfig: {}, prayerConfigDirty: false});
+                    this.setPrayerConfigInState({}, false);
                 }
             })
             .catch((error) => console.log("Error occurred", error));
@@ -139,7 +143,7 @@ class TabPrayer extends Component {
                 prayer[fieldNameSalahName] = fieldValue;
             }
         });
-        this.setState({prayerConfig: this.state.prayerConfig, prayerConfigDirty: true});
+        this.setPrayerConfigInState(this.state.prayerConfig, true);
     }
 
     isEditMode() {
