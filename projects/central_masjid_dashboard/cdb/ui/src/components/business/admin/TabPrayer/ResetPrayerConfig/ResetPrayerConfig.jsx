@@ -15,11 +15,11 @@ class ResetPrayerConfig extends Component {
     constructor(props) {
         super(props);
         this.state = this.createInitState(props.prayerConfig);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleChangeChecked = this.handleChangeChecked.bind(this);
-        this.handleValidateLocation = this.handleValidateLocation.bind(this);
-        this.handleGeocode = this.handleGeocode.bind(this);
-        this.handleFinish = this.handleFinish.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.onChangeChecked = this.onChangeChecked.bind(this);
+        this.onValidateLocation = this.onValidateLocation.bind(this);
+        this.onGeocode = this.onGeocode.bind(this);
+        this.onFinish = this.onFinish.bind(this);
         this.handleResetPrayerConfigApiResponse = this.handleResetPrayerConfigApiResponse.bind(this);
     }
 
@@ -51,23 +51,23 @@ class ResetPrayerConfig extends Component {
         }
     }
 
-    handleChange(event) {
+    onChange(event) {
         this.setState({[event.target.name]: event.target.value});
     }
 
-    handleChangeChecked(event) {
+    onChangeChecked(event) {
         this.setState({[event.target.name]: event.target.checked});
     }
 
-    handleOpen = () => {
+    onOpen = () => {
         this.setState({...this.createInitState(this.props.prayerConfig), open: true});
     };
 
-    handleClose = () => {
+    onClose = () => {
         this.setState({open: false});
     };
 
-    handleGeocode(locationValid, geoCode) {
+    onGeocode(locationValid, geoCode) {
         if (locationValid) {
             this.setState({step: 1, locationValid, geoCode});
         } else {
@@ -75,11 +75,11 @@ class ResetPrayerConfig extends Component {
         }
     }
 
-    handleValidateLocation() {
-        geoCodeLocation(this.state.location, this.handleGeocode);
+    onValidateLocation() {
+        geoCodeLocation(this.state.location, this.onGeocode);
     }
 
-    handleFinish() {
+    onFinish() {
         const companyId = this.props.login.company.id;
 
         const prayerConfig = {
@@ -95,14 +95,18 @@ class ResetPrayerConfig extends Component {
     }
 
     handleResetPrayerConfigApiResponse(serviceResponse) {
+        console.log(serviceResponse);
         if (serviceResponse
             && serviceResponse.successful
             && serviceResponse.target
             && serviceResponse.target.prayers
             && serviceResponse.target.prayers.length > 0) {
 
-            this.props.setAdminPrayerConfigEdit(serviceResponse.target);
-            this.handleClose();
+
+
+            // this.props.setAdminPrayerConfigEdit(serviceResponse.target);
+
+            this.onClose();
         } else {
             // TODO: show error message
             console.error("Error getting updated prayer time, or parsing updated prayer times.");
@@ -130,7 +134,7 @@ class ResetPrayerConfig extends Component {
                     type="text"
                     fullWidth
                     value={this.state.location}
-                    onChange={this.handleChange}/>
+                    onChange={this.onChange}/>
             </div>
         );
     }
@@ -164,7 +168,7 @@ class ResetPrayerConfig extends Component {
                         control={<Checkbox color="primary"
                             name="generateIqamah"
                             checked={this.state.generateIqamah}
-                            onChange={this.handleChangeChecked} />}
+                            onChange={this.onChangeChecked} />}
                         label="Auto generate iqamah time"
                         labelPlacement="end"/>
                 </FormControl>
@@ -173,7 +177,7 @@ class ResetPrayerConfig extends Component {
                     <InputLabel htmlFor="calculationMethod">Calculation Method</InputLabel>
                     <Select
                         value={this.state.calculationMethod}
-                        onChange={this.handleChange}
+                        onChange={this.onChange}
                         inputProps={{
                             name: 'calculationMethod',
                             id: 'calculationMethod',
@@ -189,7 +193,7 @@ class ResetPrayerConfig extends Component {
                     <InputLabel htmlFor="asrJuristicMethod">Asr Juristic Method</InputLabel>
                     <Select
                         value={this.state.asrJuristicMethod}
-                        onChange={this.handleChange}
+                        onChange={this.onChange}
                         inputProps={{
                             name: 'asrJuristicMethod',
                             id: 'asrJuristicMethod',
@@ -245,12 +249,12 @@ class ResetPrayerConfig extends Component {
     render() {
         return (
             <div>
-                <Button variant="outlined" color="primary" onClick={this.handleOpen}>
+                <Button variant="outlined" color="primary" onClick={this.onOpen}>
                     Reset Prayers
                 </Button>
                 <Dialog
                     open={this.state.open}
-                    onClose={this.handleClose}
+                    onClose={this.onClose}
                     aria-labelledby="form-dialog-title">
                     <DialogTitle id="form-dialog-title">Reset Prayers</DialogTitle>
                     <DialogContent>
@@ -258,16 +262,16 @@ class ResetPrayerConfig extends Component {
                         {this.state.step === 1 && this.step2()}
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.handleClose} color="primary">
+                        <Button onClick={this.onClose} color="primary">
                             Cancel
                         </Button>
 
                         {this.state.step === 0 &&
-                        <Button onClick={this.handleValidateLocation} color="primary">
+                        <Button onClick={this.onValidateLocation} color="primary">
                             Validate Location
                         </Button>}
                         {this.state.step === 1 &&
-                        <Button onClick={this.handleFinish} color="primary">
+                        <Button onClick={this.onFinish} color="primary">
                             Finish
                         </Button>}
                     </DialogActions>
@@ -287,3 +291,10 @@ const mapStateToProps = state => {
 const actions = {setAdminPrayerConfigEdit};
 
 export default connect(mapStateToProps, actions)(ResetPrayerConfig);
+
+/*
+
+
+
+ */
+
