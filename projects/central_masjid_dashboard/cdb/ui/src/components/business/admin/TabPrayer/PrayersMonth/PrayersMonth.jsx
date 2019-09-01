@@ -25,40 +25,73 @@ class PrayersMonth extends Component {
                 <td>
                     <InputField
                         onChange={this.props.onValueChange}
+                        onBlur={this.props.onBlur}
                         mode={viewMode}
                         value={prayer.fajr}
-                        name={`fajr${monthDate}`}
-                    />
+                        name={`fajr${monthDate}`}/>
                 </td>
                 <td>
-                    {prayer.fajrIqama}
+                    <InputField
+                        onChange={this.props.onValueChange}
+                        mode={viewMode}
+                        value={prayer.fajrIqama}
+                        name={`fajrIqama${monthDate}`}/>
                 </td>
                 <td>
-                    {prayer.sunrise}
+                    <InputField
+                        onChange={this.props.onValueChange}
+                        mode={viewMode}
+                        value={prayer.sunrise}
+                        name={`sunrise${monthDate}`}/>
                 </td>
                 <td>
-                    {prayer.dhuhr}
+                    <InputField
+                        onChange={this.props.onValueChange}
+                        mode={viewMode}
+                        value={prayer.dhuhr}
+                        name={`dhuhr${monthDate}`}/>
                 </td>
                 <td>
-                    {prayer.dhuhrIqama}
-
+                    <InputField
+                        onChange={this.props.onValueChange}
+                        mode={viewMode}
+                        value={prayer.dhuhrIqama}
+                        name={`dhuhrIqama${monthDate}`}/>
                 </td>
                 <td>
-                    {prayer.asr}
+                    <InputField
+                        onChange={this.props.onValueChange}
+                        mode={viewMode}
+                        value={prayer.asr}
+                        name={`asr${monthDate}`}/>
                 </td>
                 <td>
-                    {prayer.asrIqama}
-
+                    <InputField
+                        onChange={this.props.onValueChange}
+                        mode={viewMode}
+                        value={prayer.asrIqama}
+                        name={`asrIqama${monthDate}`}/>
                 </td>
                 <td>
-                    {prayer.maghrib}
-
+                    <InputField
+                        onChange={this.props.onValueChange}
+                        mode={viewMode}
+                        value={prayer.maghrib}
+                        name={`maghrib${monthDate}`}/>
                 </td>
                 <td>
-                    {prayer.isha}
+                    <InputField
+                        onChange={this.props.onValueChange}
+                        mode={viewMode}
+                        value={prayer.isha}
+                        name={`isha${monthDate}`}/>
                 </td>
                 <td>
-                    {prayer.ishaIqama}
+                    <InputField
+                        onChange={this.props.onValueChange}
+                        mode={viewMode}
+                        value={prayer.ishaIqama}
+                        name={`ishaIqama${monthDate}`}/>
                 </td>
             </tr>
         );

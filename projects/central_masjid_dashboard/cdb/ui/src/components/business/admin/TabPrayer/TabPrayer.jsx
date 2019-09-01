@@ -12,13 +12,13 @@ import {
 import SaveCancel from "./SaveCancel/SaveCancel"
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
+const TIME_24_REGEX_PATTERN = /^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$/;
 
 class TabPrayer extends Component {
 
     constructor(props) {
         super(props);
         this.state = this.createInitialState();
-
     }
 
     createInitialState() {
@@ -54,7 +54,8 @@ class TabPrayer extends Component {
                             prayersMonth={prayersMonth}
                             monthIndex={index}
                             key={index}
-                            onValueChange={this.onValueChange.bind(this)}/>
+                            onValueChange={this.onValueChange.bind(this)}
+                            onBlur={this.onValueChangeBlur.bind(this)}/>
                     }
                 );
             }
@@ -140,6 +141,21 @@ class TabPrayer extends Component {
             }
         });
         this.setState({prayerConfig: this.state.prayerConfig, prayerConfigDirty: true});
+    }
+
+    onValueChangeBlur(event) {
+        const dateMonthStringLength = 6;
+        const fieldName = event.target.name;
+        const fieldValue = event.target.value;
+        const fieldNameMonthDate = fieldName.substring(fieldName.length - dateMonthStringLength, fieldName.length);
+        const fieldNameSalahName = fieldName.substring(0, fieldName.length - dateMonthStringLength);
+
+        const valid = TIME_24_REGEX_PATTERN.test(fieldValue);
+        console.log("Valid ", valid);
+        if (!valid) {
+            event.target.style = "background-color: red"
+        }
+        return valid;
     }
 
     isEditMode() {

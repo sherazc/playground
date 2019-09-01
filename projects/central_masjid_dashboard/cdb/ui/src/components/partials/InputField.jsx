@@ -3,7 +3,7 @@ import React from "react";
 const InputField = (props) => {
     const type = props.type ? props.type : "text";
     const placeholder = props.placeholder ? props.placeholder : props.label;
-
+    const value = props.value ? props.value : "";
 
     const viewOrEditField = mode => {
         if ("view" === mode) {
@@ -11,7 +11,7 @@ const InputField = (props) => {
         } else {
             return <input
                 onChange={props.onChange}
-                value={props.value}
+                value={value}
                 type={type}
                 name={props.name}
                 id={props.name}
