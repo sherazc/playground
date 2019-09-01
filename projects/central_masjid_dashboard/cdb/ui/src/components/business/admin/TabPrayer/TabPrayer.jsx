@@ -167,8 +167,7 @@ class TabPrayer extends Component {
 
         return (
             <div>
-                <ResetPrayerLocation />
-                {this.state.tt}
+                <ResetPrayerLocation onFinish={this.setPrayerConfigInState}/>
                 <Button onClick={this.onEdit.bind(this)}
                     disabled={editMode}
                     variant="outlined" color="primary">

@@ -102,10 +102,7 @@ class ResetPrayerConfig extends Component {
             && serviceResponse.target.prayers
             && serviceResponse.target.prayers.length > 0) {
 
-
-
-            // this.props.setAdminPrayerConfigEdit(serviceResponse.target);
-
+            this.props.onFinish(serviceResponse.target, true);
             this.onClose();
         } else {
             // TODO: show error message

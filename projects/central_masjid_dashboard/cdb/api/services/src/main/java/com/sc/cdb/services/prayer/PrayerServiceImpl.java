@@ -73,7 +73,7 @@ public class PrayerServiceImpl implements PrayerService {
                 }
             });
 
-            if (generateIqamah != null && generateIqamah) {
+            if (generateIqamah == null || !generateIqamah) {
                 mergeExistingIqamahTimes(prayerConfig);
             }
 
