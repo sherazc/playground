@@ -4,8 +4,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import ContainerGridLayout01 from "../../layout/ContainerGridLayout01";
 import TabPrayer from "./TabPrayer/TabPrayer";
-import TabConfiguration from "./TabConfiguration";
-import TabAccounting from "./TabAccounting";
+import TabConfiguration from "./TabConfiguration/TabConfiguration";
+import TabAccounting from "./TabAccounting/TabAccounting";
 
 class AdminControl extends Component {
     constructor(props) {
