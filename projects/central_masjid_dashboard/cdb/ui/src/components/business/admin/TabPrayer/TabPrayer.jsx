@@ -54,8 +54,7 @@ class TabPrayer extends Component {
                             prayersMonth={prayersMonth}
                             monthIndex={index}
                             key={index}
-                            onValueChange={this.onValueChange.bind(this)}
-                            onBlur={this.onValueChangeBlur.bind(this)}/>
+                            onValueChange={this.onValueChange.bind(this)}/>
                     }
                 );
             }
@@ -143,21 +142,6 @@ class TabPrayer extends Component {
         this.setState({prayerConfig: this.state.prayerConfig, prayerConfigDirty: true});
     }
 
-    onValueChangeBlur(event) {
-        const dateMonthStringLength = 6;
-        const fieldName = event.target.name;
-        const fieldValue = event.target.value;
-        const fieldNameMonthDate = fieldName.substring(fieldName.length - dateMonthStringLength, fieldName.length);
-        const fieldNameSalahName = fieldName.substring(0, fieldName.length - dateMonthStringLength);
-
-        const valid = TIME_24_REGEX_PATTERN.test(fieldValue);
-        console.log("Valid ", valid);
-        if (!valid) {
-            event.target.style = "background-color: red"
-        }
-        return valid;
-    }
-
     isEditMode() {
         const prayerConfig = this.state.prayerConfig;
         return prayerConfig && prayerConfig.prayers && prayerConfig.prayers.length > 0;
@@ -208,38 +192,8 @@ const mapStateToProps = state => {
 const actions = {setAdminPrayerConfig, setAdminPrayerConfigEdit, adminPrayerConfigReset};
 
 export default connect(mapStateToProps, actions)(TabPrayer);
+
 /*
-
-✅️ Edit.onClick will copy redux.admin.prayerConfig in TabPrayer.state.PrayerConfig
-
-✅ if TabPrayer.state.PrayerConfig.prayers exist then editMode is On
-
-✅️ On editMode show Save and Cancel button on always show hover bar at the bottom of the screen
-
-✅ On Cancel set TabPrayer.state.PrayerConfig = {}
-
-✅ Load prayers from TabPrayer.state.PrayerConfig.prayers else from redux.admin.prayerConfigEdit.prayers
-else from redux.admin.prayerConfig.prayers
-
-Have <ResetPrayerLocation /> pass PrayerConfig to TabPrayer.state.prayerConfig
-
-✅ On TabPrayer.componentWillMount()
-    - if redux.admin.prayerConfigEdit exists then set it in TabPrayer.state.PrayerConfig
-
-✅ On TabPrayer.componentWillUnmount()
-    - if TabPrayer.state.PrayerConfig exists
-    then copy it in redux store as redux.admin.prayerConfigEdit
-
-▶️ On Save
-    ✅- set companyId and prayerConfig id in TabPrayer.state.PrayerConfig
-    ⏸- if DST is on then remove DST from TabPrayer.state.PrayerConfig.prayers
-    ✅- send TabPrayer.state.PrayerConfig to API
-    ✅- On success response
-        ✅- set TabPrayer.state.PrayerConfig as redux.admin.PrayerConfig
-        ✅- remove TabPrayer.state.PrayerConfig and redux.admin.prayerConfigEdit
-
-
-
 -----------------
 On DST
 

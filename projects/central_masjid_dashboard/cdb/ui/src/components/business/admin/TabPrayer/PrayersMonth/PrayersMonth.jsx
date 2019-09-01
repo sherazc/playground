@@ -25,7 +25,6 @@ class PrayersMonth extends Component {
                 <td>
                     <InputField
                         onChange={this.props.onValueChange}
-                        onBlur={this.props.onBlur}
                         type="time"
                         mode={viewMode}
                         value={prayer.fajr}
@@ -34,7 +33,6 @@ class PrayersMonth extends Component {
                 <td>
                     <InputField
                         onChange={this.props.onValueChange}
-                        onBlur={this.props.onBlur}
                         type="time"
                         mode={viewMode}
                         value={prayer.fajrIqama}
@@ -43,7 +41,6 @@ class PrayersMonth extends Component {
                 <td>
                     <InputField
                         onChange={this.props.onValueChange}
-                        onBlur={this.props.onBlur}
                         type="time"
                         mode={viewMode}
                         value={prayer.sunrise}
@@ -52,7 +49,6 @@ class PrayersMonth extends Component {
                 <td>
                     <InputField
                         onChange={this.props.onValueChange}
-                        onBlur={this.props.onBlur}
                         type="time"
                         mode={viewMode}
                         value={prayer.dhuhr}
@@ -61,7 +57,6 @@ class PrayersMonth extends Component {
                 <td>
                     <InputField
                         onChange={this.props.onValueChange}
-                        onBlur={this.props.onBlur}
                         type="time"
                         mode={viewMode}
                         value={prayer.dhuhrIqama}
@@ -70,7 +65,6 @@ class PrayersMonth extends Component {
                 <td>
                     <InputField
                         onChange={this.props.onValueChange}
-                        onBlur={this.props.onBlur}
                         type="time"
                         mode={viewMode}
                         value={prayer.asr}
@@ -79,7 +73,6 @@ class PrayersMonth extends Component {
                 <td>
                     <InputField
                         onChange={this.props.onValueChange}
-                        onBlur={this.props.onBlur}
                         type="time"
                         mode={viewMode}
                         value={prayer.asrIqama}
@@ -88,7 +81,6 @@ class PrayersMonth extends Component {
                 <td>
                     <InputField
                         onChange={this.props.onValueChange}
-                        onBlur={this.props.onBlur}
                         type="time"
                         mode={viewMode}
                         value={prayer.maghrib}
@@ -97,7 +89,6 @@ class PrayersMonth extends Component {
                 <td>
                     <InputField
                         onChange={this.props.onValueChange}
-                        onBlur={this.props.onBlur}
                         type="time"
                         mode={viewMode}
                         value={prayer.isha}
@@ -106,7 +97,6 @@ class PrayersMonth extends Component {
                 <td>
                     <InputField
                         onChange={this.props.onValueChange}
-                        onBlur={this.props.onBlur}
                         type="time"
                         mode={viewMode}
                         value={prayer.ishaIqama}
