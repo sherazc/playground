@@ -26,14 +26,14 @@ class AdminControl extends Component {
                 <div>
                     <AppBar position="static">
                         <Tabs value={this.state.tabIndex} onChange={this.handleTabChange}>
-                            <Tab label="Salah"/>
                             <Tab label="Configuration"/>
                             <Tab label="Accounting"/>
+                            <Tab label="Salah"/>
                         </Tabs>
                     </AppBar>
-                    {this.state.tabIndex === 0 && <TabPrayer/>}
-                    {this.state.tabIndex === 1 && <TabConfiguration/>}
-                    {this.state.tabIndex === 2 && <TabAccounting/>}
+                    {this.state.tabIndex === 0 && <TabConfiguration/>}
+                    {this.state.tabIndex === 1 && <TabAccounting/>}
+                    {this.state.tabIndex === 2 && <TabPrayer/>}
                 </div>
             </ContainerGridLayout01>
         );
