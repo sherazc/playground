@@ -26,6 +26,7 @@ class PrayersMonth extends Component {
                     <InputField
                         onChange={this.props.onValueChange}
                         onBlur={this.props.onBlur}
+                        type="time"
                         mode={viewMode}
                         value={prayer.fajr}
                         name={`fajr${monthDate}`}/>
@@ -33,6 +34,8 @@ class PrayersMonth extends Component {
                 <td>
                     <InputField
                         onChange={this.props.onValueChange}
+                        onBlur={this.props.onBlur}
+                        type="time"
                         mode={viewMode}
                         value={prayer.fajrIqama}
                         name={`fajrIqama${monthDate}`}/>
@@ -40,6 +43,8 @@ class PrayersMonth extends Component {
                 <td>
                     <InputField
                         onChange={this.props.onValueChange}
+                        onBlur={this.props.onBlur}
+                        type="time"
                         mode={viewMode}
                         value={prayer.sunrise}
                         name={`sunrise${monthDate}`}/>
@@ -47,6 +52,8 @@ class PrayersMonth extends Component {
                 <td>
                     <InputField
                         onChange={this.props.onValueChange}
+                        onBlur={this.props.onBlur}
+                        type="time"
                         mode={viewMode}
                         value={prayer.dhuhr}
                         name={`dhuhr${monthDate}`}/>
@@ -54,6 +61,8 @@ class PrayersMonth extends Component {
                 <td>
                     <InputField
                         onChange={this.props.onValueChange}
+                        onBlur={this.props.onBlur}
+                        type="time"
                         mode={viewMode}
                         value={prayer.dhuhrIqama}
                         name={`dhuhrIqama${monthDate}`}/>
@@ -61,6 +70,8 @@ class PrayersMonth extends Component {
                 <td>
                     <InputField
                         onChange={this.props.onValueChange}
+                        onBlur={this.props.onBlur}
+                        type="time"
                         mode={viewMode}
                         value={prayer.asr}
                         name={`asr${monthDate}`}/>
@@ -68,6 +79,8 @@ class PrayersMonth extends Component {
                 <td>
                     <InputField
                         onChange={this.props.onValueChange}
+                        onBlur={this.props.onBlur}
+                        type="time"
                         mode={viewMode}
                         value={prayer.asrIqama}
                         name={`asrIqama${monthDate}`}/>
@@ -75,6 +88,8 @@ class PrayersMonth extends Component {
                 <td>
                     <InputField
                         onChange={this.props.onValueChange}
+                        onBlur={this.props.onBlur}
+                        type="time"
                         mode={viewMode}
                         value={prayer.maghrib}
                         name={`maghrib${monthDate}`}/>
@@ -82,6 +97,8 @@ class PrayersMonth extends Component {
                 <td>
                     <InputField
                         onChange={this.props.onValueChange}
+                        onBlur={this.props.onBlur}
+                        type="time"
                         mode={viewMode}
                         value={prayer.isha}
                         name={`isha${monthDate}`}/>
@@ -89,6 +106,8 @@ class PrayersMonth extends Component {
                 <td>
                     <InputField
                         onChange={this.props.onValueChange}
+                        onBlur={this.props.onBlur}
+                        type="time"
                         mode={viewMode}
                         value={prayer.ishaIqama}
                         name={`ishaIqama${monthDate}`}/>

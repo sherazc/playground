@@ -80,10 +80,7 @@ class TabPrayer extends Component {
         }
 
         if (!prayers || prayers.length < 1 || companyId !== this.props.prayerConfig.companyId) {
-            axios
-                .get(`${baseUrl}/api/prayer/config/${companyId}`)
-                .then(response => this.props.setAdminPrayerConfig(response.data))
-                .catch(() => this.props.adminPrayerConfigReset());
+            this.apiGetPrayerConfig(companyId);
         }
     }
 
@@ -103,6 +100,9 @@ class TabPrayer extends Component {
     }
 
     onCancel() {
+        if (this.state.prayerConfigDirty) {
+            this.apiGetPrayerConfig(this.props.login.company.id);
+        }
         this.setState({prayerConfig: {}, prayerConfigDirty: false});
         this.props.setAdminPrayerConfigEdit({});
     }
@@ -165,6 +165,13 @@ class TabPrayer extends Component {
 
     prayersExistInPrayerConfig(prayerConfig) {
         return prayerConfig && prayerConfig.prayers && prayerConfig.prayers.length > 0;
+    }
+
+    apiGetPrayerConfig(companyId) {
+        axios
+            .get(`${baseUrl}/api/prayer/config/${companyId}`)
+            .then(response => this.props.setAdminPrayerConfig(response.data))
+            .catch(() => this.props.adminPrayerConfigReset());
     }
 
     render() {
