@@ -6,6 +6,7 @@ import {verifyAuthentication} from "../services/auth/AuthNZ";
 import {Redirect} from "react-router";
 import {mapStateLoginToProps} from "../store/lib/utils";
 import SaveCancel from "./business/admin/TabPrayer/SaveCancel/SaveCancel";
+import CloseablePanel from "./common/CloseablePanel/CloseablePanel";
 
 class Login extends Component {
 
@@ -81,7 +82,13 @@ class Login extends Component {
                     <button type="submit">Submit</button>
                     <button type="button" onClick={() => this.setState({show: !this.state.show})}>show/hide</button>
                 </form>
-                <br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc
+                <CloseablePanel
+                    title="Expansion Panel"
+                    editMode={this.state.show}
+                    onSave={() => console.log("Save")}
+                    onCancel={() => console.log("Cancel")}>
+                    abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc
+                </CloseablePanel>
                 <SaveCancel
                     show={this.state.show}
                     onSave={() => console.log("Save Click")}

@@ -22,6 +22,9 @@ export default TabConfiguration;
 /*
 Create salah time new input fields
 
+Convert InputField to material ui TextField
+
+✅ Create Slider for TabConfiguration's sub components
 
 TabConfiguration.state will hold centralControl
 
@@ -63,9 +66,6 @@ TabConfiguration.render
     - if TabConfiguration.state.CentralControl.expenses, show jummahs component
 
 TabConfiguration.onSave
-
-
-
 
 
  */
