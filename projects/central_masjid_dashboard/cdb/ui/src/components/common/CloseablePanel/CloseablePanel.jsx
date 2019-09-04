@@ -19,7 +19,7 @@ class CloseablePanel extends Component {
     render() {
         return (
             <div className={styles.container}>
-                <ExpansionPanel>
+                <ExpansionPanel defaultExpanded={this.props.defaultExpanded}>
                     <ExpansionPanelSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1a-content"

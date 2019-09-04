@@ -1,9 +1,11 @@
 import React, {Component} from "react";
+import Configuration from "./Configuration/Configuration";
 
 class TabConfiguration extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {centralControl: {}}
     }
 
 
@@ -11,7 +13,10 @@ class TabConfiguration extends Component {
 
     render() {
         return (
-            <div>Configuration Control</div>
+            <div>
+                <Configuration defaultExpanded/>
+
+            </div>
         );
     }
 }
