@@ -2,8 +2,24 @@
 	"_id": "defaultPicklist",
 	"configurations": [
 		{
-			"detail": "Announcement Detail 1"
+
+		"name" : "jumah_prayer",
+		"type" : "text",
+		"label": "Jumah Prayer",
+		"defaultValue": "",
+		"description": ""
 		}
 	]
 }]
 
+
+
+
+enum Type {
+	text, date, number, bool
+}
+private String name;
+private Type type;
+private String label;
+private String defaultValue;
+private String description;
