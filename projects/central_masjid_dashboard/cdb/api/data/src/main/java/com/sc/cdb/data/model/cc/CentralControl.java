@@ -23,7 +23,7 @@ public class CentralControl {
     private String companyId;
 
     private List<Announcement> announcements;
-    private List<Configuration> configurations;
+    private List<CustomConfiguration> customConfigurations;
     private List<Event> events;
     private List<Expense> expenses;
     private List<Fund> funds;

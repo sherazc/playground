@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Configuration {
+public class CustomConfiguration {
     private String name;
     private String value;
-    private String description;
 }
