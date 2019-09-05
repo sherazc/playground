@@ -20,20 +20,3 @@ public class Picklist {
 
     private List<Configuration> configurations;
 }
-
-
-/*
-db.picklist.aggregate([
-    {$unwind : "$configurations"},
-    {$project : {
-                 _id: 0,
-                 name : "$configurations.name",
-                 type : "$configurations.type",
-                 label : "$configurations.label",
-                 defaultValue : "$configurations.defaultValue",
-                 description : "$configurations.description"
-        }
-    }
-]);
-
- */
