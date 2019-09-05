@@ -1,25 +1,28 @@
-[{
-	"_id": "defaultPicklist",
-	"configurations": [
-		{
-
-		"name" : "jumah_prayer",
-		"type" : "text",
-		"label": "Jumah Prayer",
-		"defaultValue": "",
-		"description": ""
-		}
-	]
-}]
-
-
-
-
-enum Type {
-	text, date, number, bool
-}
-private String name;
-private Type type;
-private String label;
-private String defaultValue;
-private String description;
+[
+  {
+    "_id": "defaultPicklist",
+    "configurations": [
+      {
+        "name": "jumah_prayer",
+        "type": "text",
+        "label": "Jumah Prayer",
+        "defaultValue": "",
+        "description": "Text displayed under salah timetable. This text is used for displaying Jumah salah time."
+      },
+      {
+        "name": "hijri_adjust_days",
+        "type": "number",
+        "label": "Hijri Adjust Days",
+        "defaultValue": "0",
+        "description": "This config is used to adjust Hijri Calendar date. Valid value is number. Could be positive or negative values"
+      },
+      {
+        "name": "clock_type",
+        "type": "number",
+        "label": "Clock Type",
+        "defaultValue": "1",
+        "description": "clock type 0 = no clock<br/>clock type 1 = analog<br/>clock type 2 = digital"
+      }
+    ]
+  }
+]

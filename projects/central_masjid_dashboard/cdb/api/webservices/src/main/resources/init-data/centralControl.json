@@ -8,12 +8,12 @@
 	],
 	"customConfigurations": [
 		{
-			"name": "configuration 1",
-			"value": "value 1"
+			"name": "jumah_prayer",
+			"value": "Jum'ah salah starts 2:00pm"
 		},
 		{
-			"name": "configuration 2",
-			"value": "value 2"
+			"name": "clock_type",
+			"value": "1"
 		}
 	],
 	"events": [
