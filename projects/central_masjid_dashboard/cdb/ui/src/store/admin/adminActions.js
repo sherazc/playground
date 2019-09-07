@@ -23,7 +23,7 @@ export const setAdminPrayerConfigEdit = (prayerConfig) => {
 };
 
 
-export const setCentalControl = (centralControl) => {
+export const setCentralControl = (centralControl) => {
     return {
         type: ADMIN_CENTRAL_CONTROL,
         payload: centralControl
@@ -31,7 +31,7 @@ export const setCentalControl = (centralControl) => {
 };
 
 
-export const setCentalControlEdit = (centralControlEdit) => {
+export const setCentralControlEdit = (centralControlEdit) => {
     return {
         type: ADMIN_CENTRAL_CONTROL_EDIT,
         payload: centralControlEdit

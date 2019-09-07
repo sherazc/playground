@@ -32,10 +32,10 @@ class CompanyDashboard extends Component {
     }
 
     componentDidMount() {
-        this.updateCentralControl();
+        this.apiGetCentralControl();
     }
 
-    updateCentralControl() {
+    apiGetCentralControl() {
         axios
             .get(`${baseUrl}/api/companies/url/${this.state.companyDashboardUrl}/central-control`)
             .then(response => this.setState({

@@ -1,6 +1,9 @@
 import React, {Component} from "react";
 import CloseablePanel from "../../../../common/CloseablePanel/CloseablePanel";
 import {apiGetConfigurations} from "../../../../../store/picklist/picklistActions";
+import {
+    setCentralControl, setCentralControlEdit
+} from "../../../../../store/admin/adminActions";
 import {connect} from "react-redux";
 
 class Configuration extends Component {
@@ -8,7 +11,17 @@ class Configuration extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {picklistConfigurations: this.props.picklistConfigurations};
+        const centralControl = this.isValidCentralControl(props.centralControl)
+            ? props.centralControl : props.centralControlEdit;
+
+        this.state = {
+            picklistConfigurations: props.picklistConfigurations,
+            centralControl: centralControl
+        };
+    }
+
+    isValidCentralControl(centralControl) {
+        return centralControl && centralControl.companyId;
     }
 
 
@@ -18,10 +31,13 @@ class Configuration extends Component {
 
 
     componentDidMount() {
-        const {picklistConfigurations} = this.state;
+        const {picklistConfigurations, centralControl} = this.state;
+
         if (!picklistConfigurations || picklistConfigurations.length < 1) {
             this.props.apiGetConfigurations(this.setPicklistConfigurations.bind(this));
         }
+
+
     }
 
     render() {
@@ -46,8 +62,10 @@ class Configuration extends Component {
 const mapStateToProps = state => {
     return {
         picklistConfigurations: state.picklist.configurations,
+        centralControl: state.admin.centralControl,
+        centralControlEdit: state.admin.centralControlEdit
     }
 };
-const actions = {apiGetConfigurations};
+const actions = {apiGetConfigurations, setCentralControl, setCentralControlEdit};
 
 export default connect(mapStateToProps, actions)(Configuration);
