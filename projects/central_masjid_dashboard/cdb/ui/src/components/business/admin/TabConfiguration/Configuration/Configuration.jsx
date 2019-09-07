@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import CloseablePanel from "../../../../common/CloseablePanel/CloseablePanel";
 import {apiGetConfigurations} from "../../../../../store/picklist/picklistActions";
 import {connect} from "react-redux";
+import InputField from "../../../../partials/InputField";
 
 class Configuration extends Component {
 
@@ -24,6 +25,18 @@ class Configuration extends Component {
         }
     }
 
+    getCustomConfigurationValueByName(name) {
+        let customConfigurationValue = "";
+        if (this.props.customConfigurations) {
+            const foundCustomConfigurations = this.props.customConfigurations.filter(
+                customConfiguration => customConfiguration.name === name);
+            if (foundCustomConfigurations.length > 0) {
+                customConfigurationValue = foundCustomConfigurations[0].value;
+            }
+        }
+        return customConfigurationValue;
+    }
+
     render() {
         return (
             <div>
@@ -33,12 +46,37 @@ class Configuration extends Component {
                     defaultExpanded={this.props.defaultExpanded}
                     onSave={() => console.log("Save")}
                     onCancel={() => console.log("Cancel")}>
-
-                    <ul>
-                    {this.state.picklistConfigurations
-                        .map((c, i) => <li key={i}>{c.label}</li>)
-                    }
-                    </ul>
+                    <table border="1">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>Custom value</th>
+                            <th>Default value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {this.state.picklistConfigurations.map((picklistConfiguration, index) => {
+                            const name = picklistConfiguration.name;
+                            const customValue = this.getCustomConfigurationValueByName(picklistConfiguration.name);
+                            return (
+                                <tr key={index}>
+                                    <th>
+                                        {picklistConfiguration.label}
+                                    </th>
+                                    <td>
+                                        <InputField
+                                            name={name}
+                                            value={customValue}
+                                            onChange={this.props.onChangeCustomConfigurations}/>
+                                    </td>
+                                    <td>
+                                        {picklistConfiguration.defaultValue}
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                        </tbody>
+                    </table>
                 </CloseablePanel>
             </div>
         );

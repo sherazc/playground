@@ -36,7 +36,9 @@ class TabConfiguration extends Component {
         return centralControl && centralControl.companyId;
     }
 
-    onChangeCustomConfigurations(name, value) {
+    onChangeCustomConfigurations(event) {
+        const name = event.target.name;
+        const value = event.target.value;
         let customConfigurations = this.state.centralControl.customConfigurations;
         if (!customConfigurations) {
             customConfigurations = [];
