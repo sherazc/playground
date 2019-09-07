@@ -1,20 +1,28 @@
 import React, {Component} from "react";
 import CloseablePanel from "../../../../common/CloseablePanel/CloseablePanel";
-
-
-const AllConfigurations = [
-    {name: ""}
-];
+import {apiGetConfigurations} from "../../../../../store/picklist/picklistActions";
+import {connect} from "react-redux";
 
 class Configuration extends Component {
 
     constructor(props) {
         super(props);
 
+        this.state = {picklistConfigurations: this.props.picklistConfigurations};
     }
 
 
+    setPicklistConfigurations(picklistConfigurations) {
+        this.setState({picklistConfigurations});
+    }
 
+
+    componentDidMount() {
+        const {picklistConfigurations} = this.state;
+        if (!picklistConfigurations || picklistConfigurations.length < 1) {
+            this.props.apiGetConfigurations(this.setPicklistConfigurations.bind(this));
+        }
+    }
 
     render() {
         return (
@@ -34,4 +42,12 @@ class Configuration extends Component {
     }
 }
 
-export default Configuration;
+
+const mapStateToProps = state => {
+    return {
+        picklistConfigurations: state.picklist.configurations,
+    }
+};
+const actions = {apiGetConfigurations};
+
+export default connect(mapStateToProps, actions)(Configuration);
