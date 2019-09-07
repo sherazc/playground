@@ -1,3 +1,6 @@
+/**
+ * Returns react router path parameter value
+ */
 export const getPathParamFromProps = (props, paramName) => {
     if (props && props.match && props.match.params && props.match.params[paramName]) {
         return props.match.params[paramName];
@@ -54,4 +57,4 @@ export const datesMonthDatePart = (date) => {
 
 const numberTo2DigitsString = (number) => {
     return number < 10 && number > -1 ? `0${number}` : number;
-}
+};
