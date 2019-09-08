@@ -2,7 +2,6 @@ package com.sc.cdb.webservices.prayer;
 
 import com.sc.cdb.data.model.cc.CentralControl;
 import com.sc.cdb.data.model.cc.CentralControlCompany;
-import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.services.prayer.CentralControlService;
 import org.springframework.http.MediaType;
@@ -10,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,10 +35,8 @@ public class CentralControlController {
     }
 
     @PutMapping("central-control")
-    public ResponseEntity<ServiceResponse<String>> saveCentralControl(CentralControl centralControl) {
+    public ResponseEntity<ServiceResponse<String>> saveCentralControl(@RequestBody CentralControl centralControl) {
         ServiceResponse<String> serviceResponse = centralControlService.save(centralControl);
         return ResponseEntity.ok(serviceResponse);
     }
-
-
 }

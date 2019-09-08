@@ -32,6 +32,23 @@ public class CentralControlServiceImpl implements CentralControlService {
 
     @Override
     public ServiceResponse<String> save(CentralControl centralControl) {
-        return null;
+        ServiceResponse.ServiceResponseBuilder<String> serviceResponseBuilder = ServiceResponse.builder();
+
+        if (centralControl == null || StringUtils.isBlank(centralControl.getCompanyId())) {
+            serviceResponseBuilder.successful(false).message("Invalid CentralControl provided to save");
+        }
+
+        CentralControl savedCentralControl = this.centralControlDao.save(centralControl);
+
+        if (StringUtils.isBlank(savedCentralControl.getId())) {
+            serviceResponseBuilder.successful(false).message("Failed to save CentralControl");
+        } else {
+            serviceResponseBuilder
+                    .successful(true)
+                    .message("Successfully saved CentralControl")
+                    .target(savedCentralControl.getId());
+        }
+
+        return serviceResponseBuilder.build();
     }
 }
