@@ -16,20 +16,24 @@ class TabConfiguration extends Component {
     }
 
     componentDidMount() {
-        const companyUrl = this.props.login.company.url;
         if (!this.isValidCentralControl(this.props.centralControl)) {
-            axios
-                .get(`${baseUrl}/api/companies/url/${companyUrl}/central-control`)
-                .then(response => {
-                    this.setCentralControlInState(response.data);
-                    this.props.setCentralControl(response.data);
-                });
+            this.apiGetCentralControl();
         }
 
         if (this.isValidCentralControl(this.props.centralControl)
             && !this.isValidCentralControl(this.state.centralControl)) {
             this.setCentralControlInState(this.props.centralControl);
         }
+    }
+
+    apiGetCentralControl() {
+        const companyUrl = this.props.login.company.url;
+        axios
+            .get(`${baseUrl}/api/companies/url/${companyUrl}/central-control`)
+            .then(response => {
+                this.setCentralControlInState(response.data);
+                this.props.setCentralControl(response.data);
+            });
     }
 
     isValidCentralControl(centralControl) {
@@ -59,6 +63,14 @@ class TabConfiguration extends Component {
         this.setState({centralControl: newCentralControl});
     }
 
+    onCancel() {
+        this.apiGetCentralControl();
+    }
+
+    onSave() {
+        console.log("Saving again.");
+    }
+
     setCentralControlInState(centralControl) {
         this.setState({centralControl: centralControl});
     }
@@ -69,7 +81,9 @@ class TabConfiguration extends Component {
                 <Configuration
                     defaultExpanded
                     customConfigurations={this.state.centralControl.customConfigurations}
-                    onChangeCustomConfigurations={this.onChangeCustomConfigurations.bind(this)}/>
+                    onChangeCustomConfigurations={this.onChangeCustomConfigurations.bind(this)}
+                    onCancel={this.onCancel.bind(this)}
+                    onSave={this.onSave.bind(this)}/>
             </div>
         );
     }

@@ -44,8 +44,8 @@ class Configuration extends Component {
                     title="Configuration"
                     editMode={true}
                     defaultExpanded={this.props.defaultExpanded}
-                    onSave={() => console.log("Save")}
-                    onCancel={() => console.log("Cancel")}>
+                    onSave={this.props.onSave}
+                    onCancel={this.props.onCancel}>
                     <table border="1">
                         <thead>
                         <tr>
