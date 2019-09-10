@@ -21,7 +21,7 @@ class Configuration extends Component {
                 ...currentState,
                 customConfigurations: newProps.customConfigurations
             };
-            console.log("newState", newState);
+            console.log("newState in configuration", newState);
             return newState;
         } else {
             return null;

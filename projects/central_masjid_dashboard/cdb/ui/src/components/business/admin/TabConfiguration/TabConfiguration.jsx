@@ -72,7 +72,11 @@ class TabConfiguration extends Component {
                     onCancel={this.onCancel.bind(this)}
                     onSave={this.onSave.bind(this)}/>
 
-                    <Funds defaultExpanded/>
+                    <Funds
+                        defaultExpanded
+                        funds={this.state.centralControl.funds}
+                        onCancel={this.onCancel.bind(this)}
+                        onSave={this.onSave.bind(this)}/>
             </div>
         );
     }

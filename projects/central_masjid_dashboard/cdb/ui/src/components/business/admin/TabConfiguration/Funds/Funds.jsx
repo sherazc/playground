@@ -6,11 +6,35 @@ class Funds extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            editMode: false,
+            funds: props.funds ? props.funds : []
+        }
     }
 
+    static getDerivedStateFromProps(newProps, currentState) {
+        if (newProps.funds && newProps.funds.length !== currentState.funds.length) {
+            const newState =  {
+                ...currentState,
+                funds: newProps.funds
+            };
+            console.log("newState in funds", newState);
+            return newState;
+        } else {
+            return null;
+        }
+    }
 
-    componentDidMount() {
-
+    makeFundUi(fund) {
+        return (
+            <div>
+                <table border="1">
+                    <thead>
+                    <tr><th>{fund.name}</th></tr>
+                    </thead>
+                </table>
+            </div>
+        );
     }
 
     render() {
@@ -18,13 +42,14 @@ class Funds extends Component {
             <div>
                 <CloseablePanel
                     title="Funds"
-                    editMode={true}
+                    editMode={this.state.editMode}
                     defaultExpanded={this.props.defaultExpanded}
                     onSave={this.props.onSave}
                     onCancel={this.props.onCancel}>
-                    Funds
+                    <div>
+                        {this.state.funds.map(fund => this.makeFundUi(fund))}
+                    </div>
 
-                    <Parent/>
                 </CloseablePanel>
             </div>
         );
@@ -32,34 +57,3 @@ class Funds extends Component {
 }
 
 export default Funds;
-
-
-
-class Parent extends Component {
-    render() {
-        return (
-            <div>
-                <Child setClick={click => this.clickChild = click}/>
-                <button onClick={() => this.clickChild()}>Click</button>
-            </div>
-        );
-    }
-}
-
-class Child extends Component {
-    constructor(props) {
-        super(props);
-        this.getAlert = this.getAlert.bind(this);
-    }
-    componentDidMount() {
-        this.props.setClick(this.getAlert);
-    }
-    getAlert() {
-        alert('clicked');
-    }
-    render() {
-        return (
-            <h1 ref="hello">Hello</h1>
-        );
-    }
-}
