@@ -9,8 +9,23 @@ class Configuration extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            picklistConfigurations: props.picklistConfigurations
+            picklistConfigurations: props.picklistConfigurations,
+            customConfigurations: props.customConfigurations,
+            editMode: false
         };
+    }
+
+    static getDerivedStateFromProps(newProps, currentState) {
+        if (newProps.customConfigurations) {
+            const newState =  {
+                ...currentState,
+                customConfigurations: newProps.customConfigurations
+            };
+            console.log("newState", newState);
+            return newState;
+        } else {
+            return null;
+        }
     }
 
     setPicklistConfigurations(picklistConfigurations) {
@@ -18,6 +33,7 @@ class Configuration extends Component {
     }
 
     componentDidMount() {
+
         const {picklistConfigurations} = this.state;
 
         if (!picklistConfigurations || picklistConfigurations.length < 1) {
@@ -27,8 +43,8 @@ class Configuration extends Component {
 
     getCustomConfigurationValueByName(name) {
         let customConfigurationValue = "";
-        if (this.props.customConfigurations) {
-            const foundCustomConfigurations = this.props.customConfigurations.filter(
+        if (this.state.customConfigurations) {
+            const foundCustomConfigurations = this.state.customConfigurations.filter(
                 customConfiguration => customConfiguration.name === name);
             if (foundCustomConfigurations.length > 0) {
                 customConfigurationValue = foundCustomConfigurations[0].value;
@@ -37,15 +53,44 @@ class Configuration extends Component {
         return customConfigurationValue;
     }
 
+    onChangeCustomConfigurations(event) {
+        const name = event.target.name;
+        const value = event.target.value;
+        let customConfigurations = this.state.customConfigurations;
+        if (!customConfigurations) {
+            customConfigurations = [];
+        }
+
+        const alreadyExistingCcs = customConfigurations.filter((cc) => cc.name === name);
+
+        if (alreadyExistingCcs.length > 0) {
+            alreadyExistingCcs[0].value = value;
+        } else {
+            customConfigurations.push({name, value});
+        }
+
+        this.setState({customConfigurations: customConfigurations, editMode: true});
+    }
+
+    onCancel() {
+        this.props.onCancel();
+        this.setState({editMode: false});
+    }
+
+    onSave() {
+        this.props.onSave();
+        this.setState({editMode: false});
+    }
+
     render() {
         return (
             <div>
                 <CloseablePanel
                     title="Configuration"
-                    editMode={true}
+                    editMode={this.state.editMode}
                     defaultExpanded={this.props.defaultExpanded}
                     onSave={this.props.onSave}
-                    onCancel={this.props.onCancel}>
+                    onCancel={this.onCancel.bind(this)}>
                     <table border="1">
                         <thead>
                         <tr>
@@ -67,7 +112,7 @@ class Configuration extends Component {
                                         <InputField
                                             name={name}
                                             value={customValue}
-                                            onChange={this.props.onChangeCustomConfigurations}/>
+                                            onChange={this.onChangeCustomConfigurations.bind(this)}/>
                                     </td>
                                     <td>
                                         {picklistConfiguration.defaultValue}

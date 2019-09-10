@@ -2,9 +2,11 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import axios from "axios";
 import Configuration from "./Configuration/Configuration";
+import Funds from "./Funds/Funds";
 import {
     setCentralControl, setCentralControlEdit
 } from "../../../../store/admin/adminActions";
+
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
@@ -16,20 +18,19 @@ class TabConfiguration extends Component {
     }
 
     componentDidMount() {
-        if (!this.isValidCentralControl(this.props.centralControl)) {
-            this.apiGetCentralControl();
-        }
-
         if (this.isValidCentralControl(this.props.centralControl)
             && !this.isValidCentralControl(this.state.centralControl)) {
             this.setCentralControlInState(this.props.centralControl);
+        }
+
+        if (!this.isValidCentralControl(this.props.centralControl)) {
+            this.apiGetCentralControl();
         }
     }
 
     apiGetCentralControl() {
         const companyUrl = this.props.login.company.url;
-        axios
-            .get(`${baseUrl}/api/companies/url/${companyUrl}/central-control`)
+        axios.get(`${baseUrl}/api/companies/url/${companyUrl}/central-control`)
             .then(response => {
                 this.setCentralControlInState(response.data);
                 this.props.setCentralControl(response.data);
@@ -40,36 +41,23 @@ class TabConfiguration extends Component {
         return centralControl && centralControl.companyId;
     }
 
-    onChangeCustomConfigurations(event) {
-        const name = event.target.name;
-        const value = event.target.value;
-        let customConfigurations = this.state.centralControl.customConfigurations;
-        if (!customConfigurations) {
-            customConfigurations = [];
-        }
-
-        const alreadyExistingCcs = customConfigurations.filter((cc) => cc.name === name);
-
-        if (alreadyExistingCcs.length > 0) {
-            alreadyExistingCcs[0].value = value;
-        } else {
-            customConfigurations.push({name, value});
-        }
-        const newCentralControl = {
-            ...this.state.centralControl,
-            customConfigurations: customConfigurations
-        };
-
-        this.setState({centralControl: newCentralControl});
-    }
-
     onCancel() {
         this.apiGetCentralControl();
     }
 
     onSave() {
-        console.log("Saving again.");
+        axios.put(`${baseUrl}/api/companies/central-control`, this.state.centralControl)
+            .then(response => {
+                const serviceResponse = response.data;
+                if(serviceResponse.target) {
+                    const centralControl = this.state.centralControl;
+                    centralControl.id = serviceResponse.target;
+                    this.setCentralControlInState(centralControl);
+                    this.props.setCentralControl(centralControl);
+                }
+            });
     }
+
 
     setCentralControlInState(centralControl) {
         this.setState({centralControl: centralControl});
@@ -81,9 +69,10 @@ class TabConfiguration extends Component {
                 <Configuration
                     defaultExpanded
                     customConfigurations={this.state.centralControl.customConfigurations}
-                    onChangeCustomConfigurations={this.onChangeCustomConfigurations.bind(this)}
                     onCancel={this.onCancel.bind(this)}
                     onSave={this.onSave.bind(this)}/>
+
+                    <Funds defaultExpanded/>
             </div>
         );
     }
@@ -131,8 +120,8 @@ Convert InputField to material ui TextField
 
 TabConfiguration.setCentralControlInState set CentralControl parts in state
     - configurations
-    - announcements
-    - events
+    - funds
+    - expenses
     - jummahs
 
 TabConfiguration.onChange any value set TabConfiguration.state.dirty = true
