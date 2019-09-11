@@ -10,6 +10,7 @@ class Funds extends Component {
             editMode: false,
             funds: props.funds ? props.funds : []
         }
+        this.onChange = this.onChange.bind(this);
     }
 
     static getDerivedStateFromProps(newProps, currentState) {
@@ -25,29 +26,60 @@ class Funds extends Component {
         }
     }
 
-    makeFundUi(fund) {
+    onChange(event) {
+        const nameIndex = event.target.name.split("_");
+        this.state.funds[nameIndex[1]][nameIndex[0]] = event.target.value;
+        this.setState({funds: this.state.funds});
+    }
+
+
+    makeFundUi(fund, index) {
         return (
-            <div>
+            <div key={index}>
                 <table border="1" style={{marginBottom: "20px"}}>
                     <thead>
-                    <tr><th colspan="2">{fund.name}</th></tr>
+                    <tr><th colSpan="2">{fund.name}</th></tr>
                     </thead>
                     <tbody>
                     <tr>
                         <td>Goal</td>
-                        <td><InputField type="number"/></td>
+                        <td>
+                            <InputField
+                                name={"goal_" + index}
+                                onChange={this.onChange}
+                                type="number"
+                                value={fund.goal}/>
+                        </td>
                     </tr>
                     <tr>
                         <td>Current</td>
-                        <td><InputField type="number"/></td>
+                        <td>
+                            <InputField
+                                name={"current_" + index}
+                                onChange={this.onChange}
+                                type="number"
+                                value={fund.current}/>
+                        </td>
                     </tr>
                     <tr>
                         <td>Pledges</td>
-                        <td><InputField type="number"/></td>
+                        <td>
+                            <InputField
+                                name={"pledge_" + index}
+                                onChange={this.onChange}
+                                type="number"
+                                value={fund.pledge}/>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Pledges</td>
-                        <td><InputField type="date"/></td>
+                        <td>End Date</td>
+                        <td>
+                            <InputField
+                                name={"endDate_" + index}
+                                onChange={this.onChange}
+                                type="date"
+                                value={fund.endDate.substr(0,10)}/>
+                        </td>
                     </tr>
 
                     </tbody>
@@ -66,7 +98,7 @@ class Funds extends Component {
                     onSave={this.props.onSave}
                     onCancel={this.props.onCancel}>
                     <div>
-                        {this.state.funds.map(fund => this.makeFundUi(fund))}
+                        {this.state.funds.map((fund, index) => this.makeFundUi(fund, index))}
                     </div>
 
                 </CloseablePanel>
