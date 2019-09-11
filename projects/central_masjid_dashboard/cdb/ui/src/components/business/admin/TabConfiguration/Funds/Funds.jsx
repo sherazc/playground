@@ -9,7 +9,7 @@ class Funds extends Component {
         this.state = {
             editMode: false,
             funds: props.funds ? props.funds : []
-        }
+        };
         this.onChange = this.onChange.bind(this);
     }
 
@@ -19,7 +19,6 @@ class Funds extends Component {
                 ...currentState,
                 funds: newProps.funds
             };
-            console.log("newState in funds", newState);
             return newState;
         } else {
             return null;
@@ -28,8 +27,19 @@ class Funds extends Component {
 
     onChange(event) {
         const nameIndex = event.target.name.split("_");
-        this.state.funds[nameIndex[1]][nameIndex[0]] = event.target.value;
-        this.setState({funds: this.state.funds});
+        const newStateFunds = {...this.state.funds};
+        newStateFunds[nameIndex[1]][nameIndex[0]] = event.target.value;
+        this.setState({funds: newStateFunds, editMode: true});
+    }
+
+    onCancel() {
+        this.props.onCancel();
+        this.setState({editMode: false});
+    }
+
+    onSave() {
+        this.props.onSave();
+        this.setState({editMode: false});
     }
 
 
@@ -95,8 +105,8 @@ class Funds extends Component {
                     title="Funds"
                     editMode={this.state.editMode}
                     defaultExpanded={this.props.defaultExpanded}
-                    onSave={this.props.onSave}
-                    onCancel={this.props.onCancel}>
+                    onSave={this.onSave.bind(this)}
+                    onCancel={this.onCancel.bind(this)}>
                     <div>
                         {this.state.funds.map((fund, index) => this.makeFundUi(fund, index))}
                     </div>
