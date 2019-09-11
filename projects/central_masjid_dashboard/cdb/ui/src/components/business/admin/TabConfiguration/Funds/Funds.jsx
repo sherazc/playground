@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import CloseablePanel from "../../../../common/CloseablePanel/CloseablePanel";
-// import InputField from "../../../../partials/InputField";
+import InputField from "../../../../partials/InputField";
 
 class Funds extends Component {
 
@@ -28,10 +28,29 @@ class Funds extends Component {
     makeFundUi(fund) {
         return (
             <div>
-                <table border="1">
+                <table border="1" style={{marginBottom: "20px"}}>
                     <thead>
-                    <tr><th>{fund.name}</th></tr>
+                    <tr><th colspan="2">{fund.name}</th></tr>
                     </thead>
+                    <tbody>
+                    <tr>
+                        <td>Goal</td>
+                        <td><InputField type="number"/></td>
+                    </tr>
+                    <tr>
+                        <td>Current</td>
+                        <td><InputField type="number"/></td>
+                    </tr>
+                    <tr>
+                        <td>Pledges</td>
+                        <td><InputField type="number"/></td>
+                    </tr>
+                    <tr>
+                        <td>Pledges</td>
+                        <td><InputField type="date"/></td>
+                    </tr>
+
+                    </tbody>
                 </table>
             </div>
         );
