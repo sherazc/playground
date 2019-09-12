@@ -6,6 +6,7 @@ import Funds from "./Funds/Funds";
 import {
     setCentralControl, setCentralControlEdit
 } from "../../../../store/admin/adminActions";
+import Expenses from "./Expenses/Expenses";
 
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
@@ -72,11 +73,17 @@ class TabConfiguration extends Component {
                     onCancel={this.onCancel.bind(this)}
                     onSave={this.onSave.bind(this)}/>
 
-                    <Funds
-                        defaultExpanded
-                        funds={this.state.centralControl.funds}
-                        onCancel={this.onCancel.bind(this)}
-                        onSave={this.onSave.bind(this)}/>
+                <Funds
+                    defaultExpanded
+                    funds={this.state.centralControl.funds}
+                    onCancel={this.onCancel.bind(this)}
+                    onSave={this.onSave.bind(this)}/>
+
+                <Expenses
+                    defaultExpanded
+                    expenses={this.state.centralControl.expenses}
+                    onCancel={this.onCancel.bind(this)}
+                    onSave={this.onSave.bind(this)}/>
             </div>
         );
     }
