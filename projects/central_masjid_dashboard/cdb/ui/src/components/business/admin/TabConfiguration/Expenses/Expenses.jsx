@@ -28,7 +28,7 @@ class Expenses extends Component {
     onChange(event) {
         const nameIndex = event.target.name.split("_");
         const newStateExpenses = {...this.state.expenses};
-        newStateExpenses[nameIndex[1]].amount = event.target.value;
+        newStateExpenses[nameIndex[1]][nameIndex[0]] = event.target.value;
         this.setState({expenses: newStateExpenses, editMode: true});
     }
 
@@ -55,15 +55,20 @@ class Expenses extends Component {
         return (
             <tr key={index}>
                 <td>
-                    {expense.lineItem}
-                </td>
-                <td>
+
+
                     <InputField
                         name={"lineItem_" + index}
                         onChange={this.onChange.bind(this)}
+                        type="text"
+                        value={expense.lineItem}/>
+                </td>
+                <td>
+                    <InputField
+                        name={"amount_" + index}
+                        onChange={this.onChange.bind(this)}
                         type="number"
-                        value={expense.amount}
-                    />
+                        value={expense.amount}/>
                 </td>
                 <td>
                     <span
@@ -123,7 +128,7 @@ class Expenses extends Component {
                                 Total
                             </th>
                             <td>
-                                {this.state.expenses.reduce((total, expense) => expense.amount + total, 0)}
+                                {this.state.expenses.reduce((total, expense) => expense.amount - 0 + total, 0)}
                             </td>
                         </tr>
                         </tfoot>

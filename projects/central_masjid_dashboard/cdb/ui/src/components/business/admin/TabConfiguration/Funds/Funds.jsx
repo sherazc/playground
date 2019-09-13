@@ -42,13 +42,20 @@ class Funds extends Component {
         this.setState({editMode: false});
     }
 
-
     makeFundUi(fund, index) {
         return (
             <div key={index}>
                 <table border="1" style={{marginBottom: "20px"}}>
                     <thead>
-                    <tr><th colSpan="2">{fund.name}</th></tr>
+                    <tr>
+                        <th colSpan="2">
+                            <InputField
+                                name={"name_" + index}
+                                onChange={this.onChange}
+                                type="text"
+                                value={fund.name}/>
+                        </th>
+                    </tr>
                     </thead>
                     <tbody>
                     <tr>
