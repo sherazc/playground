@@ -48,7 +48,11 @@ class Expenses extends Component {
     }
 
     onAdd() {
-        console.log("Add")
+        // const newStateExpenses = {...this.state.expenses};
+        // console.log(this.state.expenses);
+        // console.log(newStateExpenses);
+        this.state.expenses.push({lineItem: "", amount: 0});
+        this.setState({expenses: this.state.expenses, editMode: true});
     }
 
     createExpenseRow(expense, index) {
@@ -96,12 +100,21 @@ class Expenses extends Component {
                     defaultExpanded={this.props.defaultExpanded}
                     onSave={this.onSave.bind(this)}
                     onCancel={this.onCancel.bind(this)}>
-                    <table>
+                    <table border="1">
                         <thead>
                         <tr>
                             <th>Item</th>
                             <th>Amount</th>
-                            <th></th>
+                            <th>
+                                <span
+                                style={{cursor: "pointer"}}
+                                onClick={this.onAdd.bind(this)}
+                                role="img"
+                                aria-label="Add"
+                                aria-hidden={true}>
+                                    ➕
+                                </span>
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -110,26 +123,13 @@ class Expenses extends Component {
 
                         <tfoot>
                         <tr>
-                            <td colSpan="2">
-                                <span
-                                    style={{cursor: "pointer"}}
-                                    onClick={this.onAdd.bind(this)}
-                                    role="img"
-                                    aria-label="Add"
-                                    aria-hidden={true}>
-                                    ➕
-                                </span>
-
-                            </td>
-                        </tr>
-
-                        <tr>
                             <th>
                                 Total
                             </th>
                             <td>
                                 {this.state.expenses.reduce((total, expense) => expense.amount - 0 + total, 0)}
                             </td>
+                            <td></td>
                         </tr>
                         </tfoot>
                     </table>
