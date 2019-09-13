@@ -2,23 +2,23 @@ import React, {Component} from "react";
 import CloseablePanel from "../../../../common/CloseablePanel/CloseablePanel";
 import InputField from "../../../../partials/InputField";
 
-class Expenses extends Component {
+class Jummah extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             editMode: false,
-            expenses: props.expenses ? props.expenses : []
+            jummahs: props.jummahs ? props.jummahs : []
         };
         this.onChange = this.onChange.bind(this);
     }
 
     static getDerivedStateFromProps(newProps, currentState) {
-        // TODO: Bug: onCancel() if the length is same then not loading refreshed expenses
-        if (newProps.expenses && newProps.expenses.length !== currentState.expenses.length) {
+        // TODO: Bug: onCancel() if the length is same then not loading refreshed jummahs
+        if (newProps.jummahs && newProps.jummahs.length !== currentState.jummahs.length) {
             return {
                 ...currentState,
-                expenses: newProps.expenses
+                jummahs: newProps.jummahs
             };
         } else {
             return null;
@@ -27,9 +27,9 @@ class Expenses extends Component {
 
     onChange(event) {
         const nameIndex = event.target.name.split("_");
-        const newStateExpenses = {...this.state.expenses};
+        const newStateExpenses = {...this.state.jummahs};
         newStateExpenses[nameIndex[1]][nameIndex[0]] = event.target.value;
-        this.setState({expenses: newStateExpenses, editMode: true});
+        this.setState({jummahs: newStateExpenses, editMode: true});
     }
 
     onCancel() {
@@ -43,16 +43,16 @@ class Expenses extends Component {
     }
 
     onDelete(index) {
-        this.state.expenses.splice(index, 1);
-        this.setState({expenses: this.state.expenses, editMode: true});
+        this.state.jummahs.splice(index, 1);
+        this.setState({jummahs: this.state.jummahs, editMode: true});
     }
 
     onAdd() {
-        this.state.expenses.push({lineItem: "", amount: 0});
-        this.setState({expenses: this.state.expenses, editMode: true});
+        this.state.jummahs.push({lineItem: "", amount: 0});
+        this.setState({jummahs: this.state.jummahs, editMode: true});
     }
 
-    createExpenseRow(expense, index) {
+    createExpenseRow(jummah, index) {
         return (
             <tr key={index}>
                 <td>
@@ -62,14 +62,14 @@ class Expenses extends Component {
                         name={"lineItem_" + index}
                         onChange={this.onChange.bind(this)}
                         type="text"
-                        value={expense.lineItem}/>
+                        value={jummah.lineItem}/>
                 </td>
                 <td>
                     <InputField
                         name={"amount_" + index}
                         onChange={this.onChange.bind(this)}
                         type="number"
-                        value={expense.amount}/>
+                        value={jummah.amount}/>
                 </td>
                 <td>
                     <span
@@ -115,7 +115,7 @@ class Expenses extends Component {
                         </tr>
                         </thead>
                         <tbody>
-                        {this.state.expenses.map((expense, index) => this.createExpenseRow(expense, index))}
+                        {this.state.jummahs.map((jummah, index) => this.createExpenseRow(jummah, index))}
                         </tbody>
 
                         <tfoot>
@@ -124,7 +124,7 @@ class Expenses extends Component {
                                 Total
                             </th>
                             <td>
-                                {this.state.expenses.reduce((total, expense) => expense.amount - 0 + total, 0)}
+                                {this.state.jummahs.reduce((total, jummah) => jummah.amount - 0 + total, 0)}
                             </td>
                             <td></td>
                         </tr>
@@ -137,4 +137,4 @@ class Expenses extends Component {
 }
 
 
-export default Expenses;
+export default Jummah;
