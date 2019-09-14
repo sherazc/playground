@@ -7,15 +7,15 @@ class Funds extends Component {
     makeFund(fund) {
         const progressPercentage = fund.current / fund.goal * 100;
         return (
-            <div className={styles.fundContainer}>
-                <div className={[styles.heading3, styles.fundHeader].join(' ')}>
+            <div className={styles.container}>
+                <div className={`${styles.heading5} ${styles.header}`}>
                     {fund.name}
                 </div>
-                <div className={styles.fundContent}>
-                    <div className={styles.fundContainerLeft}>
+                <div className={styles.content}>
+                    <div className={styles.containerLeft}>
                         {this.makeFundGrid(fund)}
                     </div>
-                    <div className={styles.fundContainerRight}>
+                    <div className={styles.containerRight}>
                         <CircleProgressBar percentage={progressPercentage} />
                     </div>
                 </div>

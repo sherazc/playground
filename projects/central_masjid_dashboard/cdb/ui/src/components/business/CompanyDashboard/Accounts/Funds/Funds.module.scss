@@ -1,7 +1,7 @@
 @import "../../theme";
 
-.fundContainer {
-    margin: 0vw 2.5vw 1vw 2.5vw;
+.container {
+    margin: 0vw 2.5vw 1.5vw 2.5vw;
 
     border-radius: 2px;
     -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.40);
@@ -12,7 +12,7 @@
     }
 }
 
-.fundHeader {
+.header {
     padding: .5vw;
     background-color: $color2;
     @media screen and (max-width: $screen-break) {
@@ -20,7 +20,7 @@
     }
 }
 
-.fundContent {
+.content {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -29,7 +29,7 @@
     }
 }
 
-.fundContainerLeft {
+.containerLeft {
     width: 60%;
     padding: 0.75vw;
     @media screen and (max-width: $screen-break) {
@@ -37,7 +37,7 @@
     }
 }
 
-.fundContainerRight {
+.containerRight {
     width: 40%;
     // background-color: purple;
     @media screen and (max-width: $screen-break) {

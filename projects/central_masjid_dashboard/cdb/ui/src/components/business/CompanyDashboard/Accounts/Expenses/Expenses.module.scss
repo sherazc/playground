@@ -1,1 +1,32 @@
 @import "../../theme";
+
+.container {
+  margin: 0vw 2.5vw 1vw 2.5vw;
+
+  border-radius: 2px;
+  -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.40);
+  -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.40);
+  box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.40);
+  @media screen and (max-width: $screen-break) {
+    margin: 10vw 12vw -5vw 12vw;
+  }
+}
+
+
+.header {
+  padding: .5vw;
+  background-color: $color2;
+  @media screen and (max-width: $screen-break) {
+    padding: 1vw;
+  }
+}
+
+
+.content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  @media screen and (max-width: $screen-break) {
+  }
+}

@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-// import styles from "./Expenses.module.scss"
+import styles from "./Expenses.module.scss"
+import CircleProgressBar from "../Funds/Funds";
 
 class Expenses extends Component {
     renderTable() {
@@ -10,6 +11,7 @@ class Expenses extends Component {
             );
 
             return (
+
                 <table border="1" style={{margin: "0 auto"}}>
                     <thead>
                     <tr>
@@ -53,12 +55,15 @@ class Expenses extends Component {
 
     render() {
         return (
-            <div>
-                <div>
+            <div className={styles.container}>
+                <div className={`${styles.heading5} ${styles.header}`}>
                     Monthly Operating Expenses
                 </div>
-                {this.renderTable()}
+                <div className={styles.content}>
+                    {this.renderTable()}
+                </div>
             </div>
+
         );
     }
 }
