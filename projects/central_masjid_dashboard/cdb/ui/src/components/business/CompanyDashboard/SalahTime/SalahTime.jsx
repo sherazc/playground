@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import styles from "./SalahTime.module.scss";
 
-
 class SalahTime extends Component {
     render() {
         return (

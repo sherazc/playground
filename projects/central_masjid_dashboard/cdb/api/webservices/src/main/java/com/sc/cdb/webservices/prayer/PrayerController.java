@@ -3,6 +3,7 @@ package com.sc.cdb.webservices.prayer;
 import java.util.Optional;
 
 import com.sc.cdb.data.model.cc.GeoCode;
+import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.services.location.SiteLocator;
 import com.sc.cdb.services.model.ServiceResponse;
@@ -77,6 +78,16 @@ public class PrayerController {
 
     @PostMapping("config")
     public ResponseEntity<ServiceResponse<String>> savePrayers(@RequestBody PrayerConfig prayerConfig) {
+        if (prayerConfig == null || StringUtils.isBlank(prayerConfig.getCompanyId())) {
+            return ResponseEntity.badRequest().build();
+        } else {
+            return ResponseEntity.ok(prayerService.savePrayerConfig(prayerConfig));
+        }
+    }
+
+
+    @GetMapping("month/{month}/day/{day}")
+    public ResponseEntity<ServiceResponse<Prayer>> savePrayers(@PathVariable ) {
         if (prayerConfig == null || StringUtils.isBlank(prayerConfig.getCompanyId())) {
             return ResponseEntity.badRequest().build();
         } else {
