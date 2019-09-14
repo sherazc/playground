@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import Funds from "./Funds/Funds";
 import Expenses from "./Expenses/Expenses";
-import "./Accounts.scss"
+import styles from "./Accounts.module.scss"
 
 const TOTAL_SLIDES = 2;
 
@@ -33,7 +33,7 @@ class Accounts extends Component {
     startSlides() {
         const totalSlides = this.slides.length;
         const slidesClassesClone = this.state.slidesClasses.map(c => c);
-        slidesClassesClone[this.currentSlide] = "slideUp";
+        slidesClassesClone[this.currentSlide] = styles.slideUp;
         this.setState({slidesClasses: slidesClassesClone});
 
         this.currentSlide++;
@@ -43,7 +43,7 @@ class Accounts extends Component {
         }
 
         setTimeout(() => {
-            slidesClassesClone[this.currentSlide] = "slideDown";
+            slidesClassesClone[this.currentSlide] = styles.slideDown;
             this.setState({slidesClasses: slidesClassesClone});
         }, this.animationSeconds * 1000);
     }
@@ -51,7 +51,7 @@ class Accounts extends Component {
     createDefaultSlideClasses(totalSlides) {
         let slidesClasses = [];
         for (let i = 0; i < totalSlides; i++) {
-            slidesClasses.push("sliderHeightZero");
+            slidesClasses.push(styles.sliderHeightZero);
         }
         return slidesClasses;
     }
@@ -87,8 +87,8 @@ class Accounts extends Component {
     render() {
         return (
             <div>
-                <div className="heading1 vMargin8">Expenses</div>
-                <div className="vMargin6">
+                <div className={`${styles.heading1} ${styles.vMargin8}`}>Expenses</div>
+                <div className={styles.vMargin6}>
                     {this.createSlidesDivs()}
                 </div>
             </div>
