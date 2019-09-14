@@ -1,7 +1,7 @@
 @import "../../theme";
 
 .fundContainer {
-    margin: 4vw 2.5vw -2.5vw 2.5vw;
+    margin: 0vw 2.5vw 1vw 2.5vw;
 
     border-radius: 2px;
     -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.40);
@@ -31,7 +31,6 @@
 
 .fundContainerLeft {
     width: 60%;
-
     padding: 0.75vw;
     @media screen and (max-width: $screen-break) {
         padding: 2vw;
@@ -53,7 +52,7 @@ table.fundGrid {
 
 table.fundGrid th, table.fundGrid td {
     border: 1px solid $color1;
-    padding: .5vw;
+    padding: .4vw;
     @media screen and (max-width: $screen-break) {
         padding: 2vw;
     }

@@ -102,7 +102,7 @@ pull Salah time
 fix hijri and gregorian dates
 Fix salah time UI
 Fix react life cycle warning
-Fix Expenses animation
-
+✅ Fix Expenses animation
+Style Expenses UI
 
 */

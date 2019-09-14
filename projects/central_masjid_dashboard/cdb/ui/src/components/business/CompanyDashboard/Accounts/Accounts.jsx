@@ -11,7 +11,7 @@ class Accounts extends Component {
         super(props);
 
         this.animationSeconds = 1;
-        this.animationStaySeconds = 5;
+        this.animationStaySeconds = 500;
         this.currentSlide = 0;
 
         this.startSlides = this.startSlides.bind(this);
@@ -64,8 +64,8 @@ class Accounts extends Component {
 
         if (this.slides.length < 1 && this.props.centralControl.id !== undefined) {
             this.slides = [
+                <Expenses expenses={this.props.centralControl.expenses}/>,
                 <Funds funds={this.props.centralControl.funds}/>,
-                <Expenses expenses={this.props.centralControl.expenses}/>
                 ];
         }
     }
