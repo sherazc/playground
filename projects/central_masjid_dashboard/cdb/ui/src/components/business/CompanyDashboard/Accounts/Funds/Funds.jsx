@@ -25,8 +25,6 @@ class Funds extends Component {
     }
 
     makeFundGrid(fund) {
-
-        //
         return (
             <table className={styles.fundGrid}>
                 <tbody>

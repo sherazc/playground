@@ -9,7 +9,7 @@ class CircleProgressBar extends Component {
     constructor(props) {
         super(props);
         this.animationSeconds = 2;
-        this.animationStaySeconds = 5;
+        this.animationStaySeconds = 10;
 
         this.cpbSvgPathId = "cpb_svg_path_" + CircleProgressBar.cpbCounter++;
         this.setupProgressBar = this.setupProgressBar.bind(this);
@@ -48,7 +48,7 @@ class CircleProgressBar extends Component {
         if (percentage <= 0) {
             return pathLenght;
         }
-        const reversePercentage = 100 - (percentage % 100)
+        const reversePercentage = 100 - (percentage % 100);
         return pathLenght * reversePercentage / 100;
     }
 
