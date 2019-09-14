@@ -1,6 +1,9 @@
 import React, {Component} from "react";
 import CloseablePanel from "../../../../common/CloseablePanel/CloseablePanel";
 import InputField from "../../../../partials/InputField";
+import {
+    Checkbox
+} from "@material-ui/core";
 
 class Jummah extends Component {
 
@@ -11,6 +14,7 @@ class Jummah extends Component {
             jummahs: props.jummahs ? props.jummahs : []
         };
         this.onChange = this.onChange.bind(this);
+        this.onChangeChecked = this.onChangeChecked.bind(this);
     }
 
     static getDerivedStateFromProps(newProps, currentState) {
@@ -27,9 +31,16 @@ class Jummah extends Component {
 
     onChange(event) {
         const nameIndex = event.target.name.split("_");
-        const newStateExpenses = {...this.state.jummahs};
-        newStateExpenses[nameIndex[1]][nameIndex[0]] = event.target.value;
-        this.setState({jummahs: newStateExpenses, editMode: true});
+        const newStateJummahs = this.state.jummahs.slice(0);
+        newStateJummahs[nameIndex[1]][nameIndex[0]] = event.target.value;
+        this.setState({jummahs: newStateJummahs, editMode: true});
+    }
+
+    onChangeChecked(event) {
+        const nameIndex = event.target.name.split("_");
+        const newStateJummahs = this.state.jummahs.slice(0);
+        newStateJummahs[nameIndex[1]][nameIndex[0]] = event.target.checked;
+        this.setState({jummahs: newStateJummahs, editMode: true});
     }
 
     onCancel() {
@@ -48,28 +59,32 @@ class Jummah extends Component {
     }
 
     onAdd() {
-        this.state.jummahs.push({lineItem: "", amount: 0});
+        this.state.jummahs.push({khateeb: "", date: "", enabled: false});
         this.setState({jummahs: this.state.jummahs, editMode: true});
     }
 
-    createExpenseRow(jummah, index) {
+    createRow(jummah, index) {
         return (
             <tr key={index}>
                 <td>
-
-
                     <InputField
-                        name={"lineItem_" + index}
-                        onChange={this.onChange.bind(this)}
+                        name={"khateeb_" + index}
+                        onChange={this.onChange}
                         type="text"
-                        value={jummah.lineItem}/>
+                        value={jummah.khateeb}/>
                 </td>
                 <td>
                     <InputField
-                        name={"amount_" + index}
-                        onChange={this.onChange.bind(this)}
-                        type="number"
-                        value={jummah.amount}/>
+                        name={"date_" + index}
+                        onChange={this.onChange}
+                        type="date"
+                        value={jummah.date.substr(0,10)}/>
+                </td>
+                <td>
+                    <Checkbox color="primary"
+                        name={"enabled_" + index}
+                        checked={jummah.enabled}
+                        onChange={this.onChangeChecked} />
                 </td>
                 <td>
                     <span
@@ -84,7 +99,6 @@ class Jummah extends Component {
                     </span>
                 </td>
             </tr>
-
         );
     }
 
@@ -92,7 +106,7 @@ class Jummah extends Component {
         return (
             <div>
                 <CloseablePanel
-                    title="Expenses"
+                    title="Jummah"
                     editMode={this.state.editMode}
                     defaultExpanded={this.props.defaultExpanded}
                     onSave={this.onSave.bind(this)}
@@ -100,41 +114,29 @@ class Jummah extends Component {
                     <table border="1">
                         <thead>
                         <tr>
-                            <th>Item</th>
-                            <th>Amount</th>
+                            <th>Khateeb</th>
+                            <th>Date</th>
+                            <th>Enabled</th>
                             <th>
                                 <span
-                                style={{cursor: "pointer"}}
-                                onClick={this.onAdd.bind(this)}
-                                role="img"
-                                aria-label="Add"
-                                aria-hidden={true}>
+                                    style={{cursor: "pointer"}}
+                                    onClick={this.onAdd.bind(this)}
+                                    role="img"
+                                    aria-label="Add"
+                                    aria-hidden={true}>
                                     ➕
                                 </span>
                             </th>
                         </tr>
                         </thead>
                         <tbody>
-                        {this.state.jummahs.map((jummah, index) => this.createExpenseRow(jummah, index))}
+                        {this.state.jummahs.map((jummah, index) => this.createRow(jummah, index))}
                         </tbody>
-
-                        <tfoot>
-                        <tr>
-                            <th>
-                                Total
-                            </th>
-                            <td>
-                                {this.state.jummahs.reduce((total, jummah) => jummah.amount - 0 + total, 0)}
-                            </td>
-                            <td></td>
-                        </tr>
-                        </tfoot>
                     </table>
                 </CloseablePanel>
             </div>
         );
     }
 }
-
 
 export default Jummah;

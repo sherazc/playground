@@ -7,6 +7,7 @@ import {
     setCentralControl, setCentralControlEdit
 } from "../../../../store/admin/adminActions";
 import Expenses from "./Expenses/Expenses";
+import Jummah from "./Jummah/Jummah";
 
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
@@ -84,6 +85,12 @@ class TabConfiguration extends Component {
                     expenses={this.state.centralControl.expenses}
                     onCancel={this.onCancel.bind(this)}
                     onSave={this.onSave.bind(this)}/>
+
+                <Jummah
+                    defaultExpanded
+                    jummahs={this.state.centralControl.jummahs}
+                    onCancel={this.onCancel.bind(this)}
+                    onSave={this.onSave.bind(this)}/>
             </div>
         );
     }
@@ -129,16 +136,16 @@ Convert InputField to material ui TextField
 ❌        - set TabConfiguration.state.centralControl in redux.admin.centralControlEdit
 
 
-TabConfiguration.setCentralControlInState set CentralControl parts in state
-    - configurations
-    - funds
-    - expenses
-    - jummahs
+✅ TabConfiguration.setCentralControlInState set CentralControl parts in state
+✅     - configurations
+✅     - funds
+✅     - expenses
+✅     - jummahs
 
-TabConfiguration.onChange any value set TabConfiguration.state.dirty = true
+❌ TabConfiguration.onChange any value set TabConfiguration.state.dirty = true
 
-TabConfiguration.render
-    - if TabConfiguration.state.dirty = true show save/cancel bar
+❌ TabConfiguration.render
+❌     - if TabConfiguration.state.dirty = true show save/cancel bar
     - if TabConfiguration.state.CentralControl.announcements, show announcements component
     - if TabConfiguration.state.CentralControl.configurations, show configuration component
     - if TabConfiguration.state.CentralControl.events, show events component
@@ -146,7 +153,7 @@ TabConfiguration.render
     - if TabConfiguration.state.CentralControl.funds, show jummahs component
     - if TabConfiguration.state.CentralControl.expenses, show jummahs component
 
-TabConfiguration.onSave
+✅ TabConfiguration.onSave
 
 
  */

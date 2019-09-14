@@ -27,7 +27,7 @@ class Expenses extends Component {
 
     onChange(event) {
         const nameIndex = event.target.name.split("_");
-        const newStateExpenses = {...this.state.expenses};
+        const newStateExpenses = this.state.expenses.slice(0);
         newStateExpenses[nameIndex[1]][nameIndex[0]] = event.target.value;
         this.setState({expenses: newStateExpenses, editMode: true});
     }
@@ -52,12 +52,10 @@ class Expenses extends Component {
         this.setState({expenses: this.state.expenses, editMode: true});
     }
 
-    createExpenseRow(expense, index) {
+    createRow(expense, index) {
         return (
             <tr key={index}>
                 <td>
-
-
                     <InputField
                         name={"lineItem_" + index}
                         onChange={this.onChange.bind(this)}
@@ -84,7 +82,6 @@ class Expenses extends Component {
                     </span>
                 </td>
             </tr>
-
         );
     }
 
@@ -115,9 +112,8 @@ class Expenses extends Component {
                         </tr>
                         </thead>
                         <tbody>
-                        {this.state.expenses.map((expense, index) => this.createExpenseRow(expense, index))}
+                        {this.state.expenses.map((expense, index) => this.createRow(expense, index))}
                         </tbody>
-
                         <tfoot>
                         <tr>
                             <th>
@@ -135,6 +131,5 @@ class Expenses extends Component {
         );
     }
 }
-
 
 export default Expenses;
