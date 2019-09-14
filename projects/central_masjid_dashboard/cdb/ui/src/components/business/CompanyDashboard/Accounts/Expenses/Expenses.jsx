@@ -1,18 +1,15 @@
 import React, {Component} from "react";
 import styles from "./Expenses.module.scss"
-import CircleProgressBar from "../Funds/Funds";
 
 class Expenses extends Component {
     renderTable() {
         const {expenses} = this.props;
         if(expenses && expenses.length > 0) {
-            const totalAmount = expenses.reduce(
-                (previousExpense, currentExpense) => previousExpense.amount + currentExpense.amount
-            );
+            const totalAmount = expenses.reduce((total, expense) => expense.amount - 0 + total, 0);
 
             return (
 
-                <table border="1" style={{margin: "0 auto"}}>
+                <table className={styles.grid} style={{margin: "0 auto"}}>
                     <thead>
                     <tr>
                         <th>

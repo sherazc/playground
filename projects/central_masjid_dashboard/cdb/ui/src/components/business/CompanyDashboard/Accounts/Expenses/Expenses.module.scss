@@ -2,16 +2,14 @@
 
 .container {
   margin: 0vw 2.5vw 1vw 2.5vw;
-
   border-radius: 2px;
   -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.40);
   -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.40);
   box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.40);
   @media screen and (max-width: $screen-break) {
-    margin: 10vw 12vw -5vw 12vw;
+    margin: 3vw 12vw;
   }
 }
-
 
 .header {
   padding: .5vw;
@@ -21,12 +19,35 @@
   }
 }
 
-
 .content {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  padding: 1.5vw;
   @media screen and (max-width: $screen-break) {
+    padding: 5vw;
   }
+}
+
+table.grid {
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+table.grid th, table.grid td {
+  border: 1px solid $color1;
+  padding: .4vw;
+  @media screen and (max-width: $screen-break) {
+    padding: 2vw;
+  }
+}
+
+table.grid td {
+  @extend .textLarge;
+}
+
+table.grid th {
+  @extend .textLarge, .textBold;
+  text-align: left;
 }
