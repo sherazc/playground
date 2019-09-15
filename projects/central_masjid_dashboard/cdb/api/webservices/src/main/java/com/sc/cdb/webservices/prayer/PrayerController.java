@@ -86,12 +86,10 @@ public class PrayerController {
     }
 
 
-    @GetMapping("month/{month}/day/{day}")
-    public ResponseEntity<ServiceResponse<Prayer>> savePrayers(@PathVariable ) {
-        if (prayerConfig == null || StringUtils.isBlank(prayerConfig.getCompanyId())) {
-            return ResponseEntity.badRequest().build();
-        } else {
-            return ResponseEntity.ok(prayerService.savePrayerConfig(prayerConfig));
-        }
+    @GetMapping("companyId/{companyId}/month/{month}/day/{day}")
+    public ResponseEntity<ServiceResponse<Prayer>> getPrayerByCompanyIdMonthAndDay(
+            @PathVariable String companyId, @PathVariable int month, @PathVariable int day) {
+        return ResponseEntity.ok(prayerService.getPrayerByCompanyIdMonthAndDay(companyId, month, day));
+
     }
 }

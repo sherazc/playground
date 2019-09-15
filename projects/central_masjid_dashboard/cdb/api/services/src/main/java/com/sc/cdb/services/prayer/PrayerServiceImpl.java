@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.sc.cdb.data.dao.CentralControlDao;
+import com.sc.cdb.data.dao.PrayerConfigDao;
 import com.sc.cdb.data.model.cc.CentralControl;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.data.model.prayer.Prayer;
@@ -25,16 +26,19 @@ public class PrayerServiceImpl implements PrayerService {
     private PrayTimeCalculator prayTimeCalculator;
     private PrayerConfigRepository prayerConfigRepository;
     private IqamahCalculator iqamahCalculator;
+    private PrayerConfigDao prayerConfigDao;
 
     public PrayerServiceImpl(
             CentralControlDao centralControlDao,
             PrayTimeCalculator prayTimeCalculator,
             PrayerConfigRepository prayerConfigRepository,
-            IqamahCalculator iqamahCalculator) {
+            IqamahCalculator iqamahCalculator,
+            PrayerConfigDao prayerConfigDao) {
         this.centralControlDao = centralControlDao;
         this.prayTimeCalculator = prayTimeCalculator;
         this.prayerConfigRepository = prayerConfigRepository;
         this.iqamahCalculator = iqamahCalculator;
+        this.prayerConfigDao = prayerConfigDao;
     }
 
     @Override
@@ -46,6 +50,30 @@ public class PrayerServiceImpl implements PrayerService {
         } else {
             serviceResponseBuilder.target(save.getId()).successful(true).message("Successfully saved PrayerConfig");
         }
+        return serviceResponseBuilder.build();
+    }
+
+    @Override
+    public ServiceResponse<Prayer> getPrayerByCompanyIdMonthAndDay(String companyId, int month, int day) {
+        ServiceResponse.ServiceResponseBuilder<Prayer> serviceResponseBuilder = ServiceResponse.builder();
+        if (month > 12 || month < 1) {
+            serviceResponseBuilder.successful(false).message("Invalid Month");
+        } else if (day > 31 || day < 1) {
+            serviceResponseBuilder.successful(false).message("Invalid Day");
+        } else if (StringUtils.isBlank(companyId)) {
+            serviceResponseBuilder.successful(false).message("Invalid CompanyId");
+        } else {
+            List<Prayer> prayers = prayerConfigDao.getPrayerByCompanyIdMonthAndDay(companyId, month, day);
+            if (prayers == null || prayers.isEmpty()) {
+                serviceResponseBuilder.successful(false).message("Prayer not found.");
+            } else {
+                serviceResponseBuilder
+                        .target(prayers.get(0))
+                        .successful(true)
+                        .message("Prayer found.");
+            }
+        }
+
         return serviceResponseBuilder.build();
     }
 
