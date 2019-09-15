@@ -89,12 +89,17 @@ export default CompanyDashboard;
 
 /*
 
+load picklist in redux if not already loaded. copy code.
+create helper method to load configuration from centralControl or picklist
+load Jummah configuration
+
+
 pull Salah time
 fix hijri and gregorian dates
 Fix salah time UI
-Fix react life cycle warning
+✅ Fix react life cycle warning
 ✅ Fix Expenses animation
-Style Expenses UI
+✅ Style Expenses UI
 
 Remove all getDerivedStateFromProps and use componentDidUpdate
 to update state after props are set updated by parent

@@ -47,6 +47,17 @@ export const dateToDisplayDateShort = (date) => {
     return `${d.getUTCMonth() + 1}/${d.getUTCDate()}`;
 };
 
+
+export const dateToDisplayTime = (date) => {
+    if (!date) {
+        return;
+    }
+    const d = date instanceof Date ? date : new Date(date);
+
+    return `${time24To12(d.getUTCHours() + ":" + d.getUTCMinutes())}`;
+};
+
+
 export const datesMonthDatePart = (date) => {
     if (!date) {
         return;
@@ -68,7 +79,7 @@ export const time24To12 = (time24) => {
     }
     const hoursMinutes = time24.split(":");
     const hours24 = hoursMinutes[0] - 0;
-    const hours12 = hours24 % 12;
+    const hours12 = hours24 > 12 ? hours24 % 12 : hours24;
     const minutes = hoursMinutes[1] - 0;
     const amPm = hours24 > 12 ? "pm" : "am";
 

@@ -1,7 +1,11 @@
 import React, {Component} from "react";
 import axios from "axios";
 import styles from "./SalahTime.module.scss";
-import {time24To12} from "../../../../services/utilities";
+import {
+    time24To12,
+    dateToDisplayDateShort,
+    dateToDisplayTime
+} from "../../../../services/utilities";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
@@ -50,24 +54,27 @@ class SalahTime extends Component {
                 <tbody>
                 <tr>
                     <th>Fajr</th>
-                    <td>6:25 am</td>
-                    <td>6:45 am</td>
-                    <td>02/15 <br/>6:30 am</td>
+                    <td>{time24To12(prayer.fajr)}</td>
+                    <td>{time24To12(prayer.fajrIqama)}</td>
+                    <td>
+                        not done<br/>
+                        {dateToDisplayDateShort(prayer.date)}<br/>{dateToDisplayTime(prayer.date)}
+                    </td>
                 </tr>
                 <tr>
                     <th>Shurooq</th>
-                    <td colSpan="3">7:36 am</td>
+                    <td colSpan="3">{time24To12(prayer.sunrise)}</td>
                 </tr>
                 <tr>
                     <th>Thuhr</th>
-                    <td>12:51 pm</td>
-                    <td>2:00 pm</td>
-                    <td>&nbsp;</td>
+                    <td>{time24To12(prayer.dhuhr)}</td>
+                    <td>{time24To12(prayer.dhuhrIqama)}</td>
+                    <td>02/01<br/>4:30 pm</td>
                 </tr>
                 <tr>
                     <th>Asr</th>
-                    <td>3:44 pm</td>
-                    <td>4:00 pm</td>
+                    <td>{time24To12(prayer.asr)}</td>
+                    <td>{time24To12(prayer.asrIqama)}</td>
                     <td>02/01<br/>4:30 pm</td>
                 </tr>
                 <tr>
@@ -78,8 +85,8 @@ class SalahTime extends Component {
                 </tr>
                 <tr>
                     <th>Isha</th>
-                    <td>7:17 pm</td>
-                    <td>7:45 pm</td>
+                    <td>{time24To12(prayer.isha)}</td>
+                    <td>{time24To12(prayer.ishaIqama)}</td>
                     <td>02/15<br/>8:00 pm</td>
                 </tr>
                 <tr>
