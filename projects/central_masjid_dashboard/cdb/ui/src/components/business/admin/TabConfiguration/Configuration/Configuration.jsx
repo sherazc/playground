@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import CloseablePanel from "../../../../common/CloseablePanel/CloseablePanel";
-import {apiGetConfigurations} from "../../../../../store/picklist/picklistActions";
+import {apiGetPicklistConfigurations} from "../../../../../store/picklist/picklistActions";
 import {connect} from "react-redux";
 import InputField from "../../../../partials/InputField";
 
@@ -36,7 +36,7 @@ class Configuration extends Component {
         const {picklistConfigurations} = this.state;
 
         if (!picklistConfigurations || picklistConfigurations.length < 1) {
-            this.props.apiGetConfigurations(this.setPicklistConfigurations.bind(this));
+            this.props.apiGetPicklistConfigurations(this.setPicklistConfigurations.bind(this));
         }
     }
 
@@ -134,6 +134,6 @@ const mapStateToProps = state => {
     }
 };
 
-const actions = {apiGetConfigurations};
+const actions = {apiGetPicklistConfigurations};
 
 export default connect(mapStateToProps, actions)(Configuration);

@@ -89,7 +89,8 @@ export default CompanyDashboard;
 
 /*
 
-load picklist in redux if not already loaded. copy code.
+
+Build configurations in redux.common
 create helper method to load configuration from centralControl or picklist
 load Jummah configuration
 
