@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {getAllCompaniesAllUsers, getCompanyAllUsers} from "../../../../services/auth/CompanyListService";
-import {getPathParamFromProps} from "../../../../services/utilities";
+import {getReactRouterPathParamFromUrl} from "../../../../services/utilities";
 import UserGrid from "./UserGrid";
 import {prepareCompanyUserToEdit} from "../../../../store/register-company/actions";
 import {connect} from "react-redux";
@@ -14,13 +14,13 @@ class AuthCompanyUserList extends Component {
     }
 
     componentDidMount() {
-        const action = getPathParamFromProps(this.props, "action");
+        const action = getReactRouterPathParamFromUrl(this.props, "action");
         this.updateAllOrCurrentUsers(action);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const prevAction = getPathParamFromProps(prevProps, "action");
-        const currentAction = getPathParamFromProps(this.props, "action");
+        const prevAction = getReactRouterPathParamFromUrl(prevProps, "action");
+        const currentAction = getReactRouterPathParamFromUrl(this.props, "action");
         if (currentAction !== prevAction) {
             this.updateAllOrCurrentUsers(currentAction);
         }
@@ -82,7 +82,7 @@ class AuthCompanyUserList extends Component {
     }
 
     render() {
-        const action = getPathParamFromProps(this.props, "action");
+        const action = getReactRouterPathParamFromUrl(this.props, "action");
         const redirectUrl = this.getRedirectUrl(action, this.props);
         if (redirectUrl) {
             return <Redirect to={redirectUrl}/>;

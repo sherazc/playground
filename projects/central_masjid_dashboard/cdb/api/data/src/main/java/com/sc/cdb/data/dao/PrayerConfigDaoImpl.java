@@ -44,7 +44,6 @@ public class PrayerConfigDaoImpl implements PrayerConfigDao {
                 Aggregation.match(Criteria.where("month").is(month).and("dayOfMonth").is(day))
         );
 
-
         return mongoTemplate
                 .aggregate(aggregation, "prayerConfig", Prayer.class)
                 .getMappedResults();
@@ -55,25 +54,6 @@ public class PrayerConfigDaoImpl implements PrayerConfigDao {
 
 
 /*
-
-
-
-ProjectionOperation project = Aggregation.project()
-                // .and("_id").as("0") // Not sure how to skip field
-                .and("configurations.name").as("name")
-                .and("configurations.type").as("type")
-                .and("configurations.label").as("label")
-                .and("configurations.defaultValue").as("defaultValue")
-                .and("configurations.description").as("description");
-
-        Aggregation aggregation = Aggregation.newAggregation(
-                Aggregation.unwind("configurations"), project);
-
-        return mongoTemplate
-                .aggregate(aggregation, "picklist", Configuration.class)
-                .getMappedResults();
-
-
 
 db.getCollection('prayerConfig').aggregate([
     { $unwind: "$prayers" },
@@ -113,7 +93,5 @@ db.getCollection('prayerConfig').aggregate([
         }
     },
 ]);
-
-
 
 */

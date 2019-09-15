@@ -8,7 +8,7 @@ import {
     updateCompanyAction
 } from "../../../store/register-company/actions";
 import {NavLink} from "react-router-dom";
-import {getPathParamFromProps} from "../../../services/utilities";
+import {getReactRouterPathParamFromUrl} from "../../../services/utilities";
 import {Redirect} from "react-router";
 import {isAdminLogin} from "../../../services/auth/AuthNZ";
 
@@ -22,8 +22,8 @@ class AuthCompany extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const prevAction = getPathParamFromProps(prevProps, "action");
-        const currentAction = getPathParamFromProps(this.props, "action");
+        const prevAction = getReactRouterPathParamFromUrl(prevProps, "action");
+        const currentAction = getReactRouterPathParamFromUrl(this.props, "action");
         if (currentAction === "create" && prevAction !== "create") {
             this.setState(this.createInitialState(this.props.companyServiceResponse));
         }
@@ -35,7 +35,7 @@ class AuthCompany extends Component {
 
     onSubmit(event) {
         event.preventDefault();
-        const action = getPathParamFromProps(this.props, "action");
+        const action = getReactRouterPathParamFromUrl(this.props, "action");
 
         const saveCompany = {
             name: this.state.name,
@@ -74,7 +74,7 @@ class AuthCompany extends Component {
     }
 
     getRedirectUrl(props) {
-        const action = getPathParamFromProps(this.props, "action");
+        const action = getReactRouterPathParamFromUrl(this.props, "action");
         const actionViewOrEdit = action === "view" || action === "edit";
         const adminLogin = isAdminLogin(props);
         const isCompanySelected = props.companyServiceResponse && props.companyServiceResponse.target && props.companyServiceResponse.target.id;
@@ -94,7 +94,7 @@ class AuthCompany extends Component {
             return <Redirect to={redirectUrl}/>;
         }
 
-        const action = getPathParamFromProps(this.props, "action");
+        const action = getReactRouterPathParamFromUrl(this.props, "action");
         return (
             <div>
                 <h3>Company {action}</h3>

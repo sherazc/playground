@@ -8,7 +8,7 @@ import {
 
 import {NavLink} from "react-router-dom";
 import {Redirect} from "react-router";
-import {getPathParamFromProps} from "../../../../services/utilities";
+import {getReactRouterPathParamFromUrl} from "../../../../services/utilities";
 import {isAdminLogin, isAuthPresent, isMyProfile, isSuperAdminLogin} from "../../../../services/auth/AuthNZ";
 import UpdateCredentials from "./UpdateCredentials";
 
@@ -22,8 +22,8 @@ class AuthCompanyUser extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const prevAction = getPathParamFromProps(prevProps, "action");
-        const currentAction = getPathParamFromProps(this.props, "action");
+        const prevAction = getReactRouterPathParamFromUrl(prevProps, "action");
+        const currentAction = getReactRouterPathParamFromUrl(this.props, "action");
         if ((currentAction === "create" && prevAction !== "create")
             || (currentAction === "profile" && prevAction !== "profile")) {
             this.setState(this.createInitialState(this.props.companyUserServiceResponse));
@@ -50,7 +50,7 @@ class AuthCompanyUser extends Component {
             "verified": true
         };
 
-        const action = getPathParamFromProps(this.props, "action");
+        const action = getReactRouterPathParamFromUrl(this.props, "action");
         if (action === "create") {
             const loginInCompany = this.props.login.company;
             let company;
@@ -76,7 +76,7 @@ class AuthCompanyUser extends Component {
     }
 
     getRedirectUrl(state, props) {
-        const action = getPathParamFromProps(props, "action");
+        const action = getReactRouterPathParamFromUrl(props, "action");
         const actionViewOrEdit = action === "view" || action === "edit";
         const isLoggedIn = isAuthPresent(props.login);
         const adminLogin = isAdminLogin(props);
@@ -109,7 +109,7 @@ class AuthCompanyUser extends Component {
     render() {
         const loginInCompany = this.props.login.company;
         const myProfile = isMyProfile(this.props);
-        const action = getPathParamFromProps(this.props, "action");
+        const action = getReactRouterPathParamFromUrl(this.props, "action");
         const adminLogin = isAdminLogin(this.props);
         const superAdminLogin = isSuperAdminLogin(this.props);
         // todo create new registration steps display e.g. 1 - 2 - 3

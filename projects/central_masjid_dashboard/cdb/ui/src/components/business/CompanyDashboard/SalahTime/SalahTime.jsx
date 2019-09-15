@@ -1,7 +1,37 @@
 import React, {Component} from "react";
+import axios from "axios";
 import styles from "./SalahTime.module.scss";
 
+const baseUrl = process.env.REACT_APP_API_BASE_PATH;
+
 class SalahTime extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            prayer: {},
+            centralControl: {}
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.centralControl.id && !this.state.centralControl.id) {
+            axios
+                .get(`${baseUrl}/api/prayer/companyId/${this.props.centralControl.companyId}/month/2/day/2`)
+                .then(response => {
+                    if (response.data.successful) {
+                        this.setState({
+                            centralControl: this.props.centralControl,
+                            prayer: response.data.target
+                        });
+                    } else {
+                        this.setState({centralControl: this.props.centralControl});
+                    }
+                }).catch(error => this.setState({centralControl: this.props.centralControl}));
+        }
+    }
+
+
     render() {
         return (
             <div>

@@ -1,8 +1,7 @@
 import React, {Component} from "react";
-import {getPathParamFromProps} from "../../../services/utilities";
+import {getReactRouterPathParamFromUrl} from "../../../services/utilities";
 import Grid from '@material-ui/core/Grid';
 import axios from "axios";
-
 import SalahTime from "./SalahTime/SalahTime";
 import Accounts from "./Accounts/Accounts";
 import Updates from "./Updates/Updates";
@@ -19,29 +18,19 @@ class CompanyDashboard extends Component {
         centralControl: {}
     };
 
-
-    // TODO: Deprecated. Do as it is done in Rod.jsx to add font styles
-    componentWillMount() {
-        this.setState({
-            companyDashboardUrl: getPathParamFromProps(this.props, "companyDashboardUrl")
-        });
-
-        document.getElementsByTagName("html")[0].style.height = "100%";
-        document.getElementsByTagName("body")[0].style.height = "100%";
-        document.getElementById("root").style.height = "100%";
-    }
-
     componentDidMount() {
-        this.apiGetCentralControl();
-    }
-
-    apiGetCentralControl() {
-        axios
-            .get(`${baseUrl}/api/companies/url/${this.state.companyDashboardUrl}/central-control`)
-            .then(response => this.setState({
-                    centralControl: response.data
-                })
-            );
+        const companyDashboardUrl = getReactRouterPathParamFromUrl(this.props, "companyDashboardUrl");
+        if (!this.state.centralControl.id && companyDashboardUrl) {
+            axios
+                .get(`${baseUrl}/api/companies/url/${companyDashboardUrl}/central-control`)
+                .then(response => this.setState({
+                        centralControl: response.data
+                    })
+                );
+            document.getElementsByTagName("html")[0].style.height = "100%";
+            document.getElementsByTagName("body")[0].style.height = "100%";
+            document.getElementById("root").style.height = "100%";
+        }
     }
 
     componentWillUnmount() {
@@ -73,7 +62,7 @@ class CompanyDashboard extends Component {
 
                     <div className={styles.sideBox}
                         style={{backgroundImage: `url(${process.env.PUBLIC_URL}/images/side_box_background.svg)`}}>
-                        <SalahTime/>
+                        <SalahTime centralControl={this.state.centralControl}/>
                     </div>
                 </Grid>
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={styles.gridCenter}>
@@ -104,5 +93,8 @@ Fix salah time UI
 Fix react life cycle warning
 ✅ Fix Expenses animation
 Style Expenses UI
+
+Remove all getDerivedStateFromProps and use componentDidUpdate
+to update state after props are set updated by parent
 
 */
