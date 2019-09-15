@@ -1,6 +1,8 @@
 package com.sc.cdb.webservices.auth.controller;
 
 import com.sc.cdb.data.model.auth.Company;
+import com.sc.cdb.data.model.cc.CustomConfiguration;
+import com.sc.cdb.data.model.picklist.Configuration;
 import com.sc.cdb.services.auth.CompanyService;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.webservices.decorator.ErrorResponseDecorator;
@@ -20,7 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+
 import java.text.MessageFormat;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -102,9 +106,13 @@ public class CompanyController {
         }
     }
 
-    @PostMapping
-    @RequestMapping("/url")
-    public ResponseEntity<?> findAllCompanyUrl() {
+    @GetMapping("/url")
+    public ResponseEntity<List<Company>> findAllCompanyUrl() {
         return ResponseEntity.ok(this.companyService.findAllCompanyUrl());
+    }
+
+    @GetMapping("{companyId}/configurations")
+    public ResponseEntity<List<CustomConfiguration>> getCompanyConfigurations(@PathVariable String companyId) {
+        return ResponseEntity.ok(this.companyService.findCompanyConfigurations(companyId));
     }
 }

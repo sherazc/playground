@@ -1,6 +1,11 @@
 package com.sc.cdb.services.auth;
 
+import com.sc.cdb.data.dao.PicklistDao;
 import com.sc.cdb.data.model.auth.Company;
+import com.sc.cdb.data.model.cc.CentralControl;
+import com.sc.cdb.data.model.cc.CustomConfiguration;
+import com.sc.cdb.data.model.picklist.Configuration;
+import com.sc.cdb.data.repository.CentralControlRepository;
 import com.sc.cdb.data.repository.CompanyRepository;
 import com.sc.cdb.services.model.ServiceResponse;
 import org.apache.commons.lang3.StringUtils;
@@ -9,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,9 +23,16 @@ public class CompanyServiceImpl implements CompanyService {
     private static final Logger LOG = LoggerFactory.getLogger(CompanyServiceImpl.class);
 
     private CompanyRepository companyRepository;
+    private PicklistDao picklistDao;
+    private CentralControlRepository centralControlRepository;
 
-    public CompanyServiceImpl(CompanyRepository companyRepository) {
+    public CompanyServiceImpl(
+            CompanyRepository companyRepository,
+            PicklistDao picklistDao,
+            CentralControlRepository centralControlRepository) {
         this.companyRepository = companyRepository;
+        this.picklistDao = picklistDao;
+        this.centralControlRepository = centralControlRepository;
     }
 
     @Override
@@ -89,6 +102,39 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public List<Company> findAllCompanyUrl() {
         return this.companyRepository.findAllCompanyUrl();
+    }
+
+    @Override
+    public List<CustomConfiguration> findCompanyConfigurations(String companyId) {
+
+        // getPicklist
+        // getCentralControl configurations by companyId
+        // merge CentralControl configurations in picklist configurations
+        // return picklist configurations
+
+        if (StringUtils.isBlank(companyId)) {
+            return List.of();
+        }
+
+        List<Configuration> picklistConfigurations = this.picklistDao.getAllConfiguration();
+        if (picklistConfigurations == null) {
+            return List.of();
+        }
+
+        List<CustomConfiguration> customConfigurations;
+        Optional<CentralControl> centralControlOptional =
+                centralControlRepository.findByCompanyId(companyId);
+
+        if (centralControlOptional.isPresent()
+                && centralControlOptional.get().getCustomConfigurations() != null) {
+            customConfigurations = centralControlOptional.get().getCustomConfigurations();
+        } else {
+            customConfigurations = new ArrayList<>();
+        }
+
+
+
+        return customConfigurations;
     }
 
     private Optional<Company> getExistingCompanyByName(Company company, boolean update) {
