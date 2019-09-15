@@ -19,6 +19,8 @@ class CompanyDashboard extends Component {
     };
 
     componentDidMount() {
+        // I am able to do this because react router props are set before
+        // before component mount.
         const companyDashboardUrl = getReactRouterPathParamFromUrl(this.props, "companyDashboardUrl");
         if (!this.state.centralControl.id && companyDashboardUrl) {
             axios

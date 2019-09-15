@@ -58,3 +58,20 @@ export const datesMonthDatePart = (date) => {
 const numberTo2DigitsString = (number) => {
     return number < 10 && number > -1 ? `0${number}` : number;
 };
+
+
+const TIME_24_REGX = /([01]?[0-9]|2[0-3]):[0-5][0-9]/;
+
+export const time24To12 = (time24) => {
+    if (!time24 || !TIME_24_REGX.test(time24)) {
+        return "";
+    }
+    const hoursMinutes = time24.split(":");
+    const hours24 = hoursMinutes[0] - 0;
+    const hours12 = hours24 % 12;
+    const minutes = hoursMinutes[1] - 0;
+    const amPm = hours24 > 12 ? "pm" : "am";
+
+    return `${numberTo2DigitsString(hours12)}:${numberTo2DigitsString(minutes)} ${amPm}`;
+
+};
