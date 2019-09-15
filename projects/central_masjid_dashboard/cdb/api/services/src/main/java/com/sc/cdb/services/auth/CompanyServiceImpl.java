@@ -106,18 +106,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public List<CustomConfiguration> findCompanyConfigurations(String companyId) {
-
-        // getPicklist
-        // getCentralControl configurations by companyId
-        // merge CentralControl configurations in picklist configurations
-        // return picklist configurations
-
         if (StringUtils.isBlank(companyId)) {
-            return List.of();
-        }
-
-        List<Configuration> picklistConfigurations = this.picklistDao.getAllConfiguration();
-        if (picklistConfigurations == null) {
             return List.of();
         }
 
@@ -132,9 +121,28 @@ public class CompanyServiceImpl implements CompanyService {
             customConfigurations = new ArrayList<>();
         }
 
+        List<Configuration> picklistConfigurations = this.picklistDao.getAllConfiguration();
+        if (picklistConfigurations != null && !picklistConfigurations.isEmpty()) {
+            picklistConfigurations.forEach(
+                    configuration -> mergeOrAddConfiguration(configuration, customConfigurations)
+            );
 
-
+        }
         return customConfigurations;
+    }
+
+    private void mergeOrAddConfiguration(Configuration configuration, List<CustomConfiguration> customConfigurations) {
+        Optional<CustomConfiguration> foundOptional = customConfigurations
+                .stream()
+                .filter(customConfiguration -> StringUtils.equals(configuration.getName(), customConfiguration.getName()))
+                .findFirst();
+
+        foundOptional.ifPresentOrElse(customConfiguration -> {
+            if (StringUtils.isBlank(customConfiguration.getValue())) {
+                customConfiguration.setValue(configuration.getDefaultValue());
+            }
+        }, () -> customConfigurations
+                .add(new CustomConfiguration(configuration.getName(), configuration.getDefaultValue())));
     }
 
     private Optional<Company> getExistingCompanyByName(Company company, boolean update) {
