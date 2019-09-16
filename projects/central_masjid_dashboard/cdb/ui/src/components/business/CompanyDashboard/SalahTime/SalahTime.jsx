@@ -8,6 +8,9 @@ import {
     getConfigValue,
     dateToDisplayDateLong
 } from "../../../../services/utilities";
+import {
+    writeIslamicDate
+} from "../../../../services/hijricalendar-kuwaiti";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
@@ -114,7 +117,7 @@ class SalahTime extends Component {
                 <div className={styles.salahTimeDateHeading}>
                     {dateToDisplayDateLong(today)}
                     <br/>
-                    Jumada al-awwal 23, 1440
+                    {writeIslamicDate(today, 0)}
                 </div>
 
                 {this.createPrayerGrid(this.state.prayer)}
