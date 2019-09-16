@@ -1,3 +1,6 @@
+export const MONTH_NAMES = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"];
+
 /**
  * Returns react router path parameter value
  */
@@ -30,6 +33,15 @@ export const collectErrorMessageFromResponseData = (responseData, defaultMessage
 export const addUnit = (num) => {
     return num + "vw";
 };
+
+export const dateToDisplayDateLong = (date) => {
+    if (!date) {
+        return;
+    }
+    const d = date instanceof Date ? date : new Date(date);
+    return `${MONTH_NAMES[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+};
+
 
 export const dateToDisplayDate = (date) => {
     if (!date) {
@@ -98,3 +110,4 @@ export const getConfigValue = (configName, allConfigs) => {
         return "";
     }
 };
+

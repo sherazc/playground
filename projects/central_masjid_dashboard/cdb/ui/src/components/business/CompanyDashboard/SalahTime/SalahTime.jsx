@@ -5,7 +5,8 @@ import {
     time24To12,
     dateToDisplayDateShort,
     dateToDisplayTime,
-    getConfigValue
+    getConfigValue,
+    dateToDisplayDateLong
 } from "../../../../services/utilities";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
@@ -23,8 +24,12 @@ class SalahTime extends Component {
     componentDidUpdate(prevProps, prevState) {
         if (this.props.centralControl.id && !this.state.prayer.date && !this.loadingPrayers) {
             this.loadingPrayers = true;
+            const today = new Date();
+
+            const serviceEndpoint = `${baseUrl}/api/prayer/companyId/${this.props.centralControl.companyId}/month/${today.getMonth() + 1}/day/${today.getDate()}`;
+
             axios
-                .get(`${baseUrl}/api/prayer/companyId/${this.props.centralControl.companyId}/month/2/day/2`)
+                .get(serviceEndpoint)
                 .then(response => {
                     if (response.data.successful) {
                         this.setState({
@@ -101,10 +106,13 @@ class SalahTime extends Component {
 
 
     render() {
+        const today = new Date();
+
+
         return (
             <div>
                 <div className={styles.salahTimeDateHeading}>
-                    January 29, 2019
+                    {dateToDisplayDateLong(today)}
                     <br/>
                     Jumada al-awwal 23, 1440
                 </div>

@@ -2,7 +2,8 @@ import React, {Component} from "react";
 import styles from "./PrayersMonth.module.scss"
 import {
     dateToDisplayDateShort,
-    datesMonthDatePart
+    datesMonthDatePart,
+    MONTH_NAMES
 } from "../../../../../services/utilities"
 import InputField from "../../../../partials/InputField";
 
@@ -10,8 +11,7 @@ class PrayersMonth extends Component {
 
     constructor(props) {
         super(props);
-        this.monthNames = ["January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"];
+        this.monthNames = MONTH_NAMES;
 
     }
 
