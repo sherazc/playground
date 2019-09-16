@@ -110,21 +110,15 @@ class SalahTime extends Component {
 
     render() {
         const today = new Date();
-
-
+        const hijriAdjustDays = getConfigValue("hijri_adjust_days", this.props.companyConfigurations);
         return (
             <div>
                 <div className={styles.salahTimeDateHeading}>
                     {dateToDisplayDateLong(today)}
                     <br/>
-                    {writeIslamicDate(today, 0)}
+                    {writeIslamicDate(today, hijriAdjustDays)}
                 </div>
-
                 {this.createPrayerGrid(this.state.prayer)}
-
-
-
-
             </div>
         );
     }

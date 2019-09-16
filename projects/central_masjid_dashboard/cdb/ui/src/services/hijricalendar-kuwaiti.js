@@ -3,12 +3,12 @@ function gmod(n,m){
 }
 
 function kuwaiticalendar(today, adjust){
-
 	if(adjust) {
 		var adjustmili = 1000*60*60*24*adjust;
 		var todaymili = today.getTime()+adjustmili;
 		today = new Date(todaymili);
 	}
+
 	var day = today.getDate();
 	var month = today.getMonth();
 	var year = today.getFullYear();
@@ -87,13 +87,11 @@ function kuwaiticalendar(today, adjust){
 }
 
 export const writeIslamicDate = (date, adjustmentDays) => {
-	var adjustment = adjustmentDays * 24 * 60 * 60 * 1000;
-
 	var wdNames = ["Ahad","Ithnin","Thulatha","Arbaa","Khams","Jumuah","Sabt"];
 	var iMonthNames = ["Muharram","Safar","Rabi'ul Awwal","Rabi'ul Akhir",
 	"Jumadal Ula","Jumadal Akhira","Rajab","Sha'ban",
 	"Ramadan","Shawwal","Dhul Qa'ada","Dhul Hijja"];
-	var iDate = kuwaiticalendar(date, adjustment);
+	var iDate = kuwaiticalendar(date, adjustmentDays);
 	var outputIslamicDate = wdNames[iDate[4]] + ", " 
 	+ iDate[5] + " " + iMonthNames[iDate[6]] + " " + iDate[7] + " AH";
 	return outputIslamicDate;
