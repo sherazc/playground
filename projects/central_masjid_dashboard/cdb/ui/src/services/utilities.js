@@ -86,3 +86,15 @@ export const time24To12 = (time24) => {
     return `${numberTo2DigitsString(hours12)}:${numberTo2DigitsString(minutes)} ${amPm}`;
 
 };
+
+export const getConfigValue = (configName, allConfigs) => {
+    if (!configName || !allConfigs || configName.length < 1 || allConfigs.length < 1) {
+        return "";
+    }
+    const foundConfigs = allConfigs.filter(config => config.name === configName);
+    if (foundConfigs && foundConfigs.length > 0) {
+        return foundConfigs[0].value;
+    } else {
+        return "";
+    }
+};

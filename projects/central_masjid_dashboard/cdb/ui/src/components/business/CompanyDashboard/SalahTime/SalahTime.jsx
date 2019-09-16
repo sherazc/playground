@@ -4,7 +4,8 @@ import styles from "./SalahTime.module.scss";
 import {
     time24To12,
     dateToDisplayDateShort,
-    dateToDisplayTime
+    dateToDisplayTime,
+    getConfigValue
 } from "../../../../services/utilities";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
@@ -13,26 +14,24 @@ class SalahTime extends Component {
 
     constructor(props) {
         super(props);
+        this.loadingPrayers = false;
         this.state = {
-            prayer: {},
-            centralControl: {}
+            prayer: {}
         }
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.props.centralControl.id && !this.state.centralControl.id) {
+        if (this.props.centralControl.id && !this.state.prayer.date && !this.loadingPrayers) {
+            this.loadingPrayers = true;
             axios
                 .get(`${baseUrl}/api/prayer/companyId/${this.props.centralControl.companyId}/month/2/day/2`)
                 .then(response => {
                     if (response.data.successful) {
                         this.setState({
-                            centralControl: this.props.centralControl,
                             prayer: response.data.target
                         });
-                    } else {
-                        this.setState({centralControl: this.props.centralControl});
                     }
-                }).catch(error => this.setState({centralControl: this.props.centralControl}));
+                }).catch(error => console.log(error));
         }
     }
 
@@ -92,7 +91,7 @@ class SalahTime extends Component {
                 <tr>
                     <th>Jum'ah</th>
                     <td colSpan="3">
-                        Jum'ah salah starts 2:00pm
+                        {getConfigValue("jumah_prayer", this.props.companyConfigurations)}
                     </td>
                 </tr>
                 </tbody>

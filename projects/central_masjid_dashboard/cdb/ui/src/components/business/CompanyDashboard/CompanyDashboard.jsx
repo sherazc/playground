@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {getReactRouterPathParamFromUrl} from "../../../services/utilities";
 import Grid from '@material-ui/core/Grid';
+import {connect} from "react-redux";
 import axios from "axios";
 import SalahTime from "./SalahTime/SalahTime";
 import Accounts from "./Accounts/Accounts";
@@ -9,13 +10,17 @@ import AnalogClock from "./AnalogClock";
 import DigitalClock from "./DigitalClock";
 import styles from "./CompanyDashboard.module.scss";
 import {Link} from "react-router-dom";
+import {
+    apiGetCompanyConfigurations
+} from "../../../store/common/configurations/configurationsAction"
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
 class CompanyDashboard extends Component {
     state = {
         companyDashboardUrl: "",
-        centralControl: {}
+        centralControl: {},
+        companyConfigurations: []
     };
 
     componentDidMount() {
@@ -25,14 +30,33 @@ class CompanyDashboard extends Component {
         if (!this.state.centralControl.id && companyDashboardUrl) {
             axios
                 .get(`${baseUrl}/api/companies/url/${companyDashboardUrl}/central-control`)
-                .then(response => this.setState({
+                .then(response => {
+
+                    this.setState({
                         centralControl: response.data
-                    })
-                );
+                    });
+                    this.loadCompanyConfigurations(response.data.companyId);
+                });
             document.getElementsByTagName("html")[0].style.height = "100%";
             document.getElementsByTagName("body")[0].style.height = "100%";
             document.getElementById("root").style.height = "100%";
         }
+
+
+    }
+
+    loadCompanyConfigurations(companyId) {
+        if (this.state.companyConfigurations.length < 1) {
+            if (this.props.companyConfigurations.length > 0) {
+                this.setConfigurationInState(this.props.companyConfigurations)
+            } else {
+                this.props.apiGetCompanyConfigurations(companyId, this.setConfigurationInState.bind(this));
+            }
+        }
+    }
+
+    setConfigurationInState(companyConfigurations) {
+        this.setState({companyConfigurations});
     }
 
     componentWillUnmount() {
@@ -64,7 +88,9 @@ class CompanyDashboard extends Component {
 
                     <div className={styles.sideBox}
                         style={{backgroundImage: `url(${process.env.PUBLIC_URL}/images/side_box_background.svg)`}}>
-                        <SalahTime centralControl={this.state.centralControl}/>
+                        <SalahTime
+                            centralControl={this.state.centralControl}
+                            companyConfigurations={this.state.companyConfigurations}/>
                     </div>
                 </Grid>
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={styles.gridCenter}>
@@ -84,7 +110,17 @@ class CompanyDashboard extends Component {
     }
 }
 
-export default CompanyDashboard;
+
+
+const mapStateToProps = state => {
+    return {
+        companyConfigurations: state.common.configurations.companyConfigurations
+    };
+};
+
+const actions = {apiGetCompanyConfigurations};
+
+export default connect(mapStateToProps, actions)(CompanyDashboard);
 
 
 /*
