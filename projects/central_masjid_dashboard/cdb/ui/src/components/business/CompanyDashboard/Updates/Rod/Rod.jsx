@@ -79,6 +79,10 @@ class Rod extends Component {
             suraNameEnglish
         } = this.state.reminderDetail;
 
+        if (!ayaDetail) {
+            return <div>Loading...</div>
+        }
+
         return (
             <div>
                 <table className={styles.rod_table}>

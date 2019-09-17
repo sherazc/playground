@@ -19,48 +19,48 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/rod")
 public class ReminderOfDayController {
 
-  private ReminderOfDayService reminderOfDayService;
-  private ReminderDecorator reminderDecorator;
+    private ReminderOfDayService reminderOfDayService;
+    private ReminderDecorator reminderDecorator;
 
-  @Autowired
-  public ReminderOfDayController(ReminderOfDayService reminderOfDayService,
-                                 ReminderDecorator reminderDecorator) {
-    this.reminderOfDayService = reminderOfDayService;
-    this.reminderDecorator = reminderDecorator;
-  }
-
-  @GetMapping
-  public ResponseEntity<?> reminderHistory(
-      @RequestParam(value = "translation", defaultValue = "English_-_Saheeh_International")
-          String translation,
-      @RequestParam(value = "history", defaultValue = "0")
-          int history,
-      @RequestParam(value = "cb", required = false)
-          String cb) {
-
-    SearchService searchService = new ResourceSearchService();
-    searchService.setTranslationDisplayName(translation);
-
-    List<AyaDetail> ayaDetails = searchService.search(history);
-
-    List<ReminderDetail> reminderDetails = reminderDecorator.decorate(
-        ayaDetails, translation);
-
-    if (reminderDetails.size() == 1 && history == 0) {
-      return generateResponse(reminderDetails.get(0), cb);
-    } else {
-      return generateResponse(reminderDetails, cb);
+    @Autowired
+    public ReminderOfDayController(ReminderOfDayService reminderOfDayService,
+                                   ReminderDecorator reminderDecorator) {
+        this.reminderOfDayService = reminderOfDayService;
+        this.reminderDecorator = reminderDecorator;
     }
-  }
 
-  private ResponseEntity<?> generateResponse(Object responseObject, String cb) {
-    if (reminderOfDayService.validCallback(cb)) {
-      return ResponseEntity
-          .ok()
-          .contentType(new MediaType("application", "javascript", StandardCharsets.UTF_8))
-          .body(reminderOfDayService.makeJsonpScript(cb, responseObject));
-    } else {
-      return ResponseEntity.ok(responseObject);
+    @GetMapping
+    public ResponseEntity<?> reminderHistory(
+            @RequestParam(value = "translation", defaultValue = "English_-_Saheeh_International")
+                    String translation,
+            @RequestParam(value = "history", defaultValue = "0")
+                    int history,
+            @RequestParam(value = "cb", required = false)
+                    String cb) {
+
+        SearchService searchService = new ResourceSearchService();
+        searchService.setTranslationDisplayName(translation);
+
+        List<AyaDetail> ayaDetails = searchService.search(history);
+
+        List<ReminderDetail> reminderDetails = reminderDecorator.decorate(
+                ayaDetails, translation);
+
+        if (reminderDetails.size() == 1 && history == 0) {
+            return generateResponse(reminderDetails.get(0), cb);
+        } else {
+            return generateResponse(reminderDetails, cb);
+        }
     }
-  }
+
+    private ResponseEntity<?> generateResponse(Object responseObject, String cb) {
+        if (reminderOfDayService.validCallback(cb)) {
+            return ResponseEntity
+                    .ok()
+                    .contentType(new MediaType("application", "javascript", StandardCharsets.UTF_8))
+                    .body(reminderOfDayService.makeJsonpScript(cb, responseObject));
+        } else {
+            return ResponseEntity.ok(responseObject);
+        }
+    }
 }

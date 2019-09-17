@@ -26,4 +26,15 @@ public class Prayer {
     private String ishaIqama;
 
     private String sunrise;
+
+    private String fajrChange;
+    private Date fajrChangeDate;
+    private String dhuhrChange;
+    private Date dhuhrChangeDate;
+    private String asrChange;
+    private Date asrChangeDate;
+    private String maghribChange;
+    private Date maghribChangeDate;
+    private String ishaChange;
+    private Date ishaChangeDate;
 }

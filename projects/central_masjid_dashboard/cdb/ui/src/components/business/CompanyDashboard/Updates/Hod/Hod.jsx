@@ -23,6 +23,10 @@ class Hod extends Component {
 
     render() {
         const {text, reference} = this.state.hadeesDetail;
+        if (!text) {
+            return <div>Loading...</div>
+        }
+
         return (
             <div>
                 <div className={styles.textRegular}>

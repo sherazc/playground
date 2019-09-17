@@ -20,22 +20,11 @@ public class PrayerConfigDaoImpl implements PrayerConfigDao {
 
     public List<Prayer> getPrayerByCompanyIdMonthAndDay(String companyId, int month, int day) {
 
-        ProjectionOperation project = Aggregation.project()
+        ProjectionOperation projectMonthDate = Aggregation.project()
                 .andExpression("month(prayers.date)").as("month")
-                .andExpression("dayOfMonth(prayers.date)").as("dayOfMonth")
-                .and("prayers.date").as("date")
-                .and("prayers.fajr").as("fajr")
-                .and("prayers.fajrIqama").as("fajrIqama")
-                .and("prayers.dhuhr").as("dhuhr")
-                .and("prayers.dhuhrIqama").as("dhuhrIqama")
-                .and("prayers.asr").as("asr")
-                .and("prayers.asrIqama").as("asrIqama")
-                .and("prayers.maghrib").as("maghrib")
-                .and("prayers.maghribIqama").as("maghribIqama")
-                .and("prayers.isha").as("isha")
-                .and("prayers.ishaIqama").as("ishaIqama")
-                .and("prayers.sunrise").as("sunrise");
+                .andExpression("dayOfMonth(prayers.date)").as("dayOfMonth");
 
+        ProjectionOperation project = addPrayerProjectionOperation(projectMonthDate);
 
         Aggregation aggregation = Aggregation.newAggregation(
                 Aggregation.unwind("prayers"),
@@ -48,6 +37,35 @@ public class PrayerConfigDaoImpl implements PrayerConfigDao {
                 .aggregate(aggregation, "prayerConfig", Prayer.class)
                 .getMappedResults();
 
+    }
+
+
+    public List<Prayer> getPrayerByCompanyId(String companyId) {
+        ProjectionOperation project = addPrayerProjectionOperation(Aggregation.project());
+        Aggregation aggregation = Aggregation.newAggregation(
+                Aggregation.unwind("prayers"),
+                Aggregation.match(Criteria.where("companyId").is(companyId)),
+                project);
+
+        return mongoTemplate
+                .aggregate(aggregation, "prayerConfig", Prayer.class)
+                .getMappedResults();
+
+    }
+
+    private ProjectionOperation addPrayerProjectionOperation(ProjectionOperation projectionOperation) {
+        return projectionOperation.and("prayers.date").as("date")
+                .and("prayers.fajr").as("fajr")
+                .and("prayers.fajrIqama").as("fajrIqama")
+                .and("prayers.dhuhr").as("dhuhr")
+                .and("prayers.dhuhrIqama").as("dhuhrIqama")
+                .and("prayers.asr").as("asr")
+                .and("prayers.asrIqama").as("asrIqama")
+                .and("prayers.maghrib").as("maghrib")
+                .and("prayers.maghribIqama").as("maghribIqama")
+                .and("prayers.isha").as("isha")
+                .and("prayers.ishaIqama").as("ishaIqama")
+                .and("prayers.sunrise").as("sunrise");
     }
 }
 
