@@ -12,10 +12,4 @@ public interface PrayerService {
     boolean isValid(PrayerConfig prayerConfig);
 
     ServiceResponse<PrayerConfig> createYearPrayerTimes(PrayerConfig prayerConfig, Boolean generateIqamah);
-
-    Optional<PrayerConfig> getPrayerConfig(String companyId);
-
-    ServiceResponse<String> savePrayerConfig(PrayerConfig prayerConfig);
-
-    ServiceResponse<Prayer> getPrayerByCompanyIdMonthAndDay(String companyId, int month, int day);
 }

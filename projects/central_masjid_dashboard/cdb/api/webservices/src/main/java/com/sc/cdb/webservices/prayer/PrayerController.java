@@ -7,6 +7,7 @@ import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.services.location.SiteLocator;
 import com.sc.cdb.services.model.ServiceResponse;
+import com.sc.cdb.services.prayer.PrayerConfigService;
 import com.sc.cdb.services.prayer.PrayerService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.MediaType;
@@ -24,39 +25,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class PrayerController {
     private PrayerService prayerService;
     private SiteLocator siteLocator;
+    private PrayerConfigService prayerConfigService;
 
-    public PrayerController(PrayerService prayerService, SiteLocator siteLocator) {
+    public PrayerController(
+            PrayerService prayerService,
+            SiteLocator siteLocator,
+            PrayerConfigService prayerConfigService) {
         this.prayerService = prayerService;
         this.siteLocator = siteLocator;
+        this.prayerConfigService = prayerConfigService;
     }
 
     @GetMapping("location/geocode")
     public ResponseEntity<ServiceResponse<GeoCode>> geoCode(@RequestParam String location) {
         return ResponseEntity.ok(siteLocator.geoCode(location));
     }
-
-
-    /*
-
-    Sample request
-
-    {
-        "companyId": "company1",
-        "location": "Karachi Pakistan",
-        "calculationMethod": 3,
-        "asrJuristicMethod": 1,
-        "prayerOffsetMinutes": [
-            "20", 2, 3, 4, 5, 6, 7
-        ],
-        "geoCode": {
-            "latitude": 24.8607343,
-            "longitude": 67.0011364,
-            "timezone": 5,
-            "timezoneId": "Asia/Karachi",
-            "timezoneName": "Pakistan Standard Time"
-        }
-    }
-     */
 
     @PostMapping("config/create")
     public ResponseEntity<ServiceResponse<PrayerConfig>> createPrayers(
@@ -67,7 +50,7 @@ public class PrayerController {
 
     @GetMapping("config/{companyId}")
     public ResponseEntity<PrayerConfig> getPrayerConfig(@PathVariable String companyId) {
-        Optional<PrayerConfig> prayerConfigOptional = prayerService.getPrayerConfig(companyId);
+        Optional<PrayerConfig> prayerConfigOptional = prayerConfigService.getPrayerConfig(companyId);
         if (prayerConfigOptional.isPresent()) {
             return ResponseEntity.ok(prayerConfigOptional.get());
         } else {
@@ -81,7 +64,7 @@ public class PrayerController {
         if (prayerConfig == null || StringUtils.isBlank(prayerConfig.getCompanyId())) {
             return ResponseEntity.badRequest().build();
         } else {
-            return ResponseEntity.ok(prayerService.savePrayerConfig(prayerConfig));
+            return ResponseEntity.ok(prayerConfigService.savePrayerConfig(prayerConfig));
         }
     }
 
@@ -89,7 +72,7 @@ public class PrayerController {
     @GetMapping("companyId/{companyId}/month/{month}/day/{day}")
     public ResponseEntity<ServiceResponse<Prayer>> getPrayerByCompanyIdMonthAndDay(
             @PathVariable String companyId, @PathVariable int month, @PathVariable int day) {
-        return ResponseEntity.ok(prayerService.getPrayerByCompanyIdMonthAndDay(companyId, month, day));
+        return ResponseEntity.ok(prayerConfigService.getPrayerByCompanyIdMonthAndDay(companyId, month, day));
 
     }
 }

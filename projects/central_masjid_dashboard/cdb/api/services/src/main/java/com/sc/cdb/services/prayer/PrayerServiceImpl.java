@@ -5,12 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import com.sc.cdb.data.dao.CentralControlDao;
-import com.sc.cdb.data.dao.PrayerConfigDao;
-import com.sc.cdb.data.model.cc.CentralControl;
-import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.data.model.prayer.Prayer;
-import com.sc.cdb.data.repository.PrayerConfigRepository;
+import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.services.model.ServiceResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -22,60 +18,20 @@ public class PrayerServiceImpl implements PrayerService {
     private static final Logger LOG = LoggerFactory.getLogger(PrayerServiceImpl.class);
     private static final SimpleDateFormat MONTH_DATE_FORMAT = new SimpleDateFormat("MMdd");
 
-    private CentralControlDao centralControlDao;
     private PrayTimeCalculator prayTimeCalculator;
-    private PrayerConfigRepository prayerConfigRepository;
     private IqamahCalculator iqamahCalculator;
-    private PrayerConfigDao prayerConfigDao;
+    private PrayerConfigService prayerConfigService;
+
 
     public PrayerServiceImpl(
-            CentralControlDao centralControlDao,
             PrayTimeCalculator prayTimeCalculator,
-            PrayerConfigRepository prayerConfigRepository,
             IqamahCalculator iqamahCalculator,
-            PrayerConfigDao prayerConfigDao) {
-        this.centralControlDao = centralControlDao;
+            PrayerConfigService prayerConfigService) {
         this.prayTimeCalculator = prayTimeCalculator;
-        this.prayerConfigRepository = prayerConfigRepository;
         this.iqamahCalculator = iqamahCalculator;
-        this.prayerConfigDao = prayerConfigDao;
+        this.prayerConfigService = prayerConfigService;
     }
 
-    @Override
-    public ServiceResponse<String> savePrayerConfig(PrayerConfig prayerConfig) {
-        ServiceResponse.ServiceResponseBuilder<String> serviceResponseBuilder = ServiceResponse.builder();
-        PrayerConfig save = prayerConfigRepository.save(prayerConfig);
-        if (save == null || StringUtils.isBlank(save.getId())) {
-            serviceResponseBuilder.successful(false).message("Failed to save PrayerConfig");
-        } else {
-            serviceResponseBuilder.target(save.getId()).successful(true).message("Successfully saved PrayerConfig");
-        }
-        return serviceResponseBuilder.build();
-    }
-
-    @Override
-    public ServiceResponse<Prayer> getPrayerByCompanyIdMonthAndDay(String companyId, int month, int day) {
-        ServiceResponse.ServiceResponseBuilder<Prayer> serviceResponseBuilder = ServiceResponse.builder();
-        if (month > 12 || month < 1) {
-            serviceResponseBuilder.successful(false).message("Invalid Month");
-        } else if (day > 31 || day < 1) {
-            serviceResponseBuilder.successful(false).message("Invalid Day");
-        } else if (StringUtils.isBlank(companyId)) {
-            serviceResponseBuilder.successful(false).message("Invalid CompanyId");
-        } else {
-            List<Prayer> prayers = prayerConfigDao.getPrayerByCompanyIdMonthAndDay(companyId, month, day);
-            if (prayers == null || prayers.isEmpty()) {
-                serviceResponseBuilder.successful(false).message("Prayer not found.");
-            } else {
-                serviceResponseBuilder
-                        .target(prayers.get(0))
-                        .successful(true)
-                        .message("Prayer found.");
-            }
-        }
-
-        return serviceResponseBuilder.build();
-    }
 
     @Override
     public ServiceResponse<PrayerConfig> createYearPrayerTimes(PrayerConfig prayerConfig, Boolean generateIqamah) {
@@ -113,7 +69,7 @@ public class PrayerServiceImpl implements PrayerService {
     }
 
     private void mergeExistingIqamahTimes(PrayerConfig prayerConfig) {
-        Optional<PrayerConfig> existingPrayerConfig = getPrayerConfig(prayerConfig.getCompanyId());
+        Optional<PrayerConfig> existingPrayerConfig = prayerConfigService.getPrayerConfig(prayerConfig.getCompanyId());
 
         if (existingPrayerConfig.isPresent()
                 && existingPrayerConfig.get().getPrayers() != null
@@ -167,43 +123,10 @@ public class PrayerServiceImpl implements PrayerService {
     }
 
     private String dateToMonthDateString(Date date) {
-        if(date == null) {
+        if (date == null) {
             return "";
         }
         return MONTH_DATE_FORMAT.format(date);
-    }
-
-    @Override
-    public Optional<PrayerConfig> getPrayerConfig(String companyId) {
-        if (StringUtils.isBlank(companyId)) {
-            return Optional.empty();
-        }
-        return prayerConfigRepository.findByCompanyId(companyId);
-    }
-
-    // TODO: Work on save prayer config
-    private boolean savePrayerConfig(String companyId, PrayerConfig prayerConfig) {
-        boolean saved;
-        if (centralControlDao.isCentralControlExists(companyId)) {
-            saved = centralControlDao.updatePrayerConfig(companyId, prayerConfig);
-            if (saved) {
-                LOG.debug("Updated Prayer config of {}", companyId);
-            } else {
-                LOG.error("Failed to update Prayer config of {}", companyId);
-            }
-        } else {
-            CentralControl centralControl = new CentralControl();
-            centralControl.setCompanyId(companyId);
-            // centralControl.setPrayerConfig(prayerConfig);
-            CentralControl savedCentralControl = centralControlDao.save(centralControl);
-            saved = savedCentralControl != null && StringUtils.isNotBlank(savedCentralControl.getId());
-            if (saved) {
-                LOG.debug("Saved new Prayer config of {}", companyId);
-            } else {
-                LOG.error("Failed to save new Prayer config of {}", companyId);
-            }
-        }
-        return saved;
     }
 
     public boolean isValid(PrayerConfig prayerConfig) {
