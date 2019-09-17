@@ -1,7 +1,12 @@
 package com.sc.cdb.services.prayer;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.SortedMap;
+import java.util.TreeMap;
+import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
 
 import com.sc.cdb.data.dao.PrayerConfigDao;
 import com.sc.cdb.data.model.prayer.Prayer;
@@ -39,6 +44,8 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
             if (prayers == null || prayers.isEmpty()) {
                 serviceResponseBuilder.successful(false).message("Prayer not found.");
             } else {
+                
+                Prayer prayer = findDatePrayerAndNextChange(prayers, month, day);
                 serviceResponseBuilder
                         .target(prayers.get(0))
                         .successful(true)
@@ -49,6 +56,36 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         return serviceResponseBuilder.build();
     }
 
+    private Prayer findDatePrayerAndNextChange(List<Prayer> yearPrayers, int month, int day) {
+
+        new BiFunction<>() {
+            @Override
+            public Object apply(Object o, Object o2) {
+                return null;
+            }
+        };
+
+        yearPrayers.stream().reduce(new Prayer(), (t, p) -> {
+            return null;
+        });
+
+        String length = Arrays.asList("str1", "str2").stream()
+                .reduce("", (accumulatedInt, str) -> accumulatedInt + str.length());
+
+        // SortedMap twoYearPrayers = yearPrayers.stream().re
+
+
+        SortedMap<String, Prayer> twoYearPrayers = yearPrayers.stream().reduce(new TreeMap<String, Prayer>(), (t, p) -> {
+
+            return null;
+        }, (t, p) -> {
+
+            return null;
+        });
+
+
+        return null;
+    }
 
 
     @Override
