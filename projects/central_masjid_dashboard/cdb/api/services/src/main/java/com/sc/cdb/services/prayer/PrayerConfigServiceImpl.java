@@ -1,12 +1,10 @@
 package com.sc.cdb.services.prayer;
 
-import java.util.Arrays;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
-import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.function.BiFunction;
-import java.util.function.BinaryOperator;
 
 import com.sc.cdb.data.dao.PrayerConfigDao;
 import com.sc.cdb.data.model.prayer.Prayer;
@@ -21,6 +19,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PrayerConfigServiceImpl implements PrayerConfigService {
     private static final Logger LOG = LoggerFactory.getLogger(PrayerConfigServiceImpl.class);
+    private static final SimpleDateFormat SDF_MM_DD = new SimpleDateFormat("MMdd");
 
     private PrayerConfigRepository prayerConfigRepository;
     private PrayerConfigDao prayerConfigDao;
@@ -44,7 +43,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
             if (prayers == null || prayers.isEmpty()) {
                 serviceResponseBuilder.successful(false).message("Prayer not found.");
             } else {
-                
+
                 Prayer prayer = findDatePrayerAndNextChange(prayers, month, day);
                 serviceResponseBuilder
                         .target(prayers.get(0))
@@ -58,35 +57,34 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
 
     private Prayer findDatePrayerAndNextChange(List<Prayer> yearPrayers, int month, int day) {
 
-        new BiFunction<>() {
-            @Override
-            public Object apply(Object o, Object o2) {
-                return null;
-            }
-        };
+        TreeMap<String, Prayer> twoYearPrayers = yearPrayers.stream()
+                .collect(
+                        TreeMap::new, // supplier
+                        this::duplicatePrayers, // accumulator
+                        // this::combinePrayerTrees
+                        TreeMap::putAll // combiner - combine second into first
+                );
 
-        yearPrayers.stream().reduce(new Prayer(), (t, p) -> {
-            return null;
-        });
+        twoYearPrayers.
+                forEach();
 
-        String length = Arrays.asList("str1", "str2").stream()
-                .reduce("", (accumulatedInt, str) -> accumulatedInt + str.length());
-
-        // SortedMap twoYearPrayers = yearPrayers.stream().re
-
-
-        SortedMap<String, Prayer> twoYearPrayers = yearPrayers.stream().reduce(new TreeMap<String, Prayer>(), (t, p) -> {
-
-            return null;
-        }, (t, p) -> {
-
-            return null;
-        });
+        System.out.println(twoYearPrayers);
 
 
         return null;
     }
 
+
+
+    private void duplicatePrayers(TreeMap<String, Prayer> prayerMap, Prayer prayer) {
+        if (prayer.getDate() == null) {
+            return;
+        }
+
+        String mmdd = SDF_MM_DD.format(prayer.getDate());
+        prayerMap.put("1" + mmdd, prayer);
+        prayerMap.put("2" + mmdd, prayer);
+    }
 
     @Override
     public ServiceResponse<String> savePrayerConfig(PrayerConfig prayerConfig) {
