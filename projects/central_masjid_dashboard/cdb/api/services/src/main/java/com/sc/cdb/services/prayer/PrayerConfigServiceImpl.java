@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.TreeMap;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import com.sc.cdb.data.dao.PrayerConfigDao;
 import com.sc.cdb.data.model.prayer.Prayer;
@@ -59,22 +60,61 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         return serviceResponseBuilder.build();
     }
 
-    private Prayer findDatePrayerAndNextChange(List<Prayer> yearPrayers, int month, int date) {
 
-        Optional<Prayer> foundPrayerOptional = yearPrayers.stream()
-                .filter(prayer -> comparePrayerMonthDate(prayer, month, date))
-                .findFirst();
+    private Prayer findDatePrayerAndNextChange2(List<Prayer> yearPrayers, int month, int date) {
+        List<Prayer> yearPrayersMutable = new ArrayList<>(yearPrayers);
+        yearPrayersMutable.sort(this::comparePrayers);
+        // noinspection CollectionAddedToSelf
+        yearPrayersMutable.addAll(yearPrayersMutable);
 
-        if (foundPrayerOptional.isEmpty()) {
-            return null;
+        Prayer foundPrayer = null;
+        int foundIndex = -1;
+
+        for (int i = 0; i < yearPrayersMutable.size(); i++) {
+            if (comparePrayerMonthDate(yearPrayersMutable.get(i), month, date) < 1)
+                continue;
+            Prayer loopPrayer = yearPrayersMutable.get(i);
+            if(foundPrayer == null && comparePrayerMonthDate(loopPrayer, month, date) == 0) {
+                foundPrayer = loopPrayer;
+                foundIndex = i;
+            }
+
+            if (foundIndex > -1) {
+                setPrayerNextChange(foundPrayer, loopPrayer);
+            }
         }
+        return foundPrayer;
+    }
+
+    private void setPrayerNextChange(Prayer foundPrayer, Prayer loopPrayer) {
+        // if next change is not set then set it
+    }
+
+
+    private Prayer findDatePrayerAndNextChange(List<Prayer> yearPrayers, int month, int date) {
 
         List<Prayer> yearPrayersMutable = new ArrayList<>(yearPrayers);
         yearPrayersMutable.sort(this::comparePrayers);
 
+        int foundIndex = IntStream.range(0, yearPrayersMutable.size())
+                .filter(i -> comparePrayerMonthDate(yearPrayersMutable.get(i), month, date) == 0)
+                .findFirst()
+                .orElse(-1);
+
+        if (foundIndex < 0) {
+            return null;
+        }
+
+        Prayer foundPrayer = yearPrayersMutable.get(foundIndex);
+
         // noinspection CollectionAddedToSelf
         yearPrayersMutable.addAll(yearPrayersMutable);
 
+
+
+        yearPrayersMutable.stream()
+                .filter(prayer -> comparePrayer(prayer, foundPrayer) > 0) // Prayer that are after found prayer
+                .forEach(prayer -> System.out.println(prayer.getDate()));
 
 
 
@@ -104,15 +144,44 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         return null;
     }
 
-    private boolean comparePrayerMonthDate(Prayer prayer, int month, int date) {
+    private int comparePrayerMonthDate(Prayer prayer, int month, int date) {
         if (prayer.getDate() == null) {
-            return false;
+            return -1;
         }
         Calendar prayerCalendar = Calendar.getInstance();
         prayerCalendar.setTime(prayer.getDate());
 
-        return prayerCalendar.get(Calendar.MONTH) + 1 == month
-                && prayerCalendar.get(Calendar.DATE) == date;
+        int prayerMonth = prayerCalendar.get(Calendar.MONTH) + 1;
+        int prayerDate = prayerCalendar.get(Calendar.DATE);
+
+        int result;
+        if (prayerMonth > month) {
+            result = 1;
+        } else if (prayerMonth < month) {
+            result = -1;
+        } else {
+            result = Integer.compare(prayerDate, date);
+        }
+
+        return result;
+    }
+
+    private int comparePrayer(Prayer prayer1, Prayer prayer2) {
+        if (prayer1.getDate() == null && prayer2.getDate() == null) {
+            return 0;
+        } else if (prayer1.getDate() == null) {
+            return -1;
+        } else if (prayer2.getDate() == null) {
+            return 1;
+        }
+
+        Calendar prayerCalendar2 = Calendar.getInstance();
+        prayerCalendar2.setTime(prayer2.getDate());
+
+        int prayerDate = prayerCalendar2.get(Calendar.DATE);
+        int prayerMonth = prayerCalendar2.get(Calendar.MONTH) + 1;
+
+        return this.comparePrayerMonthDate(prayer1, prayerMonth, prayerDate);
     }
 
 
