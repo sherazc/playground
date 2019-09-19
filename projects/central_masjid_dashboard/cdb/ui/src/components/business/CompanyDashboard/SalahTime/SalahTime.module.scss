@@ -2,10 +2,10 @@
 
 .salahTimeTable {
     margin: 0 auto;
-    font-size: 1.45vw;
+    font-size: 1.3vw;
     border-collapse: collapse;
     @media screen and (max-width: $screen-break) {
-        font-size: 3.8vw;
+        font-size: 3.5vw;
     }
 }
 
@@ -16,11 +16,11 @@ table.salahTimeTable th, table.salahTimeTable td {
 }
 
 .salahTimeDateHeading {
-    padding: 6vw 0 2vw 0;
+    padding: 6vw 0 1vw 0;
     font-size: 1.5vw;
     white-space: nowrap;
     @media screen and (max-width: $screen-break) {
         font-size: 4vw;
-        padding: 18vw 0 10vw 0;
+        padding: 18vw 0 8vw 0;
     }
 }

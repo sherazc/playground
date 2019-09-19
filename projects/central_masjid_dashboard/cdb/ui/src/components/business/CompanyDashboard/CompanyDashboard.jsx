@@ -41,8 +41,6 @@ class CompanyDashboard extends Component {
             document.getElementsByTagName("body")[0].style.height = "100%";
             document.getElementById("root").style.height = "100%";
         }
-
-
     }
 
     loadCompanyConfigurations(companyId) {
@@ -110,8 +108,6 @@ class CompanyDashboard extends Component {
     }
 }
 
-
-
 const mapStateToProps = state => {
     return {
         companyConfigurations: state.common.configurations.companyConfigurations
@@ -121,24 +117,3 @@ const mapStateToProps = state => {
 const actions = {apiGetCompanyConfigurations};
 
 export default connect(mapStateToProps, actions)(CompanyDashboard);
-
-
-/*
-
-
-Build configurations in redux.common
-create helper method to load configuration from centralControl or picklist
-load Jummah configuration
-
-
-pull Salah time
-fix hijri and gregorian dates
-Fix salah time UI
-✅ Fix react life cycle warning
-✅ Fix Expenses animation
-✅ Style Expenses UI
-
-Remove all getDerivedStateFromProps and use componentDidUpdate
-to update state after props are set updated by parent
-
-*/

@@ -215,4 +215,11 @@ Add auto and custom DST logic
 
 
 
+DST Rules
+begins at 2:00 a.m. on the second Sunday of March and
+ends at 2:00 a.m. on the first Sunday of November
+https://www.nist.gov/pml/time-and-frequency-division/popular-links/daylight-saving-time-dst
+
+
+
  */
