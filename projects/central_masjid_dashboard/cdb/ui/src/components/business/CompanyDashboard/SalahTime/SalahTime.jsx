@@ -64,8 +64,9 @@ class SalahTime extends Component {
                     <td>{time24To12(prayer.fajr)}</td>
                     <td>{time24To12(prayer.fajrIqama)}</td>
                     <td>
-                        not done<br/>
-                        {dateToDisplayDateShort(prayer.date)}<br/>{dateToDisplayTime(prayer.date)}
+                        {dateToDisplayDateShort(prayer.fajrChangeDate)}
+                        <br/>
+                        {time24To12(prayer.fajrChange)}
                     </td>
                 </tr>
                 <tr>
@@ -76,13 +77,21 @@ class SalahTime extends Component {
                     <th>Thuhr</th>
                     <td>{time24To12(prayer.dhuhr)}</td>
                     <td>{time24To12(prayer.dhuhrIqama)}</td>
-                    <td>02/01<br/>4:30 pm</td>
+                    <td>
+                        {dateToDisplayDateShort(prayer.dhuhrChangeDate)}
+                        <br/>
+                        {time24To12(prayer.dhuhrChange)}
+                    </td>
                 </tr>
                 <tr>
                     <th>Asr</th>
                     <td>{time24To12(prayer.asr)}</td>
                     <td>{time24To12(prayer.asrIqama)}</td>
-                    <td>02/01<br/>4:30 pm</td>
+                    <td>
+                        {dateToDisplayDateShort(prayer.asrChangeDate)}
+                        <br/>
+                        {time24To12(prayer.asrChange)}
+                    </td>
                 </tr>
                 <tr>
                     <th>Maghrib</th>
@@ -94,7 +103,11 @@ class SalahTime extends Component {
                     <th>Isha</th>
                     <td>{time24To12(prayer.isha)}</td>
                     <td>{time24To12(prayer.ishaIqama)}</td>
-                    <td>02/15<br/>8:00 pm</td>
+                    <td>
+                        {dateToDisplayDateShort(prayer.ishaChangeDate)}
+                        <br/>
+                        {time24To12(prayer.ishaChange)}
+                    </td>
                 </tr>
                 <tr>
                     <th>Jum'ah</th>
