@@ -12,11 +12,10 @@ class PrayersMonth extends Component {
     constructor(props) {
         super(props);
         this.monthNames = MONTH_NAMES;
-
     }
 
     createDay(prayer, index, viewMode) {
-        const monthDate = datesMonthDatePart(prayer.date)
+        const monthDate = datesMonthDatePart(prayer.date);
         return (
             <tr key={index}>
                 <td>

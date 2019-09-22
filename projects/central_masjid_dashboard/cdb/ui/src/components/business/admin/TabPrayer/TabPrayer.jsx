@@ -116,6 +116,8 @@ class TabPrayer extends Component {
             return;
         }
 
+        console.log(document.getElementsByName("fajr-01-01")[0]);
+
         prayerConfig.id = this.props.prayerConfig.id;
         prayerConfig.companyId = this.props.login.company.id;
         axios
@@ -198,22 +200,8 @@ export default connect(mapStateToProps, actions)(TabPrayer);
 
 /*
 -----------------
-On DST
-
-add DST in PrayerConfig.java
-    {
-        auto: boolean,
-        start: date,
-        end: date
-    }
-
-Redefine DST logic
-
-Add DST to toggle (on/off) button in prayer tab
-
-Add auto and custom DST logic
-
-
+DST
+===
 
 DST Rules
 begins at 2:00 a.m. on the second Sunday of March and
@@ -222,4 +210,32 @@ https://www.nist.gov/pml/time-and-frequency-division/popular-links/daylight-savi
 
 
 
- */
+
+add DST in PrayerConfig.java and PrayerConfig.json
+    prayerConfig: {
+        dst: {
+            enable: boolean
+            auto: boolean,
+            start: date,
+            end: date
+        }
+    }
+
+
+Create business/admin/TabPrayer/Dst/Dst.jsx
+
+Pass TabPrayer.state.PrayerConfig.dst to Dst.props
+
+Load Dst's setting form from Dst.props.dst
+
+On change Dst.props.dst call TabPrayer.setDstInState()
+
+TabPrayer.setDstInState() will update TabPrayer.state.PrayerConfig.dst
+by calling TabPrayer.setPrayerConfigInState(prayerConfig, true)
+
+
+
+
+load Dst.props.prayerConfig.dst in Dst.state
+*/
+
