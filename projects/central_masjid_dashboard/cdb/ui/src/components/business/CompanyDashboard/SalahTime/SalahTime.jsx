@@ -4,7 +4,6 @@ import styles from "./SalahTime.module.scss";
 import {
     time24To12,
     dateToDisplayDateShort,
-    dateToDisplayTime,
     getConfigValue,
     dateToDisplayDateLong
 } from "../../../../services/utilities";

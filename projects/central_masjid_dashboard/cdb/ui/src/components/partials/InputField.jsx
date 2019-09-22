@@ -9,12 +9,13 @@ const InputField = (props) => {
         if ("view" === mode) {
             return <span className={props.viewClass}>{props.value}</span>;
         } else {
+            const id = props.id ? props.id : props.name;
             return <input
                 onChange={props.onChange}
                 value={value}
                 type={type}
                 name={props.name}
-                id={props.name}
+                id={id}
                 required={props.required}
                 placeholder={placeholder}
                 onBlur={props.onBlur}

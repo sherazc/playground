@@ -1,108 +1,15 @@
 import React, {Component} from "react";
 import styles from "./PrayersMonth.module.scss"
 import {
-    dateToDisplayDateShort,
-    datesMonthDatePart,
     MONTH_NAMES
-} from "../../../../../services/utilities"
-import InputField from "../../../../partials/InputField";
+} from "../../../../../services/utilities";
+import PrayerDay from "./PrayerDay/PrayerDay";
 
 class PrayersMonth extends Component {
 
     constructor(props) {
         super(props);
         this.monthNames = MONTH_NAMES;
-    }
-
-    createDay(prayer, index, viewMode) {
-        const monthDate = datesMonthDatePart(prayer.date);
-        return (
-            <tr key={index}>
-                <td>
-                    {dateToDisplayDateShort(prayer.date)}
-                </td>
-                <td>
-                    <InputField
-                        onChange={this.props.onValueChange}
-                        type="time"
-                        mode={viewMode}
-                        value={prayer.fajr}
-                        name={`fajr${monthDate}`}/>
-                </td>
-                <td>
-                    <InputField
-                        onChange={this.props.onValueChange}
-                        type="time"
-                        mode={viewMode}
-                        value={prayer.fajrIqama}
-                        name={`fajrIqama${monthDate}`}/>
-                </td>
-                <td>
-                    <InputField
-                        onChange={this.props.onValueChange}
-                        type="time"
-                        mode={viewMode}
-                        value={prayer.sunrise}
-                        name={`sunrise${monthDate}`}/>
-                </td>
-                <td>
-                    <InputField
-                        onChange={this.props.onValueChange}
-                        type="time"
-                        mode={viewMode}
-                        value={prayer.dhuhr}
-                        name={`dhuhr${monthDate}`}/>
-                </td>
-                <td>
-                    <InputField
-                        onChange={this.props.onValueChange}
-                        type="time"
-                        mode={viewMode}
-                        value={prayer.dhuhrIqama}
-                        name={`dhuhrIqama${monthDate}`}/>
-                </td>
-                <td>
-                    <InputField
-                        onChange={this.props.onValueChange}
-                        type="time"
-                        mode={viewMode}
-                        value={prayer.asr}
-                        name={`asr${monthDate}`}/>
-                </td>
-                <td>
-                    <InputField
-                        onChange={this.props.onValueChange}
-                        type="time"
-                        mode={viewMode}
-                        value={prayer.asrIqama}
-                        name={`asrIqama${monthDate}`}/>
-                </td>
-                <td>
-                    <InputField
-                        onChange={this.props.onValueChange}
-                        type="time"
-                        mode={viewMode}
-                        value={prayer.maghrib}
-                        name={`maghrib${monthDate}`}/>
-                </td>
-                <td>
-                    <InputField
-                        onChange={this.props.onValueChange}
-                        type="time"
-                        mode={viewMode}
-                        value={prayer.isha}
-                        name={`isha${monthDate}`}/>
-                </td>
-                <td>
-                    <InputField
-                        onChange={this.props.onValueChange}
-                        type="time"
-                        mode={viewMode}
-                        value={prayer.ishaIqama}
-                        name={`ishaIqama${monthDate}`}/>
-                </td>
-            </tr>
-        );
     }
 
     render() {
@@ -140,7 +47,7 @@ class PrayersMonth extends Component {
                         </tr>
                         </thead>
                         <tbody>
-                        {this.props.prayersMonth.map((prayer, index) => this.createDay(prayer, index, viewMode))}
+                        {this.props.prayersMonth.map((prayer, index) => <PrayerDay key={index} prayer={prayer} viewMode={viewMode}/>)}
                         </tbody>
                     </table>
                 </div>
