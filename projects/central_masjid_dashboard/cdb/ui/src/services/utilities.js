@@ -111,3 +111,12 @@ export const getConfigValue = (configName, allConfigs) => {
     }
 };
 
+
+export const addDaysToDate = (date, days) => {
+    if (!date) {
+        date = new Date();
+    }
+
+    date.setDate(date.getDate() + days);
+    return date;
+};

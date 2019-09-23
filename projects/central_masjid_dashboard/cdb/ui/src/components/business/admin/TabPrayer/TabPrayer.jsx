@@ -9,9 +9,18 @@ import {
     setAdminPrayerConfigEdit,
     adminPrayerConfigReset,
 } from "../../../../store/admin/adminActions"
+import {
+    addDaysToDate,
+    datesMonthDatePart
+} from "../../../../services/utilities";
 import SaveCancel from "./SaveCancel/SaveCancel"
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
+
+
+// TabPrayer.state.prayerConfig exist only in edit mode.
+// In none editMode prayer grid is built from this.props.prayerConfig.prayers
+
 
 class TabPrayer extends Component {
 
@@ -26,7 +35,7 @@ class TabPrayer extends Component {
     }
 
     setPrayerConfigInState(prayerConfig, dirty) {
-       this.setState({prayerConfig: prayerConfig, prayerConfigDirty: dirty});
+        this.setState({prayerConfig: prayerConfig, prayerConfigDirty: dirty});
     }
 
     prayerReducer(prayersMonths, prayer) {
@@ -116,7 +125,14 @@ class TabPrayer extends Component {
             return;
         }
 
-        console.log(document.getElementsByName("fajr-01-01")[0]);
+        const startDate = new Date("2016-01-01 00:00:00.000Z");
+        for (let i = 0; i < 366; i++) {
+            console.log(document.getElementById("fajr" + datesMonthDatePart(startDate)));
+            addDaysToDate(startDate, 1);
+        }
+
+
+        console.log(document.getElementById("fajr-01-01"));
 
         prayerConfig.id = this.props.prayerConfig.id;
         prayerConfig.companyId = this.props.login.company.id;
@@ -126,6 +142,10 @@ class TabPrayer extends Component {
                 const serviceResponse = response.data;
                 if (serviceResponse && serviceResponse.successful && serviceResponse.target) {
                     this.props.setAdminPrayerConfig(prayerConfig);
+                    /*
+                    On save complete.
+
+                     */
                     this.props.setAdminPrayerConfigEdit({});
                     this.setPrayerConfigInState({}, false);
                 }
@@ -171,8 +191,8 @@ class TabPrayer extends Component {
             <div>
                 <ResetPrayerLocation onFinish={this.setPrayerConfigInState}/>
                 <Button onClick={this.onEdit.bind(this)}
-                    disabled={editMode}
-                    variant="outlined" color="primary">
+                        disabled={editMode}
+                        variant="outlined" color="primary">
                     Edit
                 </Button>
                 {this.makePrayerMonths(editMode)}
