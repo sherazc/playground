@@ -9,44 +9,31 @@ import {
     setAdminPrayerConfigEdit,
     adminPrayerConfigReset,
 } from "../../../../store/admin/adminActions"
-import {
-    addDaysToDate,
-    datesMonthDatePart
-} from "../../../../services/utilities";
 import SaveCancel from "./SaveCancel/SaveCancel"
+import TabPrayerService from "./TabPrayerService";
+
+/**
+ * TabPrayer.state.prayerConfig exist only in edit mode.
+ * In none editMode prayer grid is built from this.props.prayerConfig.prayers
+ *
+ * On Save complete
+ *
+ */
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
-
-
-// TabPrayer.state.prayerConfig exist only in edit mode.
-// In none editMode prayer grid is built from this.props.prayerConfig.prayers
-
+const tabPrayerService = new TabPrayerService();
 
 class TabPrayer extends Component {
 
     constructor(props) {
         super(props);
-        this.state = this.createInitialState();
+        this.state = tabPrayerService.createInitialState();
         this.setPrayerConfigInState = this.setPrayerConfigInState.bind(this);
-    }
-
-    createInitialState() {
-        return {prayerConfig: {}, prayerConfigDirty: false}
     }
 
     setPrayerConfigInState(prayerConfig, dirty) {
         this.setState({prayerConfig: prayerConfig, prayerConfigDirty: dirty});
     }
-
-    prayerReducer(prayersMonths, prayer) {
-        const prayerDate = new Date(prayer.date);
-        const monthIndex = prayerDate.getUTCMonth();
-        if (!prayersMonths[monthIndex]) {
-            prayersMonths[monthIndex] = [];
-        }
-        prayersMonths[monthIndex].push(prayer);
-        return prayersMonths;
-    };
 
     makePrayerMonths(editMode) {
         const prayers = editMode ? this.state.prayerConfig.prayers : this.props.prayerConfig.prayers;
@@ -58,7 +45,7 @@ class TabPrayer extends Component {
         );
 
         if (prayers && prayers.length > 0) {
-            const prayersMonths = prayers.reduce(this.prayerReducer, []);
+            const prayersMonths = prayers.reduce(tabPrayerService.prayerReducer, []);
             if (prayersMonths && prayersMonths.length > 0) {
                 result = prayersMonths.map(
                     (prayersMonth, index) => {
@@ -125,14 +112,8 @@ class TabPrayer extends Component {
             return;
         }
 
-        const startDate = new Date("2016-01-01 00:00:00.000Z");
-        for (let i = 0; i < 366; i++) {
-            console.log(document.getElementById("fajr" + datesMonthDatePart(startDate)));
-            addDaysToDate(startDate, 1);
-        }
-
-
-        console.log(document.getElementById("fajr-01-01"));
+        const prayers = tabPrayerService.collectPrayersFromDom();
+        console.log(prayers);
 
         prayerConfig.id = this.props.prayerConfig.id;
         prayerConfig.companyId = this.props.login.company.id;
@@ -142,10 +123,6 @@ class TabPrayer extends Component {
                 const serviceResponse = response.data;
                 if (serviceResponse && serviceResponse.successful && serviceResponse.target) {
                     this.props.setAdminPrayerConfig(prayerConfig);
-                    /*
-                    On save complete.
-
-                     */
                     this.props.setAdminPrayerConfigEdit({});
                     this.setPrayerConfigInState({}, false);
                 }

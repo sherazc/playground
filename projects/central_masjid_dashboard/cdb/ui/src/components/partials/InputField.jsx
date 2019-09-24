@@ -1,5 +1,9 @@
 import React from "react";
 
+import {
+    time24To12
+} from "../../services/utilities"
+
 const InputField = (props) => {
     const type = props.type ? props.type : "text";
     const placeholder = props.placeholder ? props.placeholder : props.label;
@@ -7,7 +11,7 @@ const InputField = (props) => {
 
     const viewOrEditField = mode => {
         if ("view" === mode) {
-            return <span className={props.viewClass}>{props.value}</span>;
+            return <span className={props.viewClass}>{type === "time" ? time24To12(props.value) : props.value}</span>;
         } else {
             const id = props.id ? props.id : props.name;
             return <input
