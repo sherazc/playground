@@ -36,7 +36,7 @@ class TabPrayer extends Component {
     }
 
     makePrayerMonths(editMode) {
-        const prayers = editMode ? this.state.prayerConfig.prayers : this.props.prayerConfig.prayers;
+        const prayers = editMode ? this.props.prayerConfigEdit.prayers : this.props.prayerConfig.prayers;
 
         let result = (
             <div>
@@ -67,10 +67,10 @@ class TabPrayer extends Component {
 
         // Set prayers in state if prayers exists in edit prayer config
         let prayers;
-        if (!this.prayersExistInPrayerConfig(this.state.prayerConfig)
-            && this.prayersExistInPrayerConfig(this.props.prayerConfigEdit)) {
+
+        if (this.prayersExistInPrayerConfig(this.props.prayerConfigEdit)) {
             prayers = this.props.prayerConfigEdit.prayers;
-            this.setPrayerConfigInState(this.props.prayerConfigEdit, true)
+            this.setState({prayerConfigDirty: true})
         }
 
         if (!prayers && this.prayersExistInPrayerConfig(this.props.prayerConfig)) {
@@ -85,7 +85,8 @@ class TabPrayer extends Component {
     componentWillUnmount() {
         if (this.isEditMode()
             && (this.state.prayerConfigDirty || !this.prayersExistInPrayerConfig(this.props.prayerConfigEdit))) {
-            this.props.setAdminPrayerConfigEdit(this.state.prayerConfig);
+            this.props.prayerConfig.prayers = tabPrayerService.collectPrayersFromDom();
+            this.props.setAdminPrayerConfigEdit(this.props.prayerConfig);
         }
 
         if (!this.isEditMode() && this.prayersExistInPrayerConfig(this.props.prayerConfigEdit)) {
@@ -112,11 +113,9 @@ class TabPrayer extends Component {
             return;
         }
 
-        const prayers = tabPrayerService.collectPrayersFromDom();
-        console.log(prayers);
-
         prayerConfig.id = this.props.prayerConfig.id;
         prayerConfig.companyId = this.props.login.company.id;
+        prayerConfig.prayers = tabPrayerService.collectPrayersFromDom();
         axios
             .post(`${baseUrl}/api/prayer/config`, prayerConfig)
             .then(response => {
@@ -131,6 +130,7 @@ class TabPrayer extends Component {
     }
 
     onValueChange(event) {
+        /*
         const dateMonthStringLength = 6;
         const fieldName = event.target.name;
         const fieldValue = event.target.value;
@@ -143,10 +143,13 @@ class TabPrayer extends Component {
             }
         });
         this.setPrayerConfigInState(this.state.prayerConfig, true);
+        */
+        console.log("Setting state");
+        this.setState({prayerConfigDirty: true});
     }
 
     isEditMode() {
-        const prayerConfig = this.state.prayerConfig;
+        const prayerConfig = this.props.prayerConfigEdit;
         return prayerConfig && prayerConfig.prayers && prayerConfig.prayers.length > 0;
     }
 

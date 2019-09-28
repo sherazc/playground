@@ -22,6 +22,7 @@ class PrayerDay extends Component {
     }
 
     onChange(event) {
+        this.props.onValueChange();
         const {name, value} = event.target;
         const newPrayer = {
             ...this.state.prayer

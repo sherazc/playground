@@ -47,7 +47,7 @@ class PrayersMonth extends Component {
                         </tr>
                         </thead>
                         <tbody>
-                        {this.props.prayersMonth.map((prayer, index) => <PrayerDay key={index} prayer={prayer} viewMode={viewMode}/>)}
+                        {this.props.prayersMonth.map((prayer, index) => <PrayerDay key={index} onValueChange={this.props.onValueChange} prayer={prayer} viewMode={viewMode}/>)}
                         </tbody>
                     </table>
                 </div>
