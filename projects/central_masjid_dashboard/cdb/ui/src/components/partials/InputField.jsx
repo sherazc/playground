@@ -4,13 +4,16 @@ import {
     time24To12
 } from "../../services/utilities"
 
+export const MODE_VIEW = "view";
+export const MODE_EDIT = "edit";
+
 const InputField = (props) => {
     const type = props.type ? props.type : "text";
     const placeholder = props.placeholder ? props.placeholder : props.label;
     const value = props.value ? props.value : "";
 
     const viewOrEditField = mode => {
-        if ("view" === mode) {
+        if (MODE_VIEW === mode) {
             return <span className={props.viewClass}>{type === "time" ? time24To12(props.value) : props.value}</span>;
         } else {
             const id = props.id ? props.id : props.name;

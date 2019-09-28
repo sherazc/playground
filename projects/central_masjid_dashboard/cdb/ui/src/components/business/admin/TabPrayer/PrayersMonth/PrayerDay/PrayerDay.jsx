@@ -3,7 +3,7 @@ import {
     datesMonthDatePart,
     dateToDisplayDateShort
 } from "../../../../../../services/utilities"
-import InputField from "../../../../../partials/InputField";
+import InputField, {MODE_EDIT, MODE_VIEW} from "../../../../../partials/InputField";
 
 class PrayerDay extends Component {
 
@@ -20,6 +20,16 @@ class PrayerDay extends Component {
             this.setState({prayer: this.props.prayer});
         }
     }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const currentViewMode = this.props.viewMode;
+        const previousViewMode = prevProps.viewMode;
+
+        if (previousViewMode === MODE_EDIT && currentViewMode === MODE_VIEW) {
+            this.setState({prayer: this.props.prayer});
+        }
+    }
+
 
     onChange(event) {
         this.props.onValueChange();

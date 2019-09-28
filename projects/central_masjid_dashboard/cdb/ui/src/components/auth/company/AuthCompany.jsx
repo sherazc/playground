@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import StateSelect from "../../partials/StateSelect";
-import InputField from "../../partials/InputField";
+import InputField, {MODE_EDIT, MODE_VIEW} from "../../partials/InputField";
 import {
     createCompanyAction,
     prepareCompanyToCreate,
@@ -75,7 +75,7 @@ class AuthCompany extends Component {
 
     getRedirectUrl(props) {
         const action = getReactRouterPathParamFromUrl(this.props, "action");
-        const actionViewOrEdit = action === "view" || action === "edit";
+        const actionViewOrEdit = action === MODE_VIEW || action === MODE_EDIT;
         const adminLogin = isAdminLogin(props);
         const isCompanySelected = props.companyServiceResponse && props.companyServiceResponse.target && props.companyServiceResponse.target.id;
 
@@ -178,7 +178,7 @@ class AuthCompany extends Component {
                         fieldError={fieldErrors["company.address.zip"]}
                         value={this.state.addressZip}/>
 
-                    {action !== "view" &&
+                    {action !== MODE_VIEW &&
                         <button type="submit">
                             {action === "create" && "Next"}
                             {action === "edit" && "Update"}

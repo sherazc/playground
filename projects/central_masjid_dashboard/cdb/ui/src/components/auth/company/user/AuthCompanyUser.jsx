@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import InputField from "../../../partials/InputField";
+import InputField, {MODE_EDIT, MODE_VIEW} from "../../../partials/InputField";
 import {
     createCompanyUserAction,
     updateCompanyUserAction
@@ -77,7 +77,7 @@ class AuthCompanyUser extends Component {
 
     getRedirectUrl(state, props) {
         const action = getReactRouterPathParamFromUrl(props, "action");
-        const actionViewOrEdit = action === "view" || action === "edit";
+        const actionViewOrEdit = action === MODE_VIEW || action === MODE_EDIT;
         const isLoggedIn = isAuthPresent(props.login);
         const adminLogin = isAdminLogin(props);
         const isNewCompanyRegisterComplete = props.companyServiceResponse && props.companyServiceResponse.target && props.companyServiceResponse.target.id;
@@ -157,7 +157,7 @@ class AuthCompanyUser extends Component {
 
     registrationForm(action, loginInCompany) {
         const fieldErrors = this.props.companyUserServiceResponse.fieldErrors;
-        const mode = action === "profile" || action === "view" ? "view" : "";
+        const mode = action === "profile" || action === MODE_VIEW ? MODE_VIEW : "";
         return (
             <div>
                 <div>
@@ -200,7 +200,7 @@ class AuthCompanyUser extends Component {
                         fieldError={fieldErrors["user.password"]}
                         value={this.state.password}/>
                     }
-                    {mode !== "view" &&
+                    {mode !== MODE_VIEW &&
                     <button type="submit">
                         {loginInCompany.id ? "Save" : "Next"}
                     </button>

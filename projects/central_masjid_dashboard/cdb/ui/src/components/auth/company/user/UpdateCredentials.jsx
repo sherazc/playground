@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import axios from "axios";
-import InputField from "../../../partials/InputField";
+import InputField, {MODE_EDIT, MODE_VIEW} from "../../../partials/InputField";
 import NewCredentialFields from "./NewCredentialFields";
 import {collectErrorMessageFromResponseData} from "../../../../services/utilities";
 import {ALERT_SUCCESS, showAlert} from "../../../../store/common/alert/actions";
@@ -124,7 +124,7 @@ class UpdateCredentials extends Component {
                 }
                 <form onSubmit={this.onSubmit}>
                     <InputField
-                        mode="view"
+                        mode={MODE_VIEW}
                         label="Email"
                         name="email"
                         required={true}
@@ -132,7 +132,7 @@ class UpdateCredentials extends Component {
 
                     {!this.props.resetCredential &&
                         <InputField
-                            mode="edit"
+                            mode={MODE_EDIT}
                             label="Existing password"
                             name="existingCredential"
                             onChange={this.onChange}

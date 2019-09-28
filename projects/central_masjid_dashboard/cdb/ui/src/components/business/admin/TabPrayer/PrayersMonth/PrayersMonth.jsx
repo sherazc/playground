@@ -4,6 +4,7 @@ import {
     MONTH_NAMES
 } from "../../../../../services/utilities";
 import PrayerDay from "./PrayerDay/PrayerDay";
+import {MODE_EDIT, MODE_VIEW} from "../../../../partials/InputField";
 
 class PrayersMonth extends Component {
 
@@ -14,7 +15,7 @@ class PrayersMonth extends Component {
 
     render() {
         const monthName = this.monthNames[this.props.monthIndex];
-        const viewMode = this.props.editMode ? "edit" : "view";
+        const viewMode = this.props.editMode ? MODE_EDIT : MODE_VIEW;
         return (
             <div>
                 <div className={styles.prayerMonthGridContainer}>

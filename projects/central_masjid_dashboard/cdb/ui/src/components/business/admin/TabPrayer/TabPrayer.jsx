@@ -70,7 +70,7 @@ class TabPrayer extends Component {
 
         if (this.prayersExistInPrayerConfig(this.props.prayerConfigEdit)) {
             prayers = this.props.prayerConfigEdit.prayers;
-            this.setState({prayerConfigDirty: true})
+            this.setPrayerConfigDirty(true);
         }
 
         if (!prayers && this.prayersExistInPrayerConfig(this.props.prayerConfig)) {
@@ -95,15 +95,13 @@ class TabPrayer extends Component {
     }
 
     onEdit() {
-        this.setPrayerConfigInState(this.props.prayerConfig, false);
+        this.props.setAdminPrayerConfigEdit(this.props.prayerConfig);
     }
 
     onCancel() {
         if (this.state.prayerConfigDirty) {
             this.apiGetPrayerConfig(this.props.login.company.id);
         }
-
-        this.setPrayerConfigInState({}, false);
         this.props.setAdminPrayerConfigEdit({});
     }
 
@@ -123,7 +121,6 @@ class TabPrayer extends Component {
                 if (serviceResponse && serviceResponse.successful && serviceResponse.target) {
                     this.props.setAdminPrayerConfig(prayerConfig);
                     this.props.setAdminPrayerConfigEdit({});
-                    this.setPrayerConfigInState({}, false);
                 }
             })
             .catch((error) => console.log("Error occurred", error));
@@ -144,8 +141,7 @@ class TabPrayer extends Component {
         });
         this.setPrayerConfigInState(this.state.prayerConfig, true);
         */
-        console.log("Setting state");
-        this.setState({prayerConfigDirty: true});
+        this.setPrayerConfigDirty(true);
     }
 
     isEditMode() {
@@ -160,13 +156,24 @@ class TabPrayer extends Component {
     apiGetPrayerConfig(companyId) {
         axios
             .get(`${baseUrl}/api/prayer/config/${companyId}`)
-            .then(response => this.props.setAdminPrayerConfig(response.data))
+            .then(response => {
+                this.props.setAdminPrayerConfig(response.data);
+                this.props.setAdminPrayerConfigEdit({});
+                this.setPrayerConfigDirty(false, true);
+            })
             .catch(() => this.props.adminPrayerConfigReset());
+    }
+
+    setPrayerConfigDirty(dirty, fourceSet) {
+        if (fourceSet) {
+            this.setState({prayerConfigDirty: dirty});
+        } else if (this.state.prayerConfigDirty !== dirty) {
+            this.setState({prayerConfigDirty: dirty});
+        }
     }
 
     render() {
         const editMode = this.isEditMode();
-
         return (
             <div>
                 <ResetPrayerLocation onFinish={this.setPrayerConfigInState}/>
@@ -199,6 +206,30 @@ const actions = {setAdminPrayerConfig, setAdminPrayerConfigEdit, adminPrayerConf
 export default connect(mapStateToProps, actions)(TabPrayer);
 
 /*
+
+Testing after removing TabPrayer.state.prayerConfig
+===================================================
+
+✅ Edit -> Cancel
+✅ Edit -> Switch Tab
+Edit -> Change Value -> Cancel
+Edit -> Switch Tab -> Cancel
+Edit -> Change Value -> Switch Tab -> Cancel
+
+Edit -> Change Value -> Save
+Edit -> Switch Tab -> Save
+Edit -> Change Value -> Switch Tab -> Save
+
+Reset -> Cancel
+Reset -> Switch Tab
+Reset -> Change Value -> Cancel
+Reset -> Switch Tab -> Cancel
+Reset -> Change Value -> Switch Tab -> Cancel
+
+Reset -> Change Value -> Save
+Reset -> Switch Tab -> Save
+Reset -> Change Value -> Switch Tab -> Save
+
 -----------------
 DST
 ===
