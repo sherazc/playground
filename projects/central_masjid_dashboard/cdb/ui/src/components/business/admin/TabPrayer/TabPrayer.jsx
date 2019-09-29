@@ -106,13 +106,10 @@ class TabPrayer extends Component {
     }
 
     onSave() {
-        const prayerConfig = this.state.prayerConfig;
+        const prayerConfig = this.props.prayerConfig;
         if (!prayerConfig) {
             return;
         }
-
-        prayerConfig.id = this.props.prayerConfig.id;
-        prayerConfig.companyId = this.props.login.company.id;
         prayerConfig.prayers = tabPrayerService.collectPrayersFromDom();
         axios
             .post(`${baseUrl}/api/prayer/config`, prayerConfig)
@@ -212,13 +209,14 @@ Testing after removing TabPrayer.state.prayerConfig
 
 ✅ Edit -> Cancel
 ✅ Edit -> Switch Tab
-Edit -> Change Value -> Cancel
-Edit -> Switch Tab -> Cancel
-Edit -> Change Value -> Switch Tab -> Cancel
+✅ Edit -> Change Value -> Cancel
+✅ Edit -> Switch Tab -> Cancel
+❌ Edit -> Change Value -> Switch Tab -> Cancel
 
-Edit -> Change Value -> Save
-Edit -> Switch Tab -> Save
-Edit -> Change Value -> Switch Tab -> Save
+✅ Edit -> Save
+✅ Edit -> Change Value -> Save
+✅ Edit -> Switch Tab -> Save
+✅ Edit -> Change Value -> Switch Tab -> Save
 
 Reset -> Cancel
 Reset -> Switch Tab
