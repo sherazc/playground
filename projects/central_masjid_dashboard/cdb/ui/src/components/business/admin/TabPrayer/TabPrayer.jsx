@@ -32,7 +32,8 @@ class TabPrayer extends Component {
     }
 
     setPrayerConfigInState(prayerConfig, dirty) {
-        this.setState({prayerConfig: prayerConfig, prayerConfigDirty: dirty});
+        this.props.setAdminPrayerConfigEdit(prayerConfig);
+        this.setState({prayerConfigDirty: dirty});
     }
 
     makePrayerMonths(editMode) {
@@ -218,15 +219,15 @@ Testing after removing TabPrayer.state.prayerConfig
 ✅ Edit -> Switch Tab -> Save
 ✅ Edit -> Change Value -> Switch Tab -> Save
 
-Reset -> Cancel
-Reset -> Switch Tab
-Reset -> Change Value -> Cancel
-Reset -> Switch Tab -> Cancel
-Reset -> Change Value -> Switch Tab -> Cancel
+✅ Reset -> Cancel
+✅ Reset -> Switch Tab
+✅ Reset -> Change Value -> Cancel
+❌ Reset -> Switch Tab -> Cancel
+❌ Reset -> Change Value -> Switch Tab -> Cancel
 
-Reset -> Change Value -> Save
-Reset -> Switch Tab -> Save
-Reset -> Change Value -> Switch Tab -> Save
+✅ Reset -> Change Value -> Save
+✅ Reset -> Switch Tab -> Save
+✅ Reset -> Change Value -> Switch Tab -> Save
 
 -----------------
 DST
