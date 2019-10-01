@@ -21,6 +21,16 @@
       "timezoneId": "America/New_York",
       "timezoneName": "Eastern Standard Time"
     },
+    "dst": {
+      "enable": true,
+      "automaticCalculate": true,
+      "start": {
+        "$date": "2016-03-10T00:00:00.000Z"
+      },
+      "end": {
+        "$date": "2016-11-03T00:00:00.000Z"
+      }
+    },
     "prayers": [
       {
         "date": {

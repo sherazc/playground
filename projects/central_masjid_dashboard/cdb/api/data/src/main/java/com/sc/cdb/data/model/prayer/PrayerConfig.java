@@ -29,5 +29,7 @@ public class PrayerConfig {
     private int[] prayerOffsetMinutes = new int[7];
     private GeoCode geoCode;
 
+    private Dst dst;
+
     private List<Prayer> prayers;
 }
