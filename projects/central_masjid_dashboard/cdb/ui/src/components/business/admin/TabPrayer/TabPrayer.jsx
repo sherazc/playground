@@ -11,6 +11,7 @@ import {
 } from "../../../../store/admin/adminActions"
 import SaveCancel from "./SaveCancel/SaveCancel"
 import TabPrayerService from "./TabPrayerService";
+import Dst from "./Dst/Dst";
 
 /**
  * TabPrayer.state.prayerConfig exist only in edit mode.
@@ -180,6 +181,7 @@ class TabPrayer extends Component {
                         variant="outlined" color="primary">
                     Edit
                 </Button>
+                <Dst/>
                 {this.makePrayerMonths(editMode)}
                 <SaveCancel
                     show={editMode}
@@ -245,7 +247,7 @@ add DST in PrayerConfig.java and PrayerConfig.json
     prayerConfig: {
         dst: {
             enable: boolean
-            auto: boolean,
+            automaticCalculate: boolean,
             start: date,
             end: date
         }
