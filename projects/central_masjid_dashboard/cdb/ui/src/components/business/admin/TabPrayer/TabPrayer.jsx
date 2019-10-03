@@ -181,7 +181,7 @@ class TabPrayer extends Component {
                         variant="outlined" color="primary">
                     Edit
                 </Button>
-                <Dst/>
+                <Dst dst={this.props.prayerConfig.dst}/>
                 {this.makePrayerMonths(editMode)}
                 <SaveCancel
                     show={editMode}

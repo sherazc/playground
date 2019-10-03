@@ -1,14 +1,27 @@
 import React, {Component} from "react";
+
 import {
-    Button, TextField, Dialog, DialogActions, DialogContent, DialogContentText,
-    DialogTitle, FormControl, InputLabel, MenuItem, Select,
-    FormControlLabel, Checkbox, FormGroup, Switch
+    TextField, FormControl,
+    FormControlLabel, FormGroup, Switch
 } from "@material-ui/core";
-import styles from "../ResetPrayerConfig/ResetPrayerConfig.module.scss";
 import CloseablePanel from "../../../../common/CloseablePanel/CloseablePanel";
+import {equalObjects} from "../../../../../services/utilities";
 
 
 class Dst extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            dst: {}
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (!equalObjects(this.props.dst, this.state.dst)) {
+            this.setState({dst: this.props.dst});
+        }
+    }
 
     render() {
         return (

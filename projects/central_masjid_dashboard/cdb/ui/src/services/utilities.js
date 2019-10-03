@@ -1,3 +1,5 @@
+import equals from "deep-equal";
+
 export const MONTH_NAMES = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"];
 
@@ -119,4 +121,17 @@ export const addDaysToDate = (date, days) => {
 
     date.setDate(date.getDate() + days);
     return date;
+};
+
+
+export const equalObjects = (obj1, obj2) => {
+    /*
+    if (!obj1 && !obj2) {
+        return true;
+    }
+    if ((!obj1 && obj2) || (obj1 && !obj2)) {
+        return false;
+    }
+    */
+    return equals(obj1, obj2)
 };
