@@ -23,9 +23,9 @@ class Dst extends Component {
         return {
             dst: {
                 enable: false,
-                    automaticCalculate: false,
-                    start: null,
-                    end: null
+                automaticCalculate: false,
+                start: null,
+                end: null
             },
             dstDirty: false
         }
@@ -60,30 +60,33 @@ class Dst extends Component {
                 <CloseablePanel
                     title="DST Settings"
                     editMode={this.state.dstDirty}
-                    // defaultExpanded={this.props.defaultExpanded}
+                    defaultExpanded={false}
                     onSave={this.onSave}
                     onCancel={this.onCancel}>
-
-                    <FormControl>
-                        <FormGroup aria-label="position" row>
-                            <FormControlLabel
-                                control={<Switch color="primary"
-                                                 checked={this.state.dst.enable}
-                                                 onChange={this.onCheckChange}
-                                                 name="enable"
-                                />}
-                                label="Enable"
-                                labelPlacement="start"
-                            />
-                            <FormControlLabel disabled
-                                control={<Switch color="primary"
-                                                 checked={this.state.dst.automaticCalculate}
-                                                 onChange={this.onCheckChange}
-                                                 name="automaticCalculate"/>}
-                                label="Automatic Calculate"
-                                labelPlacement="start"
-                            />
-                        </FormGroup>
+                    <div>
+                        <div style={{marginBottom: 20}}>
+                            DST changes will be applied to already saved prayers.
+                        </div>
+                        <FormControl>
+                            <FormGroup aria-label="position" row>
+                                <FormControlLabel
+                                    control={<Switch color="primary"
+                                                     checked={this.state.dst.enable}
+                                                     onChange={this.onCheckChange}
+                                                     name="enable"
+                                    />}
+                                    label="Enable"
+                                    labelPlacement="start"
+                                />
+                                <FormControlLabel disabled
+                                                  control={<Switch color="primary"
+                                                                   checked={this.state.dst.automaticCalculate}
+                                                                   onChange={this.onCheckChange}
+                                                                   name="automaticCalculate"/>}
+                                                  label="Automatic Calculate"
+                                                  labelPlacement="start"
+                                />
+                            </FormGroup>
 
 
                             <TextField
@@ -91,17 +94,20 @@ class Dst extends Component {
                                 label="Start" type="text"
                                 value=""
                                 disabled
-                                onChange={() => {}}/>
+                                onChange={() => {
+                                }}/>
 
                             <TextField
                                 margin="dense" name="start"
                                 label="End" type="text"
                                 value=""
                                 disabled
-                                onChange={() => {}}/>
+                                onChange={() => {
+                                }}/>
 
 
-                    </FormControl>
+                        </FormControl>
+                    </div>
                 </CloseablePanel>
             </div>
         );
@@ -109,13 +115,3 @@ class Dst extends Component {
 }
 
 export default Dst;
-
-/*
-
-dst: {
-    enable: boolean
-    automaticCalculate: boolean,
-    start: date,
-    end: date
-}
- */
