@@ -3,6 +3,8 @@ package com.sc.cdb.services.dst;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.springframework.stereotype.Service;
+
 
 /*
 DST Rules
@@ -11,6 +13,7 @@ ends at 2:00 a.m. on the first Sunday of November
 https://www.nist.gov/pml/time-and-frequency-division/popular-links/daylight-saving-time-dst
 */
 
+@Service
 public class DstCalculatorImpl implements DstCalculator {
 
     @Override

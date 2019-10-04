@@ -6,17 +6,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.TreeMap;
-import java.util.function.BiFunction;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import com.sc.cdb.data.dao.PrayerConfigDao;
 import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.data.repository.PrayerConfigRepository;
 import com.sc.cdb.services.model.ServiceResponse;
-import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +20,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class PrayerConfigServiceImpl implements PrayerConfigService {
     private static final Logger LOG = LoggerFactory.getLogger(PrayerConfigServiceImpl.class);
-    private static final SimpleDateFormat SDF_MM_DD = new SimpleDateFormat("MMdd");
 
     private PrayerConfigRepository prayerConfigRepository;
     private PrayerConfigDao prayerConfigDao;
@@ -133,62 +127,6 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         return calendar.getTime();
     }
 
-/*
-    private Prayer findDatePrayerAndNextChange(List<Prayer> yearPrayers, int month, int date) {
-
-        List<Prayer> yearPrayersMutable = new ArrayList<>(yearPrayers);
-        yearPrayersMutable.sort(this::comparePrayers);
-
-        int foundIndex = IntStream.range(0, yearPrayersMutable.size())
-                .filter(i -> comparePrayerMonthDate(yearPrayersMutable.get(i), month, date) == 0)
-                .findFirst()
-                .orElse(-1);
-
-        if (foundIndex < 0) {
-            return null;
-        }
-
-        Prayer foundPrayer = yearPrayersMutable.get(foundIndex);
-
-        // noinspection CollectionAddedToSelf
-        yearPrayersMutable.addAll(yearPrayersMutable);
-
-
-
-        yearPrayersMutable.stream()
-                .filter(prayer -> comparePrayer(prayer, foundPrayer) > 0) // Prayer that are after found prayer
-                .forEach(prayer -> System.out.println(prayer.getDate()));
-
-
-
-
-        List<Prayer> yearPrayerClone = yearPrayersMutable.stream()
-                .map(SerializationUtils::clone)
-                .collect(Collectors.toList());
-
-
-        TreeMap<String, Prayer> twoYearPrayers = yearPrayers.stream()
-                .collect(
-                        TreeMap::new, // supplier
-                        this::duplicatePrayers, // accumulator
-                        TreeMap::putAll // combiner - combine second into first
-                );
-
-
-        yearPrayers.stream().sorted(this::comparePrayers)
-                .collect(ArrayList::new,
-                        null,
-                        List::addAll);
-
-
-        System.out.println(twoYearPrayers);
-
-
-        return null;
-    }
-    */
-
-
     private int comparePrayerMonthDate(Prayer prayer, int month, int date) {
         if (prayer.getDate() == null) {
             return -1;
@@ -229,29 +167,6 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         return this.comparePrayerMonthDate(prayer1, prayerMonth, prayerDate);
     }
 
-/*
-    private int comparePrayers(Prayer p1, Prayer p2) {
-        if (p1.getDate() == null && p2.getDate() == null) {
-            return 0;
-        } else if (p1.getDate() == null && p2.getDate() != null) {
-            return -1;
-        } else if (p1.getDate() != null && p2.getDate() == null) {
-            return 1;
-        }
-        return SDF_MM_DD.format(p1.getDate()).compareTo(SDF_MM_DD.format(p2.getDate()));
-    }
-*/
-
-    private void duplicatePrayers(TreeMap<String, Prayer> prayerMap, Prayer prayer) {
-        if (prayer.getDate() == null) {
-            return;
-        }
-
-        String mmdd = SDF_MM_DD.format(prayer.getDate());
-        prayerMap.put("1" + mmdd, prayer);
-        prayerMap.put("2" + mmdd, prayer);
-    }
-
     @Override
     public ServiceResponse<String> savePrayerConfig(PrayerConfig prayerConfig) {
         ServiceResponse.ServiceResponseBuilder<String> serviceResponseBuilder = ServiceResponse.builder();
@@ -272,3 +187,5 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         return prayerConfigRepository.findByCompanyId(companyId);
     }
 }
+
+
