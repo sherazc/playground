@@ -1,6 +1,7 @@
 package com.sc.cdb.services.dst;
 
 import java.util.Date;
+import java.util.regex.Pattern;
 
 import com.sc.cdb.data.model.prayer.Dst;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
@@ -8,6 +9,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PrayerConfigDstApplierImpl implements PrayerConfigDstApplier {
+
+    private static final String MONTH_DATE_REGEX = "^(0[1-9]|1[0-2]|0?[1-9])\\/(0[1-9]|[12]\\d|3[01]|0?[1-9])$";
+
+    private static final Pattern MONTH_DATE_REGEX_PATTERN =
+            Pattern.compile(PrayerConfigDstApplierImpl.MONTH_DATE_REGEX);
 
     private DstCalculator dstCalculator;
 
@@ -28,9 +34,16 @@ public class PrayerConfigDstApplierImpl implements PrayerConfigDstApplier {
 
     private Date[] getDstRange(Dst dst, int year) {
         Date[] dstRange = null;
-        if (dst != null && dst.getAutomaticCalculate() != n && dstRange) {
+
+        if (dst != null
+                && !dst.getAutomaticCalculate()
+
+        ) {
+
+        } else {
 
         }
+
         return this.dstCalculator.calculate(year);
     }
 

@@ -24,8 +24,8 @@ class Dst extends Component {
             dst: {
                 enable: false,
                 automaticCalculate: false,
-                start: null,
-                end: null
+                startMonthDate: null,
+                endMonthDate: null
             },
             dstDirty: false
         }
@@ -87,25 +87,20 @@ class Dst extends Component {
                                                   labelPlacement="start"
                                 />
                             </FormGroup>
-
-
                             <TextField
-                                margin="dense" name="start"
+                                margin="dense" name="startMonthDate"
                                 label="Start" type="text"
                                 value=""
                                 disabled
                                 onChange={() => {
                                 }}/>
-
                             <TextField
-                                margin="dense" name="start"
+                                margin="dense" name="endMonthDate"
                                 label="End" type="text"
                                 value=""
                                 disabled
                                 onChange={() => {
                                 }}/>
-
-
                         </FormControl>
                     </div>
                 </CloseablePanel>

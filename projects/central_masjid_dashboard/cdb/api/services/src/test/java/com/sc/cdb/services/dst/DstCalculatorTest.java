@@ -3,20 +3,25 @@ package com.sc.cdb.services.dst;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.sc.cdb.services.date.DateService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 public class DstCalculatorTest {
 
     private DstCalculator dstCalculator;
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("YYYY-MM-dd");
 
+    @Mock
+    private DateService dateService;
+
     @Before
     public void setUp() throws Exception {
-        dstCalculator = new DstCalculatorImpl();
+        MockitoAnnotations.initMocks(this);
+        dstCalculator = new DstCalculatorImpl(dateService);
     }
 
     @Test

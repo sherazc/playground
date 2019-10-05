@@ -3,6 +3,7 @@ package com.sc.cdb.services.dst;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.sc.cdb.services.date.DateService;
 import org.springframework.stereotype.Service;
 
 
@@ -16,10 +17,16 @@ https://www.nist.gov/pml/time-and-frequency-division/popular-links/daylight-savi
 @Service
 public class DstCalculatorImpl implements DstCalculator {
 
+    private DateService dateService;
+
+    public DstCalculatorImpl(DateService dateService) {
+        this.dateService = dateService;
+    }
+
     @Override
     public Date[] calculate(int year) {
-        Calendar begin = createCalendar(year, 2, 1);
-        Calendar end = createCalendar(year, 10, 1);
+        Calendar begin = dateService.createCalendar(year, 2, 1);
+        Calendar end = dateService.createCalendar(year, 10, 1);
 
         addSundays(begin, 2);
         addSundays(end, 1);
@@ -40,17 +47,5 @@ public class DstCalculatorImpl implements DstCalculator {
             }
         }
 
-    }
-
-    private Calendar createCalendar(int year, int month, int date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month);
-        calendar.set(Calendar.DATE, date);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        return calendar;
     }
 }
