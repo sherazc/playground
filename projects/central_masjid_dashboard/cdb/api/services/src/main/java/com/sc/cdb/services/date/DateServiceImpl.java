@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
 public class DateServiceImpl implements DateService {
 
     public Optional<Calendar> createCalendar(int year, int month, int date) {
-        if (year < 0 || month < 0 || date < 0) {
+        if (year < 0 || month < 1 || date < 0) {
             return Optional.empty();
         }
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.MONTH, month - 1);
         calendar.set(Calendar.DATE, date);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);

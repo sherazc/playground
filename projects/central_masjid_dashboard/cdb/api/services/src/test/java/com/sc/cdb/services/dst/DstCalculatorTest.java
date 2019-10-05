@@ -2,7 +2,9 @@ package com.sc.cdb.services.dst;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 
+import com.sc.cdb.data.model.prayer.Dst;
 import com.sc.cdb.services.date.DateServiceImpl;
 import org.junit.Assert;
 import org.junit.Before;
@@ -21,9 +23,7 @@ public class DstCalculatorTest {
     }
 
     @Test
-    public void testCalculate() {
-
-        /*
+    public void dstPeriod_calculateValidYears() {
         validate(dstCalculator.dstPeriod(2007), "2007-03-11", "2007-11-04");
         validate(dstCalculator.dstPeriod(2008), "2008-03-09", "2008-11-02");
         validate(dstCalculator.dstPeriod(2009), "2009-03-08", "2009-11-01");
@@ -47,11 +47,42 @@ public class DstCalculatorTest {
         validate(dstCalculator.dstPeriod(2027), "2027-03-14", "2027-11-07");
         validate(dstCalculator.dstPeriod(2028), "2028-03-12", "2028-11-05");
         validate(dstCalculator.dstPeriod(2029), "2029-03-11", "2029-11-04");
-        */
     }
 
-    private void validate(Date[] dstRange, String beginDateString, String endDateString) {
-        Assert.assertEquals(beginDateString, DATE_FORMAT.format(dstRange[0]));
-        Assert.assertEquals(endDateString, DATE_FORMAT.format(dstRange[1]));
+    @Test
+    public void dstPeriod_calculateInvalidYears() {
+        Optional<Date[]> dstPeriod = dstCalculator.dstPeriod(-1);
+        Assert.assertTrue(dstPeriod.isEmpty());
+    }
+
+    @Test
+    public void dstPeriod_manualConfiguredValid() {
+        Dst dst = createDst(true, false, "1/5", "1/8");
+        validate(dstCalculator.dstPeriod(dst, 2015), "2015-01-05", "2015-01-08");
+
+        dst = createDst(true, false, "12/22", "12/25");
+        validate(dstCalculator.dstPeriod(dst, 2015), "2015-12-22", "2015-12-25");
+
+    }
+
+    private Dst createDst(Boolean enable, Boolean automaticCalculate, String beginMonthDate, String endMonthDate) {
+        Dst dst = new Dst();
+        dst.setEnable(enable);
+        dst.setAutomaticCalculate(automaticCalculate);
+        dst.setBeginMonthDate(beginMonthDate);
+        dst.setEndMonthDate(endMonthDate);
+        return dst;
+    }
+
+
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+    private void validate(Optional<Date[]> dstPeriod, String beginDateString, String endDateString) {
+        Assert.assertTrue(dstPeriod.isPresent());
+        Date beginDstPeriod = dstPeriod.get()[0];
+        Date endDstPeriod = dstPeriod.get()[1];
+
+        Assert.assertTrue(beginDstPeriod.before(endDstPeriod));
+        Assert.assertEquals(beginDateString, DATE_FORMAT.format(beginDstPeriod));
+        Assert.assertEquals(endDateString, DATE_FORMAT.format(endDstPeriod));
     }
 }

@@ -14,6 +14,6 @@ import lombok.NoArgsConstructor;
 public class Dst {
     private Boolean enable;
     private Boolean automaticCalculate;
-    private String startMonthDate;
+    private String beginMonthDate;
     private String endMonthDate;
 }

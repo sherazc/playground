@@ -27,8 +27,8 @@ public class DstCalculatorImpl implements DstCalculator {
 
     @Override
     public Optional<Date[]> dstPeriod(int year) {
-        Optional<Calendar> beginOptional = dateService.createCalendar(year, 2, 1);
-        Optional<Calendar> endOptional = dateService.createCalendar(year, 10, 1);
+        Optional<Calendar> beginOptional = dateService.createCalendar(year, 3, 1);
+        Optional<Calendar> endOptional = dateService.createCalendar(year, 11, 1);
 
         if (beginOptional.isEmpty() || endOptional.isEmpty()) {
             return Optional.empty();
@@ -36,8 +36,10 @@ public class DstCalculatorImpl implements DstCalculator {
             Calendar begin = beginOptional.get();
             Calendar end = endOptional.get();
 
+            // These calculation only applies after year 2007
             addSundays(begin, 2);
             addSundays(end, 1);
+
             return Optional.of(new Date[]{begin.getTime(), end.getTime()});
         }
     }
@@ -46,12 +48,12 @@ public class DstCalculatorImpl implements DstCalculator {
         Optional<Date[]> dstRange;
 
         if (dst != null && !dst.getAutomaticCalculate()) {
-            Optional<Calendar> startOptional = dateService.monthDateStringToCalendar(year, dst.getStartMonthDate());
+            Optional<Calendar> beginOptional = dateService.monthDateStringToCalendar(year, dst.getBeginMonthDate());
             Optional<Calendar> endOptional = dateService.monthDateStringToCalendar(year, dst.getEndMonthDate());
-            if (startOptional.isEmpty() || endOptional.isEmpty() || startOptional.get().after(endOptional.get())) {
+            if (beginOptional.isEmpty() || endOptional.isEmpty() || beginOptional.get().after(endOptional.get())) {
                 dstRange = dstPeriod(year);
             } else {
-                dstRange = Optional.of(new Date[] {startOptional.get().getTime(), endOptional.get().getTime()});
+                dstRange = Optional.of(new Date[] {beginOptional.get().getTime(), endOptional.get().getTime()});
             }
         } else {
             dstRange = dstPeriod(year);
