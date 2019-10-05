@@ -1,78 +1,30 @@
 package com.sc.cdb.services.common;
 
 import java.util.Calendar;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
+public interface DateTimeCalculator {
 
-@Service
-public class DateTimeCalculator {
+    String MONTH_DATE_REGEX = "^(0[1-9]|1[0-2]|0?[1-9])\\/(0[1-9]|[12]\\d|3[01]|0?[1-9])$";
 
-    private static final Pattern TIME_24_REGEX_PATTERN =
-            Pattern.compile("^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$");
+    String TIME_24_REGEX = "^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$";
 
+    Pattern TIME_24_REGEX_PATTERN = Pattern.compile(TIME_24_REGEX);
 
-    public boolean isValid24Time(String timeInString) {
-        int length = StringUtils.length(timeInString);
-        if (length > 5 || length < 3) {
-            return false;
-        }
-        return TIME_24_REGEX_PATTERN.matcher(timeInString).matches();
-    }
+    int DEFAULT_YEAR = 2016;
 
-    public int[] hourMinuteStringToInt(String time24hour) {
-        if (!isValid24Time(time24hour)) {
-            return null;
-        }
+    boolean isValid24Time(String timeInString);
 
-        String[] hourMinuteStrings = time24hour.split(":");
+    int[] hourMinuteStringToInt(String time24hour);
 
-        return new int[]{
-                Integer.parseInt(hourMinuteStrings[0]),
-                Integer.parseInt(hourMinuteStrings[1])};
-    }
+    String hourMinuteIntToString(int[] time24hour);
 
-    public String hourMinuteIntToString(int[] time24hour) {
-        if (time24hour == null || time24hour.length != 2) {
-            return null;
-        }
+    Calendar createCalendarFromTime(int hour24, int minute);
 
-        String hourMinute = new StringBuilder(intToString(time24hour[0]))
-                .append(':')
-                .append(intToString(time24hour[1])).toString();
+    Calendar createCalendar(int year, int month, int date, int hour24, int minute);
 
-        if (this.isValid24Time(hourMinute)) {
-            return hourMinute;
-        } else {
-            return null;
-        }
-    }
+    Optional<Calendar> createCalendar(int year, int month, int date);
 
-    private String intToString(int i) {
-        StringBuilder stringBuilder = new StringBuilder();
-        if (i < 0 || i > 59) {
-            return null;
-        } else if (i < 10) {
-            return stringBuilder.append(0).append(i).toString();
-        } else {
-            return stringBuilder.append(i).toString();
-        }
-    }
-
-    public Calendar createCalendarFromTime(int hour24, int minute) {
-        return this.createCalendar(2016, 0, 1, hour24, minute);
-    }
-
-    private Calendar createCalendar(int year, int month, int date, int hour24, int minute) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month);
-        calendar.set(Calendar.DATE, date);
-        calendar.set(Calendar.HOUR_OF_DAY, hour24);
-        calendar.set(Calendar.MINUTE, minute);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        return calendar;
-    }
+    Optional<Calendar> monthDateStringToCalendar(int year, String monthDateString);
 }

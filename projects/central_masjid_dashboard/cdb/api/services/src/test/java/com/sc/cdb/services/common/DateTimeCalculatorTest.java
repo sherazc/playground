@@ -11,7 +11,7 @@ public class DateTimeCalculatorTest {
 
     @Before
     public void setUp() throws Exception {
-        dateTimeCalculator = new DateTimeCalculator();
+        dateTimeCalculator = new DateTimeCalculatorImpl();
     }
 
     @Test
