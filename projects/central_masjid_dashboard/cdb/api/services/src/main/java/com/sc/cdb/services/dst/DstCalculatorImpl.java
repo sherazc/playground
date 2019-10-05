@@ -45,15 +45,19 @@ public class DstCalculatorImpl implements DstCalculator {
     }
 
     public Optional<Date[]> dstPeriod(Dst dst, int year) {
+        if (dst == null || dst.getEnable() == null || !dst.getEnable()) {
+            return Optional.empty();
+        }
+
         Optional<Date[]> dstRange;
 
-        if (dst != null && !dst.getAutomaticCalculate()) {
+        if (!dst.getAutomaticCalculate()) {
             Optional<Calendar> beginOptional = dateService.monthDateStringToCalendar(year, dst.getBeginMonthDate());
             Optional<Calendar> endOptional = dateService.monthDateStringToCalendar(year, dst.getEndMonthDate());
             if (beginOptional.isEmpty() || endOptional.isEmpty() || beginOptional.get().after(endOptional.get())) {
                 dstRange = dstPeriod(year);
             } else {
-                dstRange = Optional.of(new Date[] {beginOptional.get().getTime(), endOptional.get().getTime()});
+                dstRange = Optional.of(new Date[]{beginOptional.get().getTime(), endOptional.get().getTime()});
             }
         } else {
             dstRange = dstPeriod(year);
@@ -66,7 +70,7 @@ public class DstCalculatorImpl implements DstCalculator {
         if (dayOfWeek == Calendar.SUNDAY) {
             count--;
         }
-        while(count != 0) {
+        while (count != 0) {
             calendar.add(Calendar.DATE, 1);
             dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
             if (dayOfWeek == Calendar.SUNDAY) {

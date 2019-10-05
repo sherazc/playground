@@ -1,6 +1,7 @@
 package com.sc.cdb.services.dst;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
 
@@ -13,7 +14,7 @@ import org.junit.Test;
 public class DstCalculatorTest {
 
     private DstCalculator dstCalculator;
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("YYYY-MM-dd");
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
     @Before
     public void setUp() throws Exception {
@@ -60,9 +61,55 @@ public class DstCalculatorTest {
         Dst dst = createDst(true, false, "1/5", "1/8");
         validate(dstCalculator.dstPeriod(dst, 2015), "2015-01-05", "2015-01-08");
 
-        dst = createDst(true, false, "12/22", "12/25");
-        validate(dstCalculator.dstPeriod(dst, 2015), "2015-12-22", "2015-12-25");
+        dst = createDst(true, false, "12/22", "12/28");
+        validate(dstCalculator.dstPeriod(dst, 2015), "2015-12-22", "2015-12-28");
+    }
 
+
+    @Test
+    public void dstPeriod_manualConfiguredInvalid() {
+        Dst dst = createDst(true, false, "1/8", "1/5");
+        validate(dstCalculator.dstPeriod(dst, 2015), "2015-03-08", "2015-11-01");
+        Assert.assertTrue(dstCalculator.dstPeriod(dst, -1).isEmpty());
+    }
+
+    @Test
+    public void dstPeriod_manualConfiguredDisabledOrNull() {
+        Dst dst = createDst(false, false, "1/5", "1/8");
+        Assert.assertTrue(dstCalculator.dstPeriod(dst, 2015).isEmpty());
+        Assert.assertTrue(dstCalculator.dstPeriod(null, 2015).isEmpty());
+    }
+
+    // https://www.juandebravo.com/2015/04/10/java-yyyy-date-format/
+    // Use yyyy instead of YYYY to format year
+    @SuppressWarnings("Duplicates")
+    @Test
+    public void testDateFormatIssue() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.set(Calendar.YEAR, 2015);
+        calendar.set(Calendar.MONTH, 11);
+        calendar.set(Calendar.DATE, 31);
+
+        System.out.println(calendar.getTime());
+        System.out.println(calendar.get(Calendar.YEAR));
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        System.out.println(sdf.format(calendar.getTime()));
+
+        try {
+            String date_s = "2014-12-31";
+            SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+            Date d = dt.parse(date_s);
+            SimpleDateFormat dt1 = new SimpleDateFormat("YYYY");
+            System.out.println("And the year is... " + dt1.format(d));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     private Dst createDst(Boolean enable, Boolean automaticCalculate, String beginMonthDate, String endMonthDate) {
@@ -73,7 +120,6 @@ public class DstCalculatorTest {
         dst.setEndMonthDate(endMonthDate);
         return dst;
     }
-
 
     @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     private void validate(Optional<Date[]> dstPeriod, String beginDateString, String endDateString) {
