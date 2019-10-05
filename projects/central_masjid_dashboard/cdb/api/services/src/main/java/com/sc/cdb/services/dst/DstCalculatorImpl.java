@@ -2,7 +2,9 @@ package com.sc.cdb.services.dst;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Optional;
 
+import com.sc.cdb.data.model.prayer.Dst;
 import com.sc.cdb.services.date.DateService;
 import org.springframework.stereotype.Service;
 
@@ -24,14 +26,37 @@ public class DstCalculatorImpl implements DstCalculator {
     }
 
     @Override
-    public Date[] calculate(int year) {
-        Calendar begin = dateService.createCalendar(year, 2, 1);
-        Calendar end = dateService.createCalendar(year, 10, 1);
+    public Optional<Date[]> dstPeriod(int year) {
+        Optional<Calendar> beginOptional = dateService.createCalendar(year, 2, 1);
+        Optional<Calendar> endOptional = dateService.createCalendar(year, 10, 1);
 
-        addSundays(begin, 2);
-        addSundays(end, 1);
+        if (beginOptional.isEmpty() || endOptional.isEmpty()) {
+            return Optional.empty();
+        } else {
+            Calendar begin = beginOptional.get();
+            Calendar end = endOptional.get();
 
-        return new Date[]{begin.getTime(), end.getTime()};
+            addSundays(begin, 2);
+            addSundays(end, 1);
+            return Optional.of(new Date[]{begin.getTime(), end.getTime()});
+        }
+    }
+
+    public Optional<Date[]> dstPeriod(Dst dst, int year) {
+        Optional<Date[]> dstRange;
+
+        if (dst != null && !dst.getAutomaticCalculate()) {
+            Optional<Calendar> startOptional = dateService.monthDateStringToCalendar(year, dst.getStartMonthDate());
+            Optional<Calendar> endOptional = dateService.monthDateStringToCalendar(year, dst.getEndMonthDate());
+            if (startOptional.isEmpty() || endOptional.isEmpty() || startOptional.get().after(endOptional.get())) {
+                dstRange = dstPeriod(year);
+            } else {
+                dstRange = Optional.of(new Date[] {startOptional.get().getTime(), endOptional.get().getTime()});
+            }
+        } else {
+            dstRange = dstPeriod(year);
+        }
+        return dstRange;
     }
 
     private void addSundays(Calendar calendar, int count) {

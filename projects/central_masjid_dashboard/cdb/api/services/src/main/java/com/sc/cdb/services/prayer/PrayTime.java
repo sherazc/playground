@@ -291,7 +291,7 @@ public class PrayTime {
   }
 
   // ---------------------- Julian Date Functions -----------------------
-  // calculate julian date from a calendar date
+  // dstPeriod julian date from a calendar date
   private double julianDate(int year, int month, int day) {
 
     if (month <= 2) {

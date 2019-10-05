@@ -46,7 +46,7 @@ public class PrayTimeCalculatorImpl implements PrayTimeCalculator {
                 prayerConfig.getGeoCode().getTimezone());
 
         if (prayerTimes == null || prayerTimes.size() < 7) {
-            LOG.error("Failed to calculate prayer time for {}", calendar.getTime());
+            LOG.error("Failed to dstPeriod prayer time for {}", calendar.getTime());
             return null;
         }
 

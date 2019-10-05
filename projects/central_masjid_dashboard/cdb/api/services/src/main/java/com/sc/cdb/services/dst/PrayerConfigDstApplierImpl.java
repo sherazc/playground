@@ -1,24 +1,21 @@
 package com.sc.cdb.services.dst;
 
 import java.util.Date;
-import java.util.regex.Pattern;
+import java.util.Optional;
 
-import com.sc.cdb.data.model.prayer.Dst;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
+import com.sc.cdb.services.date.DateService;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PrayerConfigDstApplierImpl implements PrayerConfigDstApplier {
 
-    private static final String MONTH_DATE_REGEX = "^(0[1-9]|1[0-2]|0?[1-9])\\/(0[1-9]|[12]\\d|3[01]|0?[1-9])$";
-
-    private static final Pattern MONTH_DATE_REGEX_PATTERN =
-            Pattern.compile(PrayerConfigDstApplierImpl.MONTH_DATE_REGEX);
-
     private DstCalculator dstCalculator;
+    private DateService dateService;
 
-    public PrayerConfigDstApplierImpl(DstCalculator dstCalculator) {
+    public PrayerConfigDstApplierImpl(DstCalculator dstCalculator, DateService dateService) {
         this.dstCalculator = dstCalculator;
+        this.dateService = dateService;
     }
 
 
@@ -27,24 +24,8 @@ public class PrayerConfigDstApplierImpl implements PrayerConfigDstApplier {
         if (!shouldApplyDst(prayerConfig)) {
             return;
         }
+        Optional<Date[]> dstPeriodOptional = dstCalculator.dstPeriod(prayerConfig.getDst(), year);
 
-        Date[] dstRange = getDstRange(prayerConfig.getDst(), year);
-
-    }
-
-    private Date[] getDstRange(Dst dst, int year) {
-        Date[] dstRange = null;
-
-        if (dst != null
-                && !dst.getAutomaticCalculate()
-
-        ) {
-
-        } else {
-
-        }
-
-        return this.dstCalculator.calculate(year);
     }
 
     private boolean shouldApplyDst(PrayerConfig prayerConfig) {
