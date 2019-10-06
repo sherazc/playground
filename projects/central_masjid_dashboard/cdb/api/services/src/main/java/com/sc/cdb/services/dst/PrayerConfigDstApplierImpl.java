@@ -1,27 +1,29 @@
 package com.sc.cdb.services.dst;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
 
 import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
-import com.sc.cdb.services.date.DateService;
+import com.sc.cdb.services.common.DateTimeCalculator;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PrayerConfigDstApplierImpl implements PrayerConfigDstApplier {
 
     private DstCalculator dstCalculator;
-    private DateService dateService;
+    private DateTimeCalculator dateTimeCalculator;
 
-    public PrayerConfigDstApplierImpl(DstCalculator dstCalculator, DateService dateService) {
+    public PrayerConfigDstApplierImpl(
+            DstCalculator dstCalculator,
+            DateTimeCalculator dateTimeCalculator) {
         this.dstCalculator = dstCalculator;
-        this.dateService = dateService;
+        this.dateTimeCalculator = dateTimeCalculator;
     }
 
-
     @Override
-    public void addHour(PrayerConfig prayerConfig, int year) {
+    public void addHour(PrayerConfig prayerConfig, int year, int hoursCount) {
         if (!shouldApplyDst(prayerConfig)) {
             return;
         }
@@ -31,10 +33,8 @@ public class PrayerConfigDstApplierImpl implements PrayerConfigDstApplier {
             return;
         }
 
-        prayerConfig.getPrayers().stream()
-                .forEach(prayer -> addHourToPrayer(dstPeriodOptional.get(), prayer, 1));
-
-
+        prayerConfig.getPrayers()
+                .forEach(prayer -> addHourToPrayer(dstPeriodOptional.get(), prayer, hoursCount));
     }
 
     private void addHourToPrayer(Date[] dstPeriod, Prayer prayer, int hoursCount) {
@@ -77,9 +77,16 @@ public class PrayerConfigDstApplierImpl implements PrayerConfigDstApplier {
     }
 
     private String addHourToStringDate(String time24Hour, int hoursCount) {
+        int[] hoursMinutes = dateTimeCalculator.hourMinuteStringToInt(time24Hour);
+        if (hoursMinutes == null || hoursMinutes.length < 2) {
+            return "";
+        }
 
+        Calendar calendar = dateTimeCalculator.createCalendarFromTime(hoursMinutes[0], hoursMinutes[1]);
+        calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY) + hoursCount);
+        int[] time24hour = {calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)};
 
-        return null;
+        return dateTimeCalculator.hourMinuteIntToString(time24hour);
     }
 
     private boolean shouldApplyDst(PrayerConfig prayerConfig) {
@@ -89,9 +96,5 @@ public class PrayerConfigDstApplierImpl implements PrayerConfigDstApplier {
                 && prayerConfig.getDst().getEnable()
                 && prayerConfig.getPrayers() != null
                 && !prayerConfig.getPrayers().isEmpty();
-    }
-
-    @Override
-    public void removeHour(PrayerConfig prayerConfig, int year) {
     }
 }

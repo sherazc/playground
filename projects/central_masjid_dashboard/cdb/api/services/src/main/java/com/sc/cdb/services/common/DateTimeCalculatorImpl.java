@@ -60,7 +60,7 @@ public class DateTimeCalculatorImpl implements DateTimeCalculator {
     }
 
     public Calendar createCalendarFromTime(int hour24, int minute) {
-        return this.createCalendar(2016, 0, 1, hour24, minute);
+        return this.createCalendar(DEFAULT_YEAR, 0, 1, hour24, minute);
     }
 
     public Calendar createCalendar(int year, int month, int date, int hour24, int minute) {
