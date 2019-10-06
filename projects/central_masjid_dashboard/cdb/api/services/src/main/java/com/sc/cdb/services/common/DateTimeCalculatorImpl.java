@@ -2,9 +2,7 @@ package com.sc.cdb.services.common;
 
 import java.util.Calendar;
 import java.util.Optional;
-import java.util.regex.Pattern;
 
-import com.sc.cdb.services.date.DateService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Service;
