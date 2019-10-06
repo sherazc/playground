@@ -48,10 +48,12 @@ class Dst extends Component {
 
     onSave() {
         this.setState({dstDirty: false});
+        this.props.onSave(this.state.dst);
     }
 
     onCancel() {
         this.setState({dst: this.props.dst, dstDirty: false});
+        this.props.onCancel();
     }
 
     render() {
@@ -110,3 +112,43 @@ class Dst extends Component {
 }
 
 export default Dst;
+
+/*
+
+-----------------
+DST
+===
+
+DST Rules
+begins at 2:00 a.m. on the second Sunday of March and
+ends at 2:00 a.m. on the first Sunday of November
+https://www.nist.gov/pml/time-and-frequency-division/popular-links/daylight-saving-time-dst
+
+
+
+
+add DST in PrayerConfig.java and PrayerConfig.json
+    prayerConfig: {
+        dst: {
+            enable: boolean
+            automaticCalculate: boolean,
+            start: date,
+            end: date
+        }
+    }
+
+
+Create business/admin/TabPrayer/Dst/Dst.jsx
+
+Pass TabPrayer.state.PrayerConfig.dst to Dst.props
+
+Load Dst's setting form from Dst.props.dst
+
+On change Dst.props.dst call TabPrayer.setDstInState()
+
+TabPrayer.setDstInState() will update TabPrayer.state.PrayerConfig.dst
+by calling TabPrayer.setPrayerConfigInState(prayerConfig, true)
+
+
+load Dst.props.prayerConfig.dst in Dst.state
+*/

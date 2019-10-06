@@ -1,7 +1,5 @@
 package com.sc.cdb.data.model.prayer;
 
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

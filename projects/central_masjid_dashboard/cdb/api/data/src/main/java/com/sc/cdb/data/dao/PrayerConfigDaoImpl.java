@@ -2,11 +2,16 @@ package com.sc.cdb.data.dao;
 
 import java.util.List;
 
+import com.mongodb.client.result.UpdateResult;
+import com.sc.cdb.data.model.prayer.Dst;
 import com.sc.cdb.data.model.prayer.Prayer;
+import com.sc.cdb.data.model.prayer.PrayerConfig;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -36,7 +41,6 @@ public class PrayerConfigDaoImpl implements PrayerConfigDao {
         return mongoTemplate
                 .aggregate(aggregation, "prayerConfig", Prayer.class)
                 .getMappedResults();
-
     }
 
 
@@ -50,7 +54,31 @@ public class PrayerConfigDaoImpl implements PrayerConfigDao {
         return mongoTemplate
                 .aggregate(aggregation, "prayerConfig", Prayer.class)
                 .getMappedResults();
+    }
 
+    @Override
+    public boolean updateDst(String companyId, Dst dst) {
+        Query query = createCompanyIdQuery(companyId);
+        Update update = createDstUpdate(dst);
+
+        UpdateResult updateResult = mongoTemplate.updateMulti(query, update, PrayerConfig.class);
+
+        return updateResult.isModifiedCountAvailable()
+                // not doing updateResult.getModifiedCount() because mongo do not update if the object is same.
+                // && updateResult.getModifiedCount() > 0
+                && updateResult.getMatchedCount() > 0;
+    }
+
+    private Update createDstUpdate(Dst dst) {
+        return new Update()
+                .set("dst.enable", dst.getEnable())
+                .set("dst.automaticCalculate", dst.getAutomaticCalculate())
+                .set("dst.beginMonthDate", dst.getBeginMonthDate())
+                .set("dst.endMonthDate", dst.getEndMonthDate());
+    }
+
+    private Query createCompanyIdQuery(String companyId) {
+        return new Query(Criteria.where("companyId").is(companyId));
     }
 
     private ProjectionOperation addPrayerProjectionOperation(ProjectionOperation projectionOperation) {

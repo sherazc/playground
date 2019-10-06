@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.sc.cdb.data.dao.PrayerConfigDao;
+import com.sc.cdb.data.model.prayer.Dst;
 import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.data.repository.PrayerConfigRepository;
@@ -57,6 +58,32 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
             }
         }
 
+        return serviceResponseBuilder.build();
+    }
+
+    @Override
+    public ServiceResponse<String> saveDst(String companyId, Dst dst) {
+        ServiceResponse.ServiceResponseBuilder<String> serviceResponseBuilder = ServiceResponse.builder();
+
+        if (StringUtils.isBlank(companyId) || dst == null) {
+            serviceResponseBuilder
+                    .target("failed")
+                    .successful(false)
+                    .message("CompanyID or DST is null");
+        } else {
+            boolean updated = prayerConfigDao.updateDst(companyId, dst);
+            if (updated) {
+                serviceResponseBuilder
+                        .target("successful")
+                        .successful(true)
+                        .message("Successfully updated DST");
+            } else {
+                serviceResponseBuilder
+                        .target("failed")
+                        .successful(false)
+                        .message("Failed to update DST");
+            }
+        }
         return serviceResponseBuilder.build();
     }
 

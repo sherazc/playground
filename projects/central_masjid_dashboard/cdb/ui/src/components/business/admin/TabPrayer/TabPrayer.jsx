@@ -30,6 +30,9 @@ class TabPrayer extends Component {
         super(props);
         this.state = tabPrayerService.createInitialState();
         this.setPrayerConfigInState = this.setPrayerConfigInState.bind(this);
+        this.onSave = this.onSave.bind(this);
+        this.onCancel = this.onCancel.bind(this);
+        this.onEdit = this.onEdit.bind(this)
     }
 
     setPrayerConfigInState(prayerConfig, dirty) {
@@ -107,12 +110,18 @@ class TabPrayer extends Component {
         this.props.setAdminPrayerConfigEdit({});
     }
 
-    onSave() {
+    onSave(dst) {
         const prayerConfig = this.props.prayerConfig;
         if (!prayerConfig) {
             return;
         }
-        prayerConfig.prayers = tabPrayerService.collectPrayersFromDom();
+
+        if (dst) {
+            prayerConfig.dst = dst;
+        } else {
+            prayerConfig.prayers = tabPrayerService.collectPrayersFromDom();
+        }
+
         axios
             .post(`${baseUrl}/api/prayer/config`, prayerConfig)
             .then(response => {
@@ -176,17 +185,19 @@ class TabPrayer extends Component {
         return (
             <div>
                 <ResetPrayerLocation onFinish={this.setPrayerConfigInState}/>
-                <Button onClick={this.onEdit.bind(this)}
+                <Button onClick={this.onEdit}
                         disabled={editMode}
                         variant="outlined" color="primary">
                     Edit
                 </Button>
-                <Dst dst={this.props.prayerConfig.dst}/>
+                <Dst dst={this.props.prayerConfig.dst}
+                     onSave={this.onSave}
+                     onCancel={this.onCancel} />
                 {this.makePrayerMonths(editMode)}
                 <SaveCancel
                     show={editMode}
-                    onSave={this.onSave.bind(this)}
-                    onCancel={this.onCancel.bind(this)}
+                    onSave={this.onSave}
+                    onCancel={this.onCancel}
                     saveLabel="Save"
                     cancelLabel="Cancel"/>
             </div>
@@ -231,43 +242,5 @@ Testing after removing TabPrayer.state.prayerConfig
 ✅ Reset -> Switch Tab -> Save
 ✅ Reset -> Change Value -> Switch Tab -> Save
 
------------------
-DST
-===
-
-DST Rules
-begins at 2:00 a.m. on the second Sunday of March and
-ends at 2:00 a.m. on the first Sunday of November
-https://www.nist.gov/pml/time-and-frequency-division/popular-links/daylight-saving-time-dst
-
-
-
-
-add DST in PrayerConfig.java and PrayerConfig.json
-    prayerConfig: {
-        dst: {
-            enable: boolean
-            automaticCalculate: boolean,
-            start: date,
-            end: date
-        }
-    }
-
-
-Create business/admin/TabPrayer/Dst/Dst.jsx
-
-Pass TabPrayer.state.PrayerConfig.dst to Dst.props
-
-Load Dst's setting form from Dst.props.dst
-
-On change Dst.props.dst call TabPrayer.setDstInState()
-
-TabPrayer.setDstInState() will update TabPrayer.state.PrayerConfig.dst
-by calling TabPrayer.setPrayerConfigInState(prayerConfig, true)
-
-
-
-
-load Dst.props.prayerConfig.dst in Dst.state
 */
 
