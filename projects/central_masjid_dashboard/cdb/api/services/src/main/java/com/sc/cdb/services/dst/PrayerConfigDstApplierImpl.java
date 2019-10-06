@@ -73,7 +73,21 @@ public class PrayerConfigDstApplierImpl implements PrayerConfigDstApplier {
                 || dstPeriod[0] == null || dstPeriod[1] == null) {
             return false;
         }
-        return date.after(dstPeriod[0]) && date.before(dstPeriod[1]);
+        Optional<Calendar> dstBeginOptional = dateTimeCalculator.dateToCalendar(dstPeriod[0]);
+        Optional<Calendar> dstEndOptional = dateTimeCalculator.dateToCalendar(dstPeriod[1]);
+        Optional<Calendar> prayerDateOptional = dateTimeCalculator.dateToCalendar(date);
+
+        if (dstBeginOptional.isEmpty() && dstEndOptional.isEmpty() && prayerDateOptional.isEmpty()) {
+            return false;
+        }
+
+        Calendar dstBegin = dstBeginOptional.get();
+        Calendar dstEnd = dstEndOptional.get();
+        Calendar prayerDate = prayerDateOptional.get();
+
+        prayerDate.set(Calendar.YEAR, dstBegin.get(Calendar.YEAR));
+
+        return prayerDate.after(dstBegin) && prayerDate.before(dstEnd);
     }
 
     private String addHourToStringDate(String time24Hour, int hoursCount) {

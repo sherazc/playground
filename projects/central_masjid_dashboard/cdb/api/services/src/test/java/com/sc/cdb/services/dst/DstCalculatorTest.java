@@ -7,7 +7,6 @@ import java.util.Optional;
 
 import com.sc.cdb.data.model.prayer.Dst;
 import com.sc.cdb.services.common.DateTimeCalculatorImpl;
-import com.sc.cdb.services.date.DateServiceImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

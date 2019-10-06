@@ -1,6 +1,5 @@
 package com.sc.cdb.services.prayer;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -11,6 +10,7 @@ import com.sc.cdb.data.dao.PrayerConfigDao;
 import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.data.repository.PrayerConfigRepository;
+import com.sc.cdb.services.dst.PrayerConfigDstApplier;
 import com.sc.cdb.services.model.ServiceResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -23,10 +23,15 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
 
     private PrayerConfigRepository prayerConfigRepository;
     private PrayerConfigDao prayerConfigDao;
+    private PrayerConfigDstApplier prayerConfigDstApplier;
 
-    public PrayerConfigServiceImpl(PrayerConfigRepository prayerConfigRepository, PrayerConfigDao prayerConfigDao) {
+    public PrayerConfigServiceImpl(
+            PrayerConfigRepository prayerConfigRepository,
+            PrayerConfigDao prayerConfigDao,
+            PrayerConfigDstApplier prayerConfigDstApplier) {
         this.prayerConfigRepository = prayerConfigRepository;
         this.prayerConfigDao = prayerConfigDao;
+        this.prayerConfigDstApplier = prayerConfigDstApplier;
     }
 
     @Override
@@ -170,6 +175,11 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
     @Override
     public ServiceResponse<String> savePrayerConfig(PrayerConfig prayerConfig) {
         ServiceResponse.ServiceResponseBuilder<String> serviceResponseBuilder = ServiceResponse.builder();
+
+        int todayYear = Calendar.getInstance().get(Calendar.YEAR);
+
+        prayerConfigDstApplier.addHour(prayerConfig, todayYear, 1);
+
         PrayerConfig save = prayerConfigRepository.save(prayerConfig);
         if (save == null || StringUtils.isBlank(save.getId())) {
             serviceResponseBuilder.successful(false).message("Failed to save PrayerConfig");
@@ -184,7 +194,13 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         if (StringUtils.isBlank(companyId)) {
             return Optional.empty();
         }
-        return prayerConfigRepository.findByCompanyId(companyId);
+        Optional<PrayerConfig> prayerConfigOptional = prayerConfigRepository.findByCompanyId(companyId);
+
+        int todayYear = Calendar.getInstance().get(Calendar.YEAR);
+
+        prayerConfigOptional.ifPresent(prayerConfig
+                -> prayerConfigDstApplier.addHour(prayerConfig, todayYear, -1));
+        return prayerConfigOptional;
     }
 }
 

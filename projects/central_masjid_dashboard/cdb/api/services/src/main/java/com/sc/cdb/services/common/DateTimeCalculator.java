@@ -1,6 +1,7 @@
 package com.sc.cdb.services.common;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
@@ -27,4 +28,6 @@ public interface DateTimeCalculator {
     Optional<Calendar> createCalendar(int year, int month, int date);
 
     Optional<Calendar> monthDateStringToCalendar(int year, String monthDateString);
+
+    Optional<Calendar> dateToCalendar(Date date);
 }

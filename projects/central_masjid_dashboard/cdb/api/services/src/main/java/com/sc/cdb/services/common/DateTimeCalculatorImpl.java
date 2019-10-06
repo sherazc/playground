@@ -1,6 +1,7 @@
 package com.sc.cdb.services.common;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
@@ -96,5 +97,15 @@ public class DateTimeCalculatorImpl implements DateTimeCalculator {
             String[] monthDateParts = monthDateString.split("/");
             return this.createCalendar(year, NumberUtils.toInt(monthDateParts[0]), NumberUtils.toInt(monthDateParts[1]));
         }
+    }
+
+    @Override
+    public Optional<Calendar> dateToCalendar(Date date) {
+        if(date == null) {
+            return Optional.empty();
+        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return Optional.of(calendar);
     }
 }
