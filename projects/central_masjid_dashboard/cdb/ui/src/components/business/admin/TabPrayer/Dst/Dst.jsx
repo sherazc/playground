@@ -24,8 +24,8 @@ class Dst extends Component {
             dst: {
                 enable: false,
                 automaticCalculate: false,
-                startMonthDate: null,
-                endMonthDate: null
+                beginMonthDate: "",
+                endMonthDate: ""
             },
             dstDirty: false
         }
@@ -48,7 +48,7 @@ class Dst extends Component {
 
     onSave() {
         this.setState({dstDirty: false});
-        this.props.onSave(this.state.dst);
+        this.props.onSaveDst(this.state.dst);
     }
 
     onCancel() {
@@ -80,7 +80,7 @@ class Dst extends Component {
                                     label="Enable"
                                     labelPlacement="start"
                                 />
-                                <FormControlLabel disabled
+                                <FormControlLabel
                                                   control={<Switch color="primary"
                                                                    checked={this.state.dst.automaticCalculate}
                                                                    onChange={this.onCheckChange}
@@ -90,17 +90,15 @@ class Dst extends Component {
                                 />
                             </FormGroup>
                             <TextField
-                                margin="dense" name="startMonthDate"
-                                label="Start" type="text"
-                                value=""
-                                disabled
+                                margin="dense" name="beginMonthDate"
+                                label="Begin" type="text"
+                                value={this.state.dst.beginMonthDate}
                                 onChange={() => {
                                 }}/>
                             <TextField
                                 margin="dense" name="endMonthDate"
                                 label="End" type="text"
-                                value=""
-                                disabled
+                                value={this.state.dst.endMonthDate}
                                 onChange={() => {
                                 }}/>
                         </FormControl>

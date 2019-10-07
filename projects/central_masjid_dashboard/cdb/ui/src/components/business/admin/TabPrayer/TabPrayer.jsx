@@ -31,6 +31,7 @@ class TabPrayer extends Component {
         this.state = tabPrayerService.createInitialState();
         this.setPrayerConfigInState = this.setPrayerConfigInState.bind(this);
         this.onSave = this.onSave.bind(this);
+        this.onSaveDst = this.onSaveDst.bind(this);
         this.onCancel = this.onCancel.bind(this);
         this.onEdit = this.onEdit.bind(this)
     }
@@ -110,17 +111,13 @@ class TabPrayer extends Component {
         this.props.setAdminPrayerConfigEdit({});
     }
 
-    onSave(dst) {
+    onSave() {
         const prayerConfig = this.props.prayerConfig;
         if (!prayerConfig) {
             return;
         }
 
-        if (dst) {
-            prayerConfig.dst = dst;
-        } else {
-            prayerConfig.prayers = tabPrayerService.collectPrayersFromDom();
-        }
+        prayerConfig.prayers = tabPrayerService.collectPrayersFromDom();
 
         axios
             .post(`${baseUrl}/api/prayer/config`, prayerConfig)
@@ -132,6 +129,26 @@ class TabPrayer extends Component {
                 }
             })
             .catch((error) => console.log("Error occurred", error));
+    }
+
+    onSaveDst(dst) {
+        const prayerConfig = this.props.prayerConfig;
+        if (!prayerConfig) {
+            return;
+        }
+
+        const companyId = prayerConfig.companyId;
+
+        axios
+            .post(`${baseUrl}/api/prayer/config/${companyId}/dst`, dst)
+            .then(response => {
+                const serviceResponse = response.data;
+                if (serviceResponse && serviceResponse.successful && serviceResponse.target) {
+                    this.apiGetPrayerConfig(companyId);
+                }
+            })
+            .catch((error) => console.log("Error occurred", error));
+
     }
 
     onValueChange(event) {
@@ -191,7 +208,7 @@ class TabPrayer extends Component {
                     Edit
                 </Button>
                 <Dst dst={this.props.prayerConfig.dst}
-                     onSave={this.onSave}
+                     onSaveDst={this.onSaveDst}
                      onCancel={this.onCancel} />
                 {this.makePrayerMonths(editMode)}
                 <SaveCancel
