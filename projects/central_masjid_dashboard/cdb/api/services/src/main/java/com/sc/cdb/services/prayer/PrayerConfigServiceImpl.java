@@ -50,7 +50,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
                 serviceResponseBuilder.successful(false).message("Prayer not found.");
             } else {
 
-                Prayer prayer = findDatePrayerAndNextChange2(prayers, month, day);
+                Prayer prayer = findDatePrayerAndNextChange(prayers, month, day);
                 serviceResponseBuilder
                         .target(prayer)
                         .successful(true)
@@ -88,7 +88,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
     }
 
 
-    private Prayer findDatePrayerAndNextChange2(List<Prayer> yearPrayers, int month, int date) {
+    private Prayer findDatePrayerAndNextChange(List<Prayer> yearPrayers, int month, int date) {
         List<Prayer> yearPrayersMutable = new ArrayList<>(yearPrayers);
         yearPrayersMutable.sort(this::comparePrayers);
         // noinspection CollectionAddedToSelf
@@ -231,4 +231,31 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
     }
 }
 
+
+
+/*
+TODO
+
+Set DST in http://localhost:8085/api/prayer/config/create?generateIqamah=true
+Request Method: POST
+
+
+PrayerConfig.dst is null in PrayerServicedImpl.createYearPrayerTimes()
+
+validate and apply PrayerConfig.dst in PrayerServicedImpl.createYearPrayerTimes()
+
+
+
+Set DST in
+
+http://localhost:8085/api/prayer/companyId/company1/month/10/day/8
+
+
+in PrayerConfigSErviceImpl.getPrayerByCompanyIdMonthAndDay()
+call Optional<PrayerConfig> getPrayerConfig(String companyId)
+instead of List<Prayer> prayers = prayerConfigDao.getPrayerByCompanyId(companyId);
+
+Optional<PrayerConfig> getPrayerConfig(String companyId) already applies DST
+
+*/
 
