@@ -3,6 +3,10 @@ import equals from "deep-equal";
 export const MONTH_NAMES = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"];
 
+export const TIME_24_REGX = /([01]?[0-9]|2[0-3]):[0-5][0-9]/;
+
+export const MONTH_DATE_REGEX = /^(0[1-9]|1[0-2]|0?[1-9])\/(0[1-9]|[12]\d|3[01]|0?[1-9])$/;
+
 /**
  * Returns react router path parameter value
  */
@@ -83,9 +87,6 @@ export const datesMonthDatePart = (date) => {
 const numberTo2DigitsString = (number) => {
     return number < 10 && number > -1 ? `0${number}` : number;
 };
-
-
-const TIME_24_REGX = /([01]?[0-9]|2[0-3]):[0-5][0-9]/;
 
 export const time24To12 = (time24) => {
     if (!time24 || !TIME_24_REGX.test(time24)) {

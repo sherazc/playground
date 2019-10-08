@@ -1,11 +1,11 @@
 import React, {Component} from "react";
 
 import {
-    TextField, FormControl,
+    TextField, FormControl, FormHelperText,
     FormControlLabel, FormGroup, Switch
 } from "@material-ui/core";
 import CloseablePanel from "../../../../common/CloseablePanel/CloseablePanel";
-import {equalObjects} from "../../../../../services/utilities";
+import {equalObjects, MONTH_DATE_REGEX} from "../../../../../services/utilities";
 
 
 class Dst extends Component {
@@ -15,6 +15,7 @@ class Dst extends Component {
         this.state = this.createInitialState();
 
         this.onCheckChange = this.onCheckChange.bind(this);
+        this.onChange = this.onChange.bind(this);
         this.onSave = this.onSave.bind(this);
         this.onCancel = this.onCancel.bind(this);
     }
@@ -35,7 +36,6 @@ class Dst extends Component {
         if (this.props.dst.enable !== undefined
             && !equalObjects(this.props.dst, this.state.dst)
             && !equalObjects(this.props.dst, prevProps.dst)) {
-            console.log("Setting states");
             this.setState({dst: this.props.dst});
         }
     }
@@ -43,6 +43,12 @@ class Dst extends Component {
     onCheckChange(event) {
         const dst = {...this.state.dst};
         dst[event.target.name] = event.target.checked;
+        this.setState({dst: dst, dstDirty: true});
+    }
+
+    onChange(event) {
+        const {dst} = this.state;
+        dst[event.target.name] = event.target.value;
         this.setState({dst: dst, dstDirty: true});
     }
 
@@ -56,12 +62,28 @@ class Dst extends Component {
         this.props.onCancel();
     }
 
+    isValidDateMonth(monthDate) {
+        if(!monthDate || monthDate.length < 1) {
+            return true;
+        } else {
+            return MONTH_DATE_REGEX.test(monthDate);
+        }
+    }
+
     render() {
+        const validBeginMonthDate = this.isValidDateMonth(this.state.dst.beginMonthDate);
+        const validEndMonthDate = this.isValidDateMonth(this.state.dst.endMonthDate);
+
+        const allowEdit = this.state.dstDirty
+            && ((this.state.dst.beginMonthDate && this.state.dst.endMonthDate)
+                || (!this.state.dst.beginMonthDate && !this.state.dst.endMonthDate))
+            && validBeginMonthDate && validEndMonthDate;
+
         return (
             <div>
                 <CloseablePanel
                     title="DST Settings"
-                    editMode={this.state.dstDirty}
+                    editMode={allowEdit}
                     defaultExpanded={false}
                     onSave={this.onSave}
                     onCancel={this.onCancel}>
@@ -69,39 +91,48 @@ class Dst extends Component {
                         <div style={{marginBottom: 20}}>
                             DST changes will be applied to already saved prayers.
                         </div>
-                        <FormControl>
-                            <FormGroup aria-label="position" row>
-                                <FormControlLabel
-                                    control={<Switch color="primary"
-                                                     checked={this.state.dst.enable}
-                                                     onChange={this.onCheckChange}
-                                                     name="enable"
-                                    />}
-                                    label="Enable"
-                                    labelPlacement="start"
-                                />
-                                <FormControlLabel
-                                                  control={<Switch color="primary"
-                                                                   checked={this.state.dst.automaticCalculate}
-                                                                   onChange={this.onCheckChange}
-                                                                   name="automaticCalculate"/>}
-                                                  label="Automatic Calculate"
-                                                  labelPlacement="start"
-                                />
-                            </FormGroup>
-                            <TextField
+
+                        <FormGroup aria-label="position" row>
+                            <FormControlLabel
+                                control={
+                                    <Switch color="primary"
+                                            checked={this.state.dst.enable}
+                                            onChange={this.onCheckChange}
+                                            name="enable"/>}
+                                label="Enable"
+                                labelPlacement="start"/>
+                            <FormControlLabel
+                                control={
+                                    <Switch color="primary"
+                                            checked={this.state.dst.automaticCalculate}
+                                            onChange={this.onCheckChange}
+                                            name="automaticCalculate"/>}
+                                label="Automatic Calculate"
+                                labelPlacement="start"/>
+                        </FormGroup>
+
+                        <FormControl style={{display: "block"}}>
+                            <TextField error={!validBeginMonthDate}
                                 margin="dense" name="beginMonthDate"
                                 label="Begin" type="text"
                                 value={this.state.dst.beginMonthDate}
-                                onChange={() => {
-                                }}/>
-                            <TextField
+                                onChange={this.onChange}/>
+                            <FormHelperText error={!validBeginMonthDate}>
+                                MM/DD. Manual DST begin date.
+                            </FormHelperText>
+                        </FormControl>
+
+                        <FormControl style={{display: "block"}}>
+                            <TextField error={!validEndMonthDate}
                                 margin="dense" name="endMonthDate"
                                 label="End" type="text"
                                 value={this.state.dst.endMonthDate}
-                                onChange={() => {
-                                }}/>
+                                onChange={this.onChange}/>
+                            <FormHelperText error={!validEndMonthDate}>
+                                MM/DD. Manual DST end date.
+                            </FormHelperText>
                         </FormControl>
+
                     </div>
                 </CloseablePanel>
             </div>
