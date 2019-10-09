@@ -257,10 +257,9 @@ validate and apply PrayerConfig.dst in PrayerServicedImpl.createYearPrayerTimes(
 
 
 
+✅
 Set DST in
-
 http://localhost:8085/api/prayer/companyId/company1/month/10/day/8
-
 
 in PrayerConfigSErviceImpl.getPrayerByCompanyIdMonthAndDay()
 call Optional<PrayerConfig> getPrayerConfig(String companyId)
