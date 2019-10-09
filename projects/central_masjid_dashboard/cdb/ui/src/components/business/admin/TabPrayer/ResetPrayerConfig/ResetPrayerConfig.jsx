@@ -88,7 +88,8 @@ class ResetPrayerConfig extends Component {
             calculationMethod: this.state.calculationMethod,
             asrJuristicMethod: this.state.asrJuristicMethod,
             prayerOffsetMinutes: this.state.prayerOffsetMinutes,
-            geoCode: this.state.geoCode
+            geoCode: this.state.geoCode,
+            dst: this.props.prayerConfig.dst
         };
 
         callCreatePrayerTimeApi(companyId, prayerConfig, this.state.generateIqamah, this.handleResetPrayerConfigApiResponse);
