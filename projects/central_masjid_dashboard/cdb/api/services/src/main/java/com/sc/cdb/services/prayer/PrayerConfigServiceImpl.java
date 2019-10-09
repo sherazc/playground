@@ -45,11 +45,24 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         } else if (StringUtils.isBlank(companyId)) {
             serviceResponseBuilder.successful(false).message("Invalid CompanyId");
         } else {
-            List<Prayer> prayers = prayerConfigDao.getPrayerByCompanyId(companyId);
+            populateSinglePrayerDayResponse(serviceResponseBuilder, companyId, month, day);
+        }
+
+        return serviceResponseBuilder.build();
+    }
+
+    private void populateSinglePrayerDayResponse(
+            ServiceResponse.ServiceResponseBuilder<Prayer> serviceResponseBuilder,
+            String companyId, int month, int day) {
+        Optional<PrayerConfig> prayerConfigOptional = getPrayerConfig(companyId);
+
+        if (prayerConfigOptional.isEmpty()) {
+            serviceResponseBuilder.successful(false).message("PrayerConfig not found.");
+        } else {
+            List<Prayer> prayers = prayerConfigOptional.get().getPrayers();
             if (prayers == null || prayers.isEmpty()) {
                 serviceResponseBuilder.successful(false).message("Prayer not found.");
             } else {
-
                 Prayer prayer = findDatePrayerAndNextChange(prayers, month, day);
                 serviceResponseBuilder
                         .target(prayer)
@@ -57,8 +70,6 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
                         .message("Prayer found.");
             }
         }
-
-        return serviceResponseBuilder.build();
     }
 
     @Override
@@ -205,7 +216,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
 
         int todayYear = Calendar.getInstance().get(Calendar.YEAR);
 
-        prayerConfigDstApplier.addHour(prayerConfig, todayYear, 1);
+        prayerConfigDstApplier.addHour(prayerConfig, todayYear, -1);
 
         PrayerConfig save = prayerConfigRepository.save(prayerConfig);
         if (save == null || StringUtils.isBlank(save.getId())) {
@@ -226,7 +237,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         int todayYear = Calendar.getInstance().get(Calendar.YEAR);
 
         prayerConfigOptional.ifPresent(prayerConfig
-                -> prayerConfigDstApplier.addHour(prayerConfig, todayYear, -1));
+                -> prayerConfigDstApplier.addHour(prayerConfig, todayYear, 1));
         return prayerConfigOptional;
     }
 }

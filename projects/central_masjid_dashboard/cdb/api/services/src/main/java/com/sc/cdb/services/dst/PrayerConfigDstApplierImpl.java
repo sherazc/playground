@@ -86,7 +86,8 @@ public class PrayerConfigDstApplierImpl implements PrayerConfigDstApplier {
         Calendar prayerDate = prayerDateOptional.get();
 
         prayerDate.set(Calendar.YEAR, dstBegin.get(Calendar.YEAR));
-
+        // TODO: add logic here to include prayerDate == dstBegin
+        // to also include dst date as well
         return prayerDate.after(dstBegin) && prayerDate.before(dstEnd);
     }
 
