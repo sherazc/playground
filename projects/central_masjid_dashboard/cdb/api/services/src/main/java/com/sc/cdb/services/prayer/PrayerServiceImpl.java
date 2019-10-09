@@ -1,12 +1,14 @@
 package com.sc.cdb.services.prayer;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
+import com.sc.cdb.services.dst.PrayerConfigDstApplier;
 import com.sc.cdb.services.model.ServiceResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -21,15 +23,18 @@ public class PrayerServiceImpl implements PrayerService {
     private PrayTimeCalculator prayTimeCalculator;
     private IqamahCalculator iqamahCalculator;
     private PrayerConfigService prayerConfigService;
+    private PrayerConfigDstApplier prayerConfigDstApplier;
 
 
     public PrayerServiceImpl(
             PrayTimeCalculator prayTimeCalculator,
             IqamahCalculator iqamahCalculator,
-            PrayerConfigService prayerConfigService) {
+            PrayerConfigService prayerConfigService,
+            PrayerConfigDstApplier prayerConfigDstApplier) {
         this.prayTimeCalculator = prayTimeCalculator;
         this.iqamahCalculator = iqamahCalculator;
         this.prayerConfigService = prayerConfigService;
+        this.prayerConfigDstApplier = prayerConfigDstApplier;
     }
 
 
@@ -60,6 +65,8 @@ public class PrayerServiceImpl implements PrayerService {
             if (generateIqamah == null || !generateIqamah) {
                 mergeExistingIqamahTimes(prayerConfig);
             }
+            int todayYear = Calendar.getInstance().get(Calendar.YEAR);
+            prayerConfigDstApplier.addHour(prayerConfig, todayYear, 1);
 
             serviceResponseBuilder.successful(true);
             serviceResponseBuilder.target(prayerConfig);

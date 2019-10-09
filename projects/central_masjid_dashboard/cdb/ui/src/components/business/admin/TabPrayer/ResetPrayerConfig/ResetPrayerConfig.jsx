@@ -247,7 +247,7 @@ class ResetPrayerConfig extends Component {
     render() {
         return (
             <div>
-                <Button variant="outlined" color="primary" onClick={this.onOpen}>
+                <Button disabled={this.props.disabled} variant="outlined" color="primary" onClick={this.onOpen}>
                     Reset Prayers
                 </Button>
                 <Dialog

@@ -201,7 +201,9 @@ class TabPrayer extends Component {
         const editMode = this.isEditMode();
         return (
             <div>
-                <ResetPrayerLocation onFinish={this.setPrayerConfigInState}/>
+                <ResetPrayerLocation
+                    disabled={editMode}
+                    onFinish={this.setPrayerConfigInState}/>
                 <Button onClick={this.onEdit}
                         disabled={editMode}
                         variant="outlined" color="primary">
