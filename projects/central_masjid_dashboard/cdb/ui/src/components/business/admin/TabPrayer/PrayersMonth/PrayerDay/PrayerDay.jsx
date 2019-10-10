@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import {
     datesMonthDatePart,
-    dateToDisplayDateShort
+    dateToDisplayDateShort,
+    equalObjects
 } from "../../../../../../services/utilities"
 import InputField from "../../../../../partials/InputField";
 
@@ -22,13 +23,22 @@ class PrayerDay extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const currentViewMode = this.props.viewMode;
-        const previousViewMode = prevProps.viewMode;
-
-        //if (previousViewMode === MODE_EDIT && currentViewMode === MODE_VIEW) {
-        if (previousViewMode && currentViewMode && previousViewMode !== currentViewMode) {
+        if (this.shouldUpdateStateFromProps(this.props, prevProps, this.state)) {
             this.setState({prayer: this.props.prayer});
         }
+    }
+
+    shouldUpdateStateFromProps(currentProps, prevProps, state) {
+        const currentViewMode = currentProps.viewMode;
+        const previousViewMode = prevProps.viewMode;
+        const prayerCurrentProps = currentProps.prayer;
+        const prayerPreviousProps = prevProps.prayer;
+        const prayerState = state.prayer;
+
+        return (previousViewMode && currentViewMode // Edit mode View mode switch
+                && previousViewMode !== currentViewMode)
+            || (!equalObjects(prayerCurrentProps, prayerPreviousProps) // new props.prayer have arrived
+                &&!equalObjects(prayerCurrentProps, prayerState)); // and props.prayer != state.prayer
     }
 
 

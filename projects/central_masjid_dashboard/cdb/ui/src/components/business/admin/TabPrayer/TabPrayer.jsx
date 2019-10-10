@@ -244,7 +244,7 @@ Testing after removing TabPrayer.state.prayerConfig
 ✅ Edit -> Switch Tab
 ✅ Edit -> Change Value -> Cancel
 ✅ Edit -> Switch Tab -> Cancel
-❌ Edit -> Change Value -> Switch Tab -> Cancel
+✅ Edit -> Change Value -> Switch Tab -> Cancel
 
 ✅ Edit -> Save
 ✅ Edit -> Change Value -> Save
@@ -254,8 +254,8 @@ Testing after removing TabPrayer.state.prayerConfig
 ✅ Reset -> Cancel
 ✅ Reset -> Switch Tab
 ✅ Reset -> Change Value -> Cancel
-❌ Reset -> Switch Tab -> Cancel
-❌ Reset -> Change Value -> Switch Tab -> Cancel
+✅ Reset -> Switch Tab -> Cancel
+✅ Reset -> Change Value -> Switch Tab -> Cancel
 
 ✅ Reset -> Change Value -> Save
 ✅ Reset -> Switch Tab -> Save
