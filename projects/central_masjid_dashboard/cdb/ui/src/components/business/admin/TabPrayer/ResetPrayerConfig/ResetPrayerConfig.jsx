@@ -289,10 +289,3 @@ const mapStateToProps = state => {
 const actions = {setAdminPrayerConfigEdit};
 
 export default connect(mapStateToProps, actions)(ResetPrayerConfig);
-
-/*
-
-
-
- */
-

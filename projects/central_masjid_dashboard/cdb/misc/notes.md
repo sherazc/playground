@@ -14,7 +14,7 @@ yarn add bootstrap
 ```
 
 ## Configure react-app-rewired
-Modify package.json and replace react-scripts with react-app-rewired  
+Modify package.json and replace react-scripts with react-app-rewired
 
 **package.json**
 ```
@@ -47,20 +47,20 @@ http://localhost:8085/company/secure
 ```
 
 #To Add context path/Sub directory
-## UI 
+## UI
 ### package.json
 Add below in package.json if context path or sub dir is defined
 ```
 "homepage": "/cdb",
 ```
 
-### Router 
+### Router
 ```html
 <Router history={history} basename={'/cdb'}>
 ```
 
 ### Views
-Add **process.env.PUBLIC_URL** in all the image, 
+Add **process.env.PUBLIC_URL** in all the image,
 router, and link paths
 ```
 <NavLink to={`${process.env.PUBLIC_URL}/company/add-user`}>
@@ -68,11 +68,11 @@ router, and link paths
 </NavLink>
 ```
 ### .env - ui/environment/*.properties
-Modify ui/environment/*.properties files to set 
+Modify ui/environment/*.properties files to set
 ```
 REACT_APP_API_BASE_PATH=http://localhost:8085
 ```
-These properties files are used to create .env file 
+These properties files are used to create .env file
 when starting or building react app.
 
 
@@ -96,5 +96,88 @@ $ scp -i /Users/sheraz/.ssh/id_rsa \
 ```
 $ scp -i /Users/sheraz/.ssh/id_rsa \
     -r ubuntu@54.165.184.232:/server-directory \
-    ./local-file-or-folder 
+    ./local-file-or-folder
 ```
+===========================================
+
+
+
+
+Testing after removing TabPrayer.state.prayerConfig
+===================================================
+
+✅ Edit -> Cancel
+✅ Edit -> Switch Tab
+✅ Edit -> Change Value -> Cancel
+✅ Edit -> Switch Tab -> Cancel
+✅ Edit -> Change Value -> Switch Tab -> Cancel
+
+✅ Edit -> Save
+✅ Edit -> Change Value -> Save
+✅ Edit -> Switch Tab -> Save
+✅ Edit -> Change Value -> Switch Tab -> Save
+
+✅ Reset -> Cancel
+✅ Reset -> Switch Tab
+✅ Reset -> Change Value -> Cancel
+✅ Reset -> Switch Tab -> Cancel
+✅ Reset -> Change Value -> Switch Tab -> Cancel
+
+✅ Reset -> Change Value -> Save
+✅ Reset -> Switch Tab -> Save
+✅ Reset -> Change Value -> Switch Tab -> Save
+
+
+
+
+
+/**
+ * Created this class for MongoDB aggregate.$lookup
+ * https://docs.mongodb.com/manual/reference/operator/aggregation/lookup/
+ * https://docs.spring.io/spring-data/mongodb/docs/current/api/org/springframework/data/mongodb/core/aggregation/LookupOperation.html
+ *
+ */
+
+
+ /*
+Java Implementation in CentralControlDaoImpl.findByCompanyUrl()
+  MongoDB Javascript version of findByCompanyUrl()
+
+  db.getCollection("centralControl")
+    .aggregate([
+        {
+            $lookup: {
+                from: "company",
+                localField: "companyId",
+                foreignField: "_id",
+                as: "company"
+            }
+        },
+        {
+            $match: {
+                "company.url": "c1"
+            }
+        }
+    ]);
+   */
+
+=============================
+
+### Todo
+
+
+Service returns http://localhost:8085/api/auth/companies/url all active company names
+
+On login page create companyId drop down. just like its is on Home page
+
+Design Home page
+
+Rebranding, icon, new website, 
+
+Retest Create company UI
+
+Update input field to make it material UI
+Create a time input field
+Create a date input field
+Create Header, Footer
+

@@ -152,20 +152,6 @@ class TabPrayer extends Component {
     }
 
     onValueChange(event) {
-        /*
-        const dateMonthStringLength = 6;
-        const fieldName = event.target.name;
-        const fieldValue = event.target.value;
-        const fieldNameMonthDate = fieldName.substring(fieldName.length - dateMonthStringLength, fieldName.length);
-        const fieldNameSalahName = fieldName.substring(0, fieldName.length - dateMonthStringLength);
-
-        this.state.prayerConfig.prayers.forEach((prayer) => {
-            if (prayer.date.includes(fieldNameMonthDate)) {
-                prayer[fieldNameSalahName] = fieldValue;
-            }
-        });
-        this.setPrayerConfigInState(this.state.prayerConfig, true);
-        */
         this.setPrayerConfigDirty(true);
     }
 
@@ -234,32 +220,3 @@ const mapStateToProps = state => {
 const actions = {setAdminPrayerConfig, setAdminPrayerConfigEdit, adminPrayerConfigReset};
 
 export default connect(mapStateToProps, actions)(TabPrayer);
-
-/*
-
-Testing after removing TabPrayer.state.prayerConfig
-===================================================
-
-✅ Edit -> Cancel
-✅ Edit -> Switch Tab
-✅ Edit -> Change Value -> Cancel
-✅ Edit -> Switch Tab -> Cancel
-✅ Edit -> Change Value -> Switch Tab -> Cancel
-
-✅ Edit -> Save
-✅ Edit -> Change Value -> Save
-✅ Edit -> Switch Tab -> Save
-✅ Edit -> Change Value -> Switch Tab -> Save
-
-✅ Reset -> Cancel
-✅ Reset -> Switch Tab
-✅ Reset -> Change Value -> Cancel
-✅ Reset -> Switch Tab -> Cancel
-✅ Reset -> Change Value -> Switch Tab -> Cancel
-
-✅ Reset -> Change Value -> Save
-✅ Reset -> Switch Tab -> Save
-✅ Reset -> Change Value -> Switch Tab -> Save
-
-*/
-

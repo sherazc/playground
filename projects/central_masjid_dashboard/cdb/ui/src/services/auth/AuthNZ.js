@@ -46,53 +46,6 @@ export const isMyProfile = (props) => {
         && loginInUser.id === companyUserServiceResponse.id;
 };
 
-
-
-
-/*
-
-login: {
-    successful: true,
-    token: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbi51c2VyQGVtYWlsLmNvbSIsInJvbGVzIjpbIkFETUlOIiwiVVNFUiJdLCJleHAiOjE1NDcyNDg1MzN9.1AMgtavXtpY7NOCRzTl903ieTiWeN37_RSX0Qtn6uBY7Cy8YEbBY4ahww51CeGNZol_oDT8ZaEufbO5w8wmvNA',
-    tokenPayload: {
-      sub: 'admin.user@email.com',
-      roles: [
-        'ADMIN',
-        'USER'
-      ],
-      exp: 1547248533
-    },
-    user: {
-      id: '5c21c6bf77ee122127010848',
-      companyId: 'company1',
-      email: 'admin.user@email.com',
-      firstName: 'Sheraz',
-      lastName: 'Admin',
-      roles: [
-        'ADMIN',
-        'USER'
-      ],
-      active: true,
-      verified: true
-    },
-    company: {
-      id: 'company1',
-      name: 'Company Name 1',
-      address: {
-        street: '123 St',
-        city: 'City',
-        state: 'GA',
-        zip: '12345',
-        longitude: '1.1',
-        latitude: '2.2'
-      },
-      active: true,
-      expirationDate: '2018-12-25T05:57:19.381+0000'
-    }
-  }
-*/
-
-
 export const verifyAuthorization = (tokenPayload, rolesAll, rolesAny) => {
     const requireAuthorization = (rolesAll && rolesAll.length > 0) || (rolesAny && rolesAny.length > 0);
     const tokenRolesAvailable = tokenPayload && tokenPayload.roles && tokenPayload.roles.length > 0;

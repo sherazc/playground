@@ -15,27 +15,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CentralControlDaoImpl extends BaseDaoImpl<CentralControl> implements CentralControlDao {
 
-  /*
-  MongoDB Javascript version of findByCompanyUrl()
-
-  db.getCollection("centralControl")
-    .aggregate([
-        {
-            $lookup: {
-                from: "company",
-                localField: "companyId",
-                foreignField: "_id",
-                as: "company"
-            }
-        },
-        {
-            $match: {
-                "company.url": "c1"
-            }
-        }
-    ]);
-   */
-
   @Override
   public List<CentralControlCompany> findByCompanyUrl(String url) {
     Criteria criteria = Criteria

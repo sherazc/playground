@@ -16,6 +16,6 @@ public interface CompanyRepository extends MongoRepository<Company, String> {
 
     Optional<Company> findByIdIsNotAndUrlIgnoreCase(String id, String companyName);
 
-    @Query(value = "{}", fields = "{name: 1, url: 1}")
+    @Query(value = "{active: true}", fields = "{name: 1, url: 1}")
     List<Company> findAllCompanyUrl();
 }
