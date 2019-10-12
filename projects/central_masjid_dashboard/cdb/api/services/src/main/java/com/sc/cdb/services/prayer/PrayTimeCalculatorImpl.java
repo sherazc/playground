@@ -14,9 +14,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class PrayTimeCalculatorImpl implements PrayTimeCalculator {
     private static final Logger LOG = LoggerFactory.getLogger(PrayTimeCalculatorImpl.class);
-    private static final TimeZone UTC_TIMEZONE = TimeZone.getTimeZone("UTC");
-
-    private static final int SAMPLE_LEAP_YEAR = 2016;
 
     @Override
     public List<Prayer> generate(PrayerConfig prayerConfig) {

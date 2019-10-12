@@ -165,6 +165,37 @@ Java Implementation in CentralControlDaoImpl.findByCompanyUrl()
 
 ### Todo
 
+Redesign PrayerConfigServiceImpl.getPrayerConfig()
+
+On Register company create:
+    centralControl
+    PrayerConfig
+
+=================
+Create Company
+POST
+http://localhost:8085/api/auth/companies
+Request
+{"name":"lkjl","url":"lkjsdf","address":{"street":"lkj","city":"lkj","state":"","zip":"lkj"}}
+
+Response
+{"successful":true,"message":"Company lkjl successfully created.","fieldErrors":{},"target":{"id":"5da130faf2a23368c1c711ca","name":"lkjl","url":"lkjsdf","address":{"street":"lkj","city":"lkj","state":"","zip":"lkj","longitude":null,"latitude":null},"active":true}}
+
+-------------
+Create User
+POST
+http://localhost:8085/api/auth/companies/5da130faf2a23368c1c711ca/users
+Request
+{"id":null,"companyId":"5da130faf2a23368c1c711ca","email":"lk@lkj","password":"lkj","firstName":"lkjh","lastName":"lkj","roles":["ADMIN"],"active":true,"verified":true}
+
+Response
+{"successful":true,"message":"User lk@lkj successfully created.","fieldErrors":{},"target":{"id":"5da1314ff2a23368c1c711cb","companyId":"5da130faf2a23368c1c711ca","email":"lk@lkj","firstName":"lkjh","lastName":"lkj","roles":["ADMIN"],"active":true,"verified":true}}
+
+
+Make PrayerConfigServiceImpl smaller. It becoming very large.
+
+Load defaults prayerConfig if company exists
+http://localhost:8085/api/prayer/config/5d9fb64ff2a23366c8c856f4
 
 Service returns http://localhost:8085/api/auth/companies/url all active company names
 
@@ -172,7 +203,7 @@ On login page create companyId drop down. just like its is on Home page
 
 Design Home page
 
-Rebranding, icon, new website, 
+Rebranding, icon, new website,
 
 Retest Create company UI
 

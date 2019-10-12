@@ -7,10 +7,13 @@ import java.util.List;
 import java.util.Optional;
 
 import com.sc.cdb.data.dao.PrayerConfigDao;
+import com.sc.cdb.data.model.auth.Company;
+import com.sc.cdb.data.model.cc.GeoCode;
 import com.sc.cdb.data.model.prayer.Dst;
 import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.data.repository.PrayerConfigRepository;
+import com.sc.cdb.services.auth.CompanyService;
 import com.sc.cdb.services.dst.PrayerConfigDstApplier;
 import com.sc.cdb.services.model.ServiceResponse;
 import org.apache.commons.lang3.StringUtils;
@@ -25,14 +28,17 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
     private PrayerConfigRepository prayerConfigRepository;
     private PrayerConfigDao prayerConfigDao;
     private PrayerConfigDstApplier prayerConfigDstApplier;
+    private CompanyService companyService;
 
     public PrayerConfigServiceImpl(
             PrayerConfigRepository prayerConfigRepository,
             PrayerConfigDao prayerConfigDao,
-            PrayerConfigDstApplier prayerConfigDstApplier) {
+            PrayerConfigDstApplier prayerConfigDstApplier,
+            CompanyService companyService) {
         this.prayerConfigRepository = prayerConfigRepository;
         this.prayerConfigDao = prayerConfigDao;
         this.prayerConfigDstApplier = prayerConfigDstApplier;
+        this.companyService = companyService;
     }
 
     @Override
@@ -234,10 +240,32 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         }
         Optional<PrayerConfig> prayerConfigOptional = prayerConfigRepository.findByCompanyId(companyId);
 
+        if (prayerConfigOptional.isEmpty()) {
+            prayerConfigOptional = createDefaultPrayerConfigIfCompanyExists(companyId);
+        }
+
         int todayYear = Calendar.getInstance().get(Calendar.YEAR);
 
         prayerConfigOptional.ifPresent(prayerConfig
                 -> prayerConfigDstApplier.addHour(prayerConfig, todayYear, 1));
+        return prayerConfigOptional;
+    }
+
+    private Optional<PrayerConfig> createDefaultPrayerConfigIfCompanyExists(
+            String companyId) {
+        Optional<Company> companyOptional = companyService.findCompanyById(companyId);
+        Optional<PrayerConfig> prayerConfigOptional;
+
+        if (companyOptional.isPresent()) {
+            PrayerConfig prayerConfig = new PrayerConfig();
+            prayerConfig.setCompanyId(companyId);
+            prayerConfig.setDst(new Dst());
+            prayerConfig.setGeoCode(new GeoCode());
+            prayerConfigOptional = Optional.of(prayerConfig);
+        } else {
+            prayerConfigOptional = Optional.empty();
+        }
+
         return prayerConfigOptional;
     }
 }

@@ -33,7 +33,7 @@ class Dst extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.dst.enable !== undefined
+        if (this.props.dst && this.props.dst.enable !== undefined
             && !equalObjects(this.props.dst, this.state.dst)
             && !equalObjects(this.props.dst, prevProps.dst)) {
             this.setState({dst: this.props.dst});
