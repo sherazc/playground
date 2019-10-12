@@ -165,6 +165,22 @@ Java Implementation in CentralControlDaoImpl.findByCompanyUrl()
 
 ### Todo
 
+Convert all IDS fields to objectID
+
+Register new company and its central-control endpoint is giving 404 
+GET http://localhost:8085/api/companies/url/c3/central-control
+
+when new company is saved whey its inactive
+
+Register company and load it dashboard
+
+make couple of default funds
+
+enable disable funds and expenses
+
+
+homepage dropdown not loading all the URLs
+
 Redesign PrayerConfigServiceImpl.getPrayerConfig()
 
 On Register company create:
