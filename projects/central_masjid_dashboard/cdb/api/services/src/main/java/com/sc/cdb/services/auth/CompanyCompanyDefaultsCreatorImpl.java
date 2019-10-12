@@ -1,7 +1,9 @@
 package com.sc.cdb.services.auth;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import com.sc.cdb.data.model.cc.CentralControl;
 import com.sc.cdb.data.model.cc.GeoCode;
@@ -9,14 +11,15 @@ import com.sc.cdb.data.model.prayer.Dst;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.data.repository.CentralControlRepository;
 import com.sc.cdb.data.repository.PrayerConfigRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CompanyDefaultsCreatorImpl implements CompanyDefaultsCreator{
+public class CompanyCompanyDefaultsCreatorImpl implements CompanyDefaultsCreator {
     private CentralControlRepository centralControlRepository;
     private PrayerConfigRepository prayerConfigRepository;
 
-    public CompanyDefaultsCreatorImpl(
+    public CompanyCompanyDefaultsCreatorImpl(
             CentralControlRepository centralControlRepository,
             PrayerConfigRepository prayerConfigRepository) {
         this.centralControlRepository = centralControlRepository;
@@ -24,15 +27,34 @@ public class CompanyDefaultsCreatorImpl implements CompanyDefaultsCreator{
     }
 
     @Override
-    public List<Object> createAndSave(String companyId) {
-        List<Object> createdEntities = new ArrayList<>();
-        CentralControl centralControl = createEmptyCentralControl(companyId);
-        PrayerConfig prayerConfig = createEmptyPrayerConfig(companyId);
+    public List<Object> createAndSaveIfNotExists(String companyId) {
+        if (StringUtils.isBlank(companyId)) {
+            return new ArrayList<>();
+        }
 
-        createdEntities.add(centralControlRepository.save(centralControl));
-        createdEntities.add(prayerConfigRepository.save(prayerConfig));
+        return Arrays.asList(
+                createAndSaveCentralControlIfNotExists(companyId),
+                createAndSavePrayerConfigIfNotExists(companyId)
+        );
+    }
 
-        return createdEntities;
+    private CentralControl createAndSaveCentralControlIfNotExists(String companyId) {
+        Optional<CentralControl> existingCentralControlOptional = centralControlRepository.findByCompanyId(companyId);
+
+        return existingCentralControlOptional.orElseGet(() -> {
+            CentralControl emptyCentralControl = createEmptyCentralControl(companyId);
+            return centralControlRepository.save(emptyCentralControl);
+        });
+    }
+
+
+    private PrayerConfig createAndSavePrayerConfigIfNotExists(String companyId) {
+        Optional<PrayerConfig> existingPrayerConfigOptional = prayerConfigRepository.findByCompanyId(companyId);
+
+        return existingPrayerConfigOptional.orElseGet(() -> {
+            PrayerConfig emptyPrayerConfig = createEmptyPrayerConfig(companyId);
+            return prayerConfigRepository.save(emptyPrayerConfig);
+        });
     }
 
     public PrayerConfig createEmptyPrayerConfig(String companyId) {
@@ -49,7 +71,7 @@ public class CompanyDefaultsCreatorImpl implements CompanyDefaultsCreator{
         return prayerConfig;
     }
 
-    private CentralControl createEmptyCentralControl(String companyId) {
+    public CentralControl createEmptyCentralControl(String companyId) {
         CentralControl centralControl = new CentralControl();
         centralControl.setCompanyId(companyId);
 

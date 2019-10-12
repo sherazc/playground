@@ -25,14 +25,17 @@ public class CompanyServiceImpl implements CompanyService {
     private CompanyRepository companyRepository;
     private PicklistDao picklistDao;
     private CentralControlRepository centralControlRepository;
+    private CompanyDefaultsCreator companyDefaultsCreator;
 
     public CompanyServiceImpl(
             CompanyRepository companyRepository,
             PicklistDao picklistDao,
-            CentralControlRepository centralControlRepository) {
+            CentralControlRepository centralControlRepository,
+            CompanyDefaultsCreator companyDefaultsCreator) {
         this.companyRepository = companyRepository;
         this.picklistDao = picklistDao;
         this.centralControlRepository = centralControlRepository;
+        this.companyDefaultsCreator = companyDefaultsCreator;
     }
 
     @Override
@@ -78,6 +81,10 @@ public class CompanyServiceImpl implements CompanyService {
 
         Company savedCompany = companyRepository.save(company);
         builder.target(savedCompany);
+
+        if (savedCompany != null) {
+            companyDefaultsCreator.createAndSaveIfNotExists(savedCompany.getId());
+        }
 
         String successMessage;
         if (update) {
