@@ -1,7 +1,10 @@
-#org.bson.types.ObjectId support for @Id and none @Id fields 
+#org.bson.types.ObjectId support for @Id and none @Id fields
+This example will store ObjectId in database and String will be 
+used in JSON's serialization.
 
 ##Model classes
-Create setter getting conversion methods.
+Create setters and getters conversion methods. These setters and getters 
+will be used in JSON serialization 
 
 ####e.g. 
 ```java
