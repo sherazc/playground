@@ -1,7 +1,11 @@
 [
   {
-    "_id": "prayerConfig1",
-    "companyId": "company1",
+    "_id": {
+      "$oid": "5da27307f54ab6c94a693ee2"
+    },
+    "companyId": {
+      "$oid": "5da2632ef2a2337a5fd916d3"
+    },
     "location": "30004",
     "calculationMethod": "3",
     "asrJuristicMethod": "1",

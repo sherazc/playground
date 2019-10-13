@@ -1,7 +1,11 @@
 [
   {
-    "_id": "user1",
-    "companyId": "company1",
+    "_id": {
+      "$oid": "5da27307f54ab6c94a693ee3"
+    },
+    "companyId": {
+      "$oid": "5da2632ef2a2337a5fd916d3"
+    },
     "email": "user@email.com",
     "password": "$2a$04$bl.8O/fUKciwtqKeMg8g.Ox/OGlEqleAgQq9Zuo5/HPPHhM8aLocG",
     "firstName": "Sheraz",
@@ -17,7 +21,9 @@
     "_id": {
       "$oid": "5c435378727b65472a2f1f57"
     },
-    "companyId": "company1",
+    "companyId": {
+      "$oid": "5da2632ef2a2337a5fd916d3"
+    },
     "email": "admin.user@email.com",
     "password": "$2a$04$bl.8O/fUKciwtqKeMg8g.Ox/OGlEqleAgQq9Zuo5/HPPHhM8aLocG",
     "firstName": "Sheraz",
@@ -34,7 +40,9 @@
     "_id": {
       "$oid": "5c435378727b65472a2f1f58"
     },
-    "companyId": "company1",
+    "companyId": {
+      "$oid": "5da2632ef2a2337a5fd916d3"
+    },
     "email": "super.admin.user@email.com",
     "password": "$2a$04$bl.8O/fUKciwtqKeMg8g.Ox/OGlEqleAgQq9Zuo5/HPPHhM8aLocG",
     "firstName": "Sheraz",
@@ -51,7 +59,9 @@
     "_id": {
       "$oid": "5c435378727b65472a2f1f59"
     },
-    "companyId": "company2",
+    "companyId": {
+      "$oid": "5da272f6f54ab6c94a693edf"
+    },
     "email": "super.admin.user@company2.com",
     "password": "$2a$04$bl.8O/fUKciwtqKeMg8g.Ox/OGlEqleAgQq9Zuo5/HPPHhM8aLocG",
     "firstName": "Sheraz",

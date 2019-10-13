@@ -1,6 +1,10 @@
 [{
-	"_id": "cc1",
-	"companyId": "company1",
+	"_id": {
+		"$oid": "5da27306f54ab6c94a693ee0"
+	},
+	"companyId": {
+		"$oid": "5da2632ef2a2337a5fd916d3"
+	},
 	"announcements": [
 		{
 			"detail": "Announcement Detail 1"

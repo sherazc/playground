@@ -1,6 +1,8 @@
 [
   {
-    "_id": "company1",
+    "_id": {
+      "$oid": "5da2632ef2a2337a5fd916d3"
+    },
     "name": "Company Name 1",
     "url": "c1",
     "address": {
@@ -18,7 +20,9 @@
     "_class": "com.sc.cdb.data.model.auth.Company"
   },
   {
-    "_id": "company2",
+    "_id": {
+      "$oid": "5da272f6f54ab6c94a693edf"
+    },
     "name": "Company Name 2",
     "url": "c2",
     "address": {

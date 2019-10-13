@@ -1,6 +1,8 @@
 [
   {
-    "_id": "defaultPicklist",
+    "_id": {
+      "$oid": "5da27307f54ab6c94a693ee1"
+    },
     "configurations": [
       {
         "name": "jumah_prayer",
