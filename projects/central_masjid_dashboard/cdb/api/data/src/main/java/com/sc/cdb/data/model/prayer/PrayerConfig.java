@@ -4,11 +4,14 @@ import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.sc.cdb.data.model.cc.GeoCode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
 @Data
@@ -18,10 +21,11 @@ import org.springframework.data.annotation.Id;
 public class PrayerConfig {
 
     @Id
-    private String id;
+    private ObjectId id;
 
+    @JsonSerialize(using = ToStringSerializer.class)
     @NotBlank
-    private String companyId;
+    private ObjectId companyId;
 
     private String location;
     private Integer calculationMethod;

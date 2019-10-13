@@ -1,10 +1,13 @@
 package com.sc.cdb.data.model.auth;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -20,7 +23,8 @@ import java.util.Date;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Company extends BaseModel {
     @Id
-    private String id;
+    @JsonSerialize(using = ToStringSerializer.class)
+    private ObjectId id;
     @NotBlank
     private String name;
     @NotBlank

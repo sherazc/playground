@@ -2,11 +2,14 @@ package com.sc.cdb.data.model.auth;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.sc.cdb.data.model.auth.BaseModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.NotBlank;
@@ -18,9 +21,13 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 public class User extends BaseModel {
     @Id
-    private String id;
+    @JsonSerialize(using = ToStringSerializer.class)
+    private ObjectId id;
+
+    @JsonSerialize(using = ToStringSerializer.class)
     @NotBlank
-    private String companyId;
+    private ObjectId companyId;
+
     @NotBlank
     private String email;
     private String password;
