@@ -47,7 +47,7 @@ public class Order {
         if (userId  == null) {
             this.userId  = null;
         } else {
-            this.userId  = new ObjectId(userId );
+            this.userId  = new ObjectId(userId);
         }
     }
 }
