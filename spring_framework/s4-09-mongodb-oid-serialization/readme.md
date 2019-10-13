@@ -1,5 +1,10 @@
-package com.sc.modal;
+#org.bson.types.ObjectId support for @Id and none @Id fields 
 
+##Model classes
+Create setter getting conversion methods.
+
+####e.g. 
+```java
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -49,3 +54,37 @@ public class Order {
         }
     }
 }
+
+```
+
+
+##None @Id fields as ObjectId for making reference
+
+None @Id fields need to be converted to ObjectId before 
+passing it to MongoRepository or MongoTemplate
+
+
+####e.g. MongoRepository
+```
+List<Order> orders = orderRepository.findByUserId(new ObjectId(userId));
+```
+
+####e.g. MongoTemplate
+```
+public List<OrderUser> findOrderUserByUserId(String userId) {
+    LookupOperation lookupOperation = Aggregation
+            .lookup("user", "userId", "_id", "user");
+
+    Criteria criteria = Criteria
+            .where("userId")
+            .is(new ObjectId(userId));
+    MatchOperation matchOperation = Aggregation.match(criteria);
+
+    Aggregation aggregation = Aggregation.newAggregation(lookupOperation, matchOperation);
+
+    return mongoTemplate
+            .aggregate(aggregation, "order", OrderUser.class)
+            .getMappedResults();
+}
+```
+
