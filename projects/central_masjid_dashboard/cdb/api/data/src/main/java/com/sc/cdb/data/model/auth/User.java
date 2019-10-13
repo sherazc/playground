@@ -2,9 +2,6 @@ package com.sc.cdb.data.model.auth;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.sc.cdb.data.model.auth.BaseModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,10 +18,8 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 public class User extends BaseModel {
     @Id
-    @JsonSerialize(using = ToStringSerializer.class)
     private ObjectId id;
 
-    @JsonSerialize(using = ToStringSerializer.class)
     @NotBlank
     private ObjectId companyId;
 
@@ -35,6 +30,22 @@ public class User extends BaseModel {
     private List<String> roles;
     private boolean active;
     private boolean verified;
+
+    public String getId() {
+        return BaseModel.objectIdToHexString(this.id);
+    }
+
+    public void setId(String id) {
+        this.id = BaseModel.hexStringToObjectId(id);
+    }
+
+    public String getCompanyId() {
+        return BaseModel.objectIdToHexString(this.companyId);
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = BaseModel.hexStringToObjectId(companyId);
+    }
 
     @JsonIgnore
     public String getPassword() {

@@ -1,7 +1,6 @@
 package com.sc.cdb.data.model.cc;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.sc.cdb.data.model.auth.BaseModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,10 +19,8 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 public class CentralControl {
     @Id
-    @JsonSerialize(using = ToStringSerializer.class)
     private ObjectId id;
 
-    @JsonSerialize(using = ToStringSerializer.class)
     @NotBlank
     private ObjectId companyId;
 
@@ -33,4 +30,20 @@ public class CentralControl {
     private List<Expense> expenses;
     private List<Fund> funds;
     private List<Jummah> jummahs;
+
+    public String getId() {
+        return BaseModel.objectIdToHexString(this.id);
+    }
+
+    public void setId(String id) {
+        this.id = BaseModel.hexStringToObjectId(id);
+    }
+
+    public String getCompanyId() {
+        return BaseModel.objectIdToHexString(this.companyId);
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = BaseModel.hexStringToObjectId(companyId);
+    }
 }

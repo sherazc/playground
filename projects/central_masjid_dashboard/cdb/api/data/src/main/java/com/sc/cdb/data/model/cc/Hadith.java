@@ -1,7 +1,6 @@
 package com.sc.cdb.data.model.cc;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.sc.cdb.data.model.auth.BaseModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,8 +14,15 @@ import org.springframework.data.annotation.Id;
 @EqualsAndHashCode(callSuper = false)
 public class Hadith {
   @Id
-  @JsonSerialize(using = ToStringSerializer.class)
   private ObjectId id;
   private String text;
   private String reference;
+
+  public String getId() {
+    return BaseModel.objectIdToHexString(this.id);
+  }
+
+  public void setId(String id) {
+    this.id = BaseModel.hexStringToObjectId(id);
+  }
 }

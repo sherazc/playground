@@ -4,8 +4,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.sc.cdb.data.model.auth.BaseModel;
 import com.sc.cdb.data.model.cc.GeoCode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +22,6 @@ public class PrayerConfig {
     @Id
     private ObjectId id;
 
-    @JsonSerialize(using = ToStringSerializer.class)
     @NotBlank
     private ObjectId companyId;
 
@@ -36,4 +34,21 @@ public class PrayerConfig {
     private Dst dst;
 
     private List<Prayer> prayers;
+
+
+    public String getId() {
+        return BaseModel.objectIdToHexString(this.id);
+    }
+
+    public void setId(String id) {
+        this.id = BaseModel.hexStringToObjectId(id);
+    }
+
+    public String getCompanyId() {
+        return BaseModel.objectIdToHexString(this.companyId);
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = BaseModel.hexStringToObjectId(companyId);
+    }
 }

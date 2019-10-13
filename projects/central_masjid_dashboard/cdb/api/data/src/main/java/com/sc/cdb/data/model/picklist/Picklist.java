@@ -4,8 +4,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.sc.cdb.data.model.auth.BaseModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,8 +20,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @EqualsAndHashCode(callSuper = false)
 public class Picklist {
 
-    @JsonSerialize(using = ToStringSerializer.class)
+    @Id
     private ObjectId id;
 
     private List<Configuration> configurations;
+
+    public String getId() {
+        return BaseModel.objectIdToHexString(this.id);
+    }
+
+    public void setId(String id) {
+        this.id = BaseModel.hexStringToObjectId(id);
+    }
 }
