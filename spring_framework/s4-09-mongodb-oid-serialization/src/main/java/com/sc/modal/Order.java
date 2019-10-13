@@ -20,12 +20,34 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Order {
 
     @Id
-    @JsonSerialize(using = ToStringSerializer.class)
     private ObjectId id;
 
-    @JsonSerialize(using = ToStringSerializer.class)
+
     private ObjectId userId;
 
     private String orderName;
 
+    public String getId() {
+        return this.id == null ? null : this.id.toHexString();
+    }
+
+    public void setId(String id) {
+        if (id == null) {
+            this.id = null;
+        } else {
+            this.id = new ObjectId(id);
+        }
+    }
+
+    public String getUserId() {
+        return this.userId == null ? null : this.userId.toHexString();
+    }
+
+    public void setUserId(String userId) {
+        if (userId  == null) {
+            this.userId  = null;
+        } else {
+            this.userId  = new ObjectId(userId );
+        }
+    }
 }

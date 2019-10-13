@@ -1,8 +1,6 @@
 package com.sc.modal;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,8 +18,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User {
 
     @Id
-    @JsonSerialize(using = ToStringSerializer.class)
     private ObjectId id;
     private String userName;
 
+    public String getId() {
+        return this.id == null ? null : this.id.toHexString();
+    }
+
+    public void setId(String id) {
+        if (id == null) {
+            this.id = null;
+        } else {
+            this.id = new ObjectId(id);
+        }
+    }
 }
