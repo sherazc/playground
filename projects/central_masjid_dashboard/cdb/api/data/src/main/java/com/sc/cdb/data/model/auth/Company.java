@@ -30,7 +30,7 @@ public class Company extends BaseModel {
     private String url;
     @Valid
     private Address address;
-    private boolean active;
+    private Boolean active;
     private Date expirationDate;
 
     public String getId() {

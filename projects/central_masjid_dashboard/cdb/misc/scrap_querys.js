@@ -20,7 +20,7 @@ db.getCollection('centralControl').aggregate([
    { $match : { companyId : ObjectId("5da2632ef2a2337a5fd916d3") } }
 ]);
 
-
+// Used in PicklistDao.getAllConfiguration()
 db.getCollection('picklist').aggregate([
     {$unwind : "$configurations"},
     {$project : {
