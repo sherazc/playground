@@ -17,6 +17,7 @@ import com.sc.cdb.services.auth.CompanyService;
 import com.sc.cdb.services.dst.PrayerConfigDstApplier;
 import com.sc.cdb.services.model.ServiceResponse;
 import org.apache.commons.lang3.StringUtils;
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -238,7 +239,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         if (StringUtils.isBlank(companyId)) {
             return Optional.empty();
         }
-        Optional<PrayerConfig> prayerConfigOptional = prayerConfigRepository.findByCompanyId(companyId);
+        Optional<PrayerConfig> prayerConfigOptional = prayerConfigRepository.findByCompanyId(new ObjectId(companyId));
 
         if (prayerConfigOptional.isEmpty()) {
             prayerConfigOptional = createDefaultPrayerConfigIfCompanyExists(companyId);

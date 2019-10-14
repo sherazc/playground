@@ -6,6 +6,7 @@ import com.mongodb.client.result.UpdateResult;
 import com.sc.cdb.data.model.prayer.Dst;
 import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
@@ -23,6 +24,7 @@ public class PrayerConfigDaoImpl implements PrayerConfigDao {
         this.mongoTemplate = mongoTemplate;
     }
 
+    @Deprecated
     public List<Prayer> getPrayerByCompanyIdMonthAndDay(String companyId, int month, int day) {
 
         ProjectionOperation projectMonthDate = Aggregation.project()
@@ -33,7 +35,7 @@ public class PrayerConfigDaoImpl implements PrayerConfigDao {
 
         Aggregation aggregation = Aggregation.newAggregation(
                 Aggregation.unwind("prayers"),
-                Aggregation.match(Criteria.where("companyId").is(companyId)),
+                Aggregation.match(Criteria.where("companyId").is(new ObjectId(companyId))),
                 project,
                 Aggregation.match(Criteria.where("month").is(month).and("dayOfMonth").is(day))
         );
@@ -48,7 +50,7 @@ public class PrayerConfigDaoImpl implements PrayerConfigDao {
         ProjectionOperation project = addPrayerProjectionOperation(Aggregation.project());
         Aggregation aggregation = Aggregation.newAggregation(
                 Aggregation.unwind("prayers"),
-                Aggregation.match(Criteria.where("companyId").is(companyId)),
+                Aggregation.match(Criteria.where("companyId").is(new ObjectId(companyId))),
                 project);
 
         return mongoTemplate
@@ -78,7 +80,7 @@ public class PrayerConfigDaoImpl implements PrayerConfigDao {
     }
 
     private Query createCompanyIdQuery(String companyId) {
-        return new Query(Criteria.where("companyId").is(companyId));
+        return new Query(Criteria.where("companyId").is(new ObjectId(companyId)));
     }
 
     private ProjectionOperation addPrayerProjectionOperation(ProjectionOperation projectionOperation) {

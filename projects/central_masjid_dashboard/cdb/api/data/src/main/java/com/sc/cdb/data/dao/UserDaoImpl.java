@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.sc.cdb.data.model.auth.User;
 import com.sc.cdb.data.model.auth.UserCompany;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Repository;
@@ -21,7 +22,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
   public List<UserCompany> findUserCompanyByCompanyId(String companyId) {
     Criteria criteria = Criteria
         .where("companyId")
-        .is(companyId);
+        .is(new ObjectId(companyId));
 
     Aggregation aggregation = Aggregation
         .newAggregation(

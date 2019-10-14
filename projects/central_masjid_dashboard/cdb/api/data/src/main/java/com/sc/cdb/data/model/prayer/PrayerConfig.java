@@ -3,6 +3,7 @@ package com.sc.cdb.data.model.prayer;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.sc.cdb.data.model.auth.BaseModel;
 import com.sc.cdb.data.model.cc.GeoCode;
@@ -22,7 +23,7 @@ public class PrayerConfig {
     @Id
     private ObjectId id;
 
-    @NotBlank
+    @NotNull
     private ObjectId companyId;
 
     private String location;

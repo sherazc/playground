@@ -12,6 +12,7 @@ import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.data.repository.CentralControlRepository;
 import com.sc.cdb.data.repository.PrayerConfigRepository;
 import org.apache.commons.lang3.StringUtils;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -39,7 +40,7 @@ public class CompanyCompanyDefaultsCreatorImpl implements CompanyDefaultsCreator
     }
 
     private CentralControl createAndSaveCentralControlIfNotExists(String companyId) {
-        Optional<CentralControl> existingCentralControlOptional = centralControlRepository.findByCompanyId(companyId);
+        Optional<CentralControl> existingCentralControlOptional = centralControlRepository.findByCompanyId(new ObjectId(companyId));
 
         return existingCentralControlOptional.orElseGet(() -> {
             CentralControl emptyCentralControl = createEmptyCentralControl(companyId);
@@ -49,7 +50,7 @@ public class CompanyCompanyDefaultsCreatorImpl implements CompanyDefaultsCreator
 
 
     private PrayerConfig createAndSavePrayerConfigIfNotExists(String companyId) {
-        Optional<PrayerConfig> existingPrayerConfigOptional = prayerConfigRepository.findByCompanyId(companyId);
+        Optional<PrayerConfig> existingPrayerConfigOptional = prayerConfigRepository.findByCompanyId(new ObjectId(companyId));
 
         return existingPrayerConfigOptional.orElseGet(() -> {
             PrayerConfig emptyPrayerConfig = createEmptyPrayerConfig(companyId);

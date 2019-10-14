@@ -10,6 +10,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import java.util.List;
 
 @Document(collection = "centralControl")
@@ -21,7 +23,7 @@ public class CentralControl {
     @Id
     private ObjectId id;
 
-    @NotBlank
+    @NotNull
     private ObjectId companyId;
 
     private List<Announcement> announcements;

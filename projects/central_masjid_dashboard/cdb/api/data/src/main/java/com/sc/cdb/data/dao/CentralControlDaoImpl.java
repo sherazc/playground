@@ -6,6 +6,7 @@ import com.mongodb.client.result.UpdateResult;
 import com.sc.cdb.data.model.cc.CentralControl;
 import com.sc.cdb.data.model.cc.CentralControlCompany;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -69,7 +70,8 @@ public class CentralControlDaoImpl extends BaseDaoImpl<CentralControl> implement
   }
 
   private Query createCompanyIdQuery(String companyId) {
-    return new Query(Criteria.where("companyId").is(companyId));
+
+    return new Query(Criteria.where("companyId").is(new ObjectId(companyId)));
   }
 
   @Override

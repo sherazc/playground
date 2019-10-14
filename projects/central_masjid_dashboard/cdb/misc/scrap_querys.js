@@ -19,3 +19,17 @@ db.getCollection('centralControl').aggregate([
    },
    { $match : { companyId : ObjectId("5da2632ef2a2337a5fd916d3") } }
 ]);
+
+
+db.getCollection('picklist').aggregate([
+    {$unwind : "$configurations"},
+    {$project : {
+            _id: 0,
+            name : "$configurations.name",
+            type : "$configurations.type",
+            label : "$configurations.label",
+            defaultValue : "$configurations.defaultValue",
+            description : "$configurations.description"
+        }
+    }
+]);

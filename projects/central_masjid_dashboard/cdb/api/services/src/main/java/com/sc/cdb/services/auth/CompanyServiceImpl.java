@@ -9,6 +9,7 @@ import com.sc.cdb.data.repository.CentralControlRepository;
 import com.sc.cdb.data.repository.CompanyRepository;
 import com.sc.cdb.services.model.ServiceResponse;
 import org.apache.commons.lang3.StringUtils;
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -119,7 +120,7 @@ public class CompanyServiceImpl implements CompanyService {
 
         List<CustomConfiguration> customConfigurations;
         Optional<CentralControl> centralControlOptional =
-                centralControlRepository.findByCompanyId(companyId);
+                centralControlRepository.findByCompanyId(new ObjectId(companyId));
 
         if (centralControlOptional.isPresent()
                 && centralControlOptional.get().getCustomConfigurations() != null) {

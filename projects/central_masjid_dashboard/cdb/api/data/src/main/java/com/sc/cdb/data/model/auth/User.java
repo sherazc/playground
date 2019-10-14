@@ -10,6 +10,8 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import java.util.List;
 
 @Data
@@ -20,7 +22,7 @@ public class User extends BaseModel {
     @Id
     private ObjectId id;
 
-    @NotBlank
+    @NotNull
     private ObjectId companyId;
 
     @NotBlank
