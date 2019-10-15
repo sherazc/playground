@@ -11,24 +11,24 @@ class Home extends Component {
 
     constructor(props) {
         super(props);
-        this.selectDashboard = this.selectDashboard.bind(this);
+        this.onSelectCompany = this.onSelectCompany.bind(this);
     }
 
 
     createInitialState() {
         return {
-            companyUrls: [],
+            companies: [],
             selectedCompanyUrl: ""
         };
     }
 
     componentDidMount() {
         axios.get(`${baseUrl}/api/auth/companies/url`).then(
-            response => this.setState({companyUrls: response.data})
+            response => this.setState({companies: response.data})
         );
     }
 
-    selectDashboard(event) {
+    onSelectCompany(event) {
         this.setState({
            selectedCompanyUrl: event.target.value
         });
@@ -54,12 +54,12 @@ class Home extends Component {
             <div>
                 <h3>Home</h3>
                 Select Dashboard
-                <select className="form-control" onChange={this.selectDashboard}>
+                <select className="form-control" onChange={this.onSelectCompany}>
                     <option value="">Please select</option>
-                    {this.state.companyUrls.map((companyUrl, index) => {
+                    {this.state.companies.map((company, index) => {
                         return (
-                            <option key={index} value={companyUrl.url}>
-                                {companyUrl.name}
+                            <option key={index} value={company.url}>
+                                {company.name}
                             </option>
                         );
                     })}

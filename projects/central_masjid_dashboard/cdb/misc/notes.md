@@ -217,7 +217,7 @@ http://localhost:8085/api/prayer/config/5d9fb64ff2a23366c8c856f4
 
 Service returns http://localhost:8085/api/auth/companies/url all active company names
 
-On login page create companyId drop down. just like its is on Home page
+✅ On login page create companyId drop down. just like its is on Home page
 
 Design Home page
 

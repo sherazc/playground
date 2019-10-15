@@ -5,8 +5,9 @@ import {loginAction, loginResetAction} from "../store/login/actions";
 import {verifyAuthentication} from "../services/auth/AuthNZ";
 import {Redirect} from "react-router";
 import {mapStateLoginToProps} from "../store/lib/utils";
-import SaveCancel from "./business/admin/TabPrayer/SaveCancel/SaveCancel";
-import CloseablePanel from "./common/CloseablePanel/CloseablePanel";
+import axios from "axios";
+
+const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
 class Login extends Component {
 
@@ -15,12 +16,26 @@ class Login extends Component {
         this.state = this.createInitialState();
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onSelectCompany = this.onSelectCompany.bind(this);
+    }
+
+    createInitialState() {
+        return {
+            companyId: "",
+            email: "t1@t1.com",
+            password: "t1",
+            show: true,
+            companies: []
+        }
     }
 
     componentDidMount() {
         if (this.props.login.token) {
             this.props.loginResetAction();
         }
+        axios.get(`${baseUrl}/api/auth/companies/url`).then(
+            response => this.setState({companies: response.data})
+        );
     }
 
     onChange(event) {
@@ -37,13 +52,11 @@ class Login extends Component {
         this.props.loginAction(loginRequest);
     }
 
-    createInitialState() {
-        return {
-            companyId: "company1",
-            email: "super.admin.user@email.com",
-            password: "password",
-            show: true
-        }
+    onSelectCompany(event) {
+        console.log(event.target.value);
+        this.setState({
+            companyId: event.target.value
+        });
     }
 
     loginFailedMessage() {
@@ -62,11 +75,16 @@ class Login extends Component {
                 {this.props.login.token}
                 {this.loginFailedMessage()}
                 <form onSubmit={this.onSubmit}>
-                    <InputField
-                        label="Company ID"
-                        name="companyId"
-                        onChange={this.onChange}
-                        value={this.state.companyId}/>
+                    <select className="form-control" onChange={this.onSelectCompany}>
+                        <option value="">Please select</option>
+                        {this.state.companies.map((company, index) => {
+                            return (
+                                <option key={index} value={company.id}>
+                                    {company.name}
+                                </option>
+                            );
+                        })}
+                    </select>
                     <InputField
                         label="Email"
                         name="email"
@@ -82,20 +100,6 @@ class Login extends Component {
                     <button type="submit">Submit</button>
                     <button type="button" onClick={() => this.setState({show: !this.state.show})}>show/hide</button>
                 </form>
-                <CloseablePanel
-                    title="Expansion Panel"
-                    editMode={this.state.show}
-                    onSave={() => console.log("Save")}
-                    onCancel={() => console.log("Cancel")}>
-                    abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc<br/>abc
-                </CloseablePanel>
-                <SaveCancel
-                    show={this.state.show}
-                    onSave={() => console.log("Save Click")}
-                    onCancel={() => console.log("Cancle Click")}
-                    saveLabel="Save"
-                    cancelLabel="Cancel"
-                />
             </div>
         );
     }
