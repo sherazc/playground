@@ -21,10 +21,12 @@ import RegisterFinish from "./components/auth/company/RegisterFinish";
 import AdminControl from "./components/business/admin/AdminControl";
 import CompanyDashboard from "./components/business/CompanyDashboard/CompanyDashboard";
 import CssBaseline from '@material-ui/core/CssBaseline';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
-import {createMuiTheme} from '@material-ui/core/styles';
-import purple from '@material-ui/core/colors/purple';
+// import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+// import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
+// import { ThemeProvider } from '@material-ui/core/styles';
+// import purple from '@material-ui/core/colors/purple';
 
+/*
 const theme = createMuiTheme({
     palette: {
         primary: purple,
@@ -37,6 +39,7 @@ const theme = createMuiTheme({
         useNextVariants: true,
     },
 });
+*/
 
 setupInterceptor(store);
 
@@ -48,7 +51,7 @@ class App extends Component {
                 // Use this if context path or sub dir is defined
                 <Router history={history} basename={'/cdb'}>*/}
                 <Router history={history}>
-                    <MuiThemeProvider theme={theme}>
+                    {/*<MuiThemeProvider theme={theme}>*/}
                         <CssBaseline/>
                         <Loading/>
                         <Alert/>
@@ -106,7 +109,7 @@ class App extends Component {
 
                             <Route component={PageNotFound}/>
                         </Switch>
-                    </MuiThemeProvider>
+                    {/*</MuiThemeProvider>*/}
                 </Router>
             </Provider>
         );
