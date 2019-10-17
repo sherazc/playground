@@ -103,32 +103,6 @@ $ scp -i /Users/sheraz/.ssh/id_rsa \
 
 
 
-Testing after removing TabPrayer.state.prayerConfig
-===================================================
-
-✅ Edit -> Cancel
-✅ Edit -> Switch Tab
-✅ Edit -> Change Value -> Cancel
-✅ Edit -> Switch Tab -> Cancel
-✅ Edit -> Change Value -> Switch Tab -> Cancel
-
-✅ Edit -> Save
-✅ Edit -> Change Value -> Save
-✅ Edit -> Switch Tab -> Save
-✅ Edit -> Change Value -> Switch Tab -> Save
-
-✅ Reset -> Cancel
-✅ Reset -> Switch Tab
-✅ Reset -> Change Value -> Cancel
-✅ Reset -> Switch Tab -> Cancel
-✅ Reset -> Change Value -> Switch Tab -> Cancel
-
-✅ Reset -> Change Value -> Save
-✅ Reset -> Switch Tab -> Save
-✅ Reset -> Change Value -> Switch Tab -> Save
-
-
-
 
 
 /**
@@ -162,8 +136,56 @@ Java Implementation in CentralControlDaoImpl.findByCompanyUrl()
    */
 
 =============================
+Test Cases:
 
-### Todo
+
+
+Testing after removing TabPrayer.state.prayerConfig
+===================================================
+
+✅ Edit -> Cancel
+✅ Edit -> Switch Tab
+✅ Edit -> Change Value -> Cancel
+✅ Edit -> Switch Tab -> Cancel
+✅ Edit -> Change Value -> Switch Tab -> Cancel
+
+✅ Edit -> Save
+✅ Edit -> Change Value -> Save
+✅ Edit -> Switch Tab -> Save
+✅ Edit -> Change Value -> Switch Tab -> Save
+
+✅ Reset -> Cancel
+✅ Reset -> Switch Tab
+✅ Reset -> Change Value -> Cancel
+✅ Reset -> Switch Tab -> Cancel
+✅ Reset -> Change Value -> Switch Tab -> Cancel
+
+✅ Reset -> Change Value -> Save
+✅ Reset -> Switch Tab -> Save
+✅ Reset -> Change Value -> Switch Tab -> Save
+
+
+Register -> Home Page -> Dashboard
+
+
+Verify what happens when default entities are missing for existing companies
+
+=============================
+Defect:
+Register company
+Login
+Goto admin prayer tab. 
+Error in browser console
+
+
+Defect:
+Register company
+nav to dashboard
+there is no clock
+
+
+=============================
+Requirements:
 
 ✅ HOD is not working after ObjectId change
 
@@ -180,10 +202,11 @@ make couple of default funds
 
 enable disable funds and expenses
 
+Remove disabled funds from dashboard
 
 ✅ homepage dropdown not loading all the URLs
 
-Redesign PrayerConfigServiceImpl.getPrayerConfig()
+Redesign/Refactor PrayerConfigServiceImpl.getPrayerConfig()
 
 On Register company create:
     centralControl
@@ -229,4 +252,27 @@ Update input field to make it material UI
 Create a time input field
 Create a date input field
 Create Header, Footer
+
+
+
+Design Web DB utility to store in browser local storage. And retrieve and search 
+
+Prayer time batch update
+
+design Header and footer
+
+
+Create material UI fields 
+    input
+    date
+    time
+    
+Design Home page
+
+Register new Domain and AWS
+
+background Maintenance service
+    delete logs
+    delete unused companies and its data
+    delete unused users and their data
 

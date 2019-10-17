@@ -55,7 +55,8 @@
 			"current": 550.0,
 			"endDate": {
 				"$date": "2019-01-19T16:32:06.580Z"
-			}
+			},
+			"enabled": true
 		},
 		{
 			"name": "Fund Name 2",
@@ -64,7 +65,8 @@
 			"pledge": 20.0,
 			"endDate": {
 				"$date": "2019-01-19T16:32:06.580Z"
-			}
+			},
+			"enabled": true
 		}
 	],
 	"jummahs": [

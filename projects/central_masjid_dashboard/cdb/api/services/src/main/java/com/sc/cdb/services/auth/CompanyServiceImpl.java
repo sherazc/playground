@@ -83,6 +83,7 @@ public class CompanyServiceImpl implements CompanyService {
         Company savedCompany = companyRepository.save(company);
         builder.target(savedCompany);
 
+        // Create company default items
         if (savedCompany != null) {
             companyDefaultsCreator.createAndSaveIfNotExists(savedCompany.getId());
         }

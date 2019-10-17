@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.sc.cdb.data.model.cc.CentralControl;
+import com.sc.cdb.data.model.cc.Fund;
 import com.sc.cdb.data.model.cc.GeoCode;
 import com.sc.cdb.data.model.prayer.Dst;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
@@ -48,10 +49,12 @@ public class CompanyCompanyDefaultsCreatorImpl implements CompanyDefaultsCreator
         });
     }
 
-
     private PrayerConfig createAndSavePrayerConfigIfNotExists(String companyId) {
         Optional<PrayerConfig> existingPrayerConfigOptional = prayerConfigRepository.findByCompanyId(new ObjectId(companyId));
 
+        // TODO Validate if existing company have missing defaults.
+
+        // Create and save default if they are missing.
         return existingPrayerConfigOptional.orElseGet(() -> {
             PrayerConfig emptyPrayerConfig = createEmptyPrayerConfig(companyId);
             return prayerConfigRepository.save(emptyPrayerConfig);
@@ -79,10 +82,17 @@ public class CompanyCompanyDefaultsCreatorImpl implements CompanyDefaultsCreator
         centralControl.setEvents(new ArrayList<>());
         centralControl.setAnnouncements(new ArrayList<>());
         centralControl.setCustomConfigurations(new ArrayList<>());
-        centralControl.setFunds(new ArrayList<>());
         centralControl.setExpenses(new ArrayList<>());
         centralControl.setJummahs(new ArrayList<>());
+        addEmptyFunds(centralControl);
 
         return centralControl;
+    }
+
+    private void addEmptyFunds(CentralControl centralControl) {
+        ArrayList<Fund> funds = new ArrayList<>();
+        funds.add(new Fund("", 0D, 0D, 0D, null, false));
+        funds.add(new Fund("", 0D, 0D, 0D, null, false));
+        centralControl.setFunds(funds);
     }
 }

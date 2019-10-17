@@ -17,5 +17,6 @@ public class Fund {
     private Double current;
     private Double pledge;
     private Date endDate;
+    private Boolean enabled;
 
 }

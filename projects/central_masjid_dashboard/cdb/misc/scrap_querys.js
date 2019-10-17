@@ -7,6 +7,7 @@ db.getCollection('user').find({});
 db.getCollection('hadith').find({});
 db.getCollection('picklist').find({});
 
+// Join centralControl and Company
 db.getCollection('centralControl').aggregate([
     {
       $lookup:
@@ -33,3 +34,8 @@ db.getCollection('picklist').aggregate([
         }
     }
 ]);
+
+
+// HOD Pagination. Used in getting next Random hadees
+db.getCollection('hadith').find({}).skip(74).limit(1);
+    
