@@ -136,3 +136,10 @@ export const equalObjects = (obj1, obj2) => {
     */
     return equals(obj1, obj2)
 };
+
+export const filterEnabledItems = (items) => {
+    if (!items || items.length < 1) {
+        return [];
+    }
+    return items.filter(item => item.enabled);
+};

@@ -1,9 +1,12 @@
 import React, {Component} from "react";
 import styles from "./Expenses.module.scss"
+import {filterEnabledItems} from "../../../../../services/utilities";
 
 class Expenses extends Component {
     renderTable() {
-        const {expenses} = this.props;
+        const expensesAll = this.props.expenses;
+        const expenses = filterEnabledItems(expensesAll);
+
         if(expenses && expenses.length > 0) {
             const totalAmount = expenses.reduce((total, expense) => expense.amount - 0 + total, 0);
 
@@ -21,7 +24,7 @@ class Expenses extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    {this.renderTableRow()}
+                    {this.renderTableRow(expenses)}
                     <tr>
                         <td>Total</td>
                         <td>{totalAmount}</td>
@@ -34,8 +37,7 @@ class Expenses extends Component {
         }
     }
 
-    renderTableRow() {
-        const {expenses} = this.props;
+    renderTableRow(expenses) {
         return expenses.map((expense, index) => {
             return (
                 <tr key={index}>

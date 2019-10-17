@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { dateToDisplayDate } from "../../../../../services/utilities";
+import {dateToDisplayDate, filterEnabledItems} from "../../../../../services/utilities";
 import CircleProgressBar from "../CircleProgressBar/CircleProgressBar";
 import styles from "./Funds.module.scss"
 
@@ -59,7 +59,8 @@ class Funds extends Component {
     }
 
     render() {
-        const { funds } = this.props;
+        const fundsAll = this.props.funds;
+        const funds = filterEnabledItems(fundsAll);
         if (!funds || funds.length < 1) {
             return <div>No Funds Found</div>
         }
@@ -67,7 +68,7 @@ class Funds extends Component {
         return (
             <div>
                 {this.makeFund(funds[0])}
-                {this.makeFund(funds[1])}
+                {funds.length > 1 && this.makeFund(funds[1])}
             </div>
         );
     }
