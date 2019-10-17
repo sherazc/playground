@@ -1,16 +1,24 @@
 import React, {Component} from "react";
 import CloseablePanel from "../../../../common/CloseablePanel/CloseablePanel";
 import InputField from "../../../../partials/InputField";
+import {
+    Checkbox
+} from "@material-ui/core";
 
 class Funds extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            editMode: false,
-            funds: props.funds ? props.funds : []
-        };
+        this.state = this.createInitialState();
         this.onChange = this.onChange.bind(this);
+        this.onChangeChecked = this.onChangeChecked.bind(this);
+    }
+
+    createInitialState() {
+        return {
+            editMode: false,
+            funds: this.props.funds ? this.props.funds : []
+        };
     }
 
     static getDerivedStateFromProps(newProps, currentState) {
@@ -32,6 +40,13 @@ class Funds extends Component {
         this.setState({funds: newStateFunds, editMode: true});
     }
 
+    onChangeChecked(event) {
+        const nameIndex = event.target.name.split("_");
+        const newStateFunds = {...this.state.funds};
+        newStateFunds[nameIndex[1]][nameIndex[0]] = event.target.checked;
+        this.setState({funds: newStateFunds, editMode: true});
+    }
+
     onCancel() {
         this.props.onCancel();
         this.setState({editMode: false});
@@ -43,6 +58,8 @@ class Funds extends Component {
     }
 
     makeFundUi(fund, index) {
+
+        const endDate = fund.endDate ? fund.endDate : "";
         return (
             <div key={index}>
                 <table border="1" style={{marginBottom: "20px"}}>
@@ -95,10 +112,18 @@ class Funds extends Component {
                                 name={"endDate_" + index}
                                 onChange={this.onChange}
                                 type="date"
-                                value={fund.endDate.substr(0,10)}/>
+                                value={endDate.substr(0,10)}/>
                         </td>
                     </tr>
-
+                    <tr>
+                        <td>Enabled</td>
+                        <td>
+                            <Checkbox color="primary"
+                                  name={"enabled_" + index}
+                                  checked={fund.enabled}
+                                  onChange={this.onChangeChecked} />
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>

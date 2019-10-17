@@ -41,11 +41,13 @@
 	"expenses": [
 		{
 			"lineItem": "Line item 1",
-			"amount": 100.0
+			"amount": 100.0,
+			"enabled": true
 		},
 		{
 			"lineItem": "Line item 2",
-			"amount": 200.0
+			"amount": 200.0,
+			"enabled": true
 		}
 	],
 	"funds": [

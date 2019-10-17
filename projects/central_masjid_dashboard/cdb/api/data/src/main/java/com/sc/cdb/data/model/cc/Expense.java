@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class Expense {
     private String lineItem;
     private Double amount;
+    private Boolean enabled;
 }

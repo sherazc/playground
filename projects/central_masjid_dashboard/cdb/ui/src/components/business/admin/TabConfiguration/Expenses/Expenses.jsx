@@ -1,6 +1,10 @@
 import React, {Component} from "react";
 import CloseablePanel from "../../../../common/CloseablePanel/CloseablePanel";
 import InputField from "../../../../partials/InputField";
+import {
+    Checkbox
+} from "@material-ui/core";
+
 
 class Expenses extends Component {
 
@@ -11,6 +15,11 @@ class Expenses extends Component {
             expenses: props.expenses ? props.expenses : []
         };
         this.onChange = this.onChange.bind(this);
+        this.onChangeChecked = this.onChangeChecked.bind(this);
+    }
+
+    createNewExpense() {
+        return {lineItem: "", amount: 0, enabled: true};
     }
 
     static getDerivedStateFromProps(newProps, currentState) {
@@ -32,6 +41,13 @@ class Expenses extends Component {
         this.setState({expenses: newStateExpenses, editMode: true});
     }
 
+    onChangeChecked(event) {
+        const nameIndex = event.target.name.split("_");
+        const newStateExpenses = this.state.expenses.slice(0);
+        newStateExpenses[nameIndex[1]][nameIndex[0]] = event.target.checked;
+        this.setState({expenses: newStateExpenses, editMode: true});
+    }
+
     onCancel() {
         this.props.onCancel();
         this.setState({editMode: false});
@@ -48,7 +64,7 @@ class Expenses extends Component {
     }
 
     onAdd() {
-        this.state.expenses.push({lineItem: "", amount: 0});
+        this.state.expenses.push(this.createNewExpense());
         this.setState({expenses: this.state.expenses, editMode: true});
     }
 
@@ -68,6 +84,12 @@ class Expenses extends Component {
                         onChange={this.onChange.bind(this)}
                         type="number"
                         value={expense.amount}/>
+                </td>
+                <td>
+                    <Checkbox color="primary"
+                      name={"enabled_" + index}
+                      checked={expense.enabled}
+                      onChange={this.onChangeChecked} />
                 </td>
                 <td>
                     <span
@@ -99,6 +121,7 @@ class Expenses extends Component {
                         <tr>
                             <th>Item</th>
                             <th>Amount</th>
+                            <th>Enabled</th>
                             <th>
                                 <span
                                 style={{cursor: "pointer"}}

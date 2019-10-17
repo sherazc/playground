@@ -22,8 +22,8 @@ class Login extends Component {
     createInitialState() {
         return {
             companyId: "",
-            email: "t1@t1.com",
-            password: "t1",
+            email: "super.admin.user@email.com",
+            password: "password",
             show: true,
             companies: []
         }

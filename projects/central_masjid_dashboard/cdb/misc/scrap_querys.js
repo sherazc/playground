@@ -18,7 +18,7 @@ db.getCollection('centralControl').aggregate([
             as: "company"
         }
    },
-   { $match : { companyId : ObjectId("5da2632ef2a2337a5fd916d3") } }
+   // { $match : { companyId : ObjectId("5da2632ef2a2337a5fd916d3") } }
 ]);
 
 // Used in PicklistDao.getAllConfiguration()

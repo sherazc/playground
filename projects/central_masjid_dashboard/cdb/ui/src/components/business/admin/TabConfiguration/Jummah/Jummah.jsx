@@ -17,6 +17,10 @@ class Jummah extends Component {
         this.onChangeChecked = this.onChangeChecked.bind(this);
     }
 
+    createNewJummah() {
+        return {khateeb: "", date: "", enabled: false};
+    }
+
     static getDerivedStateFromProps(newProps, currentState) {
         // TODO: Bug: onCancel() if the length is same then not loading refreshed jummahs
         if (newProps.jummahs && newProps.jummahs.length !== currentState.jummahs.length) {
@@ -59,7 +63,7 @@ class Jummah extends Component {
     }
 
     onAdd() {
-        this.state.jummahs.push({khateeb: "", date: "", enabled: false});
+        this.state.jummahs.push(this.createNewJummah());
         this.setState({jummahs: this.state.jummahs, editMode: true});
     }
 

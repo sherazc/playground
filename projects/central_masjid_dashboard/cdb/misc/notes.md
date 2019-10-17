@@ -177,12 +177,21 @@ Login
 Goto admin prayer tab. 
 Error in browser console
 
-
 Defect:
 Register company
 nav to dashboard
 there is no clock
 
+Defect: 
+On logout redux.centralControl is not getting cleaned up
+
+Defect:
+Register company
+Login
+On configuration tab click ➕ on Jummahs or Expenses
+No Row is added
+Click ➕ again row is added.
+ 
 
 =============================
 Requirements:
@@ -198,11 +207,17 @@ GET http://localhost:8085/api/companies/url/c3/central-control
 
 ✅ Register company and load it dashboard
 
-make couple of default funds
+create a Jummah Khateeb slide
 
-enable disable funds and expenses
+On register make couple of default funds
+
+✅ Admin and service enable disable funds 
+
+✅ Admin and service enable disable expenses
 
 Remove disabled funds from dashboard
+
+Remove disabled expenses from dashboard
 
 ✅ homepage dropdown not loading all the URLs
 
@@ -211,6 +226,8 @@ Redesign/Refactor PrayerConfigServiceImpl.getPrayerConfig()
 On Register company create:
     centralControl
     PrayerConfig
+    
+Show error message on login failed
 
 =================
 Create Company
@@ -242,7 +259,6 @@ Service returns http://localhost:8085/api/auth/companies/url all active company 
 
 ✅ On login page create companyId drop down. just like its is on Home page
 
-Design Home page
 
 Rebranding, icon, new website,
 
@@ -253,9 +269,13 @@ Create a time input field
 Create a date input field
 Create Header, Footer
 
-
-
 Design Web DB utility to store in browser local storage. And retrieve and search 
+
+Store in browser cache previously selected dashboard
+
+Design Home page
+
+make login form on home page
 
 Prayer time batch update
 
@@ -267,7 +287,7 @@ Create material UI fields
     date
     time
     
-Design Home page
+
 
 Register new Domain and AWS
 
@@ -275,4 +295,8 @@ background Maintenance service
     delete logs
     delete unused companies and its data
     delete unused users and their data
+
+improve logging in services
+
+improve test coverage
 
