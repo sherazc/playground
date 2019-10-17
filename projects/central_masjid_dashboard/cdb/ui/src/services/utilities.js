@@ -1,3 +1,4 @@
+import React from "react";
 import equals from "deep-equal";
 
 export const MONTH_NAMES = ["January", "February", "March", "April", "May", "June",
@@ -102,16 +103,20 @@ export const time24To12 = (time24) => {
 
 };
 
-export const getConfigValue = (configName, allConfigs) => {
+export const getConfigValue = (configName, allConfigs, defaultConfig) => {
     if (!configName || !allConfigs || configName.length < 1 || allConfigs.length < 1) {
-        return "";
+        return defaultConfig ? defaultConfig : "";
     }
     const foundConfigs = allConfigs.filter(config => config.name === configName);
+    let configValue = "";
     if (foundConfigs && foundConfigs.length > 0) {
-        return foundConfigs[0].value;
-    } else {
-        return "";
+        if (foundConfigs[0].value) {
+            configValue = foundConfigs[0].value;
+        } else {
+            configValue = defaultConfig ? defaultConfig : "";
+        }
     }
+    return configValue;
 };
 
 
@@ -142,4 +147,13 @@ export const filterEnabledItems = (items) => {
         return [];
     }
     return items.filter(item => item.enabled);
+};
+
+export const lineFeedToBr = (str) => {
+    if (!str) {
+        return "";
+    }
+    return str.split('\n').map((item, index) => {
+        return <span key={index}>{item}<br/></span>;
+    });
 };

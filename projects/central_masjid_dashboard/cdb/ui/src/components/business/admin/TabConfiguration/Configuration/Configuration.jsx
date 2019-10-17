@@ -3,6 +3,7 @@ import CloseablePanel from "../../../../common/CloseablePanel/CloseablePanel";
 import {apiGetPicklistConfigurations} from "../../../../../store/picklist/picklistActions";
 import {connect} from "react-redux";
 import InputField from "../../../../partials/InputField";
+import {lineFeedToBr} from "../../../../../services/utilities";
 
 class Configuration extends Component {
 
@@ -96,6 +97,7 @@ class Configuration extends Component {
                             <th></th>
                             <th>Custom value</th>
                             <th>Default value</th>
+                            <th>Description</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -116,6 +118,9 @@ class Configuration extends Component {
                                     <td>
                                         {picklistConfiguration.defaultValue}
                                     </td>
+                                    <td>
+                                        {lineFeedToBr(picklistConfiguration.description)}
+                                    </td>
                                 </tr>
                             );
                         })}
@@ -126,7 +131,6 @@ class Configuration extends Component {
         );
     }
 }
-
 
 const mapStateToProps = state => {
     return {

@@ -23,7 +23,7 @@
         "type": "number",
         "label": "Clock Type",
         "defaultValue": "1",
-        "description": "clock type 0 = no clock<br/>clock type 1 = analog<br/>clock type 2 = digital"
+        "description": "0 = no clock\n1 = analog\n2 = digital"
       }
     ]
   }

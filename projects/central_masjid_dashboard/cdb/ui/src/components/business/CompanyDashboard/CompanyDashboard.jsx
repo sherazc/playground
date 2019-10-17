@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {getReactRouterPathParamFromUrl} from "../../../services/utilities";
+import {getConfigValue, getReactRouterPathParamFromUrl} from "../../../services/utilities";
 import Grid from '@material-ui/core/Grid';
 import {connect} from "react-redux";
 import axios from "axios";
@@ -67,14 +67,16 @@ class CompanyDashboard extends Component {
         const xsBreakPoint = 12;
         const smBreakPoint = 12;
         const mdBreakPoint = 4;
+        let clockType = getConfigValue("clock_type", this.state.companyConfigurations, "1");
+
         return (
             <Grid container justify="center"
                 style={{backgroundImage: `url(${process.env.PUBLIC_URL}/images/dashboard_background.jpg)`}}
                 className={styles.gridContainer}>
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={styles.gridSide}>
-                    {this.props.match.params.companyDashboardUrl === "c1" &&
+                    {clockType === "1" &&
                     <AnalogClock sizeLg="8" sizeMd="20" marginLg="2" marginMd="2"/>}
-                    {this.props.match.params.companyDashboardUrl === "c2" &&
+                    {clockType === "2" &&
                     <DigitalClock sizeLg="15" sizeMd="25" marginLg="2" marginMd="2"/>}
 
                     {/* Remove these links. These are just for testing */}

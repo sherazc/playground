@@ -177,7 +177,7 @@ Login
 Goto admin prayer tab. 
 Error in browser console
 
-Defect:
+✅ Defect:
 Register company
 nav to dashboard
 there is no clock
@@ -191,10 +191,17 @@ Login
 On configuration tab click ➕ on Jummahs or Expenses
 No Row is added
 Click ➕ again row is added.
- 
+
+Defect:
+TabConfiguraton's save complete action is not disabling save cancel buttons
+
 
 =============================
 Requirements:
+
+✅ show admin configuration description
+
+✅ make clock zero remove clock from dashboard
 
 ✅ HOD is not working after ObjectId change
 
@@ -215,9 +222,9 @@ On register make couple of default funds
 
 ✅ Admin and service enable disable expenses
 
-Remove disabled funds from dashboard
+✅ Remove disabled funds from dashboard
 
-Remove disabled expenses from dashboard
+✅ Remove disabled expenses from dashboard
 
 ✅ homepage dropdown not loading all the URLs
 
