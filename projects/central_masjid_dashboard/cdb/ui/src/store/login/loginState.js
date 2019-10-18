@@ -1,5 +1,5 @@
 import {createEmptyCompany, createEmptyCompanyUser} from "../../services/domain/EmptyObject";
-import {USER_LOGIN_SUCCESS, USER_LOGIN_RESET, USER_LOGIN_FAILED} from "./actions";
+import {USER_LOGIN_SUCCESS, USER_LOGIN_RESET, USER_LOGIN_FAILED} from "./loginActions";
 import {decodeTokenPayload} from "../../services/auth/AuthNZ";
 
 const initialStateCreator = () => {

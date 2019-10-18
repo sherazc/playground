@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {NavLink, withRouter} from 'react-router-dom';
 import {connect} from "react-redux";
 import {verifyAuthentication} from "../../../services/auth/AuthNZ";
-import {loginResetAction, viewMyProfileAction} from "../../../store/login/actions";
+import {loginResetAction, viewMyProfileAction} from "../../../store/login/loginActions";
 import {mapStateLoginToProps} from "../../../store/lib/utils";
 
 class AdminNavigation extends Component {

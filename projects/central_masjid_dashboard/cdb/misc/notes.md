@@ -182,7 +182,7 @@ Register company
 nav to dashboard
 there is no clock
 
-Defect: 
+✅ Defect: 
 On logout redux.centralControl is not getting cleaned up
 
 Defect:
@@ -216,7 +216,7 @@ GET http://localhost:8085/api/companies/url/c3/central-control
 
 create a Jummah Khateeb slide
 
-On register make couple of default funds
+✅ On register make couple of default funds
 
 ✅ Admin and service enable disable funds 
 
@@ -228,36 +228,11 @@ On register make couple of default funds
 
 ✅ homepage dropdown not loading all the URLs
 
-Redesign/Refactor PrayerConfigServiceImpl.getPrayerConfig()
-
 On Register company create:
     centralControl
     PrayerConfig
     
 Show error message on login failed
-
-=================
-Create Company
-POST
-http://localhost:8085/api/auth/companies
-Request
-{"name":"lkjl","url":"lkjsdf","address":{"street":"lkj","city":"lkj","state":"","zip":"lkj"}}
-
-Response
-{"successful":true,"message":"Company lkjl successfully created.","fieldErrors":{},"target":{"id":"5da130faf2a23368c1c711ca","name":"lkjl","url":"lkjsdf","address":{"street":"lkj","city":"lkj","state":"","zip":"lkj","longitude":null,"latitude":null},"active":true}}
-
--------------
-Create User
-POST
-http://localhost:8085/api/auth/companies/5da130faf2a23368c1c711ca/users
-Request
-{"id":null,"companyId":"5da130faf2a23368c1c711ca","email":"lk@lkj","password":"lkj","firstName":"lkjh","lastName":"lkj","roles":["ADMIN"],"active":true,"verified":true}
-
-Response
-{"successful":true,"message":"User lk@lkj successfully created.","fieldErrors":{},"target":{"id":"5da1314ff2a23368c1c711cb","companyId":"5da130faf2a23368c1c711ca","email":"lk@lkj","firstName":"lkjh","lastName":"lkj","roles":["ADMIN"],"active":true,"verified":true}}
-
-
-Make PrayerConfigServiceImpl smaller. It becoming very large.
 
 Load defaults prayerConfig if company exists
 http://localhost:8085/api/prayer/config/5d9fb64ff2a23366c8c856f4
@@ -265,7 +240,6 @@ http://localhost:8085/api/prayer/config/5d9fb64ff2a23366c8c856f4
 Service returns http://localhost:8085/api/auth/companies/url all active company names
 
 ✅ On login page create companyId drop down. just like its is on Home page
-
 
 Rebranding, icon, new website,
 
@@ -282,19 +256,16 @@ Store in browser cache previously selected dashboard
 
 Design Home page
 
-make login form on home page
+✅ make login form on home page
 
 Prayer time batch update
 
 design Header and footer
 
-
 Create material UI fields 
     input
     date
     time
-    
-
 
 Register new Domain and AWS
 
@@ -303,7 +274,13 @@ background Maintenance service
     delete unused companies and its data
     delete unused users and their data
 
+=======================
+Tech Debt:
+
 improve logging in services
 
 improve test coverage
 
+Redesign/Refactor PrayerConfigServiceImpl.getPrayerConfig()
+
+Refactor Make PrayerConfigServiceImpl smaller. It becoming very large.

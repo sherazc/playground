@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import InputField from "./partials/InputField";
-import {loginAction, loginResetAction} from "../store/login/actions";
+import {loginAction, loginResetAction} from "../store/login/loginActions";
 import {verifyAuthentication} from "../services/auth/AuthNZ";
 import {Redirect} from "react-router";
 import {mapStateLoginToProps} from "../store/lib/utils";

@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import axios from "axios";
 import {Redirect} from "react-router";
 import AdminNavigation from "./common/navigation/AdminNavigation";
+import Login from "./Login";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
@@ -66,6 +67,9 @@ class Home extends Component {
                 </select>
                 <br/>
                 <a href="/static/rod-widget/index.html">ROD Widget</a>
+                <br/>
+                <Login/>
+
                 <br/>
                 <AdminNavigation/>
             </div>

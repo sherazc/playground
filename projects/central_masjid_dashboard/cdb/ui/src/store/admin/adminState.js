@@ -4,7 +4,8 @@ import {
     ADMIN_PRAYER_CONFIG,
     ADMIN_PRAYER_CONFIG_RESET,
     ADMIN_CENTRAL_CONTROL,
-    ADMIN_CENTRAL_CONTROL_EDIT
+    ADMIN_CENTRAL_CONTROL_EDIT,
+    ADMIN_RESET
 } from "./adminActions";
 
 const initialStateCreator = () => {
@@ -20,6 +21,9 @@ const initialState = initialStateCreator();
 
 export const admin = (state = initialState, action) => {
     switch (action.type) {
+        case ADMIN_RESET:
+            const emptyAdminState = initialStateCreator();
+            return {...state, ...emptyAdminState};
         case ADMIN_PRAYER_CONFIG:
             return {...state, prayerConfig: action.payload};
         case ADMIN_PRAYER_CONFIG_RESET:
