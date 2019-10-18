@@ -135,8 +135,8 @@ Java Implementation in CentralControlDaoImpl.findByCompanyUrl()
     ]);
    */
 
-=============================
-Test Cases:
+-----------------------------------
+###Test Cases:
 
 
 
@@ -144,33 +144,48 @@ Testing after removing TabPrayer.state.prayerConfig
 ===================================================
 
 ✅ Edit -> Cancel
+
 ✅ Edit -> Switch Tab
+
 ✅ Edit -> Change Value -> Cancel
+
 ✅ Edit -> Switch Tab -> Cancel
+
 ✅ Edit -> Change Value -> Switch Tab -> Cancel
 
 ✅ Edit -> Save
+
 ✅ Edit -> Change Value -> Save
+
 ✅ Edit -> Switch Tab -> Save
+
 ✅ Edit -> Change Value -> Switch Tab -> Save
 
 ✅ Reset -> Cancel
+
 ✅ Reset -> Switch Tab
+
 ✅ Reset -> Change Value -> Cancel
+
 ✅ Reset -> Switch Tab -> Cancel
+
 ✅ Reset -> Change Value -> Switch Tab -> Cancel
 
 ✅ Reset -> Change Value -> Save
-✅ Reset -> Switch Tab -> Save
-✅ Reset -> Change Value -> Switch Tab -> Save
 
+✅ Reset -> Switch Tab -> Save
+
+✅ Reset -> Change Value -> Switch Tab -> Save
 
 Register -> Home Page -> Dashboard
 
-
 Verify what happens when default entities are missing for existing companies
 
-=============================
+Retest Create company UI and login
+
+-----------------------------------
+####Defects
+
 Defect:
 Register company
 Login
@@ -195,9 +210,8 @@ Click ➕ again row is added.
 Defect:
 TabConfiguraton's save complete action is not disabling save cancel buttons
 
-
-=============================
-Requirements:
+-----------------------------------
+###Requirements
 
 ✅ show admin configuration description
 
@@ -212,9 +226,7 @@ GET http://localhost:8085/api/companies/url/c3/central-control
 
 ✅ when new company is saved whey its inactive
 
-✅ Register company and load it dashboard
-
-create a Jummah Khateeb slide
+✅ Register company and load it dashboar
 
 ✅ On register make couple of default funds
 
@@ -228,44 +240,59 @@ create a Jummah Khateeb slide
 
 ✅ homepage dropdown not loading all the URLs
 
-On Register company create:
-    centralControl
-    PrayerConfig
+✅ On login page create companyId drop down. just like its is on Home page
+
+✅ make login form on home page
+
+✅ Service returns http://localhost:8085/api/auth/companies/url all active company names
+
+Pass company urls in Login component from home component and load company select box from the props
+
+create a Jummah Khateeb slide
+
+On Register company create
+
+    * centralControl
+    * PrayerConfig
     
 Show error message on login failed
 
 Load defaults prayerConfig if company exists
 http://localhost:8085/api/prayer/config/5d9fb64ff2a23366c8c856f4
 
-Service returns http://localhost:8085/api/auth/companies/url all active company names
-
-✅ On login page create companyId drop down. just like its is on Home page
-
-Rebranding, icon, new website,
-
-Retest Create company UI
+Prayer time batch update
 
 Update input field to make it material UI
-Create a time input field
-Create a date input field
-Create Header, Footer
+
+    * Create a time input field
+    * Create a date input field
+
 
 Design Web DB utility to store in browser local storage. And retrieve and search 
 
 Store in browser cache previously selected dashboard
 
-Design Home page
 
-✅ make login form on home page
+###UI Design requirements
 
-Prayer time batch update
+Do some research on web for good Header, Footer designs
 
-design Header and footer
+Home page
 
-Create material UI fields 
-    input
-    date
-    time
+make dashboard select and login component  side by side
+
+Header and footer
+
+Rebranding, icon, new website,
+
+Create material UI fields
+ 
+    * input
+    * date
+    * time
+
+
+### Maintenance requirements
 
 Register new Domain and AWS
 
@@ -274,8 +301,8 @@ background Maintenance service
     delete unused companies and its data
     delete unused users and their data
 
-=======================
-Tech Debt:
+-----------------------------------
+###Tech Debt
 
 improve logging in services
 

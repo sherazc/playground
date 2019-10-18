@@ -62,8 +62,6 @@ class App extends Component {
                             */}
                             <Route path={`${process.env.PUBLIC_URL}/`} component={Home} exact/>
 
-                            <Route path={`${process.env.PUBLIC_URL}/login`} component={Login}/>
-
                             <AuthRoute
                                 authenticate={true}
                                 rolesAny={["SUPER_ADMIN"]}

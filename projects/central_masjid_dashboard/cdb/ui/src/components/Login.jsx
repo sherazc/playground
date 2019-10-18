@@ -5,9 +5,6 @@ import {loginAction, loginResetAction} from "../store/login/loginActions";
 import {verifyAuthentication} from "../services/auth/AuthNZ";
 import {Redirect} from "react-router";
 import {mapStateLoginToProps} from "../store/lib/utils";
-import axios from "axios";
-
-const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
 class Login extends Component {
 
@@ -23,9 +20,7 @@ class Login extends Component {
         return {
             companyId: "",
             email: "super.admin.user@email.com",
-            password: "password",
-            show: true,
-            companies: []
+            password: "password"
         }
     }
 
@@ -33,9 +28,6 @@ class Login extends Component {
         if (this.props.login.token) {
             this.props.loginResetAction();
         }
-        axios.get(`${baseUrl}/api/auth/companies/url`).then(
-            response => this.setState({companies: response.data})
-        );
     }
 
     onChange(event) {
@@ -53,7 +45,6 @@ class Login extends Component {
     }
 
     onSelectCompany(event) {
-        console.log(event.target.value);
         this.setState({
             companyId: event.target.value
         });
@@ -77,7 +68,7 @@ class Login extends Component {
                 <form onSubmit={this.onSubmit}>
                     <select className="form-control" onChange={this.onSelectCompany}>
                         <option value="">Please select</option>
-                        {this.state.companies.map((company, index) => {
+                        {this.props.companies.map((company, index) => {
                             return (
                                 <option key={index} value={company.id}>
                                     {company.name}

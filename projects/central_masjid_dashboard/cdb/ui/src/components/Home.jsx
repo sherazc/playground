@@ -51,13 +51,15 @@ class Home extends Component {
             return <Redirect to={redirectUrl}/>;
         }
 
+        const {companies} = this.state;
+
         return (
             <div>
                 <h3>Home</h3>
                 Select Dashboard
                 <select className="form-control" onChange={this.onSelectCompany}>
                     <option value="">Please select</option>
-                    {this.state.companies.map((company, index) => {
+                    {companies.map((company, index) => {
                         return (
                             <option key={index} value={company.url}>
                                 {company.name}
@@ -68,7 +70,7 @@ class Home extends Component {
                 <br/>
                 <a href="/static/rod-widget/index.html">ROD Widget</a>
                 <br/>
-                <Login/>
+                <Login companies={companies}/>
 
                 <br/>
                 <AdminNavigation/>

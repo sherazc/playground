@@ -9,6 +9,8 @@ export const USER_LOGIN_RESET = "USER_LOGIN_RESET";
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
 export const loginAction = loginRequest => dispatch => {
+    dispatch({type: ADMIN_RESET});
+    dispatch({type: USER_LOGIN_RESET});
     axios.post(`${baseUrl}/auth/login`, loginRequest)
         .then(response => {
                 dispatch({
