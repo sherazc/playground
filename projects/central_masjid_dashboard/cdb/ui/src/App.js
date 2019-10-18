@@ -4,8 +4,7 @@ import {Provider} from 'react-redux';
 
 import store from "./store";
 import history from "./services/app-browse-history";
-import Home from "./components/Home";
-import Login from "./components/Login";
+import Home from "./components/Home/Home";
 import Alert from "./components/alert/Alert";
 import Loading from "./components/loading/Loading";
 import setupInterceptor from "./services/http-interceptor";

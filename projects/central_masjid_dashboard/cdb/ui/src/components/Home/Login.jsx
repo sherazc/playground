@@ -1,10 +1,10 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import InputField from "./partials/InputField";
-import {loginAction, loginResetAction} from "../store/login/loginActions";
-import {verifyAuthentication} from "../services/auth/AuthNZ";
+import InputField from "../partials/InputField";
+import {loginAction, loginResetAction} from "../../store/login/loginActions";
+import {verifyAuthentication} from "../../services/auth/AuthNZ";
 import {Redirect} from "react-router";
-import {mapStateLoginToProps} from "../store/lib/utils";
+import {mapStateLoginToProps} from "../../store/lib/utils";
 
 class Login extends Component {
 
@@ -24,12 +24,13 @@ class Login extends Component {
         }
     }
 
+    /*
     componentDidMount() {
         if (this.props.login.token) {
             this.props.loginResetAction();
         }
     }
-
+*/
     onChange(event) {
         this.setState({[event.target.name]: event.target.value});
     }

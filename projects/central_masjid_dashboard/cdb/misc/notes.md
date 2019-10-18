@@ -246,7 +246,20 @@ GET http://localhost:8085/api/companies/url/c3/central-control
 
 ✅ Service returns http://localhost:8085/api/auth/companies/url all active company names
 
-Pass company urls in Login component from home component and load company select box from the props
+✅ Pass company urls in Login component from home component and load company select box from the props
+
+Create data version mongo document
+
+Any change to PrayerConfig, or Central control will up version number
+
+Make single function in CompanyDashboard that will make all the API calls. 
+This function will call APIs and update CompanyDashboard.state. 
+This function will be called on initial CompanyDashboard load and on refresh events. 
+
+CompanyDashboard will poll for version. If new version is available then data will be refreshed.  
+ 
+
+Remove all references to /login nav link
 
 create a Jummah Khateeb slide
 
