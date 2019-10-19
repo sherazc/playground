@@ -288,6 +288,10 @@ Store in browser cache previously selected dashboard
 
 ###UI Design requirements
 
+Create home page Layout
+
+Create one layout for registration and admin views
+
 Do some research on web for good Header, Footer designs
 
 Home page

@@ -63,7 +63,9 @@ class Login extends Component {
         }
         return (
             <div>
-                <h3>Login</h3>
+                <div>
+                    Sign In
+                </div>
                 {this.props.login.token}
                 {this.loginFailedMessage()}
                 <form onSubmit={this.onSubmit}>
@@ -90,7 +92,6 @@ class Login extends Component {
                         onChange={this.onChange}
                         value={this.state.password}/>
                     <button type="submit">Submit</button>
-                    <button type="button" onClick={() => this.setState({show: !this.state.show})}>show/hide</button>
                 </form>
             </div>
         );

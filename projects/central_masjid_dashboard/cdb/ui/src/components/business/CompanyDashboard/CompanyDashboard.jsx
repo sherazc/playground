@@ -37,9 +37,9 @@ class CompanyDashboard extends Component {
                     });
                     this.loadCompanyConfigurations(response.data.companyId);
                 });
-            document.getElementsByTagName("html")[0].style.height = "100%";
-            document.getElementsByTagName("body")[0].style.height = "100%";
-            document.getElementById("root").style.height = "100%";
+            // document.getElementsByTagName("html")[0].style.height = "100%";
+            // document.getElementsByTagName("body")[0].style.height = "100%";
+            // document.getElementById("root").style.height = "100%";
         }
     }
 
@@ -58,9 +58,9 @@ class CompanyDashboard extends Component {
     }
 
     componentWillUnmount() {
-        document.getElementsByTagName("html")[0].style.height = "auto";
-        document.getElementsByTagName("body")[0].style.height = "auto";
-        document.getElementById("root").style.height = "auto";
+        // document.getElementsByTagName("html")[0].style.height = "auto";
+        // document.getElementsByTagName("body")[0].style.height = "auto";
+        // document.getElementById("root").style.height = "auto";
     }
 
     render() {

@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import axios from "axios";
 import {Redirect} from "react-router";
-import AdminNavigation from "../common/navigation/AdminNavigation";
 import Login from "./Login";
+import styles from "./Home.module.scss";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
@@ -31,7 +31,7 @@ class Home extends Component {
 
     onSelectCompany(event) {
         this.setState({
-           selectedCompanyUrl: event.target.value
+            selectedCompanyUrl: event.target.value
         });
     }
 
@@ -54,26 +54,27 @@ class Home extends Component {
         const {companies} = this.state;
 
         return (
-            <div>
-                <h3>Home</h3>
-                Select Dashboard
-                <select className="form-control" onChange={this.onSelectCompany}>
-                    <option value="">Please select</option>
-                    {companies.map((company, index) => {
-                        return (
-                            <option key={index} value={company.url}>
-                                {company.name}
-                            </option>
-                        );
-                    })}
-                </select>
-                <br/>
-                <a href="/static/rod-widget/index.html">ROD Widget</a>
-                <br/>
-                <Login companies={companies}/>
-
-                <br/>
-                <AdminNavigation/>
+            <div className={styles.container}>
+                <div className={styles.mainBox}>
+                    <div className={styles.welcome}>
+                        Select Dashboard
+                        <select className="form-control" onChange={this.onSelectCompany}>
+                            <option value="">Please select</option>
+                            {companies.map((company, index) => {
+                                return (
+                                    <option key={index} value={company.url}>
+                                        {company.name}
+                                    </option>
+                                );
+                            })}
+                        </select>
+                        <br/>
+                        <a href="/static/rod-widget/index.html">ROD Widget</a>
+                    </div>
+                    <div className={styles.login}>
+                        <Login companies={companies}/>
+                    </div>
+                </div>
             </div>
         );
     }
