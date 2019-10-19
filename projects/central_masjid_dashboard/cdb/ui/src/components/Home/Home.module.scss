@@ -1,12 +1,18 @@
+@import "../business/CompanyDashboard/theme";
+
 $borderRadius: 3px;
 
-.container {
+.centerFlex {
   display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.container {
+  @extend .centerFlex;
   background: linear-gradient(#e65e5c, #979ce5);
   height: 100%;
   padding: 50px;
-  justify-content: center;
-
 }
 
 .mainBox {
@@ -20,37 +26,29 @@ $borderRadius: 3px;
 }
 
 .welcome {
+  @extend .centerFlex;
   background-color: #ae2f9c;
   flex-grow: 1;
   color: white;
   border-top-left-radius: $borderRadius;
   border-bottom-left-radius: $borderRadius;
 
-  display: flex;
-  justify-content: center;
-  align-content: center;
   flex-direction: column;
 }
 
 .login {
+  @extend .centerFlex;
   background-color: #f4f4f4;
   flex-grow: 1;
   border-top-right-radius: $borderRadius;
   border-bottom-right-radius: $borderRadius;
-
-  display: flex;
-  justify-content: center;
-  align-content: center;
   flex-direction: column;
 }
 
 .content {
-  display: flex;
-  justify-content: center;
-  align-content: center;
+  @extend .centerFlex;
   flex-direction: row;
 }
 
 .contentCenter {
-  background-color: green;
 }
