@@ -80,10 +80,12 @@ class CompanyDashboard extends Component {
                     <DigitalClock sizeLg="15" sizeMd="25" marginLg="2" marginMd="2"/>}
 
                     {/* Remove these links. These are just for testing */}
-                    <div style={{position: "absolute"}}>
-                        <Link to="/" className={styles.main}>home</Link>
-                        <Link to="/c1">c1</Link>
-                        <Link to="/c2">c2</Link>
+                    <div style={{position: "absolute", color: "white"}}>
+                        <Link to="/" className={styles.main} style={{color: "white"}}>home</Link>
+                        &nbsp;|&nbsp;
+                        <Link to="/c1" style={{color: "white"}}>c1</Link>
+                        &nbsp;|&nbsp;
+                        <Link to="/c2" style={{color: "white"}}>c2</Link>
                     </div>
 
                     <div className={styles.sideBox}

@@ -1,6 +1,8 @@
 $h1-color: #696969;
 $color1: #b8b72fff;
 $color2: #ecedd1ff;
+$colorTextLight: #f2f2f2;
+$colorTextDark: black;
 
 $screen-break: 959px;
 
@@ -149,4 +151,7 @@ $screen-break: 959px;
   }
 }
 
-
+.formControl {
+  margin: 5px;
+  min-width: 150px;
+}

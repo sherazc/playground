@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import axios from "axios";
 import Login from "./Login";
 import styles from "./Home.module.scss";
-import Welcome from "./Welcome";
+import Welcome from "./Welcome/Welcome";
 
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
@@ -38,7 +38,6 @@ class Home extends Component {
                             <div className={styles.contentCenter}>
                                 <Welcome companies={companies}/>
                             </div>
-
                         </div>
                     </div>
                     <div className={styles.login}>
