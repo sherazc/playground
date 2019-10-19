@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import axios from "axios";
-import Login from "./Login";
+import Login from "./Login/Login";
 import styles from "./Home.module.scss";
 import Welcome from "./Welcome/Welcome";
 

@@ -1,12 +1,10 @@
 import React, {Component} from "react";
 import {Redirect} from "react-router";
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import styles from "./Welcome.module.scss";
+import {
+    TextField, InputLabel, MenuItem, FormControl, Select
+} from '@material-ui/core';
 
+import styles from "./Welcome.module.scss";
 
 class Welcome extends Component {
 
@@ -40,31 +38,18 @@ class Welcome extends Component {
     }
 
     render() {
-        /*
         const redirectUrl = this.getRedirectUrl(this.state.selectedCompanyUrl);
         if (redirectUrl) {
             return <Redirect to={redirectUrl}/>;
         }
-*/
 
         const {companies} = this.props;
 
         return (
             <div>
-                {/*
-                Select Dashboard
-                <select className="form-control" onChange={this.onSelectCompany}>
-                    <option value="">Please select</option>
-                    {companies.map((company, index) => {
-                        return (
-                            <option key={index} value={company.url}>
-                                {company.name}
-                            </option>
-                        );
-                    })}
-                </select>
-                <br/>
-*/}
+                <div className={styles.companyHeading}>
+                    Central Masjid Dashboard
+                </div>
                 <FormControl>
                     <InputLabel htmlFor="companySelect" className={styles.selectLabel}>
                         Select Dashboard
@@ -76,7 +61,7 @@ class Welcome extends Component {
                             name: 'selectedCompanyUrl',
                             id: 'selectedCompanyUrl'
                         }}
-                        className={`${styles.formControl} ${styles.selectBox}`}>
+                        className={styles.selectBox}>
                         {companies.map((company, index) => {
                             return (
                                 <MenuItem

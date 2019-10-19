@@ -1,6 +1,18 @@
 @import "../../business/CompanyDashboard/theme";
 
+
+.companyHeading {
+  @extend .heading3;
+  color: $colorTextLight;
+
+}
 .selectBox {
+  margin: 5px;
+  min-width: 200px;
+  color: $colorTextLight !important;
+}
+
+.selectBox svg {
   color: $colorTextLight !important;
 }
 

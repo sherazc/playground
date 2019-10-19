@@ -1,0 +1,14 @@
+@import "../../business/CompanyDashboard/theme";
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.formControl2 {
+  display: block;
+  margin: 5px;
+  min-width: 250px !important;
+  width: 250px;
+}
