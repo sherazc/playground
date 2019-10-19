@@ -1,6 +1,6 @@
 @import "../business/CompanyDashboard/theme";
 
-$borderRadius: 3px;
+$borderRadius: 10px;
 
 .centerFlex {
   display: flex;
@@ -23,6 +23,9 @@ $borderRadius: 3px;
   box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.40);
   display: flex;
   flex-direction: row;
+  @media screen and (max-width: $screen-break) {
+    flex-direction: column;
+  }
 }
 
 .welcome {
@@ -30,19 +33,23 @@ $borderRadius: 3px;
   background-color: #ae2f9c;
   flex-grow: 1;
   color: white;
-  border-top-left-radius: $borderRadius;
-  border-bottom-left-radius: $borderRadius;
-
+  border-radius: $borderRadius 0 0 $borderRadius;
   flex-direction: column;
+  @media screen and (max-width: $screen-break) {
+    border-radius: $borderRadius $borderRadius 0 0;
+  }
+
 }
 
 .login {
   @extend .centerFlex;
   background-color: #f4f4f4;
   flex-grow: 1;
-  border-top-right-radius: $borderRadius;
-  border-bottom-right-radius: $borderRadius;
+  border-radius: 0 $borderRadius $borderRadius 0;
   flex-direction: column;
+  @media screen and (max-width: $screen-break) {
+    border-radius: 0 0 $borderRadius $borderRadius;
+  }
 }
 
 .content {
