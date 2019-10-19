@@ -57,22 +57,30 @@ class Home extends Component {
             <div className={styles.container}>
                 <div className={styles.mainBox}>
                     <div className={styles.welcome}>
-                        Select Dashboard
-                        <select className="form-control" onChange={this.onSelectCompany}>
-                            <option value="">Please select</option>
-                            {companies.map((company, index) => {
-                                return (
-                                    <option key={index} value={company.url}>
-                                        {company.name}
-                                    </option>
-                                );
-                            })}
-                        </select>
-                        <br/>
-                        <a href="/static/rod-widget/index.html">ROD Widget</a>
+                        <div className={styles.content}>
+                            <div className={styles.contentCenter}>
+                                Select Dashboard
+                                <select className="form-control" onChange={this.onSelectCompany}>
+                                    <option value="">Please select</option>
+                                    {companies.map((company, index) => {
+                                        return (
+                                            <option key={index} value={company.url}>
+                                                {company.name}
+                                            </option>
+                                        );
+                                    })}
+                                </select>
+                                <br/>
+                                <a href="/static/rod-widget/index.html">ROD Widget</a>
+                            </div>
+                        </div>
                     </div>
                     <div className={styles.login}>
-                        <Login companies={companies}/>
+                        <div className={styles.content}>
+                            <div className={styles.contentCenter}>
+                                <Login companies={companies}/>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

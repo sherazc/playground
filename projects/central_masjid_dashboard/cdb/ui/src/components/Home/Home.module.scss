@@ -2,7 +2,6 @@ $borderRadius: 3px;
 
 .container {
   display: flex;
-
   background: linear-gradient(#e65e5c, #979ce5);
   height: 100%;
   padding: 50px;
@@ -15,7 +14,7 @@ $borderRadius: 3px;
   width: 80%;
   // height: 200px;
   border-radius: $borderRadius;
-  box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.40);
+  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.40);
   display: flex;
   flex-direction: row;
 }
@@ -26,6 +25,11 @@ $borderRadius: 3px;
   color: white;
   border-top-left-radius: $borderRadius;
   border-bottom-left-radius: $borderRadius;
+
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
 }
 
 .login {
@@ -33,4 +37,20 @@ $borderRadius: 3px;
   flex-grow: 1;
   border-top-right-radius: $borderRadius;
   border-bottom-right-radius: $borderRadius;
+
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: row;
+}
+
+.contentCenter {
+  background-color: green;
 }
