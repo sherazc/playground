@@ -6,7 +6,7 @@ import {Redirect} from "react-router";
 import {mapStateLoginToProps} from "../../../store/lib/utils";
 
 import {
-    TextField, InputLabel, MenuItem, FormControl, Select, Button
+    TextField, InputLabel, MenuItem, FormControl, Select, Button, Link
 } from '@material-ui/core';
 
 import styles from "./Login.module.scss";
@@ -68,14 +68,17 @@ class Login extends Component {
                 {this.props.login.token}
                 {this.loginFailedMessage()}
                 <form onSubmit={this.onSubmit}>
-                    <FormControl style={{display: "block", minWidth: "200px"}}>
+                    <FormControl
+                        className={styles.formControl}
+                        style={{display: "block"}}>
                         <InputLabel htmlFor="companySelect">
                             Masjid
                         </InputLabel>
                         <Select
-                            className={styles.formControl2}
+                            style={{width: "250px"}}
                             value={this.state.companyId}
                             onChange={this.onSelectCompany}
+                            required={true}
                             inputProps={{
                                 name: 'companyId',
                                 id: 'companyId'
@@ -92,15 +95,18 @@ class Login extends Component {
                     </FormControl>
                     <TextField
                         style={{display: "block"}}
-                        className={styles.formControl2}
+                        className={styles.formControl}
+                        inputProps={{className: styles.inputControl}}
                         name="email"
                         label="Email"
+                        required={true}
                         value={this.state.email}
                         onChange={this.onChange}/>
 
                     <TextField
                         style={{display: "block"}}
                         className={styles.formControl}
+                        inputProps={{className: styles.inputControl}}
                         label="Password"
                         name="password"
                         required={true}
@@ -109,11 +115,16 @@ class Login extends Component {
                         type="password"
                         autoComplete="current-password"/>
                     <Button
-                        style={{display:"block"}}
+                        style={{display:"block", width: "250px"}}
+                        className={styles.formControl}
                         type="submit" variant="outlined" color="primary">
                         Submit
                     </Button>
                 </form>
+
+                <Link className={styles.vMargin3} href="#" onClick={event => event.preventDefault()}>
+                    Register Now!
+                </Link>
             </div>
         );
     }

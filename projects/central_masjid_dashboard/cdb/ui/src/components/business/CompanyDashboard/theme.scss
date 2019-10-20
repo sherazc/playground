@@ -88,70 +88,65 @@ $screen-break: 959px;
 
 // ########## Margins
 .vMargin1 {
-  margin-top: .2vw;
+  margin-top: .2vw !important;
   @media screen and (max-width: $screen-break) {
-    margin-top: 1vw;
+    margin-top: 1vw !important;
   }
 }
 
 .vMargin2 {
-  margin-top: .5vw;
+  margin-top: .5vw !important;
   @media screen and (max-width: $screen-break) {
-    margin-top: 1.5vw;
+    margin-top: 1.5vw !important;
   }
 }
 
 .vMargin3 {
-  margin-top: 1vw;
+  margin-top: 1vw !important;
   @media screen and (max-width: $screen-break) {
-    margin-top: 4vw;
+    margin-top: 4vw !important;
   }
 }
 
 
 .vMargin4 {
-  margin-top: 1.5vw;
+  margin-top: 1.5vw !important;
   @media screen and (max-width: $screen-break) {
-    margin-top: 5vw;
+    margin-top: 5vw !important;
   }
 }
 
 .vMargin5 {
-  margin-top: 2vw;
+  margin-top: 2vw !important;
   @media screen and (max-width: $screen-break) {
-    margin-top: 6.5vw;
+    margin-top: 6.5vw !important;
   }
 }
 
 .vMargin6 {
-  margin-top: 3vw;
+  margin-top: 3vw !important;
   @media screen and (max-width: $screen-break) {
-    margin-top: 9vw;
+    margin-top: 9vw !important;
   }
 }
 
 .vMargin7 {
-  margin-top: 4vw;
+  margin-top: 4vw !important;
   @media screen and (max-width: $screen-break) {
-    margin-top: 12vw;
+    margin-top: 12vw !important;
   }
 }
 
 .vMargin8 {
-  margin-top: 5.5vw;
+  margin-top: 5.5vw !important;
   @media screen and (max-width: $screen-break) {
-    margin-top: 16vw;
+    margin-top: 16vw !important;
   }
 }
 
 .vMargin9 {
-  margin-top: 7vw;
+  margin-top: 7vw !important;
   @media screen and (max-width: $screen-break) {
-    margin-top: 22vw;
+    margin-top: 22vw !important;
   }
-}
-
-.formControl {
-  margin: 5px;
-  min-width: 250px;
 }

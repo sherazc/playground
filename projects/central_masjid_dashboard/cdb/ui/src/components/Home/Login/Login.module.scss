@@ -6,9 +6,14 @@
 }
 
 
-.formControl2 {
+.formControl {
+  margin-top: 20px !important;
+  min-width: 250px;
+}
+
+.inputControl {
   display: block;
-  margin: 5px;
+  // margin: 5px;
   min-width: 250px !important;
   width: 250px;
 }
