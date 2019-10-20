@@ -91,6 +91,9 @@ class TabConfiguration extends Component {
                     jummahs={this.state.centralControl.jummahs}
                     onCancel={this.onCancel.bind(this)}
                     onSave={this.onSave.bind(this)}/>
+
+                <br/>
+                <a href="/static/rod-widget/index.html">ROD Widget</a>
             </div>
         );
     }

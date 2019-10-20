@@ -48,11 +48,11 @@ class Welcome extends Component {
         return (
             <div>
                 <div className={styles.companyHeading}>
-                    Central Masjid Dashboard
+                    Masjid Dashboard
                 </div>
                 <FormControl>
                     <InputLabel htmlFor="companySelect" className={styles.selectLabel}>
-                        Select Dashboard
+                        Select Masjid
                     </InputLabel>
                     <Select
                         value={this.state.selectedCompanyUrl}
@@ -72,9 +72,6 @@ class Welcome extends Component {
                         })}
                     </Select>
                 </FormControl>
-
-                <br/>
-                <a href="/static/rod-widget/index.html">ROD Widget</a>
             </div>
         );
     }

@@ -10,7 +10,7 @@ $borderRadius: 10px;
 
 .container {
   @extend .centerFlex;
-  background: linear-gradient(#e65e5c, #979ce5);
+  background: linear-gradient(#8d9fb0, #ffffff);
   height: 100%;
   padding: 50px;
 }
@@ -30,7 +30,7 @@ $borderRadius: 10px;
 
 .welcome {
   @extend .centerFlex;
-  background-color: #ae2f9c;
+  background-color: #4185ae;
   flex-grow: 1;
   color: white;
   border-radius: $borderRadius 0 0 $borderRadius;

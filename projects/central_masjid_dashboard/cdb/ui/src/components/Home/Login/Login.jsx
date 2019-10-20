@@ -11,6 +11,8 @@ import {
 
 import styles from "./Login.module.scss";
 
+const baseUrl = process.env.REACT_APP_API_BASE_PATH;
+
 class Login extends Component {
 
     constructor(props) {
@@ -69,7 +71,7 @@ class Login extends Component {
                 {this.loginFailedMessage()}
                 <form onSubmit={this.onSubmit}>
                     <FormControl
-                        className={styles.formControl}
+                        className={styles.vMargin3}
                         style={{display: "block"}}>
                         <InputLabel htmlFor="companySelect">
                             Masjid
@@ -95,7 +97,7 @@ class Login extends Component {
                     </FormControl>
                     <TextField
                         style={{display: "block"}}
-                        className={styles.formControl}
+                        className={styles.vMargin3}
                         inputProps={{className: styles.inputControl}}
                         name="email"
                         label="Email"
@@ -105,7 +107,7 @@ class Login extends Component {
 
                     <TextField
                         style={{display: "block"}}
-                        className={styles.formControl}
+                        className={styles.vMargin3}
                         inputProps={{className: styles.inputControl}}
                         label="Password"
                         name="password"
@@ -116,13 +118,13 @@ class Login extends Component {
                         autoComplete="current-password"/>
                     <Button
                         style={{display:"block", width: "250px"}}
-                        className={styles.formControl}
+                        className={styles.vMargin3}
                         type="submit" variant="outlined" color="primary">
                         Submit
                     </Button>
                 </form>
 
-                <Link className={styles.vMargin3} href="#" onClick={event => event.preventDefault()}>
+                <Link className={styles.vMargin3} href={`${baseUrl}/auth/company/create`}>
                     Register Now!
                 </Link>
             </div>
