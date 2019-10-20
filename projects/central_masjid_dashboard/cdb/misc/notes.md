@@ -210,6 +210,15 @@ Click ➕ again row is added.
 Defect:
 TabConfiguraton's save complete action is not disabling save cancel buttons
 
+Defect:
+Reset prayer values are not getting saved
+
+Defect:
+Funds End date is one less showing on Dashboard
+
+Defect:
+Configuration save cancel buttons are not getting disabled
+
 -----------------------------------
 ###Requirements
 
@@ -247,6 +256,14 @@ GET http://localhost:8085/api/companies/url/c3/central-control
 ✅ Service returns http://localhost:8085/api/auth/companies/url all active company names
 
 ✅ Pass company urls in Login component from home component and load company select box from the props
+
+Make configurations to change labels
+
+In DST On auto calculate On remove date input fields and show DST rules message
+
+If no funds then remove funds slide
+
+If no expenses then remove expenses slide
 
 Create data version mongo document
 
