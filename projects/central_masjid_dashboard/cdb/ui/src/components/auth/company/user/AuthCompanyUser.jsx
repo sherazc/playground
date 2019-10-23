@@ -11,6 +11,7 @@ import {Redirect} from "react-router";
 import {getReactRouterPathParamFromUrl} from "../../../../services/utilities";
 import {isAdminLogin, isAuthPresent, isMyProfile, isSuperAdminLogin} from "../../../../services/auth/AuthNZ";
 import UpdateCredentials from "./UpdateCredentials";
+import ContainerGridLayout01 from "../../../layout/ContainerGridLayout01";
 
 class AuthCompanyUser extends Component {
 
@@ -125,6 +126,7 @@ class AuthCompanyUser extends Component {
         }
 
         return (
+            <ContainerGridLayout01>
             <div>
                 <h3>Company
                     user, {action === "create" && loginInCompany.id ? `add user to ${loginInCompany.name}` : action}</h3>
@@ -140,6 +142,7 @@ class AuthCompanyUser extends Component {
                     </button>
                 }
             </div>
+            </ContainerGridLayout01>
         );
     }
 

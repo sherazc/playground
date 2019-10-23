@@ -7,6 +7,7 @@ import {ALERT_SUCCESS, showAlert} from "../../../../store/common/alert/actions";
 import {connect} from "react-redux";
 import {isAdminLogin, isSuperAdminLogin} from "../../../../services/auth/AuthNZ";
 import {Redirect} from "react-router";
+import ContainerGridLayout01 from "../../../layout/ContainerGridLayout01";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
@@ -108,6 +109,7 @@ class UpdateCredentials extends Component {
         const validCredential = this.validateCredentials();
 
         return (
+            <ContainerGridLayout01>
             <div>
                 <h3>
                     {this.props.resetCredential ? "Reset" : "Update"} Password
@@ -151,6 +153,7 @@ class UpdateCredentials extends Component {
                 <hr/>
                 <button onClick={this.props.back}>Back</button>
             </div>
+            </ContainerGridLayout01>
         );
     }
 }

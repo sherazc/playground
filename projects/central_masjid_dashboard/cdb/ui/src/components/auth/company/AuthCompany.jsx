@@ -11,6 +11,7 @@ import {NavLink} from "react-router-dom";
 import {getReactRouterPathParamFromUrl} from "../../../services/utilities";
 import {Redirect} from "react-router";
 import {isAdminLogin} from "../../../services/auth/AuthNZ";
+import ContainerGridLayout01 from "../../layout/ContainerGridLayout01";
 
 class AuthCompany extends Component {
 
@@ -97,6 +98,7 @@ class AuthCompany extends Component {
 
         const action = getReactRouterPathParamFromUrl(this.props, "action");
         return (
+            <ContainerGridLayout01>
             <div>
                 <h3>Company {action}</h3>
                 {this.registrationForm(action)}
@@ -113,6 +115,7 @@ class AuthCompany extends Component {
                     Company List
                 </NavLink>
             </div>
+            </ContainerGridLayout01>
         );
     }
 
