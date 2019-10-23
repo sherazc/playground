@@ -4,16 +4,11 @@ import Login from "./Login/Login";
 import styles from "./Home.module.scss";
 import Welcome from "./Welcome/Welcome";
 
-
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
 class Home extends Component {
 
     state = this.createInitialState();
-
-    constructor(props) {
-        super(props);
-    }
 
     createInitialState() {
         return {

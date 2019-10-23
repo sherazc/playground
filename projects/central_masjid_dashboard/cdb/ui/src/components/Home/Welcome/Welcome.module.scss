@@ -1,10 +1,16 @@
 @import "../../business/CompanyDashboard/theme";
 
+.container {
+}
 
 .companyHeading {
   @extend .heading3;
+  // background-color: red;
   color: $colorTextLight;
-
+  text-align: center;
+  margin-bottom: 3vw;
+  font-weight: 200;
+  letter-spacing: 3px;
 }
 .selectBox {
   min-width: 200px;
@@ -17,4 +23,16 @@
 
 .selectLabel {
   color: $colorTextLight !important;
+}
+
+.logo {
+  width: 12vw;
+  margin: 0 auto;
+  @media screen and (max-width: $screen-break) {
+    width: 20vw;
+  }
+}
+
+.logoPath {
+  fill: $colorTextLight;
 }

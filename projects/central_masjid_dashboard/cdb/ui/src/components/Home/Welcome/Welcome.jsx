@@ -1,10 +1,11 @@
 import React, {Component} from "react";
 import {Redirect} from "react-router";
 import {
-    TextField, InputLabel, MenuItem, FormControl, Select
+    InputLabel, MenuItem, FormControl, Select
 } from '@material-ui/core';
 
 import styles from "./Welcome.module.scss";
+import Logo from "../Logo";
 
 class Welcome extends Component {
 
@@ -46,10 +47,12 @@ class Welcome extends Component {
         const {companies} = this.props;
 
         return (
-            <div>
+            <div className={styles.container}>
+                <Logo className={styles.logo} classPath={styles.logoPath}/>
                 <div className={styles.companyHeading}>
-                    Masjid Dashboard
+                    MASJID DASHBOARD
                 </div>
+                <div style={{textAlign: "center", marginBottom: "3vw"}}>
                 <FormControl>
                     <InputLabel htmlFor="companySelect" className={styles.selectLabel}>
                         Select Masjid
@@ -72,6 +75,7 @@ class Welcome extends Component {
                         })}
                     </Select>
                 </FormControl>
+                </div>
             </div>
         );
     }
