@@ -11,7 +11,7 @@ $borderRadius: 10px;
 .container {
   @extend .centerFlex;
   background: linear-gradient(#8d9fb0, #ffffff);
-  height: 100%;
+  // height: 100%;
   padding: 3vw;
   @media screen and (max-width: $screen-break) {
     padding: 1vw;
@@ -21,7 +21,7 @@ $borderRadius: 10px;
 .mainBox {
   background-color: #ebebeb;
   width: 80%;
-  height: 100%;
+  // height: 100%;
   border-radius: $borderRadius;
   box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.40);
   display: flex;

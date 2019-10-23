@@ -1,6 +1,10 @@
 @import "../../business/CompanyDashboard/theme";
 
 .container {
+  padding: 8vw 0;
+  @media screen and (max-width: $screen-break) {
+    padding: 3vw 0;
+  }
 }
 
 .companyHeading {
@@ -8,7 +12,6 @@
   // background-color: red;
   color: $colorTextLight;
   text-align: center;
-  margin-bottom: 3vw;
   font-weight: 200;
   letter-spacing: 3px;
 }
