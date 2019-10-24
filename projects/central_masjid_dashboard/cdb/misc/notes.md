@@ -304,7 +304,7 @@ Store in browser cache previously selected dashboard
 
 Remove login links
 
-Bad links should go to 404 not  dashboard
+Bad links should go to 404 not  dashboard. Have dashboard redirect to 404.
 
 Setup send email
 

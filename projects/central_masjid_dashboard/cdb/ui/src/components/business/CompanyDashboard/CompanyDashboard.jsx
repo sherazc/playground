@@ -82,10 +82,6 @@ class CompanyDashboard extends Component {
                     {/* Remove these links. These are just for testing */}
                     <div style={{position: "absolute", color: "white"}}>
                         <Link to="/" className={styles.main} style={{color: "white"}}>home</Link>
-                        &nbsp;|&nbsp;
-                        <Link to="/c1" style={{color: "white"}}>c1</Link>
-                        &nbsp;|&nbsp;
-                        <Link to="/c2" style={{color: "white"}}>c2</Link>
                     </div>
 
                     <div className={styles.sideBox}
