@@ -349,6 +349,8 @@ background Maintenance service
 -----------------------------------
 ###Tech Debt
 
+Refactor theme.scss
+
 improve logging in services
 
 improve test coverage
