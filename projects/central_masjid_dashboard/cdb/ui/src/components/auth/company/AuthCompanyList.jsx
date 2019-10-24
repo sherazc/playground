@@ -4,7 +4,7 @@ import {getAllCompanies} from "../../../services/auth/CompanyListService";
 import CompanyGrid from "./CompanyGrid";
 import {connect} from "react-redux";
 import {prepareCompanyToEdit} from "../../../store/register-company/actions";
-import ContainerGridLayout01 from "../../layout/ContainerGridLayout01";
+import Layout01 from "../../layout/Layout01/Layout01";
 
 class AuthCompanyList extends Component {
     constructor(props) {
@@ -49,7 +49,7 @@ class AuthCompanyList extends Component {
         }
 
         return (
-            <ContainerGridLayout01>
+            <Layout01>
             <div>
                 <h3>Company List</h3>
                 <CompanyGrid
@@ -57,7 +57,7 @@ class AuthCompanyList extends Component {
                     editCompany={this.editCompany.bind(this)}
                     deleteCompany={this.deleteCompany.bind(this)}/>
             </div>
-            </ContainerGridLayout01>
+            </Layout01>
         );
     }
 }

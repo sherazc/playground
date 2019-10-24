@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import ContainerGridLayout01 from "../../layout/ContainerGridLayout01";
+import Layout01 from "../../layout/Layout01/Layout01";
 import TabPrayer from "./TabPrayer/TabPrayer";
 import TabConfiguration from "./TabConfiguration/TabConfiguration";
 
@@ -21,7 +21,7 @@ class AdminControl extends Component {
 
     render() {
         return (
-            <ContainerGridLayout01>
+            <Layout01>
                 <div>
                     <AppBar position="static">
                         <Tabs value={this.state.tabIndex} onChange={this.handleTabChange}>
@@ -32,7 +32,7 @@ class AdminControl extends Component {
                     {this.state.tabIndex === 0 && <TabConfiguration/>}
                     {this.state.tabIndex === 1 && <TabPrayer/>}
                 </div>
-            </ContainerGridLayout01>
+            </Layout01>
         );
     }
 }

@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import Grid from '@material-ui/core/Grid';
 import {withStyles} from '@material-ui/core/styles';
-import AdminNavigation from "../common/navigation/AdminNavigation";
+import AdminNavigation from "../../common/navigation/AdminNavigation";
 
 const styles = theme => {
     return ({
@@ -18,7 +18,7 @@ const styles = theme => {
     });
 };
 
-class ContainerGridLayout01 extends Component {
+class Layout01 extends Component {
     render() {
         const {classes} = this.props;
         return (
@@ -48,4 +48,4 @@ class ContainerGridLayout01 extends Component {
 }
 
 
-export default withStyles(styles)(ContainerGridLayout01);
+export default withStyles(styles)(Layout01);

@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {Redirect} from "react-router";
 import {NavLink} from "react-router-dom";
 import {canNotBeOnRegisterFinish} from "../../../services/register/RegisterServices";
-import ContainerGridLayout01 from "../../layout/ContainerGridLayout01";
+import Layout01 from "../../layout/Layout01/Layout01";
 
 class RegisterFinish extends Component {
     render() {
@@ -12,7 +12,7 @@ class RegisterFinish extends Component {
             return <Redirect to={`${process.env.PUBLIC_URL}/auth/company/create`}/>;
         }
         return (
-            <ContainerGridLayout01>
+            <Layout01>
             <div>
                 <h3>Registration complete.</h3>
                 <p>
@@ -25,7 +25,7 @@ class RegisterFinish extends Component {
                     </NavLink>
                 </p>
             </div>
-            </ContainerGridLayout01>
+            </Layout01>
         );
     }
 }

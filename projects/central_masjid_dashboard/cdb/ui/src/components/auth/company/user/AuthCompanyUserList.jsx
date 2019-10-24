@@ -6,7 +6,7 @@ import {prepareCompanyUserToEdit} from "../../../../store/register-company/actio
 import {connect} from "react-redux";
 import {Redirect} from "react-router";
 import {isAdminLogin, isSuperAdminLogin} from "../../../../services/auth/AuthNZ";
-import ContainerGridLayout01 from "../../../layout/ContainerGridLayout01";
+import Layout01 from "../../../layout/Layout01/Layout01";
 
 class AuthCompanyUserList extends Component {
     constructor(props) {
@@ -90,7 +90,7 @@ class AuthCompanyUserList extends Component {
         }
 
         return(
-            <ContainerGridLayout01>
+            <Layout01>
             <div>
                 <h3>
                     Users in&nbsp;
@@ -102,7 +102,7 @@ class AuthCompanyUserList extends Component {
                     editCompanyUser={this.editCompanyUser.bind(this)}
                     deleteCompanyUser={this.deleteCompanyUser.bind(this)}/>
             </div>
-            </ContainerGridLayout01>
+            </Layout01>
         );
     }
 

@@ -235,7 +235,7 @@ GET http://localhost:8085/api/companies/url/c3/central-control
 
 ✅ when new company is saved whey its inactive
 
-✅ Register company and load it dashboar
+✅ Register company and load it dashboard
 
 ✅ On register make couple of default funds
 
@@ -302,6 +302,17 @@ Design Web DB utility to store in browser local storage. And retrieve and search
 
 Store in browser cache previously selected dashboard
 
+Remove login links
+
+Bad links should go to 404 not  dashboard
+
+Setup send email
+
+Set up registration verify email
+
+Remove masjid select on signin. Design some sort of super admin login where masjid select is available 
+
+Design password reset flow
 
 ###UI Design requirements
 
