@@ -19,7 +19,6 @@ $borderRadius: 10px;
 }
 
 .mainBox {
-  background-color: #ebebeb;
   width: 80%;
   // height: 100%;
   border-radius: $borderRadius;
@@ -35,7 +34,7 @@ $borderRadius: 10px;
 
 .welcome {
   @extend .centerFlex;
-  background-color: #4185ae;
+  background-color: $color1BackgroundDark;
   flex-grow: 1;
   color: white;
   border-radius: $borderRadius 0 0 $borderRadius;
@@ -48,7 +47,7 @@ $borderRadius: 10px;
 
 .login {
   @extend .centerFlex;
-  background-color: #f4f4f4;
+  background-color: $color2BackgroundWhite;
   flex-grow: 1;
   border-radius: 0 $borderRadius $borderRadius 0;
   flex-direction: column;

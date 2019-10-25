@@ -1,0 +1,35 @@
+@import "../theme";
+
+$headerBackground: $color1BackgroundDark;
+
+.container {
+  background-color: $headerBackground;
+}
+
+.logo {
+  width: 5vw;
+  // margin: 0 auto;
+  @media screen and (max-width: $screen-break) {
+    width: 20vw;
+  }
+}
+
+.logoPath {
+  fill: $colorTextLight;
+}
+
+.panelRight {
+
+}
+
+.appName {
+
+}
+
+.navContainer {
+
+}
+
+.profile {
+
+}
