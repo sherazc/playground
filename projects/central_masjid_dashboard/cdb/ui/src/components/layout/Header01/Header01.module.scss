@@ -40,6 +40,7 @@ $headerBackground: $color1BackgroundDark;
   flex: 1;
   display: flex;
   align-content: end;
+  padding: 10px;
 }
 
 .appName {
@@ -56,9 +57,11 @@ $headerBackground: $color1BackgroundDark;
 
 .navContainer {
   background-color: aquamarine;
-  height: auto;
   flex: 1;
-
+  height: auto;
+  align-self: flex-end;
+  justify-content: flex-end;
+  text-align: right;
 }
 
 .profile {
