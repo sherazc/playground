@@ -12,7 +12,7 @@ const LinkLeftBorderMaterialIcon = (props) => {
     }
 
     return (
-        <NavLink to={props.link} exact className={linkClass}>
+        <NavLink to={props.link} exact className={linkClass} onClick={props.onClick}>
             {props.icon &&
                 <Icon style={{fontSize: "20px", marginBottom: "-5px", marginRight: "5px"}}>{props.icon}</Icon>
             }

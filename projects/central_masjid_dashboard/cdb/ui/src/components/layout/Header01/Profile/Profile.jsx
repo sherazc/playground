@@ -14,32 +14,33 @@ class Profile extends Component {
 
     loginControls() {
         if (!verifyAuthentication(this.props.login.tokenPayload, true)) {
-            // style={{border: "1px solid white", padding: "10px"}}
             return (
                 <LinkLeftBorderMaterialIcon
                     link={`${baseLinkUrl}/`}
                     dark={false}
                     text="Login"
-                    icon="input"
-                />
+                    icon="input"/>
             );
         }
 
         return (
             <>
-                Hi {this.props.login.user.firstName} {this.props.login.user.lastName}
-                <a href={`${process.env.PUBLIC_URL}/#/`} onClick={this.logout.bind(this)}>
-                    Logout
-                </a>
-                |
+                <div style={{marginBottom: "20px"}}>
+                    Hi {this.props.login.user.firstName} {this.props.login.user.lastName}
+                </div>
 
-                <a href={`${process.env.PUBLIC_URL}/#/`} onClick={this.viewMyProfile.bind(this)}>
-                    <Icon>person</Icon> My Profile
-                </a>
-                |
-                <NavLink to={`${process.env.PUBLIC_URL}/auth/company/user/create`}>
-                    Add user to company
-                </NavLink>
+                <LinkLeftBorderMaterialIcon
+                    link={`${baseLinkUrl}/#/`}
+                    dark={false}
+                    text="My Profile"
+                    icon="person" onClick={this.viewMyProfile.bind(this)}/>
+
+
+                <LinkLeftBorderMaterialIcon
+                    link={`${baseLinkUrl}/#/`}
+                    dark={false}
+                    text="Logout"
+                    icon="cancel" onClick={this.logout.bind(this)}/>
             </>
         );
     }
