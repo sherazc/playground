@@ -1,7 +1,8 @@
 @import "../theme";
 
 $headerBackground: $color1BackgroundDark;
-$headerColor: $colorTextLight;
+//$headerColor: $colorTextLight;
+$headerColor: $color1Light;
 
 .container {
   background-color: $headerBackground;

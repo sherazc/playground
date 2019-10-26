@@ -6,6 +6,7 @@ import {mapStateLoginToProps} from "../../../../store/lib/utils";
 import {loginResetAction, viewMyProfileAction} from "../../../../store/login/loginActions";
 import {connect} from "react-redux";
 import {Icon} from '@material-ui/core';
+import LinkLeftBorderMaterialIcon from "../../../common/LinkLeftBorderMaterialIcon/LinkLeftBorderMaterialIcon";
 
 const baseLinkUrl = process.env.PUBLIC_URL;
 
@@ -13,10 +14,14 @@ class Profile extends Component {
 
     loginControls() {
         if (!verifyAuthentication(this.props.login.tokenPayload, true)) {
+            // style={{border: "1px solid white", padding: "10px"}}
             return (
-                <NavLink to={`${baseLinkUrl}/`} exact>
-                    Login
-                </NavLink>
+                <LinkLeftBorderMaterialIcon
+                    link={`${baseLinkUrl}/`}
+                    dark={false}
+                    text="Login"
+                    icon="input"
+                />
             );
         }
 
@@ -29,7 +34,7 @@ class Profile extends Component {
                 |
 
                 <a href={`${process.env.PUBLIC_URL}/#/`} onClick={this.viewMyProfile.bind(this)}>
-                    My Profile
+                    <Icon>person</Icon> My Profile
                 </a>
                 |
                 <NavLink to={`${process.env.PUBLIC_URL}/auth/company/user/create`}>
@@ -55,7 +60,6 @@ class Profile extends Component {
     render() {
         return (
             <div className={styles.container}>
-                <Icon>person</Icon>
                 {this.loginControls()}
             </div>
         );

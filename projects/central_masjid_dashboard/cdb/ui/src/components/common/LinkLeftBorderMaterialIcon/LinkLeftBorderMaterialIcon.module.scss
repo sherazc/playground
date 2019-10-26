@@ -1,0 +1,13 @@
+.link {
+    padding: 5px 10px;
+}
+
+.dark {
+    @extend .link;
+    border-left: 1px solid rgba(0,0,0, 0.30);
+}
+
+.light {
+    @extend .link;
+    border-left: 1px solid rgba(255, 255, 255, 0.30);
+}

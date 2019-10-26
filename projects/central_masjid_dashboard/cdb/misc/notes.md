@@ -267,6 +267,10 @@ GET http://localhost:8085/api/companies/url/c3/central-control
 
 ✅ Pass company urls in Login component from home component and load company select box from the props
 
+Create my own SVG image component. Component.
+I will use this for. This component should take in 
+SVG URL and add className on it on it. 
+
 Make configurations to change labels
 
 In DST On auto calculate On remove date input fields and show DST rules message
