@@ -4,11 +4,16 @@ $headerBackground: $color1BackgroundDark;
 
 .container {
   background-color: $headerBackground;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+
 }
 
 .logo {
-  width: 5vw;
-  // margin: 0 auto;
+  width: 70px;
+  background-color: #666666;
   @media screen and (max-width: $screen-break) {
     width: 20vw;
   }
@@ -18,18 +23,44 @@ $headerBackground: $color1BackgroundDark;
   fill: $colorTextLight;
 }
 
-.panelRight {
+.panelLeft {
+  background-color: red;
+  flex: 0 0 240px;
+  display: flex;
+  padding: 5px 0 5px 20px;
+}
 
+.panelRight {
+  background-color: green;
+  //flex: 0 0 240px;
+}
+
+.panelCenter {
+  background-color: brown;
+  flex: 1;
+  display: flex;
+  align-content: end;
 }
 
 .appName {
-
+  background-color: #a99221;
+  font-weight: 200;
+  flex: 1;
+  height: auto;
+  align-self: center;
+  justify-content: center;
+  margin-left: 10px;
+  color: $colorTextLight;
+  text-align: center;
 }
 
 .navContainer {
+  background-color: aquamarine;
+  height: auto;
+  flex: 1;
 
 }
 
 .profile {
-
+  background-color: #a50cb0;
 }
