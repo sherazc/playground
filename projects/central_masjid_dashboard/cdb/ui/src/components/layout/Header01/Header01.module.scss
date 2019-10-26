@@ -11,6 +11,11 @@ $headerColor: $colorTextLight;
   box-shadow: 1px 2px 4px -1px rgba(0, 0, 0, 0.40);
 }
 
+.container a {
+  color: $headerColor;
+  text-decoration: none;
+}
+
 .logo {
   width: 70px;
   // background-color: #666666;
@@ -30,7 +35,6 @@ $headerColor: $colorTextLight;
   flex: 0 0 240px;
   display: flex;
   padding: 5px 0 5px 20px;
-  text-decoration: none;
 }
 
 .panelRight {
