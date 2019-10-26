@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import styles from "./Header01.module.scss";
 import Logo from "../../Home/Logo";
 import {NavLink} from 'react-router-dom';
+import Nav from "./Nav/Nav";
+import Profile from "./Profile/Profile";
 
 const baseLinkUrl = process.env.PUBLIC_URL;
 
@@ -16,12 +18,12 @@ class Header01 extends Component {
                 </NavLink>
                 <div className={styles.panelCenter}>
                     <div className={styles.navContainer}>
-                        Page1 Page2
+                        <Nav/>
                     </div>
                 </div>
                 <div className={styles.panelRight}>
                     <div className={styles.profile}>
-                        Login Profile
+                        <Profile/>
                     </div>
                 </div>
             </div>

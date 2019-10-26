@@ -5,11 +5,10 @@ $headerColor: $colorTextLight;
 
 .container {
   background-color: $headerBackground;
-
   display: flex;
   justify-content: space-between;
   align-items: stretch;
-
+  box-shadow: 1px 2px 4px -1px rgba(0, 0, 0, 0.40);
 }
 
 .logo {
@@ -60,7 +59,6 @@ $headerColor: $colorTextLight;
   margin-left: 10px;
   color: $headerColor;
   text-align: center;
-
 }
 
 .navContainer {
