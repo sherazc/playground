@@ -22,7 +22,6 @@ class Welcome extends Component {
     }
 
     onSelectCompany(event) {
-        console.log(event.target.value);
         this.setState({
             selectedCompanyUrl: event.target.value
         });
@@ -48,7 +47,7 @@ class Welcome extends Component {
 
         return (
             <div className={styles.container}>
-                <Logo className={styles.logo} classPath={styles.logoPath}/>
+                <Logo className={styles.logo}/>
                 <div className={styles.companyHeading}>
                     MASJID DASHBOARD
                 </div>

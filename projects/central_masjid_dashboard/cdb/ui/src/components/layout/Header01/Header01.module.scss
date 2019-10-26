@@ -18,16 +18,13 @@ $headerColor: $colorTextLight;
 
 .logo {
   width: 70px;
+  fill: $headerColor;
   // background-color: #666666;
   /*
   @media screen and (max-width: $screen-break) {
     width: 20vw;
   }
   */
-}
-
-.logoPath {
-  fill: $headerColor;
 }
 
 .panelLeft {

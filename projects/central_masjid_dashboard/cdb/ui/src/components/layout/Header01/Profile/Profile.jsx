@@ -5,6 +5,7 @@ import {verifyAuthentication} from "../../../../services/auth/AuthNZ";
 import {mapStateLoginToProps} from "../../../../store/lib/utils";
 import {loginResetAction, viewMyProfileAction} from "../../../../store/login/loginActions";
 import {connect} from "react-redux";
+import {Icon} from '@material-ui/core';
 
 const baseLinkUrl = process.env.PUBLIC_URL;
 
@@ -54,6 +55,7 @@ class Profile extends Component {
     render() {
         return (
             <div className={styles.container}>
+                <Icon>person</Icon>
                 {this.loginControls()}
             </div>
         );

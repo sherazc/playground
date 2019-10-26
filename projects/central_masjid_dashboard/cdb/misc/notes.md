@@ -98,12 +98,22 @@ $ scp -i /Users/sheraz/.ssh/id_rsa \
     -r ubuntu@54.165.184.232:/server-directory \
     ./local-file-or-folder
 ```
+
+
+### Icons
+All Icon names
+https://material.io/resources/icons
+
+To use material.io
+```
+import {Icon} from '@material-ui/core';
+<Icon style={{fontSize: 60, color: "red", backgroundColor: "green"}}>arrow_right_alt</Icon>
+```
+
+To create SVG icon and put gradient 
+https://material-ui.com/components/icons/#svgicon
+
 ===========================================
-
-
-
-
-
 
 /**
  * Created this class for MongoDB aggregate.$lookup
