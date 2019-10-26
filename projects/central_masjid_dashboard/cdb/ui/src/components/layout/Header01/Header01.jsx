@@ -12,7 +12,7 @@ class Header01 extends Component {
     render() {
         return (
             <div className={styles.container}>
-                <NavLink to={`${baseLinkUrl}/`} exact className={styles.panelLeft} onClick="">
+                <NavLink to={`${baseLinkUrl}/`} exact className={styles.panelLeft}>
                     <Logo className={styles.logo} classPath={styles.logoPath}/>
                     <div className={`${styles.appName} ${styles.heading4}`}>Masjid Dashboard</div>
                 </NavLink>
