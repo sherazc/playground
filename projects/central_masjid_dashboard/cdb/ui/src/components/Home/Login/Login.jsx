@@ -11,7 +11,7 @@ import {
 
 import styles from "./Login.module.scss";
 
-const baseUrl = process.env.REACT_APP_API_BASE_PATH;
+const baseLinkUrl = process.env.PUBLIC_URL;
 
 class Login extends Component {
 
@@ -124,7 +124,7 @@ class Login extends Component {
                     </Button>
                 </form>
 
-                <Link className={styles.vMargin3} href={`${baseUrl}/auth/company/create`}>
+                <Link className={styles.vMargin3} href={`${baseLinkUrl}/auth/company/create`}>
                     Register Now!
                 </Link>
             </div>

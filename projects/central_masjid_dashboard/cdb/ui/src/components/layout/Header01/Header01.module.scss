@@ -1,6 +1,7 @@
 @import "../theme";
 
 $headerBackground: $color1BackgroundDark;
+$headerColor: $colorTextLight;
 
 .container {
   background-color: $headerBackground;
@@ -13,57 +14,71 @@ $headerBackground: $color1BackgroundDark;
 
 .logo {
   width: 70px;
-  background-color: #666666;
+  // background-color: #666666;
+  /*
   @media screen and (max-width: $screen-break) {
     width: 20vw;
   }
+  */
 }
 
 .logoPath {
-  fill: $colorTextLight;
+  fill: $headerColor;
 }
 
 .panelLeft {
-  background-color: red;
+  // background-color: red;
   flex: 0 0 240px;
   display: flex;
   padding: 5px 0 5px 20px;
+  text-decoration: none;
 }
 
 .panelRight {
-  background-color: green;
-  //flex: 0 0 240px;
+  //background-color: green;
+  display: flex;
+  flex: 0 0 240px;
+  padding: 5px 20px 5px 0;
+  align-content: end;
 }
 
 .panelCenter {
-  background-color: brown;
+  //background-color: brown;
   flex: 1;
   display: flex;
   align-content: end;
-  padding: 10px;
+  padding: 5px 20px;
 }
 
 .appName {
-  background-color: #a99221;
+  // background-color: #a99221;
   font-weight: 200;
   flex: 1;
   height: auto;
-  align-self: center;
+  align-self: flex-end;
   justify-content: center;
   margin-left: 10px;
-  color: $colorTextLight;
+  color: $headerColor;
   text-align: center;
+
 }
 
 .navContainer {
-  background-color: aquamarine;
+  //background-color: aquamarine;
   flex: 1;
   height: auto;
   align-self: flex-end;
-  justify-content: flex-end;
-  text-align: right;
+  justify-content: center;
+  text-align: center;
+  color: $headerColor;
 }
 
 .profile {
-  background-color: #a50cb0;
+  //background-color: #a50cb0;
+  flex: 1;
+  height: auto;
+  align-self: flex-end;
+  //justify-content: flex-end;
+  text-align: right;
+  color: $headerColor;
 }
