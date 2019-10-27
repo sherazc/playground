@@ -54,6 +54,10 @@ class Nav extends Component {
         return (
             <nav className={styles.container}>
                 {this.navLinks()}
+                <LinkLeftBorderMaterialIcon
+                    link={`${baseLinkUrl}/examples`}
+                    dark={false}
+                    icon="bug_report"/>
             </nav>
         );
     }

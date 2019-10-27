@@ -10,7 +10,7 @@ class AdminNavigation extends Component {
         if (!verifyAuthentication(this.props.login.tokenPayload, true)) {
             return (
                 <div style={{marginTop: 20, marginBottom: 10, }}>
-                    <NavLink to={`${process.env.PUBLIC_URL}/login`}>
+                    <NavLink to={`${process.env.PUBLIC_URL}/`}>
                         Login (click or auto redirect)
                     </NavLink>
                 </div>

@@ -78,7 +78,7 @@ class AuthCompany extends Component {
     getRedirectUrl(props) {
         const action = getReactRouterPathParamFromUrl(this.props, "action");
         const actionViewOrEdit = action === MODE_VIEW || action === MODE_EDIT;
-        const adminLogin = isAdminLogin(props);
+        const adminLogin = isAdminLogin(props.login);
         const isCompanySelected = props.companyServiceResponse && props.companyServiceResponse.target && props.companyServiceResponse.target.id;
 
         if (actionViewOrEdit && !adminLogin) {

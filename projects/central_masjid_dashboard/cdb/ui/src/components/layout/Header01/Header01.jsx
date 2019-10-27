@@ -14,7 +14,7 @@ class Header01 extends Component {
             <div className={styles.container}>
                 <NavLink to={`${baseLinkUrl}/`} exact className={styles.panelLeft}>
                     <Logo className={styles.logo}/>
-                    <div className={`${styles.appName} ${styles.heading4}`}>Masjid Dashboard</div>
+                    <div className={`${styles.appName} ${styles.heading3}`}>Masjid Dashboard</div>
                 </NavLink>
                 <div className={styles.panelCenter}>
                     <div className={styles.navContainer}>

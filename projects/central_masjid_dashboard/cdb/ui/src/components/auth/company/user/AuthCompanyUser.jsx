@@ -80,7 +80,7 @@ class AuthCompanyUser extends Component {
         const action = getReactRouterPathParamFromUrl(props, "action");
         const actionViewOrEdit = action === MODE_VIEW || action === MODE_EDIT;
         const isLoggedIn = isAuthPresent(props.login);
-        const adminLogin = isAdminLogin(props);
+        const adminLogin = isAdminLogin(props.login);
         const isNewCompanyRegisterComplete = props.companyServiceResponse && props.companyServiceResponse.target && props.companyServiceResponse.target.id;
         const companyUserSelected = props.companyUserServiceResponse && props.companyUserServiceResponse.target && props.companyUserServiceResponse.target.id;
 
@@ -111,8 +111,8 @@ class AuthCompanyUser extends Component {
         const loginInCompany = this.props.login.company;
         const myProfile = isMyProfile(this.props);
         const action = getReactRouterPathParamFromUrl(this.props, "action");
-        const adminLogin = isAdminLogin(this.props);
-        const superAdminLogin = isSuperAdminLogin(this.props);
+        const adminLogin = isAdminLogin(this.props.login);
+        const superAdminLogin = isSuperAdminLogin(this.props.login);
         // todo create new registration steps display e.g. 1 - 2 - 3
         const redirectUrl = this.getRedirectUrl(this.state, this.props);
         if (redirectUrl) {

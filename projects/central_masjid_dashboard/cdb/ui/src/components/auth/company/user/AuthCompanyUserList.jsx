@@ -66,8 +66,8 @@ class AuthCompanyUserList extends Component {
     }
 
     getRedirectUrl(action, props) {
-        const adminLogin = isAdminLogin(props);
-        const superAdminLogin = isSuperAdminLogin(props);
+        const adminLogin = isAdminLogin(props.login);
+        const superAdminLogin = isSuperAdminLogin(props.login);
 
         if (action === "current" && !adminLogin && !superAdminLogin) {
             return `${process.env.PUBLIC_URL}/forbidden`;

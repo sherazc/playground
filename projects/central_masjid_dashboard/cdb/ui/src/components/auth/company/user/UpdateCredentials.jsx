@@ -60,8 +60,8 @@ class UpdateCredentials extends Component {
             return;
         }
 
-        const adminLogin = isAdminLogin(props);
-        const superAdminLogin = isSuperAdminLogin(props);
+        const adminLogin = isAdminLogin(props.login);
+        const superAdminLogin = isSuperAdminLogin(props.login);
 
         if (superAdminLogin) {
             return;

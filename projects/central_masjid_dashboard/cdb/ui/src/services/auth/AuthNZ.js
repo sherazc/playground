@@ -14,23 +14,23 @@ export const isAuthPresent = (login) => {
     return login && login.tokenPayload && verifyAuthentication(login.tokenPayload, true);
 };
 
-export const isAdminLogin = (props) => {
-    if(!tokenPayloadObjectExist(props)) {
+export const isAdminLogin = (login) => {
+    if(!tokenPayloadObjectExist(login)) {
         return false;
     }
-    return isAuthPresent(props.login) && verifyAuthorization(props.login.tokenPayload, ['ADMIN']);
+    return isAuthPresent(login) && verifyAuthorization(login.tokenPayload, ['ADMIN']);
 };
 
-export const isSuperAdminLogin = (props) => {
-    if(!tokenPayloadObjectExist(props)) {
+export const isSuperAdminLogin = (login) => {
+    if(!tokenPayloadObjectExist(login)) {
         return false;
     }
-    return isAuthPresent(props.login) && verifyAuthorization(props.login.tokenPayload, ['SUPER_ADMIN']);
+    return isAuthPresent(login) && verifyAuthorization(login.tokenPayload, ['SUPER_ADMIN']);
 };
 
 
-const tokenPayloadObjectExist = (props) => {
-    return props && props.login && props.login.tokenPayload
+const tokenPayloadObjectExist = (login) => {
+    return login && login.tokenPayload
 };
 
 export const isMyProfile = (props) => {
