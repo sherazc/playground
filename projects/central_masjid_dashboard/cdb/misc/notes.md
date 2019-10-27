@@ -273,7 +273,7 @@ SVG URL and add className on it on it.
 
 Make configurations to change labels
 
-In DST On auto calculate On remove date input fields and show DST rules message
+▶️ In DST On auto calculate On remove date input fields and show DST rules message
 
 If no funds then remove funds slide
 
@@ -334,15 +334,17 @@ Create home page Layout
 
 Create one layout for registration and admin views
 
-Do some research on web for good Header, Footer designs
+✅ Do some research on web for good Header, Footer designs
 
-Home page
+✅ Home page
 
 make dashboard select and login component  side by side
 
-Header and footer
+✅ Header and footer
 
-Rebranding, icon, new website,
+Rebranding, 
+    ✅ icon, 
+    new website,
 
 Create material UI fields
  

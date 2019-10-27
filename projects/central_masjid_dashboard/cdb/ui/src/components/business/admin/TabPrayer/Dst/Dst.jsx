@@ -7,6 +7,8 @@ import {
 import CloseablePanel from "../../../../common/CloseablePanel/CloseablePanel";
 import {equalObjects, MONTH_DATE_REGEX} from "../../../../../services/utilities";
 
+const DST_RULE_BEGIN = "Begins at 2:00 a.m. on the second Sunday of March";
+const DST_RULE_END = "Ends at 2:00 a.m. on the first Sunday of November";
 
 class Dst extends Component {
 
@@ -70,6 +72,53 @@ class Dst extends Component {
         }
     }
 
+    createBeginEnd(validBeginMonthDate, validEndMonthDate) {
+        const automaticCalculate = this.state.dst && this.state.dst.automaticCalculate;
+
+        if (automaticCalculate) {
+            return (
+                <>
+                    <div>
+                        <span style={{fontWeight: "bold"}}>Begin </span>
+                        {DST_RULE_BEGIN}
+                    </div>
+                    <div>
+                        <span style={{fontWeight: "bold"}}>End </span>
+                        {DST_RULE_END}
+                    </div>
+                </>
+            );
+        } else {
+            return (
+                <>
+                    <FormControl style={{display: "block"}}>
+                        <TextField error={!validBeginMonthDate}
+                                   margin="dense" name="beginMonthDate"
+                                   label="Begin" type="text"
+                                   value={this.state.dst.beginMonthDate}
+                                   onChange={this.onChange}/>
+                        <FormHelperText error={!validBeginMonthDate}>
+                            MM/DD. Manual DST begin date.
+                        </FormHelperText>
+                    </FormControl>
+
+                    <FormControl style={{display: "block"}}>
+                        <TextField error={!validEndMonthDate}
+                                   margin="dense" name="endMonthDate"
+                                   label="End" type="text"
+                                   value={this.state.dst.endMonthDate}
+                                   onChange={this.onChange}/>
+                        <FormHelperText error={!validEndMonthDate}>
+                            MM/DD. Manual DST end date.
+                        </FormHelperText>
+                    </FormControl>
+                </>
+            );
+        }
+
+
+    }
+
     render() {
         const validBeginMonthDate = this.isValidDateMonth(this.state.dst.beginMonthDate);
         const validEndMonthDate = this.isValidDateMonth(this.state.dst.endMonthDate);
@@ -110,29 +159,7 @@ class Dst extends Component {
                                 label="Automatic Calculate"
                                 labelPlacement="start"/>
                         </FormGroup>
-
-                        <FormControl style={{display: "block"}}>
-                            <TextField error={!validBeginMonthDate}
-                                margin="dense" name="beginMonthDate"
-                                label="Begin" type="text"
-                                value={this.state.dst.beginMonthDate}
-                                onChange={this.onChange}/>
-                            <FormHelperText error={!validBeginMonthDate}>
-                                MM/DD. Manual DST begin date.
-                            </FormHelperText>
-                        </FormControl>
-
-                        <FormControl style={{display: "block"}}>
-                            <TextField error={!validEndMonthDate}
-                                margin="dense" name="endMonthDate"
-                                label="End" type="text"
-                                value={this.state.dst.endMonthDate}
-                                onChange={this.onChange}/>
-                            <FormHelperText error={!validEndMonthDate}>
-                                MM/DD. Manual DST end date.
-                            </FormHelperText>
-                        </FormControl>
-
+                        {this.createBeginEnd(validBeginMonthDate, validEndMonthDate)}
                     </div>
                 </CloseablePanel>
             </div>
@@ -154,17 +181,6 @@ ends at 2:00 a.m. on the first Sunday of November
 https://www.nist.gov/pml/time-and-frequency-division/popular-links/daylight-saving-time-dst
 
 
-
-
-add DST in PrayerConfig.java and PrayerConfig.json
-    prayerConfig: {
-        dst: {
-            enable: boolean
-            automaticCalculate: boolean,
-            start: date,
-            end: date
-        }
-    }
 
 
 Create business/admin/TabPrayer/Dst/Dst.jsx
