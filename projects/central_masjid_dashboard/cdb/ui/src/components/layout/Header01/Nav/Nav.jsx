@@ -5,7 +5,10 @@ import {connect} from "react-redux";
 import LinkLeftBorderMaterialIcon from "../../../common/LinkLeftBorderMaterialIcon/LinkLeftBorderMaterialIcon";
 import {mapStateLoginToProps} from "../../../../store/lib/utils";
 import {loginResetAction, viewMyProfileAction} from "../../../../store/login/loginActions";
-import {verifyAuthentication} from "../../../../services/auth/AuthNZ";
+import {
+    isAdminLogin,
+    isSuperAdminLogin,
+    verifyAuthentication} from "../../../../services/auth/AuthNZ";
 
 
 const baseLinkUrl = process.env.PUBLIC_URL;
@@ -13,39 +16,49 @@ const baseLinkUrl = process.env.PUBLIC_URL;
 class Nav extends Component {
 
     navLinks() {
+        const superAdmin = isSuperAdminLogin(this.props.login);
+        const admin = isAdminLogin(this.props.login);
         if (verifyAuthentication(this.props.login.tokenPayload, true)) {
             return (
-                <div>
+                <>
                     <LinkLeftBorderMaterialIcon
                         link={`${baseLinkUrl}/auth/admin`}
                         dark={false}
                         text="Settings"
                         icon="settings_applications"/>
 
-                    <LinkLeftBorderMaterialIcon
-                        link={`${baseLinkUrl}/auth/company/view`}
-                        dark={false}
-                        text="Company"
-                        icon="business"/>
+                    {admin &&
+                        <LinkLeftBorderMaterialIcon
+                            link={`${baseLinkUrl}/auth/company/view`}
+                            dark={false}
+                            text="Company"
+                            icon="business"/>
+                    }
 
-                    <LinkLeftBorderMaterialIcon
-                        link={`${baseLinkUrl}/auth/company/user/list/current`}
-                        dark={false}
-                        text="Users"
-                        icon="group"/>
+                    {admin &&
+                        <LinkLeftBorderMaterialIcon
+                            link={`${baseLinkUrl}/auth/company/user/list/current`}
+                            dark={false}
+                            text="Users"
+                            icon="group"/>
+                    }
 
-                    <LinkLeftBorderMaterialIcon
-                        link={`${baseLinkUrl}/auth/company/list`}
-                        dark={false}
-                        text="All Companies"
-                        icon="account_balance"/>
+                    {superAdmin &&
+                        <LinkLeftBorderMaterialIcon
+                            link={`${baseLinkUrl}/auth/company/list`}
+                            dark={false}
+                            text="All Companies"
+                            icon="account_balance"/>
+                    }
 
-                    <LinkLeftBorderMaterialIcon
-                        link={`${baseLinkUrl}/auth/company/user/list/all`}
-                        dark={false}
-                        text="All Users"
-                        icon="supervised_user_circle"/>
-                </div>
+                    {superAdmin &&
+                        <LinkLeftBorderMaterialIcon
+                            link={`${baseLinkUrl}/auth/company/user/list/all`}
+                            dark={false}
+                            text="All Users"
+                            icon="supervised_user_circle"/>
+                    }
+                </>
             )
         }
     }

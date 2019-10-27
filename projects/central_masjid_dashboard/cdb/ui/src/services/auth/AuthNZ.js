@@ -33,6 +33,7 @@ const tokenPayloadObjectExist = (login) => {
     return login && login.tokenPayload
 };
 
+// TODO: Don't pass props in this method. Send login and companyUserServiceResponse instead
 export const isMyProfile = (props) => {
     if(!props || !props.login || !props.login.user || !props.companyUserServiceResponse) {
         return false;
