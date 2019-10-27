@@ -1,11 +1,10 @@
 import React, {Component} from "react";
 import styles from "./Profile.module.scss";
-import {NavLink, withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import {verifyAuthentication} from "../../../../services/auth/AuthNZ";
 import {mapStateLoginToProps} from "../../../../store/lib/utils";
 import {loginResetAction, viewMyProfileAction} from "../../../../store/login/loginActions";
 import {connect} from "react-redux";
-import {Icon} from '@material-ui/core';
 import LinkLeftBorderMaterialIcon from "../../../common/LinkLeftBorderMaterialIcon/LinkLeftBorderMaterialIcon";
 
 const baseLinkUrl = process.env.PUBLIC_URL;

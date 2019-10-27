@@ -1,10 +1,11 @@
 import React, {Component} from "react";
+import styles from "./Footer01.module.scss"
 
 class Footer01 extends Component {
     render() {
         return (
-            <div style={{backgroundColor: "#d6d6d6", padding: "20px", color: "black"}}>
-                Footer 01
+            <div className={styles.container}>
+                Masjid Dashboard
             </div>
         );
     }

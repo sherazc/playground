@@ -9,7 +9,8 @@ $headerColor: $color1Light;
   display: flex;
   justify-content: space-between;
   align-items: stretch;
-  box-shadow: 1px 2px 4px -1px rgba(0, 0, 0, 0.40);
+  // box-shadow: 1px 2px 4px -1px rgba(0, 0, 0, 0.40);
+  box-shadow: 0px 2px 2px -1px rgba(0, 0, 0, 0.40);
 }
 
 .container a {
@@ -40,14 +41,14 @@ $headerColor: $color1Light;
   display: flex;
   flex: 0 0 240px;
   padding: 5px 20px 5px 0;
-  align-content: end;
+  align-content: flex-end;
 }
 
 .panelCenter {
   //background-color: brown;
   flex: 1;
   display: flex;
-  align-content: end;
+  align-content: flex-end;
   padding: 5px 20px;
 }
 
@@ -61,6 +62,7 @@ $headerColor: $color1Light;
   margin-left: 10px;
   color: $headerColor;
   text-align: center;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.45);
 }
 
 .navContainer {
