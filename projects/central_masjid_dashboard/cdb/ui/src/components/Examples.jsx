@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {showAlert, ALERT_SUCCESS, ALERT_ERROR, ALERT_WARN} from "../store/common/alert/actions";
 import {showLoading, hideLoading} from "../store/common/loading/actions";
+import AdminNavigation from "./common/navigation/AdminNavigation";
 
 class Examples extends Component {
 
@@ -44,6 +45,13 @@ class Examples extends Component {
                 <button type="button" onClick={this.showErrorLoginAlert}>Show Error Alert</button>
                 <br/>
                 <button type="button" onClick={this.showHideLoading}>Show Loading</button>
+                <br/>
+                <br/>
+                <br/>
+                <AdminNavigation/>
+                <br/>
+                <br/>
+                <br/>
             </div>
         );
     }
