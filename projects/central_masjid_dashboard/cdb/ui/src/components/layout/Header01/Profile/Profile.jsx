@@ -26,7 +26,7 @@ class Profile extends Component {
         return (
             <>
                 <div style={{marginBottom: "20px"}}>
-                    Hi {this.props.login.user.firstName} {this.props.login.user.lastName}
+                    Hi, {this.props.login.user.firstName} {this.props.login.user.lastName}
                 </div>
 
                 <LinkLeftBorderMaterialIcon
