@@ -138,6 +138,10 @@ class TabPrayer extends Component {
         }
 
         const companyId = prayerConfig.companyId;
+        if (dst.automaticCalculate) {
+            dst.beginMonthDate = "";
+            dst.endMonthDate = "";
+        }
 
         axios
             .post(`${baseUrl}/api/prayer/config/${companyId}/dst`, dst)

@@ -273,13 +273,17 @@ SVG URL and add className on it on it.
 
 Make configurations to change labels
 
-▶️ In DST On auto calculate On remove date input fields and show DST rules message
+✅️ In DST On auto calculate On remove date input fields and show DST rules message
 
-If no funds then remove funds slide
+▶️ If no funds then remove funds slide
 
-If no expenses then remove expenses slide
+▶️ If no expenses then remove expenses slide
 
 Create data version mongo document
+
+Create dashboard timer. Update display if new version data is available
+
+Create API key. and update API key management
 
 Any change to PrayerConfig, or Central control will up version number
 
