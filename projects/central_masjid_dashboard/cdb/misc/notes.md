@@ -279,6 +279,31 @@ Make configurations to change labels
 
 ▶️ If no expenses then remove expenses slide
 
+    Expense 
+        get all enabled
+        create component only if found 
+        if component created then push it to slides []
+        
+    Funds
+        same as Expenses
+        
+    Create slideDiv[]
+    
+    if slideDiv[] is empty show error message
+    
+    Set open style class to slideDiv[0]
+    
+    Set close style class to slideDiv[] > 0
+    
+    If slideDiv.lenght is > 1
+        Add animation slidesClasses in state 
+            this.state = {
+                slidesClasses: this.createDefaultSlideClasses(slideDiv.lenght)
+            }
+    
+
+
+
 Create data version mongo document
 
 Create dashboard timer. Update display if new version data is available
