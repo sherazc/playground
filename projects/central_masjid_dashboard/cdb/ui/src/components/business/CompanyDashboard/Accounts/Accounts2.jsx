@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import Funds from "./Funds/Funds";
 import Expenses from "./Expenses/Expenses";
 import styles from "./Accounts.module.scss"
-import {equalObjects} from "../../../../services/utilities";
+import {equalObjects, filterEnabledItems} from "../../../../services/utilities";
 
 const TOTAL_SLIDES = 2;
 
@@ -21,6 +21,7 @@ class Accounts2 extends Component {
         this.animationSeconds = 1;
         this.animationStaySeconds = 5;
         this.currentSlide = 0;
+        this.slides = [];
 
         this.state = {
             expenses: {},
@@ -33,14 +34,38 @@ class Accounts2 extends Component {
         if (this.shouldUpdateStateFromProps(this.props, prevProps, this.state)) {
             this.cleanup();
 
+            let enabledExpenses = filterEnabledItems(this.props.centralControl.expenses);
+            let enabledFunds = filterEnabledItems(this.props.centralControl.funds);
+
+            if (enabledExpenses && enabledExpenses.length > 0) {
+                this.slides.push((
+                    <div>
+                        <Expenses expenses={enabledExpenses}/>
+                    </div>
+                ));
+            }
+
+            if (enabledFunds && enabledFunds.length > 0) {
+                this.slides.push((
+                    <div>
+                        <Funds funds={enabledFunds}/>
+                    </div>
+                ));
+            }
+
+            addShowHideInitialStyles(this.slides);
+
+
+
+
         }
 
 
 
         /*
-        Expense
-        check if props.expense != state.expense
-        state.expense = props.expenses
+        ✅ Expense
+          check if props.expense != state.expense
+          state.expense = props.expenses
 
 
         get all enabled
@@ -95,9 +120,14 @@ class Accounts2 extends Component {
     }
 
     cleanup() {
-
+        // TODO stop interval and maybe cleanup state.
     }
 
+
+    addShowHideInitialStyles(slides) {
+        this.slides.for
+
+    }
 
 
     componentWillUnmount() {
