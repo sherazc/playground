@@ -37,9 +37,11 @@ class Accounts2 extends Component {
             let enabledExpenses = filterEnabledItems(this.props.centralControl.expenses);
             let enabledFunds = filterEnabledItems(this.props.centralControl.funds);
 
+            this.setState({expenses: enabledExpenses, funds: enabledFunds});
+
             if (enabledExpenses && enabledExpenses.length > 0) {
                 this.slides.push((
-                    <div>
+                    <div key="expenses">
                         <Expenses expenses={enabledExpenses}/>
                     </div>
                 ));
@@ -47,16 +49,13 @@ class Accounts2 extends Component {
 
             if (enabledFunds && enabledFunds.length > 0) {
                 this.slides.push((
-                    <div>
+                    <div key="funds">
                         <Funds funds={enabledFunds}/>
                     </div>
                 ));
             }
 
-            addShowHideInitialStyles(this.slides);
-
-
-
+            this.addShowHideInitialStyles(this.slides);
 
         }
 
@@ -121,24 +120,35 @@ class Accounts2 extends Component {
 
     cleanup() {
         // TODO stop interval and maybe cleanup state.
+        console.log("Cleaning up.");
     }
 
 
     addShowHideInitialStyles(slides) {
-        this.slides.for
+        slides.forEach((slide, index) => {
+            if () {
 
+            }
+
+            console.log("Slide " + index, slide.props);
+        });
     }
 
 
     componentWillUnmount() {
-
+        this.cleanup();
     }
 
     render() {
         return (
-            <div>
-                one two three
-            </div>
+            <>
+                <div className={`${styles.heading1} ${styles.vMargin8}`}>
+                    Expenses
+                </div>
+                <div className={styles.vMargin6}>
+                    {this.slides.map(s => s)}
+                </div>
+            </>
         );
     }
 }
