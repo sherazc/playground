@@ -41,7 +41,7 @@ class Accounts2 extends Component {
 
             if (enabledExpenses && enabledExpenses.length > 0) {
                 this.slides.push((
-                    <div key="expenses">
+                    <div key="expenses" name="expenses">
                         <Expenses expenses={enabledExpenses}/>
                     </div>
                 ));
@@ -49,7 +49,7 @@ class Accounts2 extends Component {
 
             if (enabledFunds && enabledFunds.length > 0) {
                 this.slides.push((
-                    <div key="funds">
+                    <div key="funds" name="funds">
                         <Funds funds={enabledFunds}/>
                     </div>
                 ));
@@ -126,11 +126,12 @@ class Accounts2 extends Component {
 
     addShowHideInitialStyles(slides) {
         slides.forEach((slide, index) => {
-            if () {
-
-            }
-
             console.log("Slide " + index, slide.props);
+            if (index === 0) {
+                // slide.props.className = styles.slideDown;
+            } else {
+                // slide.props.className = styles.slideUp;
+            }
         });
     }
 
@@ -140,13 +141,16 @@ class Accounts2 extends Component {
     }
 
     render() {
+        let Comp = Expenses;
+
         return (
             <>
                 <div className={`${styles.heading1} ${styles.vMargin8}`}>
                     Expenses
                 </div>
                 <div className={styles.vMargin6}>
-                    {this.slides.map(s => s)}
+                    {/*{this.slides.map(s => s)}*/}
+                    <Comp src="abc"/>
                 </div>
             </>
         );
