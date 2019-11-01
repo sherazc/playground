@@ -66,7 +66,7 @@ class Funds extends Component {
         }
 
         return (
-            <div>
+            <div className={this.props.className}>
                 {this.makeFund(funds[0])}
                 {funds.length > 1 && this.makeFund(funds[1])}
             </div>

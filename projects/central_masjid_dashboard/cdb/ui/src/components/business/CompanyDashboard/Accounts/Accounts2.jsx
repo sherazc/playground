@@ -4,15 +4,6 @@ import Expenses from "./Expenses/Expenses";
 import styles from "./Accounts.module.scss"
 import {equalObjects, filterEnabledItems} from "../../../../services/utilities";
 
-const TOTAL_SLIDES = 2;
-
-
-
-/*
-<Expenses expenses={this.props.centralControl.expenses}/>,
-<Funds funds={this.props.centralControl.funds}/>,
-*/
-
 class Accounts2 extends Component {
 
     constructor(props) {
@@ -40,19 +31,13 @@ class Accounts2 extends Component {
             this.setState({expenses: enabledExpenses, funds: enabledFunds});
 
             if (enabledExpenses && enabledExpenses.length > 0) {
-                this.slides.push((
-                    <div key="expenses" name="expenses">
-                        <Expenses expenses={enabledExpenses}/>
-                    </div>
-                ));
+                this.createSlideObject(this.slides, Expenses, "Expenses",
+                    {expenses: enabledExpenses});
             }
 
             if (enabledFunds && enabledFunds.length > 0) {
-                this.slides.push((
-                    <div key="funds" name="funds">
-                        <Funds funds={enabledFunds}/>
-                    </div>
-                ));
+                this.createSlideObject(this.slides, Funds, "Funds",
+                    {funds: enabledFunds});
             }
 
             this.addShowHideInitialStyles(this.slides);
@@ -126,11 +111,10 @@ class Accounts2 extends Component {
 
     addShowHideInitialStyles(slides) {
         slides.forEach((slide, index) => {
-            console.log("Slide " + index, slide.props);
             if (index === 0) {
-                // slide.props.className = styles.slideDown;
+                slide.props.className = styles.slideDown;
             } else {
-                // slide.props.className = styles.slideUp;
+                slide.props.className = styles.slideUp;
             }
         });
     }
@@ -140,21 +124,28 @@ class Accounts2 extends Component {
         this.cleanup();
     }
 
-    render() {
-        let Comp = Expenses;
+    createSlideObject(slides, componentType, slideKey, props) {
+        props.key = slideKey;
+        return slides.push({type: componentType, props});
+    }
 
+    render() {
         return (
             <>
                 <div className={`${styles.heading1} ${styles.vMargin8}`}>
                     Expenses
                 </div>
                 <div className={styles.vMargin6}>
-                    {/*{this.slides.map(s => s)}*/}
-                    <Comp src="abc"/>
+                    {this.slides.map(s => {
+                        const SlideComponent = s.type;
+                        return <SlideComponent {...s.props} />
+
+                    })}
                 </div>
             </>
         );
     }
+
 }
 
 export default Accounts2;

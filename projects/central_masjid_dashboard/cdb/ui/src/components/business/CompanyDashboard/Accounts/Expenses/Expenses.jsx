@@ -54,15 +54,16 @@ class Expenses extends Component {
 
     render() {
         return (
-            <div className={styles.container}>
-                <div className={`${styles.heading5} ${styles.header}`}>
-                    Monthly Operating Expenses
-                </div>
-                <div className={styles.content}>
-                    {this.renderTable()}
+            <div className={this.props.className}>
+                <div className={styles.container}>
+                    <div className={`${styles.heading5} ${styles.header}`}>
+                        Monthly Operating Expenses
+                    </div>
+                    <div className={styles.content}>
+                        {this.renderTable()}
+                    </div>
                 </div>
             </div>
-
         );
     }
 }
