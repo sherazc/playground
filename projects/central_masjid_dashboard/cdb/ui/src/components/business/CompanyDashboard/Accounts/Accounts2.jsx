@@ -17,8 +17,11 @@ class Accounts2 extends Component {
         this.state = {
             expenses: {},
             funds: {},
+            slidesClasses: []
         }
     }
+
+
 
     componentDidUpdate(prevProps, prevState, snapshot) {
 
@@ -30,17 +33,21 @@ class Accounts2 extends Component {
 
             this.setState({expenses: enabledExpenses, funds: enabledFunds});
 
+            const defaultProps = {
+                style: {animationDuration: `${this.animationSeconds}s`}
+            };
+
             if (enabledExpenses && enabledExpenses.length > 0) {
                 this.createSlideObject(this.slides, Expenses, "Expenses",
-                    {expenses: enabledExpenses});
+                    {expenses: enabledExpenses, ...defaultProps});
             }
 
             if (enabledFunds && enabledFunds.length > 0) {
                 this.createSlideObject(this.slides, Funds, "Funds",
-                    {funds: enabledFunds});
+                    {funds: enabledFunds, ...defaultProps});
             }
 
-            this.addShowHideInitialStyles(this.slides);
+            this.addShowHideInitialStyles(this.slides.length, this.state.slidesClasses);
 
         }
 
@@ -109,14 +116,15 @@ class Accounts2 extends Component {
     }
 
 
-    addShowHideInitialStyles(slides) {
-        slides.forEach((slide, index) => {
-            if (index === 0) {
-                slide.props.className = styles.slideDown;
+    addShowHideInitialStyles(slidesCount, slidesClasses) {
+        for (let i = 0; i < slidesCount; i++) {
+            if (i === 0) {
+                slidesClasses[i] = styles.slideDown;
             } else {
-                slide.props.className = styles.slideUp;
+                slidesClasses[i] = styles.slideUp;
+
             }
-        });
+        }
     }
 
 
@@ -136,10 +144,11 @@ class Accounts2 extends Component {
                     Expenses
                 </div>
                 <div className={styles.vMargin6}>
-                    {this.slides.map(s => {
+                    {this.slides.map((s, i) => {
                         const SlideComponent = s.type;
-                        return <SlideComponent {...s.props} />
-
+                        return <SlideComponent
+                            {...s.props}
+                            className={this.state.slidesClasses[i]} />;
                     })}
                 </div>
             </>
