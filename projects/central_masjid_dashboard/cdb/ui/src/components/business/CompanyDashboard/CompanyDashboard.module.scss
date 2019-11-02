@@ -48,6 +48,14 @@
     }
 }
 
+.sideBoxLeft {
+    @extend .sideBox;
+    margin-top: 2.6vw;
+    @media screen and (max-width: $screen-break) {
+        margin-top: 6vw;
+    }
+}
+
 .centerBox {
     @extend .box;
     margin-top: 1vw;
@@ -57,5 +65,19 @@
         margin-top: 6vw;
         height: 142vw;
         width: 100vw;
+    }
+}
+
+
+.companyName {
+    color: $colorTextLight;
+    font-size: 2vw;
+    text-align: center;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.45);
+    margin-top: 3vw;
+
+    @media screen and (max-width: $screen-break) {
+        font-size: 5vw;
+        margin-top: 5vw;
     }
 }

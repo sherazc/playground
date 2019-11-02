@@ -6,7 +6,7 @@ import axios from "axios";
 import SalahTime from "./SalahTime/SalahTime";
 import Accounts from "./Accounts/Accounts";
 import Updates from "./Updates/Updates";
-import AnalogClock from "./AnalogClock";
+import AnalogClock from "./AnalogClock/AnalogClock";
 import DigitalClock from "./DigitalClock";
 import styles from "./CompanyDashboard.module.scss";
 import {Link} from "react-router-dom";
@@ -65,16 +65,20 @@ class CompanyDashboard extends Component {
                 className={styles.gridContainer}>
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={styles.gridSide}>
                     {clockType === "1" &&
-                    <AnalogClock sizeLg="8" sizeMd="20" marginLg="2" marginMd="2"/>}
+                    <AnalogClock sizeLg="8" sizeMd="15" marginLg="2" marginMd="2"/>}
                     {clockType === "2" &&
                     <DigitalClock sizeLg="15" sizeMd="25" marginLg="2" marginMd="2"/>}
 
                     {/* Remove these links. These are just for testing */}
                     <div style={{position: "absolute", color: "white"}}>
-                        <Link to="/" className={styles.main} style={{color: "white"}}>home</Link>
+                        <Link to="/" style={{color: "white"}}>home</Link>
                     </div>
 
-                    <div className={styles.sideBox}
+                    <div className={styles.companyName}>
+                        Hamzah Islamic Center
+                    </div>
+
+                    <div className={styles.sideBoxLeft}
                         style={{backgroundImage: `url(${process.env.PUBLIC_URL}/images/side_box_background.svg)`}}>
                         <SalahTime
                             centralControl={this.state.centralControl}

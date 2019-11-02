@@ -40,7 +40,7 @@ export const createDialStyle = (size, margin) => {
         backgroundSize: sizeUnit,
         listStyle: "none",
         right: "auto",
-        margin: marginUnit,
+        // margin: marginUnit,
         zIndex: "5",
     };
 };

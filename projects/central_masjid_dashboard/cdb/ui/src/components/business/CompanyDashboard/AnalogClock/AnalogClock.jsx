@@ -7,6 +7,8 @@ import {
     createSecondsRotateStyle
 } from "./AnalogClockServices";
 
+import styles from "./AnalogClock.module.scss"
+
 class AnalogClock extends Component {
     constructor(props) {
         super(props);
@@ -69,11 +71,13 @@ class AnalogClock extends Component {
     render() {
         const {dialStyle, secondsStyle, minutesStyle, hoursStyle} = this.state;
         return (
+            <div className={styles.container}>
             <ul style={dialStyle}>
-                <li style={secondsStyle}></li>
-                <li style={minutesStyle}></li>
-                <li style={hoursStyle}></li>
+                <li style={secondsStyle} />
+                <li style={minutesStyle} />
+                <li style={hoursStyle} />
             </ul>
+            </div>
         );
     }
 }

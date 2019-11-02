@@ -275,9 +275,19 @@ Make configurations to change labels
 
 ✅️ In DST On auto calculate On remove date input fields and show DST rules message
 
-▶️ If no funds then remove funds slide
+✅️ If no funds then remove funds slide
 
-▶️ If no expenses then remove expenses slide
+✅️ If no expenses then remove expenses slide
+
+▶️ analog clock. migrate styles to scss
+
+▶️ digital clock. migrate styles to scss
+
+▶️ analog clock. Move on the right side in fullscreen
+
+▶️ digital clock. Move on the right side in fullscreen
+
+Put Masjid Name on Dashboard
 
 Create data version mongo document
 
