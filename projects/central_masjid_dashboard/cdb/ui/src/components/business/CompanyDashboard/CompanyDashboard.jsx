@@ -7,7 +7,7 @@ import SalahTime from "./SalahTime/SalahTime";
 import Accounts from "./Accounts/Accounts";
 import Updates from "./Updates/Updates";
 import AnalogClock from "./AnalogClock/AnalogClock";
-import DigitalClock from "./DigitalClock";
+import DigitalClock from "./DigitalClock/DigitalClock";
 import styles from "./CompanyDashboard.module.scss";
 import {Link} from "react-router-dom";
 import {
@@ -74,7 +74,7 @@ class CompanyDashboard extends Component {
                     {clockType === "1" &&
                     <AnalogClock sizeLg="8" sizeMd="18" />}
                     {clockType === "2" &&
-                    <DigitalClock sizeLg="15" sizeMd="25" marginLg="2" marginMd="2"/>}
+                    <DigitalClock sizeLg="15" sizeMd="25" />}
                     <div className={styles.settings}>
                         <Link to="/">
                             <Icon>

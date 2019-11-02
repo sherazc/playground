@@ -279,21 +279,25 @@ Make configurations to change labels
 
 ✅️ If no expenses then remove expenses slide
 
-▶️ analog clock. migrate styles to scss
+✅️ analog clock. migrate styles to scss
 
-▶️ digital clock. migrate styles to scss
+✅️ digital clock. migrate styles to scss
 
-▶️ analog clock. Move on the right side in fullscreen
+✅️ analog clock. Move on the right side in fullscreen
 
-▶️ digital clock. Move on the right side in fullscreen
+✅️ digital clock. Move on the right side in fullscreen
 
 Change browser icon
 
 Dashboard. Next Azan in time. Next Iqama in time.
 
-Put Masjid Name on Dashboard
+✅️ Put Masjid Name on Dashboard
+
+Refresh dashboard if data version logic is not implemented
 
 Create data version mongo document
+
+CompanyDashboard will poll for version. If new version is available then data will be refreshed.  
 
 Create dashboard timer. Update display if new version data is available
 
@@ -305,8 +309,7 @@ Make single function in CompanyDashboard that will make all the API calls.
 This function will call APIs and update CompanyDashboard.state. 
 This function will be called on initial CompanyDashboard load and on refresh events. 
 
-CompanyDashboard will poll for version. If new version is available then data will be refreshed.  
- 
+
 
 Remove all references to /login nav link
 

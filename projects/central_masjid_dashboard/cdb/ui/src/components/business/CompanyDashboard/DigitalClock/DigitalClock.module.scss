@@ -1,0 +1,13 @@
+@import "../CompanyDashboardTheme";
+
+.container {
+  position: absolute;
+  right: 2vw;
+  top: 2vw;
+  z-index: 100;
+  background-color: green;
+  @media screen and (max-width: $screen-break) {
+    right: 2vw;
+    top: 18vw;
+  }
+}

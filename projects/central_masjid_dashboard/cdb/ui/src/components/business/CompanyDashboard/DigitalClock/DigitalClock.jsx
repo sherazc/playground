@@ -8,6 +8,8 @@ import dot from "../../../../images/clock_digital/dot.svg";
 import am from "../../../../images/clock_digital/am.svg";
 import pm from "../../../../images/clock_digital/pm.svg";
 import {createClockContainerStyle, createClockContentStyle, getSizeRatios} from "./DigitalClockServices";
+import styles from "./DigitalClock.module.scss"
+
 
 class DigitalClock extends Component {
 
@@ -41,15 +43,15 @@ class DigitalClock extends Component {
 
     updateSizeObserver(mediaQuery) {
         if(mediaQuery.matches) {
-            this.resizeClock(this.props.sizeMd, this.props.marginMd);
+            this.resizeClock(this.props.sizeMd);
         } else {
-            this.resizeClock(this.props.sizeLg, this.props.marginLg);
+            this.resizeClock(this.props.sizeLg);
         }
     }
 
-    resizeClock(size, margin) {
+    resizeClock(size) {
         const sizeRatios = getSizeRatios();
-        const clockContainerStyle = createClockContainerStyle(bg1, size, margin, sizeRatios);
+        const clockContainerStyle = createClockContainerStyle(bg1, size, sizeRatios);
         const clockContentStyle = createClockContentStyle(size, sizeRatios);
         const digitWidth = size * sizeRatios.clockToDigitWidthRatio;
         const digitHeight = digitWidth * sizeRatios.clockToDigitWidthHeightRatio;
@@ -93,7 +95,7 @@ class DigitalClock extends Component {
         const digitHeightUnit = addUnit(digitHeight) + "";
 
         return (
-            <div style={clockContainerStyle}>
+            <div className={styles.container} style={clockContainerStyle}>
                 <div style={clockContentStyle}>
                     <DigitalClockDigit digit={hoursDigitLeft} width={digitWidthUnit} height={digitHeightUnit}/>
                     <DigitalClockDigit digit={hoursDigitRight} width={digitWidthUnit} height={digitHeightUnit}/>

@@ -18,13 +18,10 @@ export const createClockContentStyle = (size, sizeRatios) =>{
     };
 };
 
-export const createClockContainerStyle = (backgroundImage, size, margin, sizeRatios) => {
+export const createClockContainerStyle = (backgroundImage, size, sizeRatios) => {
     return {
         background: `url(${backgroundImage}) no-repeat`,
         backgroundSize: "100% 100%",
-        margin: addUnit(margin),
-        zIndex: "5",
-        position: "absolute",
         width: addUnit(size),
         height: addUnit(size * sizeRatios.widthHeightRatio),
         paddingTop: addUnit(size * sizeRatios.paddingTopRatio),
