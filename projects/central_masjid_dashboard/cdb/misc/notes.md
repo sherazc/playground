@@ -287,7 +287,7 @@ Make configurations to change labels
 
 ✅️ digital clock. Move on the right side in fullscreen
 
-Change browser icon
+✅️ Change browser icon
 
 Dashboard. Next Azan in time. Next Iqama in time.
 
