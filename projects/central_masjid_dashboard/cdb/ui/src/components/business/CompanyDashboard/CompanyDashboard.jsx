@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import {connect} from "react-redux";
 import axios from "axios";
 import SalahTime from "./SalahTime/SalahTime";
-import Accounts from "./Accounts/Accounts2";
+import Accounts from "./Accounts/Accounts";
 import Updates from "./Updates/Updates";
 import AnalogClock from "./AnalogClock";
 import DigitalClock from "./DigitalClock";
@@ -31,15 +31,11 @@ class CompanyDashboard extends Component {
             axios
                 .get(`${baseUrl}/api/companies/url/${companyDashboardUrl}/central-control`)
                 .then(response => {
-
                     this.setState({
                         centralControl: response.data
                     });
                     this.loadCompanyConfigurations(response.data.companyId);
                 });
-            // document.getElementsByTagName("html")[0].style.height = "100%";
-            // document.getElementsByTagName("body")[0].style.height = "100%";
-            // document.getElementById("root").style.height = "100%";
         }
     }
 
@@ -55,12 +51,6 @@ class CompanyDashboard extends Component {
 
     setConfigurationInState(companyConfigurations) {
         this.setState({companyConfigurations});
-    }
-
-    componentWillUnmount() {
-        // document.getElementsByTagName("html")[0].style.height = "auto";
-        // document.getElementsByTagName("body")[0].style.height = "auto";
-        // document.getElementById("root").style.height = "auto";
     }
 
     render() {
