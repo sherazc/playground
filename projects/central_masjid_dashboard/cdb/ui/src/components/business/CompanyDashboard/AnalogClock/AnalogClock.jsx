@@ -30,14 +30,14 @@ class AnalogClock extends Component {
 
     updateSizeObserver(mediaQuery) {
         if(mediaQuery.matches) {
-            this.resizeClock(this.props.sizeMd, this.props.marginMd);
+            this.resizeClock(this.props.sizeMd);
         } else {
-            this.resizeClock(this.props.sizeLg, this.props.marginLg);
+            this.resizeClock(this.props.sizeLg);
         }
     }
 
-    resizeClock(size, margin) {
-        const dialStyle = createDialStyle(size, margin);
+    resizeClock(size) {
+        const dialStyle = createDialStyle(size);
         const secondsStyle = createSecondsHandSytle(size);
         const minutesStyle = createMinutesHandStyle(size);
         const hoursStyle = createHoursHandStyle(size);

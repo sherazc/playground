@@ -53,23 +53,30 @@ class CompanyDashboard extends Component {
         this.setState({companyConfigurations});
     }
 
+    getCompanyName(centralControl) {
+        let companyName = "Masjid Dashboard";
+        if(centralControl && centralControl.company && centralControl.company.name) {
+            companyName = centralControl.company.name;
+        }
+        return companyName;
+    }
+
     render() {
         const xsBreakPoint = 12;
         const smBreakPoint = 12;
         const mdBreakPoint = 4;
         let clockType = getConfigValue("clock_type", this.state.companyConfigurations, "1");
-
         return (
             <Grid container justify="center"
                 style={{backgroundImage: `url(${process.env.PUBLIC_URL}/images/dashboard_background.jpg)`}}
                 className={styles.gridContainer}>
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={styles.gridSide}>
                     {clockType === "1" &&
-                    <AnalogClock sizeLg="8" sizeMd="18" marginLg="2" marginMd="2"/>}
+                    <AnalogClock sizeLg="8" sizeMd="18" />}
                     {clockType === "2" &&
                     <DigitalClock sizeLg="15" sizeMd="25" marginLg="2" marginMd="2"/>}
-                    <div style={{position: "absolute"}}>
-                        <Link to="/" style={{color: "white"}}>
+                    <div className={styles.settings}>
+                        <Link to="/">
                             <Icon>
                                 settings_applications
                             </Icon>
@@ -77,7 +84,7 @@ class CompanyDashboard extends Component {
                     </div>
 
                     <div className={styles.companyName}>
-                        Hamzah Islamic Center
+                        {this.getCompanyName(this.state.centralControl)}
                     </div>
 
                     <div className={styles.sideBoxLeft}

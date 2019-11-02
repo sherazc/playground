@@ -29,9 +29,8 @@ export const createHoursRotateStyle = () => {
 };
 
 
-export const createDialStyle = (size, margin) => {
+export const createDialStyle = (size) => {
     const sizeUnit = addUnit(size);
-    const marginUnit = addUnit(margin);
     return {
         position: "absolute",
         width: sizeUnit,
@@ -40,7 +39,6 @@ export const createDialStyle = (size, margin) => {
         backgroundSize: sizeUnit,
         listStyle: "none",
         right: "auto",
-        // margin: marginUnit,
         zIndex: "5",
     };
 };

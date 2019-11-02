@@ -81,3 +81,21 @@
         margin-top: 5vw;
     }
 }
+
+.settings {
+    position: absolute;
+}
+
+.settings a {
+    color: rgba(255, 255, 255, 0.40);
+    @media screen and (max-width: $screen-break) {
+        color: rgba(255, 255, 255, 0.20);
+    }
+}
+
+.settings a span {
+    font-size: 2vw;
+    @media screen and (max-width: $screen-break) {
+        font-size: 5vw;
+    }
+}

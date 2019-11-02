@@ -102,8 +102,6 @@ class Accounts extends Component {
     }
 
     cleanup() {
-        // TODO stop interval and maybe cleanup state.
-        console.log("Cleaning up.");
         clearInterval(this.animationInterval);
     }
 
