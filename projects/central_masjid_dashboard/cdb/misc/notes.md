@@ -287,6 +287,8 @@ Make configurations to change labels
 
 ▶️ digital clock. Move on the right side in fullscreen
 
+Dashboard. Next Azan in time. Next Iqama in time.
+
 Put Masjid Name on Dashboard
 
 Create data version mongo document

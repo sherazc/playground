@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {getConfigValue, getReactRouterPathParamFromUrl} from "../../../services/utilities";
-import Grid from '@material-ui/core/Grid';
+import {Grid, Icon} from '@material-ui/core';
 import {connect} from "react-redux";
 import axios from "axios";
 import SalahTime from "./SalahTime/SalahTime";
@@ -65,13 +65,15 @@ class CompanyDashboard extends Component {
                 className={styles.gridContainer}>
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={styles.gridSide}>
                     {clockType === "1" &&
-                    <AnalogClock sizeLg="8" sizeMd="15" marginLg="2" marginMd="2"/>}
+                    <AnalogClock sizeLg="8" sizeMd="18" marginLg="2" marginMd="2"/>}
                     {clockType === "2" &&
                     <DigitalClock sizeLg="15" sizeMd="25" marginLg="2" marginMd="2"/>}
-
-                    {/* Remove these links. These are just for testing */}
-                    <div style={{position: "absolute", color: "white"}}>
-                        <Link to="/" style={{color: "white"}}>home</Link>
+                    <div style={{position: "absolute"}}>
+                        <Link to="/" style={{color: "white"}}>
+                            <Icon>
+                                settings_applications
+                            </Icon>
+                        </Link>
                     </div>
 
                     <div className={styles.companyName}>
