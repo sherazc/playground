@@ -18,7 +18,9 @@ class Accounts2 extends Component {
             expenses: {},
             funds: {},
             slidesClasses: []
-        }
+        };
+
+        this.startSlideShow = this.startSlideShow.bind(this);
     }
 
 
@@ -26,13 +28,16 @@ class Accounts2 extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
 
         if (this.shouldUpdateStateFromProps(this.props, prevProps, this.state)) {
+            // 1. Clean up if needed
             this.cleanup();
 
+            // 2. Update State
             let enabledExpenses = filterEnabledItems(this.props.centralControl.expenses);
             let enabledFunds = filterEnabledItems(this.props.centralControl.funds);
 
             this.setState({expenses: enabledExpenses, funds: enabledFunds});
 
+            // 3. Create slide objects
             const defaultProps = {
                 style: {animationDuration: `${this.animationSeconds}s`}
             };
@@ -47,49 +52,35 @@ class Accounts2 extends Component {
                     {funds: enabledFunds, ...defaultProps});
             }
 
+            // 4. Set initial classes
             this.addShowHideInitialStyles(this.slides.length, this.state.slidesClasses);
 
+            // 5. Start Animation
+            if (this.slides.length > 1) {
+                this.animationInterval = setInterval(this.startSlideShow, this.animationStaySeconds * 1000);
+            }
         }
-
-
-
-        /*
-        ✅ Expense
-          check if props.expense != state.expense
-          state.expense = props.expenses
-
-
-        get all enabled
-        create component only if found
-        if component created then push it to slides []
-
-        Funds
-            same as Expenses
-
-        Create this.slideDiv[]
-
-        if slideDiv[] is empty show error message
-
-        Set state
-        this.state = {
-            slidesClasses: this.createDefaultSlideClasses(slideDiv.lenght)
-            currentSlide: 0
-        }
-
-            createDefaultSlideClasses()
-                will set Open style class in slidesClasses[0]
-                and will set Close style class in slidesClasses[0]
-
-
-        If slideDiv.lenght is > 1
-            Start animation by toggling open close style classes in this.state.slidesClasses
-
-        */
-
-
-
     }
 
+
+    startSlideShow() {
+        const totalSlides = this.slides.length;
+        const slidesClassesClone = this.state.slidesClasses.map(c => c);
+        slidesClassesClone[this.currentSlide] = styles.slideUp;
+        this.setState({slidesClasses: slidesClassesClone});
+
+        setTimeout(() => {
+            slidesClassesClone[this.currentSlide] = styles.slideDown;
+            this.setState({slidesClasses: slidesClassesClone});
+        }, this.animationSeconds * 1000);
+
+
+        // Increment current slide
+        this.currentSlide++;
+        if (this.currentSlide >= totalSlides) {
+            this.currentSlide = 0;
+        }
+    }
 
     shouldUpdateStateFromProps(currentProps, prevProps, state) {
         const currentExpense = currentProps.centralControl.expenses;
@@ -113,6 +104,7 @@ class Accounts2 extends Component {
     cleanup() {
         // TODO stop interval and maybe cleanup state.
         console.log("Cleaning up.");
+        clearInterval(this.animationInterval);
     }
 
 
