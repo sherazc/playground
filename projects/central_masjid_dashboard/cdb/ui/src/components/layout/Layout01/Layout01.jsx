@@ -31,7 +31,9 @@ class Layout01 extends Component {
                     justify="flex-start">
                     <div style={{width: "100%"}}>
                         <Header01/>
-                        {this.props.children}
+                        <div style={{padding: "25px"}}>
+                            {this.props.children}
+                        </div>
                         <Footer01/>
                     </div>
                 </Grid>
@@ -39,8 +41,6 @@ class Layout01 extends Component {
             </Grid>
         );
     }
-
-
 }
 
 

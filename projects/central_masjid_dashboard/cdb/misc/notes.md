@@ -229,6 +229,9 @@ Funds End date is one less showing on Dashboard
 Defect:
 Configuration save cancel buttons are not getting disabled
 
+Defect:
+Login -> click company link in header -> going to 404
+
 -----------------------------------
 ###Requirements
 
@@ -291,6 +294,8 @@ Make configurations to change labels
 
 Dashboard. Next Azan in time. Next Iqama in time.
 
+Add company website URL field in Company admin page and add link on the dashboard
+
 ✅️ Put Masjid Name on Dashboard
 
 Refresh dashboard if data version logic is not implemented
@@ -308,8 +313,6 @@ Any change to PrayerConfig, or Central control will up version number
 Make single function in CompanyDashboard that will make all the API calls. 
 This function will call APIs and update CompanyDashboard.state. 
 This function will be called on initial CompanyDashboard load and on refresh events. 
-
-
 
 Remove all references to /login nav link
 
@@ -351,28 +354,33 @@ Design password reset flow
 
 ###UI Design requirements
 
-Create home page Layout
+✅ Create home page Layout
 
-Create one layout for registration and admin views
+✅ Create one layout for registration and admin views
 
 ✅ Do some research on web for good Header, Footer designs
 
 ✅ Home page
 
-make dashboard select and login component  side by side
+✅ make dashboard select and login component  side by side
 
 ✅ Header and footer
 
-Rebranding, 
+✅ Rebranding, 
     ✅ icon, 
-    new website,
+    ✅ new website,
 
-Create material UI fields
- 
+▶️ Create material UI fields
+
     * input
     * date
     * time
 
+Create admin header mobile
+
+Remove Dependency on @material-ui/core/Grid
+
+Styles Layout01 using scss 
 
 ### Maintenance requirements
 
@@ -386,7 +394,7 @@ background Maintenance service
 -----------------------------------
 ###Tech Debt
 
-Refactor theme.scss
+✅ Refactor theme.scss
 
 improve logging in services
 

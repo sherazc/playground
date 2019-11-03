@@ -12,6 +12,7 @@ import {getReactRouterPathParamFromUrl} from "../../../services/utilities";
 import {Redirect} from "react-router";
 import {isAdminLogin} from "../../../services/auth/AuthNZ";
 import Layout01 from "../../layout/Layout01/Layout01";
+import InputText from "../../common/InputText/InputText";
 
 class AuthCompany extends Component {
 
@@ -100,6 +101,8 @@ class AuthCompany extends Component {
         return (
             <Layout01>
             <div>
+                <InputText />
+
                 <h3>Company {action}</h3>
                 {this.registrationForm(action)}
                 <hr/>
