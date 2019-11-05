@@ -101,8 +101,6 @@ class AuthCompany extends Component {
         return (
             <Layout01>
             <div>
-                <InputText label="test" mode={"view"}/>
-
                 <h3>Company {action}</h3>
                 {this.registrationForm(action)}
                 <hr/>
@@ -131,6 +129,11 @@ class AuthCompany extends Component {
                          alt="Company create update"/>
                 </div>
                 <form onSubmit={this.onSubmit}>
+                    <InputText
+                        label="Field Name"
+                        value="Field Value"
+                        mode={"view"}/>
+
                     <InputField
                         mode={action}
                         label="Company Name"

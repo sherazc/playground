@@ -6,32 +6,29 @@ import {
     TextField
 } from '@material-ui/core';
 
-
 export const MODE_VIEW = "view";
 export const MODE_EDIT = "edit";
 
-
 const InputText = (props) => {
-
-    return (
-        <div>
-            {viewOrEditField(props)}
-        </div>
-    );
-};
-
-
-const viewOrEditField = (props) => {
     const type = props.type ? props.type : "text";
     const value = props.value ? props.value : "";
-    const classView = props.classView ? props.classView : styles.classView;
-    const classInput = props.classInput ? props.classInput : styles.classInput;
-    const classTextField = props.classTextField ? props.classTextField : styles.classTextField;
 
     let field;
 
     if (MODE_VIEW === props.mode) {
-        return <span className={classView}>{type === "time" ? time24To12(props.value) : props.value}</span>;
+        if (props.label) {
+            field = (
+                <div className={styles.classViewContainer}>
+                    {props.label && <span className={styles.classViewLabel}>{props.label}</span>}
+                    <span
+                        className={styles.classViewValue}>{type === "time" ? time24To12(props.value) : props.value}</span>
+                </div>
+            );
+        } else {
+            field = (
+                <span className={styles.classViewValue}>{type === "time" ? time24To12(props.value) : props.value}</span>
+            );
+        }
     } else {
         const id = props.id ? props.id : props.name;
         field = (
@@ -43,10 +40,10 @@ const viewOrEditField = (props) => {
                 label={props.label}
                 placeholder={props.placeholder}
                 onChange={props.onChange}
-                className={classTextField}
-                inputProps={{className: classInput}}
+                className={styles.classInputContainer}
+                inputProps={{className: styles.classInputValue}}
                 required={props.required}
-            />);
+                helperText={props.help}/>);
     }
 
     return field;
@@ -56,7 +53,7 @@ const viewOrEditField = (props) => {
 InputText.propTypes = {
     id: PropTypes.string,
     name: PropTypes.string.isRequired,
-    value: PropTypes.string,
+    value: PropTypes.string.isRequired,
     type: PropTypes.string,
     mode: PropTypes.oneOf(['view', 'edit']),
     placeholder: PropTypes.string,
@@ -65,9 +62,7 @@ InputText.propTypes = {
     onChange: PropTypes.func,
     onBlur: PropTypes.func,
     required: PropTypes.bool,
-    classView: PropTypes.string,
-    classInput: PropTypes.string,
-    classTextField: PropTypes.string,
+    error: PropTypes.bool,
 };
 
 export default InputText;
