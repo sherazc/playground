@@ -101,7 +101,7 @@ class AuthCompany extends Component {
         return (
             <Layout01>
             <div>
-                <InputText />
+                <InputText label="test" mode={"view"}/>
 
                 <h3>Company {action}</h3>
                 {this.registrationForm(action)}
