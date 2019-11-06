@@ -131,7 +131,7 @@ class AuthCompany extends Component {
                 <form onSubmit={this.onSubmit}>
                     <InputText
                         value="Field Value"
-                        mode={"view"}/>
+                        mode={"view"} placeholder="abc" help="some help"/>
 
                     <InputText
                         label="Field Name"
@@ -141,7 +141,22 @@ class AuthCompany extends Component {
                     <InputText
                         label="Field Name"
                         value="Field Value"
-                        mode={"Edit"}/>
+                        mode={"edit"}/>
+
+                    <InputText
+                        label="Field Name"
+                        value="Field Value"
+                        mode={"view"} placeholder="abc" help="some help"/>
+
+                    <InputText
+                        label="Field Name"
+                        value="Field Value"
+                        mode={"Edit"} placeholder="abc" help="some help"/>
+
+                    <InputText
+                        label="Field Name"
+                        value="Field Value" error
+                        mode={"Edit"} placeholder="abc" help="some help"/>
 
                     <InputField
                         mode={action}

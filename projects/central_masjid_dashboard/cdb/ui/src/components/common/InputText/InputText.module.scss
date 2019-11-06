@@ -1,5 +1,7 @@
 @import "../../layout/theme";
 
+$fieldValueMinWidth: 300px;
+
 .classViewContainer {
   width: fit-content;
   height: fit-content;
@@ -13,29 +15,31 @@
   padding: 4px;
   border: 1px solid rgba(0, 0, 0, 0.05);
   border-bottom: 1px solid rgba(0, 0, 0, 0.30);
-  min-width: 200px;
+  min-width: $fieldValueMinWidth;
   font-size: larger;
 }
 
-.classViewLabel {
-  display: inline;
-  position: absolute;
-  margin-top: -20px;
-  margin-right: 10px;
-  font-weight: 400;
-  font-size: smaller;
+.label {
+  display: inline-block;
+  font-weight: 700;
   min-width: 100px;
   color: rgba(0, 0, 0, 0.6);
 }
 
+.help {
+  position: absolute;
+  margin-left: $fieldValueMinWidth * -1;
+  margin-top: 30px;
+  color: rgba(0, 0, 0, 0.4);
+}
+
 .classInputContainer {
-  margin-bottom: 20px !important;
+  margin-bottom: 25px !important;
   display: inline-block;
 
 }
 
 .classInputValue {
   display: inline-block;
-  min-width: 200px;
-  width: 200px;
+  min-width: $fieldValueMinWidth !important;
 }

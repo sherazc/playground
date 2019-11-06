@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styles from "./InputText.module.scss"
 import {time24To12} from "../../../services/utilities";
 import {
-    TextField
+    TextField, Input
 } from '@material-ui/core';
 
 export const MODE_VIEW = "view";
@@ -15,37 +15,44 @@ const InputText = (props) => {
 
     let field;
 
+    let label;
+    if (props.label) {
+        label = <span className={styles.label}>{props.label}</span>;
+    }
+
+    let help;
+    if (props.help) {
+        help = <span className={styles.help}>{props.help}</span>;
+    }
+
     if (MODE_VIEW === props.mode) {
-        if (props.label) {
-            field = (
-                <div className={styles.classViewContainer}>
-                    {props.label && <span className={styles.classViewLabel}>{props.label}</span>}
-                    <span
-                        className={styles.classViewValue}>{type === "time" ? time24To12(props.value) : props.value}</span>
-                </div>
-            );
-        } else {
-            field = (
-                <div className={styles.classViewContainer}>
-                    <span className={styles.classViewValue}>{type === "time" ? time24To12(props.value) : props.value}</span>
-                </div>
-            );
-        }
+
+        field = (
+            <div className={styles.classViewContainer}>
+                {label}
+                <span
+                    className={styles.classViewValue}>{type === "time" ? time24To12(props.value) : props.value}</span>
+                {help}
+            </div>
+        );
+
     } else {
         const id = props.id ? props.id : props.name;
         field = (
-            <TextField
-                id={id}
-                name={props.name}
-                value={value}
-                type={type}
-                label={props.label}
-                placeholder={props.placeholder}
-                onChange={props.onChange}
-                className={styles.classInputContainer}
-                inputProps={{className: styles.classInputValue}}
-                required={props.required}
-                helperText={props.help}/>);
+            <div className={styles.classInputContainer}>
+                {label}
+                <Input
+                    id={id}
+                    name={props.name}
+                    value={value}
+                    type={type}
+                    placeholder={props.placeholder}
+                    onChange={props.onChange}
+                    inputProps={{className: styles.classInputValue}}
+                    required={props.required}/>
+                {help}
+            </div>
+        );
     }
 
     return field;
