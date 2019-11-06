@@ -26,7 +26,9 @@ const InputText = (props) => {
             );
         } else {
             field = (
-                <span className={styles.classViewValue}>{type === "time" ? time24To12(props.value) : props.value}</span>
+                <div className={styles.classViewContainer}>
+                    <span className={styles.classViewValue}>{type === "time" ? time24To12(props.value) : props.value}</span>
+                </div>
             );
         }
     } else {
