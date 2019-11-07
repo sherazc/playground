@@ -1,6 +1,7 @@
 @import "../../layout/theme";
 
 $fieldValueMinWidth: 300px;
+$fieldLabelMinWidth: 150px;
 
 .classViewContainer {
   width: fit-content;
@@ -22,7 +23,7 @@ $fieldValueMinWidth: 300px;
 .label {
   display: inline-block;
   font-weight: 700;
-  min-width: 100px;
+  min-width: $fieldLabelMinWidth;
   color: rgba(0, 0, 0, 0.6);
 }
 
@@ -34,12 +35,14 @@ $fieldValueMinWidth: 300px;
 }
 
 .classInputContainer {
-  margin-bottom: 25px !important;
-  display: inline-block;
+  padding: 20px 0 !important;
+  display: block;
 
 }
 
 .classInputValue {
+  background-color: rgba(245, 245, 245, 0.40) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05)!important;
   display: inline-block;
   min-width: $fieldValueMinWidth !important;
 }

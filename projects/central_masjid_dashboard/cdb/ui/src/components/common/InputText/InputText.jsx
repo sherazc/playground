@@ -45,6 +45,7 @@ const InputText = (props) => {
                     id={id}
                     name={props.name}
                     value={value}
+                    error={props.error}
                     type={type}
                     placeholder={props.placeholder}
                     onChange={props.onChange}

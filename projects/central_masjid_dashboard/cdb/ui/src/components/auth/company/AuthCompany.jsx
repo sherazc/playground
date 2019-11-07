@@ -130,62 +130,35 @@ class AuthCompany extends Component {
                 </div>
                 <form onSubmit={this.onSubmit}>
                     <InputText
-                        value="Field Value"
-                        mode={"view"} placeholder="abc" help="some help"/>
-
-                    <InputText
-                        label="Field Name"
-                        value="Field Value"
-                        mode={"view"}/>
-
-                    <InputText
-                        label="Field Name"
-                        value="Field Value"
-                        mode={"edit"}/>
-
-                    <InputText
-                        label="Field Name"
-                        value="Field Value"
-                        mode={"view"} placeholder="abc" help="some help"/>
-
-                    <InputText
-                        label="Field Name"
-                        value="Field Value"
-                        mode={"Edit"} placeholder="abc" help="some help"/>
-
-                    <InputText
-                        label="Field Name"
-                        value="Field Value" error
-                        mode={"Edit"} placeholder="abc" help="some help"/>
-
-                    <InputField
                         mode={action}
                         label="Company Name"
                         name="name"
                         onChange={this.onChange}
                         required={true}
-                        fieldError={fieldErrors["company.name"]}
+                        error={fieldErrors["company.name"]}
+                        help={fieldErrors["company.name"]}
                         value={this.state.name}/>
 
-                    <InputField
+                    <InputText
                         mode={action}
                         label="URL"
                         name="url"
                         onChange={this.onChange}
                         required={true}
-                        fieldError={fieldErrors["company.url"]}
+                        error={fieldErrors["company.url"]}
+                        help={fieldErrors["company.url"]}
                         value={this.state.url}/>
 
-                    <InputField
+                    <InputText
                         mode={action}
                         label="Street"
                         name="addressStreet"
                         onChange={this.onChange}
                         required={true}
-                        fieldError={fieldErrors["company.address.street"]}
+                        help={fieldErrors["company.address.street"]}
                         value={this.state.addressStreet}/>
 
-                    <InputField
+                    <InputText
                         mode={action}
                         label="City"
                         name="addressCity"
@@ -203,7 +176,7 @@ class AuthCompany extends Component {
                         fieldError={fieldErrors["company.address.state"]}
                         onChange={this.onChange}/>
 
-                    <InputField
+                    <InputText
                         mode={action}
                         label="Zip"
                         name="addressZip"
@@ -212,12 +185,14 @@ class AuthCompany extends Component {
                         fieldError={fieldErrors["company.address.zip"]}
                         value={this.state.addressZip}/>
 
-                    {action !== MODE_VIEW &&
+                    <div>
+                        {action !== MODE_VIEW &&
                         <button type="submit">
                             {action === "create" && "Next"}
                             {action === "edit" && "Update"}
                         </button>
-                    }
+                        }
+                    </div>
                 </form>
             </div>
         );
