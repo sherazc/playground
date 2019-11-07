@@ -42,32 +42,14 @@ const SideLabelSelect = (props) => {
                 {label}
                 <Select
                     value={value}
-                    onChange={this.onSelectCompany}
+                    onChange={props.onSelect}
                     inputProps={{
                         name: props.name,
                         id: id
                     }}
                     className={styles.selectBox}>
-                    {companies.map((company, index) => {
-                        return (
-                            <MenuItem
-                                key={index} value={company.url}>
-                                {company.name}
-                            </MenuItem>
-                        );
-                    })}
+                    {props.children}
                 </Select>
-
-                <Input
-                    id={id}
-                    name={props.name}
-                    value={value}
-                    error={props.error}
-                    type={type}
-                    placeholder={props.placeholder}
-                    onChange={props.onChange}
-                    inputProps={{className: styles.classInputValue}}
-                    required={props.required}/>
                 {help}
             </div>
         );
@@ -87,6 +69,7 @@ SideLabelSelect.propTypes = {
     label: PropTypes.string,
     help: PropTypes.string,
     onChange: PropTypes.func,
+    onSelect: PropTypes.func,
     onBlur: PropTypes.func,
     required: PropTypes.bool,
     error: PropTypes.bool,

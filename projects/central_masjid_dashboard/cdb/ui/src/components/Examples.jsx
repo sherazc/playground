@@ -4,6 +4,7 @@ import {showAlert, ALERT_SUCCESS, ALERT_ERROR, ALERT_WARN} from "../store/common
 import {showLoading, hideLoading} from "../store/common/loading/actions";
 import AdminNavigation from "./common/navigation/AdminNavigation";
 import SideLabelInputText from "./common/SideLabelInputText/SideLabelInputText";
+import SideLabelSelect from "./common/SideLabelSelect/SideLabelSelect";
 
 class Examples extends Component {
 
@@ -47,6 +48,8 @@ class Examples extends Component {
                 <br/>
                 <button type="button" onClick={this.showHideLoading}>Show Loading</button>
                 <br/>
+                <SideLabelSelect name={"name"} value={"value"} mode={"edit"}/>
+
                 <br/>
                 <SideLabelInputText
                     value="Field Value"
