@@ -12,7 +12,7 @@ import {getReactRouterPathParamFromUrl} from "../../../services/utilities";
 import {Redirect} from "react-router";
 import {isAdminLogin} from "../../../services/auth/AuthNZ";
 import Layout01 from "../../layout/Layout01/Layout01";
-import InputText from "../../common/InputText/InputText";
+import SideLabelInputText from "../../common/SideLabelInputText/SideLabelInputText";
 
 class AuthCompany extends Component {
 
@@ -129,7 +129,7 @@ class AuthCompany extends Component {
                          alt="Company create update"/>
                 </div>
                 <form onSubmit={this.onSubmit}>
-                    <InputText
+                    <SideLabelInputText
                         mode={action}
                         label="Company Name"
                         name="name"
@@ -139,7 +139,7 @@ class AuthCompany extends Component {
                         help={fieldErrors["company.name"]}
                         value={this.state.name}/>
 
-                    <InputText
+                    <SideLabelInputText
                         mode={action}
                         label="URL"
                         name="url"
@@ -149,7 +149,7 @@ class AuthCompany extends Component {
                         help={fieldErrors["company.url"]}
                         value={this.state.url}/>
 
-                    <InputText
+                    <SideLabelInputText
                         mode={action}
                         label="Street"
                         name="addressStreet"
@@ -158,7 +158,7 @@ class AuthCompany extends Component {
                         help={fieldErrors["company.address.street"]}
                         value={this.state.addressStreet}/>
 
-                    <InputText
+                    <SideLabelInputText
                         mode={action}
                         label="City"
                         name="addressCity"
@@ -176,7 +176,7 @@ class AuthCompany extends Component {
                         fieldError={fieldErrors["company.address.state"]}
                         onChange={this.onChange}/>
 
-                    <InputText
+                    <SideLabelInputText
                         mode={action}
                         label="Zip"
                         name="addressZip"

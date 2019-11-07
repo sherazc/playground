@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from 'prop-types';
-import styles from "./InputText.module.scss"
+import styles from "./SideLabelInputText.module.scss"
 import {time24To12} from "../../../services/utilities";
 import {
     TextField, Input
@@ -9,7 +9,7 @@ import {
 export const MODE_VIEW = "view";
 export const MODE_EDIT = "edit";
 
-const InputText = (props) => {
+const SideLabelInputText = (props) => {
     const type = props.type ? props.type : "text";
     const value = props.value ? props.value : "";
 
@@ -60,7 +60,7 @@ const InputText = (props) => {
 };
 
 
-InputText.propTypes = {
+SideLabelInputText.propTypes = {
     id: PropTypes.string,
     name: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
@@ -75,4 +75,4 @@ InputText.propTypes = {
     error: PropTypes.bool,
 };
 
-export default InputText;
+export default SideLabelInputText;

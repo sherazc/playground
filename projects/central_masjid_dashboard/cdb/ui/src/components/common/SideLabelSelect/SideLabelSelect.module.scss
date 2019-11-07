@@ -1,0 +1,48 @@
+@import "../../layout/theme";
+
+$fieldValueMinWidth: 300px;
+$fieldLabelMinWidth: 150px;
+
+.classViewContainer {
+  width: fit-content;
+  height: fit-content;
+  padding: 20px 0 !important;
+}
+
+.classViewValue {
+  display: inline-block;
+  background-color: rgba(245, 245, 245, 0.40);
+  border-radius: 2px;
+  padding: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.30);
+  min-width: $fieldValueMinWidth;
+  font-size: larger;
+}
+
+.label {
+  display: inline-block;
+  font-weight: 700;
+  min-width: $fieldLabelMinWidth;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.help {
+  position: absolute;
+  margin-left: $fieldValueMinWidth * -1;
+  margin-top: 30px;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.classInputContainer {
+  padding: 20px 0 !important;
+  display: block;
+
+}
+
+.classInputValue {
+  background-color: rgba(245, 245, 245, 0.40) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05)!important;
+  display: inline-block;
+  min-width: $fieldValueMinWidth !important;
+}

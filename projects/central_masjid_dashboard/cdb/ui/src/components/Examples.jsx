@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {showAlert, ALERT_SUCCESS, ALERT_ERROR, ALERT_WARN} from "../store/common/alert/actions";
 import {showLoading, hideLoading} from "../store/common/loading/actions";
 import AdminNavigation from "./common/navigation/AdminNavigation";
-import InputText from "./common/InputText/InputText";
+import SideLabelInputText from "./common/SideLabelInputText/SideLabelInputText";
 
 class Examples extends Component {
 
@@ -48,31 +48,31 @@ class Examples extends Component {
                 <button type="button" onClick={this.showHideLoading}>Show Loading</button>
                 <br/>
                 <br/>
-                <InputText
+                <SideLabelInputText
                     value="Field Value"
                     mode={"view"} placeholder="abc" help="some help"/>
 
-                <InputText
+                <SideLabelInputText
                     label="Field Name"
                     value="Field Value"
                     mode={"view"}/>
 
-                <InputText
+                <SideLabelInputText
                     label="Field Name"
                     value="Field Value"
                     mode={"edit"}/>
 
-                <InputText
+                <SideLabelInputText
                     label="Field Name"
                     value="Field Value"
                     mode={"view"} placeholder="abc" help="some help"/>
 
-                <InputText
+                <SideLabelInputText
                     label="Field Name"
                     value="Field Value"
                     mode={"Edit"} placeholder="abc" help="some help"/>
 
-                <InputText
+                <SideLabelInputText
                     label="Field Name"
                     value="Field Value" error
                     mode={"Edit"} placeholder="abc" help="some help"/>
