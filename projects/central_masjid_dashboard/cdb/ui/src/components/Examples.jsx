@@ -5,6 +5,9 @@ import {showLoading, hideLoading} from "../store/common/loading/actions";
 import AdminNavigation from "./common/navigation/AdminNavigation";
 import SideLabelInputText from "./common/SideLabelInputText/SideLabelInputText";
 import SideLabelSelect from "./common/SideLabelSelect/SideLabelSelect";
+import {
+    MenuItem
+} from '@material-ui/core';
 
 class Examples extends Component {
 
@@ -48,7 +51,15 @@ class Examples extends Component {
                 <br/>
                 <button type="button" onClick={this.showHideLoading}>Show Loading</button>
                 <br/>
-                <SideLabelSelect name={"name"} value={"value"} mode={"edit"}/>
+                <SideLabelSelect
+                    name={"name"}
+                    label="Choose Select"
+                    value={"value1"}
+                    mode={"edit"}
+                    help={"Some select help"}>
+                    <MenuItem value="value1">Value 1</MenuItem>
+                    <MenuItem value="value2">Value 2</MenuItem>
+                </SideLabelSelect>
 
                 <br/>
                 <SideLabelInputText

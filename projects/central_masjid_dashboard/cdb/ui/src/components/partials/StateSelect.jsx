@@ -1,10 +1,27 @@
 import React from "react";
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
+import SideLabelSelect from "../common/SideLabelSelect/SideLabelSelect";
+import {
+    MenuItem
+} from '@material-ui/core';
+import SideLabelInputText from "../auth/company/AuthCompany";
 
 const StateSelect = (props) => {
     const buildStateOptions = (states) => {
         return states.map((stateObject, index) => {
             return (<option value={stateObject.abbreviation} key={index}>{stateObject.name}</option>);
+        })
+    };
+
+
+    const buildStateOptions2 = (states) => {
+        return states.map((stateObject, index) => {
+            return (
+                <MenuItem
+                    key={index} value={stateObject.abbreviation}>
+                    {stateObject.name}
+                </MenuItem>
+            );
         })
     };
 
@@ -32,21 +49,47 @@ const StateSelect = (props) => {
         }
     };
 
+    console.log(props.onChange);
+
     return (
         <div>
             <label htmlFor={props.name}>{props.label}</label>
             {viewOrEdit(props.mode)}
             {makeFieldError(props.fieldError)}
+
+            <SideLabelSelect
+                name={props.name}
+                value={props.selectedStateAbv}
+                label={props.label}
+                required={true}
+                error={props.help}
+                help={props.help}
+                onChange={props.onChange}>
+
+                {buildStateOptions2(states)}
+
+            </SideLabelSelect>
+
+
         </div>
     );
 };
 
 
 // TODO. Find out if propTypes is possible is stateless component
-StateSelect.prototypes = {
-    name: PropTypes.string,
-    selectedStateAbv: PropTypes.string,
-    onChange: PropTypes.fn
+StateSelect.propTypes = {
+    id: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+    type: PropTypes.string,
+    mode: PropTypes.oneOf(['view', 'edit']),
+    placeholder: PropTypes.string,
+    label: PropTypes.string,
+    help: PropTypes.string,
+    onChange: PropTypes.func,
+    onBlur: PropTypes.func,
+    required: PropTypes.bool,
+    error: PropTypes.bool,
 };
 
 const states = [

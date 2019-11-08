@@ -42,10 +42,11 @@ const SideLabelSelect = (props) => {
                 {label}
                 <Select
                     value={value}
-                    onChange={props.onSelect}
+                    onChange={props.onChange}
                     inputProps={{
                         name: props.name,
-                        id: id
+                        id: id,
+                        className: styles.classInputValue
                     }}
                     className={styles.selectBox}>
                     {props.children}

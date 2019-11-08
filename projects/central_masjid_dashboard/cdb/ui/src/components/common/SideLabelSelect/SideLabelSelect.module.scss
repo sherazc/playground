@@ -1,6 +1,6 @@
 @import "../../layout/theme";
 
-$fieldValueMinWidth: 300px;
+$fieldValueMinWidth: 275px;
 $fieldLabelMinWidth: 150px;
 
 .classViewContainer {
@@ -29,7 +29,7 @@ $fieldLabelMinWidth: 150px;
 
 .help {
   position: absolute;
-  margin-left: $fieldValueMinWidth * -1;
+  margin-left: $fieldValueMinWidth * -1 - 25;
   margin-top: 30px;
   color: rgba(0, 0, 0, 0.4);
 }
