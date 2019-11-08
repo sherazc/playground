@@ -4,17 +4,10 @@ import SideLabelSelect from "../common/SideLabelSelect/SideLabelSelect";
 import {
     MenuItem
 } from '@material-ui/core';
-import SideLabelInputText from "../auth/company/AuthCompany";
 
 const StateSelect = (props) => {
+
     const buildStateOptions = (states) => {
-        return states.map((stateObject, index) => {
-            return (<option value={stateObject.abbreviation} key={index}>{stateObject.name}</option>);
-        })
-    };
-
-
-    const buildStateOptions2 = (states) => {
         return states.map((stateObject, index) => {
             return (
                 <MenuItem
@@ -25,38 +18,8 @@ const StateSelect = (props) => {
         })
     };
 
-    const makeFieldError = (fieldError) => {
-        if (fieldError && fieldError.length > 0) {
-            return (
-                <div style={{color: "red"}}>
-                    {fieldError}
-                </div>
-            );
-        }
-    };
-
-    const viewOrEdit = mode => {
-        if ("edit" === mode || "create" === mode) {
-            return <select
-                id={props.name}
-                name={props.name}
-                value={props.selectedStateAbv}
-                onChange={props.onChange}>
-                {buildStateOptions(states)}
-            </select>
-        } else {
-            return <>{props.selectedStateAbv}</>
-        }
-    };
-
-    console.log(props.onChange);
-
     return (
         <div>
-            <label htmlFor={props.name}>{props.label}</label>
-            {viewOrEdit(props.mode)}
-            {makeFieldError(props.fieldError)}
-
             <SideLabelSelect
                 name={props.name}
                 value={props.selectedStateAbv}
@@ -66,17 +29,14 @@ const StateSelect = (props) => {
                 help={props.help}
                 onChange={props.onChange}>
 
-                {buildStateOptions2(states)}
+                {buildStateOptions(states)}
 
             </SideLabelSelect>
-
-
         </div>
     );
 };
 
 
-// TODO. Find out if propTypes is possible is stateless component
 StateSelect.propTypes = {
     id: PropTypes.string,
     name: PropTypes.string.isRequired,
