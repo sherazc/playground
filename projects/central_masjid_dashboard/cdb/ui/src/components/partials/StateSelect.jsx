@@ -24,7 +24,7 @@ const StateSelect = (props) => {
                 name={props.name}
                 value={props.selectedStateAbv}
                 label={props.label}
-                required={true}
+                required={props.required}
                 error={props.help}
                 help={props.help}
                 onChange={props.onChange}>
@@ -40,7 +40,7 @@ const StateSelect = (props) => {
 StateSelect.propTypes = {
     id: PropTypes.string,
     name: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
+    selectedStateAbv: PropTypes.string.isRequired,
     type: PropTypes.string,
     mode: PropTypes.oneOf(['view', 'edit']),
     placeholder: PropTypes.string,

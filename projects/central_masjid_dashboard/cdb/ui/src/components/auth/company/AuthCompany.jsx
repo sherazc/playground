@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import StateSelect from "../../partials/StateSelect";
-import InputField, {MODE_EDIT, MODE_VIEW} from "../../partials/InputField";
+import {MODE_EDIT, MODE_VIEW} from "../../partials/InputField";
 import {
     createCompanyAction,
     prepareCompanyToCreate,
@@ -121,6 +121,7 @@ class AuthCompany extends Component {
     }
 
     registrationForm(action) {
+        const actionViewOrEdit = action === MODE_VIEW ? MODE_VIEW : MODE_EDIT;
         const fieldErrors = this.props.companyServiceResponse.fieldErrors;
         return (
             <div>
@@ -130,7 +131,7 @@ class AuthCompany extends Component {
                 </div>
                 <form onSubmit={this.onSubmit}>
                     <SideLabelInputText
-                        mode={action}
+                        mode={actionViewOrEdit}
                         label="Company Name"
                         name="name"
                         onChange={this.onChange}
@@ -140,7 +141,7 @@ class AuthCompany extends Component {
                         value={this.state.name}/>
 
                     <SideLabelInputText
-                        mode={action}
+                        mode={actionViewOrEdit}
                         label="URL"
                         name="url"
                         onChange={this.onChange}
@@ -150,39 +151,43 @@ class AuthCompany extends Component {
                         value={this.state.url}/>
 
                     <SideLabelInputText
-                        mode={action}
+                        mode={actionViewOrEdit}
                         label="Street"
                         name="addressStreet"
                         onChange={this.onChange}
                         required={true}
+                        error={fieldErrors["company.address.street"]}
                         help={fieldErrors["company.address.street"]}
                         value={this.state.addressStreet}/>
 
                     <SideLabelInputText
-                        mode={action}
+                        mode={actionViewOrEdit}
                         label="City"
                         name="addressCity"
                         onChange={this.onChange}
                         required={true}
-                        fieldError={fieldErrors["company.address.city"]}
+                        error={fieldErrors["company.address.city"]}
+                        help={fieldErrors["company.address.city"]}
                         value={this.state.addressCity}/>
 
                     <StateSelect
-                        mode={action}
+                        mode={actionViewOrEdit}
                         label="State"
                         selectedStateAbv={this.state.addressState}
                         name="addressState"
                         required={true}
-                        fieldError={fieldErrors["company.address.state"]}
+                        error={fieldErrors["company.address.state"]}
+                        help={fieldErrors["company.address.state"]}
                         onChange={this.onChange}/>
 
                     <SideLabelInputText
-                        mode={action}
+                        mode={actionViewOrEdit}
                         label="Zip"
                         name="addressZip"
                         onChange={this.onChange}
                         required={true}
-                        fieldError={fieldErrors["company.address.zip"]}
+                        error={fieldErrors["company.address.zip"]}
+                        help={fieldErrors["company.address.zip"]}
                         value={this.state.addressZip}/>
 
                     <div>

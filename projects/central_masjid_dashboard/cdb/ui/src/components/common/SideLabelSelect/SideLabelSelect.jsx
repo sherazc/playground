@@ -1,15 +1,14 @@
-import React, {Component} from "react";
+import React from "react";
 import PropTypes from 'prop-types';
 import styles from "./SideLabelSelect.module.scss"
 import {
-    TextField, Input, MenuItem, Select
+    Select
 } from '@material-ui/core';
 
 export const MODE_VIEW = "view";
 export const MODE_EDIT = "edit";
 
 const SideLabelSelect = (props) => {
-    const type = props.type ? props.type : "text";
     const value = props.value ? props.value : "";
 
     let field;

@@ -1,9 +1,9 @@
-import React, {Component} from "react";
+import React from "react";
 import PropTypes from 'prop-types';
 import styles from "./SideLabelInputText.module.scss"
 import {time24To12} from "../../../services/utilities";
 import {
-    TextField, Input
+    Input
 } from '@material-ui/core';
 
 export const MODE_VIEW = "view";
