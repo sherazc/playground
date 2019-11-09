@@ -13,6 +13,7 @@ import styles from "./Login.module.scss";
 import {getQueryParam} from "../../../services/utilities";
 
 const baseLinkUrl = process.env.PUBLIC_URL;
+const ADMIN_LOGIN_PARAM_NAME = "admin";
 
 class Login extends Component {
 
@@ -22,7 +23,7 @@ class Login extends Component {
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onSelectCompany = this.onSelectCompany.bind(this);
-        this.adminLogin = getQueryParam("admin");
+        this.adminLogin = getQueryParam(ADMIN_LOGIN_PARAM_NAME);
     }
 
     createInitialState() {
