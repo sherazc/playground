@@ -157,3 +157,11 @@ export const lineFeedToBr = (str) => {
         return <span key={index}>{item}<br/></span>;
     });
 };
+
+export const isBlank = (str) => {
+    return str === undefined || str === null || str.trim().length === 0;
+};
+
+export const isNotBlank = (str) => {
+    return str !== undefined && str !== null && str.trim().length > 0;
+};

@@ -2,17 +2,23 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import StateSelect from "../../partials/StateSelect";
 import {MODE_EDIT, MODE_VIEW} from "../../partials/InputField";
+import {NavLink} from "react-router-dom";
 import {
     createCompanyAction,
     prepareCompanyToCreate,
     updateCompanyAction
 } from "../../../store/register-company/actions";
-import {NavLink} from "react-router-dom";
-import {getReactRouterPathParamFromUrl} from "../../../services/utilities";
+import {
+    getReactRouterPathParamFromUrl,
+    isNotBlank
+} from "../../../services/utilities";
 import {Redirect} from "react-router";
 import {isAdminLogin} from "../../../services/auth/AuthNZ";
 import Layout01 from "../../layout/Layout01/Layout01";
 import SideLabelInputText from "../../common/SideLabelInputText/SideLabelInputText";
+import {
+    Button
+} from '@material-ui/core';
 
 class AuthCompany extends Component {
 
@@ -100,9 +106,10 @@ class AuthCompany extends Component {
         const action = getReactRouterPathParamFromUrl(this.props, "action");
         return (
             <Layout01>
-            <div>
-                <h3>Company {action}</h3>
-                {this.registrationForm(action)}
+                <div>
+                    <h3>Company {action}</h3>
+                    {this.registrationForm(action)}
+                </div>
                 <hr/>
                 <NavLink to={`${process.env.PUBLIC_URL}/auth/company/view`}>
                     View Company
@@ -115,7 +122,6 @@ class AuthCompany extends Component {
                 <NavLink to={`${process.env.PUBLIC_URL}/auth/company/list`}>
                     Company List
                 </NavLink>
-            </div>
             </Layout01>
         );
     }
@@ -136,7 +142,7 @@ class AuthCompany extends Component {
                         name="name"
                         onChange={this.onChange}
                         required={true}
-                        error={fieldErrors["company.name"]}
+                        error={isNotBlank(fieldErrors["company.name"])}
                         help={fieldErrors["company.name"]}
                         value={this.state.name}/>
 
@@ -146,7 +152,7 @@ class AuthCompany extends Component {
                         name="url"
                         onChange={this.onChange}
                         required={true}
-                        error={fieldErrors["company.url"]}
+                        error={isNotBlank(fieldErrors["company.url"])}
                         help={fieldErrors["company.url"]}
                         value={this.state.url}/>
 
@@ -156,7 +162,7 @@ class AuthCompany extends Component {
                         name="addressStreet"
                         onChange={this.onChange}
                         required={true}
-                        error={fieldErrors["company.address.street"]}
+                        error={isNotBlank(fieldErrors["company.address.street"])}
                         help={fieldErrors["company.address.street"]}
                         value={this.state.addressStreet}/>
 
@@ -166,7 +172,7 @@ class AuthCompany extends Component {
                         name="addressCity"
                         onChange={this.onChange}
                         required={true}
-                        error={fieldErrors["company.address.city"]}
+                        error={isNotBlank(fieldErrors["company.address.city"])}
                         help={fieldErrors["company.address.city"]}
                         value={this.state.addressCity}/>
 
@@ -176,7 +182,7 @@ class AuthCompany extends Component {
                         selectedStateAbv={this.state.addressState}
                         name="addressState"
                         required={true}
-                        error={fieldErrors["company.address.state"]}
+                        error={isNotBlank(fieldErrors["company.address.state"])}
                         help={fieldErrors["company.address.state"]}
                         onChange={this.onChange}/>
 
@@ -186,16 +192,22 @@ class AuthCompany extends Component {
                         name="addressZip"
                         onChange={this.onChange}
                         required={true}
-                        error={fieldErrors["company.address.zip"]}
+                        error={isNotBlank(fieldErrors["company.address.zip"])}
                         help={fieldErrors["company.address.zip"]}
                         value={this.state.addressZip}/>
 
                     <div>
                         {action !== MODE_VIEW &&
+                        /*
                         <button type="submit">
                             {action === "create" && "Next"}
                             {action === "edit" && "Update"}
                         </button>
+                        */
+                            <Button variant="outlined" color="primary" type="submit">
+                                {action === "create" && "Next"}
+                                {action === "edit" && "Update"}
+                            </Button>
                         }
                     </div>
                 </form>

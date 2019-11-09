@@ -20,7 +20,7 @@ class RegisterFinish extends Component {
                     , and added <b>{finishRegister.email}</b> as it's admin user.
                 </p>
                 <p>
-                    <NavLink to={`${process.env.PUBLIC_URL}/login`}>
+                    <NavLink to={`${process.env.PUBLIC_URL}/`}>
                         Login
                     </NavLink>
                 </p>

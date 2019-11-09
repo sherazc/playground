@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import InputField, {MODE_EDIT, MODE_VIEW} from "../../../partials/InputField";
+import {MODE_EDIT, MODE_VIEW} from "../../../partials/InputField";
 import {
     createCompanyUserAction,
     updateCompanyUserAction
@@ -8,10 +8,15 @@ import {
 
 import {NavLink} from "react-router-dom";
 import {Redirect} from "react-router";
-import {getReactRouterPathParamFromUrl} from "../../../../services/utilities";
+import {getReactRouterPathParamFromUrl, isNotBlank} from "../../../../services/utilities";
 import {isAdminLogin, isAuthPresent, isMyProfile, isSuperAdminLogin} from "../../../../services/auth/AuthNZ";
 import UpdateCredentials from "./UpdateCredentials";
 import Layout01 from "../../../layout/Layout01/Layout01";
+import {
+    Button
+} from '@material-ui/core';
+import SideLabelInputText from "../../../common/SideLabelInputText/SideLabelInputText";
+
 
 class AuthCompanyUser extends Component {
 
@@ -160,53 +165,57 @@ class AuthCompanyUser extends Component {
 
     registrationForm(action, loginInCompany) {
         const fieldErrors = this.props.companyUserServiceResponse.fieldErrors;
-        const mode = action === "profile" || action === MODE_VIEW ? MODE_VIEW : "";
+        const mode = action === "profile" || action === MODE_VIEW ? MODE_VIEW : MODE_EDIT;
         return (
             <div>
                 <div>
                     <img src={`${process.env.PUBLIC_URL}/images/user_create_update.svg`} alt="User create update"/>
                 </div>
                 <form onSubmit={this.onSubmit}>
-                    <InputField
+                    <SideLabelInputText
                         mode={mode}
                         label="First Name"
                         name="firstName"
                         onChange={this.onChange}
                         required={true}
-                        fieldError={fieldErrors["user.firstName"]}
+                        error={isNotBlank(fieldErrors["user.firstName"])}
+                        help={fieldErrors["user.firstName"]}
                         value={this.state.firstName}/>
-                    <InputField
+                    <SideLabelInputText
                         mode={mode}
                         label="Last Name"
                         name="lastName"
                         onChange={this.onChange}
                         required={true}
-                        fieldError={fieldErrors["user.lastName"]}
+                        error={isNotBlank(fieldErrors["user.lastName"])}
+                        help={fieldErrors["user.lastName"]}
                         value={this.state.lastName}/>
-                    <InputField
+                    <SideLabelInputText
                         mode={mode}
                         label="Email"
                         type="email"
                         name="email"
                         onChange={this.onChange}
                         required={true}
-                        fieldError={fieldErrors["user.email"]}
+                        error={isNotBlank(fieldErrors["user.email"])}
+                        help={fieldErrors["user.email"]}
                         value={this.state.email}/>
 
                     {action === "create" &&
-                    <InputField
+                    <SideLabelInputText
                         mode={mode}
                         label="Password"
                         name="password"
                         onChange={this.onChange}
                         required={true}
-                        fieldError={fieldErrors["user.password"]}
+                        error={isNotBlank(fieldErrors["user.password"])}
+                        help={fieldErrors["user.password"]}
                         value={this.state.password}/>
                     }
                     {mode !== MODE_VIEW &&
-                    <button type="submit">
+                    <Button variant="outlined" color="primary" type="submit">
                         {loginInCompany.id ? "Save" : "Next"}
-                    </button>
+                    </Button>
                     }
                 </form>
 
