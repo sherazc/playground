@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core';
 
 import styles from "./Login.module.scss";
+import {getQueryParam} from "../../../services/utilities";
 
 const baseLinkUrl = process.env.PUBLIC_URL;
 
@@ -21,6 +22,7 @@ class Login extends Component {
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onSelectCompany = this.onSelectCompany.bind(this);
+        this.adminLogin = getQueryParam("admin");
     }
 
     createInitialState() {
@@ -70,6 +72,7 @@ class Login extends Component {
                 {this.props.login.token}
                 {this.loginFailedMessage()}
                 <form onSubmit={this.onSubmit}>
+                    {this.adminLogin &&
                     <FormControl
                         className={styles.vMargin3}
                         style={{display: "block"}}>
@@ -95,6 +98,7 @@ class Login extends Component {
                             })}
                         </Select>
                     </FormControl>
+                    }
                     <TextField
                         style={{display: "block"}}
                         className={styles.vMargin3}
