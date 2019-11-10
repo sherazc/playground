@@ -293,9 +293,9 @@ GET http://localhost:8085/api/companies/url/c3/central-control
 
 ✅ Dashboard. Next Azan in time. Next Iqama in time.
 
-▶️ Add company website URL field in Company admin page and add link on the dashboard
+✅ Add company website URL field in Company admin page and add link on the dashboard
 
-Make help note dashboard URL. 
+▶️ Make help note dashboard URL. 
 
 Validate dashboard URL 
 

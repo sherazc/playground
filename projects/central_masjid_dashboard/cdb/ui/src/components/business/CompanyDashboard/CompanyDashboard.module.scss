@@ -68,7 +68,6 @@
     }
 }
 
-
 .companyName {
     color: $colorTextLight;
     font-size: 2vw;
@@ -80,6 +79,11 @@
         font-size: 5vw;
         margin-top: 5vw;
     }
+}
+
+.companyName a {
+    color: $colorTextLight;
+    text-decoration: none;
 }
 
 .settings {

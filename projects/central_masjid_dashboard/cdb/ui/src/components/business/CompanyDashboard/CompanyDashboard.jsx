@@ -65,6 +65,8 @@ class CompanyDashboard extends Component {
         const xsBreakPoint = 12;
         const smBreakPoint = 12;
         const mdBreakPoint = 4;
+        const company = this.state.centralControl.company;
+        const website = company && company.website ? company.website : "";
         let clockType = getConfigValue("clock_type", this.state.companyConfigurations, "1");
         return (
             <Grid container justify="center"
@@ -84,7 +86,9 @@ class CompanyDashboard extends Component {
                     </div>
 
                     <div className={styles.companyName}>
+                        <a href={website}>
                         {this.getCompanyName(this.state.centralControl)}
+                        </a>
                     </div>
 
                     <div className={styles.sideBoxLeft}
