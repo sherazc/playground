@@ -65,7 +65,7 @@ class Dst extends Component {
     }
 
     isValidDateMonth(monthDate) {
-        if(!monthDate || monthDate.length < 1) {
+        if (!monthDate || monthDate.length < 1) {
             return true;
         } else {
             return MONTH_DATE_REGEX.test(monthDate);
@@ -86,6 +86,14 @@ class Dst extends Component {
                         <span style={{fontWeight: "bold"}}>End </span>
                         {DST_RULE_END}
                     </div>
+                    <div>
+                        <a style={{color: "gray", fontStyle: "italic", fontSize: "small"}}
+                           href="https://www.nist.gov/pml/time-and-frequency-division/popular-links/daylight-saving-time-dst"
+                           target="_blank">
+                            https://www.nist.gov/
+                        </a>
+                    </div>
+
                 </>
             );
         } else {
