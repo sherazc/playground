@@ -89,7 +89,7 @@ class Dst extends Component {
                     <div>
                         <a style={{color: "gray", fontStyle: "italic", fontSize: "small"}}
                            href="https://www.nist.gov/pml/time-and-frequency-division/popular-links/daylight-saving-time-dst"
-                           target="_blank">
+                           target="_blank" rel="noopener noreferrer">
                             https://www.nist.gov/
                         </a>
                     </div>

@@ -28,6 +28,8 @@ public class Company extends BaseModel {
     private String name;
     @NotBlank
     private String url;
+    @NotBlank
+    private String website;
     @Valid
     private Address address;
     private Boolean active;

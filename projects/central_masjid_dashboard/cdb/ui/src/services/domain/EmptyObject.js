@@ -18,6 +18,7 @@ export const createEmptyCompany = () => {
         "id": null,
         "name": "",
         "url": "",
+        "website": "",
         "address": {
             "street": "",
             "city": "",

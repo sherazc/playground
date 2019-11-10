@@ -3,13 +3,14 @@
     "_id": {
       "$oid": "5da2632ef2a2337a5fd916d3"
     },
-    "name": "Company Name 1",
-    "url": "c1",
+    "name": "Hamzah Islamic Center",
+    "url": "mh",
+    "website": "http://www.masjidhamzah.com",
     "address": {
-      "street": "123 St",
-      "city": "City",
+      "street": "665 Tidwell Rd",
+      "city": "Alpharetta",
       "state": "GA",
-      "zip": "12345",
+      "zip": "30004",
       "longitude": "1.1",
       "latitude": "2.2"
     },
@@ -23,13 +24,14 @@
     "_id": {
       "$oid": "5da272f6f54ab6c94a693edf"
     },
-    "name": "Company Name 2",
-    "url": "c2",
+    "name": "Islimic Center Of North Fulton",
+    "url": "icnf",
+    "website": "http://icnf.org/",
     "address": {
-      "street": "123 St",
-      "city": "City",
+      "street": "1265 Rucker Rd",
+      "city": "Alpharetta",
       "state": "GA",
-      "zip": "12345",
+      "zip": "30009",
       "longitude": "1.1",
       "latitude": "2.2"
     },

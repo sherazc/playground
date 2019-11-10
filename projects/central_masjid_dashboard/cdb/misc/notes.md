@@ -232,6 +232,9 @@ Configuration save cancel buttons are not getting disabled
 Defect:
 Login -> click company link in header -> going to 404
 
+Defect: 
+US States select on company register page should be a required field 
+
 -----------------------------------
 ###Requirements
 
@@ -270,12 +273,6 @@ GET http://localhost:8085/api/companies/url/c3/central-control
 
 ✅ Pass company urls in Login component from home component and load company select box from the props
 
-Create my own SVG image component. Component.
-I will use this for. This component should take in 
-SVG URL and add className on it on it. 
-
-Make configurations to change labels
-
 ✅️ In DST On auto calculate On remove date input fields and show DST rules message
 
 ✅️ If no funds then remove funds slide
@@ -292,11 +289,43 @@ Make configurations to change labels
 
 ✅️ Change browser icon
 
-Dashboard. Next Azan in time. Next Iqama in time.
-
-Add company website URL field in Company admin page and add link on the dashboard
-
 ✅️ Put Masjid Name on Dashboard
+
+✅ Dashboard. Next Azan in time. Next Iqama in time.
+
+▶️ Add company website URL field in Company admin page and add link on the dashboard
+
+Make help note dashboard URL. 
+
+Validate dashboard URL 
+
+Create wigits tab
+
+Revisit update company and user flow
+    
+    udpate company is not working
+
+    show edit company link only on view company page
+    
+    show edit user link only on view user page
+    
+Revisit roles and permission
+    
+    set admin role in register company user components instead of EmptyObject.js
+
+Make donation link
+
+Make dashboard wigit script
+
+Blink next iqama time
+
+company address should be populated in reset prayer modal
+
+Create my own SVG image component. Component.
+I will use this for. This component should take in 
+SVG URL and add className on it on it. 
+
+Make configurations to change labels
 
 Refresh dashboard if data version logic is not implemented
 
@@ -352,6 +381,9 @@ Remove masjid select on signin. Design some sort of super admin login where masj
 
 Design password reset flow
 
+Delete company should delete company Users, centralControl, prayerConfig, and Company
+ 
+
 ###UI Design requirements
 
 ✅ Create home page Layout
@@ -370,11 +402,13 @@ Design password reset flow
     ✅ icon, 
     ✅ new website,
 
-▶️ Create material UI fields
+✅️ Create material UI fields
 
     * input
     * date
     * time
+
+Create company Register, user register and registration finish page header image and title 
 
 Create admin header mobile
 

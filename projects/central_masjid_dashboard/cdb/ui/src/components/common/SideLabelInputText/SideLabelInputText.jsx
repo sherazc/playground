@@ -46,6 +46,7 @@ const SideLabelInputText = (props) => {
                     name={props.name}
                     value={value}
                     error={props.error}
+                    style={props.style}
                     type={type}
                     placeholder={props.placeholder}
                     onChange={props.onChange}
@@ -68,7 +69,7 @@ SideLabelInputText.propTypes = {
     mode: PropTypes.oneOf(['view', 'edit']),
     placeholder: PropTypes.string,
     label: PropTypes.string,
-    help: PropTypes.string,
+    help: PropTypes.object,
     onChange: PropTypes.func,
     onBlur: PropTypes.func,
     required: PropTypes.bool,

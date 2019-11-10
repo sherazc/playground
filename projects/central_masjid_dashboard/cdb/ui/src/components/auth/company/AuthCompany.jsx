@@ -48,6 +48,7 @@ class AuthCompany extends Component {
         const saveCompany = {
             name: this.state.name,
             url: this.state.url,
+            website: this.state.website,
             address: {
                 street: this.state.addressStreet,
                 city: this.state.addressCity,
@@ -74,6 +75,7 @@ class AuthCompany extends Component {
                 id: company.id,
                 name: company.name,
                 url: company.url,
+                website: company.website,
                 addressStreet: company.address.street,
                 addressCity: company.address.city,
                 addressState: company.address.state,
@@ -129,6 +131,7 @@ class AuthCompany extends Component {
     registrationForm(action) {
         const actionViewOrEdit = action === MODE_VIEW ? MODE_VIEW : MODE_EDIT;
         const fieldErrors = this.props.companyServiceResponse.fieldErrors;
+
         return (
             <div>
                 <div>
@@ -150,11 +153,22 @@ class AuthCompany extends Component {
                         mode={actionViewOrEdit}
                         label="URL"
                         name="url"
+                        style={{marginBottom: "50px"}}
                         onChange={this.onChange}
                         required={true}
                         error={isNotBlank(fieldErrors["company.url"])}
-                        help={fieldErrors["company.url"]}
+                        help={<span>test<br/>test</span>}
                         value={this.state.url}/>
+
+                    <SideLabelInputText
+                        mode={actionViewOrEdit}
+                        label="Website"
+                        name="website"
+                        onChange={this.onChange}
+                        required={true}
+                        error={isNotBlank(fieldErrors["company.website"])}
+                        help={fieldErrors["company.website"]}
+                        value={this.state.website}/>
 
                     <SideLabelInputText
                         mode={actionViewOrEdit}
