@@ -4,12 +4,15 @@
 npm install npm -g
 npm install yarn -g
 
-
-# Build ROD Widget
+# Build rod-widget
 cd widgets/rod-widget
 yarn install
 yarn build
 
+# Build prayer-time-widget
+cd ../rod-widget
+yarn install
+yarn build
 
 # Build UI
 cd ../../ui
