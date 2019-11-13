@@ -6,13 +6,13 @@ npm install yarn -g
 
 
 # Build ROD Widget
-cd rod-widget
+cd widgets/rod-widget
 yarn install
 yarn build
 
 
 # Build UI
-cd ../ui
+cd ../../ui
 rm -rf build
 yarn install
 yarn build
