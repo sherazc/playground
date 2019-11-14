@@ -10,7 +10,7 @@ yarn install
 yarn build
 
 # Build prayer-time-widget
-cd ../rod-widget
+cd ../prayer-time-widget
 yarn install
 yarn build
 
