@@ -1,14 +1,8 @@
 import {
     createRandomFunctionName,
-    createScriptElement,
     jsonpMain
 } from "../../commonJsonpService"
 import "./app.css";
-
-// ############# Custom
-// Create Random callback name
-const jsonpFunctionName = createRandomFunctionName();
-const jsonpScriptSrc = `${ptServerUrl}/api/rod?cb=${jsonpFunctionName}`;
 
 const addArabicFontStyle = () => {
     const arabicFontStyle = "arabicFontStyle";
@@ -48,28 +42,23 @@ const buildWidgetHTML = (reminderDetail) => {
     let suraDescription = reminderDetail.suraDescription;
     let suraNameEnglish = reminderDetail.suraNameEnglish;
 
-    /*
-    let resultHtml = "<table id='reminder_table' border='0'>";
-    resultHtml += "";
-*/
     let resultHtml = `
         <table id='reminder_table' border='0'>
         <tr><td>&nbsp;</td><td class='bismillah'>بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</td></tr>
     `;
 
-
     for (let i = 0; i < ayas.length; i++) {
-        resultHtml += "<tr><td class='ayaNumber'>(";
-        resultHtml += ayas[i].ayaNumber;
-        resultHtml += ")</td><td class='ayaArabic'>";
-        resultHtml += ayas[i].lineString;
-        resultHtml += "</td></tr>";
-
-        resultHtml += "<tr><td>&nbsp;</td><td class='ayaTranslation'>";
-        resultHtml += translations[i].lineString;
-        resultHtml += "</td></tr>";
+        resultHtml = `${resultHtml}
+        <tr>
+            <td class='ayaNumber'>(${ayas[i].ayaNumber})</td>
+            <td class='ayaArabic'>${ayas[i].lineString}</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td class='ayaTranslation'>${translations[i].lineString}</td>
+        </tr>
+        `;
     }
-
 
     resultHtml = `${resultHtml}
     <tr>
@@ -91,10 +80,14 @@ const buildWidgetHTML = (reminderDetail) => {
     return resultHtml;
 };
 
-const ptCallback = (reminderDetails) => {
-    const rodAppDiv = document.getElementById(window[`${appNamePrefix}AppDivId`]);
-    rodAppDiv.innerHTML = buildWidgetHTML(reminderDetails);
+const callback = (jsonResponse) => {
+    const appDiv = document.getElementById(window[`${appNamePrefix}AppDivId`]);
+    appDiv.innerHTML = buildWidgetHTML(jsonResponse);
 };
 
+// Random callback name
+const jsonpFunctionName = createRandomFunctionName();
+const jsonpScriptSrc = `${ptServerUrl}/api/rod?cb=${jsonpFunctionName}`;
+
 addArabicFontStyle();
-jsonpMain(ptCallback, jsonpFunctionName, jsonpScriptSrc);
+jsonpMain(callback, jsonpFunctionName, jsonpScriptSrc);

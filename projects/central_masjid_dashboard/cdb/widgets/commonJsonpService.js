@@ -3,7 +3,7 @@ export const createRandomFunctionName = () => {
     return `cb_${randomNumber}`;
 };
 
-export const createScriptElement = (scriptId, scriptSrc) => {
+const createScriptElement = (scriptId, scriptSrc) => {
     const scriptElement = document.createElement("script");
     scriptElement.src = scriptSrc;
     scriptElement.id = scriptId;
