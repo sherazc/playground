@@ -1,61 +1,14 @@
+import {
+    createRandomFunctionName,
+    createScriptElement,
+    jsonpMain
+} from "../../commonJsonpService"
 import "./app.css";
 
-const buildReminderWidgetContainerHTML = (reminderDetail) => {
-    let ayas = reminderDetail.ayaDetail.ayas;
-    let translations = reminderDetail.ayaDetail.translations;
-
-    let translationName = reminderDetail.translationName;
-    let suraNumber = reminderDetail.suraNumber;
-    let suraNameArabic = reminderDetail.suraNameArabic;
-    let suraDescription = reminderDetail.suraDescription;
-    let suraNameEnglish = reminderDetail.suraNameEnglish;
-
-    let resultHtml = "<table id='reminder_table' border='0'>";
-    resultHtml += "<tr><td>&nbsp;</td><td class='bismillah'>            بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</td></tr>";
-
-    for (let i = 0; i < ayas.length; i++) {
-        resultHtml += "<tr><td class='ayaNumber'>(";
-        resultHtml += ayas[i].ayaNumber;
-        resultHtml += ")</td><td class='ayaArabic'>";
-        resultHtml += ayas[i].lineString;
-        resultHtml += "</td></tr>";
-
-        resultHtml += "<tr><td>&nbsp;</td><td class='ayaTranslation'>";
-        resultHtml += translations[i].lineString;
-        resultHtml += "</td></tr>";
-    }
-
-    resultHtml += "<tr><td>&nbsp;</td><td>";
-    resultHtml += "<span class='surahTitleDescription'>";
-    resultHtml += (suraNameEnglish + " - " + suraDescription + " (" + suraNumber + ") ");
-    resultHtml += "</span>&nbsp;|&nbsp;";
-    resultHtml += "<span class='surahTitle'>";
-    resultHtml += suraNameArabic;
-    resultHtml += "</span>&nbsp;|&nbsp;";
-    resultHtml += "<span class='ayaTranslationName'>";
-    resultHtml += ("Translation - " + translationName);
-    resultHtml += "</span>";
-    resultHtml += "</td></tr>";
-    resultHtml += "</table>";
-    return resultHtml;
-};
-
-const createPtCallbackName = () => {
-    const randomNumber = Math.round(100000 * Math.random());
-    return `cb_${randomNumber}`;
-};
-
-const ptCallback = (reminderDetails) => {
-    const rodAppDiv = document.getElementById(ptAppDivId);
-    rodAppDiv.innerHTML = buildReminderWidgetContainerHTML(reminderDetails);
-};
-
-const createJasonScriptElement = () => {
-    const jsonpScriptElement = document.createElement("script");
-    jsonpScriptElement.src = `${ptServerUrl}/api/rod?cb=${ptCallbackName}`;
-    jsonpScriptElement.id = ptCallbackName;
-    return jsonpScriptElement;
-};
+// ############# Custom
+// Create Random callback name
+const jsonpFunctionName = createRandomFunctionName();
+const jsonpScriptSrc = `${ptServerUrl}/api/rod?cb=${jsonpFunctionName}`;
 
 const addArabicFontStyle = () => {
     const arabicFontStyle = "arabicFontStyle";
@@ -82,30 +35,66 @@ const addArabicFontStyle = () => {
     `));
 
     document.getElementsByTagName("head")[0].appendChild(styleElement);
-
 };
 
-const main = () => {
-    const bodyElement = document.getElementsByTagName("body")[0];
+// Custom function that receive server response and build html
+const buildWidgetHTML = (reminderDetail) => {
+    let ayas = reminderDetail.ayaDetail.ayas;
+    let translations = reminderDetail.ayaDetail.translations;
 
-    // Create JSONP callback function. This function will receive JSON from server
-    window[ptCallbackName] = (reminderDetail) => {
-        ptCallback(reminderDetail);
-    };
+    let translationName = reminderDetail.translationName;
+    let suraNumber = reminderDetail.suraNumber;
+    let suraNameArabic = reminderDetail.suraNameArabic;
+    let suraDescription = reminderDetail.suraDescription;
+    let suraNameEnglish = reminderDetail.suraNameEnglish;
 
-    // jsonp script element
-    const jsonpScriptElement = createJasonScriptElement();
-    bodyElement.appendChild(jsonpScriptElement);
+    /*
+    let resultHtml = "<table id='reminder_table' border='0'>";
+    resultHtml += "";
+*/
+    let resultHtml = `
+        <table id='reminder_table' border='0'>
+        <tr><td>&nbsp;</td><td class='bismillah'>بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</td></tr>
+    `;
 
-    addArabicFontStyle();
 
-    // Clean up
-    document.getElementById(ptCallbackName).remove();
+    for (let i = 0; i < ayas.length; i++) {
+        resultHtml += "<tr><td class='ayaNumber'>(";
+        resultHtml += ayas[i].ayaNumber;
+        resultHtml += ")</td><td class='ayaArabic'>";
+        resultHtml += ayas[i].lineString;
+        resultHtml += "</td></tr>";
+
+        resultHtml += "<tr><td>&nbsp;</td><td class='ayaTranslation'>";
+        resultHtml += translations[i].lineString;
+        resultHtml += "</td></tr>";
+    }
+
+
+    resultHtml = `${resultHtml}
+    <tr>
+        <td>&nbsp;</td>
+        <td>
+            <span class='surahTitleDescription'>
+                ${suraNameEnglish} - ${suraDescription} (${suraNumber})
+            </span>&nbsp;|&nbsp;
+            <span class='surahTitle'>
+                ${suraNameArabic}
+            </span>&nbsp;|&nbsp;
+            <span class='ayaTranslationName'>
+                Translation -  ${translationName}
+            </span>
+        </td>
+    </tr>
+    </table>
+    `;
+    return resultHtml;
 };
 
-// Create Random callback name
-const ptCallbackName = createPtCallbackName();
+const ptCallback = (reminderDetails) => {
+    const rodAppDiv = document.getElementById(window[`${appNamePrefix}AppDivId`]);
+    rodAppDiv.innerHTML = buildWidgetHTML(reminderDetails);
+};
 
-console.log(ptCallbackName);
-
-main();
+addArabicFontStyle();
+jsonpMain(ptCallback, jsonpFunctionName, jsonpScriptSrc);
