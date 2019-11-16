@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Reminder of the day</title>
+    <title>Prayer Time</title>
     <style>
         .codeTextDiv {
             margin: 20px;
@@ -13,33 +13,35 @@
         }
     </style>
     <script>
+        var appName = "pt";
+        var appScriptSrc = "/static/prayer-time-widget/app.min.js";
+
         window.onload = function () {
-            var widgetScriptHelp = "<div id=\"rodApp\"></div>\n\n"
-                + "<script>\n"
-                + "var rodServerUrl = \"" + location.origin + "\";\n"
-                + "var rodAppDivId = \"rodApp\";\n"
-                + "<\/script>\n\n"
-                + "<script type=\"application/javascript\" src=\""
-                + location.origin
-                + "/static/rod-widget/app.min.js\"><\/script>\n"
-            ;
+            var widgetScriptHelp = `<div id="${appName}App"></div>
+<script>
+var ${appName}ServerUrl = "${location.origin}";
+var ${appName}AppDivId = "ptApp";
+<\/script>
+<script type="application/javascript" src="${location.origin}${appScriptSrc}">
+<\/script>`;
+
             var scriptTextarea = document.querySelector(".codeTextDiv textarea");
             scriptTextarea.value = widgetScriptHelp;
         };
     </script>
 </head>
 <body>
-<h1>Reminder of the day widget</h1>
+<h1>Prayer Time widget</h1>
 <p>
     Copy paste this script in your web-page.
 </p>
 <div class="codeTextDiv">
     <textarea cols="80" rows="10"></textarea>
 </div>
-<div id="rodApp"></div>
+<div id="ptApp"></div>
 <script>
-    var rodServerUrl = "http://localhost:8085";
-    var rodAppDivId = "rodApp";
+    var ptServerUrl = "http://localhost:8085";
+    var ptAppDivId = "ptApp";
 </script>
 <script type="application/javascript" src="app.min.js"></script>
 </body>

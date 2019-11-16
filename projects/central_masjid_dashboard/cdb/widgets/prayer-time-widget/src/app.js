@@ -40,20 +40,20 @@ const buildReminderWidgetContainerHTML = (reminderDetail) => {
     return resultHtml;
 };
 
-const createRodCallbackName = () => {
+const createPtCallbackName = () => {
     const randomNumber = Math.round(100000 * Math.random());
     return `cb_${randomNumber}`;
 };
 
-const rodCallback = (reminderDetails) => {
-    const rodAppDiv = document.getElementById(rodAppDivId);
+const ptCallback = (reminderDetails) => {
+    const rodAppDiv = document.getElementById(ptAppDivId);
     rodAppDiv.innerHTML = buildReminderWidgetContainerHTML(reminderDetails);
 };
 
 const createJasonScriptElement = () => {
     const jsonpScriptElement = document.createElement("script");
-    jsonpScriptElement.src = `${rodServerUrl}/api/rod?cb=${rodCallbackName}`;
-    jsonpScriptElement.id = rodCallbackName;
+    jsonpScriptElement.src = `${ptServerUrl}/api/rod?cb=${ptCallbackName}`;
+    jsonpScriptElement.id = ptCallbackName;
     return jsonpScriptElement;
 };
 
@@ -63,8 +63,8 @@ const addArabicFontStyle = () => {
     if (existingStyleElement) {
         return;
     }
-    const fontMeQuran = `${rodServerUrl}/static/fonts/me_quran.ttf`;
-    const fontSaleem = `${rodServerUrl}/static/fonts/saleem.ttf`;
+    const fontMeQuran = `${ptServerUrl}/static/fonts/me_quran.ttf`;
+    const fontSaleem = `${ptServerUrl}/static/fonts/saleem.ttf`;
 
     const styleElement = document.createElement("style");
     styleElement.id = arabicFontStyle;
@@ -88,9 +88,9 @@ const addArabicFontStyle = () => {
 const main = () => {
     const bodyElement = document.getElementsByTagName("body")[0];
 
-    // jsonp callback function. This function will receive
-    window[rodCallbackName] = (reminderDetail) => {
-        rodCallback(reminderDetail);
+    // Create JSONP callback function. This function will receive JSON from server
+    window[ptCallbackName] = (reminderDetail) => {
+        ptCallback(reminderDetail);
     };
 
     // jsonp script element
@@ -100,9 +100,12 @@ const main = () => {
     addArabicFontStyle();
 
     // Clean up
-    document.getElementById(rodCallbackName).remove();
+    document.getElementById(ptCallbackName).remove();
 };
 
-const rodCallbackName = createRodCallbackName();
+// Create Random callback name
+const ptCallbackName = createPtCallbackName();
+
+console.log(ptCallbackName);
 
 main();
