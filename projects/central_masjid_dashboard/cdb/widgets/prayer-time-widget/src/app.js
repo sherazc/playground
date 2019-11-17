@@ -6,8 +6,7 @@ import "./app.css";
 import {
     time24To12,
     dateToDisplayDateShort,
-    getConfigValue,
-    dateToDisplayDateLong
+    getQueryParam
 } from "../../../ui/src/services/utilities";
 
 
@@ -31,7 +30,7 @@ const buildWidgetHTML = (serverResponse) => {
         <div class="ptContainer">
         <div class="ptHeader">Prayer Time</div>
         <div class="ptTableContainer">
-            <table class='ptTable' border='1'>
+            <table class='ptTable' border='0'>
             <thead>
             <tr>
                 <th>&nbsp;</th>
