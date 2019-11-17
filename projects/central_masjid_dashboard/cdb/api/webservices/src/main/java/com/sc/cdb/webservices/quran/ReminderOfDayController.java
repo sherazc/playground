@@ -3,6 +3,7 @@ package com.sc.cdb.webservices.quran;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import com.sc.cdb.webservices.utils.JsonpService;
 import com.sc.reminder.api.domain.AyaDetail;
 import com.sc.reminder.api.domain.ReminderDetail;
 import com.sc.reminder.api.service.ReminderDecorator;
@@ -19,13 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/rod")
 public class ReminderOfDayController {
 
-    private ReminderOfDayService reminderOfDayService;
+    private JsonpService jsonpService;
     private ReminderDecorator reminderDecorator;
 
     @Autowired
-    public ReminderOfDayController(ReminderOfDayService reminderOfDayService,
+    public ReminderOfDayController(JsonpService jsonpService,
                                    ReminderDecorator reminderDecorator) {
-        this.reminderOfDayService = reminderOfDayService;
+        this.jsonpService = jsonpService;
         this.reminderDecorator = reminderDecorator;
     }
 
@@ -54,11 +55,11 @@ public class ReminderOfDayController {
     }
 
     private ResponseEntity<?> generateResponse(Object responseObject, String cb) {
-        if (reminderOfDayService.validCallback(cb)) {
+        if (jsonpService.validCallback(cb)) {
             return ResponseEntity
                     .ok()
                     .contentType(new MediaType("application", "javascript", StandardCharsets.UTF_8))
-                    .body(reminderOfDayService.makeJsonpScript(cb, responseObject));
+                    .body(jsonpService.makeJsonpScript(cb, responseObject));
         } else {
             return ResponseEntity.ok(responseObject);
         }

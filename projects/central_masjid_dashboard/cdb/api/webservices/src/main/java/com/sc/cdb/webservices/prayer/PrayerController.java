@@ -1,5 +1,6 @@
 package com.sc.cdb.webservices.prayer;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 import com.sc.cdb.data.model.cc.GeoCode;
@@ -10,6 +11,8 @@ import com.sc.cdb.services.location.SiteLocator;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.services.prayer.PrayerConfigService;
 import com.sc.cdb.services.prayer.PrayerService;
+import com.sc.cdb.webservices.utils.JsonpService;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,17 +27,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/api/prayer", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PrayerController {
+
     private PrayerService prayerService;
     private SiteLocator siteLocator;
     private PrayerConfigService prayerConfigService;
+    private JsonpService jsonpService;
 
     public PrayerController(
             PrayerService prayerService,
             SiteLocator siteLocator,
-            PrayerConfigService prayerConfigService) {
+            PrayerConfigService prayerConfigService,
+            JsonpService jsonpService) {
         this.prayerService = prayerService;
         this.siteLocator = siteLocator;
         this.prayerConfigService = prayerConfigService;
+        this.jsonpService = jsonpService;
     }
 
     @GetMapping("location/geocode")
@@ -78,11 +85,23 @@ public class PrayerController {
         }
     }
 
-
+    @ApiOperation(value = "Prayer time", response = ServiceResponse.class)
     @GetMapping("companyId/{companyId}/month/{month}/day/{day}")
-    public ResponseEntity<ServiceResponse<Prayer>> getPrayerByCompanyIdMonthAndDay(
-            @PathVariable String companyId, @PathVariable int month, @PathVariable int day) {
-        return ResponseEntity.ok(prayerConfigService.getPrayerByCompanyIdMonthAndDay(companyId, month, day));
+    public ResponseEntity<?> getPrayerByCompanyIdMonthAndDay(
+            @PathVariable String companyId, @PathVariable int month, @PathVariable int day,
+            @RequestParam(value = "cb", required = false) String cb) {
 
+        ServiceResponse<Prayer> responseObject = prayerConfigService
+                .getPrayerByCompanyIdMonthAndDay(companyId, month, day);
+
+        if (jsonpService.validCallback(cb)) {
+            return ResponseEntity
+                    .ok()
+                    .contentType(new MediaType("application", "javascript", StandardCharsets.UTF_8))
+                    .body(jsonpService.makeJsonpScript(cb, responseObject));
+        } else {
+            return ResponseEntity.ok(responseObject);
+
+        }
     }
 }
