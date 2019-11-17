@@ -4,14 +4,14 @@ import {
 } from "../../commonJsonpService"
 import "./app.css";
 
-const addArabicFontStyle = () => {
+const addArabicFontStyle = (serverUrl) => {
     const arabicFontStyle = "arabicFontStyle";
     const existingStyleElement = document.getElementById(arabicFontStyle);
     if (existingStyleElement) {
         return;
     }
-    const fontMeQuran = `${ptServerUrl}/static/fonts/me_quran.ttf`;
-    const fontSaleem = `${ptServerUrl}/static/fonts/saleem.ttf`;
+    const fontMeQuran = `${serverUrl}/static/fonts/me_quran.ttf`;
+    const fontSaleem = `${serverUrl}/static/fonts/saleem.ttf`;
 
     const styleElement = document.createElement("style");
     styleElement.id = arabicFontStyle;
@@ -71,7 +71,7 @@ const buildWidgetHTML = (reminderDetail) => {
                 ${suraNameArabic}
             </span>&nbsp;|&nbsp;
             <span class='ayaTranslationName'>
-                Translation -  ${translationName}
+                Translation - ${translationName}
             </span>
         </td>
     </tr>
@@ -81,13 +81,16 @@ const buildWidgetHTML = (reminderDetail) => {
 };
 
 const callback = (jsonResponse) => {
-    const appDiv = document.getElementById(window[`${appNamePrefix}AppDivId`]);
+    const appDiv = document.getElementById(appDivId);
     appDiv.innerHTML = buildWidgetHTML(jsonResponse);
 };
 
-// Random callback name
-const jsonpFunctionName = createRandomFunctionName();
-const jsonpScriptSrc = `${ptServerUrl}/api/rod?cb=${jsonpFunctionName}`;
+// Change these values
+const appDivId = prayerTimeAppDivId; // used inside callback function
+const serverUrl = prayerTimeServerUrl;
 
-addArabicFontStyle();
+const jsonpFunctionName = createRandomFunctionName();
+const jsonpScriptSrc = `${serverUrl}/api/rod?cb=${jsonpFunctionName}`;
+
+addArabicFontStyle(serverUrl);
 jsonpMain(callback, jsonpFunctionName, jsonpScriptSrc);

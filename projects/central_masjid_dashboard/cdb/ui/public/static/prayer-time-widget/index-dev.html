@@ -13,12 +13,14 @@
         }
     </style>
     <script>
-        var appNamePrefix = "pt";
+        // Set these variables
+        var appNamePrefix = "prayerTime";
         var appScriptSrc = "/static/prayer-time-widget/app.min.js";
         window[`${appNamePrefix}ServerUrl`] = "http://localhost:8085";  // dev testing
         // window[`${appNamePrefix}ServerUrl`] = location.origin;
-        window[`${appNamePrefix}AppDivId`] = `${appNamePrefix}App`;
 
+
+        window[`${appNamePrefix}AppDivId`] = `${appNamePrefix}App`;
         window.onload = function () {
             var widgetScriptHelp = `<div id="${appNamePrefix}App"></div>
 <script>
