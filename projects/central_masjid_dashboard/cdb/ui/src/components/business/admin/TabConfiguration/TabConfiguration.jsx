@@ -94,6 +94,8 @@ class TabConfiguration extends Component {
 
                 <br/>
                 <a href="/static/rod-widget/index.html">ROD Widget</a>
+                <br/>
+                <a href="/static/prayer-time-widget/index.html">Prayer Time Widget</a>
             </div>
         );
     }

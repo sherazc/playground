@@ -3,7 +3,7 @@ import CloseablePanel from "../../../../common/CloseablePanel/CloseablePanel";
 import {apiGetPicklistConfigurations} from "../../../../../store/picklist/picklistActions";
 import {connect} from "react-redux";
 import InputField from "../../../../partials/InputField";
-import {lineFeedToBr} from "../../../../../services/utilities";
+import {lineFeedToBr} from "../../../../../services/utilities-react";
 
 class Configuration extends Component {
 

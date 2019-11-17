@@ -299,7 +299,19 @@ GET http://localhost:8085/api/companies/url/c3/central-control
 
 Validate dashboard URL 
 
-Create wigits tab
+Create widgets admin tab
+
+Widgets
+
+    Make dashboard widgets script
+    
+    ▶️ Salah time widgets
+    
+    Jummah Schedule + Jummah Note
+    
+    Jummah Note
+    
+    Salah + Jummah Note
 
 Revisit update company and user flow
     
@@ -315,7 +327,7 @@ Revisit roles and permission
 
 Make donation link
 
-Make dashboard wigit script
+
 
 Blink next iqama time
 

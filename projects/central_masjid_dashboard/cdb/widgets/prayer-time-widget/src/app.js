@@ -3,37 +3,98 @@ import {
     jsonpMain
 } from "../../commonJsonpService"
 import "./app.css";
+import {
+    time24To12,
+    dateToDisplayDateShort,
+    getConfigValue,
+    dateToDisplayDateLong
+} from "../../../ui/src/services/utilities";
 
 
 const buildWidgetHTML = (serverResponse) => {
-    let resultHtml = `
-        <table id='prayerTimeTable' border='0'>
-        <tr>
-            <td>123</td>
-            <td>456</td></tr>
-    `;
-/*
-    for (let i = 0; i < ayas.length; i++) {
-        resultHtml = `${resultHtml}
-        <tr>
-            <td class='ayaNumber'>(${ayas[i].ayaNumber})</td>
-            <td class='ayaArabic'>${ayas[i].lineString}</td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td class='ayaTranslation'>${translations[i].lineString}</td>
-        </tr>
+    console.log(serverResponse);
+    if (!serverResponse || !serverResponse.successful || !serverResponse.target) {
+        return `
+        <div class="ptContainer">
+            <div class="ptHeader">
+                Prayer Time
+            </div>
+            <div class="ptTableContainer">
+                Prayers Not found.
+            </div>
+        <div>
         `;
     }
-*/
-    resultHtml = `${resultHtml}
-    <tr>
-        <td>abc</td>
-        <td>
-        def
-        </td>
-    </tr>
-    </table>
+    const prayer = serverResponse.target;
+
+    let resultHtml = `
+        <div class="ptContainer">
+        <div class="ptHeader">Prayer Time</div>
+        <div class="ptTableContainer">
+            <table class='ptTable' border='1'>
+            <thead>
+            <tr>
+                <th>&nbsp;</th>
+                <th>Azan</th>
+                <th>Iqama</th>
+                <th>Next Change</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>Fajr</th>
+                <td>${time24To12(prayer.fajr)}</td>
+                <td>${time24To12(prayer.fajrIqama)}</td>
+                <td>
+                    ${dateToDisplayDateShort(prayer.fajrChangeDate)}
+                    <br/>
+                    ${time24To12(prayer.fajrChange)}
+                </td>
+            </tr>
+            <tr>
+                <th>Shurooq</th>
+                <td colSpan="3">${time24To12(prayer.sunrise)}</td>
+            </tr>
+            <tr>
+                <th>Thuhr</th>
+                <td>${time24To12(prayer.dhuhr)}</td>
+                <td>${time24To12(prayer.dhuhrIqama)}</td>
+                <td>
+                    ${dateToDisplayDateShort(prayer.dhuhrChangeDate)}
+                    <br/>
+                    ${time24To12(prayer.dhuhrChange)}
+                </td>
+            </tr>
+            <tr>
+                <th>Asr</th>
+                <td>${time24To12(prayer.asr)}</td>
+                <td>${time24To12(prayer.asrIqama)}</td>
+                <td>
+                    ${dateToDisplayDateShort(prayer.asrChangeDate)}
+                    <br/>
+                    ${time24To12(prayer.asrChange)}
+                </td>
+            </tr>
+            <tr>
+                <th>Maghrib</th>
+                <td>${time24To12(prayer.maghrib)}</td>
+                <td>5 min</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <th>Isha</th>
+                <td>${time24To12(prayer.isha)}</td>
+                <td>${time24To12(prayer.ishaIqama)}</td>
+                <td>
+                    ${dateToDisplayDateShort(prayer.ishaChangeDate)}
+                    <br/>
+                    ${time24To12(prayer.ishaChange)}
+                </td>
+            </tr>
+            </tbody>
+            </table>
+        </div>
+    </div>
     `;
     return resultHtml;
 };
@@ -46,8 +107,11 @@ const callback = (jsonResponse) => {
 // Change these values
 const appDivId = prayerTimeAppDivId; // used inside callback function
 const serverUrl = prayerTimeServerUrl;
+const today = new Date();
+const month = today.getUTCMonth() + 1;
+const date = today.getUTCDate();
 
 const jsonpFunctionName = createRandomFunctionName();
-const jsonpScriptSrc = `${serverUrl}/api/rod?cb=${jsonpFunctionName}`;
+const jsonpScriptSrc = `${serverUrl}/api/prayer/companyId/${companyId}/month/${month}/day/${date}?cb=${jsonpFunctionName}`;
 
 jsonpMain(callback, jsonpFunctionName, jsonpScriptSrc);

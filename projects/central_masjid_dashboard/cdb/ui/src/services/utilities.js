@@ -1,4 +1,3 @@
-import React from "react";
 import equals from "deep-equal";
 
 export const MONTH_NAMES = ["January", "February", "March", "April", "May", "June",
@@ -60,7 +59,7 @@ export const dateToDisplayDate = (date) => {
 
 export const dateToDisplayDateShort = (date) => {
     if (!date) {
-        return;
+        return "";
     }
     const d = date instanceof Date ? date : new Date(date);
     return `${d.getUTCMonth() + 1}/${d.getUTCDate()}`;
@@ -147,15 +146,6 @@ export const filterEnabledItems = (items) => {
         return [];
     }
     return items.filter(item => item.enabled);
-};
-
-export const lineFeedToBr = (str) => {
-    if (!str) {
-        return "";
-    }
-    return str.split('\n').map((item, index) => {
-        return <span key={index}>{item}<br/></span>;
-    });
 };
 
 export const isBlank = (str) => {
