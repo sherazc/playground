@@ -4,49 +4,15 @@ import {
 } from "../../commonJsonpService"
 import "./app.css";
 
-const addArabicFontStyle = (serverUrl) => {
-    const arabicFontStyle = "arabicFontStyle";
-    const existingStyleElement = document.getElementById(arabicFontStyle);
-    if (existingStyleElement) {
-        return;
-    }
-    const fontMeQuran = `${serverUrl}/static/fonts/me_quran.ttf`;
-    const fontSaleem = `${serverUrl}/static/fonts/saleem.ttf`;
 
-    const styleElement = document.createElement("style");
-    styleElement.id = arabicFontStyle;
-
-    styleElement.appendChild(document.createTextNode(`
-        @font-face {
-            font-family: 'saleem';
-            src: url('${fontSaleem}') format('truetype')
-        }
-        
-        @font-face {
-            font-family: 'me_quran';
-            src: url('${fontMeQuran}') format('truetype')
-        }
-    `));
-
-    document.getElementsByTagName("head")[0].appendChild(styleElement);
-};
-
-// Custom function that receive server response and build html
-const buildWidgetHTML = (reminderDetail) => {
-    let ayas = reminderDetail.ayaDetail.ayas;
-    let translations = reminderDetail.ayaDetail.translations;
-
-    let translationName = reminderDetail.translationName;
-    let suraNumber = reminderDetail.suraNumber;
-    let suraNameArabic = reminderDetail.suraNameArabic;
-    let suraDescription = reminderDetail.suraDescription;
-    let suraNameEnglish = reminderDetail.suraNameEnglish;
-
+const buildWidgetHTML = (serverResponse) => {
     let resultHtml = `
-        <table id='reminder_table' border='0'>
-        <tr><td>&nbsp;</td><td class='bismillah'>بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</td></tr>
+        <table id='prayerTimeTable' border='0'>
+        <tr>
+            <td>123</td>
+            <td>456</td></tr>
     `;
-
+/*
     for (let i = 0; i < ayas.length; i++) {
         resultHtml = `${resultHtml}
         <tr>
@@ -59,20 +25,12 @@ const buildWidgetHTML = (reminderDetail) => {
         </tr>
         `;
     }
-
+*/
     resultHtml = `${resultHtml}
     <tr>
-        <td>&nbsp;</td>
+        <td>abc</td>
         <td>
-            <span class='surahTitleDescription'>
-                ${suraNameEnglish} - ${suraDescription} (${suraNumber})
-            </span>&nbsp;|&nbsp;
-            <span class='surahTitle'>
-                ${suraNameArabic}
-            </span>&nbsp;|&nbsp;
-            <span class='ayaTranslationName'>
-                Translation - ${translationName}
-            </span>
+        def
         </td>
     </tr>
     </table>
@@ -92,5 +50,4 @@ const serverUrl = prayerTimeServerUrl;
 const jsonpFunctionName = createRandomFunctionName();
 const jsonpScriptSrc = `${serverUrl}/api/rod?cb=${jsonpFunctionName}`;
 
-addArabicFontStyle(serverUrl);
 jsonpMain(callback, jsonpFunctionName, jsonpScriptSrc);
