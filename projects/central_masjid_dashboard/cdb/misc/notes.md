@@ -306,6 +306,7 @@ Widgets
     Make dashboard widgets script
     
     ▶️ Salah time widgets
+        externalize css classes for client website customization
     
     Jummah Schedule + Jummah Note
     

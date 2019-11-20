@@ -93,9 +93,9 @@ class TabConfiguration extends Component {
                     onSave={this.onSave.bind(this)}/>
 
                 <br/>
-                <a href="/static/rod-widget/index.html">ROD Widget</a>
+                <a target="_blank" href="/static/rod-widget/index.html">ROD Widget</a>
                 <br/>
-                <a href="/static/prayer-time-widget/index.html">Prayer Time Widget</a>
+                <a target="_blank" href={"/static/prayer-time-widget/index.html?companyId=" + this.props.login.company.id}>Prayer Time Widget</a>
             </div>
         );
     }

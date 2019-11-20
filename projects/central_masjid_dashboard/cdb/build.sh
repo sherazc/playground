@@ -4,8 +4,13 @@
 npm install npm -g
 npm install yarn -g
 
+# Install UI dependencies
+cd ui
+rm -rf build
+yarn install
+
 # Build rod-widget
-cd widgets/rod-widget
+cd ../widgets/rod-widget
 yarn install
 yarn build
 
@@ -16,8 +21,7 @@ yarn build
 
 # Build UI
 cd ../../ui
-rm -rf build
-yarn install
+# UI is already been cleaned up
 yarn build
 
 # Clean static files
