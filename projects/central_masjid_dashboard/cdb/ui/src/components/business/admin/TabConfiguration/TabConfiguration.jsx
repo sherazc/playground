@@ -51,7 +51,7 @@ class TabConfiguration extends Component {
         axios.put(`${baseUrl}/api/companies/central-control`, this.state.centralControl)
             .then(response => {
                 const serviceResponse = response.data;
-                if(serviceResponse.target) {
+                if (serviceResponse.target) {
                     const centralControl = this.state.centralControl;
                     centralControl.id = serviceResponse.target;
                     this.setCentralControlInState(centralControl);
@@ -93,9 +93,16 @@ class TabConfiguration extends Component {
                     onSave={this.onSave.bind(this)}/>
 
                 <br/>
-                <a target="_blank" href="/static/rod-widget/index.html">ROD Widget</a>
+                <a target="_blank" href="/static/rod-widget/index.html"
+                   rel="noopener noreferrer">
+                    ROD Widget
+                </a>
                 <br/>
-                <a target="_blank" href={"/static/prayer-time-widget/index.html?companyId=" + this.props.login.company.id}>Prayer Time Widget</a>
+                <a target="_blank"
+                   href={"/static/prayer-time-widget/index.html?companyId=" + this.props.login.company.id}
+                   rel="noopener noreferrer">
+                    Prayer Time Widget
+                </a>
             </div>
         );
     }
