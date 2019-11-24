@@ -6,36 +6,38 @@ class TabWidget extends Component {
 
     makeWidget(widget) {
         return (
-            <div className={styles.widgetContainer}>
-                <div className={styles.widgetHeader}>
-                    {widget.name}
-                </div>
-                <div className={styles.widgetScriptDescriptionContainer}>
-                    <div className={styles.widgetScript}>
+            <div className={styles.container}>
+                <div className={styles.left}>
+                    <div className={styles.name}>
+                        {widget.name}
+                    </div>
+                    <div className={styles.description}>
+                        {widget.description}
+                    </div>
+                    <div className={styles.script}>
                         {widget.script}
                     </div>
-                    <div className={styles.widgetDescription}>
-                        Details
+                </div>
+                <div className={styles.right}>
+                    <div className={styles.image}>
+                        <img src={widget.image}/>
+                        Sample Output
                     </div>
                 </div>
-
             </div>
         );
     }
 
     render() {
         return(
-            <div>
+            <>
                 <div className={styles.mainDescription}>
                     These are all the widgets available to you.
                     Incorporate them in your website by copying pasting the code.
                 </div>
 
                 {widgets.map(widget => this.makeWidget(widget))}
-
-
-
-            </div>
+            </>
         );
     }
 }
