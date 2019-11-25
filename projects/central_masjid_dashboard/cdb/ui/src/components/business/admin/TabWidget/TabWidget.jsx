@@ -20,8 +20,14 @@ class TabWidget extends Component {
                 </div>
                 <div className={styles.right}>
                     <div className={styles.image}>
-                        <img src={widget.image}/>
-                        Sample Output
+                        <a href={widget.liveLink} target="_blank" rel="noopener noreferrer">
+                            <img src={widget.image}/>
+                        </a>
+                    </div>
+                    <div className={styles.imageDescription}>
+                        {widget.imageDescription}. <a href={widget.liveLink} target="_blank" rel="noopener noreferrer">
+                        Click here!
+                        </a> to view live link.
                     </div>
                 </div>
             </div>

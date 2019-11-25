@@ -4,7 +4,6 @@
 
 .container {
   display: flex;
-  // background-color: #6392b0;
   margin: 20px 0 40px 0;
 }
 
@@ -12,12 +11,9 @@
   width: 50%;
   background-color: #f9f7ee;
   padding: 20px;
-  border-radius: 2px;
-}
-
-.right {
-  width: 50%;
-  // background-color: #cbdfcc;
+  border-radius: 5px 0 0 5px;
+  color: rgba(0, 0, 0, 0.60);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .name {
@@ -40,13 +36,34 @@
   font-family: "Lucida Console", Monaco, monospace;
 }
 
+.right {
+  width: 50%;
+  background-color: #f9f5dd;
+  border-radius: 0 5px 5px 0;
+  padding: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
 .image {
   display: flex;
   justify-content: center;
   align-content: center;
+  flex-direction: row;
 }
 
 .image img {
   width: 200px;
-  display: inline-block;
+}
+
+.imageDescription {
+  color: rgba(0, 0, 0, 0.60);
+  text-align: center;
+  font-style: italic;
+  font-size: smaller;
+  margin-top: 10px;
+}
+
+.imageDescription a {
+  color: rgba(70, 0, 0, 0.6);
 }
