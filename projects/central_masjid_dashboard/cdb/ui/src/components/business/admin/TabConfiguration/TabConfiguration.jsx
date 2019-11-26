@@ -91,18 +91,6 @@ class TabConfiguration extends Component {
                     jummahs={this.state.centralControl.jummahs}
                     onCancel={this.onCancel.bind(this)}
                     onSave={this.onSave.bind(this)}/>
-
-                <br/>
-                <a target="_blank" href="/static/rod-widget/index.html"
-                   rel="noopener noreferrer">
-                    ROD Widget
-                </a>
-                <br/>
-                <a target="_blank"
-                   href={"/static/prayer-time-widget/index.html?companyId=" + this.props.login.company.id}
-                   rel="noopener noreferrer">
-                    Prayer Time Widget
-                </a>
             </div>
         );
     }

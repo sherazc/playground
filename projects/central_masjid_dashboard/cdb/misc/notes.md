@@ -299,14 +299,15 @@ GET http://localhost:8085/api/companies/url/c3/central-control
 
 Validate dashboard URL 
 
-Create widgets admin tab
+✅ Create widgets admin tab
 
 Widgets
 
-    Make dashboard widgets script
+    ▶️ Make dashboard widgets script
     
-    ▶️ Salah time widgets
-        externalize css classes for client website customization
+    ✅️ Salah time widgets
+        
+    externalize css classes for client website customization
     
     Jummah Schedule + Jummah Note
     
