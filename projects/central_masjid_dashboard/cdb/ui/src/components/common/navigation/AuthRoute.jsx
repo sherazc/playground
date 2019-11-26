@@ -7,7 +7,7 @@ import {mapStateLoginToProps} from "../../../store/lib/utils";
 class AuthRoute extends Route {
     render() {
         if (!verifyAuthentication(this.props.login.tokenPayload, this.props.authenticate)) {
-            return <Redirect to={`${process.env.PUBLIC_URL}/login`}/>;
+            return <Redirect to={`${process.env.PUBLIC_URL}/`}/>;
         }
 
         if (!verifyAuthorization(this.props.login.tokenPayload, this.props.rolesAll, this.props.rolesAny)) {

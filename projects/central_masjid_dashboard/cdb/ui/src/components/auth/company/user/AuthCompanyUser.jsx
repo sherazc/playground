@@ -95,7 +95,7 @@ class AuthCompanyUser extends Component {
         }
 
         if (action === "profile" && !isLoggedIn) {
-            return `${process.env.PUBLIC_URL}/login`;
+            return `${process.env.PUBLIC_URL}/`;
         }
 
         if (action === "create" && !isLoggedIn && !isNewCompanyRegisterComplete) {
