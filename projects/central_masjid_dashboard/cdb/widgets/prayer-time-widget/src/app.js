@@ -11,7 +11,6 @@ import {
 
 
 const buildWidgetHTML = (serverResponse) => {
-    console.log(serverResponse);
     if (!serverResponse || !serverResponse.successful || !serverResponse.target) {
         return `
         <div class="ptContainer">

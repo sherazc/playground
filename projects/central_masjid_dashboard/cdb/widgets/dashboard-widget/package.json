@@ -1,7 +1,7 @@
 {
   "name": "pt-widget",
   "version": "1.0.0",
-  "description": "\"Prayer Time Widget\"",
+  "description": "\"Dashboard - Widget\"",
   "main": "index.js",
   "scripts": {
     "clean": "rm -f ../../ui/public/static/prayer-time-widget/app.min.js&rm -f ../../ui/public/static/prayer-time-widget/app.min.js.map",

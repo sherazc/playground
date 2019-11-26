@@ -235,6 +235,10 @@ Login -> click company link in header -> going to 404
 Defect: 
 US States select on company register page should be a required field 
 
+Defect:
+Asr next change time is not getting calculated. Maybe API is not 
+doing 2 year logic to get next change.
+
 -----------------------------------
 ###Requirements
 
@@ -301,6 +305,8 @@ Validate dashboard URL
 
 ✅ Create widgets admin tab
 
+Remove middle expenses section.
+
 Widgets
 
     ▶️ Make dashboard widgets script
@@ -328,8 +334,6 @@ Revisit roles and permission
     set admin role in register company user components instead of EmptyObject.js
 
 Make donation link
-
-
 
 Blink next iqama time
 
