@@ -1,6 +1,9 @@
 import React, {Component} from "react";
 import styles from "./TabWidget.module.scss"
-import {widgets} from "./widgets";
+import {createWidgets} from "./widgets";
+import {connect} from "react-redux";
+
+const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
 class TabWidget extends Component {
 
@@ -42,10 +45,17 @@ class TabWidget extends Component {
                     Incorporate them in your website by copy, pasting the code in your website.
                 </div>
 
-                {widgets.map(widget => this.makeWidget(widget))}
+                {createWidgets(baseUrl, this.props.login.company.id)
+                    .map(widget => this.makeWidget(widget))}
             </>
         );
     }
 }
 
-export default TabWidget;
+
+const mapStateToProps = state => {
+    return {
+        login: state.login,
+    }
+};
+export default connect(mapStateToProps)(TabWidget);
