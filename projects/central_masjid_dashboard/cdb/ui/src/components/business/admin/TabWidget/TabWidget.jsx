@@ -14,9 +14,9 @@ class TabWidget extends Component {
                     <div className={styles.description}>
                         {widget.description}
                     </div>
-                    <div className={styles.script}>
+                    <textarea className={styles.script}>
                         {widget.script}
-                    </div>
+                    </textarea>
                 </div>
                 <div className={styles.right}>
                     <div className={styles.image}>
@@ -39,7 +39,7 @@ class TabWidget extends Component {
             <>
                 <div className={styles.mainDescription}>
                     These are all the widgets available to you.
-                    Incorporate them in your website by copying pasting the code.
+                    Incorporate them in your website by copy, pasting the code in your website.
                 </div>
 
                 {widgets.map(widget => this.makeWidget(widget))}
