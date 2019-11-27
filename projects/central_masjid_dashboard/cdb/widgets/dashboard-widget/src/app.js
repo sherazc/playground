@@ -7,8 +7,8 @@ import {
 
 const buildWidgetHTML = () => {
     let resultHtml = `
-    <div class="abc">
-        Dashboard
+    <div class="dbContainer">
+        <iframe src="https://www.masjiddashboard.com/mh"></iframe>
     </div>
     `;
 
