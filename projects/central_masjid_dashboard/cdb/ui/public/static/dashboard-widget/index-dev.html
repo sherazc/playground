@@ -14,7 +14,7 @@
     </style>
     <script>
         // Set these variables
-        var appNamePrefix = "prayerTime";
+        var appNamePrefix = "dashboard";
         var appScriptSrc = "/static/dashboard-widget/app.min.js";
         var companyUrl = (new URLSearchParams(window.location.search)).get("companyUrl");
         window[`${appNamePrefix}ServerUrl`] = "http://localhost:8085";  // dev testing
@@ -27,7 +27,7 @@
 <script>
 var ${appNamePrefix}ServerUrl = "${location.origin}";
 var ${appNamePrefix}AppDivId = "${appNamePrefix}App";
-var companyId = "${companyId}";
+
 <\/script>
 <script type="application/javascript" src="${location.origin}${appScriptSrc}"><\/script>`;
 
@@ -37,7 +37,7 @@ var companyId = "${companyId}";
     </script>
 </head>
 <body>
-<h1>Prayer Time widget</h1>
+<h1>Dashboard</h1>
 <p>
     Copy paste this script in your web-page.
 </p>

@@ -1,4 +1,4 @@
-import "./app.css";
+import "./app.scss";
 import {
     time24To12,
     dateToDisplayDateShort,
@@ -7,7 +7,7 @@ import {
 
 const buildWidgetHTML = () => {
     let resultHtml = `
-    <div class="dbContainer">
+    <div class="abc">
         Dashboard
     </div>
     `;
@@ -19,5 +19,8 @@ const callback = () => {
     const appDiv = document.getElementById(appDivId);
     appDiv.innerHTML = buildWidgetHTML();
 };
+
+
+const appDivId = dashboardAppDivId; // used inside callback function
 
 callback();

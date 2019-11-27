@@ -4,7 +4,7 @@
   "description": "\"Dashboard - Widget\"",
   "main": "index.js",
   "scripts": {
-    "clean": "rm -f ../../ui/public/static/prayer-time-widget/app.min.js&rm -f ../../ui/public/static/prayer-time-widget/app.min.js.map",
+    "clean": "rm -f ../../ui/public/static/dashboard-widget/app.min.js&rm -f ../../ui/public/static/dashboard-widget/app.min.js.map",
     "dev": "npm run clean&webpack --mode development --watch",
     "build": "npm run clean & webpack --mode production"
   },
@@ -17,6 +17,8 @@
     "css-loader": "^3.2.0",
     "style-loader": "^1.0.0",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.10",
+    "node-sass": "^4.13.0",
+    "sass-loader": "^8.0.0"
   }
 }
