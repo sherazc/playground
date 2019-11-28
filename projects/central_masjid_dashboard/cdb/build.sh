@@ -19,6 +19,11 @@ cd ../prayer-time-widget
 yarn install
 yarn build
 
+# Build dashboard-widget
+cd ../dashboard-widget
+yarn install
+yarn build
+
 # Build UI
 cd ../../ui
 # UI is already been cleaned up

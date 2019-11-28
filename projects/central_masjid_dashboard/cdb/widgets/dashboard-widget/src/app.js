@@ -1,14 +1,15 @@
 import "./app.scss";
+/*
 import {
     time24To12,
-    dateToDisplayDateShort,
+    dateToDisplayDateShort
 } from "../../../ui/src/services/utilities";
-
+*/
 
 const buildWidgetHTML = () => {
     let resultHtml = `
     <div class="dbContainer">
-        <iframe src="https://www.masjiddashboard.com/mh"></iframe>
+        <iframe src="${serverUrl}/${companyUrl}"></iframe>
     </div>
     `;
 
@@ -20,7 +21,8 @@ const callback = () => {
     appDiv.innerHTML = buildWidgetHTML();
 };
 
-
-const appDivId = dashboardAppDivId; // used inside callback function
+// these variables are used inside callback function
+const appDivId = dashboardAppDivId;
+const serverUrl = dashboardServerUrl;
 
 callback();

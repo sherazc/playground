@@ -26,6 +26,13 @@ rm -rf widgets/prayer-time-widget/yarn-error.log
 rm -rf widgets/prayer-time-widget/node_modules
 rm -rf ui/public/static/prayer-time-widget/app.min.*
 
+# Clean dashboard-widget
+rm -rf widgets/dashboard-widget/yarn.lock
+rm -rf widgets/dashboard-widget/package-lock.json
+rm -rf widgets/dashboard-widget/yarn-error.log
+rm -rf widgets/dashboard-widget/node_modules
+rm -rf ui/public/static/dashboard-widget/app.min.*
+
 # Clean API
 rm -rf api/webservices/src/main/resources/static
 cd api
