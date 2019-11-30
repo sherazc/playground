@@ -39,10 +39,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .headers().frameOptions().disable()
-                .and()
-                .cors()
-                .and()
+                /*
+                spring boot sets X-Frame-Options=deny http header
+                because of which cross domain <iframe> was not working
+                This setting disables X-Frame-Options header
+                 */
+                .headers().frameOptions().disable().and()
+                .cors().and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 // Commented it to turn off url base and use method level security

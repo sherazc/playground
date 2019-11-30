@@ -9,7 +9,7 @@ class TabWidget extends Component {
 
     makeWidget(widget) {
         return (
-            <div className={styles.container}>
+            <div key={widget.name} className={styles.container}>
                 <div className={styles.left}>
                     <div className={styles.name}>
                         {widget.name}
@@ -17,14 +17,12 @@ class TabWidget extends Component {
                     <div className={styles.description}>
                         {widget.description}
                     </div>
-                    <textarea className={styles.script}>
-                        {widget.script}
-                    </textarea>
+                    <textarea className={styles.script} defaultValue={widget.script} disabled/>
                 </div>
                 <div className={styles.right}>
                     <div className={styles.image}>
                         <a href={widget.liveLink} target="_blank" rel="noopener noreferrer">
-                            <img src={widget.image}/>
+                            <img alt={widget.name} src={widget.image}/>
                         </a>
                     </div>
                     <div className={styles.imageDescription}>
@@ -45,7 +43,7 @@ class TabWidget extends Component {
                     Incorporate them in your website by copy, pasting the code in your website.
                 </div>
 
-                {createWidgets(baseUrl, this.props.login.company.id)
+                {createWidgets(baseUrl, this.props.login.company)
                     .map(widget => this.makeWidget(widget))}
             </>
         );
