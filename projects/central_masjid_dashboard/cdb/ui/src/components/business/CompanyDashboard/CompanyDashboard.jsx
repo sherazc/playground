@@ -61,10 +61,30 @@ class CompanyDashboard extends Component {
         return companyName;
     }
 
+    isShowMiddleSection(centralControl) {
+        if (!centralControl
+            || !centralControl.expenses || !centralControl.funds
+            || centralControl.expenses.length < 1
+            || centralControl.funds.length < 1) {
+            return false;
+        }
+
+        const containsExpenses = centralControl.expenses
+            .filter(e => e.enabled).length > 0;
+
+        const containsFunds = centralControl.funds
+            .filter(f => f.enabled).length > 0;
+
+        return containsExpenses || containsFunds;
+    }
+
+
     render() {
+        const showMiddleSection = this.isShowMiddleSection(this.state.centralControl);
+
         const xsBreakPoint = 12;
         const smBreakPoint = 12;
-        const mdBreakPoint = 4;
+        const mdBreakPoint = showMiddleSection ? 4 : 6;
         const company = this.state.centralControl.company;
         const website = company && company.website ? company.website : "";
         let clockType = getConfigValue("clock_type", this.state.companyConfigurations, "1");
@@ -98,12 +118,16 @@ class CompanyDashboard extends Component {
                             companyConfigurations={this.state.companyConfigurations}/>
                     </div>
                 </Grid>
-                <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={styles.gridCenter}>
-                    <div className={styles.centerBox}
-                        style={{backgroundImage: `url(${process.env.PUBLIC_URL}/images/center_box_background.svg)`}}>
-                        <Accounts centralControl={this.state.centralControl}/>
-                    </div>
-                </Grid>
+                {/*TODO make this work. for some reason this is not working*/}
+                {showMiddleSection && (
+                    <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={styles.gridCenter}>
+                        <div className={styles.centerBox}
+                            style={{backgroundImage: `url(${process.env.PUBLIC_URL}/images/center_box_background.svg)`}}>
+                            <Accounts centralControl={this.state.centralControl}/>
+                        </div>
+                    </Grid>
+                )
+                }
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={styles.gridSide}>
                     <div className={styles.sideBox}
                         style={{backgroundImage: `url(${process.env.PUBLIC_URL}/images/side_box_background.svg)`}}>

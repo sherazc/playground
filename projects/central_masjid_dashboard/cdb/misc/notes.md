@@ -299,11 +299,13 @@ GET http://localhost:8085/api/companies/url/c3/central-control
 
 ✅ Add company website URL field in Company admin page and add link on the dashboard
 
-▶️ Make help note dashboard URL. 
+✅ Make help note dashboard URL. 
 
-Validate dashboard URL 
+✅ Remove all references to /login nav link
 
 ✅ Create widgets admin tab
+
+Validate dashboard URL 
 
 Remove middle expenses section.
 
@@ -361,7 +363,6 @@ Make single function in CompanyDashboard that will make all the API calls.
 This function will call APIs and update CompanyDashboard.state. 
 This function will be called on initial CompanyDashboard load and on refresh events. 
 
-Remove all references to /login nav link
 
 create a Jummah Khateeb slide
 
@@ -386,8 +387,6 @@ Update input field to make it material UI
 Design Web DB utility to store in browser local storage. And retrieve and search 
 
 Store in browser cache previously selected dashboard
-
-Remove login links
 
 Bad links should go to 404 not  dashboard. Have dashboard redirect to 404.
 
@@ -426,7 +425,7 @@ Delete company should delete company Users, centralControl, prayerConfig, and Co
     * date
     * time
 
-Create company Register, user register and registration finish page header image and title 
+✅ Create company Register, user register and registration finish page header image and title 
 
 Create admin header mobile
 
@@ -454,4 +453,4 @@ improve test coverage
 
 Redesign/Refactor PrayerConfigServiceImpl.getPrayerConfig()
 
-Refactor Make PrayerConfigServiceImpl smaller. It becoming very large.
+Refactor Make PrayerConfigServiceImpl smaller. Its becoming very large.

@@ -11,7 +11,7 @@ class AdminControl extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tabIndex: 2
+            tabIndex: 0
         };
         this.handleTabChange = this.handleTabChange.bind(this)
     }
