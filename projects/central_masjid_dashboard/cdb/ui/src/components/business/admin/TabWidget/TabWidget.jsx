@@ -3,8 +3,6 @@ import styles from "./TabWidget.module.scss"
 import {createWidgets} from "./widgets";
 import {connect} from "react-redux";
 
-const baseUrl = process.env.REACT_APP_API_BASE_PATH;
-
 class TabWidget extends Component {
 
     makeWidget(widget) {
@@ -26,7 +24,7 @@ class TabWidget extends Component {
                         </a>
                     </div>
                     <div className={styles.imageDescription}>
-                        {widget.imageDescription}. <a href={widget.liveLink} target="_blank" rel="noopener noreferrer">
+                        {widget.imageDescription} <a href={widget.liveLink} target="_blank" rel="noopener noreferrer">
                         Click here!
                         </a> to view live link.
                     </div>
@@ -43,7 +41,7 @@ class TabWidget extends Component {
                     Incorporate them in your website by copy, pasting the code in your website.
                 </div>
 
-                {createWidgets(baseUrl, this.props.login.company)
+                {createWidgets(window.location.origin, this.props.login.company)
                     .map(widget => this.makeWidget(widget))}
             </>
         );
