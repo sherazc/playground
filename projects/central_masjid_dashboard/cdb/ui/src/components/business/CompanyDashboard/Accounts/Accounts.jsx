@@ -128,6 +128,7 @@ class Accounts extends Component {
     }
 
     render() {
+        console.log(this.state);
         return (
             <>
                 <div className={`${styles.heading1} ${styles.vMargin8}`}>

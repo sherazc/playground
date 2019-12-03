@@ -78,7 +78,6 @@ class CompanyDashboard extends Component {
         return containsExpenses || containsFunds;
     }
 
-
     render() {
         const showMiddleSection = this.isShowMiddleSection(this.state.centralControl);
 
@@ -118,15 +117,14 @@ class CompanyDashboard extends Component {
                             companyConfigurations={this.state.companyConfigurations}/>
                     </div>
                 </Grid>
-                {/*TODO make this work. for some reason this is not working*/}
-                {showMiddleSection && (
-                    <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={styles.gridCenter}>
-                        <div className={styles.centerBox}
-                            style={{backgroundImage: `url(${process.env.PUBLIC_URL}/images/center_box_background.svg)`}}>
-                            <Accounts centralControl={this.state.centralControl}/>
-                        </div>
-                    </Grid>
-                )
+                {/*TODO This condition is failing.*/}
+                {showMiddleSection &&
+                <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={styles.gridCenter}>
+                    <div className={styles.centerBox}
+                        style={{backgroundImage: `url(${process.env.PUBLIC_URL}/images/center_box_background.svg)`}}>
+                        <Accounts centralControl={this.state.centralControl}/>
+                    </div>
+                </Grid>
                 }
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={styles.gridSide}>
                     <div className={styles.sideBox}
