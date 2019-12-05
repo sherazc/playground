@@ -2,14 +2,13 @@ package com.sc.async.eg08_callable_future;
 
 import java.util.Random;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import com.sc.async.common.MyThreadUtils;
 
-public class App {
+public class Eg01_basic {
     public static void main(String[] args) throws Exception {
         Callable<String> task = () -> {
             System.out.println("Task Running...");
