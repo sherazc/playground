@@ -2,25 +2,27 @@ package com.sc.async.eg07_stop_task;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import com.sc.async.common.MyTask;
 
-
-// TODO work on it
 public class Eg03_AwaitTermination {
-    public static void main(String[] args) {
-        // Single Threaded Pool
+    public static void main(String[] args) throws Exception {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-        executorService.execute(new MyTask("Task1", 3));
-        // Task2 is queued before shutdownNow(). It will NOT start and finish execution
-        executorService.execute(new MyTask("Task2", 3));
+        executorService.execute(new MyTask("Task1", 3)); // task takes 3 seconds
+        executorService.execute(new MyTask("Task2", 3)); // task takes 3 seconds
 
-        System.out.println("executorService.isShutdown() = " + executorService.isShutdown());
-        executorService.shutdownNow();
-        System.out.println("executorService.isShutdown() = " + executorService.isShutdown());
+        executorService.shutdown();
 
-        // Adding Task3 will throw RejectedExecutionException because shutdownNow() is already called
-        executorService.execute(new MyTask("Task3", 3));
+        // BLOCKS main thread for AT LEAST 30 seconds or less till all tasks are complete
+        // This would make sure statements below will execute after both tasks
+        // that takes 6 second are complete.
+        executorService.awaitTermination(30, TimeUnit.SECONDS);
+
+        // If there was no awaitTermination() then these statements would have executed
+        // while tasks were running.
+        System.out.println("executorService.isShutdown() = " + executorService.isShutdown());
+        System.out.println("executorService.isTerminated() = " + executorService.isTerminated());
     }
 }
