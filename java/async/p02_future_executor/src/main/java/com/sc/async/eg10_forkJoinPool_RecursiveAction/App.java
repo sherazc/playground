@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.Future;
 import java.util.concurrent.RecursiveAction;
 import java.util.stream.Collectors;
@@ -19,7 +20,7 @@ public class App {
 
         // Create the root task. This task will be broken down into
         // smaller task before processing begins
-        Task rootTask = new Task(numbers, 0, numbers.size(), 10);
+        ForkJoinTask<Void> rootTask = new Task(numbers, 0, numbers.size(), 10);
 
         ForkJoinPool forkJoinPool = ForkJoinPool.commonPool();
 
@@ -71,8 +72,8 @@ class Task extends RecursiveAction {
             // Break task
             int indexMiddle = (indexFrom + indexTo) / 2;
             // Creating recursive task
-            Task task1 = new Task(numbers, indexFrom, indexMiddle + 1, multiplier);
-            Task task2 = new Task(numbers, indexMiddle + 1, indexTo, multiplier);
+            ForkJoinTask<Void> task1 = new Task(numbers, indexFrom, indexMiddle + 1, multiplier);
+            ForkJoinTask<Void> task2 = new Task(numbers, indexMiddle + 1, indexTo, multiplier);
 
             // Invokes sub-tasks. This will make the recursive call to compute
             invokeAll(task1, task2);
