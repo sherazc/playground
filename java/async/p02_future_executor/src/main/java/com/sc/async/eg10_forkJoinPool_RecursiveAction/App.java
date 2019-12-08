@@ -1,4 +1,4 @@
-package com.sc.async.eg10_forkjoinRecursiveAction;
+package com.sc.async.eg10_forkJoinPool_RecursiveAction;
 
 import java.util.List;
 import java.util.Timer;
@@ -74,8 +74,17 @@ class Task extends RecursiveAction {
             Task task1 = new Task(numbers, indexFrom, indexMiddle + 1, multiplier);
             Task task2 = new Task(numbers, indexMiddle + 1, indexTo, multiplier);
 
-            // Recursive call
+            // Invokes sub-tasks. This will make the recursive call to compute
             invokeAll(task1, task2);
+
+            /*
+            // fork() & join() could be used instead of invokeAll()
+            // fork() & join() technique is used when we have to join result of sub-tasks
+            task1.fork();
+            task2.fork();
+            task1.join();
+            task2.join();
+            */
         }
     }
 

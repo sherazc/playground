@@ -11,13 +11,17 @@ public class App {
         TimerTask task2 = new MyTimerTask("Task 2");
 
         // Run it in demon only once after 1 second
-        new Timer(true).schedule(task1, 1000);
+        Timer timer1 = new Timer(true);
+        timer1.schedule(task1, 1000);
 
         // Run it after 0 second and continue to run every 1 second
-        new Timer(true).schedule(task2, 0, 1000);
+        Timer timer2 = new Timer(true);
+        timer2.schedule(task2, 0, 1000);
 
         // Main Thread sleep for 5 second
         MyThreadUtils.sleep(5000);
+        timer1.cancel();
+        timer2.cancel();
     }
 }
 
