@@ -47,9 +47,11 @@ class Task extends RecursiveTask<Integer> {
             int indexMiddle = (indexFrom + indexTo) / 2;
             ForkJoinTask<Integer> task1 = new Task(numbers, indexFrom, indexMiddle);
             ForkJoinTask<Integer> task2 = new Task(numbers, indexMiddle, indexTo);
+            // Forking sub tasks
             task1.fork();
             task2.fork();
 
+            // Joining results of sub-tasks
             result = task1.join() + task2.join();
         }
         return result;
