@@ -229,13 +229,13 @@ Funds End date is one less showing on Dashboard
 Defect:
 Configuration save cancel buttons are not getting disabled
 
-Defect:
+✅ Defect:
 Login -> click company link in header -> going to 404
 
 Defect: 
 US States select on company register page should be a required field 
 
-Defect:
+✅ Defect:
 Asr next change time is not getting calculated. Maybe API is not 
 doing 2 year logic to get next change.
 
@@ -307,7 +307,7 @@ GET http://localhost:8085/api/companies/url/c3/central-control
 
 Validate dashboard URL 
 
-Remove middle expenses section.
+✅ Remove middle expenses section.
 
 Widgets
 

@@ -109,15 +109,19 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
     private Prayer findDatePrayerAndNextChange(List<Prayer> yearPrayers, int month, int date) {
         List<Prayer> yearPrayersMutable = new ArrayList<>(yearPrayers);
         yearPrayersMutable.sort(this::comparePrayers);
-        // noinspection CollectionAddedToSelf
+        // Duplicated prayers in its self to find next year change
+        //noinspection CollectionAddedToSelf
         yearPrayersMutable.addAll(yearPrayersMutable);
 
         Prayer foundPrayer = null;
         int foundIndex = -1;
 
         for (int i = 0; i < yearPrayersMutable.size(); i++) {
-            if (comparePrayerMonthDate(yearPrayersMutable.get(i), month, date) < 0)
-                continue;
+            // Because of below condition it was unable to find next year change
+            // comparePrayerMonthDate() args month and date for the next year was not
+            // considered to be greater value.
+            // if (comparePrayerMonthDate(yearPrayersMutable.get(i), month, date) < 0)
+              //  continue;
             Prayer loopPrayer = yearPrayersMutable.get(i);
             if(foundPrayer == null && comparePrayerMonthDate(loopPrayer, month, date) == 0) {
                 foundPrayer = loopPrayer;
