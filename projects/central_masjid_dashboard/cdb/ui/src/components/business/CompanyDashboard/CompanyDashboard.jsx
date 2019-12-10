@@ -13,6 +13,7 @@ import {Link} from "react-router-dom";
 import {
     apiGetCompanyConfigurations
 } from "../../../store/common/configurations/configurationsAction"
+import {filterEnabledItems} from "../../../services/utilities";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
@@ -62,20 +63,10 @@ class CompanyDashboard extends Component {
     }
 
     isShowMiddleSection(centralControl) {
-        if (!centralControl
-            || !centralControl.expenses || !centralControl.funds
-            || centralControl.expenses.length < 1
-            || centralControl.funds.length < 1) {
-            return false;
-        }
+        const expenses = filterEnabledItems(centralControl.expenses);
+        const funds = filterEnabledItems(centralControl.funds);
 
-        const containsExpenses = centralControl.expenses
-            .filter(e => e.enabled).length > 0;
-
-        const containsFunds = centralControl.funds
-            .filter(f => f.enabled).length > 0;
-
-        return containsExpenses || containsFunds;
+        return expenses.length > 0 || funds.length > 0;
     }
 
     render() {

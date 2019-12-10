@@ -8,25 +8,21 @@ class Accounts extends Component {
 
     constructor(props) {
         super(props);
-
         this.animationSeconds = 1;
         this.animationStaySeconds = 5;
         this.currentSlide = 0;
         this.slides = [];
 
         this.state = {
-            expenses: {},
-            funds: {},
+            expenses: [],
+            funds: [],
             slidesClasses: []
         };
 
         this.startSlideShow = this.startSlideShow.bind(this);
     }
 
-
-
     componentDidUpdate(prevProps, prevState, snapshot) {
-
         if (this.shouldUpdateStateFromProps(this.props, prevProps, this.state)) {
             // 1. Clean up if needed
             this.cleanup();
@@ -82,21 +78,24 @@ class Accounts extends Component {
         }
     }
 
+    /*
+    Update state only if enabled currentProps, previousProps and state are not equal
+    this goes for both expenses and funds.
+     */
     shouldUpdateStateFromProps(currentProps, prevProps, state) {
-        const currentExpense = currentProps.centralControl.expenses;
-        const previousExpense = prevProps.centralControl.expenses;
-        const stateExpense = state.expenses;
+        const currentExpense = filterEnabledItems(currentProps.centralControl.expenses);
+        const previousExpense = filterEnabledItems(prevProps.centralControl.expenses);
+        const stateExpense = filterEnabledItems(state.expenses);
 
-        const currentFunds = currentProps.centralControl.funds;
-        const previousFunds = prevProps.centralControl.funds;
-        const stateFunds = state.funds;
+        const currentFunds = filterEnabledItems(currentProps.centralControl.funds);
+        const previousFunds = filterEnabledItems(prevProps.centralControl.funds);
+        const stateFunds = filterEnabledItems(state.funds);
 
-        const expenseShouldUpdate = !equalObjects(currentExpense, previousExpense)
-            && !equalObjects(currentExpense, stateExpense);
+        const expenseShouldUpdate = !(equalObjects(currentExpense, previousExpense)
+            && equalObjects(currentExpense, stateExpense));
 
-
-        const fundsShouldUpdate = !equalObjects(currentFunds, previousFunds)
-            && !equalObjects(currentFunds, stateFunds);
+        const fundsShouldUpdate = !(equalObjects(currentFunds, previousFunds)
+            && equalObjects(currentFunds, stateFunds));
 
         return expenseShouldUpdate || fundsShouldUpdate;
     }
@@ -104,7 +103,6 @@ class Accounts extends Component {
     cleanup() {
         clearInterval(this.animationInterval);
     }
-
 
     addShowHideInitialStyles(slidesCount, slidesClasses) {
         for (let i = 0; i < slidesCount; i++) {
@@ -128,7 +126,6 @@ class Accounts extends Component {
     }
 
     render() {
-        console.log(this.state);
         return (
             <>
                 <div className={`${styles.heading1} ${styles.vMargin8}`}>
@@ -145,7 +142,6 @@ class Accounts extends Component {
             </>
         );
     }
-
 }
 
 export default Accounts;
