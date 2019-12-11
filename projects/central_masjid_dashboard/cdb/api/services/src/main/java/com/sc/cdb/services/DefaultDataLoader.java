@@ -1,5 +1,6 @@
 package com.sc.cdb.services;
 
+import com.sc.cdb.services.common.StartupProfile;
 import org.bson.BsonArray;
 import org.bson.BsonDocument;
 import org.slf4j.Logger;
@@ -17,9 +18,12 @@ public class DefaultDataLoader {
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultDataLoader.class);
 
     private final MongoTemplate mongoTemplate;
+    private StartupProfile startupProfile;
 
-    public DefaultDataLoader(MongoTemplate mongoTemplate) {
+    public DefaultDataLoader(MongoTemplate mongoTemplate,
+                             StartupProfile startupProfile) {
         this.mongoTemplate = mongoTemplate;
+        this.startupProfile = startupProfile;
     }
 
     public void load() {
@@ -31,11 +35,15 @@ public class DefaultDataLoader {
     private Map<String, String> getCollectionResources() {
         String initDataDirectory = "/init-data/";
         Map<String, String> collectionResources = new HashMap<>();
-        collectionResources.put("centralControl", initDataDirectory + "centralControl.json");
-        collectionResources.put("company", initDataDirectory + "company.json");
-        collectionResources.put("user", initDataDirectory + "user.json");
+
+        if (startupProfile.isActiveProfile(StartupProfile.types.dev.name())) {
+            collectionResources.put("centralControl", initDataDirectory + "centralControl.json");
+            collectionResources.put("company", initDataDirectory + "company.json");
+            collectionResources.put("user", initDataDirectory + "user.json");
+            collectionResources.put("prayerConfig", initDataDirectory + "prayerConfig.json");
+        }
+
         collectionResources.put("hadith", initDataDirectory + "hadith.json");
-        collectionResources.put("prayerConfig", initDataDirectory + "prayerConfig.json");
         collectionResources.put("picklist", initDataDirectory + "picklist.json");
         return collectionResources;
     }

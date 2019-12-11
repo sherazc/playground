@@ -311,7 +311,7 @@ Validate dashboard URL
 
 Widgets
 
-    ▶️ Make dashboard widgets script
+    ✅️ Make dashboard widgets script
     
     ✅️ Salah time widgets
         
@@ -345,7 +345,7 @@ Create my own SVG image component. Component.
 I will use this for. This component should take in 
 SVG URL and add className on it on it. 
 
-Make configurations to change labels
+▶️ Make configurations to change labels
 
 Refresh dashboard if data version logic is not implemented
 
