@@ -1,8 +1,13 @@
-Hi ${name},
-
-Please click this link to confirm registration
-
-${confirmation_link}
-
-Thank you,
-masjiddashboard.com
+<div>
+    Hi ${name},
+    <p>
+        Please click this link to confirm registration.
+    </p>
+    <p>
+        <a href="${confirmation_link}">${confirmation_link}</a>
+    </p>
+    <p>
+        Thank you,<br/>
+        masjiddashboard.com
+    </p>
+</div>

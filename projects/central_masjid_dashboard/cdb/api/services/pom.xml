@@ -38,5 +38,15 @@
             <artifactId>velocity-engine-core</artifactId>
             <version>2.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk</artifactId>
+            <version>1.11.695</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-ses</artifactId>
+            <version>1.11.695</version>
+        </dependency>
     </dependencies>
 </project>
