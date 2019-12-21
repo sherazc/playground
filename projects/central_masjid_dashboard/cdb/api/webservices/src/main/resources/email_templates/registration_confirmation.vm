@@ -1,0 +1,8 @@
+Hi ${name},
+
+Please click this link to confirm registration
+
+${confirmation_link}
+
+Thank you,
+masjiddashboard.com

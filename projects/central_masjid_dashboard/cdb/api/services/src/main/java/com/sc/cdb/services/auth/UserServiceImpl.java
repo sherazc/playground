@@ -6,15 +6,19 @@ import com.sc.cdb.data.model.auth.Company;
 import com.sc.cdb.data.model.auth.User;
 import com.sc.cdb.data.model.auth.UserCompany;
 import com.sc.cdb.data.repository.UserRepository;
+import com.sc.cdb.services.email.EmailService;
 import com.sc.cdb.services.model.ServiceResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Component
@@ -24,15 +28,16 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
     private CompanyService companyService;
     private UserDao userDao;
+    private EmailService emailService;
 
-    public UserServiceImpl(UserRepository userRepository,
-                           PasswordEncoder passwordEncoder,
-                           CompanyService companyService,
-                           UserDao userDao) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder,
+                           CompanyService companyService, UserDao userDao,
+                           @Qualifier("asyncEmailService") EmailService emailService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.companyService = companyService;
         this.userDao = userDao;
+        this.emailService = emailService;
     }
 
     public Optional<User> findUserByEmail(String email) {
@@ -90,9 +95,22 @@ public class UserServiceImpl implements UserService {
             successMessage = MessageFormat.format(
                     "User {0} successfully created.",
                     user.getEmail());
+            sendConfirmationEmail(user);
         }
         LOG.debug(successMessage);
         return builder.build().accept(successMessage);
+    }
+
+    private void sendConfirmationEmail(User user) {
+        Map<String, Object> attributes = new HashMap<>();
+        attributes.put("name", user.getFirstName());
+        attributes.put("confirmation_link", "https://www.masjiddashboard.com/");
+
+        emailService.send(
+                "donotreply@masjiddashboard.com",
+                user.getEmail(),
+                "registration_confirmation",
+                attributes);
     }
 
     private boolean isPasswordAlreadyEncoded(String password) {

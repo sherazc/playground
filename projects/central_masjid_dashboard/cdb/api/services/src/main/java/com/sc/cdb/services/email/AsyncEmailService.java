@@ -19,9 +19,8 @@ public class AsyncEmailService implements EmailService {
         this.emailService = emailService;
     }
 
-
     @Override
-    public void send(String from, String to, String templateName, Map<String, String> attributes) {
+    public void send(String from, String to, String templateName, Map<String, Object> attributes) {
         if (executorService == null || executorService.isShutdown()) {
             executorService = Executors.newCachedThreadPool();
         }
