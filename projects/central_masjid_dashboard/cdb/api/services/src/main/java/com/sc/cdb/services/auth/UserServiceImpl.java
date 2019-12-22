@@ -109,6 +109,7 @@ public class UserServiceImpl implements UserService {
         emailService.send(
                 "donotreply@masjiddashboard.com",
                 user.getEmail(),
+                "Registration Confirmation",
                 "registration_confirmation",
                 attributes);
     }

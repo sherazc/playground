@@ -10,10 +10,14 @@ import com.amazonaws.services.simpleemail.model.Content;
 import com.amazonaws.services.simpleemail.model.Destination;
 import com.amazonaws.services.simpleemail.model.Message;
 import com.amazonaws.services.simpleemail.model.SendEmailRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service("emailService")
 public class EmailServiceImpl implements EmailService {
+
+    public static final String CHARACTER_SET = "UTF-8";
 
     private TemplateEngine templateEngine;
 
@@ -22,12 +26,13 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void send(String from, String to, String templateName, Map<String, Object> attributes) {
+    public void send(String from, String to, String subject, String templateName, Map<String, Object> attributes) {
         String emailBody = templateEngine.parse(templateName, attributes);
-        send(from, to, emailBody);
+        send(from, to, subject, emailBody);
     }
 
-    private void send(String from, String to, String emailBody) {
+    private void send(String from, String to, String subject, String emailBody) {
+        log.debug("Sending email from {}, to {}.", from, to);
         AmazonSimpleEmailService client =
                 AmazonSimpleEmailServiceClientBuilder.standard()
                         // Replace US_WEST_2 with the AWS Region you're using for
@@ -40,20 +45,18 @@ public class EmailServiceImpl implements EmailService {
                 .withMessage(new Message()
                         .withBody(new Body()
                                 .withHtml(new Content()
-                                        .withCharset("UTF-8").withData(emailBody))
+                                        .withCharset(CHARACTER_SET).withData(emailBody))
                                 .withText(new Content()
-                                        .withCharset("UTF-8").withData(emailBody)))
+                                        .withCharset(CHARACTER_SET).withData(emailBody)))
 
                         .withSubject(new Content()
-                                .withCharset("UTF-8").withData("Registration Confirmation")))
+                                .withCharset(CHARACTER_SET).withData(subject)))
                 .withSource(from)
                 // Comment or remove the next line if you are not using a
                 // configuration set
                 // .withConfigurationSetName(CONFIGSET)
                 ;
         client.sendEmail(request);
-        System.out.println("Email sent!");
-
-
+        log.debug("Email sent");
     }
 }

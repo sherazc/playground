@@ -20,13 +20,13 @@ public class AsyncEmailService implements EmailService {
     }
 
     @Override
-    public void send(String from, String to, String templateName, Map<String, Object> attributes) {
+    public void send(String from, String to, String subject, String templateName, Map<String, Object> attributes) {
         if (executorService == null || executorService.isShutdown()) {
             executorService = Executors.newCachedThreadPool();
         }
 
         Callable<Void> sendEmail = () -> {
-            emailService.send(from, to, templateName, attributes);
+            emailService.send(from, to, subject, templateName, attributes);
             return null;
         };
 

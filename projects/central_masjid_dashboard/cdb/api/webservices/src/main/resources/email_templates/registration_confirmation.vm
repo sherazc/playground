@@ -1,13 +1,23 @@
-<div>
-    Hi ${name},
-    <p>
-        Please click this link to confirm registration.
-    </p>
-    <p>
-        <a href="${confirmation_link}">${confirmation_link}</a>
-    </p>
-    <p>
-        Thank you,<br/>
-        masjiddashboard.com
-    </p>
+<div style="background-color: #b8c16e; padding: 10px; font-size: 16px">
+    <div style="background-color: #b8c16e; line-height: 80px; color: #fcfcfc; font-size: 30px; text-align: center;">
+        Confirm Email
+    </div>
+    <div style="background-color: #fcfcfc; color: #1d1d1d;border-radius: 2px; padding: 20px">
+        Hi ${name},
+        <p>
+            Please click this link to confirm registration.
+        </p>
+        <p>
+            <a href="${confirmation_link}">${confirmation_link}</a>
+        </p>
+        <p>
+            Thank you,<br/>
+            <a href="https://www.masjiddashboard.com">masjiddashboard.com</a>
+        </p>
+    </div>
+    <div style="background-color: #b8c16e; color: #fcfcfc; font-size: 12px; text-align: center; line-height: 50px">
+        <a style="color: #fcfcfc;" href="https://www.masjiddashboard.com">
+            masjiddashboard.com
+        </a>
+    </div>
 </div>
