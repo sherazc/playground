@@ -8,8 +8,8 @@ export const createEmptyCompanyUser = () => {
         "lastName": "",
         // TODO: set admin role in register company user components
         "roles": ["ADMIN"],
-        "active": true,
-        "verified": true
+        "active": false,
+        "verified": false
     };
 };
 
@@ -27,7 +27,7 @@ export const createEmptyCompany = () => {
             "longitude": "",
             "latitude": ""
         },
-        "active": true,
+        "active": false,
         "expirationDate": ""
     };
 };

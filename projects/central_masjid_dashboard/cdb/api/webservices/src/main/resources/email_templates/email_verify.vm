@@ -5,10 +5,10 @@
     <div style="background-color: #fcfcfc; color: #1d1d1d;border-radius: 2px; padding: 20px">
         Hi ${name},
         <p>
-            Please click this link to confirm registration.
+            Please click the link below to confirm registration:
         </p>
         <p>
-            <a href="${confirmation_link}">${confirmation_link}</a>
+            <a href="${verify_link}">${verify_link}</a>
         </p>
         <p>
             Thank you,<br/>

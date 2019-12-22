@@ -12,6 +12,7 @@ import org.springframework.data.annotation.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -30,6 +31,8 @@ public class User extends BaseModel {
     private String password;
     private String firstName, lastName;
     private List<String> roles;
+    private String emailVerifyCode;
+    private Date registrationDate;
     private boolean active;
     private boolean verified;
 
@@ -57,23 +60,5 @@ public class User extends BaseModel {
     @JsonProperty
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public boolean isActive() {
-        // TODO: remove hardcoded value and once activate logic is complete
-        return true;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public boolean isVerified() {
-        // TODO: remove hardcoded value and once activate logic is complete
-        return true;
-    }
-
-    public void setVerified(boolean verified) {
-        this.verified = verified;
     }
 }

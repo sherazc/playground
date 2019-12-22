@@ -60,7 +60,7 @@ class AuthCompany extends Component {
         if (action === "create") {
             let company = this.props.companyServiceResponse.target;
             saveCompany.id = company.id;
-            saveCompany.active = true;
+            saveCompany.active = false;
             this.props.createCompanyAction(saveCompany);
         } else {
             saveCompany.id = this.state.id;

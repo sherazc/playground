@@ -16,10 +16,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.text.MessageFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 @Component
 public class UserServiceImpl implements UserService {
@@ -95,22 +97,31 @@ public class UserServiceImpl implements UserService {
             successMessage = MessageFormat.format(
                     "User {0} successfully created.",
                     user.getEmail());
-            sendConfirmationEmail(user);
+            sendVerifyEmail(user);
         }
         LOG.debug(successMessage);
         return builder.build().accept(successMessage);
     }
 
-    private void sendConfirmationEmail(User user) {
+    private void sendVerifyEmail(User user) {
+
+        String emailVerifyCode = UUID.randomUUID().toString();
+        Date today = new Date();
+        String serverUrl = "https://www.masjiddashboard.com";
+
+        String link = String.format(
+                "%s/api/auth/companies/%s/users/%s/verify/%s",
+                serverUrl, user.getCompanyId(), user.getId(), emailVerifyCode);
+
         Map<String, Object> attributes = new HashMap<>();
         attributes.put("name", user.getFirstName());
-        attributes.put("confirmation_link", "https://www.masjiddashboard.com/");
+        attributes.put("verify_link", link);
 
         emailService.send(
                 "donotreply@masjiddashboard.com",
                 user.getEmail(),
                 "Registration Confirmation",
-                "registration_confirmation",
+                "email_verify",
                 attributes);
     }
 
@@ -143,7 +154,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private Optional<User> getExistingUserWithSameEmail(User user, boolean update) {
-        LOG.debug("Searching for user. email = {}, userId = {}", user.getEmail());
+        LOG.debug("Searching for user. email = {}, userId = {}", user.getEmail(), user.getId());
         Optional<User> existingUserOptional;
         if (update) {
             existingUserOptional = this.userRepository.findByIdIsNotAndEmailIgnoreCase(user.getId(), user.getEmail());

@@ -52,8 +52,8 @@ class AuthCompanyUser extends Component {
             "firstName": this.state.firstName,
             "lastName": this.state.lastName,
             "roles": ["ADMIN"],
-            "active": true,
-            "verified": true
+            "active": false,
+            "verified": false
         };
 
         const action = getReactRouterPathParamFromUrl(this.props, "action");
