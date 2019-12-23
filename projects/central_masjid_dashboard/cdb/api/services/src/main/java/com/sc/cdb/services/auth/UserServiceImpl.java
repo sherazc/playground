@@ -92,21 +92,20 @@ public class UserServiceImpl implements UserService {
         if (update) {
             successMessage = MessageFormat.format(
                     "User {0} successfully updated.",
-                    user.getEmail());
+                    savedUser.getEmail());
         } else {
             successMessage = MessageFormat.format(
                     "User {0} successfully created.",
-                    user.getEmail());
-            sendVerifyEmail(user);
+                    savedUser.getEmail());
+
+            sendVerifyEmail(savedUser);
         }
         LOG.debug(successMessage);
         return builder.build().accept(successMessage);
     }
 
     private void sendVerifyEmail(User user) {
-
         String emailVerifyCode = UUID.randomUUID().toString();
-        Date today = new Date();
         String serverUrl = "https://www.masjiddashboard.com";
 
         String link = String.format(
@@ -123,6 +122,12 @@ public class UserServiceImpl implements UserService {
                 "Registration Confirmation",
                 "email_verify",
                 attributes);
+
+        user.setEmailVerifyCode(emailVerifyCode);
+        user.setRegistrationDate(new Date());
+        user.setVerified(false);
+        user.setActive(false);
+        userRepository.save(user);
     }
 
     private boolean isPasswordAlreadyEncoded(String password) {
