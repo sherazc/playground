@@ -110,4 +110,5 @@ public class CompanyUserController {
     public ResponseEntity<?> delete(@PathVariable("companyId") String companyId, @PathVariable("id") String id) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Delete method not implemented yet. ID " + id);
     }
+
 }

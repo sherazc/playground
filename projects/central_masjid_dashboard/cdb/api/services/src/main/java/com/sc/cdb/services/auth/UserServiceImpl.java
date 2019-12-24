@@ -1,5 +1,6 @@
 package com.sc.cdb.services.auth;
 
+import com.sc.cdb.config.AppConfiguration;
 import com.sc.cdb.data.common.util.Constants;
 import com.sc.cdb.data.dao.UserDao;
 import com.sc.cdb.data.model.auth.Company;
@@ -31,15 +32,17 @@ public class UserServiceImpl implements UserService {
     private CompanyService companyService;
     private UserDao userDao;
     private EmailService emailService;
+    private AppConfiguration appConfiguration;
 
     public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder,
                            CompanyService companyService, UserDao userDao,
-                           @Qualifier("asyncEmailService") EmailService emailService) {
+                           @Qualifier("asyncEmailService") EmailService emailService, AppConfiguration appConfiguration) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.companyService = companyService;
         this.userDao = userDao;
         this.emailService = emailService;
+        this.appConfiguration = appConfiguration;
     }
 
     public Optional<User> findUserByEmail(String email) {
@@ -105,17 +108,22 @@ public class UserServiceImpl implements UserService {
     }
 
     private void sendVerifyEmail(User user) {
+        if (!appConfiguration.getEmail().isEnable()) {
+            LOG.debug("Not sending email. Email is not enabled.");
+            return;
+        }
         String emailVerifyCode = UUID.randomUUID().toString();
         String serverUrl = "https://www.masjiddashboard.com";
-
+        // // "%s/api/auth/companies/%s/users/%s/verify/%s",
         String link = String.format(
-                "%s/api/auth/companies/%s/users/%s/verify/%s",
+                "%s/auth/register/verify?companyId=%s&userId=%s&emailVerifyCode=%s",
                 serverUrl, user.getCompanyId(), user.getId(), emailVerifyCode);
 
         Map<String, Object> attributes = new HashMap<>();
         attributes.put("name", user.getFirstName());
         attributes.put("verify_link", link);
 
+        LOG.debug("Sending email with verify link: {}", link);
         emailService.send(
                 "donotreply@masjiddashboard.com",
                 user.getEmail(),
