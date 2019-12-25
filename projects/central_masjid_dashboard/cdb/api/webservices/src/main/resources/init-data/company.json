@@ -40,5 +40,26 @@
       "$date": "2019-01-19T16:42:32.720Z"
     },
     "_class": "com.sc.cdb.data.model.auth.Company"
+  },
+  {
+    "_id": {
+      "$oid": "5e035ae04bdc55545be2bd08"
+    },
+    "name": "Inactive Company",
+    "url": "c1",
+    "website": "https://www.google.com",
+    "address": {
+      "street": "123 Street",
+      "city": "Alpharetta",
+      "state": "GA",
+      "zip": "30004",
+      "longitude": "1.1",
+      "latitude": "2.2"
+    },
+    "active": false,
+    "expirationDate": {
+      "$date": "2019-01-19T16:42:32.720Z"
+    },
+    "_class": "com.sc.cdb.data.model.auth.Company"
   }
 ]

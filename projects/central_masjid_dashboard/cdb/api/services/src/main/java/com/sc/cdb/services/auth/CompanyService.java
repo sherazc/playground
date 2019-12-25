@@ -19,5 +19,5 @@ public interface CompanyService {
 
     List<CustomConfiguration> findCompanyConfigurations(String companyId);
 
-    void activateCompany(String companyId);
+    boolean activateCompany(String companyId, boolean active);
 }

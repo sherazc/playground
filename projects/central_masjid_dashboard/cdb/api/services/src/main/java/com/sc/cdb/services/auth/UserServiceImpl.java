@@ -193,7 +193,7 @@ public class UserServiceImpl implements UserService {
         List<UserCompany> allCompanyUsers = findAllCompanyUsers(user.getCompanyId());
         // Activate company because this is company's first user
         if (allCompanyUsers.size() == 1 && allCompanyUsers.get(0).getCompany() != null) {
-            companyService.activateCompany(user.getCompanyId());
+            companyService.activateCompany(user.getCompanyId(), true);
         }
 
     }
@@ -203,7 +203,7 @@ public class UserServiceImpl implements UserService {
             return false;
         }
         Date today = new Date();
-        return today.getTime() - registrationDate.getTime() < EMAIL_VERIFY_EXPIRATION_LIMIT;
+        return today.getTime() - registrationDate.getTime() > EMAIL_VERIFY_EXPIRATION_LIMIT;
     }
 
     private Optional<User> getExistingUserWithSameEmail(User user, boolean update) {

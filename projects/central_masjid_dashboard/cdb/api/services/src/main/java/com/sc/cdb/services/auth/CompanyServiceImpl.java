@@ -1,5 +1,6 @@
 package com.sc.cdb.services.auth;
 
+import com.sc.cdb.data.dao.CompanyDao;
 import com.sc.cdb.data.dao.PicklistDao;
 import com.sc.cdb.data.model.auth.Company;
 import com.sc.cdb.data.model.cc.CentralControl;
@@ -27,16 +28,19 @@ public class CompanyServiceImpl implements CompanyService {
     private PicklistDao picklistDao;
     private CentralControlRepository centralControlRepository;
     private CompanyDefaultsCreator companyDefaultsCreator;
+    private CompanyDao companyDao;
 
     public CompanyServiceImpl(
             CompanyRepository companyRepository,
             PicklistDao picklistDao,
             CentralControlRepository centralControlRepository,
-            CompanyDefaultsCreator companyDefaultsCreator) {
+            CompanyDefaultsCreator companyDefaultsCreator,
+            CompanyDao companyDao) {
         this.companyRepository = companyRepository;
         this.picklistDao = picklistDao;
         this.centralControlRepository = centralControlRepository;
         this.companyDefaultsCreator = companyDefaultsCreator;
+        this.companyDao = companyDao;
     }
 
     @Override
@@ -141,9 +145,10 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public void activateCompany(String companyId) {
-spodfkspdf
+    public boolean activateCompany(String companyId, boolean active) {
+        companyDao.activateCompany(companyId, active);
 
+        return false;
     }
 
     private void mergeOrAddConfiguration(Configuration configuration, List<CustomConfiguration> customConfigurations) {

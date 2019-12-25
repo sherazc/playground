@@ -16,6 +16,10 @@ public class UserController {
 
     private UserService userService;
 
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
     @GetMapping("{userId}/verifyEmail/{emailVerifyCode}")
     public ResponseEntity<ServiceResponse<Boolean>> verifyEmail(
             @PathVariable String userId, @PathVariable String emailVerifyCode) {
