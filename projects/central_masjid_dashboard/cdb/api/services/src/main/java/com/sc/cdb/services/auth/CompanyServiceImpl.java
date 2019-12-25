@@ -140,6 +140,12 @@ public class CompanyServiceImpl implements CompanyService {
         return customConfigurations;
     }
 
+    @Override
+    public void activateCompany(String companyId) {
+spodfkspdf
+
+    }
+
     private void mergeOrAddConfiguration(Configuration configuration, List<CustomConfiguration> customConfigurations) {
         Optional<CustomConfiguration> foundOptional = customConfigurations
                 .stream()

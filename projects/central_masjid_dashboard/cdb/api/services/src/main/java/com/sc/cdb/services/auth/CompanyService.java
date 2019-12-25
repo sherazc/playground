@@ -19,4 +19,5 @@ public interface CompanyService {
 
     List<CustomConfiguration> findCompanyConfigurations(String companyId);
 
+    void activateCompany(String companyId);
 }

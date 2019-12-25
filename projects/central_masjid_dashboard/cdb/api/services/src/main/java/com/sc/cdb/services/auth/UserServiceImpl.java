@@ -27,6 +27,7 @@ import java.util.UUID;
 @Component
 public class UserServiceImpl implements UserService {
     private static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
+    private static final long EMAIL_VERIFY_EXPIRATION_LIMIT = 1000 * 60 * 60;
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
     private CompanyService companyService;
@@ -109,7 +110,7 @@ public class UserServiceImpl implements UserService {
 
     private void sendVerifyEmail(User user) {
         if (!appConfiguration.getEmail().isEnable()) {
-            LOG.debug("Not sending email. Email is not enabled.");
+            LOG.warn("Not sending verify email. Email is not enabled.");
             return;
         }
         String emailVerifyCode = UUID.randomUUID().toString();
@@ -164,6 +165,45 @@ public class UserServiceImpl implements UserService {
             return Optional.empty();
         }
         return this.userRepository.findByCompanyIdAndId(companyId, userId);
+    }
+
+    @Override
+    public ServiceResponse<Boolean> verifyEmail(String userId, String emailVerifyCode) {
+        ServiceResponse.ServiceResponseBuilder<Boolean> responseBuilder = ServiceResponse.builder();
+
+        Optional<User> userOptional = this.userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            if (StringUtils.equals(user.getEmailVerifyCode(), emailVerifyCode)
+                && !isVerificationExpired(user.getRegistrationDate())) {
+                responseBuilder.target(true);
+                responseBuilder.message("Successfully verified email address.");
+                activateUser(user);
+            } else {
+                responseBuilder.message("Registration expired. Please try to register again.");
+            }
+        } else {
+            responseBuilder.message("User not found.");
+        }
+
+        return responseBuilder.build();
+    }
+
+    private void activateUser(User user) {
+        List<UserCompany> allCompanyUsers = findAllCompanyUsers(user.getCompanyId());
+        // Activate company because this is company's first user
+        if (allCompanyUsers.size() == 1 && allCompanyUsers.get(0).getCompany() != null) {
+            companyService.activateCompany(user.getCompanyId());
+        }
+
+    }
+
+    private boolean isVerificationExpired(Date registrationDate) {
+        if (registrationDate == null) {
+            return false;
+        }
+        Date today = new Date();
+        return today.getTime() - registrationDate.getTime() < EMAIL_VERIFY_EXPIRATION_LIMIT;
     }
 
     private Optional<User> getExistingUserWithSameEmail(User user, boolean update) {
