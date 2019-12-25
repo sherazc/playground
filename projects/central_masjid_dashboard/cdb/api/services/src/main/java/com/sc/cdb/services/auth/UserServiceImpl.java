@@ -176,9 +176,10 @@ public class UserServiceImpl implements UserService {
             User user = userOptional.get();
             if (StringUtils.equals(user.getEmailVerifyCode(), emailVerifyCode)
                 && !isVerificationExpired(user.getRegistrationDate())) {
-                responseBuilder.target(true);
+
+                responseBuilder.target(activateUser(user));
+                responseBuilder.successful(true);
                 responseBuilder.message("Successfully verified email address.");
-                activateUser(user);
             } else {
                 responseBuilder.message("Registration expired. Please try to register again.");
             }
@@ -189,13 +190,18 @@ public class UserServiceImpl implements UserService {
         return responseBuilder.build();
     }
 
-    private void activateUser(User user) {
+    private boolean activateUser(User user) {
+        boolean activated = true;
         List<UserCompany> allCompanyUsers = findAllCompanyUsers(user.getCompanyId());
         // Activate company because this is company's first user
         if (allCompanyUsers.size() == 1 && allCompanyUsers.get(0).getCompany() != null) {
-            companyService.activateCompany(user.getCompanyId(), true);
+            activated = companyService.activateCompany(user.getCompanyId(), true);
         }
-
+        user.setActive(true);
+        user.setVerified(true);
+        user.setEmailVerifyCode(null);
+        User savedUser = userRepository.save(user);
+        return activated && savedUser.isVerified() && savedUser.isActive() && StringUtils.isBlank(savedUser.getEmailVerifyCode());
     }
 
     private boolean isVerificationExpired(Date registrationDate) {

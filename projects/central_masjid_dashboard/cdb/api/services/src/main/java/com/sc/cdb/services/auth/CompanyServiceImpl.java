@@ -146,9 +146,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public boolean activateCompany(String companyId, boolean active) {
-        companyDao.activateCompany(companyId, active);
-
-        return false;
+        return companyDao.activateCompany(companyId, active);
     }
 
     private void mergeOrAddConfiguration(Configuration configuration, List<CustomConfiguration> customConfigurations) {
