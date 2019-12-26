@@ -117,8 +117,8 @@ public class UserServiceImpl implements UserService {
         String serverUrl = "https://www.masjiddashboard.com";
         // // "%s/api/auth/companies/%s/users/%s/verify/%s",
         String link = String.format(
-                "%s/auth/register/verify?companyId=%s&userId=%s&emailVerifyCode=%s",
-                serverUrl, user.getCompanyId(), user.getId(), emailVerifyCode);
+                "%s/auth/register/verify?userId=%s&emailVerifyCode=%s",
+                serverUrl, user.getId(), emailVerifyCode);
 
         Map<String, Object> attributes = new HashMap<>();
         attributes.put("name", user.getFirstName());
@@ -168,8 +168,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ServiceResponse<Boolean> verifyEmail(String userId, String emailVerifyCode) {
-        ServiceResponse.ServiceResponseBuilder<Boolean> responseBuilder = ServiceResponse.builder();
+    public ServiceResponse<User> verifyEmail(String userId, String emailVerifyCode) {
+        ServiceResponse.ServiceResponseBuilder<User> responseBuilder = ServiceResponse.builder();
 
         Optional<User> userOptional = this.userRepository.findById(userId);
         if (userOptional.isPresent()) {
@@ -177,9 +177,14 @@ public class UserServiceImpl implements UserService {
             if (StringUtils.equals(user.getEmailVerifyCode(), emailVerifyCode)
                 && !isVerificationExpired(user.getRegistrationDate())) {
 
-                responseBuilder.target(activateUser(user));
-                responseBuilder.successful(true);
-                responseBuilder.message("Successfully verified email address.");
+                boolean activated = activateUser(user);
+                if (activated) {
+                    responseBuilder.target(user);
+                    responseBuilder.successful(true);
+                    responseBuilder.message("Successfully verified email address.");
+                } else {
+                    responseBuilder.message("Failed to verified email address.");
+                }
             } else {
                 responseBuilder.message("Registration expired. Please try to register again.");
             }

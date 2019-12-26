@@ -18,11 +18,10 @@ class RegisterFinish extends Component {
                 <p>
                     Successfully register <b>{finishRegister.companyName}</b>
                     , and added <b>{finishRegister.email}</b> as it's admin user.
+
                 </p>
                 <p>
-                    <NavLink to={`${process.env.PUBLIC_URL}/`}>
-                        Login
-                    </NavLink>
+                    A verification email is sent to you. Please click the confirm link in it.
                 </p>
             </div>
             </Layout01>

@@ -1,5 +1,6 @@
 package com.sc.cdb.webservices.auth.controller;
 
+import com.sc.cdb.data.model.auth.User;
 import com.sc.cdb.services.auth.UserService;
 import com.sc.cdb.services.model.ServiceResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -21,10 +22,10 @@ public class UserController {
     }
 
     @GetMapping("{userId}/verifyEmail/{emailVerifyCode}")
-    public ResponseEntity<ServiceResponse<Boolean>> verifyEmail(
+    public ResponseEntity<ServiceResponse<User>> verifyEmail(
             @PathVariable String userId, @PathVariable String emailVerifyCode) {
         log.debug("Verifying email. userId={}, emailVerifyCode={}", userId, emailVerifyCode);
-        ServiceResponse<Boolean> serviceResponse = userService.verifyEmail(userId, emailVerifyCode);
+        ServiceResponse<User> serviceResponse = userService.verifyEmail(userId, emailVerifyCode);
         return ResponseEntity.ok(serviceResponse);
     }
 

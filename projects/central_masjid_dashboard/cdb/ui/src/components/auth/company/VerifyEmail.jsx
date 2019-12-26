@@ -25,7 +25,7 @@ class VerifyEmail extends Component {
     }
 
     verifyMessage() {
-        return "Confirmed";
+        return "Confirmed update message. send user and company in verification response.";
     }
 
     render() {

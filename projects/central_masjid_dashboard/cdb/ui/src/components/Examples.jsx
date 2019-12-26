@@ -51,6 +51,8 @@ class Examples extends Component {
                 <br/>
                 <button type="button" onClick={this.showHideLoading}>Show Loading</button>
                 <br/>
+                <a href="http://localhost:3000/auth/register/verify?userId=5da336eff2a2338668d23a04&emailVerifyCode=abc">Test Verify Email link</a>
+                <br/>
                 <SideLabelSelect
                     name={"name"}
                     label="Choose Select"
