@@ -51,9 +51,9 @@ public class AuthenticationTokenService {
 
     Authentication getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(AUTHORIZATION);
-        LOG.debug("Attempting to authenticate. Token={}", token);
+        // LOG.debug("Attempting to authenticate. Token={}", token);
         if (StringUtils.isBlank(token)) {
-            LOG.info("Can not authenticate. Token is missing");
+            // LOG.info("Can not authenticate. Token is missing");
             return null;
         }
         Claims claims;
