@@ -10,6 +10,7 @@ class VerifyEmail extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {response: {}};
     }
 
     componentDidMount() {
@@ -18,31 +19,26 @@ class VerifyEmail extends Component {
 
         axios
             .get(`${baseUrl}/api/auth/users/${userId}/verifyEmail/${emailVerifyCode}`)
-            .then(response => {
-                console.log(response.data);
-            });
+            .then(response => this.setState({response: response.data}));
 
-    }
-
-    verifyMessage() {
-        return "Confirmed update message. send user and company in verification response.";
     }
 
     render() {
-
-        const message = this.verifyMessage();
+        const {response} = this.state;
+        console.log(response);
         return (
             <Layout01>
                 <div>
-                    <h3>Confirm Registration</h3>
-                    <p>
-                        {message}
-                    </p>
-                    <p>
-                        <NavLink to={`${process.env.PUBLIC_URL}/`}>
-                            Login
-                        </NavLink>
-                    </p>
+                    <h1>Confirm Registration</h1>
+                    {response.successful === undefined && <p>Loading...</p>}
+                    {response.successful !== undefined && <p>{response.message}</p>}
+                    {response.successful &&
+                        <p>
+                            <NavLink to={`${process.env.PUBLIC_URL}/`}>
+                                Login
+                            </NavLink>
+                        </p>
+                    }
                 </div>
             </Layout01>
         );

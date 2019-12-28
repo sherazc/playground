@@ -38,4 +38,13 @@ db.getCollection('picklist').aggregate([
 
 // HOD Pagination. Used in getting next Random hadees
 db.getCollection('hadith').find({}).skip(74).limit(1);
-    
+
+
+
+// Reset Email varification
+db.getCollection('user').find({"email": "stariqch@yahoo.com"});
+
+db.user.update(
+{"email": "stariqch@yahoo.com"}, 
+{$set: {"active": false, "verified" : false, "emailVerifyCode": "abc"}}, 
+{multi: true});

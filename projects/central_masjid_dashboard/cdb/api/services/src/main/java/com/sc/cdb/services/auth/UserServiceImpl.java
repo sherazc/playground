@@ -181,7 +181,8 @@ public class UserServiceImpl implements UserService {
                 if (activated) {
                     responseBuilder.target(user);
                     responseBuilder.successful(true);
-                    responseBuilder.message("Successfully verified email address.");
+                    responseBuilder.message("Successfully verified " + user.getEmail()
+                            + ". Please login to setup prayer times and other configurations.");
                 } else {
                     responseBuilder.message("Failed to verified email address.");
                 }
