@@ -20,6 +20,7 @@ import {
     Button
 } from '@material-ui/core';
 
+const URL_HELP_MESSAGE = "Use this link to access dashboard.";
 class AuthCompany extends Component {
 
     constructor(props) {
@@ -79,9 +80,21 @@ class AuthCompany extends Component {
                 addressStreet: company.address.street,
                 addressCity: company.address.city,
                 addressState: company.address.state,
-                addressZip: company.address.zip,
+                addressZip: company.address.zip
             }
         }
+    }
+
+    createUrlHelp() {
+        return (
+            <>
+                <span style={{color: "#cc8434"}}>
+                    {window.location.origin}/{this.state.url}
+                </span>
+                <br/>
+                {URL_HELP_MESSAGE}
+            </>
+        );
     }
 
     getRedirectUrl(props) {
@@ -157,7 +170,7 @@ class AuthCompany extends Component {
                         onChange={this.onChange}
                         required={true}
                         error={isNotBlank(fieldErrors["company.url"])}
-                        help={<span>test<br/>test</span>}
+                        help={this.createUrlHelp()}
                         value={this.state.url}/>
 
                     <SideLabelInputText
