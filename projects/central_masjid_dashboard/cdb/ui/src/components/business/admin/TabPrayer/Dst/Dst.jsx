@@ -38,6 +38,7 @@ class Dst extends Component {
         if (this.props.dst && this.props.dst.enable !== undefined
             && !equalObjects(this.props.dst, this.state.dst)
             && !equalObjects(this.props.dst, prevProps.dst)) {
+            console.log("Setting dst in state", this.props.dst);
             this.setState({dst: this.props.dst});
         }
     }
@@ -73,6 +74,7 @@ class Dst extends Component {
     }
 
     createBeginEnd(validBeginMonthDate, validEndMonthDate) {
+        // console.log(this.state.dst);
         const automaticCalculate = this.state.dst && this.state.dst.automaticCalculate;
 
         if (automaticCalculate) {
@@ -103,7 +105,7 @@ class Dst extends Component {
                         <TextField error={!validBeginMonthDate}
                                    margin="dense" name="beginMonthDate"
                                    label="Begin" type="text"
-                                   value={this.state.dst.beginMonthDate}
+                                   value={this.state.dst.beginMonthDate ? this.state.dst.beginMonthDate : ""}
                                    onChange={this.onChange}/>
                         <FormHelperText error={!validBeginMonthDate}>
                             MM/DD. Manual DST begin date.
@@ -114,7 +116,7 @@ class Dst extends Component {
                         <TextField error={!validEndMonthDate}
                                    margin="dense" name="endMonthDate"
                                    label="End" type="text"
-                                   value={this.state.dst.endMonthDate}
+                                   value={this.state.dst.endMonthDate ? this.state.dst.endMonthDate : ""}
                                    onChange={this.onChange}/>
                         <FormHelperText error={!validEndMonthDate}>
                             MM/DD. Manual DST end date.
@@ -153,7 +155,7 @@ class Dst extends Component {
                             <FormControlLabel
                                 control={
                                     <Switch color="primary"
-                                            checked={this.state.dst.enable}
+                                            checked={this.state.dst.enable == null ? false : this.state.dst.enable}
                                             onChange={this.onCheckChange}
                                             name="enable"/>}
                                 label="Enable"
@@ -161,7 +163,7 @@ class Dst extends Component {
                             <FormControlLabel
                                 control={
                                     <Switch color="primary"
-                                            checked={this.state.dst.automaticCalculate}
+                                            checked={this.state.dst.automaticCalculate == null ? false : this.state.dst.automaticCalculate}
                                             onChange={this.onCheckChange}
                                             name="automaticCalculate"/>}
                                 label="Automatic Calculate"

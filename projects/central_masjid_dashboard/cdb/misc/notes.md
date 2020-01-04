@@ -196,7 +196,7 @@ Retest Create company UI and login
 -----------------------------------
 ####Defects
 
-Defect:
+✅ Defect:
 Register company
 Login
 Goto admin prayer tab. 
