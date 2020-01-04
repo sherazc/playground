@@ -36,6 +36,10 @@ class CompanyDashboard extends Component {
                         centralControl: response.data
                     });
                     this.loadCompanyConfigurations(response.data.companyId);
+                }, errorResponse => {
+                    // Not sure what to do if centralControl not found
+                    // Just redirecting to home page.
+                    window.location.replace(window.location.origin)
                 });
         }
     }
