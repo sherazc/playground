@@ -371,7 +371,7 @@ On Register company create
     * centralControl
     * PrayerConfig
     
-Show error message on login failed
+✅ Show error message on login failed
 
 Load defaults prayerConfig if company exists
 http://localhost:8085/api/prayer/config/5d9fb64ff2a23366c8c856f4
@@ -394,7 +394,7 @@ Setup send email
 
 Set up registration verify email
 
-Remove masjid select on signin. Design some sort of super admin login where masjid select is available 
+✅ Remove masjid select on signin. Design some sort of super admin login where masjid select is available 
 
 Design password reset flow
 

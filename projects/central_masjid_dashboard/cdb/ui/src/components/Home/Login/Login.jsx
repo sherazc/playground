@@ -29,8 +29,10 @@ class Login extends Component {
     createInitialState() {
         return {
             companyId: "",
-            email: "super.admin.user@email.com",
-            password: "password"
+            // email: "super.admin.user@email.com",
+            email: "stariqch@yahoo.com",
+            password: "password",
+            loginSuccessful: ""
         }
     }
 
@@ -53,10 +55,20 @@ class Login extends Component {
             companyId: event.target.value
         });
     }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.login.successful !== this.state.loginSuccessful) {
+            this.setState({loginSuccessful: this.props.login.successful});
+        }
+    }
+
 
     loginFailedMessage() {
-        if (this.props.successful === false) {
-            return <div style={{color: "red"}}>Failed to login</div>;
+        if (this.state.loginSuccessful === false) {
+            return (
+                <div style={{color: "#CC3E29"}}>
+                    Login failed. Invalid email or password.
+                </div>
+            );
         }
     }
 
