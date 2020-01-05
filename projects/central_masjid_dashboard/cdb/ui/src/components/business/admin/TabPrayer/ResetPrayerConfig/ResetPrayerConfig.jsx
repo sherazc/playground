@@ -227,7 +227,7 @@ class ResetPrayerConfig extends Component {
                     key={index} className={styles.azanOffset}
                     margin="dense" name={offsetName}
                     label={offsetName} type="number" fullWidth
-                    value={this.state.prayerOffsetMinutes[index]}
+                    value={this.state.prayerOffsetMinutes[index] === undefined ? "" : this.state.prayerOffsetMinutes[index]}
                     onChange={onChangeFunction}/>
             );
 
