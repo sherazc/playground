@@ -38,7 +38,6 @@ class Dst extends Component {
         if (this.props.dst && this.props.dst.enable !== undefined
             && !equalObjects(this.props.dst, this.state.dst)
             && !equalObjects(this.props.dst, prevProps.dst)) {
-            console.log("Setting dst in state", this.props.dst);
             this.setState({dst: this.props.dst});
         }
     }

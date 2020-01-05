@@ -46,7 +46,7 @@ class TabPrayer extends Component {
 
         let result = (
             <div>
-                Prayers not setup. Click on reset to generate new Prayer times.
+                Prayer times not setup yet. Click RESET PRAYER button to generate new Prayer times.
             </div>
         );
 

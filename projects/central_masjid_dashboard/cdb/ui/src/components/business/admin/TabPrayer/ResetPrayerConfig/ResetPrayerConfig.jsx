@@ -24,6 +24,7 @@ class ResetPrayerConfig extends Component {
     }
 
     createInitState(prayerConfig) {
+        console.log("prayerConfig", prayerConfig);
         return {
             open: false,
             location: prayerConfig.location,
@@ -111,6 +112,25 @@ class ResetPrayerConfig extends Component {
         }
     }
 
+    createCompanyLocation(company) {
+        if (!company || !company.address) {
+            return "";
+        }
+        const address = company.address;
+        let companyLocation = "";
+
+        if (address.city) {
+            companyLocation = `${address.city}, `;
+        }
+        if (address.state) {
+            companyLocation = `${companyLocation}${address.state} `;
+        }
+        if (address.zip) {
+            companyLocation = `${companyLocation}${address.zip}`;
+        }
+        return companyLocation
+    }
+
     step1() {
         const locationHelperMessage = "Enter zip-code or city and state or full address";
         const locationMessage = this.state.locationValid === false ? `Invalid Location. ${locationHelperMessage}` : locationHelperMessage;
@@ -131,7 +151,7 @@ class ResetPrayerConfig extends Component {
                     label="Location/Address"
                     type="text"
                     fullWidth
-                    value={this.state.location}
+                    value={this.state.location ? this.state.location : this.createCompanyLocation(this.props.login.company)}
                     onChange={this.onChange}/>
             </div>
         );
