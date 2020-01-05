@@ -19,11 +19,12 @@ class SalahTime extends Component {
         super(props);
         this.loadingPrayers = false;
         this.state = {
-            prayer: {}
+            prayer: {},
+            prayerFound: undefined
         }
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.centralControl.id && !this.state.prayer.date && !this.loadingPrayers) {
             this.loadingPrayers = true;
             const today = new Date();
@@ -37,13 +38,20 @@ class SalahTime extends Component {
                         this.setState({
                             prayer: response.data.target
                         });
+                    } else {
+                        this.setState({
+                            prayerFound: false
+                        });
                     }
                 }).catch(error => console.log(error));
         }
     }
 
 
-    createPrayerGrid(prayer) {
+    createPrayerGrid(prayer, prayerFound) {
+        if (prayerFound === false) {
+            return <div>Prayer time not setup. Please contact dashboard admin.</div>
+        }
         if (!prayer.date) {
             return <div>Loading...</div>
         }
@@ -130,7 +138,7 @@ class SalahTime extends Component {
                     <br/>
                     {writeIslamicDate(today, hijriAdjustDays)}
                 </div>
-                {this.createPrayerGrid(this.state.prayer)}
+                {this.createPrayerGrid(this.state.prayer, this.state.prayerFound)}
             </div>
         );
     }
