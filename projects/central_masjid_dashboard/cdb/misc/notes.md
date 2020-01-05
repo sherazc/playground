@@ -220,14 +220,19 @@ Click ➕ again row is added.
 Defect:
 TabConfiguraton's save complete action is not disabling save cancel buttons
 
-Defect:
-Reset prayer values are not getting saved
+▶️ Defect:
+Reset prayer values are not getting saved.
+Solution: On finish update TabPrayer's PrayerConfig
 
 Defect:
 Funds End date is one less showing on Dashboard
 
 Defect:
 Configuration save cancel buttons are not getting disabled
+
+Defect:
+Dont show masjid name in the home page drop down if prayers are 
+not configured.
 
 ✅ Defect:
 Login -> click company link in header -> going to 404
