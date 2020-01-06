@@ -9,6 +9,7 @@ import {allCalculationMethods, allAsrJuristicMethods} from "./prayerCollections"
 import styles from "./ResetPrayerConfig.module.scss";
 import {connect} from "react-redux";
 import {setAdminPrayerConfigEdit} from "../../../../../store/admin/adminActions";
+import {createEmptyIfUndefined, equalObjects} from "../../../../../services/utilities";
 
 
 class ResetPrayerConfig extends Component {
@@ -24,18 +25,27 @@ class ResetPrayerConfig extends Component {
     }
 
     createInitState(prayerConfig) {
-        console.log("prayerConfig", prayerConfig);
         return {
             open: false,
             location: prayerConfig.location,
             locationValid: undefined,
             step: 0,
             geoCode: this.createInitGeoCode(prayerConfig.geoCode),
-            calculationMethod: prayerConfig.calculationMethod,
-            asrJuristicMethod: prayerConfig.asrJuristicMethod,
+            calculationMethod: createEmptyIfUndefined(prayerConfig.calculationMethod),
+            asrJuristicMethod: createEmptyIfUndefined(prayerConfig.asrJuristicMethod),
             prayerOffsetMinutes: prayerConfig.prayerOffsetMinutes,
             generateIqamah: true,
         };
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (!equalObjects(prevProps.prayerConfig, this.props.prayerConfig)) {
+            const newState = this.createInitState(this.props.prayerConfig);
+            if (!newState.location && this.props.login) {
+                newState.location = this.createCompanyLocation(this.props.login.company);
+            }
+            this.setState(newState)
+        }
     }
 
     createInitGeoCode(geoCode) {
@@ -61,7 +71,7 @@ class ResetPrayerConfig extends Component {
     }
 
     onOpen = () => {
-        this.setState({...this.createInitState(this.props.prayerConfig), open: true});
+        this.setState({open: true});
     };
 
     onClose = () => {
@@ -151,7 +161,8 @@ class ResetPrayerConfig extends Component {
                     label="Location/Address"
                     type="text"
                     fullWidth
-                    value={this.state.location ? this.state.location : this.createCompanyLocation(this.props.login.company)}
+                    // value={this.state.location ? this.state.location : this.createCompanyLocation(this.props.login.company)}
+                    value={createEmptyIfUndefined(this.state.location)}
                     onChange={this.onChange}/>
             </div>
         );

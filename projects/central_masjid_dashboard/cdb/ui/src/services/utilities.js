@@ -161,3 +161,7 @@ export const getQueryParam = (paramName) => {
     const paramValue = (new URLSearchParams(window.location.search)).get(paramName);
     return isBlank(paramValue) ? "" : paramValue
 };
+
+export const createEmptyIfUndefined = (str) => {
+    return str === undefined || str === null ?  "" : str;
+};
