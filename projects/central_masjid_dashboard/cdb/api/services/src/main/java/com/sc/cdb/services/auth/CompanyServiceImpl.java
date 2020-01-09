@@ -6,8 +6,10 @@ import com.sc.cdb.data.model.auth.Company;
 import com.sc.cdb.data.model.cc.CentralControl;
 import com.sc.cdb.data.model.cc.CustomConfiguration;
 import com.sc.cdb.data.model.picklist.Configuration;
+import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.data.repository.CentralControlRepository;
 import com.sc.cdb.data.repository.CompanyRepository;
+import com.sc.cdb.data.repository.PrayerConfigRepository;
 import com.sc.cdb.services.model.ServiceResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
@@ -19,6 +21,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class CompanyServiceImpl implements CompanyService {
@@ -29,18 +32,21 @@ public class CompanyServiceImpl implements CompanyService {
     private CentralControlRepository centralControlRepository;
     private CompanyDefaultsCreator companyDefaultsCreator;
     private CompanyDao companyDao;
+    private PrayerConfigRepository prayerConfigRepository;
 
     public CompanyServiceImpl(
             CompanyRepository companyRepository,
             PicklistDao picklistDao,
             CentralControlRepository centralControlRepository,
             CompanyDefaultsCreator companyDefaultsCreator,
-            CompanyDao companyDao) {
+            CompanyDao companyDao,
+            PrayerConfigRepository prayerConfigRepository) {
         this.companyRepository = companyRepository;
         this.picklistDao = picklistDao;
         this.centralControlRepository = centralControlRepository;
         this.companyDefaultsCreator = companyDefaultsCreator;
         this.companyDao = companyDao;
+        this.prayerConfigRepository = prayerConfigRepository;
     }
 
     @Override
@@ -114,7 +120,17 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public List<Company> findAllCompanyUrl() {
-        return this.companyRepository.findAllCompanyUrl();
+        List<Company> companyWithUrls = this.companyRepository.findAllCompanyUrl();
+        List<PrayerConfig> validPrayerConfigs = this.prayerConfigRepository.findValidPrayerConfigs();
+
+        return companyWithUrls.stream()
+                .filter(company -> companyExistInPrayerConfigs(company, validPrayerConfigs))
+                .collect(Collectors.toList());
+    }
+
+    private boolean companyExistInPrayerConfigs(Company company, List<PrayerConfig> prayerConfigs) {
+        return prayerConfigs.stream()
+                .anyMatch(prayerConfig -> company.getId().equals(prayerConfig.getCompanyId()));
     }
 
     @Override

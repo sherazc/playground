@@ -230,7 +230,7 @@ Funds End date is one less showing on Dashboard
 Defect:
 Configuration save cancel buttons are not getting disabled
 
-Defect:
+✅ Defect:
 Dont show masjid name in the home page drop down if prayers are 
 not configured.
 
@@ -342,29 +342,37 @@ Revisit roles and permission
 
 Make donation link
 
-Blink next iqama time
 
-company address should be populated in reset prayer modal
 
-Create my own SVG image component. Component.
+✅️ company address should be populated in reset prayer modal
+
+❌ Create my own SVG image component. Component.
 I will use this for. This component should take in 
 SVG URL and add className on it on it. 
 
+▶️ Redo Header Links. Make it responsive
+
 ▶️ Make configurations to change labels
 
-Refresh dashboard if data version logic is not implemented
+▶️ Create API key. and update API key management
+
+▶️ Blink next iqama time
+
+▶️ Refresh dashboard if data version logic is not implemented
+
+▶️ Design password reset flow
+
+▶️ Delete company should delete company Users, centralControl, prayerConfig, and Company
 
 Create data version mongo document
 
-CompanyDashboard will poll for version. If new version is available then data will be refreshed.  
+    CompanyDashboard will poll for version. If new version is available then data will be refreshed.  
 
-Create dashboard timer. Update display if new version data is available
+    Create dashboard timer. Update display if new version data is available
+    
+    Any change to PrayerConfig, or Central control will up version number
 
-Create API key. and update API key management
-
-Any change to PrayerConfig, or Central control will up version number
-
-Make single function in CompanyDashboard that will make all the API calls. 
+❌ Make single function in CompanyDashboard that will make all the API calls. 
 This function will call APIs and update CompanyDashboard.state. 
 This function will be called on initial CompanyDashboard load and on refresh events. 
 
@@ -393,18 +401,13 @@ Design Web DB utility to store in browser local storage. And retrieve and search
 
 Store in browser cache previously selected dashboard
 
-Bad links should go to 404 not  dashboard. Have dashboard redirect to 404.
+Bad links should go to 404 not dashboard. Have dashboard redirect to 404.
 
-Setup send email
+✅ Setup send email
 
-Set up registration verify email
+✅ Set up registration verify email
 
-✅ Remove masjid select on signin. Design some sort of super admin login where masjid select is available 
-
-Design password reset flow
-
-Delete company should delete company Users, centralControl, prayerConfig, and Company
- 
+✅ Remove masjid select on signin. Design some sort of super admin login where masjid select is available  
 
 ###UI Design requirements
 

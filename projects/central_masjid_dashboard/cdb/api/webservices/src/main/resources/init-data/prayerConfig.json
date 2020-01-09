@@ -1,6 +1,40 @@
 [
   {
     "_id": {
+      "$oid": "5e1698accca82f7c4f914b8e"
+    },
+    "companyId": {
+      "$oid": "5da272f6f54ab6c94a693edf"
+    },
+    "location": "30005",
+    "calculationMethod": "3",
+    "asrJuristicMethod": "1",
+    "prayerOffsetMinutes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "geoCode": {
+      "latitude": 34.17630630000001,
+      "longitude": -84.2910759,
+      "timezone": -5,
+      "timezoneId": "America/New_York",
+      "timezoneName": "Eastern Standard Time"
+    },
+    "dst": {
+      "enable": true,
+      "automaticCalculate": true,
+      "beginMonthDate": "03/10",
+      "endMonthDate": "11/03"
+    },
+    "prayers": []
+  },
+  {
+    "_id": {
       "$oid": "5da27307f54ab6c94a693ee2"
     },
     "companyId": {
