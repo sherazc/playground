@@ -74,6 +74,8 @@ db.prayerConfig.insert({
 db.prayerConfig.find({"companyId" : ObjectId("5da2632ef2a2337a5fd916d3")});
 
 
+// Find Valid prayerConfigs. prayerConfigs that has values in prayers array
+// This query did not work. 
 db.getCollection('company').aggregate([
    {$match : { "active" : true}},
     {
@@ -85,16 +87,15 @@ db.getCollection('company').aggregate([
             as: "prayerConfig"
         }
    },
-   // { $match : { _id : ObjectId("5da2632ef2a2337a5fd916d3") } }
-   //{ $match : { "prayerConfig.prayers" : { $exists: true} } },
+   { $match : { "prayerConfig.prayers" : { $exists: true} } },
 //    {$match: {$expr:{$gt:[{$size:"prayerConfig.prayers"}, 1]}}},
-//    { $where: "this.prayers.length > 1" },
-//    { $project : { "name" : 1, "url": 1 } }
+//    {$where: "this.prayers.length > 1" },
+//    {$project : { "name" : 1, "url": 1 } }
 ]);
    
-db.getCollection("prayerConfig").find( { $where: "this.prayers.length > 1" } );
+db.getCollection("prayerConfig").find({ $where: "this.prayers.length > 1" });
 
-db.getCollection("prayerConfig").find( {'prayers.365': {$exists: true}});
+db.getCollection("prayerConfig").find({'prayers.365': {$exists: true}});
 
 
 
