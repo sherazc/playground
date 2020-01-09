@@ -224,7 +224,7 @@ TabConfiguraton's save complete action is not disabling save cancel buttons
 Reset prayer values are not getting saved.
 Solution: On finish update TabPrayer's PrayerConfig
 
-Defect:
+✅ Defect:
 Funds End date is one less showing on Dashboard
 
 Defect:

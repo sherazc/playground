@@ -54,7 +54,7 @@ export const dateToDisplayDate = (date) => {
         return;
     }
     const d = date instanceof Date ? date : new Date(date);
-    return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
+    return `${d.getUTCMonth() + 1}/${d.getUTCDate()}/${d.getUTCFullYear()}`;
 };
 
 export const dateToDisplayDateShort = (date) => {
