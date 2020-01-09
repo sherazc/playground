@@ -220,7 +220,7 @@ Click ➕ again row is added.
 Defect:
 TabConfiguraton's save complete action is not disabling save cancel buttons
 
-▶️ Defect:
+✅ Defect:
 Reset prayer values are not getting saved.
 Solution: On finish update TabPrayer's PrayerConfig
 

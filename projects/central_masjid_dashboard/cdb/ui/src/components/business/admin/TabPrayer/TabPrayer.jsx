@@ -112,10 +112,12 @@ class TabPrayer extends Component {
     }
 
     onSave() {
-        const prayerConfig = this.props.prayerConfig;
-        if (!prayerConfig) {
+        const prayerConfig = this.props.prayerConfigEdit;
+        if (!prayerConfig || !this.props.prayerConfig || !this.props.prayerConfig.id) {
+            console.error("Can not save. Invalid PrayerConfig.");
             return;
         }
+        prayerConfig.id = this.props.prayerConfig.id;
 
         prayerConfig.prayers = tabPrayerService.collectPrayersFromDom();
 

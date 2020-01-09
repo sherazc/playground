@@ -56,3 +56,19 @@ db.user.find({email: "stariqch@yahoo.com"}).map(u => {
 });
 
 db.user.remove({email: "stariqch@yahoo.com"});
+ 
+
+// Reset Prayer config
+db.prayerConfig.remove({"companyId" : ObjectId("5da2632ef2a2337a5fd916d3")});
+db.prayerConfig.insert({
+    "companyId" : ObjectId("5da2632ef2a2337a5fd916d3"),
+    "location" : "",
+    "calculationMethod" : 0,
+    "asrJuristicMethod" : 0,
+    "prayerOffsetMinutes" : [],
+    "geoCode" : {},
+    "dst" : {},
+    "prayers" : [],
+    "_class" : "com.sc.cdb.data.model.prayer.PrayerConfig"
+});
+db.prayerConfig.find({"companyId" : ObjectId("5da2632ef2a2337a5fd916d3")});
