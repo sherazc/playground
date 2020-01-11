@@ -29,21 +29,44 @@ class CompanyDashboard extends Component {
         // before component mount.
         const companyDashboardUrl = getReactRouterPathParamFromUrl(this.props, "companyDashboardUrl");
         if (!this.state.centralControl.id && companyDashboardUrl) {
-            axios
-                .get(`${baseUrl}/api/companies/url/${companyDashboardUrl}/central-control`)
-                .then(response => {
-                    this.setState({
-                        centralControl: response.data
+            this.refreshDashboard(companyDashboardUrl);
+
+            this.refreshInterval = setInterval(() => {
+                axios.get(`${baseUrl}/api/health`)
+                    .then(response => {
+                        if (response.data === "Ok") {
+                            window.location.reload();
+                        }
                     });
-                    this.loadCompanyConfigurations(response.data.companyId);
-                }, errorResponse => {
-                    // Not sure what to do if centralControl not found
-                    // Just redirecting to home page.
-                    window.location.replace(window.location.origin)
-                });
+            }, 30 * 60 *  1000);
         }
     }
 
+    componentWillUnmount() {
+        console.log("Clearing interval");
+        window.clearInterval(this.refreshInterval);
+    }
+
+    refreshDashboard(companyDashboardUrl) {
+        axios
+            .get(`${baseUrl}/api/companies/url/${companyDashboardUrl}/central-control`)
+            .then(response => {
+                this.setState({
+                    centralControl: response.data
+                });
+                this.loadCompanyConfigurations(response.data.companyId);
+            }, errorResponse => {
+                // Not sure what to do if centralControl not found
+                // Just redirecting to home page.
+                window.location.replace(window.location.origin)
+            });
+        /*
+
+            start refresh timer
+        */
+    }
+
+    // Company configuration should be in Redux because other components also need them
     loadCompanyConfigurations(companyId) {
         if (this.state.companyConfigurations.length < 1) {
             if (this.props.companyConfigurations.length > 0) {

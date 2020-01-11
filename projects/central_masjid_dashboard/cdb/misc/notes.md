@@ -310,9 +310,14 @@ GET http://localhost:8085/api/companies/url/c3/central-control
 
 ✅ Create widgets admin tab
 
-Validate dashboard URL 
+✅ Validate dashboard URL 
 
 ✅ Remove middle expenses section.
+
+✅️ Blink next iqama time
+    
+✅️ Refresh dashboard if data version logic is not implemented
+
 
 Widgets
 
@@ -342,33 +347,36 @@ Revisit roles and permission
 
 Make donation link
 
-
-
 ✅️ company address should be populated in reset prayer modal
 
 ❌ Create my own SVG image component. Component.
 I will use this for. This component should take in 
 SVG URL and add className on it on it. 
 
+If I can finish these then I will consider it to be production ready. Insha Allah
+
+▶️ Edit Company Profile page
+
+▶️ Edit user profile page
+
+▶️ Design password reset flow
+
+▶️ Delete company should delete company Users, centralControl, prayerConfig, and Company
+
+▶️ Show next prayer count down on dashboard
+
 ▶️ Redo Header Links. Make it responsive
 
 ▶️ Make configurations to change labels
 
 ▶️ Create API key. and update API key management
+    create Rest API interceptor
     api key should be separate entity from company
     api key should have expiration. 
     If API key expired then disable dashboard and all widgets
     On First email verify create company api key
     Change widget to use api key.
     Remove companies from the home page drop down whos api key is missing or expired. 
-
-✅️ Blink next iqama time
-    
-▶️ Refresh dashboard if data version logic is not implemented
-
-▶️ Design password reset flow
-
-▶️ Delete company should delete company Users, centralControl, prayerConfig, and Company
 
 Create data version mongo document
 
