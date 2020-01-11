@@ -36,3 +36,5 @@ package-lock.json
 yarn.lock
 
 node_installation
+
+venv
