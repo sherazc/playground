@@ -5,7 +5,8 @@ import {
     time24To12,
     dateToDisplayDateShort,
     getConfigValue,
-    dateToDisplayDateLong
+    dateToDisplayDateLong,
+    removeTimeFromDateObject, stringToDate
 } from "../../../../services/utilities";
 import {
     writeIslamicDate
@@ -70,7 +71,7 @@ class SalahTime extends Component {
                     <th>Fajr</th>
                     <td>{time24To12(prayer.fajr)}</td>
                     <td>{time24To12(prayer.fajrIqama)}</td>
-                    <td>
+                    <td className={this.blinkClassIfRequired(prayer.fajrChangeDate)}>
                         {dateToDisplayDateShort(prayer.fajrChangeDate)}
                         <br/>
                         {time24To12(prayer.fajrChange)}
@@ -84,7 +85,7 @@ class SalahTime extends Component {
                     <th>Thuhr</th>
                     <td>{time24To12(prayer.dhuhr)}</td>
                     <td>{time24To12(prayer.dhuhrIqama)}</td>
-                    <td>
+                    <td className={this.blinkClassIfRequired(prayer.dhuhrChangeDate)}>
                         {dateToDisplayDateShort(prayer.dhuhrChangeDate)}
                         <br/>
                         {time24To12(prayer.dhuhrChange)}
@@ -94,7 +95,7 @@ class SalahTime extends Component {
                     <th>Asr</th>
                     <td>{time24To12(prayer.asr)}</td>
                     <td>{time24To12(prayer.asrIqama)}</td>
-                    <td>
+                    <td className={this.blinkClassIfRequired(prayer.ishaChangeDate)}>
                         {dateToDisplayDateShort(prayer.asrChangeDate)}
                         <br/>
                         {time24To12(prayer.asrChange)}
@@ -110,7 +111,7 @@ class SalahTime extends Component {
                     <th>Isha</th>
                     <td>{time24To12(prayer.isha)}</td>
                     <td>{time24To12(prayer.ishaIqama)}</td>
-                    <td className={styles.red_blink_text}>
+                    <td className={this.blinkClassIfRequired(prayer.ishaChangeDate)}>
                         {dateToDisplayDateShort(prayer.ishaChangeDate)}
                         <br/>
                         {time24To12(prayer.ishaChange)}
@@ -127,6 +128,20 @@ class SalahTime extends Component {
         );
     }
 
+    blinkClassIfRequired(changeDate) {
+        if (!changeDate) return "";
+        const iqamaChangeDate = stringToDate(changeDate);
+        if (!iqamaChangeDate) return "";
+
+        const today = removeTimeFromDateObject(new Date());
+
+        iqamaChangeDate.setFullYear(today.getFullYear());
+
+        const daysAfterToday = removeTimeFromDateObject(new Date());
+        daysAfterToday.setDate(daysAfterToday.getDate() + 3);
+
+        return iqamaChangeDate.getTime() < daysAfterToday.getTime() ? styles.red_blink_text : "";
+    }
 
     render() {
         const today = new Date();

@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Redirect} from "react-router";
-import {NavLink} from "react-router-dom";
 import {canNotBeOnRegisterFinish} from "../../../services/register/RegisterServices";
 import Layout01 from "../../layout/Layout01/Layout01";
 

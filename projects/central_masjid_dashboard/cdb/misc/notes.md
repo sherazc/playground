@@ -362,9 +362,8 @@ SVG URL and add className on it on it.
     Change widget to use api key.
     Remove companies from the home page drop down whos api key is missing or expired. 
 
-▶️ Blink next iqama time
+✅️ Blink next iqama time
     
-
 ▶️ Refresh dashboard if data version logic is not implemented
 
 ▶️ Design password reset flow

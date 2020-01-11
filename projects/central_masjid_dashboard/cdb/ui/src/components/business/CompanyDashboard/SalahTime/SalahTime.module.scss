@@ -30,3 +30,7 @@ table.salahTimeTable th, table.salahTimeTable td {
     color: tomato;
     font-weight: bold;
 }
+
+@keyframes blinker {
+    0% { opacity: 0.1; }
+}

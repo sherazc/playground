@@ -165,3 +165,18 @@ export const getQueryParam = (paramName) => {
 export const createEmptyIfUndefined = (str) => {
     return str === undefined || str === null ?  "" : str;
 };
+
+export const removeTimeFromDateObject = (date) => {
+    if (!date) return;
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+};
+
+export const stringToDate = (stringDate) => {
+    if (!stringDate) return;
+    if (stringDate.trim().length < 1) return;
+    let result;
+    try {
+        result = removeTimeFromDateObject(new Date(stringDate.trim()));
+    } catch(error) {}
+    return result;
+};
