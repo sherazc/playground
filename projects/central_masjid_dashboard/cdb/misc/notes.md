@@ -355,8 +355,15 @@ SVG URL and add className on it on it.
 ▶️ Make configurations to change labels
 
 ▶️ Create API key. and update API key management
+    api key should be separate entity from company
+    api key should have expiration. 
+    If API key expired then disable dashboard and all widgets
+    On First email verify create company api key
+    Change widget to use api key.
+    Remove companies from the home page drop down whos api key is missing or expired. 
 
 ▶️ Blink next iqama time
+    
 
 ▶️ Refresh dashboard if data version logic is not implemented
 

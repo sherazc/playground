@@ -110,7 +110,7 @@ class SalahTime extends Component {
                     <th>Isha</th>
                     <td>{time24To12(prayer.isha)}</td>
                     <td>{time24To12(prayer.ishaIqama)}</td>
-                    <td>
+                    <td className={styles.red_blink_text}>
                         {dateToDisplayDateShort(prayer.ishaChangeDate)}
                         <br/>
                         {time24To12(prayer.ishaChange)}

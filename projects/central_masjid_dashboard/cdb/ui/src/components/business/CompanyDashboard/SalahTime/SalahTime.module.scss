@@ -24,3 +24,9 @@ table.salahTimeTable th, table.salahTimeTable td {
         padding: 18vw 0 8vw 0;
     }
 }
+
+.red_blink_text {
+    animation: blinker 2s linear infinite;
+    color: tomato;
+    font-weight: bold;
+}
