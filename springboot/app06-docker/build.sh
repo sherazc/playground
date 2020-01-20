@@ -1,6 +1,10 @@
 #!/bin/bash
 
+docker rm -f sb_app06_8082
+docker rm -f sb_app06_8084
 docker rm -f sb_app06_db
+docker rmi sb_app06_image
+
 docker volume rm sb_app06_db_volume
 docker volume create sb_app06_db_volume
 
@@ -17,3 +21,16 @@ docker run \
 
 mvn clean install
 
+docker build . -t sb_app06_image
+
+docker run -it \
+  --name sb_app06_8082 \
+  --link sb_app06_db \
+  -p 8082:8080 \
+  -d sb_app06_image
+
+docker run -it \
+  --name sb_app06_8084 \
+  --link sb_app06_db \
+  -p 8084:8080 \
+  -d sb_app06_image
