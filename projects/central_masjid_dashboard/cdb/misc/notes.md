@@ -353,8 +353,6 @@ Make donation link
 I will use this for. This component should take in 
 SVG URL and add className on it on it. 
 
-If I can finish these then I will consider it to be production ready. Insha Allah
-
 ▶️ Edit Company Profile page
 
 ▶️ Edit user profile page
