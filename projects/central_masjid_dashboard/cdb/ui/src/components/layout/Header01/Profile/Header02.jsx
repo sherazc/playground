@@ -9,11 +9,12 @@ import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
+
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import Logo from "../../../Home/Logo";
 
 const useStyles = makeStyles(theme => ({
     grow: {
@@ -23,10 +24,13 @@ const useStyles = makeStyles(theme => ({
         marginRight: theme.spacing(2),
     },
     title: {
+        display: 'block',
+        /*
         display: 'none',
         [theme.breakpoints.up('sm')]: {
             display: 'block',
         },
+        */
     },
     search: {
         position: 'relative',
@@ -85,6 +89,7 @@ export function PrimarySearchAppBar() {
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+    // Open profile menu
     const handleProfileMenuOpen = event => {
         setAnchorEl(event.currentTarget);
     };
@@ -93,15 +98,18 @@ export function PrimarySearchAppBar() {
         setMobileMoreAnchorEl(null);
     };
 
+    // Close menu
     const handleMenuClose = () => {
         setAnchorEl(null);
         handleMobileMenuClose();
     };
 
+    // Open Mobile menu
     const handleMobileMenuOpen = event => {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
+    // Sub profile pop over menu
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <Menu
@@ -111,13 +119,14 @@ export function PrimarySearchAppBar() {
             keepMounted
             transformOrigin={{ vertical: 'top', horizontal: 'right' }}
             open={isMenuOpen}
-            onClose={handleMenuClose}
-        >
+            onClose={handleMenuClose}>
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
         </Menu>
     );
 
+
+    // Pop over mobile menu
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
         <Menu
@@ -127,8 +136,8 @@ export function PrimarySearchAppBar() {
             keepMounted
             transformOrigin={{ vertical: 'top', horizontal: 'right' }}
             open={isMobileMenuOpen}
-            onClose={handleMobileMenuClose}
-        >
+            onClose={handleMobileMenuClose}>
+            this is mobile menu
             <MenuItem>
                 <IconButton aria-label="show 4 new mails" color="inherit">
                     <Badge badgeContent={4} color="secondary">
@@ -163,31 +172,26 @@ export function PrimarySearchAppBar() {
         <div className={classes.grow}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton
-                        edge="start"
-                        className={classes.menuButton}
-                        color="inherit"
-                        aria-label="open drawer"
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography className={classes.title} variant="h6" noWrap>
-                        Material-UI
-                    </Typography>
-                    <div className={classes.search}>
-                        <div className={classes.searchIcon}>
-                            <SearchIcon />
-                        </div>
-                        <InputBase
-                            placeholder="Search…"
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
+                    <div className={classes.sectionMobile}>
+                        <IconButton
+                            edge="start"
+                            className={""}
+                            color="inherit"
+                            aria-label="open drawer">
+                            <MenuIcon />
+                        </IconButton>
                     </div>
-                    <div className={classes.grow} />
+
+
+                    <Logo style={{
+                        fill:"rgba(255,255,255,0.95)",
+                        width: "30px", marginRight: "10px"}}/>
+                    <Typography className={classes.title} variant="h6" noWrap>
+
+                        Masjid Dashboard
+                    </Typography>
+
+                    <div className={classes.grow} style={{backgroundColor: "#ff0000", height: "1px"}} />
                     <div className={classes.sectionDesktop}>
                         <IconButton aria-label="show 4 new mails" color="inherit">
                             <Badge badgeContent={4} color="secondary">
@@ -216,8 +220,7 @@ export function PrimarySearchAppBar() {
                             aria-controls={mobileMenuId}
                             aria-haspopup="true"
                             onClick={handleMobileMenuOpen}
-                            color="inherit"
-                        >
+                            color="inherit">
                             <MoreIcon />
                         </IconButton>
                     </div>

@@ -4,7 +4,7 @@ class Logo extends Component {
 
     render() {
         return (
-            <div className={this.props.className}>
+            <div className={this.props.className} style={this.props.style}>
                 <svg
                     version="1.1"
                     viewBox="0 0 500 500"
