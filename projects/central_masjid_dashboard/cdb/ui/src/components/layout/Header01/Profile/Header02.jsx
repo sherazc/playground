@@ -17,6 +17,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import Logo from "../../../Home/Logo";
 import Profile from "./Profile";
 import Drawer01 from "../Nav/Drawer01";
+import Drawer02 from "../Nav/Drawer02";
 
 const useStyles = makeStyles(theme => ({
     grow: {
@@ -83,7 +84,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export function PrimarySearchAppBar() {
+export function PrimarySearchAppBar(props) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -170,11 +171,15 @@ export function PrimarySearchAppBar() {
     );
 
     return (
+
         <div className={classes.grow}>
-            <Drawer01/>
+            <Drawer02 drawerOpen={props.drawerOpen}/>
             <AppBar position="static">
                 <Toolbar>
-                    <div className={classes.sectionMobile}>
+                    <div
+                        // TODO: remove this once drawer is working
+                        // className={classes.sectionMobile}
+                    >
                         <IconButton
                             edge="start"
                             className={""}
@@ -236,8 +241,19 @@ export function PrimarySearchAppBar() {
 
 
 class Header02 extends Component {
+    constructor(props) {
+        super(props);
+        this.state = this.createInitialState();
+    }
+
+    createInitialState() {
+        return {
+            drawerOpen: true
+        }
+    }
+
     render() {
-        return <PrimarySearchAppBar/>
+        return <PrimarySearchAppBar drawerOpen={this.state.drawerOpen}/>
     }
 }
 

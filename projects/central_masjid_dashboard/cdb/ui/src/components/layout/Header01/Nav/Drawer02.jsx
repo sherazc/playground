@@ -112,7 +112,7 @@ function TemporaryDrawer() {
     );
 }
 
-class Drawer01 extends Component {
+class Drawer02 extends Component {
 
     render() {
         console.log(this.props);
@@ -120,4 +120,4 @@ class Drawer01 extends Component {
     }
 }
 
-export default Drawer01;
+export default Drawer02;
