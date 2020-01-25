@@ -15,6 +15,8 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Logo from "../../../Home/Logo";
+import Profile from "./Profile";
+import Drawer01 from "../Nav/Drawer01";
 
 const useStyles = makeStyles(theme => ({
     grow: {
@@ -159,8 +161,7 @@ export function PrimarySearchAppBar() {
                     aria-label="account of current user"
                     aria-controls="primary-search-account-menu"
                     aria-haspopup="true"
-                    color="inherit"
-                >
+                    color="inherit">
                     <AccountCircle />
                 </IconButton>
                 <p>Profile</p>
@@ -170,6 +171,7 @@ export function PrimarySearchAppBar() {
 
     return (
         <div className={classes.grow}>
+            <Drawer01/>
             <AppBar position="static">
                 <Toolbar>
                     <div className={classes.sectionMobile}>
@@ -209,8 +211,7 @@ export function PrimarySearchAppBar() {
                             aria-controls={menuId}
                             aria-haspopup="true"
                             onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
+                            color="inherit">
                             <AccountCircle />
                         </IconButton>
                     </div>
@@ -224,6 +225,7 @@ export function PrimarySearchAppBar() {
                             <MoreIcon />
                         </IconButton>
                     </div>
+                    <Profile/>
                 </Toolbar>
             </AppBar>
             {renderMobileMenu}
