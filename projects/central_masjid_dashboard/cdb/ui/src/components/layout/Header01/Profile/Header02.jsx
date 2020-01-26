@@ -91,13 +91,12 @@ const mobileMenuId = 'primary-search-account-menu-mobile';
 class Header02 extends Component {
     constructor(props) {
         super(props);
-        console.log(props);
         this.state = this.createInitialState();
     }
 
     createInitialState() {
         return {
-            drawerOpen: true,
+            drawerOpen: false,
         }
     }
 
