@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { fade, makeStyles, withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -19,7 +19,8 @@ import Profile from "./Profile";
 import Drawer01 from "../Nav/Drawer01";
 import Drawer02 from "../Nav/Drawer02";
 
-const useStyles = makeStyles(theme => ({
+
+const styles = theme => ({
     grow: {
         flexGrow: 1,
     },
@@ -82,7 +83,9 @@ const useStyles = makeStyles(theme => ({
             display: 'none',
         },
     },
-}));
+});
+
+const useStyles = makeStyles(styles);
 
 export function PrimarySearchAppBar(props) {
     const classes = useStyles();
@@ -179,7 +182,7 @@ export function PrimarySearchAppBar(props) {
                     <div
                         // TODO: remove this once drawer is working
                         // className={classes.sectionMobile}
-                    >
+                        >
                         <IconButton
                             edge="start"
                             className={""}
@@ -243,6 +246,7 @@ export function PrimarySearchAppBar(props) {
 class Header02 extends Component {
     constructor(props) {
         super(props);
+        console.log(props);
         this.state = this.createInitialState();
     }
 
@@ -257,4 +261,4 @@ class Header02 extends Component {
     }
 }
 
-export default Header02;
+export default withStyles(styles)(Header02);
