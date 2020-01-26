@@ -27,6 +27,7 @@ const styles = theme => ({
     menuButton: {
         marginRight: theme.spacing(2),
     },
+    // this is to show or hide app bar title
     title: {
         display: 'block',
         /*
@@ -90,7 +91,11 @@ const useStyles = makeStyles(styles);
 export function PrimarySearchAppBar(props) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
+    console.log("anchorEl", anchorEl, "setAnchorEl", setAnchorEl);
+
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+
+    console.log("mobileMoreAnchorEl", mobileMoreAnchorEl, "setMobileMoreAnchorEl", setMobileMoreAnchorEl);
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
