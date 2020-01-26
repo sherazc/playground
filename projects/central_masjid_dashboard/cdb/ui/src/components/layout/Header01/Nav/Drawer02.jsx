@@ -15,13 +15,22 @@ class Drawer02 extends Component {
         super(props);
         this.state = {
             top: false,
-            left: props.drawerOpen,
+            left: false,
             bottom: false,
             right: false,
         };
     }
 
     toggleDrawer(side, open) {
+        return event => {
+            if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+                return;
+            }
+            this.setState({...this.state, [side]: open});
+        };
+    }
+
+    closeDrawer(side, open) {
         return event => {
             if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
                 return;
@@ -96,7 +105,7 @@ class Drawer02 extends Component {
                 <Button onClick={this.toggleDrawer('right', true)}>Open Right</Button>
                 <Button onClick={this.toggleDrawer('top', true)}>Open Top</Button>
                 <Button onClick={this.toggleDrawer('bottom', true)}>Open Bottom</Button>
-                <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
+                <Drawer open={this.props.drawerOpen} onClose={this.props.onCloseDrawer}>
                     {this.sideList('left')}
                 </Drawer>
                 <Drawer anchor="top" open={this.state.top} onClose={this.toggleDrawer('top', false)}>

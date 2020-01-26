@@ -19,7 +19,6 @@ import Profile from "./Profile";
 import Drawer01 from "../Nav/Drawer01";
 import Drawer02 from "../Nav/Drawer02";
 
-
 const styles = theme => ({
     grow: {
         flexGrow: 1,
@@ -86,168 +85,9 @@ const styles = theme => ({
     },
 });
 
-const useStyles = makeStyles(styles);
 
-export function PrimarySearchAppBar(props) {
-    const classes = useStyles();
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    console.log("anchorEl", anchorEl, "setAnchorEl", setAnchorEl);
-
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
-    console.log("mobileMoreAnchorEl", mobileMoreAnchorEl, "setMobileMoreAnchorEl", setMobileMoreAnchorEl);
-
-    const isMenuOpen = Boolean(anchorEl);
-    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-    // Open profile menu
-    const handleProfileMenuOpen = event => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleMobileMenuClose = () => {
-        setMobileMoreAnchorEl(null);
-    };
-
-    // Close menu
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-        handleMobileMenuClose();
-    };
-
-    // Open Mobile menu
-    const handleMobileMenuOpen = event => {
-        setMobileMoreAnchorEl(event.currentTarget);
-    };
-
-    // Sub profile pop over menu
-    const menuId = 'primary-search-account-menu';
-    const renderMenu = (
-        <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-            id={menuId}
-            keepMounted
-            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-            open={isMenuOpen}
-            onClose={handleMenuClose}>
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-        </Menu>
-    );
-
-
-    // Pop over mobile menu
-    const mobileMenuId = 'primary-search-account-menu-mobile';
-    const renderMobileMenu = (
-        <Menu
-            anchorEl={mobileMoreAnchorEl}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-            id={mobileMenuId}
-            keepMounted
-            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-            open={isMobileMenuOpen}
-            onClose={handleMobileMenuClose}>
-            this is mobile menu
-            <MenuItem>
-                <IconButton aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="secondary">
-                        <MailIcon />
-                    </Badge>
-                </IconButton>
-                <p>Messages</p>
-            </MenuItem>
-            <MenuItem>
-                <IconButton aria-label="show 11 new notifications" color="inherit">
-                    <Badge badgeContent={11} color="secondary">
-                        <NotificationsIcon />
-                    </Badge>
-                </IconButton>
-                <p>Notifications</p>
-            </MenuItem>
-            <MenuItem onClick={handleProfileMenuOpen}>
-                <IconButton
-                    aria-label="account of current user"
-                    aria-controls="primary-search-account-menu"
-                    aria-haspopup="true"
-                    color="inherit">
-                    <AccountCircle />
-                </IconButton>
-                <p>Profile</p>
-            </MenuItem>
-        </Menu>
-    );
-
-    return (
-
-        <div className={classes.grow}>
-            <Drawer02 drawerOpen={props.drawerOpen}/>
-            <AppBar position="static">
-                <Toolbar>
-                    <div
-                        // TODO: remove this once drawer is working
-                        // className={classes.sectionMobile}
-                        >
-                        <IconButton
-                            edge="start"
-                            className={""}
-                            color="inherit"
-                            aria-label="open drawer">
-                            <MenuIcon />
-                        </IconButton>
-                    </div>
-
-
-                    <Logo style={{
-                        fill:"rgba(255,255,255,0.95)",
-                        width: "30px", marginRight: "10px"}}/>
-                    <Typography className={classes.title} variant="h6" noWrap>
-
-                        Masjid Dashboard
-                    </Typography>
-
-                    <div className={classes.grow} style={{backgroundColor: "#ff0000", height: "1px"}} />
-                    <div className={classes.sectionDesktop}>
-                        <IconButton aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={4} color="secondary">
-                                <MailIcon />
-                            </Badge>
-                        </IconButton>
-                        <IconButton aria-label="show 17 new notifications" color="inherit">
-                            <Badge badgeContent={17} color="secondary">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
-                        <IconButton
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit">
-                            <AccountCircle />
-                        </IconButton>
-                    </div>
-                    <div className={classes.sectionMobile}>
-                        <IconButton
-                            aria-label="show more"
-                            aria-controls={mobileMenuId}
-                            aria-haspopup="true"
-                            onClick={handleMobileMenuOpen}
-                            color="inherit">
-                            <MoreIcon />
-                        </IconButton>
-                    </div>
-                    <Profile/>
-                </Toolbar>
-            </AppBar>
-            {renderMobileMenu}
-            {renderMenu}
-        </div>
-    );
-}
-
-
+const menuId = 'primary-search-account-menu';
+const mobileMenuId = 'primary-search-account-menu-mobile';
 class Header02 extends Component {
     constructor(props) {
         super(props);
@@ -257,12 +97,86 @@ class Header02 extends Component {
 
     createInitialState() {
         return {
-            drawerOpen: true
+            drawerOpen: true,
         }
     }
 
+    onOpenDrawer() {
+        this.setState({drawerOpen: true});
+    }
+
+    onCloseDrawer() {
+        this.setState({drawerOpen: false});
+    }
+
     render() {
-        return <PrimarySearchAppBar drawerOpen={this.state.drawerOpen}/>
+        const classes = this.props.classes;
+
+        return (
+            <div className={classes.grow}>
+                <Drawer02 drawerOpen={this.state.drawerOpen} onCloseDrawer={this.onCloseDrawer.bind(this)}/>
+                <AppBar position="static">
+                    <Toolbar>
+                        <div
+                            // TODO: remove this once drawer is working
+                            // className={classes.sectionMobile}
+                        >
+                            <IconButton
+                                onClick={this.onOpenDrawer.bind(this)}
+                                edge="start"
+                                className={""}
+                                color="inherit"
+                                aria-label="open drawer">
+                                <MenuIcon />
+                            </IconButton>
+                        </div>
+
+
+                        <Logo style={{
+                            fill:"rgba(255,255,255,0.95)",
+                            width: "30px", marginRight: "10px"}}/>
+                        <Typography className={classes.title} variant="h6" noWrap>
+                            Masjid Dashboard
+                        </Typography>
+
+
+                        <div className={classes.grow}/>
+                        <div className={classes.sectionDesktop}>
+                            <IconButton aria-label="show 4 new mails" color="inherit">
+                                <Badge badgeContent={4} color="secondary">
+                                    <MailIcon />
+                                </Badge>
+                            </IconButton>
+                            <IconButton aria-label="show 17 new notifications" color="inherit">
+                                <Badge badgeContent={17} color="secondary">
+                                    <NotificationsIcon />
+                                </Badge>
+                            </IconButton>
+                            <IconButton
+                                edge="end"
+                                aria-label="account of current user"
+                                aria-controls={menuId}
+                                aria-haspopup="true"
+                                // onClick={this.handleProfileMenuOpen}
+                                color="inherit">
+                                <AccountCircle />
+                            </IconButton>
+                        </div>
+                        <div className={classes.sectionMobile}>
+                            <IconButton
+                                aria-label="show more"
+                                aria-controls={mobileMenuId}
+                                aria-haspopup="true"
+                                // onClick={handleMobileMenuOpen}
+                                color="inherit">
+                                <MoreIcon />
+                            </IconButton>
+                        </div>
+                        <Profile/>
+                    </Toolbar>
+                </AppBar>
+            </div>
+        );
     }
 }
 
