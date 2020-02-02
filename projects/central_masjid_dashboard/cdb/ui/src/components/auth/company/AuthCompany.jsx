@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import StateSelect from "../../partials/StateSelect";
-import {MODE_EDIT, MODE_VIEW} from "../../partials/InputField";
+import {MODE_CREATE, MODE_EDIT, MODE_VIEW} from "../../partials/InputField";
 import {NavLink} from "react-router-dom";
 import {
     createCompanyAction,
@@ -14,7 +14,12 @@ import {
     isNotBlank
 } from "../../../services/utilities";
 import {Redirect} from "react-router";
-import {isAdminLogin, isAuthPresent, isCompanyNotNull} from "../../../services/auth/AuthNZ";
+import {
+    isAdminLogin,
+    isAuthPresent,
+    isCompanyNotNull,
+    isSuperAdminLogin
+} from "../../../services/auth/AuthNZ";
 import Layout01 from "../../layout/Layout01/Layout01";
 import SideLabelInputText from "../../common/SideLabelInputText/SideLabelInputText";
 import {
@@ -32,8 +37,8 @@ class AuthCompany extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const prevAction = getReactRouterPathParamFromUrl(prevProps, "action");
-        const currentAction = getReactRouterPathParamFromUrl(this.props, "action");
+        // const prevAction = getReactRouterPathParamFromUrl(prevProps, "action");
+        // const currentAction = getReactRouterPathParamFromUrl(this.props, "action");
         const companyPrevious = this.loadCompanyFromProps(prevProps);
         const company = this.loadCompanyFromProps(this.props);
 
@@ -126,29 +131,39 @@ class AuthCompany extends Component {
     getRedirectUrl(props) {
         const action = getReactRouterPathParamFromUrl(this.props, "action");
         const actionViewOrEdit = action === MODE_VIEW || action === MODE_EDIT;
+        const actionCreate = action === MODE_CREATE;
+
+        if (actionCreate) {
+            return;
+        }
 
         const adminLogin = isAdminLogin(props.login);
-        // Company is selected on super admin logged in and updating another company
-        const isCompanySelected = props.companyServiceResponse && props.companyServiceResponse.target && props.companyServiceResponse.target.id;
+        const superAdminLogin = isSuperAdminLogin(props.login);
 
-        if (actionViewOrEdit && adminLogin) {
-            return;
+        // Company is selected on super admin logged in and updating another company
+        const companySelected = props.companyServiceResponse
+            && props.companyServiceResponse.target
+            && isNotBlank(props.companyServiceResponse.target.id);
+
+        console.log((adminLogin || superAdminLogin));
+        if (!(adminLogin || superAdminLogin) && companySelected) {
+            return `${process.env.PUBLIC_URL}/forbidden`;
         }
 
         const isLogin = isAuthPresent(props.login);
+        const companyLogin = props.login.company && props.login.company.id;
 
-        if (actionViewOrEdit && isLogin) {
+
+        if (isLogin && companyLogin) {
             return;
         }
 
-        if (actionViewOrEdit && adminLogin && !isCompanySelected) {
-            return `${process.env.PUBLIC_URL}/forbidden`;
-        }
+        return `${process.env.PUBLIC_URL}/forbidden`;
     }
 
     render() {
         const redirectUrl = this.getRedirectUrl(this.props);
-        console.log("Here", redirectUrl);
+        console.log("redirect URL", redirectUrl);
         if (redirectUrl) {
             return <Redirect to={redirectUrl}/>;
         }

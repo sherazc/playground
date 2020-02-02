@@ -14,10 +14,13 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import Logo from "../../../Home/Logo";
-import Profile from "./Profile";
-import Drawer01 from "../Nav/Drawer01";
-import Drawer02 from "../Nav/Drawer02";
+import Logo from "../../Home/Logo";
+import Profile from "./Profile/Profile";
+import Drawer01 from "./Nav/Drawer01";
+import Drawer02 from "./Nav/Drawer02";
+import {
+    Link
+} from '@material-ui/core';
 
 const styles = theme => ({
     grow: {
@@ -137,8 +140,6 @@ class Header02 extends Component {
                         <Typography className={classes.title} variant="h6" noWrap>
                             Masjid Dashboard
                         </Typography>
-
-
                         <div className={classes.grow}/>
                         <div className={classes.sectionDesktop}>
                             <IconButton aria-label="show 4 new mails" color="inherit">
@@ -171,6 +172,9 @@ class Header02 extends Component {
                                 <MoreIcon />
                             </IconButton>
                         </div>
+                        <a href="/auth/company/view">
+                            Company
+                        </a>
                         <Profile/>
                     </Toolbar>
                 </AppBar>

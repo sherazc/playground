@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import {withStyles} from '@material-ui/core/styles';
 import Header01 from "../Header01/Header01";
 import Footer01 from "../Footer01/Footer01";
-import Header02 from "../Header01/Profile/Header02";
+import Header02 from "../Header01/Header02";
 
 const styles = theme => {
     return ({
