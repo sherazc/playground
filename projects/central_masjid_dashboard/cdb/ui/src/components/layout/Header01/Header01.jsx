@@ -6,7 +6,7 @@ import Nav from "./Nav/Nav";
 import Profile from "./Profile/Profile";
 
 const baseLinkUrl = process.env.PUBLIC_URL;
-
+// @Deprecated
 class Header01 extends Component {
 
     render() {

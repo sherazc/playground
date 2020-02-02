@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import { fade, makeStyles, withStyles } from '@material-ui/core/styles';
+import {NavLink} from 'react-router-dom';
+import {fade, makeStyles, withStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -91,6 +92,8 @@ const styles = theme => ({
 
 const menuId = 'primary-search-account-menu';
 const mobileMenuId = 'primary-search-account-menu-mobile';
+const baseLinkUrl = process.env.PUBLIC_URL;
+
 class Header02 extends Component {
     constructor(props) {
         super(props);
@@ -129,14 +132,15 @@ class Header02 extends Component {
                                 className={""}
                                 color="inherit"
                                 aria-label="open drawer">
-                                <MenuIcon />
+                                <MenuIcon/>
                             </IconButton>
                         </div>
 
 
                         <Logo style={{
-                            fill:"rgba(255,255,255,0.95)",
-                            width: "30px", marginRight: "10px"}}/>
+                            fill: "rgba(255,255,255,0.95)",
+                            width: "30px", marginRight: "10px"
+                        }}/>
                         <Typography className={classes.title} variant="h6" noWrap>
                             Masjid Dashboard
                         </Typography>
@@ -144,12 +148,12 @@ class Header02 extends Component {
                         <div className={classes.sectionDesktop}>
                             <IconButton aria-label="show 4 new mails" color="inherit">
                                 <Badge badgeContent={4} color="secondary">
-                                    <MailIcon />
+                                    <MailIcon/>
                                 </Badge>
                             </IconButton>
                             <IconButton aria-label="show 17 new notifications" color="inherit">
                                 <Badge badgeContent={17} color="secondary">
-                                    <NotificationsIcon />
+                                    <NotificationsIcon/>
                                 </Badge>
                             </IconButton>
                             <IconButton
@@ -159,7 +163,7 @@ class Header02 extends Component {
                                 aria-haspopup="true"
                                 // onClick={this.handleProfileMenuOpen}
                                 color="inherit">
-                                <AccountCircle />
+                                <AccountCircle/>
                             </IconButton>
                         </div>
                         <div className={classes.sectionMobile}>
@@ -169,12 +173,13 @@ class Header02 extends Component {
                                 aria-haspopup="true"
                                 // onClick={handleMobileMenuOpen}
                                 color="inherit">
-                                <MoreIcon />
+                                <MoreIcon/>
                             </IconButton>
                         </div>
-                        <a href="/auth/company/view">
+
+                        <NavLink to={`${baseLinkUrl}/auth/company/view`}>
                             Company
-                        </a>
+                        </NavLink>
                         <Profile/>
                     </Toolbar>
                 </AppBar>

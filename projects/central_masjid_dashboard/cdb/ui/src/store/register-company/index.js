@@ -5,7 +5,7 @@ import {
     REGISTER_COMPANY_USER_PREPARE_FOR_EDIT,
     REGISTER_COMPANY_SAVE,
     REGISTER_COMPANY_FINISH,
-    REGISTER_COMPANY_USER_SAVE, REGISTER_COMPANY_USER_PREPARE_FOR_PROFILE
+    REGISTER_COMPANY_USER_SAVE, REGISTER_COMPANY_USER_PREPARE_FOR_PROFILE, REGISTER_COMPANY_RESET
 } from "./actions";
 import {
     createEmptyCompany,
@@ -33,8 +33,9 @@ export const registerCompany = (state = initialState, action) => {
         case REGISTER_COMPANY_USER_SAVE:
             return {...state, companyUserServiceResponse: action.payload};
         case REGISTER_COMPANY_FINISH:
-            const cleanInitialState = initialStateCreator();
-            return {...cleanInitialState, finishRegister: action.payload};
+            return {...initialStateCreator(), finishRegister: action.payload};
+        case REGISTER_COMPANY_RESET:
+            return {...initialStateCreator()};
         case REGISTER_COMPANY_PREPARE_FOR_EDIT:
             const companyServiceResponse = createEmptyServiceResponse(() => action.payload);
             return {...state, companyServiceResponse: companyServiceResponse};
