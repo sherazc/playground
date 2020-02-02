@@ -1,3 +1,5 @@
+import {isNotBlank} from "../utilities";
+
 export const verifyAuthentication = (tokenPayload, authenticate) => {
     if (authenticate) {
         if (tokenPayload && tokenPayload.exp) {
@@ -8,6 +10,10 @@ export const verifyAuthentication = (tokenPayload, authenticate) => {
     } else {
         return true;
     }
+};
+
+export const isCompanyNotNull = (company) => {
+    return company && isNotBlank(company.id);
 };
 
 export const isAuthPresent = (login) => {

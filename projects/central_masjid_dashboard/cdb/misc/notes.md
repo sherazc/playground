@@ -210,6 +210,9 @@ there is no clock
 ✅ Defect: 
 On logout redux.centralControl is not getting cleaned up
 
+Defect: 
+Company register URL error is not showing
+
 Defect:
 Register company
 Login
@@ -447,7 +450,18 @@ Bad links should go to 404 not dashboard. Have dashboard redirect to 404.
 
 ✅ Create company Register, user register and registration finish page header image and title 
 
-Create admin header mobile
+✅ Create header mobile
+
+
+Menu Admin User
+    - Setting
+    - Users
+    - Company
+    - My Profile
+
+Menu Super Admin User
+    - All Users
+    - All Companies
 
 Remove Dependency on @material-ui/core/Grid
 

@@ -9,11 +9,12 @@ import {
     updateCompanyAction
 } from "../../../store/register-company/actions";
 import {
+    equalObjects,
     getReactRouterPathParamFromUrl,
     isNotBlank
 } from "../../../services/utilities";
 import {Redirect} from "react-router";
-import {isAdminLogin} from "../../../services/auth/AuthNZ";
+import {isAdminLogin, isAuthPresent, isCompanyNotNull} from "../../../services/auth/AuthNZ";
 import Layout01 from "../../layout/Layout01/Layout01";
 import SideLabelInputText from "../../common/SideLabelInputText/SideLabelInputText";
 import {
@@ -25,7 +26,7 @@ class AuthCompany extends Component {
 
     constructor(props) {
         super(props);
-        this.state = this.createInitialState(this.props.companyServiceResponse);
+        this.state = this.createInitialState(this.loadCompanyFromProps(props));
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
@@ -33,9 +34,24 @@ class AuthCompany extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         const prevAction = getReactRouterPathParamFromUrl(prevProps, "action");
         const currentAction = getReactRouterPathParamFromUrl(this.props, "action");
-        if (currentAction === "create" && prevAction !== "create") {
-            this.setState(this.createInitialState(this.props.companyServiceResponse));
+        const companyPrevious = this.loadCompanyFromProps(prevProps);
+        const company = this.loadCompanyFromProps(this.props);
+
+
+        if (company && !equalObjects(companyPrevious, company)) {
+            console.log("Updating state company", company);
+            this.setState(this.createInitialState(company));
         }
+    }
+
+    loadCompanyFromProps(props) {
+        let company;
+        if (isCompanyNotNull(props.companyServiceResponse.target)) {
+            company = props.companyServiceResponse.target;
+        } else if (isCompanyNotNull(props.login.company)) {
+            company = props.login.company;
+        }
+        return company;
     }
 
     onChange(event) {
@@ -69,8 +85,7 @@ class AuthCompany extends Component {
         }
     }
 
-    createInitialState(companyServiceResponse) {
-        const company = companyServiceResponse.target;
+    createInitialState(company) {
         if (company) {
             return {
                 id: company.id,
@@ -81,6 +96,17 @@ class AuthCompany extends Component {
                 addressCity: company.address.city,
                 addressState: company.address.state,
                 addressZip: company.address.zip
+            }
+        } else {
+            return {
+                id: "",
+                name: "",
+                url: "",
+                website: "",
+                addressStreet: "",
+                addressCity: "",
+                addressState: "",
+                addressZip: ""
             }
         }
     }
@@ -100,20 +126,29 @@ class AuthCompany extends Component {
     getRedirectUrl(props) {
         const action = getReactRouterPathParamFromUrl(this.props, "action");
         const actionViewOrEdit = action === MODE_VIEW || action === MODE_EDIT;
+
         const adminLogin = isAdminLogin(props.login);
+        // Company is selected on super admin logged in and updating another company
         const isCompanySelected = props.companyServiceResponse && props.companyServiceResponse.target && props.companyServiceResponse.target.id;
 
-        if (actionViewOrEdit && !adminLogin) {
-            return `${process.env.PUBLIC_URL}/forbidden`;
+        if (actionViewOrEdit && adminLogin) {
+            return;
+        }
+
+        const isLogin = isAuthPresent(props.login);
+
+        if (actionViewOrEdit && isLogin) {
+            return;
         }
 
         if (actionViewOrEdit && adminLogin && !isCompanySelected) {
-            return `${process.env.PUBLIC_URL}/404`;
+            return `${process.env.PUBLIC_URL}/forbidden`;
         }
     }
 
     render() {
         const redirectUrl = this.getRedirectUrl(this.props);
+        console.log("Here", redirectUrl);
         if (redirectUrl) {
             return <Redirect to={redirectUrl}/>;
         }
