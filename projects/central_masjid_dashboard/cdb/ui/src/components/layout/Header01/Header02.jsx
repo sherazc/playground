@@ -1,27 +1,21 @@
 import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
-import {fade, makeStyles, withStyles} from '@material-ui/core/styles';
+import {fade, withStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
-
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
+import {withRouter} from 'react-router-dom';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Logo from "../../Home/Logo";
-import Profile from "./Profile/Profile";
 import Drawer01 from "./Nav/Drawer01";
 import Drawer02 from "./Nav/Drawer02";
-import {
-    Link
-} from '@material-ui/core';
+import {connect} from "react-redux";
+import {mapStateLoginToProps} from "../../../store/lib/utils";
+import {loginResetAction, viewMyProfileAction} from "../../../store/login/loginActions";
 
 const styles = theme => ({
     grow: {
@@ -114,6 +108,18 @@ class Header02 extends Component {
         this.setState({drawerOpen: false});
     }
 
+    onLogout(event) {
+        event.preventDefault();
+        this.props.loginResetAction();
+        this.props.history.replace(`${process.env.PUBLIC_URL}/`);
+    }
+
+    onViewMyProfile(event) {
+        event.preventDefault();
+        this.props.viewMyProfileAction(this.props.login.user);
+        this.props.history.replace(`${process.env.PUBLIC_URL}/auth/company/user/profile`);
+    }
+
     render() {
         const classes = this.props.classes;
 
@@ -123,9 +129,7 @@ class Header02 extends Component {
                 <AppBar position="static">
                     <Toolbar>
                         <div
-                            // TODO: remove this once drawer is working
-                            // className={classes.sectionMobile}
-                        >
+                            className={classes.sectionMobile}>
                             <IconButton
                                 onClick={this.onOpenDrawer.bind(this)}
                                 edge="start"
@@ -135,8 +139,6 @@ class Header02 extends Component {
                                 <MenuIcon/>
                             </IconButton>
                         </div>
-
-
                         <Logo style={{
                             fill: "rgba(255,255,255,0.95)",
                             width: "30px", marginRight: "10px"
@@ -146,26 +148,53 @@ class Header02 extends Component {
                         </Typography>
                         <div className={classes.grow}/>
                         <div className={classes.sectionDesktop}>
-                            <IconButton aria-label="show 4 new mails" color="inherit">
-                                <Badge badgeContent={4} color="secondary">
-                                    <MailIcon/>
-                                </Badge>
-                            </IconButton>
-                            <IconButton aria-label="show 17 new notifications" color="inherit">
-                                <Badge badgeContent={17} color="secondary">
-                                    <NotificationsIcon/>
-                                </Badge>
-                            </IconButton>
+                            <Button
+                                color="inherit"
+                                startIcon={<Icon>group</Icon>}
+                                onClick={() => this.props.history.push(`${baseLinkUrl}/auth/company/user/list/current`)}>
+                                Users
+                            </Button>
+                            <Button
+                                color="inherit"
+                                startIcon={<Icon>business</Icon>}
+                                onClick={() => this.props.history.push(`${baseLinkUrl}/auth/company/view`)}>
+                                Masjid
+                            </Button>
+                            <Button
+                                color="inherit"
+                                startIcon={<Icon>settings</Icon>}
+                                onClick={() => this.props.history.push(`${baseLinkUrl}/auth/admin`)}>
+                                Settings
+                            </Button>
+
+
+                            {/*TODO These are Super Admin Buttons*/}
+                            <Button
+                                color="inherit"
+                                startIcon={<Icon>account_balance</Icon>}
+                                onClick={() => this.props.history.push(`${baseLinkUrl}/auth/company/list`)}>
+                                All Companies
+                            </Button>
+                            <Button
+                                color="inherit"
+                                startIcon={<Icon>supervised_user_circle</Icon>}
+                                onClick={() => this.props.history.push(`${baseLinkUrl}/auth/company/user/list/all`)}>
+                                All Users
+                            </Button>
+
                             <IconButton
-                                edge="end"
-                                aria-label="account of current user"
-                                aria-controls={menuId}
-                                aria-haspopup="true"
-                                // onClick={this.handleProfileMenuOpen}
+                                onClick={this.onViewMyProfile.bind(this)}
                                 color="inherit">
-                                <AccountCircle/>
+                                <Icon>person</Icon>
+                            </IconButton>
+
+                            <IconButton
+                                onClick={this.onLogout.bind(this)}
+                                color="inherit">
+                                <Icon>exit_to_app</Icon>
                             </IconButton>
                         </div>
+
                         <div className={classes.sectionMobile}>
                             <IconButton
                                 aria-label="show more"
@@ -176,11 +205,6 @@ class Header02 extends Component {
                                 <MoreIcon/>
                             </IconButton>
                         </div>
-
-                        <NavLink to={`${baseLinkUrl}/auth/company/view`}>
-                            Company
-                        </NavLink>
-                        <Profile/>
                     </Toolbar>
                 </AppBar>
             </div>
@@ -188,4 +212,4 @@ class Header02 extends Component {
     }
 }
 
-export default withStyles(styles)(Header02);
+export default connect(mapStateLoginToProps, {loginResetAction, viewMyProfileAction})(withRouter(withStyles(styles)(Header02)));
