@@ -31,7 +31,6 @@ class Layout01 extends Component {
                     alignItems="center"
                     justify="flex-start">
                     <div style={{width: "100%"}}>
-                        <Header01/>
                         <Header02/>
                         <div style={{padding: "25px"}}>
                             {this.props.children}

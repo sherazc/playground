@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import styles from "./Nav.module.scss";
-import {withRouter, NavLink} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import {connect} from "react-redux";
 import LinkLeftBorderMaterialIcon from "../../../common/LinkLeftBorderMaterialIcon/LinkLeftBorderMaterialIcon";
 import {mapStateLoginToProps} from "../../../../store/lib/utils";

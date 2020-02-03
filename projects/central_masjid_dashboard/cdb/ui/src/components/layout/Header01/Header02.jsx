@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {NavLink} from 'react-router-dom';
 import {fade, withStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -9,13 +8,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import {withRouter} from 'react-router-dom';
-import MoreIcon from '@material-ui/icons/MoreVert';
 import Logo from "../../Home/Logo";
-import Drawer01 from "./Nav/Drawer01";
 import Drawer02 from "./Nav/Drawer02";
 import {connect} from "react-redux";
 import {mapStateLoginToProps} from "../../../store/lib/utils";
 import {loginResetAction, viewMyProfileAction} from "../../../store/login/loginActions";
+import {isSuperAdminLogin} from "../../../services/auth/AuthNZ";
 
 const styles = theme => ({
     grow: {
@@ -83,9 +81,6 @@ const styles = theme => ({
     },
 });
 
-
-const menuId = 'primary-search-account-menu';
-const mobileMenuId = 'primary-search-account-menu-mobile';
 const baseLinkUrl = process.env.PUBLIC_URL;
 
 class Header02 extends Component {
@@ -122,6 +117,7 @@ class Header02 extends Component {
 
     render() {
         const classes = this.props.classes;
+        const superAdminLogin = isSuperAdminLogin(this.props.login);
 
         return (
             <div className={classes.grow}>
@@ -168,20 +164,28 @@ class Header02 extends Component {
                             </Button>
 
 
-                            {/*TODO These are Super Admin Buttons*/}
-                            <Button
-                                color="inherit"
-                                startIcon={<Icon>account_balance</Icon>}
-                                onClick={() => this.props.history.push(`${baseLinkUrl}/auth/company/list`)}>
-                                All Companies
-                            </Button>
-                            <Button
-                                color="inherit"
-                                startIcon={<Icon>supervised_user_circle</Icon>}
-                                onClick={() => this.props.history.push(`${baseLinkUrl}/auth/company/user/list/all`)}>
-                                All Users
-                            </Button>
+                            {superAdminLogin && (
+                                <>
+                                    <Button
+                                        color="inherit"
+                                        startIcon={<Icon>account_balance</Icon>}
+                                        onClick={() => this.props.history.push(`${baseLinkUrl}/auth/company/list`)}>
+                                        All Companies
+                                    </Button>
 
+                                    <Button
+                                        color="inherit"
+                                        startIcon={<Icon>supervised_user_circle</Icon>}
+                                        onClick={() => this.props.history.push(`${baseLinkUrl}/auth/company/user/list/all`)}>
+                                        All Users
+                                    </Button>
+                                    <IconButton
+                                        onClick={() => this.props.history.push(`${baseLinkUrl}/examples`)}
+                                        color="inherit">
+                                        <Icon>bug_report</Icon>
+                                    </IconButton>
+                                </>
+                            )}
                             <IconButton
                                 onClick={this.onViewMyProfile.bind(this)}
                                 color="inherit">
@@ -194,17 +198,6 @@ class Header02 extends Component {
                                 <Icon>exit_to_app</Icon>
                             </IconButton>
                         </div>
-
-                        <div className={classes.sectionMobile}>
-                            <IconButton
-                                aria-label="show more"
-                                aria-controls={mobileMenuId}
-                                aria-haspopup="true"
-                                // onClick={handleMobileMenuOpen}
-                                color="inherit">
-                                <MoreIcon/>
-                            </IconButton>
-                        </div>
                     </Toolbar>
                 </AppBar>
             </div>
@@ -212,4 +205,7 @@ class Header02 extends Component {
     }
 }
 
-export default connect(mapStateLoginToProps, {loginResetAction, viewMyProfileAction})(withRouter(withStyles(styles)(Header02)));
+export default connect(mapStateLoginToProps, {
+    loginResetAction,
+    viewMyProfileAction
+})(withRouter(withStyles(styles)(Header02)));
