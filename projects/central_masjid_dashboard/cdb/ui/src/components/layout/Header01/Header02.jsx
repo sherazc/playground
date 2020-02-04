@@ -146,12 +146,6 @@ class Header02 extends Component {
                         <div className={classes.sectionDesktop}>
                             <Button
                                 color="inherit"
-                                startIcon={<Icon>group</Icon>}
-                                onClick={() => this.props.history.push(`${baseLinkUrl}/auth/company/user/list/current`)}>
-                                Users
-                            </Button>
-                            <Button
-                                color="inherit"
                                 startIcon={<Icon>business</Icon>}
                                 onClick={() => this.props.history.push(`${baseLinkUrl}/auth/company/view`)}>
                                 Masjid
@@ -162,7 +156,12 @@ class Header02 extends Component {
                                 onClick={() => this.props.history.push(`${baseLinkUrl}/auth/admin`)}>
                                 Settings
                             </Button>
-
+                            <Button
+                                color="inherit"
+                                startIcon={<Icon>group</Icon>}
+                                onClick={() => this.props.history.push(`${baseLinkUrl}/auth/company/user/list/current`)}>
+                                Users
+                            </Button>
 
                             {superAdminLogin && (
                                 <>
