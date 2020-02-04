@@ -3,7 +3,6 @@ import Grid from '@material-ui/core/Grid';
 import {withStyles} from '@material-ui/core/styles';
 import Header01 from "../Header01/Header01";
 import Footer01 from "../Footer01/Footer01";
-import Header02 from "../Header01/Header02";
 
 const styles = theme => {
     return ({
@@ -31,18 +30,16 @@ class Layout01 extends Component {
                     alignItems="center"
                     justify="flex-start">
                     <div style={{width: "100%"}}>
-                        <Header02/>
+                        <Header01/>
                         <div style={{padding: "25px"}}>
                             {this.props.children}
                         </div>
                         <Footer01/>
                     </div>
                 </Grid>
-
             </Grid>
         );
     }
 }
-
 
 export default withStyles(styles)(Layout01);

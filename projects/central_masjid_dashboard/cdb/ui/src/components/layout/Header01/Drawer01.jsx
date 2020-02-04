@@ -6,17 +6,17 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import {mapStateLoginToProps} from "../../../../store/lib/utils";
-import {loginResetAction, viewMyProfileAction} from "../../../../store/login/loginActions";
+import {mapStateLoginToProps} from "../../../store/lib/utils";
+import {loginResetAction, viewMyProfileAction} from "../../../store/login/loginActions";
 
 import {connect} from "react-redux";
 import {withRouter} from 'react-router-dom';
 import Icon from '@material-ui/core/Icon';
-import {isSuperAdminLogin} from "../../../../services/auth/AuthNZ";
+import {isSuperAdminLogin} from "../../../services/auth/AuthNZ";
 
 const baseLinkUrl = process.env.PUBLIC_URL;
 
-class Drawer02 extends Component {
+class Drawer01 extends Component {
     constructor(props) {
         super(props);
         this.drawerContent = this.createDrawerContent(props);
@@ -118,4 +118,4 @@ class Drawer02 extends Component {
 export default connect(mapStateLoginToProps, {
     loginResetAction,
     viewMyProfileAction
-})(withRouter(Drawer02));
+})(withRouter(Drawer01));
