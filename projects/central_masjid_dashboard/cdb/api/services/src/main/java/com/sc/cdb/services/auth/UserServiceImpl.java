@@ -10,6 +10,7 @@ import com.sc.cdb.data.repository.UserRepository;
 import com.sc.cdb.services.email.EmailService;
 import com.sc.cdb.services.model.ServiceResponse;
 import org.apache.commons.lang3.StringUtils;
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -178,6 +179,7 @@ public class UserServiceImpl implements UserService {
                 && !isVerificationExpired(user.getRegistrationDate())) {
 
                 boolean activated = activateUser(user);
+                activateCompanyIfNeeded(user.getCompanyId());
                 if (activated) {
                     responseBuilder.target(user);
                     responseBuilder.successful(true);
@@ -194,6 +196,13 @@ public class UserServiceImpl implements UserService {
         }
 
         return responseBuilder.build();
+    }
+
+    private void activateCompanyIfNeeded(String companyId) {
+        Long usersCount = userRepository.countCompanyUsers(new ObjectId(companyId));
+        if (usersCount == 1) {
+            companyService.activateCompany(companyId, true);
+        }
     }
 
     private boolean activateUser(User user) {
