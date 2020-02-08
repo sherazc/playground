@@ -4,7 +4,10 @@ class Logo extends Component {
 
     render() {
         return (
-            <div className={this.props.className} style={this.props.style}>
+            <div
+                className={this.props.className}
+                style={this.props.style}
+                onClick={this.props.onClick}>
                 <svg
                     version="1.1"
                     viewBox="0 0 500 500"

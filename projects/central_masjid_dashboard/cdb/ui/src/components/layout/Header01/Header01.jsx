@@ -13,7 +13,7 @@ import Drawer01 from "./Drawer01";
 import {connect} from "react-redux";
 import {mapStateLoginToProps} from "../../../store/lib/utils";
 import {loginResetAction, viewMyProfileAction} from "../../../store/login/loginActions";
-import {isSuperAdminLogin} from "../../../services/auth/AuthNZ";
+import {isAuthPresent, isSuperAdminLogin} from "../../../services/auth/AuthNZ";
 
 const styles = theme => ({
     grow: {
@@ -115,8 +115,10 @@ class Header01 extends Component {
         this.props.history.replace(`${process.env.PUBLIC_URL}/auth/company/user/profile`);
     }
 
+
     render() {
         const classes = this.props.classes;
+        const isLogin = isAuthPresent(this.props.login);
         const superAdminLogin = isSuperAdminLogin(this.props.login);
 
         return (
@@ -124,79 +126,84 @@ class Header01 extends Component {
                 <Drawer01 drawerOpen={this.state.drawerOpen} onCloseDrawer={this.onCloseDrawer.bind(this)}/>
                 <AppBar position="static">
                     <Toolbar>
-                        <div
-                            className={classes.sectionMobile}>
-                            <IconButton
-                                onClick={this.onOpenDrawer.bind(this)}
-                                edge="start"
-                                className={""}
-                                color="inherit"
-                                aria-label="open drawer">
-                                <MenuIcon/>
-                            </IconButton>
-                        </div>
+                        {isLogin && (
+                            <div
+                                className={classes.sectionMobile}>
+                                <IconButton
+                                    onClick={this.onOpenDrawer.bind(this)}
+                                    edge="start"
+                                    className={""}
+                                    color="inherit"
+                                    aria-label="open drawer">
+                                    <MenuIcon/>
+                                </IconButton>
+                            </div>
+                        )}
                         <Logo style={{
                             fill: "rgba(255,255,255,0.95)",
-                            width: "30px", marginRight: "10px"
-                        }}/>
+                            width: "30px", marginRight: "10px",
+                            cursor: "pointer"
+                        }} onClick={() => this.props.history.replace(`${process.env.PUBLIC_URL}/`)}/>
                         <Typography className={classes.title} variant="h6" noWrap>
                             Masjid Dashboard
                         </Typography>
                         <div className={classes.grow}/>
-                        <div className={classes.sectionDesktop}>
-                            <Button
-                                color="inherit"
-                                startIcon={<Icon>business</Icon>}
-                                onClick={() => this.props.history.push(`${baseLinkUrl}/auth/company/view`)}>
-                                Masjid
-                            </Button>
-                            <Button
-                                color="inherit"
-                                startIcon={<Icon>settings</Icon>}
-                                onClick={() => this.props.history.push(`${baseLinkUrl}/auth/admin`)}>
-                                Settings
-                            </Button>
-                            <Button
-                                color="inherit"
-                                startIcon={<Icon>group</Icon>}
-                                onClick={() => this.props.history.push(`${baseLinkUrl}/auth/company/user/list/current`)}>
-                                Users
-                            </Button>
+                        {isLogin && (
+                            <div className={classes.sectionDesktop}>
 
-                            {superAdminLogin && (
-                                <>
-                                    <Button
-                                        color="inherit"
-                                        startIcon={<Icon>account_balance</Icon>}
-                                        onClick={() => this.props.history.push(`${baseLinkUrl}/auth/company/list`)}>
-                                        All Companies
-                                    </Button>
+                                <Button
+                                    color="inherit"
+                                    startIcon={<Icon>business</Icon>}
+                                    onClick={() => this.props.history.push(`${baseLinkUrl}/auth/company/view`)}>
+                                    Masjid
+                                </Button>
+                                <Button
+                                    color="inherit"
+                                    startIcon={<Icon>settings</Icon>}
+                                    onClick={() => this.props.history.push(`${baseLinkUrl}/auth/admin`)}>
+                                    Settings
+                                </Button>
+                                <Button
+                                    color="inherit"
+                                    startIcon={<Icon>group</Icon>}
+                                    onClick={() => this.props.history.push(`${baseLinkUrl}/auth/company/user/list/current`)}>
+                                    Users
+                                </Button>
+                                {superAdminLogin && (
+                                    <>
+                                        <Button
+                                            color="inherit"
+                                            startIcon={<Icon>account_balance</Icon>}
+                                            onClick={() => this.props.history.push(`${baseLinkUrl}/auth/company/list`)}>
+                                            All Companies
+                                        </Button>
 
-                                    <Button
-                                        color="inherit"
-                                        startIcon={<Icon>supervised_user_circle</Icon>}
-                                        onClick={() => this.props.history.push(`${baseLinkUrl}/auth/company/user/list/all`)}>
-                                        All Users
-                                    </Button>
-                                    <IconButton
-                                        onClick={() => this.props.history.push(`${baseLinkUrl}/examples`)}
-                                        color="inherit">
-                                        <Icon>bug_report</Icon>
-                                    </IconButton>
-                                </>
-                            )}
-                            <IconButton
-                                onClick={this.onViewMyProfile.bind(this)}
-                                color="inherit">
-                                <Icon>person</Icon>
-                            </IconButton>
+                                        <Button
+                                            color="inherit"
+                                            startIcon={<Icon>supervised_user_circle</Icon>}
+                                            onClick={() => this.props.history.push(`${baseLinkUrl}/auth/company/user/list/all`)}>
+                                            All Users
+                                        </Button>
+                                        <IconButton
+                                            onClick={() => this.props.history.push(`${baseLinkUrl}/examples`)}
+                                            color="inherit">
+                                            <Icon>bug_report</Icon>
+                                        </IconButton>
+                                    </>
+                                )}
+                                <IconButton
+                                    onClick={this.onViewMyProfile.bind(this)}
+                                    color="inherit">
+                                    <Icon>person</Icon>
+                                </IconButton>
 
-                            <IconButton
-                                onClick={this.onLogout.bind(this)}
-                                color="inherit">
-                                <Icon>exit_to_app</Icon>
-                            </IconButton>
-                        </div>
+                                <IconButton
+                                    onClick={this.onLogout.bind(this)}
+                                    color="inherit">
+                                    <Icon>exit_to_app</Icon>
+                                </IconButton>
+                            </div>
+                        )}
                     </Toolbar>
                 </AppBar>
             </div>
