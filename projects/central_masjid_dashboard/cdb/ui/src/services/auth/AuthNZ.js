@@ -39,18 +39,13 @@ const tokenPayloadObjectExist = (login) => {
     return login && login.tokenPayload
 };
 
-// TODO: Don't pass props in this method. Send login and companyUserServiceResponse instead
-export const isMyProfile = (props) => {
-    if(!props || !props.login || !props.login.user || !props.companyUserServiceResponse) {
+export const isSameUsers = (user1, user2) => {
+    if(!user1 || !user2) {
         return false;
     }
-    const loginInUser = props.login.user;
-    const companyUserServiceResponse = props.companyUserServiceResponse.target;
-    return loginInUser
-        && loginInUser.id
-        && companyUserServiceResponse
-        && companyUserServiceResponse.id
-        && loginInUser.id === companyUserServiceResponse.id;
+    return user1 && user1.id
+        && user2 && user2.id
+        && user1.id === user2.id;
 };
 
 export const verifyAuthorization = (tokenPayload, rolesAll, rolesAny) => {

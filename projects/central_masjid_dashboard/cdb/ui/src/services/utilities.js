@@ -201,6 +201,16 @@ export const replaceNonNameCharacters = (str, maxLength) => {
     }
 };
 
+export const replaceNonEmailCharacters = (str, maxLength) => {
+    if (!str) return '';
+    const result = removeDoubleSpace(str.replace(/[^\w_\-@.]/gi, ''));
+    if (maxLength) {
+        return trimToLength(result, maxLength);
+    } else {
+        return result;
+    }
+};
+
 export const trimToLength = (str, length) => {
     if (!str) return '';
     return str.substr(0, length);

@@ -50,6 +50,7 @@ const SideLabelInputText = (props) => {
                     type={type}
                     placeholder={props.placeholder}
                     onChange={props.onChange}
+                    onBlur={props.onBlur}
                     inputProps={{className: styles.classInputValue}}
                     required={props.required}/>
                 {help}

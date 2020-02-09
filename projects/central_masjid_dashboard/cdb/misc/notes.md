@@ -365,6 +365,8 @@ Import Export Prayer time
 
 Only allow alphanumeric characters in masjid URL. validate length to 20 character
 
+Create Add User Button. An example is in Examples page.
+
 ✅️ Edit Company Profile page
 
 ✅️ Edit user profile page

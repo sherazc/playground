@@ -7,6 +7,7 @@ import {
 export const MODE_VIEW = "view";
 export const MODE_EDIT = "edit";
 export const MODE_CREATE = "create";
+export const MODE_PROFILE = "profile";
 
 const InputField = (props) => {
     const type = props.type ? props.type : "text";

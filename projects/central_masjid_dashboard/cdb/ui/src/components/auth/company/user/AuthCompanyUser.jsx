@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {MODE_EDIT, MODE_VIEW} from "../../../partials/InputField";
+import {MODE_CREATE, MODE_EDIT, MODE_PROFILE, MODE_VIEW} from "../../../partials/InputField";
 import {
     createCompanyUserAction,
     updateCompanyUserAction
@@ -8,8 +8,14 @@ import {
 
 import {NavLink} from "react-router-dom";
 import {Redirect} from "react-router";
-import {getReactRouterPathParamFromUrl, isNotBlank} from "../../../../services/utilities";
-import {isAdminLogin, isAuthPresent, isMyProfile, isSuperAdminLogin} from "../../../../services/auth/AuthNZ";
+import {
+    getReactRouterPathParamFromUrl,
+    isNotBlank,
+    replaceNonEmailCharacters,
+    replaceNonNameCharacters,
+    trimToLength
+} from "../../../../services/utilities";
+import {isAdminLogin, isAuthPresent, isSameUsers, isSuperAdminLogin} from "../../../../services/auth/AuthNZ";
 import UpdateCredentials from "./UpdateCredentials";
 import Layout01 from "../../../layout/Layout01/Layout01";
 import {
@@ -24,20 +30,34 @@ class AuthCompanyUser extends Component {
         super(props);
         this.state = this.createInitialState(this.props.companyUserServiceResponse);
         this.onChange = this.onChange.bind(this);
+        this.onChangeNameCharacters = this.onChangeNameCharacters.bind(this);
+        this.onChangeEmailCharacters = this.onChangeEmailCharacters.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         const prevAction = getReactRouterPathParamFromUrl(prevProps, "action");
         const currentAction = getReactRouterPathParamFromUrl(this.props, "action");
-        if ((currentAction === "create" && prevAction !== "create")
-            || (currentAction === "profile" && prevAction !== "profile")) {
+        if ((currentAction === MODE_CREATE && prevAction !== MODE_CREATE)
+            || (currentAction === MODE_PROFILE && prevAction !== MODE_PROFILE)) {
             this.setState(this.createInitialState(this.props.companyUserServiceResponse));
         }
     }
 
+    onChangeNameCharacters(event) {
+        this.setState({[event.target.name]: replaceNonNameCharacters(event.target.value, 30)});
+    }
+
+    onChangeEmailCharacters(event) {
+        this.setState({[event.target.name]: replaceNonEmailCharacters(event.target.value, 30)});
+        this.setState({
+            validEmail:
+                /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/.test(event.target.value)
+        });
+    }
+
     onChange(event) {
-        this.setState({[event.target.name]: event.target.value});
+        this.setState({[event.target.name]: trimToLength(event.target.value, 100)});
     }
 
     onSubmit(event) {
@@ -77,7 +97,8 @@ class AuthCompanyUser extends Component {
             ...companyUserServiceResponse.target,
             password: "",
             updateCredentials: false,
-            resetCredentials: false
+            resetCredentials: false,
+            validEmail: true
         };
     }
 
@@ -94,11 +115,11 @@ class AuthCompanyUser extends Component {
             return;
         }
 
-        if (action === "profile" && !isLoggedIn) {
+        if (action === MODE_PROFILE && !isLoggedIn) {
             return `${process.env.PUBLIC_URL}/`;
         }
 
-        if (action === "create" && !isLoggedIn && !isNewCompanyRegisterComplete) {
+        if (action === MODE_CREATE && !isLoggedIn && !isNewCompanyRegisterComplete) {
             return `${process.env.PUBLIC_URL}/auth/company/create`;
         }
 
@@ -110,45 +131,6 @@ class AuthCompanyUser extends Component {
         if (actionViewOrEdit && adminLogin && !companyUserSelected) {
             return `${process.env.PUBLIC_URL}/auth/company/user/list/current`;
         }
-    }
-
-    render() {
-        const loginInCompany = this.props.login.company;
-        const myProfile = isMyProfile(this.props);
-        const action = getReactRouterPathParamFromUrl(this.props, "action");
-        const adminLogin = isAdminLogin(this.props.login);
-        const superAdminLogin = isSuperAdminLogin(this.props.login);
-        // todo create new registration steps display e.g. 1 - 2 - 3
-        const redirectUrl = this.getRedirectUrl(this.state, this.props);
-        if (redirectUrl) {
-            return <Redirect to={redirectUrl}/>;
-        }
-        if (this.state.resetCredentials) {
-            return <UpdateCredentials resetCredential {...this.props} back={this.backToFromResetUpdateCredentials.bind(this)}/>
-        }
-        if (this.state.updateCredentials) {
-            return <UpdateCredentials resetCredential={false} {...this.props} back={this.backToFromResetUpdateCredentials.bind(this)}/>
-        }
-
-        return (
-            <Layout01>
-            <div>
-                <h3>Company
-                    user, {action === "create" && loginInCompany.id ? `add user to ${loginInCompany.name}` : action}</h3>
-                {this.registrationForm(action, loginInCompany)}
-                {(adminLogin || superAdminLogin) &&
-                    <button onClick={this.resetCredentials.bind(this)}>
-                        Reset Password
-                    </button>
-                }
-                {myProfile &&
-                    <button onClick={this.updateCredentials.bind(this)}>
-                        Update Password
-                    </button>
-                }
-            </div>
-            </Layout01>
-        );
     }
 
     resetCredentials() {
@@ -165,18 +147,15 @@ class AuthCompanyUser extends Component {
 
     registrationForm(action, loginInCompany) {
         const fieldErrors = this.props.companyUserServiceResponse.fieldErrors;
-        const mode = action === "profile" || action === MODE_VIEW ? MODE_VIEW : MODE_EDIT;
+        const mode = action === MODE_PROFILE || action === MODE_VIEW ? MODE_VIEW : MODE_EDIT;
         return (
             <div>
-                <div>
-                    <img src={`${process.env.PUBLIC_URL}/images/user_create_update.svg`} alt="User create update"/>
-                </div>
                 <form onSubmit={this.onSubmit}>
                     <SideLabelInputText
                         mode={mode}
                         label="First Name"
                         name="firstName"
-                        onChange={this.onChange}
+                        onChange={this.onChangeNameCharacters}
                         required={true}
                         error={isNotBlank(fieldErrors["user.firstName"])}
                         help={fieldErrors["user.firstName"]}
@@ -185,7 +164,7 @@ class AuthCompanyUser extends Component {
                         mode={mode}
                         label="Last Name"
                         name="lastName"
-                        onChange={this.onChange}
+                        onChange={this.onChangeNameCharacters}
                         required={true}
                         error={isNotBlank(fieldErrors["user.lastName"])}
                         help={fieldErrors["user.lastName"]}
@@ -195,10 +174,10 @@ class AuthCompanyUser extends Component {
                         label="Email"
                         type="email"
                         name="email"
-                        onChange={this.onChange}
+                        onChange={this.onChangeEmailCharacters}
                         required={true}
-                        error={isNotBlank(fieldErrors["user.email"])}
-                        help={fieldErrors["user.email"]}
+                        error={!this.state.validEmail || isNotBlank(fieldErrors["user.email"])}
+                        help={!this.state.validEmail ? "Invalid Email" : fieldErrors["user.email"]}
                         value={this.state.email}/>
 
                     {action === "create" &&
@@ -233,6 +212,85 @@ class AuthCompanyUser extends Component {
                 </NavLink>
 
             </div>
+        );
+    }
+
+
+    actionToHeading(action) {
+        let result = '';
+        if (!action || MODE_CREATE === action) {
+            result = "Register User";
+        } else if (MODE_EDIT === action) {
+            result = "Edit User Profile";
+        } else if (MODE_VIEW === action || MODE_PROFILE === action) {
+            result = "User Profile";
+        }
+        return result;
+    }
+
+    actionToDescription(action, loginCompany, newRegisterCompany, myProfile) {
+        let result = '';
+        if (action === MODE_CREATE) {
+            if (loginCompany && loginCompany.id) {
+                result = `Add user to ${loginCompany.name}`
+            } else if (newRegisterCompany && newRegisterCompany.id) {
+                result = `Add user to ${newRegisterCompany.name}`
+            }
+        } else if (MODE_EDIT === action) {
+            if (myProfile) {
+                result = "Edit my user profile";
+            } else {
+                result = "Edit another user profile";
+            }
+        } else if (MODE_VIEW === action || MODE_PROFILE === action) {
+            if (myProfile) {
+                result = "Viewing my user profile";
+            } else {
+                result = "Viewing another user profile";
+            }
+        }
+
+        return result;
+    }
+
+    render() {
+        const loginInCompany = this.props.login.company;
+        const myProfile = isSameUsers(this.props.login.user, this.props.companyUserServiceResponse.target);
+        const action = getReactRouterPathParamFromUrl(this.props, "action");
+        const adminLogin = isAdminLogin(this.props.login);
+        const superAdminLogin = isSuperAdminLogin(this.props.login);
+        // todo create new registration steps display e.g. 1 - 2 - 3
+        const redirectUrl = this.getRedirectUrl(this.state, this.props);
+        if (redirectUrl) {
+            return <Redirect to={redirectUrl}/>;
+        }
+        if (this.state.resetCredentials) {
+            return <UpdateCredentials resetCredential {...this.props}
+                                      back={this.backToFromResetUpdateCredentials.bind(this)}/>
+        }
+        if (this.state.updateCredentials) {
+            return <UpdateCredentials resetCredential={false} {...this.props}
+                                      back={this.backToFromResetUpdateCredentials.bind(this)}/>
+        }
+
+        return (
+            <Layout01>
+                <div>
+                    <h1>{this.actionToHeading(action)}</h1>
+                    <div>{this.actionToDescription(action, loginInCompany, this.props.companyServiceResponse.target, myProfile)}</div>
+                    {this.registrationForm(action, loginInCompany)}
+                    {(adminLogin || superAdminLogin) &&
+                    <button onClick={this.resetCredentials.bind(this)}>
+                        Reset Password
+                    </button>
+                    }
+                    {myProfile && (
+                        <button onClick={this.updateCredentials.bind(this)}>
+                            Update Password
+                        </button>
+                    )}
+                </div>
+            </Layout01>
         );
     }
 }

@@ -183,14 +183,10 @@ class AuthCompany extends Component {
 
         return (
             <div>
-                <div>
-                    <img src={`${process.env.PUBLIC_URL}/images/company_create_update.svg`}
-                         alt="Company create update"/>
-                </div>
                 <form onSubmit={this.onSubmit}>
                     <SideLabelInputText
                         mode={actionViewOrEdit}
-                        label="Company Name"
+                        label="Masjid Name"
                         name="name"
                         onChange={this.onChangeNameCharacters}
                         required={true}
@@ -200,7 +196,7 @@ class AuthCompany extends Component {
 
                     <SideLabelInputText
                         mode={actionViewOrEdit}
-                        label="URL"
+                        label="Dashboard URL"
                         name="url"
                         style={{marginBottom: "50px"}}
                         onChange={this.onChangeAlphaNumeric}
@@ -278,6 +274,18 @@ class AuthCompany extends Component {
         );
     }
 
+    actionToHeading(action) {
+        let result = '';
+        if (!action || MODE_CREATE === action) {
+            result = "Register Masjid";
+        } else if (MODE_EDIT === action) {
+            result = "Edit Masjid Profile";
+        } else if (MODE_VIEW === action) {
+            result = "Masjid Profile";
+        }
+        return result;
+    }
+
 
     render() {
         const redirectUrl = this.getRedirectUrl(this.props);
@@ -286,10 +294,11 @@ class AuthCompany extends Component {
         }
 
         const action = getReactRouterPathParamFromUrl(this.props, "action");
+        const headingText = this.actionToHeading(action);
         return (
             <Layout01>
                 <div>
-                    <h3>Company {action}</h3>
+                    <h1>{headingText}</h1>
                     {this.registrationForm(action)}
                 </div>
                 <hr/>
@@ -303,6 +312,9 @@ class AuthCompany extends Component {
                 <br/>
                 <NavLink to={`${process.env.PUBLIC_URL}/auth/company/list`}>
                     Company List
+                </NavLink>
+                <NavLink to={`${process.env.PUBLIC_URL}/auth/company/user/create`}>
+                    Add user to company
                 </NavLink>
             </Layout01>
         );
