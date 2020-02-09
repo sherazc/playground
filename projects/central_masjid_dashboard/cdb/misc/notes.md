@@ -354,15 +354,20 @@ Revisit roles and permission
 
 Make donation link
 
+
 ✅️ company address should be populated in reset prayer modal
 
 ❌ Create my own SVG image component. Component.
 I will use this for. This component should take in 
 SVG URL and add className on it on it. 
 
-▶️ Edit Company Profile page
+Import Export Prayer time
 
-▶️ Edit user profile page
+Only allow alphanumeric characters in masjid URL. validate length to 20 character
+
+✅️ Edit Company Profile page
+
+✅️ Edit user profile page
 
 ▶️ Design password reset flow
 
@@ -374,7 +379,7 @@ SVG URL and add className on it on it.
 
 ▶️ Make configurations to change labels
 
-▶️ Create API key. and update API key management
+Create API key. and update API key management
     create Rest API interceptor
     api key should be separate entity from company
     api key should have expiration. 

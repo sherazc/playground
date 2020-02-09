@@ -11,7 +11,10 @@ import {
 import {
     equalObjects,
     getReactRouterPathParamFromUrl,
-    isNotBlank
+    isNotBlank,
+    replaceNonAlphaNumeric,
+    replaceNonNameCharacters,
+    trimToLength
 } from "../../../services/utilities";
 import {Redirect} from "react-router";
 import {
@@ -33,6 +36,8 @@ class AuthCompany extends Component {
         super(props);
         this.state = this.createInitialState(this.loadCompanyFromProps(props));
         this.onChange = this.onChange.bind(this);
+        this.onChangeAlphaNumeric = this.onChangeAlphaNumeric.bind(this);
+        this.onChangeNameCharacters = this.onChangeNameCharacters.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
@@ -60,7 +65,17 @@ class AuthCompany extends Component {
     }
 
     onChange(event) {
-        this.setState({[event.target.name]: event.target.value});
+        this.setState({[event.target.name]: trimToLength(event.target.value, 100)});
+    }
+
+
+    onChangeAlphaNumeric(event) {
+        this.setState({[event.target.name]: replaceNonAlphaNumeric(event.target.value, 50)});
+    }
+
+
+    onChangeNameCharacters(event) {
+        this.setState({[event.target.name]: replaceNonNameCharacters(event.target.value, 50)});
     }
 
     onSubmit(event) {
@@ -161,9 +176,111 @@ class AuthCompany extends Component {
         return `${process.env.PUBLIC_URL}/forbidden`;
     }
 
+
+    registrationForm(action) {
+        const actionViewOrEdit = action === MODE_VIEW ? MODE_VIEW : MODE_EDIT;
+        const fieldErrors = this.props.companyServiceResponse.fieldErrors;
+
+        return (
+            <div>
+                <div>
+                    <img src={`${process.env.PUBLIC_URL}/images/company_create_update.svg`}
+                         alt="Company create update"/>
+                </div>
+                <form onSubmit={this.onSubmit}>
+                    <SideLabelInputText
+                        mode={actionViewOrEdit}
+                        label="Company Name"
+                        name="name"
+                        onChange={this.onChangeNameCharacters}
+                        required={true}
+                        error={isNotBlank(fieldErrors["company.name"])}
+                        help={fieldErrors["company.name"]}
+                        value={this.state.name}/>
+
+                    <SideLabelInputText
+                        mode={actionViewOrEdit}
+                        label="URL"
+                        name="url"
+                        style={{marginBottom: "50px"}}
+                        onChange={this.onChangeAlphaNumeric}
+                        required={true}
+                        error={isNotBlank(fieldErrors["company.url"])}
+                        help={this.createUrlHelp()}
+                        value={this.state.url}/>
+
+                    <SideLabelInputText
+                        mode={actionViewOrEdit}
+                        label="Website"
+                        name="website"
+                        onChange={this.onChange}
+                        required={true}
+                        error={isNotBlank(fieldErrors["company.website"])}
+                        help={fieldErrors["company.website"]}
+                        value={this.state.website}/>
+
+                    <SideLabelInputText
+                        mode={actionViewOrEdit}
+                        label="Street"
+                        name="addressStreet"
+                        onChange={this.onChangeNameCharacters}
+                        required={true}
+                        error={isNotBlank(fieldErrors["company.address.street"])}
+                        help={fieldErrors["company.address.street"]}
+                        value={this.state.addressStreet}/>
+
+                    <SideLabelInputText
+                        mode={actionViewOrEdit}
+                        label="City"
+                        name="addressCity"
+                        onChange={this.onChangeNameCharacters}
+                        required={true}
+                        error={isNotBlank(fieldErrors["company.address.city"])}
+                        help={fieldErrors["company.address.city"]}
+                        value={this.state.addressCity}/>
+
+                    <StateSelect
+                        mode={actionViewOrEdit}
+                        label="State"
+                        selectedStateAbv={this.state.addressState}
+                        name="addressState"
+                        required={true}
+                        error={isNotBlank(fieldErrors["company.address.state"])}
+                        help={fieldErrors["company.address.state"]}
+                        onChange={this.onChangeNameCharacters}/>
+
+                    <SideLabelInputText
+                        mode={actionViewOrEdit}
+                        label="Zip"
+                        name="addressZip"
+                        onChange={this.onChangeNameCharacters}
+                        required={true}
+                        error={isNotBlank(fieldErrors["company.address.zip"])}
+                        help={fieldErrors["company.address.zip"]}
+                        value={this.state.addressZip}/>
+
+                    <div>
+                        {action !== MODE_VIEW &&
+                        /*
+                        <button type="submit">
+                            {action === "create" && "Next"}
+                            {action === "edit" && "Update"}
+                        </button>
+                        */
+                        <Button variant="outlined" color="primary" type="submit">
+                            {action === "create" && "Next"}
+                            {action === "edit" && "Update"}
+                        </Button>
+                        }
+                    </div>
+                </form>
+            </div>
+        );
+    }
+
+
     render() {
         const redirectUrl = this.getRedirectUrl(this.props);
-        console.log("redirect URL", redirectUrl);
         if (redirectUrl) {
             return <Redirect to={redirectUrl}/>;
         }
@@ -188,107 +305,6 @@ class AuthCompany extends Component {
                     Company List
                 </NavLink>
             </Layout01>
-        );
-    }
-
-    registrationForm(action) {
-        const actionViewOrEdit = action === MODE_VIEW ? MODE_VIEW : MODE_EDIT;
-        const fieldErrors = this.props.companyServiceResponse.fieldErrors;
-
-        return (
-            <div>
-                <div>
-                    <img src={`${process.env.PUBLIC_URL}/images/company_create_update.svg`}
-                         alt="Company create update"/>
-                </div>
-                <form onSubmit={this.onSubmit}>
-                    <SideLabelInputText
-                        mode={actionViewOrEdit}
-                        label="Company Name"
-                        name="name"
-                        onChange={this.onChange}
-                        required={true}
-                        error={isNotBlank(fieldErrors["company.name"])}
-                        help={fieldErrors["company.name"]}
-                        value={this.state.name}/>
-
-                    <SideLabelInputText
-                        mode={actionViewOrEdit}
-                        label="URL"
-                        name="url"
-                        style={{marginBottom: "50px"}}
-                        onChange={this.onChange}
-                        required={true}
-                        error={isNotBlank(fieldErrors["company.url"])}
-                        help={this.createUrlHelp()}
-                        value={this.state.url}/>
-
-                    <SideLabelInputText
-                        mode={actionViewOrEdit}
-                        label="Website"
-                        name="website"
-                        onChange={this.onChange}
-                        required={true}
-                        error={isNotBlank(fieldErrors["company.website"])}
-                        help={fieldErrors["company.website"]}
-                        value={this.state.website}/>
-
-                    <SideLabelInputText
-                        mode={actionViewOrEdit}
-                        label="Street"
-                        name="addressStreet"
-                        onChange={this.onChange}
-                        required={true}
-                        error={isNotBlank(fieldErrors["company.address.street"])}
-                        help={fieldErrors["company.address.street"]}
-                        value={this.state.addressStreet}/>
-
-                    <SideLabelInputText
-                        mode={actionViewOrEdit}
-                        label="City"
-                        name="addressCity"
-                        onChange={this.onChange}
-                        required={true}
-                        error={isNotBlank(fieldErrors["company.address.city"])}
-                        help={fieldErrors["company.address.city"]}
-                        value={this.state.addressCity}/>
-
-                    <StateSelect
-                        mode={actionViewOrEdit}
-                        label="State"
-                        selectedStateAbv={this.state.addressState}
-                        name="addressState"
-                        required={true}
-                        error={isNotBlank(fieldErrors["company.address.state"])}
-                        help={fieldErrors["company.address.state"]}
-                        onChange={this.onChange}/>
-
-                    <SideLabelInputText
-                        mode={actionViewOrEdit}
-                        label="Zip"
-                        name="addressZip"
-                        onChange={this.onChange}
-                        required={true}
-                        error={isNotBlank(fieldErrors["company.address.zip"])}
-                        help={fieldErrors["company.address.zip"]}
-                        value={this.state.addressZip}/>
-
-                    <div>
-                        {action !== MODE_VIEW &&
-                        /*
-                        <button type="submit">
-                            {action === "create" && "Next"}
-                            {action === "edit" && "Update"}
-                        </button>
-                        */
-                            <Button variant="outlined" color="primary" type="submit">
-                                {action === "create" && "Next"}
-                                {action === "edit" && "Update"}
-                            </Button>
-                        }
-                    </div>
-                </form>
-            </div>
         );
     }
 }

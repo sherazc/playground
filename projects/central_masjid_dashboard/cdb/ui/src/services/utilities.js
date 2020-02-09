@@ -180,3 +180,33 @@ export const stringToDate = (stringDate) => {
     } catch(error) {}
     return result;
 };
+
+export const replaceNonAlphaNumeric = (str, maxLength) => {
+    if (!str) return '';
+    const result = removeDoubleSpace(str.replace(/[^\w]/gi, ''));
+    if (maxLength) {
+        return trimToLength(result, maxLength);
+    } else {
+        return result;
+    }
+};
+
+export const replaceNonNameCharacters = (str, maxLength) => {
+    if (!str) return '';
+    const result = removeDoubleSpace(str.replace(/[^\w\s\-]/gi, ''));
+    if (maxLength) {
+        return trimToLength(result, maxLength);
+    } else {
+        return result;
+    }
+};
+
+export const trimToLength = (str, length) => {
+    if (!str) return '';
+    return str.substr(0, length);
+};
+
+export const removeDoubleSpace = (str) => {
+    if (!str) return '';
+    return str.replace(/\s\s+/g, ' ');
+};
