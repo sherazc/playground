@@ -7,6 +7,9 @@ import {ALERT_SUCCESS, showAlert} from "../../../../store/common/alert/actions";
 import {connect} from "react-redux";
 import {isAdminLogin, isSuperAdminLogin} from "../../../../services/auth/AuthNZ";
 import {Redirect} from "react-router";
+import {
+    Button
+} from '@material-ui/core';
 import Layout01 from "../../../layout/Layout01/Layout01";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
@@ -147,11 +150,14 @@ class UpdateCredentials extends Component {
                         confirmCredential={this.state.confirmCredential}
                         newCredentialOnChange={this.onChange}
                         confirmCredentialOnChange={this.onChange}/>
-
-                    <button type="submit" disabled={!validCredential}>Update</button>
+                    <Button onClick={this.props.back} variant="outlined" color="primary" type="button">
+                        Back
+                    </Button>
+                    <Button disabled={!validCredential} variant="outlined" color="primary" type="submit">
+                        Update
+                    </Button>
                 </form>
-                <hr/>
-                <button onClick={this.props.back}>Back</button>
+
             </div>
             </Layout01>
         );
