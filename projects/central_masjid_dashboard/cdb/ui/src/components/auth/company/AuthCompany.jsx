@@ -30,6 +30,7 @@ import {
 } from '@material-ui/core';
 
 const URL_HELP_MESSAGE = "Use this link to access dashboard.";
+
 class AuthCompany extends Component {
 
     constructor(props) {
@@ -286,6 +287,25 @@ class AuthCompany extends Component {
         return result;
     }
 
+    createNavLinks(props) {
+        const isLogin = isAuthPresent(props.login);
+        const action = getReactRouterPathParamFromUrl(this.props, "action");
+        if (!isLogin) {
+            return;
+        }
+        return (<>
+            {MODE_EDIT !== action && (<>
+                <NavLink to={`${process.env.PUBLIC_URL}/auth/company/edit`}>
+                    Edit Company
+                </NavLink>
+                <span style={{margin: "10px"}}>|</span>
+            </>)}
+            <NavLink to={`${process.env.PUBLIC_URL}/auth/company/user/create`}>
+                Add user to company
+            </NavLink>
+        </>);
+    }
+
 
     render() {
         const redirectUrl = this.getRedirectUrl(this.props);
@@ -293,29 +313,16 @@ class AuthCompany extends Component {
             return <Redirect to={redirectUrl}/>;
         }
 
+
         const action = getReactRouterPathParamFromUrl(this.props, "action");
         const headingText = this.actionToHeading(action);
         return (
             <Layout01>
                 <div>
                     <h1>{headingText}</h1>
+                    {this.createNavLinks(this.props)}
                     {this.registrationForm(action)}
                 </div>
-                <hr/>
-                <NavLink to={`${process.env.PUBLIC_URL}/auth/company/view`}>
-                    View Company
-                </NavLink>
-                <br/>
-                <NavLink to={`${process.env.PUBLIC_URL}/auth/company/edit`}>
-                    Edit Company
-                </NavLink>
-                <br/>
-                <NavLink to={`${process.env.PUBLIC_URL}/auth/company/list`}>
-                    Company List
-                </NavLink>
-                <NavLink to={`${process.env.PUBLIC_URL}/auth/company/user/create`}>
-                    Add user to company
-                </NavLink>
             </Layout01>
         );
     }

@@ -197,20 +197,6 @@ class AuthCompanyUser extends Component {
                     </Button>
                     }
                 </form>
-
-                <hr/>
-                <NavLink to={`${process.env.PUBLIC_URL}/auth/company/user/view`}>
-                    View Company User
-                </NavLink>
-                <br/>
-                <NavLink to={`${process.env.PUBLIC_URL}/auth/company/user/edit`}>
-                    Edit Company User
-                </NavLink>
-                <br/>
-                <NavLink to={`${process.env.PUBLIC_URL}/auth/company/user/list/all`}>
-                    All Companies, All Users; List
-                </NavLink>
-
             </div>
         );
     }
@@ -253,12 +239,43 @@ class AuthCompanyUser extends Component {
         return result;
     }
 
+    createNavLinks(props) {
+        const isLoggedIn = isAuthPresent(props.login);
+        if (!isLoggedIn) return;
+
+        const action = getReactRouterPathParamFromUrl(props, "action");
+        const adminLogin = isAdminLogin(props.login);
+        const superAdminLogin = isSuperAdminLogin(props.login);
+        const myProfile = isSameUsers(props.login.user, props.companyUserServiceResponse.target);
+
+
+        return (<>
+            {action !== MODE_EDIT && (<>
+                <NavLink
+                    to={`${process.env.PUBLIC_URL}/auth/company/user/edit`}>
+                    Edit User
+                </NavLink>
+
+                {(adminLogin || superAdminLogin) &&
+                <NavLink to="#" onClick={this.resetCredentials.bind(this)}>
+                    Reset Password
+                </NavLink>
+                }
+                {myProfile && (
+                    <NavLink to="#" onClick={this.updateCredentials.bind(this)}>
+                        Update Password
+                    </NavLink>
+                )}
+            </>)}
+        </>);
+    }
+
+
     render() {
         const loginInCompany = this.props.login.company;
         const myProfile = isSameUsers(this.props.login.user, this.props.companyUserServiceResponse.target);
         const action = getReactRouterPathParamFromUrl(this.props, "action");
-        const adminLogin = isAdminLogin(this.props.login);
-        const superAdminLogin = isSuperAdminLogin(this.props.login);
+
         // todo create new registration steps display e.g. 1 - 2 - 3
         const redirectUrl = this.getRedirectUrl(this.state, this.props);
         if (redirectUrl) {
@@ -277,18 +294,9 @@ class AuthCompanyUser extends Component {
             <Layout01>
                 <div>
                     <h1>{this.actionToHeading(action)}</h1>
+                    {this.createNavLinks(this.props)}
                     <div>{this.actionToDescription(action, loginInCompany, this.props.companyServiceResponse.target, myProfile)}</div>
                     {this.registrationForm(action, loginInCompany)}
-                    {(adminLogin || superAdminLogin) &&
-                    <button onClick={this.resetCredentials.bind(this)}>
-                        Reset Password
-                    </button>
-                    }
-                    {myProfile && (
-                        <button onClick={this.updateCredentials.bind(this)}>
-                            Update Password
-                        </button>
-                    )}
                 </div>
             </Layout01>
         );
