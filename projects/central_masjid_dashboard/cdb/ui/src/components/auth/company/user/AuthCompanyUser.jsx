@@ -248,28 +248,31 @@ class AuthCompanyUser extends Component {
         const superAdminLogin = isSuperAdminLogin(props.login);
         const myProfile = isSameUsers(props.login.user, props.companyUserServiceResponse.target);
 
-
         return (<>
             {action !== MODE_EDIT && (<>
                 <NavLink
                     to={`${process.env.PUBLIC_URL}/auth/company/user/edit`}>
                     Edit User
                 </NavLink>
-
-                {(adminLogin || superAdminLogin) &&
+                {this.makeDivider()}
+            </>)}
+            {myProfile && (
+                <NavLink to="#" onClick={this.updateCredentials.bind(this)}>
+                    Update Password
+                </NavLink>
+            )}
+            {(adminLogin || superAdminLogin) && (<>
+                {myProfile && this.makeDivider()}
                 <NavLink to="#" onClick={this.resetCredentials.bind(this)}>
                     Reset Password
                 </NavLink>
-                }
-                {myProfile && (
-                    <NavLink to="#" onClick={this.updateCredentials.bind(this)}>
-                        Update Password
-                    </NavLink>
-                )}
             </>)}
         </>);
     }
 
+    makeDivider() {
+        return <span style={{margin: "10px"}}>|</span>
+    }
 
     render() {
         const loginInCompany = this.props.login.company;
