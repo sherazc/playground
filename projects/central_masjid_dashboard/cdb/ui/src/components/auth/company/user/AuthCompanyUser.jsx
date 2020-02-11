@@ -52,7 +52,7 @@ class AuthCompanyUser extends Component {
         this.setState({[event.target.name]: replaceNonEmailCharacters(event.target.value, 30)});
         this.setState({
             validEmail:
-                /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/.test(event.target.value)
+                /^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,5})$/.test(event.target.value)
         });
     }
 

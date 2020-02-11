@@ -220,3 +220,7 @@ export const removeDoubleSpace = (str) => {
     if (!str) return '';
     return str.replace(/\s\s+/g, ' ');
 };
+
+export const isEntityHasId = (company) => {
+    return company && isNotBlank(company.id);
+};

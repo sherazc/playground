@@ -1,4 +1,4 @@
-import {isNotBlank} from "../utilities";
+import {isEntityHasId} from "../utilities";
 
 export const verifyAuthentication = (tokenPayload, authenticate) => {
     if (authenticate) {
@@ -12,8 +12,24 @@ export const verifyAuthentication = (tokenPayload, authenticate) => {
     }
 };
 
-export const isCompanyNotNull = (company) => {
-    return company && isNotBlank(company.id);
+export const loadCompanyFromProps = (props) => {
+    let company;
+    if (isEntityHasId(props.companyServiceResponse.target)) {
+        company = props.companyServiceResponse.target;
+    } else if (isEntityHasId(props.login.company)) {
+        company = props.login.company;
+    }
+    return company;
+};
+
+export const loadUserFromProps = (props) => {
+    let user;
+    if (isEntityHasId(props.companyUserServiceResponse.target)) {
+        user = props.companyUserServiceResponse.target;
+    } else if (isEntityHasId(props.login.user)) {
+        user = props.login.user;
+    }
+    return user;
 };
 
 export const isAuthPresent = (login) => {

@@ -251,6 +251,9 @@ US States select on company register page should be a required field
 Asr next change time is not getting calculated. Maybe API is not 
 doing 2 year logic to get next change.
 
+Defect: 
+Add user to company is not sending activate email
+
 -----------------------------------
 ###Requirements
 

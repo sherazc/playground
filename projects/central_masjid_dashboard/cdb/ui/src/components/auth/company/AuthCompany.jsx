@@ -20,8 +20,8 @@ import {Redirect} from "react-router";
 import {
     isAdminLogin,
     isAuthPresent,
-    isCompanyNotNull,
-    isSuperAdminLogin
+    isSuperAdminLogin,
+    loadCompanyFromProps
 } from "../../../services/auth/AuthNZ";
 import Layout01 from "../../layout/Layout01/Layout01";
 import SideLabelInputText from "../../common/SideLabelInputText/SideLabelInputText";
@@ -35,7 +35,7 @@ class AuthCompany extends Component {
 
     constructor(props) {
         super(props);
-        this.state = this.createInitialState(this.loadCompanyFromProps(props));
+        this.state = this.createInitialState(loadCompanyFromProps(props));
         this.onChange = this.onChange.bind(this);
         this.onChangeAlphaNumeric = this.onChangeAlphaNumeric.bind(this);
         this.onChangeNameCharacters = this.onChangeNameCharacters.bind(this);
@@ -45,24 +45,14 @@ class AuthCompany extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         // const prevAction = getReactRouterPathParamFromUrl(prevProps, "action");
         // const currentAction = getReactRouterPathParamFromUrl(this.props, "action");
-        const companyPrevious = this.loadCompanyFromProps(prevProps);
-        const company = this.loadCompanyFromProps(this.props);
+        const companyPrevious = loadCompanyFromProps(prevProps);
+        const company = loadCompanyFromProps(this.props);
 
 
         if (company && !equalObjects(companyPrevious, company)) {
             console.log("Updating state company", company);
             this.setState(this.createInitialState(company));
         }
-    }
-
-    loadCompanyFromProps(props) {
-        let company;
-        if (isCompanyNotNull(props.companyServiceResponse.target)) {
-            company = props.companyServiceResponse.target;
-        } else if (isCompanyNotNull(props.login.company)) {
-            company = props.login.company;
-        }
-        return company;
     }
 
     onChange(event) {
@@ -101,7 +91,10 @@ class AuthCompany extends Component {
             saveCompany.active = false;
             this.props.createCompanyAction(saveCompany);
         } else {
-            saveCompany.id = this.state.id;
+            const company = loadCompanyFromProps(this.props);
+            saveCompany.id = company.id;
+            saveCompany.active = company.active;
+            saveCompany.expirationDate = company.expirationDate;
             this.props.updateCompanyAction(saveCompany);
         }
     }
@@ -318,7 +311,7 @@ class AuthCompany extends Component {
         const headingText = this.actionToHeading(action);
         return (
             <Layout01>
-                <div>
+                <div>add active fields in both company and user update
                     <h1>{headingText}</h1>
                     {this.createNavLinks(this.props)}
                     {this.registrationForm(action)}
