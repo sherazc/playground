@@ -15,13 +15,20 @@ import {
     replaceNonNameCharacters,
     trimToLength
 } from "../../../../services/utilities";
-import {isAdminLogin, isAuthPresent, isSameUsers, isSuperAdminLogin} from "../../../../services/auth/AuthNZ";
+import {
+    isAdminLogin,
+    isAuthPresent,
+    isSameUsers,
+    isSuperAdminLogin,
+    loadUserFromProps
+} from "../../../../services/auth/AuthNZ";
 import UpdateCredentials from "./UpdateCredentials";
 import Layout01 from "../../../layout/Layout01/Layout01";
 import {
     Button
 } from '@material-ui/core';
 import SideLabelInputText from "../../../common/SideLabelInputText/SideLabelInputText";
+import {createEmptyCompanyUser} from "../../../../services/domain/EmptyObject";
 
 
 class AuthCompanyUser extends Component {
@@ -33,6 +40,16 @@ class AuthCompanyUser extends Component {
         this.onChangeNameCharacters = this.onChangeNameCharacters.bind(this);
         this.onChangeEmailCharacters = this.onChangeEmailCharacters.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    createInitialState(companyUserServiceResponse) {
+        return {
+            ...companyUserServiceResponse.target,
+            password: "",
+            updateCredentials: false,
+            resetCredentials: false,
+            validEmail: true
+        };
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -60,21 +77,18 @@ class AuthCompanyUser extends Component {
         this.setState({[event.target.name]: trimToLength(event.target.value, 100)});
     }
 
+
     onSubmit(event) {
         event.preventDefault();
         let user = this.props.companyUserServiceResponse.target;
 
-        const saveUser = {
-            "id": user.id,
-            "companyId": this.state.companyId,
-            "email": this.state.email,
-            "password": this.state.password,
-            "firstName": this.state.firstName,
-            "lastName": this.state.lastName,
-            "roles": ["ADMIN"],
-            "active": false,
-            "verified": false
-        };
+        const saveUser = createEmptyCompanyUser();
+        saveUser.id = user.id;
+        saveUser.companyId = this.state.companyId;
+        saveUser.email = this.state.email;
+        saveUser.password = this.state.password;
+        saveUser.firstName = this.state.firstName;
+        saveUser.lastName = this.state.lastName;
 
         const action = getReactRouterPathParamFromUrl(this.props, "action");
         if (action === "create") {
@@ -88,18 +102,13 @@ class AuthCompanyUser extends Component {
             saveUser.companyId = company.id;
             this.props.createCompanyUserAction(company, saveUser, loginInCompany.id);
         } else {
+            const userInProps = loadUserFromProps(this.props);
+            saveUser.emailVerifyCode = userInProps.emailVerifyCode;
+            saveUser.registrationDate = userInProps.registrationDate;
+            saveUser.active = userInProps.active;
+            saveUser.verified = userInProps.verified;
             this.props.updateCompanyUserAction(saveUser);
         }
-    }
-
-    createInitialState(companyUserServiceResponse) {
-        return {
-            ...companyUserServiceResponse.target,
-            password: "",
-            updateCredentials: false,
-            resetCredentials: false,
-            validEmail: true
-        };
     }
 
     getRedirectUrl(state, props) {

@@ -12,7 +12,7 @@ public interface UserRepository extends MongoRepository<User, String> {
     Optional<User> findByEmailIgnoreCase(String email);
     Optional<User> findByIdIsNotAndEmailIgnoreCase(String id, String email);
     List<User> findByCompanyId(ObjectId companyId);
-    Optional<User> findByCompanyIdAndId(String companyId, String userId);
+    Optional<User> findByCompanyIdAndId(ObjectId companyId, ObjectId userId);
 
     @Query(value = "{'companyId': ?0}", count = true)
     Long countCompanyUsers(ObjectId companyId);

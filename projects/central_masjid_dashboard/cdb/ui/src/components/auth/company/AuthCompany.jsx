@@ -311,7 +311,7 @@ class AuthCompany extends Component {
         const headingText = this.actionToHeading(action);
         return (
             <Layout01>
-                <div>add active fields in both company and user update
+                <div>
                     <h1>{headingText}</h1>
                     {this.createNavLinks(this.props)}
                     {this.registrationForm(action)}

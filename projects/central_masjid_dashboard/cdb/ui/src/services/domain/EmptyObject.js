@@ -8,6 +8,8 @@ export const createEmptyCompanyUser = () => {
         "lastName": "",
         // TODO: set admin role in register company user components
         "roles": ["ADMIN"],
+        "emailVerifyCode": "",
+        "registrationDate": "",
         "active": false,
         "verified": false
     };

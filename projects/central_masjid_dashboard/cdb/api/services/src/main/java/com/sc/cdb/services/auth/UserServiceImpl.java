@@ -165,7 +165,7 @@ public class UserServiceImpl implements UserService {
             LOG.warn("Can not search for user. Bad arguments. companyId = {}, userId = {}", companyId, userId);
             return Optional.empty();
         }
-        return this.userRepository.findByCompanyIdAndId(companyId, userId);
+        return this.userRepository.findByCompanyIdAndId(new ObjectId(companyId), new ObjectId(userId));
     }
 
     @Override
