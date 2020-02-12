@@ -107,6 +107,7 @@ class AuthCompanyUser extends Component {
             saveUser.registrationDate = userInProps.registrationDate;
             saveUser.active = userInProps.active;
             saveUser.verified = userInProps.verified;
+            saveUser.roles = userInProps.roles;
             this.props.updateCompanyUserAction(saveUser);
         }
     }

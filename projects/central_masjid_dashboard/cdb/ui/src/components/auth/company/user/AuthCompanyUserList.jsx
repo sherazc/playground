@@ -63,6 +63,7 @@ class AuthCompanyUserList extends Component {
     }
 
     deleteCompanyUser(userId) {
+        console.log("Delete user not implemented yet")
     }
 
     getRedirectUrl(action, props) {

@@ -82,12 +82,12 @@ class UserGrid extends Component {
                                     }}>
                                     View
                                 </a>
-                                &nbsp;
+                                &nbsp;|&nbsp;
                                 <a href="#/" onClick={(e) => {
                                     e.preventDefault();
                                     this.props.deleteCompanyUser(user.id);
                                 }}>
-                                    Delete
+                                    Delete <span style={{fontSize: "8px"}}>(Not implemented)</span>
                                 </a>
                             </td>
                         </tr>
