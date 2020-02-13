@@ -1,27 +1,37 @@
-import React from "react";
-import InputField from "../../../partials/InputField";
+import React, {Component}from "react";
+import SideLabelInputText from "../../../common/SideLabelInputText/SideLabelInputText";
 
-const NewCredentialFields = (props) => {
-    return (
-        <>
-            <InputField
-                mode="edit"
-                label="New Password"
-                name="newCredential"
-                required={true}
-                value={props.newCredential}
-                onChange={props.newCredentialOnChange}
-            />
-            <InputField
-                mode="edit"
-                label="Confirm"
-                name="confirmCredential"
-                required={true}
-                value={props.confirmCredential}
-                onChange={props.confirmCredentialOnChange}
-            />
-        </>
-    );
-};
+class NewCredentialFields extends Component {
+
+    constructor(props) {
+        super(props);
+    }
+
+   render() {
+
+       return (
+           <>Show new confirm password error message
+               <SideLabelInputText
+                   mode="edit"
+                   label="New Password"
+                   name="newCredential"
+                   value={this.props.newCredential}
+                   onChange={this.props.onChangeNewCredential}
+                   required={true}/>
+
+               <SideLabelInputText
+                   mode="edit"
+                   label="Confirm"
+                   name="confirmCredential"
+                   value={this.props.confirmCredential}
+                   onChange={this.props.onChangeConfirmCredential}
+                   required={true}
+                   // error={message}
+                   // help={fieldErrors["user.firstName"]}
+               />
+           </>
+       );
+   }
+}
 
 export default NewCredentialFields;

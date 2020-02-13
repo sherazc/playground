@@ -252,7 +252,7 @@ Asr next change time is not getting calculated. Maybe API is not
 doing 2 year logic to get next change.
 
 Defect: 
-Add user to company is not sending activate email
+Add user to company is not sending activate email and user is not active or verified.
 
 -----------------------------------
 ###Requirements
@@ -366,9 +366,9 @@ SVG URL and add className on it on it.
 
 Import Export Prayer time
 
-Only allow alphanumeric characters in masjid URL. validate length to 20 character
+✅️ Only allow alphanumeric characters in masjid URL. validate length to 20 character
 
-Create Add User Button. An example is in Examples page.
+✅️ Create Add User Button. An example is in Examples page.
 
 ✅️ Edit Company Profile page
 
@@ -380,7 +380,7 @@ Create Add User Button. An example is in Examples page.
 
 ▶️ Show next prayer count down on dashboard
 
-▶️ Redo Header Links. Make it responsive
+✅️ Redo Header Links. Make it responsive
 
 ▶️ Make configurations to change labels
 

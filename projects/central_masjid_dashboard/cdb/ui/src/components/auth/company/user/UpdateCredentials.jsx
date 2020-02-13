@@ -11,6 +11,7 @@ import {
     Button
 } from '@material-ui/core';
 import Layout01 from "../../../layout/Layout01/Layout01";
+import SideLabelInputText from "../../../common/SideLabelInputText/SideLabelInputText";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
@@ -113,52 +114,54 @@ class UpdateCredentials extends Component {
 
         return (
             <Layout01>
-            <div>
-                <h3>
-                    {this.props.resetCredential ? "Reset" : "Update"} Password
-                </h3>
-                {this.state.successMessage &&
                 <div>
-                    {this.state.successMessage}
-                </div>
-                }
-                {this.state.errorMessage &&
-                <div style={{color: "red"}}>
-                    {this.state.errorMessage}
-                </div>
-                }
-                <form onSubmit={this.onSubmit}>
-                    <InputField
-                        mode={MODE_VIEW}
-                        label="Email"
-                        name="email"
-                        required={true}
-                        value={user.email}/>
-
-                    {!this.props.resetCredential &&
-                        <InputField
+                    <h3>
+                        {this.props.resetCredential ? "Reset" : "Update"} Password
+                    </h3>
+                    {this.state.successMessage &&
+                    <div>
+                        {this.state.successMessage}
+                    </div>
+                    }
+                    {this.state.errorMessage &&
+                    <div style={{color: "red"}}>
+                        {this.state.errorMessage}
+                    </div>
+                    }
+                    <form onSubmit={this.onSubmit}>
+                        <SideLabelInputText
+                            mode={MODE_VIEW}
+                            label="Email"
+                            name="email"
+                            required={true}
+                            value={user.email}/>
+                        {!this.props.resetCredential &&
+                        <SideLabelInputText
                             mode={MODE_EDIT}
                             label="Existing password"
                             name="existingCredential"
                             onChange={this.onChange}
                             required={true}
-                            value={this.state.existingCredential}/>
-                    }
+                            value={this.state.existingCredential}
+                            type="password"
+                            // error={isNotBlank(fieldErrors["user.firstName"])}
+                            // help={fieldErrors["user.firstName"]}
+                        />
+                        }
+                        <NewCredentialFields
+                            newCredential={this.state.newCredential}
+                            confirmCredential={this.state.confirmCredential}
+                            onChangeNewCredential={this.onChange}
+                            onChangeConfirmCredential={this.onChange}/>
+                        <Button onClick={this.props.back} variant="outlined" color="primary" type="button">
+                            Back
+                        </Button>
+                        <Button disabled={!validCredential} variant="outlined" color="primary" type="submit">
+                            Update
+                        </Button>
+                    </form>
 
-                    <NewCredentialFields
-                        newCredential={this.state.newCredential}
-                        confirmCredential={this.state.confirmCredential}
-                        newCredentialOnChange={this.onChange}
-                        confirmCredentialOnChange={this.onChange}/>
-                    <Button onClick={this.props.back} variant="outlined" color="primary" type="button">
-                        Back
-                    </Button>
-                    <Button disabled={!validCredential} variant="outlined" color="primary" type="submit">
-                        Update
-                    </Button>
-                </form>
-
-            </div>
+                </div>
             </Layout01>
         );
     }
