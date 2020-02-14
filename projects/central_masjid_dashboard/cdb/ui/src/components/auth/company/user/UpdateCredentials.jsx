@@ -153,12 +153,14 @@ class UpdateCredentials extends Component {
                             confirmCredential={this.state.confirmCredential}
                             onChangeNewCredential={this.onChange}
                             onChangeConfirmCredential={this.onChange}/>
-                        <Button onClick={this.props.back} variant="outlined" color="primary" type="button">
-                            Back
-                        </Button>
-                        <Button disabled={!validCredential} variant="outlined" color="primary" type="submit">
-                            Update
-                        </Button>
+                        <div style={{marginTop: "20px"}}>
+                            <Button onClick={this.props.back} variant="outlined" color="primary" type="button">
+                                Back
+                            </Button>
+                            <Button disabled={!validCredential} variant="outlined" color="primary" type="submit">
+                                Update
+                            </Button>
+                        </div>
                     </form>
 
                 </div>

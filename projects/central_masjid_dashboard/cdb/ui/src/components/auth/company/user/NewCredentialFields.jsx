@@ -1,37 +1,65 @@
-import React, {Component}from "react";
+import React, {Component} from "react";
 import SideLabelInputText from "../../../common/SideLabelInputText/SideLabelInputText";
 
 class NewCredentialFields extends Component {
-
     constructor(props) {
         super(props);
+        this.state = this.createInitialState();
+        this.onChangeNewCredential = this.onChangeNewCredential.bind(this);
+        this.onChangeConfirmCredential = this.onChangeConfirmCredential.bind(this);
     }
 
-   render() {
+    createInitialState() {
+        return {
+            newCredential: "",
+            confirmCredential: ""
+        };
+    }
 
-       return (
-           <>Show new confirm password error message
-               <SideLabelInputText
-                   mode="edit"
-                   label="New Password"
-                   name="newCredential"
-                   value={this.props.newCredential}
-                   onChange={this.props.onChangeNewCredential}
-                   required={true}/>
+    componentDidMount() {
+        this.setState({
+            newCredential: this.props.newCredential,
+            confirmCredential: this.props.confirmCredential
+        });
+    }
 
-               <SideLabelInputText
-                   mode="edit"
-                   label="Confirm"
-                   name="confirmCredential"
-                   value={this.props.confirmCredential}
-                   onChange={this.props.onChangeConfirmCredential}
-                   required={true}
-                   // error={message}
-                   // help={fieldErrors["user.firstName"]}
-               />
-           </>
-       );
-   }
+    onChangeNewCredential(event) {
+        this.props.onChangeNewCredential(event);
+        this.setState({newCredential: event.target.value})
+    }
+
+    onChangeConfirmCredential(event) {
+        this.props.onChangeConfirmCredential(event);
+        this.setState({confirmCredential: event.target.value})
+    }
+
+    render() {
+        const credentialNotMatch = this.state.newCredential !== this.state.confirmCredential;
+        return (
+            <>
+                <SideLabelInputText
+                    mode="edit"
+                    label="New Password"
+                    name="newCredential"
+                    type="password"
+                    value={this.props.newCredential}
+                    onChange={this.onChangeNewCredential}
+                    required={true}/>
+
+                <SideLabelInputText
+                    mode="edit"
+                    label="Confirm"
+                    name="confirmCredential"
+                    type="password"
+                    value={this.props.confirmCredential}
+                    onChange={this.onChangeConfirmCredential}
+                    required={true}
+                    error={credentialNotMatch}
+                    help={credentialNotMatch && 'Password do not match'}
+                />
+            </>
+        );
+    }
 }
 
 export default NewCredentialFields;

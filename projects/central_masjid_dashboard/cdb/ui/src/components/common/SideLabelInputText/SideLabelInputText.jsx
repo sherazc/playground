@@ -71,6 +71,7 @@ SideLabelInputText.propTypes = {
     placeholder: PropTypes.string,
     label: PropTypes.string,
     help: PropTypes.object,
+    style: PropTypes.object,
     onChange: PropTypes.func,
     onBlur: PropTypes.func,
     required: PropTypes.bool,
