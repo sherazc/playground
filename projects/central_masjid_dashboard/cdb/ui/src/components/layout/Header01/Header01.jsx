@@ -175,7 +175,7 @@ class Header01 extends Component {
                                             color="inherit"
                                             startIcon={<Icon>account_balance</Icon>}
                                             onClick={() => this.props.history.push(`${baseLinkUrl}/auth/company/list`)}>
-                                            All Companies
+                                            All Masjids
                                         </Button>
 
                                         <Button

@@ -72,7 +72,7 @@ class Drawer01 extends Component {
                                 <ListItem button
                                           onClick={() => this.props.history.push(`${baseLinkUrl}/auth/company/list`)}>
                                     <ListItemIcon><Icon>account_balance</Icon></ListItemIcon>
-                                    <ListItemText primary="All Companies"/>
+                                    <ListItemText primary="All Masjids"/>
                                 </ListItem>
 
 

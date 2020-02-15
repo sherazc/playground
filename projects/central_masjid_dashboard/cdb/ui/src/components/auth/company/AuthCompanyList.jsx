@@ -51,7 +51,7 @@ class AuthCompanyList extends Component {
         return (
             <Layout01>
             <div>
-                <h1>Company List</h1>
+                <h1>Masjid List</h1>
                 <CompanyGrid
                     companies={this.state.companies}
                     editCompany={this.editCompany.bind(this)}

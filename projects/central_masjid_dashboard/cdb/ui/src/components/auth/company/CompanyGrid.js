@@ -83,6 +83,6 @@ class CompanyGrid extends Component {
 
         return content;
     }
-};
+}
 
 export default CompanyGrid;
