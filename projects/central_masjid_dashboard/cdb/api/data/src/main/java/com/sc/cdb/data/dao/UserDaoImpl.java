@@ -41,6 +41,11 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
                 .getMappedResults();
     }
 
+    /**
+     * @param userId
+     * @param active successful flag
+     * @return
+     */
     @Override
     public boolean activateUser(String userId, boolean active) {
         Query query = new Query(Criteria.where("_id").is(new ObjectId(userId)));

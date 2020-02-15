@@ -198,6 +198,25 @@ public class UserServiceImpl implements UserService {
         return responseBuilder.build();
     }
 
+    @Override
+    public ServiceResponse<Boolean> activateUser(String userId, boolean active) {
+        ServiceResponse.ServiceResponseBuilder<Boolean> responseBuilder = ServiceResponse.builder();
+        if (!ObjectId.isValid(userId)) {
+            responseBuilder.message("Invalid userId");
+            return responseBuilder.build();
+        }
+        boolean successful = userDao.activateUser(userId, active);
+        responseBuilder.target(active);
+        responseBuilder.successful(successful);
+        if (successful) {
+            responseBuilder.message("Successfully updated user");
+        } else {
+            responseBuilder.message("Failed to update user");
+        }
+
+        return responseBuilder.build();
+    }
+
     private void activateCompanyIfNeeded(String companyId) {
         Long usersCount = userRepository.countCompanyUsers(new ObjectId(companyId));
         if (usersCount == 1) {

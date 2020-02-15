@@ -14,4 +14,6 @@ public interface UserService {
     Optional<User> findById(String userId);
     Optional<User> findCompanyUser(String companyId, String userId);
     ServiceResponse<User> verifyEmail(String userId, String emailVerifyCode);
+
+    ServiceResponse<Boolean> activateUser(String userId, boolean active);
 }
