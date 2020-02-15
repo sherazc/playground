@@ -178,9 +178,7 @@ public class UserServiceImpl implements UserService {
             if (StringUtils.equals(user.getEmailVerifyCode(), emailVerifyCode)
                 && !isVerificationExpired(user.getRegistrationDate())) {
 
-                // todo: looks like company is being activated twice
-                // todo: refactor activateUser(userId, boolean);
-                boolean activated = activateUser(user);
+                boolean activated = activateAndVerifyUser(user);
                 activateCompanyIfNeeded(user.getCompanyId());
                 if (activated) {
                     responseBuilder.target(user);
@@ -207,18 +205,12 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    private boolean activateUser(User user) {
-        boolean activated = true;
-        List<UserCompany> allCompanyUsers = findAllCompanyUsers(user.getCompanyId());
-        // Activate company because this is company's first user
-        if (allCompanyUsers.size() == 1 && allCompanyUsers.get(0).getCompany() != null) {
-            activated = companyService.activateCompany(user.getCompanyId(), true);
-        }
+    private boolean activateAndVerifyUser(User user) {
         user.setActive(true);
         user.setVerified(true);
         user.setEmailVerifyCode(null);
         User savedUser = userRepository.save(user);
-        return activated && savedUser.isVerified() && savedUser.isActive() && StringUtils.isBlank(savedUser.getEmailVerifyCode());
+        return savedUser.isVerified() && savedUser.isActive() && StringUtils.isBlank(savedUser.getEmailVerifyCode());
     }
 
     private boolean isVerificationExpired(Date registrationDate) {

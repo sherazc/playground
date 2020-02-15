@@ -97,5 +97,18 @@ db.getCollection("prayerConfig").find({ $where: "this.prayers.length > 1" });
 
 db.getCollection("prayerConfig").find({'prayers.365': {$exists: true}});
 
+// Join Company and user
+db.getCollection('company').aggregate([
+    {
+      $lookup:
+         {
+            from: "user",
+            localField: "_id",
+            foreignField: "companyId",
+            as: "user"
+        }
+   },
+   { $match : { "user.email" : "stariqch@gmail.com" } }
+]);
 
 

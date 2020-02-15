@@ -30,8 +30,10 @@ class Login extends Component {
         return {
             companyId: "",
             // email: "super.admin.user@email.com",
-            email: "stariqch@yahoo.com",
-            password: "password",
+            email: "",
+            // email: "stariqch@yahoo.com",
+            // password: "password",
+            password: "",
             loginSuccessful: ""
         }
     }
@@ -142,7 +144,7 @@ class Login extends Component {
                 </form>
 
                 <Link className={styles.vMargin3} href={`${baseLinkUrl}/auth/company/create`}>
-                    Register Now!
+                    Register your masjid now!
                 </Link>
             </div>
         );
