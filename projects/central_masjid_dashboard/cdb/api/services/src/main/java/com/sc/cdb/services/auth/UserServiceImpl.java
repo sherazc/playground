@@ -178,6 +178,8 @@ public class UserServiceImpl implements UserService {
             if (StringUtils.equals(user.getEmailVerifyCode(), emailVerifyCode)
                 && !isVerificationExpired(user.getRegistrationDate())) {
 
+                // todo: looks like company is being activated twice
+                // todo: refactor activateUser(userId, boolean);
                 boolean activated = activateUser(user);
                 activateCompanyIfNeeded(user.getCompanyId());
                 if (activated) {

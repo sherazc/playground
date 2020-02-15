@@ -93,10 +93,10 @@ class AuthCompanyUserList extends Component {
         return(
             <Layout01>
             <div>
-                <h3>
+                <h1>
                     Users in&nbsp;
                     {action === "current" ? `${this.props.login.company.name}` : `all companies.`}
-                </h3>
+                </h1>
 
                 <UserGrid
                     users={this.state.users}

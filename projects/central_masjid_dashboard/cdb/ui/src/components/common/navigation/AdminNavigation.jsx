@@ -30,7 +30,7 @@ class AdminNavigation extends Component {
                 </a>
                 |
                 <NavLink to={`${process.env.PUBLIC_URL}/auth/company/user/create`}>
-                    Add user to company
+                    Add user to masjid
                 </NavLink>
             </div>
         );

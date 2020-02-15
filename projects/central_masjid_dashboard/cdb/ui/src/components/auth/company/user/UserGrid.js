@@ -1,4 +1,7 @@
 import React, {Component} from "react";
+import {
+    Checkbox
+} from "@material-ui/core";
 
 class UserGrid extends Component {
     buildUsersGrid(users) {
@@ -70,7 +73,12 @@ class UserGrid extends Component {
                                 {user.roles.map(roleName => roleName + ", ")}
                             </td>
                             <td>
-                                {user.active}
+
+                                <Checkbox color="primary"
+                                          name="generateIqamah"
+                                          checked={user.active}
+                                  //        onChange={this.onChangeChecked}
+                                />
                             </td>
                             <td>
                                 {user.verified}
