@@ -3,6 +3,7 @@ import axios from "axios";
 import Login from "./Login/Login";
 import styles from "./Home.module.scss";
 import Welcome from "./Welcome/Welcome";
+import {getQueryParam} from "../../services/utilities";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
@@ -12,18 +13,24 @@ class Home extends Component {
 
     createInitialState() {
         return {
-            companies: []
+            companies: [],
+            allCompanies: []
         };
     }
 
     componentDidMount() {
-        axios.get(`${baseUrl}/api/auth/companies/url`).then(
+        axios.get(`${baseUrl}/api/auth/companies/url/active`).then(
             response => this.setState({companies: response.data})
         );
+        if ("true" === getQueryParam("admin")) {
+            axios.get(`${baseUrl}/api/auth/companies/url`).then(
+                response => this.setState({allCompanies: response.data})
+            );
+        }
     }
 
     render() {
-        const {companies} = this.state;
+        const {companies, allCompanies} = this.state;
 
         return (
             <div className={styles.container}>
@@ -38,7 +45,7 @@ class Home extends Component {
                     <div className={styles.login}>
                         <div className={styles.content}>
                             <div className={styles.contentCenter}>
-                                <Login companies={companies}/>
+                                <Login companies={allCompanies}/>
                             </div>
                         </div>
                     </div>

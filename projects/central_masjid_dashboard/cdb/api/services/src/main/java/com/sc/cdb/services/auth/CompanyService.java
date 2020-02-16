@@ -2,7 +2,6 @@ package com.sc.cdb.services.auth;
 
 import com.sc.cdb.data.model.auth.Company;
 import com.sc.cdb.data.model.cc.CustomConfiguration;
-import com.sc.cdb.data.model.picklist.Configuration;
 import com.sc.cdb.services.model.ServiceResponse;
 
 import java.util.List;
@@ -14,6 +13,8 @@ public interface CompanyService {
     ServiceResponse<Company> createOrUpdate(Company company);
 
     List<Company> findAll();
+
+    List<Company> findAllActiveCompanyUrl();
 
     List<Company> findAllCompanyUrl();
 

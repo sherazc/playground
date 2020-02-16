@@ -1,9 +1,7 @@
 package com.sc.cdb.webservices.auth.controller;
 
 import com.sc.cdb.data.model.auth.Company;
-import com.sc.cdb.data.model.auth.User;
 import com.sc.cdb.data.model.cc.CustomConfiguration;
-import com.sc.cdb.data.model.picklist.Configuration;
 import com.sc.cdb.services.auth.CompanyService;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.webservices.decorator.ErrorResponseDecorator;
@@ -108,6 +106,11 @@ public class CompanyController {
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
+    }
+
+    @GetMapping("/url/active")
+    public ResponseEntity<List<Company>> findAllActiveCompanyUrl() {
+        return ResponseEntity.ok(this.companyService.findAllActiveCompanyUrl());
     }
 
     @GetMapping("/url")

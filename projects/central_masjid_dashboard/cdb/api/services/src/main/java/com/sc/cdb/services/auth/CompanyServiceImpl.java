@@ -3,7 +3,6 @@ package com.sc.cdb.services.auth;
 import com.sc.cdb.data.dao.CompanyDao;
 import com.sc.cdb.data.dao.PicklistDao;
 import com.sc.cdb.data.model.auth.Company;
-import com.sc.cdb.data.model.auth.User;
 import com.sc.cdb.data.model.cc.CentralControl;
 import com.sc.cdb.data.model.cc.CustomConfiguration;
 import com.sc.cdb.data.model.picklist.Configuration;
@@ -120,14 +119,21 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public List<Company> findAllCompanyUrl() {
-        List<Company> companyWithUrls = this.companyRepository.findAllCompanyUrl();
+    public List<Company> findAllActiveCompanyUrl() {
+        List<Company> companyWithUrls = this.companyRepository.findAllActiveCompanyUrl();
         List<PrayerConfig> validPrayerConfigs = this.prayerConfigRepository.findValidPrayerConfigs();
 
         return companyWithUrls.stream()
                 .filter(company -> companyExistInPrayerConfigs(company, validPrayerConfigs))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<Company> findAllCompanyUrl() {
+        List<Company> companyWithUrls = this.companyRepository.findAll();
+        return companyWithUrls;
+    }
+
 
     private boolean companyExistInPrayerConfigs(Company company, List<PrayerConfig> prayerConfigs) {
         return prayerConfigs.stream()
