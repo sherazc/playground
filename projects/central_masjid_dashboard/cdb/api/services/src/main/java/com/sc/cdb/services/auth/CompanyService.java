@@ -19,5 +19,5 @@ public interface CompanyService {
 
     List<CustomConfiguration> findCompanyConfigurations(String companyId);
 
-    boolean activateCompany(String companyId, boolean active);
+    ServiceResponse<Company> activateCompany(String companyId, boolean active);
 }

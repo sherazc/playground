@@ -3,6 +3,7 @@ package com.sc.cdb.services.auth;
 import com.sc.cdb.data.dao.CompanyDao;
 import com.sc.cdb.data.dao.PicklistDao;
 import com.sc.cdb.data.model.auth.Company;
+import com.sc.cdb.data.model.auth.User;
 import com.sc.cdb.data.model.cc.CentralControl;
 import com.sc.cdb.data.model.cc.CustomConfiguration;
 import com.sc.cdb.data.model.picklist.Configuration;
@@ -161,8 +162,24 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public boolean activateCompany(String companyId, boolean active) {
-        return companyDao.activateCompany(companyId, active);
+    public ServiceResponse<Company> activateCompany(String companyId, boolean active) {
+        ServiceResponse.ServiceResponseBuilder<Company> responseBuilder = ServiceResponse.builder();
+        if (!ObjectId.isValid(companyId)) {
+            responseBuilder.message("Invalid companyId");
+            return responseBuilder.build();
+        }
+        boolean successful = companyDao.activateCompany(companyId, active);
+        responseBuilder.successful(successful);
+        if (successful) {
+            Company company = new Company();
+            company.setId(companyId);
+            company.setActive(active);
+            responseBuilder.target(company);
+            responseBuilder.message("Successfully updated Company");
+        } else {
+            responseBuilder.message("Failed to update Company");
+        }
+        return responseBuilder.build();
     }
 
     private void mergeOrAddConfiguration(Configuration configuration, List<CustomConfiguration> customConfigurations) {

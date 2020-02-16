@@ -1,11 +1,13 @@
 package com.sc.cdb.webservices.auth.controller;
 
 import com.sc.cdb.data.model.auth.Company;
+import com.sc.cdb.data.model.auth.User;
 import com.sc.cdb.data.model.cc.CustomConfiguration;
 import com.sc.cdb.data.model.picklist.Configuration;
 import com.sc.cdb.services.auth.CompanyService;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.webservices.decorator.ErrorResponseDecorator;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -27,6 +30,7 @@ import java.text.MessageFormat;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/auth/companies")
 public class CompanyController {
@@ -114,5 +118,13 @@ public class CompanyController {
     @GetMapping("{companyId}/configurations")
     public ResponseEntity<List<CustomConfiguration>> getCompanyConfigurations(@PathVariable String companyId) {
         return ResponseEntity.ok(this.companyService.findCompanyConfigurations(companyId));
+    }
+
+    @GetMapping("{companyId}/activate")
+    public ResponseEntity<ServiceResponse<Company>> activateUser(
+            @PathVariable String companyId, @RequestParam boolean active) {
+        log.debug("Activating Company. userId={}, active={}", companyId, active);
+        ServiceResponse<Company> serviceResponse = companyService.activateCompany(companyId, active);
+        return ResponseEntity.ok(serviceResponse);
     }
 }
