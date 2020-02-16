@@ -1,4 +1,9 @@
 import React, {Component} from "react";
+import {
+    Checkbox
+} from "@material-ui/core";
+import ConfirmDialog from "../../common/ConfirmDialog/ConfirmDialog";
+
 
 class CompanyGrid extends Component {
     buildCompaniesGrid(companies) {
@@ -20,6 +25,9 @@ class CompanyGrid extends Component {
                     </th>
                     <th>
                         Address
+                    </th>
+                    <th>
+                        Active
                     </th>
                     <th>
                         Action
@@ -49,10 +57,16 @@ class CompanyGrid extends Component {
                                 {company.address.zip}
                             </td>
                             <td>
+
+                                <Checkbox color="primary"
+                                          // onChange={() => this.onChangeActivateUser(user.id, user.email, user.active)}
+                                          checked={company.active}/>
+                            </td>
+                            <td>
                                 <a href="#/" onClick={(e) => {
-                                        e.preventDefault();
-                                        this.props.editCompany(company.id);
-                                    }}>
+                                    e.preventDefault();
+                                    this.props.editCompany(company.id);
+                                }}>
                                     View
                                 </a>
                                 &nbsp;
