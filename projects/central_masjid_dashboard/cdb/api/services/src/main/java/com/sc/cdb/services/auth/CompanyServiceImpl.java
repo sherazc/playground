@@ -130,7 +130,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public List<Company> findAllCompanyUrl() {
-        List<Company> companyWithUrls = this.companyRepository.findAll();
+        List<Company> companyWithUrls = this.companyRepository.findAllCompanyUrl();
         return companyWithUrls;
     }
 

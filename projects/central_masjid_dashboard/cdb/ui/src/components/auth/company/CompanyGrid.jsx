@@ -83,10 +83,12 @@ class CompanyGrid extends Component {
                                 </Link>
                             </td>
                             <td>
-                                {company.address.street},&nbsp;
-                                {company.address.city}&nbsp;
-                                {company.address.state}&nbsp;
-                                {company.address.zip}
+                                {company.address && (<>
+                                    {company.address.street},&nbsp;
+                                    {company.address.city}&nbsp;
+                                    {company.address.state}&nbsp;
+                                    {company.address.zip}
+                                </>)}
                             </td>
                             <td>
                                 <Checkbox color="primary"
