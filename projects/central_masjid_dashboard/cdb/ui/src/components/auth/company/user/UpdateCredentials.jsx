@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import axios from "axios";
-import InputField, {MODE_EDIT, MODE_VIEW} from "../../../partials/InputField";
+import {MODE_EDIT, MODE_VIEW} from "../../../partials/InputField";
 import NewCredentialFields from "./NewCredentialFields";
 import {collectErrorMessageFromResponseData} from "../../../../services/utilities";
 import {ALERT_SUCCESS, showAlert} from "../../../../store/common/alert/actions";

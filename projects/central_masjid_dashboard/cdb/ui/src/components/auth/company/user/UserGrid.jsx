@@ -2,8 +2,58 @@ import React, {Component} from "react";
 import {
     Checkbox
 } from "@material-ui/core";
+import ConfirmDialog from "../../../common/ConfirmDialog/ConfirmDialog";
 
 class UserGrid extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            activateConfirmDialog: this.createBlankActivateConfirmDialogState()
+        };
+        this.onChangeActivateUser = this.onChangeActivateUser.bind(this);
+        this.closeActivateConfirmDialog = this.closeActivateConfirmDialog.bind(this);
+        this.onChangeActivateUser = this.onChangeActivateUser.bind(this);
+        this.activateUser = this.activateUser.bind(this);
+    }
+
+    createBlankActivateConfirmDialogState() {
+        return this.createActivateConfirmDialogState(
+            false, "", "", () => {},() => {});
+    }
+
+    createActivateConfirmDialogState(open, title, description, onCancel, onConfirm) {
+        return {
+            open: open,
+            title: title,
+            description: description,
+            onCancel: onCancel,
+            onConfirm: onConfirm
+        }
+    }
+
+    closeActivateConfirmDialog() {
+        const activateConfirmDialog = this.createBlankActivateConfirmDialogState();
+        this.setState({activateConfirmDialog});
+
+    }
+
+    onChangeActivateUser(userId, email, active) {
+        const activateConfirmDialog = this.createActivateConfirmDialogState(
+            true,
+            active ? "Confirm Deactivate" : "Confirm Activate",
+            `Are you sure, you want to ${active ? "disable" : "enable"} ${email}.`,
+            this.closeActivateConfirmDialog,
+            () => this.activateUser(userId, !active)
+        );
+        this.setState({activateConfirmDialog});
+    }
+
+    activateUser(userId, active) {
+        console.log("activateUser API", userId, active);
+        this.closeActivateConfirmDialog();
+    }
+
     buildUsersGrid(users) {
         return (
             <table border="1">
@@ -76,18 +126,17 @@ class UserGrid extends Component {
 
                                 <Checkbox color="primary"
                                           name="generateIqamah"
-                                          checked={user.active}
-                                  //        onChange={this.onChangeChecked}
-                                />
+                                          onChange={() => this.onChangeActivateUser(user.id, user.email, user.active)}
+                                          checked={user.active}/>
                             </td>
                             <td>
                                 {user.verified}
                             </td>
                             <td>
                                 <a href="#/" onClick={(e) => {
-                                        e.preventDefault();
-                                        this.props.editCompanyUser(user.id);
-                                    }}>
+                                    e.preventDefault();
+                                    this.props.editCompanyUser(user.id);
+                                }}>
                                     View
                                 </a>
                                 &nbsp;|&nbsp;
@@ -107,17 +156,19 @@ class UserGrid extends Component {
         );
     };
 
-
     render() {
         const users = this.props.users;
-        let content = undefined;
+        let content;
         if (users && users.length > 0) {
             content = this.buildUsersGrid(users);
         } else {
             content = <div>No users found</div>
         }
 
-        return content;
+        return (<>
+            {content}
+            <ConfirmDialog dialog={this.state.activateConfirmDialog}/>
+        </>);
     }
 }
 
