@@ -1,15 +1,18 @@
 import React, {Component} from "react";
 import {Redirect} from "react-router";
-import {getAllCompanies} from "../../../services/auth/CompanyListService";
+import {activateCompany, getAllCompanies} from "../../../services/auth/CompanyListService";
 import CompanyGrid from "./CompanyGrid";
 import {connect} from "react-redux";
 import {prepareCompanyToEdit} from "../../../store/register-company/actions";
 import Layout01 from "../../layout/Layout01/Layout01";
+import {isBlank} from "../../../services/utilities";
 
 class AuthCompanyList extends Component {
     constructor(props) {
         super(props);
         this.state = {editCompanyPrepared: false, companies: []};
+        this.onActivateCompany = this.onActivateCompany.bind(this);
+        this.activateCompanyCallback = this.activateCompanyCallback.bind(this);
     }
 
     componentDidMount() {
@@ -43,6 +46,30 @@ class AuthCompanyList extends Component {
         return result;
     };
 
+
+    onActivateCompany(companyId, active) {
+        activateCompany(this.activateCompanyCallback, companyId, active);
+    }
+
+    activateCompanyCallback(serviceResponse) {
+        if (!serviceResponse.target || isBlank(serviceResponse.target.id)) {
+            return;
+        }
+        const updatedCompany = serviceResponse.target;
+        const companies = this.state.companies;
+        let foundIndex = -1;
+        companies.filter((company, index) => {
+            if (company.id === updatedCompany.id) {
+                foundIndex = index;
+                return true;
+            }
+        });
+        if (foundIndex > -1 && foundIndex < companies.length) {
+            companies[foundIndex].active = updatedCompany.active;
+            this.setState({companies});
+        }
+    }
+
     render() {
         if (this.state.editCompanyPrepared) {
             return <Redirect to={`${process.env.PUBLIC_URL}/auth/company/view`}/>;
@@ -54,6 +81,7 @@ class AuthCompanyList extends Component {
                 <h1>Masjid List</h1>
                 <CompanyGrid
                     companies={this.state.companies}
+                    onActivateCompany={this.onActivateCompany}
                     editCompany={this.editCompany.bind(this)}
                     deleteCompany={this.deleteCompany.bind(this)}/>
             </div>

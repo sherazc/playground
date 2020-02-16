@@ -1,11 +1,47 @@
 import React, {Component} from "react";
 import {
-    Checkbox
+    Checkbox, Link
 } from "@material-ui/core";
-import ConfirmDialog from "../../common/ConfirmDialog/ConfirmDialog";
+import ConfirmDialog, {
+    createActivateConfirmDialogState,
+    createBlankActivateConfirmDialogState
+} from "../../common/ConfirmDialog/ConfirmDialog";
 
+const baseLinkUrl = process.env.PUBLIC_URL;
 
 class CompanyGrid extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            activateConfirmDialog: createBlankActivateConfirmDialogState()
+        };
+        this.onChangeActivateCompany = this.onChangeActivateCompany.bind(this);
+        this.closeActivateConfirmDialog = this.closeActivateConfirmDialog.bind(this);
+        this.onChangeActivateCompany = this.onChangeActivateCompany.bind(this);
+        this.onActivateCompany = this.onActivateCompany.bind(this);
+    }
+
+    closeActivateConfirmDialog() {
+        const activateConfirmDialog = createBlankActivateConfirmDialogState();
+        this.setState({activateConfirmDialog});
+    }
+
+    onChangeActivateCompany(companyId, companyName, active) {
+        const activateConfirmDialog = createActivateConfirmDialogState(
+            true,
+            active ? "Confirm Deactivate" : "Confirm Activate",
+            `Are you sure, you want to ${active ? "disable" : "enable"} ${companyName}.`,
+            this.closeActivateConfirmDialog,
+            () => this.onActivateCompany(companyId, !active)
+        );
+        this.setState({activateConfirmDialog});
+    }
+
+    onActivateCompany(companyId, active) {
+        this.props.onActivateCompany(companyId, active);
+        this.closeActivateConfirmDialog();
+    }
+
     buildCompaniesGrid(companies) {
         return (
             <table border="1">
@@ -15,13 +51,10 @@ class CompanyGrid extends Component {
                         Index
                     </th>
                     <th>
-                        Company ID
-                    </th>
-                    <th>
                         Name
                     </th>
                     <th>
-                        URL
+                        Dashboard URL
                     </th>
                     <th>
                         Address
@@ -42,13 +75,12 @@ class CompanyGrid extends Component {
                                 {index + 1}
                             </td>
                             <td>
-                                {company.id}
-                            </td>
-                            <td>
                                 {company.name}
                             </td>
                             <td>
-                                {company.url}
+                                <Link href={`${window.location.origin}/${company.url}`} target="_blank">
+                                    {`${window.location.origin}/${company.url}`}
+                                </Link>
                             </td>
                             <td>
                                 {company.address.street},&nbsp;
@@ -57,9 +89,8 @@ class CompanyGrid extends Component {
                                 {company.address.zip}
                             </td>
                             <td>
-
                                 <Checkbox color="primary"
-                                          // onChange={() => this.onChangeActivateUser(user.id, user.email, user.active)}
+                                          onChange={() => this.onChangeActivateCompany(company.id, company.name, company.active)}
                                           checked={company.active}/>
                             </td>
                             <td>
@@ -81,21 +112,23 @@ class CompanyGrid extends Component {
                     );
                 })}
                 </tbody>
-
             </table>
         );
     };
 
     render() {
         const companies = this.props.companies;
-        let content = undefined;
+        let content;
         if (companies && companies.length > 0) {
             content = this.buildCompaniesGrid(companies);
         } else {
             content = <div>No companies found</div>
         }
 
-        return content;
+        return (<>
+            <ConfirmDialog dialog={this.state.activateConfirmDialog}/>
+            {content}
+        </>);
     }
 }
 
