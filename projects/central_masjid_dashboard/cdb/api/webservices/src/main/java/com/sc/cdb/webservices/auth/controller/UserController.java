@@ -31,10 +31,10 @@ public class UserController {
     }
 
     @GetMapping("{userId}/activate")
-    public ResponseEntity<ServiceResponse<Boolean>> activateUser(
+    public ResponseEntity<ServiceResponse<User>> activateUser(
             @PathVariable String userId, @RequestParam boolean active) {
         log.debug("Activating User. userId={}, active={}", userId, active);
-        ServiceResponse<Boolean> serviceResponse = userService.activateUser(userId, active);
+        ServiceResponse<User> serviceResponse = userService.activateUser(userId, active);
         return ResponseEntity.ok(serviceResponse);
     }
 

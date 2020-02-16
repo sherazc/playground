@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import {getAllCompaniesAllUsers, getCompanyAllUsers} from "../../../../services/auth/CompanyListService";
-import {getReactRouterPathParamFromUrl} from "../../../../services/utilities";
+import {activateUser, getAllCompaniesAllUsers, getCompanyAllUsers} from "../../../../services/auth/CompanyListService";
+import {getReactRouterPathParamFromUrl, isBlank} from "../../../../services/utilities";
 import UserGrid from "./UserGrid";
 import {prepareCompanyUserToEdit} from "../../../../store/register-company/actions";
 import {connect} from "react-redux";
@@ -11,7 +11,9 @@ import Layout01 from "../../../layout/Layout01/Layout01";
 class AuthCompanyUserList extends Component {
     constructor(props) {
         super(props);
-        this.state = {editCompanyUserPrepared: false, users:[]};
+        this.state = {editCompanyUserPrepared: false, users: []};
+        this.onActivateUser = this.onActivateUser.bind(this);
+        this.activateUserCallback = this.activateUserCallback.bind(this);
     }
 
     componentDidMount() {
@@ -83,6 +85,29 @@ class AuthCompanyUserList extends Component {
         }
     }
 
+    onActivateUser(userId, active) {
+        activateUser(this.activateUserCallback, userId, active);
+    }
+
+    activateUserCallback(serviceResponse) {
+        if (!serviceResponse.target || isBlank(serviceResponse.target.id)) {
+            return;
+        }
+        const updatedUser = serviceResponse.target;
+        const users = this.state.users;
+        let foundIndex = -1;
+        users.filter((user, index) => {
+            if (user.id === updatedUser.id) {
+                foundIndex = index;
+                return true;
+            }
+        });
+        if (foundIndex > -1 && foundIndex < users.length) {
+            users[foundIndex].active = updatedUser.active;
+            this.setState({users: users});
+        }
+    }
+
     render() {
         const action = getReactRouterPathParamFromUrl(this.props, "action");
         const redirectUrl = this.getRedirectUrl(action, this.props);
@@ -90,19 +115,19 @@ class AuthCompanyUserList extends Component {
             return <Redirect to={redirectUrl}/>;
         }
 
-        return(
+        return (
             <Layout01>
-            <div>
-                <h1>
-                    Users in&nbsp;
-                    {action === "current" ? `${this.props.login.company.name}` : `all companies.`}
-                </h1>
-
-                <UserGrid
-                    users={this.state.users}
-                    editCompanyUser={this.editCompanyUser.bind(this)}
-                    deleteCompanyUser={this.deleteCompanyUser.bind(this)}/>
-            </div>
+                <div>
+                    <h1>
+                        Users in&nbsp;
+                        {action === "current" ? `${this.props.login.company.name}` : `all companies.`}
+                    </h1>
+                    <UserGrid
+                        users={this.state.users}
+                        onActivateUser={this.onActivateUser}
+                        editCompanyUser={this.editCompanyUser.bind(this)}
+                        deleteCompanyUser={this.deleteCompanyUser.bind(this)}/>
+                </div>
             </Layout01>
         );
     }

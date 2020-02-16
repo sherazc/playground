@@ -20,3 +20,9 @@ export const getCompanyAllUsers = (cb, companyId) => {
         .then(response => cb(response.data))
         .catch(error => console.log(error));
 };
+
+export const activateUser = (cb, userId, active) => {
+    axios.get(`${baseUrl}/api/auth/users/${userId}/activate?active=${active}`)
+        .then(response => cb(response.data))
+        .catch(error => console.log(error));
+};

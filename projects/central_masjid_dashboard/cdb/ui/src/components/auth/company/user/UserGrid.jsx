@@ -14,12 +14,14 @@ class UserGrid extends Component {
         this.onChangeActivateUser = this.onChangeActivateUser.bind(this);
         this.closeActivateConfirmDialog = this.closeActivateConfirmDialog.bind(this);
         this.onChangeActivateUser = this.onChangeActivateUser.bind(this);
-        this.activateUser = this.activateUser.bind(this);
+        this.onActivateUser = this.onActivateUser.bind(this);
     }
 
     createBlankActivateConfirmDialogState() {
         return this.createActivateConfirmDialogState(
-            false, "", "", () => {},() => {});
+            false, "", "", () => {
+            }, () => {
+            });
     }
 
     createActivateConfirmDialogState(open, title, description, onCancel, onConfirm) {
@@ -44,13 +46,13 @@ class UserGrid extends Component {
             active ? "Confirm Deactivate" : "Confirm Activate",
             `Are you sure, you want to ${active ? "disable" : "enable"} ${email}.`,
             this.closeActivateConfirmDialog,
-            () => this.activateUser(userId, !active)
+            () => this.onActivateUser(userId, !active)
         );
         this.setState({activateConfirmDialog});
     }
 
-    activateUser(userId, active) {
-        console.log("activateUser API", userId, active);
+    onActivateUser(userId, active) {
+        this.props.onActivateUser(userId, active);
         this.closeActivateConfirmDialog();
     }
 
@@ -63,22 +65,13 @@ class UserGrid extends Component {
                         Index
                     </th>
                     <th>
-                        User ID
-                    </th>
-                    <th>
-                        Company ID
-                    </th>
-                    <th>
-                        Company Name
+                        Name
                     </th>
                     <th>
                         Email
                     </th>
                     <th>
-                        First Name
-                    </th>
-                    <th>
-                        Last Name
+                        Company Name
                     </th>
                     <th>
                         Roles
@@ -102,35 +95,26 @@ class UserGrid extends Component {
                                 {index + 1}
                             </td>
                             <td>
-                                {user.id}
-                            </td>
-                            <td>
-                                {user.companyId}
-                            </td>
-                            <td>
-                                {user.company.name}
+                                {user.firstName} {user.lastName}
                             </td>
                             <td>
                                 {user.email}
                             </td>
                             <td>
-                                {user.firstName}
+                                {user.company.name}
                             </td>
-                            <td>
-                                {user.lastName}
-                            </td>
+
                             <td>
                                 {user.roles.map(roleName => roleName + ", ")}
                             </td>
                             <td>
-
                                 <Checkbox color="primary"
-                                          name="generateIqamah"
                                           onChange={() => this.onChangeActivateUser(user.id, user.email, user.active)}
                                           checked={user.active}/>
                             </td>
                             <td>
-                                {user.verified}
+
+                                <Checkbox color="primary" checked={user.verified}/>
                             </td>
                             <td>
                                 <a href="#/" onClick={(e) => {
