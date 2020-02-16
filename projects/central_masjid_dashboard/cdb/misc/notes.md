@@ -210,6 +210,28 @@ there is no clock
 ✅ Defect: 
 On logout redux.centralControl is not getting cleaned up
 
+✅ Defect:
+Reset prayer values are not getting saved.
+Solution: On finish update TabPrayer's PrayerConfig
+
+✅ Defect:
+Funds End date is one less showing on Dashboard
+
+✅ Defect:
+Dont show masjid name in the home page drop down if prayers are 
+not configured.
+
+✅ Defect:
+Login -> click company link in header -> going to 404
+
+
+✅ Defect:
+Asr next change time is not getting calculated. Maybe API is not 
+doing 2 year logic to get next change.
+
+Defect: 
+Add user to company is not sending activate email and user is not active or verified.
+
 Defect: 
 Company register URL error is not showing
 
@@ -226,33 +248,11 @@ TabConfiguraton's save complete action is not disabling save cancel buttons
 Defect:
 Validate Calculation method, and Asr in generate prayer
 
-
-✅ Defect:
-Reset prayer values are not getting saved.
-Solution: On finish update TabPrayer's PrayerConfig
-
-✅ Defect:
-Funds End date is one less showing on Dashboard
-
 Defect:
 Configuration save cancel buttons are not getting disabled
 
-✅ Defect:
-Dont show masjid name in the home page drop down if prayers are 
-not configured.
-
-✅ Defect:
-Login -> click company link in header -> going to 404
-
 Defect: 
 US States select on company register page should be a required field 
-
-✅ Defect:
-Asr next change time is not getting calculated. Maybe API is not 
-doing 2 year logic to get next change.
-
-Defect: 
-Add user to company is not sending activate email and user is not active or verified.
 
 -----------------------------------
 ###Requirements
@@ -328,6 +328,83 @@ GET http://localhost:8085/api/companies/url/c3/central-control
     
 ✅️ Refresh dashboard if data version logic is not implemented
 
+✅️ company address should be populated in reset prayer modal
+
+❌ Create my own SVG image component. Component.
+I will use this for. This component should take in 
+SVG URL and add className on it on it. 
+
+✅️ Only allow alphanumeric characters in masjid URL. validate length to 20 character
+
+✅️ Create Add User Button. An example is in Examples page.
+
+✅️ Edit Company Profile page
+
+✅️ Edit user profile page
+
+✅️ Design password reset flow
+
+✅️ Redo Header Links. Make it responsive
+
+✅ Show error message on login failed
+
+✅ Setup send email
+
+✅ Set up registration verify email
+
+✅ Remove masjid select on signin. Design some sort of super admin login where masjid select is available  
+
+✅ Create home page Layout
+
+✅ Create one layout for registration and admin views
+
+✅ Do some research on web for good Header, Footer designs
+
+✅ Home page
+
+✅ make dashboard select and login component  side by side
+
+✅ Header and footer
+
+✅ Rebranding, 
+    ✅ icon, 
+    ✅ new website,
+
+✅️ Create material UI fields
+
+    * input
+    * date
+    * time
+
+✅ Create company Register, user register and registration finish page header image and title 
+
+✅ Create header mobile
+
+
+✅️ Menu Admin User
+    - Setting
+    - Users
+    - Company
+    - My Profile
+
+✅ ️Menu Super Admin User
+    - All Users
+    - All Companies
+
+
+✅️ Register new Domain and AWS
+
+
+✅ Refactor theme.scss
+
+
+✅️ Revisit update company and user flow
+    
+    ✅️ udpate company is not working
+
+    ✅️ show edit company link only on view company page
+    
+    ✅️ show edit user link only on view user page
 
 Widgets
 
@@ -343,13 +420,6 @@ Widgets
     
     Salah + Jummah Note
 
-Revisit update company and user flow
-    
-    udpate company is not working
-
-    show edit company link only on view company page
-    
-    show edit user link only on view user page
     
 Revisit roles and permission
     
@@ -357,30 +427,13 @@ Revisit roles and permission
 
 Make donation link
 
-
-✅️ company address should be populated in reset prayer modal
-
-❌ Create my own SVG image component. Component.
-I will use this for. This component should take in 
-SVG URL and add className on it on it. 
-
 Import Export Prayer time
 
-✅️ Only allow alphanumeric characters in masjid URL. validate length to 20 character
-
-✅️ Create Add User Button. An example is in Examples page.
-
-✅️ Edit Company Profile page
-
-✅️ Edit user profile page
-
-▶️ Design password reset flow
 
 ▶️ Delete company should delete company Users, centralControl, prayerConfig, and Company
 
 ▶️ Show next prayer count down on dashboard
 
-✅️ Redo Header Links. Make it responsive
 
 ▶️ Make configurations to change labels
 
@@ -413,7 +466,6 @@ On Register company create
     * centralControl
     * PrayerConfig
     
-✅ Show error message on login failed
 
 Load defaults prayerConfig if company exists
 http://localhost:8085/api/prayer/config/5d9fb64ff2a23366c8c856f4
@@ -432,50 +484,9 @@ Store in browser cache previously selected dashboard
 
 Bad links should go to 404 not dashboard. Have dashboard redirect to 404.
 
-✅ Setup send email
-
-✅ Set up registration verify email
-
-✅ Remove masjid select on signin. Design some sort of super admin login where masjid select is available  
 
 ###UI Design requirements
 
-✅ Create home page Layout
-
-✅ Create one layout for registration and admin views
-
-✅ Do some research on web for good Header, Footer designs
-
-✅ Home page
-
-✅ make dashboard select and login component  side by side
-
-✅ Header and footer
-
-✅ Rebranding, 
-    ✅ icon, 
-    ✅ new website,
-
-✅️ Create material UI fields
-
-    * input
-    * date
-    * time
-
-✅ Create company Register, user register and registration finish page header image and title 
-
-✅ Create header mobile
-
-
-Menu Admin User
-    - Setting
-    - Users
-    - Company
-    - My Profile
-
-Menu Super Admin User
-    - All Users
-    - All Companies
 
 Remove Dependency on @material-ui/core/Grid
 
@@ -483,7 +494,6 @@ Styles Layout01 using scss
 
 ### Maintenance requirements
 
-Register new Domain and AWS
 
 background Maintenance service
     delete logs
@@ -493,7 +503,6 @@ background Maintenance service
 -----------------------------------
 ###Tech Debt
 
-✅ Refactor theme.scss
 
 improve logging in services
 
