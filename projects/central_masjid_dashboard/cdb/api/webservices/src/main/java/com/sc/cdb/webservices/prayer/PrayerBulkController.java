@@ -26,6 +26,68 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 // https://www.callicoder.com/spring-boot-file-upload-download-rest-api-example/
+
+/*
+IMPORT
+======
+
+UI Upload
+---------
+Create Button to upload file and call API - Validate Import
+
+
+API - Validate Import
+---------------------
+File upload
+Validate file
+    Create new ServiceResponse
+    if errors
+        add errors to field errors
+        make target empty
+        successful false
+    If No errors
+        Create prayer object from each line
+
+
+
+Validation Service Rules
+------------------------
+First line is Heading line
+Heading sequence
+Number of commas in each line
+All Date format
+All Time format
+All dates are available
+Each line time sequence
+
+
+Sample Header
+-------------
+
+Sample Line
+-----------
+
+
+    private Date date;
+
+    private String fajr;
+    private String fajrIqama;
+    private String dhuhr;
+    private String dhuhrIqama;
+    private String asr;
+    private String asrIqama;
+    private String maghrib;
+    private String maghribIqama;
+    private String isha;
+    private String ishaIqama;
+
+    private String sunrise;
+
+
+
+
+
+ */
 @Slf4j
 @RequestMapping("/bulk/prayer")
 @RestController
@@ -42,8 +104,18 @@ public class PrayerBulkController {
         }
     }
 
-    @PostMapping("/import")
-    public String uploadFile(@RequestParam("file") MultipartFile file) {
+
+    @PostMapping("/validateImport")
+    @Deprecated
+    public String validateImport(@RequestParam("file") MultipartFile file) {
+
+        return "test";
+    }
+
+
+    @PostMapping("/donotUse")
+    @Deprecated
+    public String uploadFile1(@RequestParam("file") MultipartFile file) {
         String fileName = storeFile(file);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -57,6 +129,7 @@ public class PrayerBulkController {
     }
 
     @GetMapping("/export/{fileName:.+}")
+    @Deprecated
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
         // Load file as Resource
         Resource resource = loadFileAsResource(fileName);

@@ -485,6 +485,13 @@ Store in browser cache previously selected dashboard
 Bad links should go to 404 not dashboard. Have dashboard redirect to 404.
 
 
+On Registration confirmation page add note:
+    Your masjid will not be available until 
+        - you confirm email
+        - Login to your account and setup prayer times
+        
+Increase font size of aya of the day  
+
 ###UI Design requirements
 
 
