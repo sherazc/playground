@@ -8,14 +8,23 @@ import com.sc.cdb.services.model.ServiceResponse;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PrayerTimeImportImpl implements PrayerTimeImport {
+public class PrayerImportImpl implements PrayerImport {
+
+    private PrayerValidator prayerValidator;
+
+    public PrayerImportImpl(PrayerValidator prayerValidator) {
+        this.prayerValidator = prayerValidator;
+    }
 
     @Override
-    public ServiceResponse<List<Prayer>> importPrayersFile(String fileName, String contentType, InputStream inputStream) {
+    public ServiceResponse<List<Prayer>> importPrayersFile(
+            String fileName, String contentType, InputStream inputStream) {
+
         ServiceResponse.ServiceResponseBuilder<List<Prayer>> builder = ServiceResponse.builder();
         if (!"text/csv".equalsIgnoreCase(contentType)) {
             return builder.message("Please upload .csv file").build();
         }
+
         return builder.build();
     }
 }

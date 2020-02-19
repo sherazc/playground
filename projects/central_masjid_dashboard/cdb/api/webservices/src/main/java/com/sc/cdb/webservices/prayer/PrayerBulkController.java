@@ -11,7 +11,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.sc.cdb.data.model.prayer.Prayer;
-import com.sc.cdb.services.bulk.PrayerTimeImport;
+import com.sc.cdb.services.bulk.PrayerImport;
 import com.sc.cdb.services.model.ServiceResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
@@ -19,7 +19,6 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MimeType;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -98,10 +97,10 @@ Sample Line
 @RestController
 public class PrayerBulkController {
     private final Path fileStorageLocation;
-    private PrayerTimeImport prayerTimeImport;
+    private PrayerImport prayerImport;
 
-    public PrayerBulkController(PrayerTimeImport prayerTimeImport) {
-        this.prayerTimeImport = prayerTimeImport;
+    public PrayerBulkController(PrayerImport prayerImport) {
+        this.prayerImport = prayerImport;
 
 
         this.fileStorageLocation = Paths.get("delete_it/test_upload")
@@ -117,7 +116,7 @@ public class PrayerBulkController {
     @PostMapping("/validateImport")
     public ResponseEntity<ServiceResponse<List<Prayer>>> validateImport(@RequestParam("file") MultipartFile file) {
         try {
-            ServiceResponse<List<Prayer>> serviceResponse = prayerTimeImport.importPrayersFile(file.getName(), file.getContentType(), file.getInputStream());
+            ServiceResponse<List<Prayer>> serviceResponse = prayerImport.importPrayersFile(file.getName(), file.getContentType(), file.getInputStream());
             return ResponseEntity.ok(serviceResponse);
         } catch (IOException e) {
             ServiceResponse.ServiceResponseBuilder<List<Prayer>> builder = ServiceResponse.builder();
