@@ -1,8 +1,8 @@
 package com.sc.cdb.services.bulk;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.sc.cdb.data.model.prayer.Prayer;
 import org.springframework.stereotype.Component;
@@ -11,14 +11,12 @@ import org.springframework.stereotype.Component;
 public class PrayerValidatorImpl implements PrayerValidator {
 
     @Override
-    public Map<String, String> validateCommaSeparatedLine(int linNumber, String line) {
-        Map<String, String> errors = new HashMap<>();
-        return errors;
+    public Optional<Map<String, String>> validateCommaSeparatedLine(int linNumber, String line) {
+        return Optional.empty();
     }
 
     @Override
-    public Map<String, String> validatePrayers(List<Prayer> prayers) {
-        Map<String, String> errors = new HashMap<>();
-        return errors;
+    public Optional<Map<String, String>> validatePrayers(List<Prayer> prayers) {
+        return Optional.empty();
     }
 }

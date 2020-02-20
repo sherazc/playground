@@ -4,5 +4,5 @@ import com.sc.cdb.data.model.prayer.Prayer;
 
 public interface PrayerTransformer {
     String prayerToCsv(Prayer prayer);
-    Prayer csvToPrayer(String csv);
+    Prayer csvToPrayer(String csvLine);
 }
