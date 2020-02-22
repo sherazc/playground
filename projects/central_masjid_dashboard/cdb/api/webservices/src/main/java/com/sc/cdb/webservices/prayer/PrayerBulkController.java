@@ -1,6 +1,7 @@
 package com.sc.cdb.webservices.prayer;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,8 +10,11 @@ import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sc.cdb.data.model.prayer.Prayer;
+import com.sc.cdb.services.bulk.PrayerExporter;
 import com.sc.cdb.services.bulk.PrayerImport;
 import com.sc.cdb.services.model.ServiceResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -98,9 +102,12 @@ Sample Line
 public class PrayerBulkController {
     private final Path fileStorageLocation;
     private PrayerImport prayerImport;
+    private PrayerExporter prayerExporter;
 
-    public PrayerBulkController(PrayerImport prayerImport) {
+    public PrayerBulkController(
+            PrayerImport prayerImport, PrayerExporter prayerExporter) {
         this.prayerImport = prayerImport;
+        this.prayerExporter = prayerExporter;
 
 
         this.fileStorageLocation = Paths.get("delete_it/test_upload")
@@ -125,6 +132,23 @@ public class PrayerBulkController {
         }
     }
 
+    @GetMapping(value = "/export/{companyId}")
+    public void exportPrayer(HttpServletResponse response, @PathVariable String companyId) throws IOException {
+        PrintWriter writer = response.getWriter();
+        ServiceResponse<String> serviceResponse = prayerExporter.exportPrayerToWriter(writer, companyId);
+
+        if (serviceResponse.isSuccessful()) {
+            response.setContentType("text/csv");
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + serviceResponse.getTarget() + "\"");
+        } else {
+            response.setContentType("application/json");
+            writer.print(new ObjectMapper().writeValueAsString(serviceResponse));
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+        writer.flush();
+    }
+
 
     @PostMapping("/donotUse")
     @Deprecated
@@ -141,7 +165,7 @@ public class PrayerBulkController {
         return fileDownloadUri;
     }
 
-    @GetMapping("/export/{fileName:.+}")
+    @GetMapping("/export1/{fileName:.+}")
     @Deprecated
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
         // Load file as Resource
@@ -156,7 +180,7 @@ public class PrayerBulkController {
         }
 
         // Fallback to the default content type if type could not be determined
-        if(contentType == null) {
+        if (contentType == null) {
             contentType = "application/octet-stream";
         }
 
@@ -173,7 +197,7 @@ public class PrayerBulkController {
 
         try {
             // Check if the file's name contains invalid characters
-            if(fileName.contains("..")) {
+            if (fileName.contains("..")) {
                 throw new RuntimeException("Sorry! Filename contains invalid path sequence " + fileName);
             }
 
@@ -188,12 +212,11 @@ public class PrayerBulkController {
     }
 
 
-
     public Resource loadFileAsResource(String fileName) {
         try {
             Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
             Resource resource = new UrlResource(filePath.toUri());
-            if(resource.exists()) {
+            if (resource.exists()) {
                 return resource;
             } else {
                 throw new RuntimeException("File not found " + fileName);
