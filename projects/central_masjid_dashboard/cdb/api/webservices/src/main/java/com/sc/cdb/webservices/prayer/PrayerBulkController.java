@@ -140,7 +140,8 @@ public class PrayerBulkController {
         if (serviceResponse.isSuccessful()) {
             response.setContentType("text/csv");
             response.setStatus(HttpServletResponse.SC_OK);
-            response.setHeader("Content-Disposition", "attachment; filename=\"" + serviceResponse.getTarget() + "\"");
+            response.setHeader("content-disposition",
+                    String.format("attachment;filename=\"%s\"", serviceResponse.getTarget()));
         } else {
             response.setContentType("application/json");
             writer.print(new ObjectMapper().writeValueAsString(serviceResponse));

@@ -12,6 +12,7 @@ import {
 import SaveCancel from "./SaveCancel/SaveCancel"
 import TabPrayerService from "./TabPrayerService";
 import Dst from "./Dst/Dst";
+import PrayerImportExport from "./PrayerImportExport/PrayerImportExport";
 
 /**
  * TabPrayer.state.prayerConfig exist only in edit mode.
@@ -45,7 +46,7 @@ class TabPrayer extends Component {
         const prayers = editMode ? this.props.prayerConfigEdit.prayers : this.props.prayerConfig.prayers;
 
         let result = (
-            <div>
+            <div style={{"fontSize": "18px", "color": "#be6926"}}>
                 Prayer times not setup yet. Click RESET PRAYER button to generate new Prayer times.
             </div>
         );
@@ -201,6 +202,7 @@ class TabPrayer extends Component {
                         variant="outlined" color="primary">
                     Edit
                 </Button>
+                <PrayerImportExport prayerConfig={this.props.prayerConfig}/>
                 <Dst dst={this.props.prayerConfig.dst}
                      onSaveDst={this.onSaveDst}
                      onCancel={this.onCancel} />
