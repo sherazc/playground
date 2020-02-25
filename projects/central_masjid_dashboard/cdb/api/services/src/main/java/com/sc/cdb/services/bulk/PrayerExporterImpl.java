@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Optional;
 
 import com.sc.cdb.data.model.auth.Company;
+import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.data.repository.CompanyRepository;
 import com.sc.cdb.data.repository.PrayerConfigRepository;
@@ -50,12 +51,22 @@ public class PrayerExporterImpl implements PrayerExporter {
                 && prayerConfigOptional.get().getPrayers() != null
                 && prayerConfigOptional.get().getPrayers().size() > 365) {
 
+            prayerConfigOptional
+                    .get()
+                    .getPrayers()
+                    .sort()
+                    .forEach(prayer -> writePrayer(prayer, writer));
+
             builder.successful(true);
             builder.target(createDownloadFileName(companyId));
         } else {
             builder.message("Failed to download prayers. Prayers do not exist or not 366");
         }
         return builder.build();
+    }
+
+    private void writePrayer(Prayer prayer, PrintWriter writer) {
+
     }
 
     private String createDownloadFileName(String companyId) {
