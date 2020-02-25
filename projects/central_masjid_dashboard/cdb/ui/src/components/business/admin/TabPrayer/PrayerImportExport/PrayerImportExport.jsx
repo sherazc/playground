@@ -34,33 +34,6 @@ class PrayerImportExport extends Component {
             }).catch(error => {
             console.log("Exception:",error);
         });
-
-
-
-        /*
-        const fileReader = new FileReader();
-        fileReader.onload = (fileReaderEvent) => {
-            if (!fileReaderEvent.target || !fileReaderEvent.target.result) {
-                console.log("There is no file data");
-                return;
-            }
-            const formData = {file: fileReaderEvent.target.result};
-
-            axios.post(`${baseUrl}/bulk/prayer/validateImport`, formData,
-            {headers: {'Content-Type': 'multipart/form-data'}})
-                .then(response => {
-                    console.log(response);
-                }, error => {
-                    console.log("Failure:", error);
-                }).catch(error => {
-                    console.log("Exception:",error);
-                });
-        };
-
-        fileReader.readAsDataURL(event.target.files[0]);
-
-         */
-
     }
 
     downloadPrayers(companyId) {
@@ -105,9 +78,9 @@ class PrayerImportExport extends Component {
         error.response.data.text().then(text => {
             if (text && text.length > 0) {
                 const errorResponse = JSON.parse(text);
-                console.log(errorResponse.message);
+                console.log("Failed Response", errorResponse);
             } else {
-                console.log("Prayer Download Error:", error);
+                console.log("Prayer Download Error", error);
             }
         });
     }
