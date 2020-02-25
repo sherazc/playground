@@ -123,7 +123,8 @@ public class PrayerBulkController {
     @PostMapping("/validateImport")
     public ResponseEntity<ServiceResponse<List<Prayer>>> validateImport(@RequestParam("file") MultipartFile file) {
         try {
-            ServiceResponse<List<Prayer>> serviceResponse = prayerImport.importPrayersFile(file.getName(), file.getContentType(), file.getInputStream());
+            ServiceResponse<List<Prayer>> serviceResponse = prayerImport
+                    .importPrayersFile(file.getName(), file.getContentType(), file.getInputStream());
             return ResponseEntity.ok(serviceResponse);
         } catch (IOException e) {
             ServiceResponse.ServiceResponseBuilder<List<Prayer>> builder = ServiceResponse.builder();

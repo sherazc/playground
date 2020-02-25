@@ -13,6 +13,7 @@ public class PrayerTransformerImpl implements PrayerTransformer {
 
     @Override
     public Prayer csvToPrayer(String csvLine) {
+        System.out.println(csvLine);
         return new Prayer();
     }
 }

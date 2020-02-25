@@ -1,31 +1,83 @@
 import React, {Component} from "react";
+import {connect} from "react-redux";
 import axios from "axios";
 
 import {
-    Button, TextField, Dialog, DialogActions, DialogContent, DialogContentText,
-    DialogTitle, FormControl, InputLabel, MenuItem, Select,
-    FormControlLabel, Checkbox
+    Button, Input
 } from "@material-ui/core";
+import {isBlank} from "../../../../../services/utilities";
 
+const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 class PrayerImportExport extends Component {
     constructor(props) {
         super(props);
-        this.downloadPrayers = this.downloadPrayers.bind(this)
+        this.downloadPrayers = this.downloadPrayers.bind(this);
+        this.onChangeFile = this.onChangeFile.bind(this);
     }
 
-    downloadPrayers() {
+    onChangeFile(event) {
+        if (!event.target.files || event.target.files.length < 1) {
+            console.log("No file selected");
+            return;
+        }
+
+        let formData = new FormData();
+
+        formData.append("file", event.target.files[0]);
+
+        axios.post(`${baseUrl}/bulk/prayer/validateImport`, formData,
+            {headers: {'Content-Type': 'multipart/form-data'}})
+            .then(response => {
+                console.log(response);
+            }, error => {
+                console.log("Failure:", error);
+            }).catch(error => {
+            console.log("Exception:",error);
+        });
+
+
+
+        /*
+        const fileReader = new FileReader();
+        fileReader.onload = (fileReaderEvent) => {
+            if (!fileReaderEvent.target || !fileReaderEvent.target.result) {
+                console.log("There is no file data");
+                return;
+            }
+            const formData = {file: fileReaderEvent.target.result};
+
+            axios.post(`${baseUrl}/bulk/prayer/validateImport`, formData,
+            {headers: {'Content-Type': 'multipart/form-data'}})
+                .then(response => {
+                    console.log(response);
+                }, error => {
+                    console.log("Failure:", error);
+                }).catch(error => {
+                    console.log("Exception:",error);
+                });
+        };
+
+        fileReader.readAsDataURL(event.target.files[0]);
+
+         */
+
+    }
+
+    downloadPrayers(companyId) {
+        if (isBlank(companyId)) {
+            console.error("Can not download prayer times. CompanyId is blank");
+            return;
+        }
         axios({
-            url: 'http://localhost:8085/bulk/prayer/export/1',
+            url: `${baseUrl}/bulk/prayer/export/${companyId}`,
             method: 'GET',
-            responseType: 'blob', // important
+            responseType: 'blob',
         }).then((response) => {
-            console.log(JSON.stringify(response));
             const blob = new Blob([response.data], {type: response.data.type});
             const url = window.URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
             const contentDisposition = response.headers['content-disposition'];
-            console.log(response.headers);
             let fileName = 'unknown';
             if (contentDisposition) {
                 const fileNameMatch = contentDisposition.match(/filename="(.+)"/);
@@ -64,15 +116,34 @@ class PrayerImportExport extends Component {
         const {prayerConfig} = this.props;
         return (
             <div>
-                Prayer Import Export
-                <Button variant="outlined" color="primary">Import</Button>
-                {prayerConfig.prayers && prayerConfig.prayers.length >= 366 && <>
+                <hr/>
+                <div>
+                    <Button variant="outlined" color="primary" component="label">
+                        Upload Prayer Times
+                        <input
+                            accept="text/csv"
+                            type="file"
+                            onChange={this.onChangeFile}
+                            style={{ display: "none" }}
+                        />
+                    </Button>
+                </div>
+                {prayerConfig.prayers && prayerConfig.prayers.length >= 366 && <div>
                     <Button
-                        onClick={this.downloadPrayers}
-                        variant="outlined" color="primary">Export</Button>
-                </>}
+                        onClick={() => this.downloadPrayers(this.props.prayerConfig.companyId)}
+                        variant="outlined" color="primary">Download Prayer Times</Button>
+                </div>}
+                <hr/>
             </div>
         );}
 }
 
-export default PrayerImportExport;
+const mapStateToProps = state => {
+    return {
+        login: state.login,
+        prayerConfig: state.admin.prayerConfig,
+        prayerConfigEdit: state.admin.prayerConfigEdit
+    }
+};
+
+export default connect(mapStateToProps)(PrayerImportExport);
