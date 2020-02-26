@@ -3,6 +3,7 @@ package com.sc.cdb.services.bulk;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import com.sc.cdb.data.model.auth.Company;
@@ -11,6 +12,7 @@ import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.data.repository.CompanyRepository;
 import com.sc.cdb.data.repository.PrayerConfigRepository;
 import com.sc.cdb.services.model.ServiceResponse;
+import com.sc.cdb.services.prayer.PrayerComparator;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
@@ -21,11 +23,15 @@ import org.springframework.stereotype.Component;
 public class PrayerExporterImpl implements PrayerExporter {
     private PrayerConfigRepository prayerConfigRepository;
     private CompanyRepository companyRepository;
+    private PrayerComparator prayerComparator;
 
     public PrayerExporterImpl(
-            PrayerConfigRepository prayerConfigRepository, CompanyRepository companyRepository) {
+            PrayerConfigRepository prayerConfigRepository,
+            CompanyRepository companyRepository,
+            PrayerComparator prayerComparator) {
         this.prayerConfigRepository = prayerConfigRepository;
         this.companyRepository = companyRepository;
+        this.prayerComparator = prayerComparator;
     }
 
     @Override
@@ -51,11 +57,9 @@ public class PrayerExporterImpl implements PrayerExporter {
                 && prayerConfigOptional.get().getPrayers() != null
                 && prayerConfigOptional.get().getPrayers().size() > 365) {
 
-            prayerConfigOptional
-                    .get()
-                    .getPrayers()
-                    .sort()
-                    .forEach(prayer -> writePrayer(prayer, writer));
+            List<Prayer> prayers = prayerConfigOptional.get().getPrayers();
+            prayers.sort(prayerComparator);
+            prayers.forEach(prayer -> writePrayer(prayer, writer));
 
             builder.successful(true);
             builder.target(createDownloadFileName(companyId));

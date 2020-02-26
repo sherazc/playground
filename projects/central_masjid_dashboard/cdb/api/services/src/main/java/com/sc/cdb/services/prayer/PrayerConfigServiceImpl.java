@@ -30,16 +30,18 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
     private PrayerConfigDao prayerConfigDao;
     private PrayerConfigDstApplier prayerConfigDstApplier;
     private CompanyService companyService;
+    private PrayerComparator prayerComparator;
 
     public PrayerConfigServiceImpl(
             PrayerConfigRepository prayerConfigRepository,
             PrayerConfigDao prayerConfigDao,
             PrayerConfigDstApplier prayerConfigDstApplier,
-            CompanyService companyService) {
+            CompanyService companyService, PrayerComparator prayerComparator) {
         this.prayerConfigRepository = prayerConfigRepository;
         this.prayerConfigDao = prayerConfigDao;
         this.prayerConfigDstApplier = prayerConfigDstApplier;
         this.companyService = companyService;
+        this.prayerComparator = prayerComparator;
     }
 
     @Override
@@ -108,7 +110,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
 
     private Prayer findDatePrayerAndNextChange(List<Prayer> yearPrayers, int month, int date) {
         List<Prayer> yearPrayersMutable = new ArrayList<>(yearPrayers);
-        yearPrayersMutable.sort(this::comparePrayers);
+        yearPrayersMutable.sort(prayerComparator);
         // Duplicated prayers in its self to find next year change
         //noinspection CollectionAddedToSelf
         yearPrayersMutable.addAll(yearPrayersMutable);
@@ -123,7 +125,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
             // if (comparePrayerMonthDate(yearPrayersMutable.get(i), month, date) < 0)
               //  continue;
             Prayer loopPrayer = yearPrayersMutable.get(i);
-            if(foundPrayer == null && comparePrayerMonthDate(loopPrayer, month, date) == 0) {
+            if(foundPrayer == null && prayerComparator.comparePrayerMonthDate(loopPrayer, month, date) == 0) {
                 foundPrayer = loopPrayer;
                 foundIndex = i;
             }
@@ -179,46 +181,6 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         calendar.setTime(date);
         calendar.set(Calendar.YEAR, currentYear);
         return calendar.getTime();
-    }
-
-    private int comparePrayerMonthDate(Prayer prayer, int month, int date) {
-        if (prayer.getDate() == null) {
-            return -1;
-        }
-        Calendar prayerCalendar = Calendar.getInstance();
-        prayerCalendar.setTime(prayer.getDate());
-
-        int prayerMonth = prayerCalendar.get(Calendar.MONTH) + 1;
-        int prayerDate = prayerCalendar.get(Calendar.DATE);
-
-        int result;
-        if (prayerMonth > month) {
-            result = 1;
-        } else if (prayerMonth < month) {
-            result = -1;
-        } else {
-            result = Integer.compare(prayerDate, date);
-        }
-
-        return result;
-    }
-
-    private int comparePrayers(Prayer prayer1, Prayer prayer2) {
-        if (prayer1.getDate() == null && prayer2.getDate() == null) {
-            return 0;
-        } else if (prayer1.getDate() == null) {
-            return 1;
-        } else if (prayer2.getDate() == null) {
-            return -1;
-        }
-
-        Calendar prayerCalendar2 = Calendar.getInstance();
-        prayerCalendar2.setTime(prayer2.getDate());
-
-        int prayerDate = prayerCalendar2.get(Calendar.DATE);
-        int prayerMonth = prayerCalendar2.get(Calendar.MONTH) + 1;
-
-        return this.comparePrayerMonthDate(prayer1, prayerMonth, prayerDate);
     }
 
     @Override
