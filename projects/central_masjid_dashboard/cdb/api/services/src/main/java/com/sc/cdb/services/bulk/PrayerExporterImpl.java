@@ -70,7 +70,24 @@ public class PrayerExporterImpl implements PrayerExporter {
     }
 
     private void writePrayer(Prayer prayer, PrintWriter writer) {
+        Date prayerDate = prayer.getDate();
 
+        String line = String.format("%tm-%td,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",
+                prayerDate,
+                prayerDate,
+                prayer.getFajr(),
+                prayer.getFajrIqama(),
+                prayer.getDhuhr(),
+                prayer.getDhuhrIqama(),
+                prayer.getAsr(),
+                prayer.getAsrIqama(),
+                prayer.getMaghrib(),
+                prayer.getMaghribIqama(),
+                prayer.getIsha(),
+                prayer.getIshaIqama(),
+                prayer.getSunrise());
+
+        writer.println(line);
     }
 
     private String createDownloadFileName(String companyId) {
