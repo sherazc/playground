@@ -1,6 +1,8 @@
 package com.sc.cdb.webservices.prayer;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -9,10 +11,12 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sc.cdb.data.model.common.File;
 import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.services.bulk.PrayerExporter;
 import com.sc.cdb.services.bulk.PrayerImport;
@@ -135,20 +139,38 @@ public class PrayerBulkController {
 
     @GetMapping(value = "/export/{companyId}")
     public void exportPrayer(HttpServletResponse response, @PathVariable String companyId) throws IOException {
-        PrintWriter writer = response.getWriter();
-        ServiceResponse<String> serviceResponse = prayerExporter.exportPrayerToWriter(writer, companyId);
+        /*
+        response.setContentType("text/csv");
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.setHeader("Content-Disposition",
+                String.format("attachment; filename=\"%s\"", "test.csv"));
+        PrintWriter printWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(response.getOutputStream())));
+        printWriter.println("abc");
+        printWriter.flush();
+*/
 
+
+
+        //PrintWriter writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(response.getOutputStream())));
+
+        ServiceResponse<File> serviceResponse = prayerExporter.exportPrayerToWriter(companyId);
+        PrintWriter writer = response.getWriter();
         if (serviceResponse.isSuccessful()) {
+            File file = serviceResponse.getTarget();
             response.setContentType("text/csv");
             response.setStatus(HttpServletResponse.SC_OK);
             response.setHeader("Content-Disposition",
-                    String.format("attachment; filename=\"%s\"", serviceResponse.getTarget()));
+                    String.format("attachment; filename=\"%s\"", file.getName()));
+            writer.print(file.getContent().toString());
+
         } else {
             response.setContentType("application/json");
             writer.print(new ObjectMapper().writeValueAsString(serviceResponse));
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
         writer.flush();
+
+
     }
 
 

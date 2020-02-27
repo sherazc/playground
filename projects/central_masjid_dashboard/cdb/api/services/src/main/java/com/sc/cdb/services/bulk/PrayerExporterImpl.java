@@ -1,12 +1,12 @@
 package com.sc.cdb.services.bulk;
 
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import com.sc.cdb.data.model.auth.Company;
+import com.sc.cdb.data.model.common.File;
 import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.data.repository.CompanyRepository;
@@ -35,17 +35,11 @@ public class PrayerExporterImpl implements PrayerExporter {
     }
 
     @Override
-    public ServiceResponse<String> exportPrayerToWriter(PrintWriter writer, String companyId) {
-        ServiceResponse.ServiceResponseBuilder<String> builder = ServiceResponse.builder();
-        if (writer == null) {
-            String error = "Can not export prayers. Response Writer is null.";
-            log.error(error);
-            builder.message(error);
-            return builder.build();
-        }
+    public ServiceResponse<File> exportPrayerToWriter(String companyId) {
+        ServiceResponse.ServiceResponseBuilder<File> builder = ServiceResponse.builder();
 
-        if (StringUtils.isBlank(companyId)) {
-            String error = "Can not export prayers. Request companyId is blank.";
+        if (StringUtils.isBlank(companyId) || !ObjectId.isValid(companyId)) {
+            String error = "Can not export prayers. Request companyId is invalid.";
             log.error(error);
             builder.message(error);
             return builder.build();
@@ -57,22 +51,25 @@ public class PrayerExporterImpl implements PrayerExporter {
                 && prayerConfigOptional.get().getPrayers() != null
                 && prayerConfigOptional.get().getPrayers().size() > 365) {
 
+            File file = new File();
+            file.setName(createDownloadFileName(companyId));
+
             List<Prayer> prayers = prayerConfigOptional.get().getPrayers();
             prayers.sort(prayerComparator);
-            prayers.forEach(prayer -> writePrayer(prayer, writer));
+            prayers.forEach(prayer -> file.getContent().append(writePrayer(prayer)));
 
             builder.successful(true);
-            builder.target(createDownloadFileName(companyId));
+            builder.target(file);
         } else {
-            builder.message("Failed to download prayers. Prayers do not exist or not 366");
+            builder.message("Failed to download prayers. Can not file prayers or 366 records do not exist.");
         }
         return builder.build();
     }
 
-    private void writePrayer(Prayer prayer, PrintWriter writer) {
+    private String writePrayer(Prayer prayer) {
         Date prayerDate = prayer.getDate();
 
-        String line = String.format("%tm-%td,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",
+        String line = String.format("%tm-%td,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
                 prayerDate,
                 prayerDate,
                 prayer.getFajr(),
@@ -87,7 +84,7 @@ public class PrayerExporterImpl implements PrayerExporter {
                 prayer.getIshaIqama(),
                 prayer.getSunrise());
 
-        writer.println(line);
+        return line;
     }
 
     private String createDownloadFileName(String companyId) {
