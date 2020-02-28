@@ -54,6 +54,7 @@ public class PrayerExporterImpl implements PrayerExporter {
             File file = new File();
             file.setName(createDownloadFileName(companyId));
 
+            file.getContent().append(createHeading());
             List<Prayer> prayers = prayerConfigOptional.get().getPrayers();
             prayers.sort(prayerComparator);
             prayers.forEach(prayer -> file.getContent().append(writePrayer(prayer)));
@@ -64,6 +65,12 @@ public class PrayerExporterImpl implements PrayerExporter {
             builder.message("Failed to download prayers. Can not file prayers or 366 records do not exist.");
         }
         return builder.build();
+    }
+
+    private String createHeading() {
+        return "Date,Fajr,Fajr Iqama,Dhuhr,Dhuhr Iqama," +
+                "Asr,Asr Iqama,Maghrib,Maghrib Iqama," +
+                "Isha,Isha Iqama,Sunrise\n";
     }
 
     private String writePrayer(Prayer prayer) {
