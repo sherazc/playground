@@ -24,14 +24,17 @@ public class PrayerExporterImpl implements PrayerExporter {
     private PrayerConfigRepository prayerConfigRepository;
     private CompanyRepository companyRepository;
     private PrayerComparator prayerComparator;
+    private PrayerTransformer prayerTransformer;
 
     public PrayerExporterImpl(
             PrayerConfigRepository prayerConfigRepository,
             CompanyRepository companyRepository,
-            PrayerComparator prayerComparator) {
+            PrayerComparator prayerComparator,
+            PrayerTransformer prayerTransformer) {
         this.prayerConfigRepository = prayerConfigRepository;
         this.companyRepository = companyRepository;
         this.prayerComparator = prayerComparator;
+        this.prayerTransformer = prayerTransformer;
     }
 
     @Override
@@ -57,7 +60,7 @@ public class PrayerExporterImpl implements PrayerExporter {
             file.getContent().append(createHeading());
             List<Prayer> prayers = prayerConfigOptional.get().getPrayers();
             prayers.sort(prayerComparator);
-            prayers.forEach(prayer -> file.getContent().append(writePrayer(prayer)));
+            prayers.forEach(prayer -> file.getContent().append(prayerTransformer.prayerToCsv(prayer)));
 
             builder.successful(true);
             builder.target(file);
@@ -71,27 +74,6 @@ public class PrayerExporterImpl implements PrayerExporter {
         return "Date,Fajr,Fajr Iqama,Dhuhr,Dhuhr Iqama," +
                 "Asr,Asr Iqama,Maghrib,Maghrib Iqama," +
                 "Isha,Isha Iqama,Sunrise\n";
-    }
-
-    private String writePrayer(Prayer prayer) {
-        Date prayerDate = prayer.getDate();
-
-        String line = String.format("%tm-%td,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
-                prayerDate,
-                prayerDate,
-                prayer.getFajr(),
-                prayer.getFajrIqama(),
-                prayer.getDhuhr(),
-                prayer.getDhuhrIqama(),
-                prayer.getAsr(),
-                prayer.getAsrIqama(),
-                prayer.getMaghrib(),
-                prayer.getMaghribIqama(),
-                prayer.getIsha(),
-                prayer.getIshaIqama(),
-                prayer.getSunrise());
-
-        return line;
     }
 
     private String createDownloadFileName(String companyId) {
