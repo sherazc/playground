@@ -65,7 +65,7 @@ public class PrayerTransformerImpl implements PrayerTransformer {
         }
         return CommonUtils.createCalendar(
                 2016,
-                NumberUtils.toInt(dateParts[0]),
+                NumberUtils.toInt(dateParts[0]) - 1,
                 NumberUtils.toInt(dateParts[1]))
                 .getTime();
     }

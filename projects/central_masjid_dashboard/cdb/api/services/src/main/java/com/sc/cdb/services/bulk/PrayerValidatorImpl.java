@@ -35,6 +35,22 @@ public class PrayerValidatorImpl implements PrayerValidator {
             errors.put("Line " + linNumber + " date format", "Invalid date. It should be in MM/DD format.");
         }
         errors.putAll(validatePrayerTime(linNumber, "Fajr", lineParts[1].trim(), true));
+        errors.putAll(validatePrayerTime(linNumber, "Fajr Iqama", lineParts[2].trim(), false));
+
+        errors.putAll(validatePrayerTime(linNumber, "Duhar", lineParts[3].trim(), true));
+        errors.putAll(validatePrayerTime(linNumber, "Duhar Iqama", lineParts[4].trim(), false));
+
+        errors.putAll(validatePrayerTime(linNumber, "Asr", lineParts[5].trim(), true));
+        errors.putAll(validatePrayerTime(linNumber, "Asr Iqama", lineParts[6].trim(), false));
+
+        errors.putAll(validatePrayerTime(linNumber, "Maghrib", lineParts[7].trim(), true));
+        // errors.putAll(validatePrayerTime(linNumber, "Maghrib Iqama", lineParts[8].trim(), false));
+
+        errors.putAll(validatePrayerTime(linNumber, "Isha", lineParts[9].trim(), true));
+        errors.putAll(validatePrayerTime(linNumber, "Isha Iqama", lineParts[10].trim(), false));
+
+        errors.putAll(validatePrayerTime(linNumber, "Sunrise", lineParts[11].trim(), false));
+
         return errors;
     }
 
@@ -67,7 +83,7 @@ public class PrayerValidatorImpl implements PrayerValidator {
         }
 
         // TODO: Need to fix it
-        // errors.putAll(findAllPrayersExist(prayers));
+        errors.putAll(findAllPrayersExist(prayers));
 
         return errors;
     }
