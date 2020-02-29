@@ -13,6 +13,7 @@ import java.util.Optional;
 import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.services.model.ServiceResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -43,9 +44,10 @@ public class PrayerImportImpl implements PrayerImport {
             String line;
             int lineNumber = 0;
             while ((line = bufferedReader.readLine()) != null) {
-                if (++lineNumber == 1) {
+                if (++lineNumber == 1 || StringUtils.isBlank(line)) {
                     continue;
                 }
+                line = line.trim();
                 Optional<Map<String, String>> errorOptional = prayerValidator
                         .validateCommaSeparatedLine(lineNumber, line);
 

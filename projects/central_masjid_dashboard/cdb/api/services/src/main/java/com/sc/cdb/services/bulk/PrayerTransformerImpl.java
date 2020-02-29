@@ -38,7 +38,7 @@ public class PrayerTransformerImpl implements PrayerTransformer {
     @Override
     public Prayer csvToPrayer(String csvLine) {
         Prayer prayer = new Prayer();
-        String[] csvParts = csvLine.split(",");
+        String[] csvParts = csvLine.split(",", -1);
         prayer.setDate(stringToDate(csvParts[0]));
         prayer.setFajr(csvParts[1]);
         prayer.setFajrIqama(csvParts[2]);
