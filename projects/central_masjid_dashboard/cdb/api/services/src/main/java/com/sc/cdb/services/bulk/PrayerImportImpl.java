@@ -57,14 +57,15 @@ public class PrayerImportImpl implements PrayerImport {
                 }
             }
 
-            fieldErrors.putAll(prayerValidator.validatePrayers(prayers));
-
             if (fieldErrors.size() > 0) {
                 builder.fieldErrors(fieldErrors);
             } else {
-                builder.successful(true);
+                fieldErrors.putAll(prayerValidator.validatePrayers(prayers));
+                if (fieldErrors.size() < 1) {
+                    builder.successful(true);
+                    builder.target(prayers);
+                }
             }
-            builder.target(prayers);
         } catch (IOException e) {
             String message = String.format("Unable to read %s. %s", fileName, e.getMessage());
             log.error(message, e);

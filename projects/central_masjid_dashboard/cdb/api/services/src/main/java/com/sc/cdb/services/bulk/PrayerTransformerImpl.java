@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.sc.cdb.data.model.prayer.Prayer;
+import com.sc.cdb.utils.CommonUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Component;
@@ -62,14 +63,10 @@ public class PrayerTransformerImpl implements PrayerTransformer {
         if (dateParts == null || dateParts.length < 2) {
             return null;
         }
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, 2016);
-        calendar.set(Calendar.MONTH, NumberUtils.toInt(dateParts[0]));
-        calendar.set(Calendar.DATE, NumberUtils.toInt(dateParts[1]));
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        return calendar.getTime();
+        return CommonUtils.createCalendar(
+                2016,
+                NumberUtils.toInt(dateParts[0]),
+                NumberUtils.toInt(dateParts[1]))
+                .getTime();
     }
 }

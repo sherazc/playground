@@ -33,18 +33,6 @@ UI Upload
 Create Button to upload file and call API - Validate Import
 
 
-API - Validate Import
----------------------
-File upload
-Validate file
-    Create new ServiceResponse
-    if errors
-        add errors to field errors
-        make target empty
-        successful false
-    If No errors
-        Create prayer object from each line
-
 
 
 Validation Service Rules
@@ -54,6 +42,8 @@ Heading sequence
 Number of commas in each line
 All Date format
 All Time format
+
+
 All dates are available
 Each line time sequence
  */
