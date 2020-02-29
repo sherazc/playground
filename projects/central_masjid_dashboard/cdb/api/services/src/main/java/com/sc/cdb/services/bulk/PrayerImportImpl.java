@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.services.model.ServiceResponse;
@@ -48,18 +47,22 @@ public class PrayerImportImpl implements PrayerImport {
                     continue;
                 }
                 line = line.trim();
-                Optional<Map<String, String>> errorOptional = prayerValidator
+                Map<String, String> lineFieldErrors = prayerValidator
                         .validateCommaSeparatedLine(lineNumber, line);
 
-                if (errorOptional.isPresent()) {
-                    fieldErrors.putAll(errorOptional.get());
+                if (lineFieldErrors.size() > 0) {
+                    fieldErrors.putAll(lineFieldErrors);
                 } else {
                     prayers.add(prayerTransformer.csvToPrayer(line));
                 }
             }
 
+            fieldErrors.putAll(prayerValidator.validatePrayers(prayers));
+
             if (fieldErrors.size() > 0) {
                 builder.fieldErrors(fieldErrors);
+            } else {
+                builder.successful(true);
             }
             builder.target(prayers);
         } catch (IOException e) {
