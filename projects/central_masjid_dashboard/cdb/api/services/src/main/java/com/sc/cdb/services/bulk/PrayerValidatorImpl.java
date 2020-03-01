@@ -32,8 +32,9 @@ public class PrayerValidatorImpl implements PrayerValidator {
         }
 
         String[] lineParts = line.split(",", -1);
-        if (StringUtils.isBlank(lineParts[0]) || !lineParts[0].matches(DateTimeCalculator.MONTH_DATE_REGEX)) {
-            errors.put("Line " + lineNumber + " date format", "Invalid date. It should be in MM/DD format.");
+        if (StringUtils.isBlank(lineParts[0]) || !lineParts[0].trim().matches(DateTimeCalculator.MONTH_DATE_REGEX)) {
+            errors.put("Line " + lineNumber + " date format",
+                    "Invalid date. It should be in MM/DD format. It is " + lineParts[0].trim());
         }
         errors.putAll(validatePrayerTime(lineNumber, "Fajr", lineParts[1].trim(), true));
         errors.putAll(validatePrayerTime(lineNumber, "Fajr Iqama", lineParts[2].trim(), false));
@@ -63,7 +64,7 @@ public class PrayerValidatorImpl implements PrayerValidator {
         if (StringUtils.isBlank(cellValue) || !cellValue.matches(DateTimeCalculator.TIME_24_REGEX)) {
             errors.put(
                     String.format("Line %d %s format", lineNumber, fieldName),
-                    "Invalid time. It should be 24h time, in HH:MM format.");
+                    "Invalid time. It should be 24h time, in HH:MM format. It is " + cellValue);
         }
         return errors;
     }
@@ -75,7 +76,7 @@ public class PrayerValidatorImpl implements PrayerValidator {
         String prayerDateString = DateTimeCalculator.DATE_FORMAT.format(prayer.getDate());
 
         Optional<Calendar> fajrOptional = CommonUtils.parseTimeString(prayer.getFajr());
-        Optional<Calendar> fajrIqamaOptional = CommonUtils.parseTimeString(prayer.getFajr());
+        Optional<Calendar> fajrIqamaOptional = CommonUtils.parseTimeString(prayer.getFajrIqama());
         Optional<Calendar> dhuhrOptional = CommonUtils.parseTimeString(prayer.getDhuhr());
         Optional<Calendar> dhuhrIqamaOptional = CommonUtils.parseTimeString(prayer.getDhuhrIqama());
         Optional<Calendar> asrOptional = CommonUtils.parseTimeString(prayer.getAsr());
@@ -90,12 +91,17 @@ public class PrayerValidatorImpl implements PrayerValidator {
         validateRange(fajrOptional.get(), sunriseOptional, prayerDateString, errors, "Fajr", "Sunrise");
         validateRange(fajrOptional.get(), dhuhrOptional.get(), prayerDateString, errors, "Fajr", "Dhuhr");
 
+        validateRange(fajrIqamaOptional, dhuhrOptional.get(), prayerDateString, errors, "Fajr Iqama", "Dhuhr");
+        validateRange(fajrIqamaOptional, sunriseOptional, prayerDateString, errors, "Fajr Iqama", "Sunrise");
+        validateRange(sunriseOptional, dhuhrOptional.get(), prayerDateString, errors, "Sunrise", "Dhuhr");
+
         validateRange(dhuhrOptional.get(), dhuhrIqamaOptional, prayerDateString, errors, "Dhuhr", "Dhuhr Iqama");
         validateRange(dhuhrOptional.get(), asrOptional.get(), prayerDateString, errors, "Dhuhr", "Asr");
+        validateRange(dhuhrIqamaOptional, asrOptional.get(), prayerDateString, errors, "Dhuhr Iqama", "Asr");
 
         validateRange(asrOptional.get(), asrIqamaOptional, prayerDateString, errors, "Asr", "Asr Iqama");
         validateRange(asrOptional.get(), maghribOptional.get(), prayerDateString, errors, "Asr", "Maghrib");
-
+        validateRange(asrIqamaOptional, maghribOptional.get(), prayerDateString, errors, "Asr Iqama", "Maghrib");
 
         validateRange(maghribOptional.get(), ishaOptional.get(), prayerDateString, errors, "Maghrib", "Isha");
 
@@ -104,12 +110,38 @@ public class PrayerValidatorImpl implements PrayerValidator {
         return errors;
     }
 
+    private void validateRange(Optional<Calendar> calendarOptional1, Optional<Calendar> calendarOptional2, String prayerDateString,
+                               Map<String, String> errors, String field1, String field2) {
+        if (calendarOptional1.isEmpty() && calendarOptional2.isEmpty()) {
+            return;
+        }
+
+        if (calendarOptional1.isPresent() && calendarOptional2.isEmpty()) {
+            validateRange(calendarOptional1.get(), calendarOptional2, prayerDateString, errors, field1, field2);
+        }
+
+        if (calendarOptional1.isEmpty() && calendarOptional2.isPresent()) {
+            validateRange(calendarOptional1, calendarOptional2.get(), prayerDateString, errors, field1, field2);
+        }
+
+        if (calendarOptional1.isPresent() && calendarOptional2.isPresent()) {
+            validateRange(calendarOptional1.get(), calendarOptional2.get(), prayerDateString, errors, field1, field2);
+        }
+    }
+
+    private void validateRange(Optional<Calendar> calendarOptional, Calendar calendar, String prayerDateString,
+                               Map<String, String> errors, String field1, String field2) {
+        if (calendarOptional.isEmpty()) {
+            return;
+        }
+        validateRange(calendarOptional.get(), calendar, prayerDateString, errors, field1, field2);
+    }
+
     private void validateRange(Calendar calendar, Optional<Calendar> calendarOptional, String prayerDateString,
                                Map<String, String> errors, String field1, String field2) {
         if (calendarOptional.isEmpty()) {
             return;
         }
-
         validateRange(calendar, calendarOptional.get(), prayerDateString, errors, field1, field2);
     }
 

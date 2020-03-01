@@ -40,18 +40,18 @@ public class PrayerTransformerImpl implements PrayerTransformer {
     public Prayer csvToPrayer(String csvLine) {
         Prayer prayer = new Prayer();
         String[] csvParts = csvLine.split(",", -1);
-        prayer.setDate(stringToDate(csvParts[0]));
-        prayer.setFajr(csvParts[1]);
-        prayer.setFajrIqama(csvParts[2]);
-        prayer.setDhuhr(csvParts[3]);
-        prayer.setDhuhrIqama(csvParts[4]);
-        prayer.setAsr(csvParts[5]);
-        prayer.setAsrIqama(csvParts[6]);
-        prayer.setMaghrib(csvParts[7]);
-        prayer.setMaghribIqama(csvParts[8]);
-        prayer.setIsha(csvParts[9]);
-        prayer.setIshaIqama(csvParts[10]);
-        prayer.setSunrise(csvParts[11]);
+        prayer.setDate(stringToDate(csvParts[0].trim()));
+        prayer.setFajr(csvParts[1].trim());
+        prayer.setFajrIqama(csvParts[2].trim());
+        prayer.setDhuhr(csvParts[3].trim());
+        prayer.setDhuhrIqama(csvParts[4].trim());
+        prayer.setAsr(csvParts[5].trim());
+        prayer.setAsrIqama(csvParts[6].trim());
+        prayer.setMaghrib(csvParts[7].trim());
+        prayer.setMaghribIqama(csvParts[8].trim());
+        prayer.setIsha(csvParts[9].trim());
+        prayer.setIshaIqama(csvParts[10].trim());
+        prayer.setSunrise(csvParts[11].trim());
         return prayer;
     }
 
