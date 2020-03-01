@@ -137,7 +137,7 @@ public class IqamahCalculatorTest {
 
     public Calendar createCalendarFromTime(int hour24, int minute) {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, 2016);
+        calendar.set(Calendar.YEAR, DateTimeCalculator.DEFAULT_YEAR);
         calendar.set(Calendar.MONTH, 0);
         calendar.set(Calendar.DATE, 1);
         calendar.set(Calendar.HOUR_OF_DAY, hour24);

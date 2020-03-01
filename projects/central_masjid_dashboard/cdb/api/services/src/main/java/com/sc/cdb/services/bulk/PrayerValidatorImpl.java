@@ -5,8 +5,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.sc.cdb.data.model.prayer.Prayer;
+import com.sc.cdb.services.common.DateTimeCalculator;
 import com.sc.cdb.services.prayer.PrayerComparator;
 import com.sc.cdb.utils.CommonUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -14,7 +16,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PrayerValidatorImpl implements PrayerValidator {
-    public static final String DATE_REGEX = "(0[1-9]|1[012]|[1-9])[- \\/.](0[1-9]|[12][0-9]|3[01]|[1-9])";
     private PrayerComparator prayerComparator;
 
     public PrayerValidatorImpl(PrayerComparator prayerComparator) {
@@ -31,7 +32,7 @@ public class PrayerValidatorImpl implements PrayerValidator {
         }
 
         String[] lineParts = line.split(",", -1);
-        if (StringUtils.isBlank(lineParts[0]) || !lineParts[0].matches(DATE_REGEX)) {
+        if (StringUtils.isBlank(lineParts[0]) || !lineParts[0].matches(DateTimeCalculator.MONTH_DATE_REGEX)) {
             errors.put("Line " + linNumber + " date format", "Invalid date. It should be in MM/DD format.");
         }
         errors.putAll(validatePrayerTime(linNumber, "Fajr", lineParts[1].trim(), true));
@@ -59,7 +60,7 @@ public class PrayerValidatorImpl implements PrayerValidator {
         if (!required && StringUtils.isBlank(cellValue)) {
             return errors;
         }
-        if (StringUtils.isBlank(cellValue) || !cellValue.matches("([01]?[0-9]|2[0-3]):[0-5]?[0-9]")) {
+        if (StringUtils.isBlank(cellValue) || !cellValue.matches(DateTimeCalculator.TIME_24_REGEX)) {
             errors.put(
                     String.format("Line %d %s format", linNumber, fieldName),
                     "Invalid time. It should be 24h time, in HH-MM format.");
@@ -70,6 +71,19 @@ public class PrayerValidatorImpl implements PrayerValidator {
     @Override
     public Map<String, String> validatePrayer(Prayer prayer) {
         Map<String, String> errors = new HashMap<>();
+
+        Optional<Calendar> fajrOptional = CommonUtils.parseTimeString(prayer.getFajr());
+        Optional<Calendar> fajrIqamaOptional = CommonUtils.parseTimeString(prayer.getFajr());
+        Optional<Calendar> dhuhrOptional = CommonUtils.parseTimeString(prayer.getDhuhr());
+        Optional<Calendar> dhuhrIqamaOptional = CommonUtils.parseTimeString(prayer.getDhuhrIqama());
+        Optional<Calendar> asrOptional = CommonUtils.parseTimeString(prayer.getAsr());
+        Optional<Calendar> asrIqamaOptional = CommonUtils.parseTimeString(prayer.getAsrIqama());
+        Optional<Calendar> maghribOptional = CommonUtils.parseTimeString(prayer.getMaghrib());
+        Optional<Calendar> maghribIqamaOptional = CommonUtils.parseTimeString(prayer.getMaghribIqama());
+        Optional<Calendar> ishaOptional = CommonUtils.parseTimeString(prayer.getIsha());
+        Optional<Calendar> ishaIqamaOptional = CommonUtils.parseTimeString(prayer.getIshaIqama());
+        Optional<Calendar> sunriseOptional = CommonUtils.parseTimeString(prayer.getSunrise());
+
         return errors;
     }
 
@@ -83,13 +97,14 @@ public class PrayerValidatorImpl implements PrayerValidator {
         }
 
         errors.putAll(findAllPrayersExist(prayers));
+        prayers.forEach(prayer -> errors.putAll(validatePrayer(prayer)));
         return errors;
     }
 
     private Map<? extends String, ? extends String> findAllPrayersExist(List<Prayer> prayers) {
         Map<String, String> errors = new HashMap<>();
         prayers.sort(prayerComparator);
-        Calendar calendar = CommonUtils.createCalendar(2016, 0, 1);
+        Calendar calendar = CommonUtils.createCalendarDate(DateTimeCalculator.DEFAULT_YEAR, 0, 1);
         for (int i = 0; i < 366; i++) {
             int loopDate = calendar.get(Calendar.DATE);
             int loopMonth = calendar.get(Calendar.MONTH);

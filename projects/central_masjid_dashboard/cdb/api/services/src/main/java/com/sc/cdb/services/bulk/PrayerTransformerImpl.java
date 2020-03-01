@@ -1,9 +1,9 @@
 package com.sc.cdb.services.bulk;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import com.sc.cdb.data.model.prayer.Prayer;
+import com.sc.cdb.services.common.DateTimeCalculator;
 import com.sc.cdb.utils.CommonUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -63,8 +63,8 @@ public class PrayerTransformerImpl implements PrayerTransformer {
         if (dateParts == null || dateParts.length < 2) {
             return null;
         }
-        return CommonUtils.createCalendar(
-                2016,
+        return CommonUtils.createCalendarDate(
+                DateTimeCalculator.DEFAULT_YEAR,
                 NumberUtils.toInt(dateParts[0]) - 1,
                 NumberUtils.toInt(dateParts[1]))
                 .getTime();
