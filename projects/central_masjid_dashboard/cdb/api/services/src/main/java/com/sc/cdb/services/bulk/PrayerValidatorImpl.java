@@ -82,9 +82,7 @@ public class PrayerValidatorImpl implements PrayerValidator {
             return errors;
         }
 
-        // TODO: Need to fix it
         errors.putAll(findAllPrayersExist(prayers));
-
         return errors;
     }
 
@@ -92,7 +90,7 @@ public class PrayerValidatorImpl implements PrayerValidator {
         Map<String, String> errors = new HashMap<>();
         prayers.sort(prayerComparator);
         Calendar calendar = CommonUtils.createCalendar(2016, 0, 1);
-        for (int i = 0; i <= 366; i++) {
+        for (int i = 0; i < 366; i++) {
             int loopDate = calendar.get(Calendar.DATE);
             int loopMonth = calendar.get(Calendar.MONTH);
             Date prayerDate = prayers.get(i).getDate();
@@ -102,7 +100,7 @@ public class PrayerValidatorImpl implements PrayerValidator {
                 int date = prayerCalendar.get(Calendar.DATE);
                 int month = prayerCalendar.get(Calendar.MONTH);
                 if (loopDate != date || loopMonth != month) {
-                    errors.put("Missing prayer day", String.format("Missing %s/%s prayer row.", loopMonth, loopDate));
+                    errors.put("Missing prayer day", String.format("Missing %s/%s prayer row.", loopMonth + 1, loopDate));
                     break;
                 }
             }
