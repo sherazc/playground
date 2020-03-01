@@ -15,7 +15,7 @@ public class PrayerTransformerImpl implements PrayerTransformer {
     @Override
     public String prayerToCsv(Prayer prayer) {
         Date prayerDate = prayer.getDate();
-        String line = String.format("%tm-%td,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
+        String line = String.format("%tm/%td,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
                 prayerDate,
                 prayerDate,
                 touchNullString(prayer.getFajr()),
@@ -59,7 +59,7 @@ public class PrayerTransformerImpl implements PrayerTransformer {
         if (StringUtils.isBlank(dateString)) {
             return null;
         }
-        String[] dateParts = dateString.split("-");
+        String[] dateParts = dateString.split("/");
         if (dateParts == null || dateParts.length < 2) {
             return null;
         }

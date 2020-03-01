@@ -63,7 +63,7 @@ public class PrayerValidatorImpl implements PrayerValidator {
         if (StringUtils.isBlank(cellValue) || !cellValue.matches(DateTimeCalculator.TIME_24_REGEX)) {
             errors.put(
                     String.format("Line %d %s format", lineNumber, fieldName),
-                    "Invalid time. It should be 24h time, in HH-MM format.");
+                    "Invalid time. It should be 24h time, in HH:MM format.");
         }
         return errors;
     }
