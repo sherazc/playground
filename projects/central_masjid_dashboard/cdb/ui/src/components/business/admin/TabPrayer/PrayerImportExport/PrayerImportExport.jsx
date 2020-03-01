@@ -28,12 +28,24 @@ class PrayerImportExport extends Component {
         axios.post(`${baseUrl}/bulk/prayer/validateImport`, formData,
             {headers: {'Content-Type': 'multipart/form-data'}})
             .then(response => {
-                console.log(response);
+                if (response.data) {
+                    this.onValidateImport(response.data);
+                } else {
+                    console.log("Invalid response received.", response);
+                }
             }, error => {
                 console.log("Failure:", error);
             }).catch(error => {
             console.log("Exception:",error);
         });
+    }
+
+    onValidateImport(serviceResponse) {
+        if (serviceResponse.successful) {
+            console.log("Load prayer in redux", serviceResponse.target);
+        } else {
+            console.log("Show field errors in dialog", serviceResponse.fieldErrors);
+        }
     }
 
     downloadPrayers(companyId) {
