@@ -23,46 +23,46 @@ public class PrayerValidatorImpl implements PrayerValidator {
     }
 
     @Override
-    public Map<String, String> validateCommaSeparatedLine(int linNumber, String line) {
+    public Map<String, String> validateCommaSeparatedLine(int lineNumber, String line) {
         Map<String, String> errors = new HashMap<>();
 
         if (line.replaceAll("[^,]","").length() != 11) {
-            errors.put("Line " + linNumber + " columns", "Do not contain enough columns. There should be 11 columns.");
+            errors.put("Line " + lineNumber + " columns", "Do not contain enough columns. There should be 11 columns.");
             return errors;
         }
 
         String[] lineParts = line.split(",", -1);
         if (StringUtils.isBlank(lineParts[0]) || !lineParts[0].matches(DateTimeCalculator.MONTH_DATE_REGEX)) {
-            errors.put("Line " + linNumber + " date format", "Invalid date. It should be in MM/DD format.");
+            errors.put("Line " + lineNumber + " date format", "Invalid date. It should be in MM/DD format.");
         }
-        errors.putAll(validatePrayerTime(linNumber, "Fajr", lineParts[1].trim(), true));
-        errors.putAll(validatePrayerTime(linNumber, "Fajr Iqama", lineParts[2].trim(), false));
+        errors.putAll(validatePrayerTime(lineNumber, "Fajr", lineParts[1].trim(), true));
+        errors.putAll(validatePrayerTime(lineNumber, "Fajr Iqama", lineParts[2].trim(), false));
 
-        errors.putAll(validatePrayerTime(linNumber, "Duhar", lineParts[3].trim(), true));
-        errors.putAll(validatePrayerTime(linNumber, "Duhar Iqama", lineParts[4].trim(), false));
+        errors.putAll(validatePrayerTime(lineNumber, "Duhar", lineParts[3].trim(), true));
+        errors.putAll(validatePrayerTime(lineNumber, "Duhar Iqama", lineParts[4].trim(), false));
 
-        errors.putAll(validatePrayerTime(linNumber, "Asr", lineParts[5].trim(), true));
-        errors.putAll(validatePrayerTime(linNumber, "Asr Iqama", lineParts[6].trim(), false));
+        errors.putAll(validatePrayerTime(lineNumber, "Asr", lineParts[5].trim(), true));
+        errors.putAll(validatePrayerTime(lineNumber, "Asr Iqama", lineParts[6].trim(), false));
 
-        errors.putAll(validatePrayerTime(linNumber, "Maghrib", lineParts[7].trim(), true));
-        // errors.putAll(validatePrayerTime(linNumber, "Maghrib Iqama", lineParts[8].trim(), false));
+        errors.putAll(validatePrayerTime(lineNumber, "Maghrib", lineParts[7].trim(), true));
+        // errors.putAll(validatePrayerTime(lineNumber, "Maghrib Iqama", lineParts[8].trim(), false));
 
-        errors.putAll(validatePrayerTime(linNumber, "Isha", lineParts[9].trim(), true));
-        errors.putAll(validatePrayerTime(linNumber, "Isha Iqama", lineParts[10].trim(), false));
+        errors.putAll(validatePrayerTime(lineNumber, "Isha", lineParts[9].trim(), true));
+        errors.putAll(validatePrayerTime(lineNumber, "Isha Iqama", lineParts[10].trim(), false));
 
-        errors.putAll(validatePrayerTime(linNumber, "Sunrise", lineParts[11].trim(), false));
+        errors.putAll(validatePrayerTime(lineNumber, "Sunrise", lineParts[11].trim(), false));
 
         return errors;
     }
 
-    private Map<String, String> validatePrayerTime(int linNumber, String fieldName, String cellValue, boolean required) {
+    private Map<String, String> validatePrayerTime(int lineNumber, String fieldName, String cellValue, boolean required) {
         Map<String, String> errors = new HashMap<>();
         if (!required && StringUtils.isBlank(cellValue)) {
             return errors;
         }
         if (StringUtils.isBlank(cellValue) || !cellValue.matches(DateTimeCalculator.TIME_24_REGEX)) {
             errors.put(
-                    String.format("Line %d %s format", linNumber, fieldName),
+                    String.format("Line %d %s format", lineNumber, fieldName),
                     "Invalid time. It should be 24h time, in HH-MM format.");
         }
         return errors;
@@ -72,6 +72,8 @@ public class PrayerValidatorImpl implements PrayerValidator {
     public Map<String, String> validatePrayer(Prayer prayer) {
         Map<String, String> errors = new HashMap<>();
 
+        String prayerDateString = DateTimeCalculator.DATE_FORMAT.format(prayer.getDate());
+
         Optional<Calendar> fajrOptional = CommonUtils.parseTimeString(prayer.getFajr());
         Optional<Calendar> fajrIqamaOptional = CommonUtils.parseTimeString(prayer.getFajr());
         Optional<Calendar> dhuhrOptional = CommonUtils.parseTimeString(prayer.getDhuhr());
@@ -79,12 +81,47 @@ public class PrayerValidatorImpl implements PrayerValidator {
         Optional<Calendar> asrOptional = CommonUtils.parseTimeString(prayer.getAsr());
         Optional<Calendar> asrIqamaOptional = CommonUtils.parseTimeString(prayer.getAsrIqama());
         Optional<Calendar> maghribOptional = CommonUtils.parseTimeString(prayer.getMaghrib());
-        Optional<Calendar> maghribIqamaOptional = CommonUtils.parseTimeString(prayer.getMaghribIqama());
+        // Optional<Calendar> maghribIqamaOptional = CommonUtils.parseTimeString(prayer.getMaghribIqama());
         Optional<Calendar> ishaOptional = CommonUtils.parseTimeString(prayer.getIsha());
         Optional<Calendar> ishaIqamaOptional = CommonUtils.parseTimeString(prayer.getIshaIqama());
         Optional<Calendar> sunriseOptional = CommonUtils.parseTimeString(prayer.getSunrise());
 
+        validateRange(fajrOptional.get(), fajrIqamaOptional, prayerDateString, errors, "Fajr", "Fajr Iqama");
+        validateRange(fajrOptional.get(), sunriseOptional, prayerDateString, errors, "Fajr", "Sunrise");
+        validateRange(fajrOptional.get(), dhuhrOptional.get(), prayerDateString, errors, "Fajr", "Dhuhr");
+
+        validateRange(dhuhrOptional.get(), dhuhrIqamaOptional, prayerDateString, errors, "Dhuhr", "Dhuhr Iqama");
+        validateRange(dhuhrOptional.get(), asrOptional.get(), prayerDateString, errors, "Dhuhr", "Asr");
+
+        validateRange(asrOptional.get(), asrIqamaOptional, prayerDateString, errors, "Asr", "Asr Iqama");
+        validateRange(asrOptional.get(), maghribOptional.get(), prayerDateString, errors, "Asr", "Maghrib");
+
+
+        validateRange(maghribOptional.get(), ishaOptional.get(), prayerDateString, errors, "Maghrib", "Isha");
+
+        validateRange(ishaOptional.get(), ishaIqamaOptional, prayerDateString, errors, "Isha", "Isha Iqama");
+
         return errors;
+    }
+
+    private void validateRange(Calendar calendar, Optional<Calendar> calendarOptional, String prayerDateString,
+                               Map<String, String> errors, String field1, String field2) {
+        if (calendarOptional.isEmpty()) {
+            return;
+        }
+
+        validateRange(calendar, calendarOptional.get(), prayerDateString, errors, field1, field2);
+    }
+
+    private void validateRange(Calendar calendar1, Calendar calendar2, String prayerDateString,
+                               Map<String, String> errors, String field1, String field2) {
+        if(calendar1.after(calendar2)) {
+            errors.put(
+                    String.format("Invalid prayer %s, %s and %s range", prayerDateString, field1, field2),
+                    String.format("%s should be before %s. %s=%s and %s=%s", field1, field2,
+                            field1, DateTimeCalculator.TIME_FORMAT.format(calendar1.getTime()),
+                            field2, DateTimeCalculator.TIME_FORMAT.format(calendar2.getTime())));
+        }
     }
 
     @Override

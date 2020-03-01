@@ -1,5 +1,6 @@
 package com.sc.cdb.services.common;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
@@ -14,6 +15,9 @@ public interface DateTimeCalculator {
     Pattern TIME_24_REGEX_PATTERN = Pattern.compile(TIME_24_REGEX);
 
     int DEFAULT_YEAR = 2016;
+
+    SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd");
+    SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
 
     boolean isValid24Time(String timeInString);
 

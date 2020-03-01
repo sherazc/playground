@@ -9,11 +9,11 @@ public interface PrayerValidator {
 
     /**
      * Validates CSV line format
-     * @param linNumber
+     * @param lineNumber
      * @param line
      * @return
      */
-    Map<String, String> validateCommaSeparatedLine(int linNumber, String line);
+    Map<String, String> validateCommaSeparatedLine(int lineNumber, String line);
 
     /**
      * Validates prayer time ranges.

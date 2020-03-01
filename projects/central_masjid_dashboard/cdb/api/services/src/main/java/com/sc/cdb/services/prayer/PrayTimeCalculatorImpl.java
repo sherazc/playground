@@ -7,6 +7,7 @@ import java.util.TimeZone;
 
 import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.data.model.prayer.Prayer;
+import com.sc.cdb.services.common.DateTimeCalculator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -65,7 +66,7 @@ public class PrayTimeCalculatorImpl implements PrayTimeCalculator {
 
     private Calendar createPrayerCalendar(int yearDateIndex) {
         Calendar calendar = Calendar.getInstance(PrayTimeCalculatorImpl.UTC_TIMEZONE);
-        calendar.set(PrayTimeCalculatorImpl.SAMPLE_LEAP_YEAR,
+        calendar.set(DateTimeCalculator.DEFAULT_YEAR,
                 0, 1, 0, 0, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         calendar.add(Calendar.DATE, yearDateIndex);
