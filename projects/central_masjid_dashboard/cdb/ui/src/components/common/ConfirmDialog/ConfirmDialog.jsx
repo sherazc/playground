@@ -10,9 +10,6 @@ import {
 } from '@material-ui/core';
 
 class ConfirmDialog extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         const {dialog} = this.props;

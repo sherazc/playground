@@ -5,14 +5,10 @@ import {
     Dialog,
     DialogActions,
     DialogContent,
-    DialogContentText,
     DialogTitle
 } from '@material-ui/core';
 
 class AlertDialog extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         const {dialog} = this.props;

@@ -63,6 +63,7 @@ class AuthCompanyList extends Component {
                 foundIndex = index;
                 return true;
             }
+            return false;
         });
         if (foundIndex > -1 && foundIndex < companies.length) {
             companies[foundIndex].active = updatedCompany.active;

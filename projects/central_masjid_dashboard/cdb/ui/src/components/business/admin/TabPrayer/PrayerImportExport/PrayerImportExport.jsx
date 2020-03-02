@@ -25,7 +25,9 @@ class PrayerImportExport extends Component {
 
     createInitialState() {
         return {
-            dialog: createBlankAlertDialogState()
+            dialog: createBlankAlertDialogState(),
+            uploadFileText: "",
+            uploadFile: ""
         }
     }
 
@@ -34,6 +36,7 @@ class PrayerImportExport extends Component {
             console.log("No file selected");
             return;
         }
+        this.setState({uploadFile: event.target.files[0]});
 
         let formData = new FormData();
 
@@ -69,7 +72,7 @@ class PrayerImportExport extends Component {
         const dialog = {open: true};
         dialog.title = "Successfully Imported";
         dialog.onConfirm = () => this.setState({dialog: createBlankAlertDialogState()});
-        console.log(prayers);
+        dialog.description = <>Successfully imported <b>{this.state.uploadFile.name}</b></>;
         const prayerConfigEdit = {...this.props.prayerConfig, prayers: prayers};
         this.props.setAdminPrayerConfigEdit(prayerConfigEdit);
         return dialog;
@@ -81,9 +84,12 @@ class PrayerImportExport extends Component {
         dialog.onConfirm = () => this.setState({dialog: createBlankAlertDialogState()});
         if (fieldErrors) {
             const errorsKvList = this.fieldErrorsToKvList(fieldErrors);
-            dialog.description = (<ul>
+            dialog.description = (<>
+                Failed to import <b>{this.state.uploadFile.name}</b>
+                <ul>
                 {errorsKvList.map((errorKv, index) => <li key={index}><b>{errorKv.key}</b>: {errorKv.value} </li>)}
-            </ul>);
+                </ul>
+            </>);
         } else {
             dialog.description = "Failed to import file.";
         }
@@ -153,11 +159,12 @@ class PrayerImportExport extends Component {
             <div>
                 <hr/>
                 <div>
-                    <Button variant="outlined" color="primary" component="label">
+                    <Button onClick={() => {this.setState({uploadFileText: ""})}} variant="outlined" color="primary" component="label">
                         Upload Prayer Times
                         <input
                             accept="text/csv"
                             type="file"
+                            value={this.state.uploadFileText}
                             onChange={this.onChangeFile}
                             style={{ display: "none" }}
                         />

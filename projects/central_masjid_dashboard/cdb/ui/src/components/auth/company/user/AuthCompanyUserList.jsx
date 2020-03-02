@@ -101,6 +101,7 @@ class AuthCompanyUserList extends Component {
                 foundIndex = index;
                 return true;
             }
+            return false;
         });
         if (foundIndex > -1 && foundIndex < users.length) {
             users[foundIndex].active = updatedUser.active;

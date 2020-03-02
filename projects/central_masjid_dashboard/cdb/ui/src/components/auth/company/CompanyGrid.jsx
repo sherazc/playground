@@ -7,8 +7,6 @@ import ConfirmDialog, {
     createBlankActivateConfirmDialogState
 } from "../../common/ConfirmDialog/ConfirmDialog";
 
-const baseLinkUrl = process.env.PUBLIC_URL;
-
 class CompanyGrid extends Component {
     constructor(props) {
         super(props);
