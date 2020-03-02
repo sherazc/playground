@@ -25,13 +25,11 @@ class AlertDialog extends Component {
                     aria-describedby="alert-dialog-description">
                     <DialogTitle id="alert-dialog-title">{dialog.title}</DialogTitle>
                     <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                            {dialog.description}
-                        </DialogContentText>
+                        {dialog.description}
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={dialog.onConfirm} color="primary" autoFocus>
-                            Yes
+                            Ok
                         </Button>
                     </DialogActions>
                 </Dialog>
@@ -41,14 +39,14 @@ class AlertDialog extends Component {
 }
 
 
-const createBlankActivateAlertDialogState = () => {
-    return createActivateAlertDialogState(
+const createBlankAlertDialogState = () => {
+    return createAlertDialogState(
         false, "", "",
         () => {
         });
 };
 
-const createActivateAlertDialogState = (open, title, description, onConfirm) => {
+const createAlertDialogState = (open, title, description, onConfirm) => {
     return {
         open: open,
         title: title,
@@ -57,5 +55,5 @@ const createActivateAlertDialogState = (open, title, description, onConfirm) => 
     }
 };
 
-export {createBlankActivateAlertDialogState, createActivateAlertDialogState};
+export {createBlankAlertDialogState, createAlertDialogState};
 export default AlertDialog;

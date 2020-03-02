@@ -3,9 +3,13 @@ import {connect} from "react-redux";
 import axios from "axios";
 
 import {
-    Button, Input
+    Button
 } from "@material-ui/core";
 import {isBlank} from "../../../../../services/utilities";
+import
+    AlertDialog, {
+    createBlankAlertDialogState
+} from "../../../../common/AlertDialog/AlertDialog";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 class PrayerImportExport extends Component {
@@ -13,6 +17,13 @@ class PrayerImportExport extends Component {
         super(props);
         this.downloadPrayers = this.downloadPrayers.bind(this);
         this.onChangeFile = this.onChangeFile.bind(this);
+        this.state = this.createInitialState();
+    }
+
+    createInitialState() {
+        return {
+            dialog: createBlankAlertDialogState()
+        }
     }
 
     onChangeFile(event) {
@@ -41,11 +52,45 @@ class PrayerImportExport extends Component {
     }
 
     onValidateImport(serviceResponse) {
+        let dialog;
         if (serviceResponse.successful) {
-            console.log("Load prayer in redux", serviceResponse.target);
+            dialog = this.handleImportSuccess(serviceResponse.target);
         } else {
-            console.log("Show field errors in dialog", serviceResponse.fieldErrors);
+            dialog = this.handleImportError(serviceResponse.fieldErrors);
+
         }
+        this.setState({dialog});
+    }
+
+    handleImportSuccess(prayers) {
+        const dialog = {open: true};
+        dialog.title = "Successfully Imported";
+        dialog.onConfirm = () => this.setState({dialog: createBlankAlertDialogState()});
+        console.log(prayers);
+        return dialog;
+    }
+
+    handleImportError(fieldErrors) {
+        const dialog = {open: true};
+        dialog.title = "Import Failed";
+        dialog.onConfirm = () => this.setState({dialog: createBlankAlertDialogState()});
+        if (fieldErrors) {
+            const errorsKvList = this.fieldErrorsToKvList(fieldErrors);
+            dialog.description = (<ul>
+                {errorsKvList.map((errorKv, index) => <li key={index}><b>{errorKv.key}</b>: {errorKv.value} </li>)}
+            </ul>);
+        } else {
+            dialog.description = "Failed to import file.";
+        }
+        return dialog;
+    }
+
+    fieldErrorsToKvList(fieldErrors) {
+        const kvList = [];
+        for(let fieldErrorsKey in fieldErrors) {
+            kvList.push({key: fieldErrorsKey, value: fieldErrors[fieldErrorsKey]});
+        }
+        return kvList;
     }
 
     downloadPrayers(companyId) {
@@ -119,6 +164,7 @@ class PrayerImportExport extends Component {
                         variant="outlined" color="primary">Download Prayer Times</Button>
                 </div>}
                 <hr/>
+                <AlertDialog dialog={this.state.dialog}/>
             </div>
         );}
 }
