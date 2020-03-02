@@ -10,6 +10,9 @@ import
     AlertDialog, {
     createBlankAlertDialogState
 } from "../../../../common/AlertDialog/AlertDialog";
+import {
+    setAdminPrayerConfigEdit
+} from "../../../../../store/admin/adminActions";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 class PrayerImportExport extends Component {
@@ -67,6 +70,8 @@ class PrayerImportExport extends Component {
         dialog.title = "Successfully Imported";
         dialog.onConfirm = () => this.setState({dialog: createBlankAlertDialogState()});
         console.log(prayers);
+        const prayerConfigEdit = {...this.props.prayerConfig, prayers: prayers};
+        this.props.setAdminPrayerConfigEdit(prayerConfigEdit);
         return dialog;
     }
 
@@ -171,10 +176,10 @@ class PrayerImportExport extends Component {
 
 const mapStateToProps = state => {
     return {
-        login: state.login,
-        prayerConfig: state.admin.prayerConfig,
-        prayerConfigEdit: state.admin.prayerConfigEdit
+        prayerConfig: state.admin.prayerConfig
     }
 };
 
-export default connect(mapStateToProps)(PrayerImportExport);
+const actions = {setAdminPrayerConfigEdit};
+
+export default connect(mapStateToProps, actions)(PrayerImportExport);
