@@ -5,6 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+// https://www.roytuts.com/spring-boot-data-jpa-left-right-inner-and-cross-join-examples/
 @SpringBootApplication
 public class Application implements CommandLineRunner {
 
