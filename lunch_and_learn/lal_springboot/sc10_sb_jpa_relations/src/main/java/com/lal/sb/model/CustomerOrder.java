@@ -10,11 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-public class Order {
+@AllArgsConstructor
+@NoArgsConstructor
+public class CustomerOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
