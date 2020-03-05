@@ -1,7 +1,10 @@
 package com.lal.sb.repository;
 
-import com.lal.sb.model.Product;
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
 
-public interface ProductRepository extends CrudRepository<Product, Long> {
+import com.lal.sb.model.Product;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ProductRepository extends JpaRepository<Product, Long> {
+    List<Product> findProductByPriceLessThanEqual(Double price);
 }

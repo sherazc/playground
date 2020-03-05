@@ -1,5 +1,8 @@
 package com.lal.sb.controllers;
 
+import java.util.List;
+
+import com.lal.sb.dto.StoreProduct;
 import com.lal.sb.model.Store;
 import com.lal.sb.repository.StoreRepository;
 import org.springframework.http.ResponseEntity;
@@ -22,5 +25,11 @@ public class StoreController {
     public ResponseEntity<Store> findByProductName(@PathVariable String productName) {
         Store store = storeRepository.findByProductName(productName);
         return ResponseEntity.ok(store);
+    }
+
+    @GetMapping("/product")
+    public ResponseEntity<List<StoreProduct>> findAllStoreProducts() {
+        List<StoreProduct> storeProducts = storeRepository.findAllStoreProducts();
+        return ResponseEntity.ok(storeProducts);
     }
 }
