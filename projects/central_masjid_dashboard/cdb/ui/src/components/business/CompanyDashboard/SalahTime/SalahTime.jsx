@@ -95,7 +95,7 @@ class SalahTime extends Component {
                     <th>Asr</th>
                     <td>{time24To12(prayer.asr)}</td>
                     <td>{time24To12(prayer.asrIqama)}</td>
-                    <td className={this.blinkClassIfRequired(prayer.ishaChangeDate)}>
+                    <td className={this.blinkClassIfRequired(prayer.asrChangeDate)}>
                         {dateToDisplayDateShort(prayer.asrChangeDate)}
                         <br/>
                         {time24To12(prayer.asrChange)}

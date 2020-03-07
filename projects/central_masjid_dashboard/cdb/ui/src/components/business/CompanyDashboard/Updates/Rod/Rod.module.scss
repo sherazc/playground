@@ -9,11 +9,11 @@
     border: 0;
     border-spacing: 0px;
     border-collapse: separate;
-    font-size: .5vw;
+    font-size: .65vw;
     color: #444;
     margin: 0 auto;
     @media screen and (max-width: $screen-break) {
-        font-size: 1.8vw;
+        font-size: 2vw;
     }
 }
 
@@ -48,10 +48,10 @@
 .ayaArabic {
     font-family: 'saleem';
     color: #062707;
-    font-size: 1vw;
+    font-size: 1.5vw;
     background-color: #cbdfcc;
     @media screen and (max-width: $screen-break) {
-        font-size: 3vw;
+        font-size: 4vw;
     }
 }
 
