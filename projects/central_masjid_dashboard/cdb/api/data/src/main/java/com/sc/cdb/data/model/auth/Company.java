@@ -5,7 +5,9 @@ import java.util.Date;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.sc.cdb.data.common.util.Constants;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -33,6 +35,7 @@ public class Company extends BaseModel {
     @Valid
     private Address address;
     private Boolean active;
+    @JsonFormat(pattern= Constants.DATE_FORMAT)
     private Date expirationDate;
 
     public String getId() {

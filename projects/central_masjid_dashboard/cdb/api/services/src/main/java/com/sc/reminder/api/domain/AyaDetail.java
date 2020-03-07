@@ -1,5 +1,7 @@
 package com.sc.reminder.api.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sc.cdb.data.common.util.Constants;
 import com.sc.reminder.api.domain.enums.SuraName;
 import com.sc.reminder.api.utils.CommonUtils;
 
@@ -15,6 +17,8 @@ public class AyaDetail {
     private SuraName suraName;
     private List<Line> ayas;
     private List<Line> translations;
+
+    @JsonFormat(pattern= Constants.DATE_FORMAT)
     private Date date;
 
     public AyaDetail(int sequenceNumberSeed, int quranLineNumber, List<Line> ayas, List<Line> translations, Date date) {

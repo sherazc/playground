@@ -18,7 +18,7 @@ export default class TabPrayerService {
 
     collectPrayersFromDom() {
         const prayers = [];
-        const date = new Date("2016-01-01 00:00:00.000Z");
+        const date = new Date("2016-01-01T00:00:00.000Z");
         for (let i = 0; i < 366; i++) {
             const monthDateKabab = datesMonthDatePart(date);
             const prayer = {

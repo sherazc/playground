@@ -1,7 +1,9 @@
 package com.sc.cdb.data.model.auth;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sc.cdb.data.common.util.Constants;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -32,6 +34,8 @@ public class User extends BaseModel {
     private String firstName, lastName;
     private List<String> roles;
     private String emailVerifyCode;
+
+    @JsonFormat(pattern= Constants.DATE_FORMAT)
     private Date registrationDate;
     private boolean active;
     private boolean verified;

@@ -2,6 +2,8 @@ package com.sc.cdb.data.model.prayer;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sc.cdb.data.common.util.Constants;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -12,8 +14,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 public class Prayer {
-    private Date date;
 
+    @JsonFormat(pattern= Constants.DATE_FORMAT)
+    private Date date;
     private String fajr;
     private String fajrIqama;
     private String dhuhr;
@@ -28,13 +31,23 @@ public class Prayer {
     private String sunrise;
 
     private String fajrChange;
+    @JsonFormat(pattern= Constants.DATE_FORMAT)
     private Date fajrChangeDate;
+
     private String dhuhrChange;
+
+    @JsonFormat(pattern= Constants.DATE_FORMAT)
     private Date dhuhrChangeDate;
     private String asrChange;
+
+    @JsonFormat(pattern= Constants.DATE_FORMAT)
     private Date asrChangeDate;
     private String maghribChange;
+
+    @JsonFormat(pattern= Constants.DATE_FORMAT)
     private Date maghribChangeDate;
     private String ishaChange;
+
+    @JsonFormat(pattern= Constants.DATE_FORMAT)
     private Date ishaChangeDate;
 }
