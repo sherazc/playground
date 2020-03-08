@@ -33,6 +33,9 @@ public class PrayerConfigDstApplierImpl implements PrayerConfigDstApplier {
             return;
         }
 
+        Date beginDst = dstPeriodOptional.get()[0];
+        beginDst.setTime(beginDst.getTime() - (1000 * 60 * 60 * 24));
+
         prayerConfig.getPrayers()
                 .forEach(prayer -> addHourToPrayer(dstPeriodOptional.get(), prayer, hoursCount));
     }
