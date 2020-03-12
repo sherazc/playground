@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 public class Prayer {
 
-    @JsonFormat(pattern= Constants.DATE_FORMAT)
+    @JsonFormat(pattern= Constants.DATE_TIME_FORMAT)
     private Date date;
     private String fajr;
     private String fajrIqama;
@@ -31,23 +31,23 @@ public class Prayer {
     private String sunrise;
 
     private String fajrChange;
-    @JsonFormat(pattern= Constants.DATE_FORMAT)
+    @JsonFormat(pattern= Constants.DATE_TIME_FORMAT)
     private Date fajrChangeDate;
 
     private String dhuhrChange;
 
-    @JsonFormat(pattern= Constants.DATE_FORMAT)
+    @JsonFormat(pattern= Constants.DATE_TIME_FORMAT)
     private Date dhuhrChangeDate;
     private String asrChange;
 
-    @JsonFormat(pattern= Constants.DATE_FORMAT)
+    @JsonFormat(pattern= Constants.DATE_TIME_FORMAT)
     private Date asrChangeDate;
     private String maghribChange;
 
-    @JsonFormat(pattern= Constants.DATE_FORMAT)
+    @JsonFormat(pattern= Constants.DATE_TIME_FORMAT)
     private Date maghribChangeDate;
     private String ishaChange;
 
-    @JsonFormat(pattern= Constants.DATE_FORMAT)
+    @JsonFormat(pattern= Constants.DATE_TIME_FORMAT)
     private Date ishaChangeDate;
 }

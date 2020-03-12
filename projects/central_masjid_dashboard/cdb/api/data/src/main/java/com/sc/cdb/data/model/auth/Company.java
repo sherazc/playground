@@ -35,7 +35,7 @@ public class Company extends BaseModel {
     @Valid
     private Address address;
     private Boolean active;
-    @JsonFormat(pattern= Constants.DATE_FORMAT)
+    @JsonFormat(pattern= Constants.DATE_TIME_FORMAT)
     private Date expirationDate;
 
     public String getId() {

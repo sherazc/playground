@@ -37,10 +37,10 @@ public class DefaultDataLoader {
         Map<String, String> collectionResources = new HashMap<>();
 
         if (startupProfile.isActiveProfile(StartupProfile.types.dev.name())) {
-            collectionResources.put("centralControl", initDataDirectory + "centralControl.json");
-            collectionResources.put("company", initDataDirectory + "company.json");
-            collectionResources.put("user", initDataDirectory + "user.json");
-            collectionResources.put("prayerConfig", initDataDirectory + "prayerConfig.json");
+            // collectionResources.put("centralControl", initDataDirectory + "centralControl.json");
+            // collectionResources.put("company", initDataDirectory + "company.json");
+            // collectionResources.put("user", initDataDirectory + "user.json");
+            // collectionResources.put("prayerConfig", initDataDirectory + "prayerConfig.json");
         }
 
         collectionResources.put("hadith", initDataDirectory + "hadith.json");

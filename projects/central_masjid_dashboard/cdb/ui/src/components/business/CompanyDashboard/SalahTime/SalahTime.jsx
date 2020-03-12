@@ -11,6 +11,7 @@ import {
 import {
     writeIslamicDate
 } from "../../../../services/hijricalendar-kuwaiti";
+// import PrayerCountDown from "../PrayerCountDown/PrayerCountDown";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
@@ -148,6 +149,7 @@ class SalahTime extends Component {
         const hijriAdjustDays = getConfigValue("hijri_adjust_days", this.props.companyConfigurations);
         return (
             <div>
+                {/*<PrayerCountDown prayer={this.state.prayer}/>*/}
                 <div className={styles.salahTimeDateHeading}>
                     {dateToDisplayDateLong(today)}
                     <br/>

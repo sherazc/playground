@@ -18,7 +18,7 @@ public class AyaDetail {
     private List<Line> ayas;
     private List<Line> translations;
 
-    @JsonFormat(pattern= Constants.DATE_FORMAT)
+    @JsonFormat(pattern= Constants.DATE_TIME_FORMAT)
     private Date date;
 
     public AyaDetail(int sequenceNumberSeed, int quranLineNumber, List<Line> ayas, List<Line> translations, Date date) {

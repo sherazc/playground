@@ -15,7 +15,7 @@
         "name": "hijri_adjust_days",
         "type": "number",
         "label": "Hijri Adjust Days",
-        "defaultValue": "1",
+        "defaultValue": "0",
         "description": "This config is used to adjust Hijri Calendar date. Valid value is number. Could be positive or negative values"
       },
       {

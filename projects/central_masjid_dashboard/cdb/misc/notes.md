@@ -254,6 +254,13 @@ Configuration save cancel buttons are not getting disabled
 Defect: 
 US States select on company register page should be a required field 
 
+
+✅ Defect:
+Default hijri adjust date should be 0
+
+✅ Defect: 
+Save funds of new masjid is not working
+
 -----------------------------------
 ###Requirements
 

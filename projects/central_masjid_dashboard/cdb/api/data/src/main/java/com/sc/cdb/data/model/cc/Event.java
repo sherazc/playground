@@ -14,7 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 public class Event {
-    @JsonFormat(pattern= Constants.DATE_FORMAT)
+    @JsonFormat(pattern= Constants.DATE_TIME_FORMAT)
     private Date date;
     private String title;
     private String time;

@@ -35,7 +35,7 @@ public class User extends BaseModel {
     private List<String> roles;
     private String emailVerifyCode;
 
-    @JsonFormat(pattern= Constants.DATE_FORMAT)
+    @JsonFormat(pattern= Constants.DATE_TIME_FORMAT)
     private Date registrationDate;
     private boolean active;
     private boolean verified;
