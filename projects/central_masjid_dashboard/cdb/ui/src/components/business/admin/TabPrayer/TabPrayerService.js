@@ -18,8 +18,11 @@ export default class TabPrayerService {
 
     collectPrayersFromDom() {
         const prayers = [];
-        const date = new Date("2016-01-01T00:00:00.000Z");
+        let date = new Date("2016-01-01T00:00:00.000Z");
         for (let i = 0; i < 366; i++) {
+            if (i === 71) {
+                console.log("start debugging")
+            }
             const monthDateKabab = datesMonthDatePart(date);
             const prayer = {
                 date: date.toISOString(),
@@ -36,7 +39,7 @@ export default class TabPrayerService {
                 sunrise: this.getDocumentElementValue(`sunrise${monthDateKabab}`)
             };
             prayers.push(prayer);
-            addDaysToDate(date, 1);
+            date = addDaysToDate(date, 1);
         }
         return prayers;
     }

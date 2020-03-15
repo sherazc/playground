@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Javascript Tutorial</title>
+<script type="text/javascript" src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
+</head>
+<body>
+	<pre>
+<script type="text/javascript">
+const addDaysToDate = (date, days) => {
+	if (!date) {
+        date = new Date();
+    }
+	const momentDate = moment(date);
+	momentDate.utc();
+	momentDate.add(days, "days");
+    return momentDate.toDate();
+};
+
+// DST is on 2016-03-13 that is 73 days away from 2016-01-01
+
+let date = addDaysToDate(new Date("2016-01-01T00:00:00.000Z"), 0);
+
+document.writeln("0 day added to date. This should be 2016-01-01");
+document.writeln("date.toISOString()= " + date.toISOString());
+document.writeln("date.toUTCString()= " + date.toUTCString());
+document.writeln("date get date = " + date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+document.writeln("date get UTC date = " + date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate());
+document.writeln("date.getTimezoneOffset() = " + date.getTimezoneOffset());
+
+document.writeln("===================");
+
+// 72 Days
+date = addDaysToDate(new Date("2016-01-01T00:00:00.000Z"), 72);
+
+document.writeln("72 day added to date. This should be 2016-03-13");
+document.writeln("date.toISOString()= " + date.toISOString());
+document.writeln("date.toUTCString()= " + date.toUTCString());
+document.writeln("date.getDate()= " + date.getDate());
+document.writeln("date get date = " + date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+document.writeln("date get UTC date = " + date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate());
+document.writeln("date.getTimezoneOffset() = " + date.getTimezoneOffset());
+
+document.writeln("===================");
+
+// 73 Days
+
+date = addDaysToDate(new Date("2016-01-01T00:00:00.000Z"), 73);
+
+document.writeln("73 day added to date. This should be 2016-03-14");
+document.writeln("date.toISOString()= " + date.toISOString());
+document.writeln("date.toUTCString()= " + date.toUTCString());
+document.writeln("date.getDate()= " + date.getDate());
+document.writeln("date get date = " + date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+document.writeln("date get UTC date = " + date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate());
+document.writeln("date.getTimezoneOffset() = " + date.getTimezoneOffset());
+
+</script>
+</pre>
+</body>
+</html>

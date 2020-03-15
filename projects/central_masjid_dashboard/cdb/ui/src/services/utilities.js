@@ -1,4 +1,5 @@
 import equals from "deep-equal";
+import moment from "moment"
 
 export const MONTH_NAMES = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"];
@@ -124,8 +125,10 @@ export const addDaysToDate = (date, days) => {
         date = new Date();
     }
 
-    date.setDate(date.getDate() + days);
-    return date;
+    const momentDate = moment(date);
+    momentDate.utc();
+    momentDate.add(days, "days");
+    return momentDate.toDate();
 };
 
 
