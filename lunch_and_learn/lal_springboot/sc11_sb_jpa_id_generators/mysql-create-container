@@ -1,0 +1,14 @@
+#!/bin/bash
+docker rm -f mysql_container
+docker volume rm mysql_data
+
+docker run \
+    --detach \
+    --name=mysql_container \
+    -p 3306:3306 \
+    --env="MYSQL_ROOT_PASSWORD=password" \
+    --env="MYSQL_DATABASE=mydb" \
+    --env="MYSQL_USER=dbuser" \
+    --env="MYSQL_PASSWORD=password" \
+    --mount source=mysql_data,target=/var/lib/mysql \
+    mysql

@@ -1,0 +1,3 @@
+#!/bin/bash
+docker stop mysql_container
+docker start mysql_container
