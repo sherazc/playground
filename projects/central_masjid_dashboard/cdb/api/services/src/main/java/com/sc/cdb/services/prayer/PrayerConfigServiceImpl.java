@@ -3,7 +3,9 @@ package com.sc.cdb.services.prayer;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.sc.cdb.data.dao.PrayerConfigDao;
@@ -14,6 +16,7 @@ import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.data.repository.PrayerConfigRepository;
 import com.sc.cdb.services.auth.CompanyService;
+import com.sc.cdb.services.bulk.PrayerValidator;
 import com.sc.cdb.services.dst.PrayerConfigDstApplier;
 import com.sc.cdb.services.model.ServiceResponse;
 import org.apache.commons.lang3.StringUtils;
@@ -31,6 +34,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
     private PrayerConfigDstApplier prayerConfigDstApplier;
     private CompanyService companyService;
     private PrayerComparator prayerComparator;
+    private PrayerValidator prayerValidator;
 
     public PrayerConfigServiceImpl(
             PrayerConfigRepository prayerConfigRepository,
@@ -191,11 +195,20 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
 
         prayerConfigDstApplier.addHour(prayerConfig, todayYear, -1);
 
-        PrayerConfig save = prayerConfigRepository.save(prayerConfig);
-        if (save == null || StringUtils.isBlank(save.getId())) {
-            serviceResponseBuilder.successful(false).message("Failed to save PrayerConfig");
+        Map<String, String> fieldErrors = prayerValidator.validatePrayers(prayerConfig.getPrayers());
+
+        if (fieldErrors.size() > 0) {
+            serviceResponseBuilder
+                    .successful(false)
+                    .message("Failed to save PrayerConfig")
+                    .fieldErrors(fieldErrors);
         } else {
-            serviceResponseBuilder.target(save.getId()).successful(true).message("Successfully saved PrayerConfig");
+            PrayerConfig save = prayerConfigRepository.save(prayerConfig);
+            if (save == null || StringUtils.isBlank(save.getId())) {
+                serviceResponseBuilder.successful(false).message("Failed to save PrayerConfig");
+            } else {
+                serviceResponseBuilder.target(save.getId()).successful(true).message("Successfully saved PrayerConfig");
+            }
         }
         return serviceResponseBuilder.build();
     }

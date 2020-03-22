@@ -159,9 +159,14 @@ public class PrayerValidatorImpl implements PrayerValidator {
     @Override
     public Map<String, String> validatePrayers(List<Prayer> prayers) {
         Map<String, String> errors = new HashMap<>();
+        if (prayers == null) {
+            errors.put("Invalid prayers list", "Prayers not found.");
+            return errors;
+        }
+
         int prayerSize = prayers.size();
         if (prayerSize != 366) {
-            errors.put("Invalid file", "Import file do not contain 366 records. Total records in file " + prayerSize);
+            errors.put("Invalid prayer size", "Import file do not contain 366 records. Total records in file " + prayerSize);
             return errors;
         }
 
