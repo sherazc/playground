@@ -1,9 +1,16 @@
 import {addDaysToDate, datesMonthDatePart} from "../../../../services/utilities";
+import {
+    createBlankAlertDialogState
+} from "../../../common/AlertDialog/AlertDialog";
 
 export default class TabPrayerService {
 
     createInitialState() {
-        return {prayerConfig: {}, prayerConfigDirty: false}
+        return {
+            prayerConfig: {},
+            prayerConfigDirty: false,
+            dialog: createBlankAlertDialogState()
+        }
     }
 
     prayerReducer(prayersMonths, prayer) {
@@ -20,9 +27,6 @@ export default class TabPrayerService {
         const prayers = [];
         let date = new Date("2016-01-01T00:00:00.000Z");
         for (let i = 0; i < 366; i++) {
-            if (i === 71) {
-                console.log("start debugging")
-            }
             const monthDateKabab = datesMonthDatePart(date);
             const prayer = {
                 date: date.toISOString(),

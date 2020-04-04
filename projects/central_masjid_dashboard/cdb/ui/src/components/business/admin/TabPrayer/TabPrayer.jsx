@@ -13,6 +13,12 @@ import SaveCancel from "./SaveCancel/SaveCancel"
 import TabPrayerService from "./TabPrayerService";
 import Dst from "./Dst/Dst";
 import PrayerImportExport from "./PrayerImportExport/PrayerImportExport";
+import
+    AlertDialog, {
+    createBlankAlertDialogState
+} from "../../../common/AlertDialog/AlertDialog";
+import {makeFieldFieldErrorsUl} from "../../../../services/utilities-react";
+
 
 /**
  * TabPrayer.state.prayerConfig exist only in edit mode.
@@ -34,7 +40,8 @@ class TabPrayer extends Component {
         this.onSave = this.onSave.bind(this);
         this.onSaveDst = this.onSaveDst.bind(this);
         this.onCancel = this.onCancel.bind(this);
-        this.onEdit = this.onEdit.bind(this)
+        this.onEdit = this.onEdit.bind(this);
+        this.onSavePrayerConfigResponse = this.onSavePrayerConfigResponse.bind(this)
     }
 
     setPrayerConfigInState(prayerConfig, dirty) {
@@ -125,13 +132,54 @@ class TabPrayer extends Component {
         axios
             .post(`${baseUrl}/api/prayer/config`, prayerConfig)
             .then(response => {
+                this.onSavePrayerConfigResponse(prayerConfig, response.data);
+                /*
                 const serviceResponse = response.data;
-                if (serviceResponse && serviceResponse.successful && serviceResponse.target) {
-                    this.props.setAdminPrayerConfig(prayerConfig);
-                    this.props.setAdminPrayerConfigEdit({});
+
+
+                if (serviceResponse) {
+                    if (serviceResponse.successful && serviceResponse.target) {
+                        this.props.setAdminPrayerConfig(prayerConfig);
+                        this.props.setAdminPrayerConfigEdit({});
+                    } else if (!serviceResponse.successful
+                        && serviceResponse.fieldErrors && serviceResponse.fieldErrors.length) {
+                        // TODO: show field errors
+                    } else {
+                        // TODO: show generic save error message
+                    }
+                } else {
+                    // TODO: No server response error message
                 }
+
+                 */
             })
             .catch((error) => console.log("Error occurred", error));
+    }
+
+    onSavePrayerConfigResponse(prayerConfig, serviceResponse) {
+        let dialog;
+        if (!serviceResponse) {
+            dialog = this.createErrorMessageDialog("Failed to save", "No server response. Contact support.");
+        } else if (serviceResponse.successful && serviceResponse.target) {
+            this.props.setAdminPrayerConfig(prayerConfig);
+            this.props.setAdminPrayerConfigEdit({});
+            dialog = createBlankAlertDialogState();
+        } else {
+            dialog = this.createErrorMessageDialog("Failed to save", "Invalid prayers.", serviceResponse.fieldErrors);
+        }
+
+        this.setState({dialog})
+    }
+
+    createErrorMessageDialog(title, descriptionText, fieldErrors) {
+        const dialog = {open: true};
+        dialog.title = title;
+        dialog.onConfirm = () => this.setState({dialog: createBlankAlertDialogState()});
+        dialog.description = (<div>
+            <p>{descriptionText}</p>
+            {makeFieldFieldErrorsUl(fieldErrors)}
+        </div>);
+        return dialog;
     }
 
     onSaveDst(dst) {
@@ -182,8 +230,8 @@ class TabPrayer extends Component {
             .catch(() => this.props.adminPrayerConfigReset());
     }
 
-    setPrayerConfigDirty(dirty, fourceSet) {
-        if (fourceSet) {
+    setPrayerConfigDirty(dirty, forceSet) {
+        if (forceSet) {
             this.setState({prayerConfigDirty: dirty});
         } else if (this.state.prayerConfigDirty !== dirty) {
             this.setState({prayerConfigDirty: dirty});
@@ -213,6 +261,7 @@ class TabPrayer extends Component {
                     onCancel={this.onCancel}
                     saveLabel="Save"
                     cancelLabel="Cancel"/>
+                <AlertDialog dialog={this.state.dialog}/>
             </div>
         );
     }

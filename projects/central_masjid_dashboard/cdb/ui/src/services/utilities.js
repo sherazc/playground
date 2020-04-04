@@ -227,3 +227,12 @@ export const removeDoubleSpace = (str) => {
 export const isEntityHasId = (company) => {
     return company && isNotBlank(company.id);
 };
+
+export const fieldErrorsToKvList = (fieldErrors) => {
+    const kvList = [];
+    for(let fieldErrorsKey in fieldErrors) {
+        kvList.push({key: fieldErrorsKey, value: fieldErrors[fieldErrorsKey]});
+    }
+    return kvList;
+};
+

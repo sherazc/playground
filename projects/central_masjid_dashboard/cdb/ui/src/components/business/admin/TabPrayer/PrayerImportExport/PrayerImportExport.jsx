@@ -13,6 +13,7 @@ import
 import {
     setAdminPrayerConfigEdit
 } from "../../../../../store/admin/adminActions";
+import {makeFieldFieldErrorsUl} from "../../../../../services/utilities-react";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 class PrayerImportExport extends Component {
@@ -72,7 +73,7 @@ class PrayerImportExport extends Component {
         const dialog = {open: true};
         dialog.title = "Successfully Imported";
         dialog.onConfirm = () => this.setState({dialog: createBlankAlertDialogState()});
-        dialog.description = <>Successfully imported <b>{this.state.uploadFile.name}</b></>;
+        dialog.description = <>Successfully imported <b>{this.state.uploadFile.name}</b>. Please click save button.</>;
         const prayerConfigEdit = {...this.props.prayerConfig, prayers: prayers};
         this.props.setAdminPrayerConfigEdit(prayerConfigEdit);
         return dialog;
@@ -83,25 +84,14 @@ class PrayerImportExport extends Component {
         dialog.title = "Import Failed";
         dialog.onConfirm = () => this.setState({dialog: createBlankAlertDialogState()});
         if (fieldErrors) {
-            const errorsKvList = this.fieldErrorsToKvList(fieldErrors);
             dialog.description = (<>
                 Failed to import <b>{this.state.uploadFile.name}</b>
-                <ul>
-                {errorsKvList.map((errorKv, index) => <li key={index}><b>{errorKv.key}</b>: {errorKv.value} </li>)}
-                </ul>
+                {makeFieldFieldErrorsUl(fieldErrors)}
             </>);
         } else {
             dialog.description = "Failed to import file.";
         }
         return dialog;
-    }
-
-    fieldErrorsToKvList(fieldErrors) {
-        const kvList = [];
-        for(let fieldErrorsKey in fieldErrors) {
-            kvList.push({key: fieldErrorsKey, value: fieldErrors[fieldErrorsKey]});
-        }
-        return kvList;
     }
 
     downloadPrayers(companyId) {
