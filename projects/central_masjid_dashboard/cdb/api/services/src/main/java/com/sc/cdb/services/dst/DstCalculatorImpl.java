@@ -51,7 +51,7 @@ public class DstCalculatorImpl implements DstCalculator {
 
         Optional<Date[]> dstRange;
 
-        if (!dst.getAutomaticCalculate()) {
+        if (dst.getAutomaticCalculate() != null && !dst.getAutomaticCalculate()) {
             Optional<Calendar> beginOptional = dateTimeCalculator.monthDateStringToCalendar(year, dst.getBeginMonthDate());
             Optional<Calendar> endOptional = dateTimeCalculator.monthDateStringToCalendar(year, dst.getEndMonthDate());
             if (beginOptional.isEmpty() || endOptional.isEmpty() || beginOptional.get().after(endOptional.get())) {
