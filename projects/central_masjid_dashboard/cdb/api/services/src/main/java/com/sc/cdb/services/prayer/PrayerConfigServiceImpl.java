@@ -3,7 +3,6 @@ package com.sc.cdb.services.prayer;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -21,13 +20,10 @@ import com.sc.cdb.services.dst.PrayerConfigDstApplier;
 import com.sc.cdb.services.model.ServiceResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PrayerConfigServiceImpl implements PrayerConfigService {
-    private static final Logger LOG = LoggerFactory.getLogger(PrayerConfigServiceImpl.class);
 
     private PrayerConfigRepository prayerConfigRepository;
     private PrayerConfigDao prayerConfigDao;
@@ -40,12 +36,15 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
             PrayerConfigRepository prayerConfigRepository,
             PrayerConfigDao prayerConfigDao,
             PrayerConfigDstApplier prayerConfigDstApplier,
-            CompanyService companyService, PrayerComparator prayerComparator) {
+            CompanyService companyService,
+            PrayerComparator prayerComparator,
+            PrayerValidator prayerValidator) {
         this.prayerConfigRepository = prayerConfigRepository;
         this.prayerConfigDao = prayerConfigDao;
         this.prayerConfigDstApplier = prayerConfigDstApplier;
         this.companyService = companyService;
         this.prayerComparator = prayerComparator;
+        this.prayerValidator = prayerValidator;
     }
 
     @Override
@@ -249,31 +248,3 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         return prayerConfigOptional;
     }
 }
-
-
-
-/*
-TODO
-
-Set DST in http://localhost:8085/api/prayer/config/create?generateIqamah=true
-Request Method: POST
-
-
-PrayerConfig.dst is null in PrayerServicedImpl.createYearPrayerTimes()
-
-validate and apply PrayerConfig.dst in PrayerServicedImpl.createYearPrayerTimes()
-
-
-
-✅
-Set DST in
-http://localhost:8085/api/prayer/companyId/company1/month/10/day/8
-
-in PrayerConfigSErviceImpl.getPrayerByCompanyIdMonthAndDay()
-call Optional<PrayerConfig> getPrayerConfig(String companyId)
-instead of List<Prayer> prayers = prayerConfigDao.getPrayerByCompanyId(companyId);
-
-Optional<PrayerConfig> getPrayerConfig(String companyId) already applies DST
-
-*/
-
