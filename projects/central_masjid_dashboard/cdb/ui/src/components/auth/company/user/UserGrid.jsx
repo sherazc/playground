@@ -6,6 +6,8 @@ import ConfirmDialog, {
     createConfirmDialogState,
     createBlankConfirmDialogState
 } from "../../../common/ConfirmDialog/ConfirmDialog";
+import {mapStateLoginToProps} from "../../../../store/lib/utils";
+import {connect} from "react-redux";
 
 class UserGrid extends Component {
 
@@ -73,6 +75,7 @@ class UserGrid extends Component {
                 </thead>
                 <tbody>
                 {users.map((user, index) => {
+                    const selfRow = this.props.login.user.id !== user.id;
                     return (
                         <tr key={index}>
                             <td>
@@ -92,13 +95,13 @@ class UserGrid extends Component {
                                 {user.roles.map(roleName => roleName + ", ")}
                             </td>
                             <td>
-                                <Checkbox color="primary"
+                                <Checkbox color="primary" disabled={!selfRow}
                                           onChange={() => this.onChangeActivateUser(user.id, user.email, user.active)}
                                           checked={user.active}/>
                             </td>
                             <td>
 
-                                <Checkbox color="primary" checked={user.verified}/>
+                                <Checkbox color="primary" checked={user.verified} disabled={!selfRow}/>
                             </td>
                             <td>
                                 <a href="#/" onClick={(e) => {
@@ -107,13 +110,15 @@ class UserGrid extends Component {
                                 }}>
                                     View
                                 </a>
-                                &nbsp;|&nbsp;
-                                <a href="#/" onClick={(e) => {
-                                    e.preventDefault();
-                                    this.props.deleteCompanyUser(user.id);
-                                }}>
-                                    Delete <span style={{fontSize: "8px"}}>(Not implemented)</span>
-                                </a>
+                                {selfRow && (<>
+                                    &nbsp;|&nbsp;
+                                    <a href="#/" onClick={(e) => {
+                                        e.preventDefault();
+                                        this.props.deleteCompanyUser(user.id);
+                                    }}>
+                                        Delete <span style={{fontSize: "8px"}}>(Not implemented)</span>
+                                    </a>
+                                </>)}
                             </td>
                         </tr>
                     );
@@ -122,7 +127,7 @@ class UserGrid extends Component {
 
             </table>
         );
-    };
+    }
 
     render() {
         const users = this.props.users;
@@ -140,4 +145,4 @@ class UserGrid extends Component {
     }
 }
 
-export default UserGrid;
+export default connect(mapStateLoginToProps)(UserGrid);

@@ -7,6 +7,7 @@ import {connect} from "react-redux";
 import {Redirect} from "react-router";
 import {isAdminLogin, isSuperAdminLogin} from "../../../../services/auth/AuthNZ";
 import Layout01 from "../../../layout/Layout01/Layout01";
+import {mapStateLoginToProps} from "../../../../store/lib/utils";
 
 class AuthCompanyUserList extends Component {
     constructor(props) {
@@ -136,8 +137,4 @@ class AuthCompanyUserList extends Component {
 
 }
 
-const mapStateToProps = state => {
-    return {login: state.login};
-};
-
-export default connect(mapStateToProps, {prepareCompanyUserToEdit})(AuthCompanyUserList);
+export default connect(mapStateLoginToProps, {prepareCompanyUserToEdit})(AuthCompanyUserList);
