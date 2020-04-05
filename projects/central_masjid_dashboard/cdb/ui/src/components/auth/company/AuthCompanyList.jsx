@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Redirect} from "react-router";
-import {activateCompany, getAllCompanies} from "../../../services/auth/CompanyListService";
+import {activateCompany, deleteCompany, getAllCompanies} from "../../../services/auth/CompanyListService";
 import CompanyGrid from "./CompanyGrid";
 import {connect} from "react-redux";
 import {prepareCompanyToEdit} from "../../../store/register-company/actions";
@@ -13,10 +13,13 @@ class AuthCompanyList extends Component {
         this.state = {editCompanyPrepared: false, companies: []};
         this.onActivateCompany = this.onActivateCompany.bind(this);
         this.activateCompanyCallback = this.activateCompanyCallback.bind(this);
+        this.updateCompaniesList = this.updateCompaniesList.bind(this);
+        this.onDeleteCompany = this.onDeleteCompany.bind(this);
+        this.onDeleteCompanyResponse = this.onDeleteCompanyResponse.bind(this);
     }
 
     componentDidMount() {
-        getAllCompanies(this.updateCompaniesList.bind(this));
+        getAllCompanies(this.updateCompaniesList);
     }
 
     updateCompaniesList(companies) {
@@ -30,7 +33,16 @@ class AuthCompanyList extends Component {
     }
 
     onDeleteCompany(companyId) {
-        console.log("Call delete company api", companyId)
+        deleteCompany(this.onDeleteCompanyResponse, companyId);
+    }
+
+    onDeleteCompanyResponse(serviceResponse) {
+        if (serviceResponse && serviceResponse.successful) {
+            getAllCompanies(this.updateCompaniesList);
+            // TODO show success banner
+        } else {
+            // TODO show delete banner
+        }
     }
 
     findCompanyById(companies, id) {

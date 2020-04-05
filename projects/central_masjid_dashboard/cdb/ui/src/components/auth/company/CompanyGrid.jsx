@@ -24,8 +24,6 @@ class CompanyGrid extends Component {
         this.onClickDeleteCompany = this.onClickDeleteCompany.bind(this);
         this.closeDeleteConfirmDialog = this.closeDeleteConfirmDialog.bind(this);
         this.onDeleteCompany = this.onDeleteCompany.bind(this);
-
-
     }
 
 
@@ -53,7 +51,7 @@ class CompanyGrid extends Component {
         const deleteConfirmDialog = createConfirmDialogState(
             true,
             "Confirm Delete",
-            `Are you sure, you want to delete ${companyName}. You will not be able to recover it.`,
+            `Are you sure, you want to delete "${companyName}". You will not be able to recover it.`,
             this.closeDeleteConfirmDialog,
             () => this.onDeleteCompany(companyId)
         );
@@ -96,6 +94,7 @@ class CompanyGrid extends Component {
                 </thead>
                 <tbody>
                 {companies.map((company, index) => {
+                    const selfRow = this.props.login.company.id !== company.id;
                     return (
                         <tr key={index}>
                             <td>
@@ -119,7 +118,7 @@ class CompanyGrid extends Component {
                                 </>)}
                             </td>
                             <td>
-                                <Checkbox color="primary"
+                                <Checkbox color="primary" disabled={!selfRow}
                                           onChange={() => this.onChangeActivateCompany(company.id, company.name, company.active)}
                                           checked={company.active}/>
                             </td>
@@ -130,7 +129,7 @@ class CompanyGrid extends Component {
                                 }}>
                                     View
                                 </a>
-                                {this.props.login.company.id !== company.id && (<>
+                                {selfRow && (<>
                                     &nbsp;|&nbsp;
                                     <a href="#/" onClick={(e) => {
                                         e.preventDefault();

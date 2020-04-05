@@ -14,7 +14,6 @@ export const getAllCompaniesAllUsers = (cb) => {
         .catch(error => console.log(error));
 };
 
-
 export const getCompanyAllUsers = (cb, companyId) => {
     axios.get(`${baseUrl}/api/auth/companies/${companyId}/users`)
         .then(response => cb(response.data))
@@ -29,6 +28,12 @@ export const activateCompany = (cb, companyId, active) => {
 
 export const activateUser = (cb, userId, active) => {
     axios.get(`${baseUrl}/api/auth/users/${userId}/activate?active=${active}`)
+        .then(response => cb(response.data))
+        .catch(error => console.log(error));
+};
+
+export const deleteCompany = (cb, companyId) => {
+    axios.delete(`${baseUrl}/api/auth/companies/${companyId}`)
         .then(response => cb(response.data))
         .catch(error => console.log(error));
 };
