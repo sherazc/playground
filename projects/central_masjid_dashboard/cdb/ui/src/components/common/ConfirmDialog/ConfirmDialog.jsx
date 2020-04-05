@@ -41,8 +41,8 @@ class ConfirmDialog extends Component {
 }
 
 
-const createBlankActivateConfirmDialogState = () => {
-    return createActivateConfirmDialogState(
+const createBlankConfirmDialogState = () => {
+    return createConfirmDialogState(
         false, "", "",
         () => {
         },
@@ -50,7 +50,7 @@ const createBlankActivateConfirmDialogState = () => {
         });
 };
 
-const createActivateConfirmDialogState = (open, title, description, onCancel, onConfirm) => {
+const createConfirmDialogState = (open, title, description, onCancel, onConfirm) => {
     return {
         open: open,
         title: title,
@@ -60,5 +60,5 @@ const createActivateConfirmDialogState = (open, title, description, onCancel, on
     }
 };
 
-export {createBlankActivateConfirmDialogState, createActivateConfirmDialogState};
+export {createBlankConfirmDialogState, createConfirmDialogState};
 export default ConfirmDialog;

@@ -3,8 +3,8 @@ import {
     Checkbox
 } from "@material-ui/core";
 import ConfirmDialog, {
-    createActivateConfirmDialogState,
-    createBlankActivateConfirmDialogState
+    createConfirmDialogState,
+    createBlankConfirmDialogState
 } from "../../../common/ConfirmDialog/ConfirmDialog";
 
 class UserGrid extends Component {
@@ -12,7 +12,7 @@ class UserGrid extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activateConfirmDialog: createBlankActivateConfirmDialogState()
+            activateConfirmDialog: createBlankConfirmDialogState()
         };
         this.onChangeActivateUser = this.onChangeActivateUser.bind(this);
         this.closeActivateConfirmDialog = this.closeActivateConfirmDialog.bind(this);
@@ -20,13 +20,8 @@ class UserGrid extends Component {
         this.onActivateUser = this.onActivateUser.bind(this);
     }
 
-    closeActivateConfirmDialog() {
-        const activateConfirmDialog = createBlankActivateConfirmDialogState();
-        this.setState({activateConfirmDialog});
-    }
-
     onChangeActivateUser(userId, email, active) {
-        const activateConfirmDialog = createActivateConfirmDialogState(
+        const activateConfirmDialog = createConfirmDialogState(
             true,
             active ? "Confirm Deactivate" : "Confirm Activate",
             `Are you sure, you want to ${active ? "disable" : "enable"} ${email}.`,
@@ -39,6 +34,10 @@ class UserGrid extends Component {
     onActivateUser(userId, active) {
         this.props.onActivateUser(userId, active);
         this.closeActivateConfirmDialog();
+    }
+
+    closeActivateConfirmDialog() {
+        this.setState({activateConfirmDialog: createBlankConfirmDialogState()});
     }
 
     buildUsersGrid(users) {

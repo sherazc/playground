@@ -3,29 +3,34 @@ import {
     Checkbox, Link
 } from "@material-ui/core";
 import ConfirmDialog, {
-    createActivateConfirmDialogState,
-    createBlankActivateConfirmDialogState
+    createConfirmDialogState,
+    createBlankConfirmDialogState
 } from "../../common/ConfirmDialog/ConfirmDialog";
+import {connect} from "react-redux";
+import {mapStateLoginToProps} from "../../../store/lib/utils";
 
 class CompanyGrid extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activateConfirmDialog: createBlankActivateConfirmDialogState()
+            activateConfirmDialog: createBlankConfirmDialogState(),
+            deleteConfirmDialog: createBlankConfirmDialogState()
         };
+
         this.onChangeActivateCompany = this.onChangeActivateCompany.bind(this);
         this.closeActivateConfirmDialog = this.closeActivateConfirmDialog.bind(this);
-        this.onChangeActivateCompany = this.onChangeActivateCompany.bind(this);
         this.onActivateCompany = this.onActivateCompany.bind(this);
+
+        this.onClickDeleteCompany = this.onClickDeleteCompany.bind(this);
+        this.closeDeleteConfirmDialog = this.closeDeleteConfirmDialog.bind(this);
+        this.onDeleteCompany = this.onDeleteCompany.bind(this);
+
+
     }
 
-    closeActivateConfirmDialog() {
-        const activateConfirmDialog = createBlankActivateConfirmDialogState();
-        this.setState({activateConfirmDialog});
-    }
 
     onChangeActivateCompany(companyId, companyName, active) {
-        const activateConfirmDialog = createActivateConfirmDialogState(
+        const activateConfirmDialog = createConfirmDialogState(
             true,
             active ? "Confirm Deactivate" : "Confirm Activate",
             `Are you sure, you want to ${active ? "disable" : "enable"} ${companyName}.`,
@@ -38,6 +43,30 @@ class CompanyGrid extends Component {
     onActivateCompany(companyId, active) {
         this.props.onActivateCompany(companyId, active);
         this.closeActivateConfirmDialog();
+    }
+
+    closeActivateConfirmDialog() {
+        this.setState({activateConfirmDialog: createBlankConfirmDialogState()});
+    }
+
+    onClickDeleteCompany(companyId, companyName) {
+        const deleteConfirmDialog = createConfirmDialogState(
+            true,
+            "Confirm Delete",
+            `Are you sure, you want to delete ${companyName}. You will not be able to recover it.`,
+            this.closeDeleteConfirmDialog,
+            () => this.onDeleteCompany(companyId)
+        );
+        this.setState({deleteConfirmDialog});
+    }
+
+    onDeleteCompany(companyId) {
+        this.props.onDeleteCompany(companyId);
+        this.closeDeleteConfirmDialog();
+    }
+
+    closeDeleteConfirmDialog() {
+        this.setState({deleteConfirmDialog: createBlankConfirmDialogState()});
     }
 
     buildCompaniesGrid(companies) {
@@ -83,6 +112,7 @@ class CompanyGrid extends Component {
                             <td>
                                 {company.address && (<>
                                     {company.address.street},&nbsp;
+                                    <br/>
                                     {company.address.city}&nbsp;
                                     {company.address.state}&nbsp;
                                     {company.address.zip}
@@ -100,13 +130,17 @@ class CompanyGrid extends Component {
                                 }}>
                                     View
                                 </a>
-                                &nbsp;
-                                <a href="#/" onClick={(e) => {
-                                    e.preventDefault();
-                                    this.props.deleteCompany(company.id);
-                                }}>
-                                    Delete
-                                </a>
+                                {this.props.login.company.id !== company.id && (<>
+                                    &nbsp;|&nbsp;
+                                    <a href="#/" onClick={(e) => {
+                                        e.preventDefault();
+                                        this.onClickDeleteCompany(company.id, company.name);
+                                    }}>
+                                        Delete
+                                    </a>
+
+                                </>)}
+
                             </td>
                         </tr>
                     );
@@ -114,7 +148,7 @@ class CompanyGrid extends Component {
                 </tbody>
             </table>
         );
-    };
+    }
 
     render() {
         const companies = this.props.companies;
@@ -127,9 +161,10 @@ class CompanyGrid extends Component {
 
         return (<>
             <ConfirmDialog dialog={this.state.activateConfirmDialog}/>
+            <ConfirmDialog dialog={this.state.deleteConfirmDialog}/>
             {content}
         </>);
     }
 }
 
-export default CompanyGrid;
+export default connect(mapStateLoginToProps)(CompanyGrid);

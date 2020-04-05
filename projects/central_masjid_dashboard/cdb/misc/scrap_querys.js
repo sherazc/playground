@@ -112,3 +112,11 @@ db.getCollection('company').aggregate([
 ]);
 
 
+let companyId = "5da2632ef2a2337a5fd916d3";
+
+db.getCollection("company").find({"_id": ObjectId(companyId)});
+db.getCollection('centralControl').find({"companyId": ObjectId(companyId)});
+db.getCollection('prayerConfig').find({"companyId": ObjectId(companyId)});
+db.getCollection('user').find({"companyId": ObjectId(companyId)});
+
+

@@ -29,7 +29,8 @@ class AuthCompanyList extends Component {
         this.setState({editCompanyPrepared: true});
     }
 
-    deleteCompany(companyId) {
+    onDeleteCompany(companyId) {
+        console.log("Call delete company api", companyId)
     }
 
     findCompanyById(companies, id) {
@@ -44,7 +45,7 @@ class AuthCompanyList extends Component {
             }
         });
         return result;
-    };
+    }
 
 
     onActivateCompany(companyId, active) {
@@ -83,8 +84,8 @@ class AuthCompanyList extends Component {
                 <CompanyGrid
                     companies={this.state.companies}
                     onActivateCompany={this.onActivateCompany}
-                    editCompany={this.editCompany.bind(this)}
-                    deleteCompany={this.deleteCompany.bind(this)}/>
+                    onDeleteCompany={this.onDeleteCompany.bind(this)}
+                    editCompany={this.editCompany.bind(this)}/>
             </div>
             </Layout01>
         );
