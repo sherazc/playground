@@ -14,4 +14,6 @@ public interface PrayerConfigRepository extends MongoRepository<PrayerConfig, St
 
     @Query(value = "{'prayers.365': {$exists: true}}")
     List<PrayerConfig> findValidPrayerConfigs();
+
+    List<PrayerConfig> deleteByCompanyId(ObjectId companyId);
 }

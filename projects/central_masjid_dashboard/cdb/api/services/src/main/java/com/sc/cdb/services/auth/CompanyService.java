@@ -21,4 +21,6 @@ public interface CompanyService {
     List<CustomConfiguration> findCompanyConfigurations(String companyId);
 
     ServiceResponse<Company> activateCompany(String companyId, boolean active);
+
+    ServiceResponse<Void> deleteCompany(String companyId);
 }

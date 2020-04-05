@@ -124,10 +124,17 @@ public class CompanyController {
     }
 
     @GetMapping("{companyId}/activate")
-    public ResponseEntity<ServiceResponse<Company>> activateUser(
+    public ResponseEntity<ServiceResponse<Company>> activateCompany(
             @PathVariable String companyId, @RequestParam boolean active) {
-        log.debug("Activating Company. userId={}, active={}", companyId, active);
+        log.debug("Activating Company. companyId={}, active={}", companyId, active);
         ServiceResponse<Company> serviceResponse = companyService.activateCompany(companyId, active);
+        return ResponseEntity.ok(serviceResponse);
+    }
+
+    @GetMapping("{companyId}")
+    public ResponseEntity<ServiceResponse<Void>> deleteCompany(@PathVariable String companyId) {
+        log.debug("Deleting Company. companyId={}", companyId);
+        ServiceResponse<Void> serviceResponse = companyService.deleteCompany(companyId);
         return ResponseEntity.ok(serviceResponse);
     }
 }

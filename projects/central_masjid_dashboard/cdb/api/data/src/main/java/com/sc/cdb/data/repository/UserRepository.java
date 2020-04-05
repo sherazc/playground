@@ -16,4 +16,6 @@ public interface UserRepository extends MongoRepository<User, String> {
 
     @Query(value = "{'companyId': ?0}", count = true)
     Long countCompanyUsers(ObjectId companyId);
+
+    List<User> deleteByCompanyId(ObjectId companyId);
 }

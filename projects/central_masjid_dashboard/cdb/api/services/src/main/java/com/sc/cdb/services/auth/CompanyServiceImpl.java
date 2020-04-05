@@ -3,6 +3,7 @@ package com.sc.cdb.services.auth;
 import com.sc.cdb.data.dao.CompanyDao;
 import com.sc.cdb.data.dao.PicklistDao;
 import com.sc.cdb.data.model.auth.Company;
+import com.sc.cdb.data.model.auth.User;
 import com.sc.cdb.data.model.cc.CentralControl;
 import com.sc.cdb.data.model.cc.CustomConfiguration;
 import com.sc.cdb.data.model.picklist.Configuration;
@@ -10,6 +11,7 @@ import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.data.repository.CentralControlRepository;
 import com.sc.cdb.data.repository.CompanyRepository;
 import com.sc.cdb.data.repository.PrayerConfigRepository;
+import com.sc.cdb.data.repository.UserRepository;
 import com.sc.cdb.services.model.ServiceResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
@@ -28,11 +30,13 @@ public class CompanyServiceImpl implements CompanyService {
     private static final Logger LOG = LoggerFactory.getLogger(CompanyServiceImpl.class);
 
     private CompanyRepository companyRepository;
-    private PicklistDao picklistDao;
     private CentralControlRepository centralControlRepository;
-    private CompanyDefaultsCreator companyDefaultsCreator;
-    private CompanyDao companyDao;
     private PrayerConfigRepository prayerConfigRepository;
+    private UserRepository userRepository;
+
+    private CompanyDefaultsCreator companyDefaultsCreator;
+    private PicklistDao picklistDao;
+    private CompanyDao companyDao;
 
     public CompanyServiceImpl(
             CompanyRepository companyRepository,
@@ -40,13 +44,15 @@ public class CompanyServiceImpl implements CompanyService {
             CentralControlRepository centralControlRepository,
             CompanyDefaultsCreator companyDefaultsCreator,
             CompanyDao companyDao,
-            PrayerConfigRepository prayerConfigRepository) {
+            PrayerConfigRepository prayerConfigRepository,
+            UserRepository userRepository) {
         this.companyRepository = companyRepository;
         this.picklistDao = picklistDao;
         this.centralControlRepository = centralControlRepository;
         this.companyDefaultsCreator = companyDefaultsCreator;
         this.companyDao = companyDao;
         this.prayerConfigRepository = prayerConfigRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -184,6 +190,34 @@ public class CompanyServiceImpl implements CompanyService {
             responseBuilder.message("Successfully updated Company");
         } else {
             responseBuilder.message("Failed to update Company");
+        }
+        return responseBuilder.build();
+    }
+
+    @Override
+    public ServiceResponse<Void> deleteCompany(String companyId) {
+        ServiceResponse.ServiceResponseBuilder<Void> responseBuilder = ServiceResponse.builder();
+        if (!ObjectId.isValid(companyId)) {
+            responseBuilder.message("Invalid companyId");
+            return responseBuilder.build();
+        }
+        ObjectId companyObjectId = new ObjectId(companyId);
+
+        List<CentralControl> deletedCentralControls = centralControlRepository.deleteByCompanyId(companyObjectId);
+        List<User> deletedUsers = userRepository.deleteByCompanyId(companyObjectId);
+        List<PrayerConfig> deletedPrayerConfig = prayerConfigRepository.deleteByCompanyId(companyObjectId);
+
+        boolean deletedRelatedObjects = (deletedCentralControls != null && !deletedCentralControls.isEmpty())
+                ||  (deletedUsers != null && !deletedUsers.isEmpty())
+                ||  (deletedPrayerConfig != null && !deletedPrayerConfig.isEmpty());
+
+
+        if (companyRepository.existsById(companyId) && deletedRelatedObjects) {
+            responseBuilder.successful(true);
+            responseBuilder.message("Successfully deleted company");
+            companyRepository.deleteById(companyId);
+        } else {
+            responseBuilder.message("Failed to delete company. Unable to find company.");
         }
         return responseBuilder.build();
     }
