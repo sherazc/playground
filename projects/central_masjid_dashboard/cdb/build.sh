@@ -24,6 +24,11 @@ cd ../dashboard-widget
 yarn install
 yarn build
 
+# Build jummah-schedule-widget
+cd ../jummah-schedule-widget
+yarn install
+yarn build
+
 # Build UI
 cd ../../ui
 # UI is already been cleaned up

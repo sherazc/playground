@@ -33,6 +33,14 @@ rm -rf widgets/dashboard-widget/yarn-error.log
 rm -rf widgets/dashboard-widget/node_modules
 rm -rf ui/public/static/dashboard-widget/app.min.*
 
+# Clean jummah-schedule-widget
+rm -rf widgets/jummah-schedule-widget/yarn.lock
+rm -rf widgets/jummah-schedule-widget/package-lock.json
+rm -rf widgets/jummah-schedule-widget/yarn-error.log
+rm -rf widgets/jummah-schedule-widget/node_modules
+rm -rf ui/public/static/jummah-schedule-widget/app.min.*
+
+
 # Clean API
 rm -rf api/webservices/src/main/resources/static
 cd api

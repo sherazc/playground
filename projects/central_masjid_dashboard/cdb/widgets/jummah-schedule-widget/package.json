@@ -1,0 +1,24 @@
+{
+  "name": "pt-widget",
+  "version": "1.0.0",
+  "description": "\"Jummah Schedule Widget\"",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -f ../../ui/public/static/jummah-schedule-widget/app.min.js&rm -f ../../ui/public/static/jummah-schedule-widget/app.min.js.map",
+    "dev": "npm run clean&webpack --mode development --watch",
+    "build": "npm run clean & webpack --mode production"
+  },
+  "author": "Sheraz",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.7.2",
+    "@babel/preset-env": "^7.7.1",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.2.0",
+    "style-loader": "^1.0.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "node-sass": "^4.13.0",
+    "sass-loader": "^8.0.0"
+  }
+}
