@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Prayer Time</title>
+    <title>Jummah Schedule</title>
     <style>
         .codeTextDiv {
             margin: 20px;
@@ -14,8 +14,8 @@
     </style>
     <script>
         // Set these variables
-        var appNamePrefix = "prayerTime";
-        var appScriptSrc = "/static/prayer-time-widget/app.min.js";
+        var appNamePrefix = "jummahSchedule";
+        var appScriptSrc = "/static/jummah-schedule-widget/app.min.js";
         var companyId = (new URLSearchParams(window.location.search)).get("companyId");
         window[`${appNamePrefix}ServerUrl`] = "http://localhost:8085";  // dev testing
         // window[`${appNamePrefix}ServerUrl`] = location.origin;
@@ -37,7 +37,7 @@ var companyId = "${companyId}";
     </script>
 </head>
 <body>
-<h1>Prayer Time widget</h1>
+<h1>Jummah Schedule widget</h1>
 <p>
     Copy paste this script in your web-page.
 </p>

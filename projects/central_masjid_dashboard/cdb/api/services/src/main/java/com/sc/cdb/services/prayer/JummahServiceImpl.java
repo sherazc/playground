@@ -10,7 +10,6 @@ import com.sc.cdb.data.model.cc.CentralControl;
 import com.sc.cdb.data.model.cc.Jummah;
 import com.sc.cdb.data.repository.CentralControlRepository;
 import com.sc.cdb.services.model.ServiceResponse;
-import org.apache.commons.lang3.time.DateUtils;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 
