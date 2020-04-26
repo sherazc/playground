@@ -44,6 +44,20 @@ var rodAppDivId = "rodApp";
 </script>
 <script type="application/javascript" src="${baseUrl}/static/rod-widget/app.min.js"></script>`
             , liveLink: "/static/rod-widget/index.html"
+        },
+        {
+            name: "Jummah Schedule",
+            description: `Show up coming Jummah Khateeb Schedule.`,
+            image: "/images/widget/sample_jummah_schedule.png",
+            imageDescription: "Above Image is sample output.",
+            script: `<div id="jummahScheduleApp"></div>
+<script>
+var jummahScheduleServerUrl = "${baseUrl}";
+var jummahScheduleAppDivId = "jummahScheduleApp";
+var companyId = "${company.id}";
+</script>
+<script type="application/javascript" src="${baseUrl}/static/jummah-schedule-widget/app.min.js"></script>`
+            , liveLink: "/static/jummah-schedule-widget/index.html"
         }
     ];
 };

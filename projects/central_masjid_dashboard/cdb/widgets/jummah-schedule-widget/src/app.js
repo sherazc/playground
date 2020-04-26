@@ -4,20 +4,18 @@ import {
 } from "../../commonJsonpService"
 import "./app.scss";
 import {
-    time24To12,
-    dateToDisplayDateShort,
-    getQueryParam
+    dateToDisplayDateShort
 } from "../../../ui/src/services/utilities";
 
 const buildWidgetHTML = (serverResponse) => {
     // Error result
     if (!serverResponse || !serverResponse.successful || !serverResponse.target || serverResponse.target.length < 1) {
         return `
-        <div class="ptContainer">
-            <div class="ptHeader">
+        <div class="jsContainer">
+            <div class="jsHeader">
                 Jummah Schedule
             </div>
-            <div class="ptTableContainer">
+            <div class="jsTableContainer">
                 Jummah Schedule not found.
             </div>
         <div>
@@ -43,10 +41,10 @@ const buildWidgetHTML = (serverResponse) => {
 
     // Valid result
     let resultHtml = `
-    <div class="ptContainer">
-        <div class="ptHeader">Jummah Schedule</div>
-        <div class="ptTableContainer">
-            <table class='ptTable' border='0'>
+    <div class="jsContainer">
+        <div class="jsHeader">Jummah Schedule</div>
+        <div class="jsTableContainer">
+            <table class='jsTable' border='0'>
             <thead>
             <tr>
                 <th>Date</th>
