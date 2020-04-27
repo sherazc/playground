@@ -47,7 +47,7 @@ var rodAppDivId = "rodApp";
         },
         {
             name: "Jummah Schedule",
-            description: `Show up coming Jummah Khateeb Schedule.`,
+            description: `Shows up coming Jummah Khateeb schedule.`,
             image: "/images/widget/sample_jummah_schedule.png",
             imageDescription: "Above Image is sample output.",
             script: `<div id="jummahScheduleApp"></div>
@@ -57,7 +57,7 @@ var jummahScheduleAppDivId = "jummahScheduleApp";
 var companyId = "${company.id}";
 </script>
 <script type="application/javascript" src="${baseUrl}/static/jummah-schedule-widget/app.min.js"></script>`
-            , liveLink: "/static/jummah-schedule-widget/index.html"
+            , liveLink: `/static/jummah-schedule-widget/index.html?companyId=${company.id}`
         }
     ];
 };
