@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './App.css';
-import Age from './components/Eg02_StateHook/Age';
+import Age from './components/Eg00_StateHook/Age';
 
 
 function App() {
@@ -12,13 +12,17 @@ function App() {
   ];
 
   return (
-    <div>
+    <div style={{backgroundColor: "gray", padding: "20px"}}>
       <label htmlFor="examples">Examples: </label>
       <select id="examples" onChange={(e) => setEgNum(e.target.value)}>
         {examples.map((example, i) => <option key={i} value={i}>{i} {example.name}</option>)}
       </select>
-      <hr/>
+
+      <div style={{backgroundColor: "white",
+          border: "1px solid black", padding: "20px",
+          marginTop: "20px"}}>
       {examples[egNum].component}
+      </div>
     </div>
   );
 }
