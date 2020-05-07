@@ -1,14 +1,18 @@
 import React, {useState} from 'react';
 import './App.css';
-import Age from './components/Eg00_StateHook/Age';
+import Eg00Counter from './components/Eg00_useState/Eg00Counter';
+import Eg01Counter from './components/Eg01_useEffect_runs_after_every_re-render/Eg01Counter';
+import Eg02Counter from './components/Eg02_useEffect_runs_after_every_re-render_and_cleanup/Eg02Counter';
 
 
 function App() {
   const [egNum, setEgNum] = useState(0);
 
   const examples = [
-    {name: "State Hook a", component: <Age/>},
-    {name: "State Hook b", component: <div>abc</div>}
+    {name: "useState", component: <Eg00Counter/>},
+    {name: "useEffect - Runs after every re-render", component: <Eg01Counter/>},
+    {name: "useEffect - Runs after every re-render and cleanup", component: <Eg02Counter/>},
+
   ];
 
   return (
