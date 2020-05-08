@@ -7,11 +7,9 @@ export default function Eg01Counter() {
         document.getElementById("countElement").innerHTML = count;
     });
 
-    return (
-        <>
-            <div>State re-render: {count}</div>
-            <div>DOM update: <span id="countElement"></span></div>
-            <button onClick={() => setCount(count + 1)}>Add</button>
-        </>
-    );
+    return (<>
+        <div>State re-render: {count}</div>
+        <div>DOM update: <span id="countElement"></span></div>
+        <button onClick={() => setCount(count + 1)}>Add</button>
+    </>);
 }

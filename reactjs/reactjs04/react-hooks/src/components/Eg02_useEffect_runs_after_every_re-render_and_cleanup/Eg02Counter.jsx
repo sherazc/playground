@@ -17,11 +17,9 @@ export default function Eg02Counter() {
         }
     });
 
-    return (
-        <>
-            <div>State re-render: {count}</div>
-            <div>State updated: <span id="countElement"></span> seconds ago</div>
-            <button onClick={() => setCount(count + 1)}>Add</button>
-        </>
-    );
+    return (<>
+        <div>State re-render: {count}</div>
+        <div>State updated: <span id="countElement"></span> seconds ago</div>
+        <button onClick={() => setCount(count + 1)}>Add</button>
+    </>);
 }
