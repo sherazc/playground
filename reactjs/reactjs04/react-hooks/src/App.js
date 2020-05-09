@@ -8,6 +8,8 @@ import Eg04Counter from './components/Eg04_useEffect_run_only_once_like_componen
 import Eg05Counter from './components/Eg05_useState_lazyInitialization/Eg05Counter';
 import Eg06Counter from './components/Eg06_customHook/Eg06Counter';
 import Eg07Counter from './components/Eg07_customHook_localStorage/Eg07Counter';
+import Eg08ThemeContext from './components/Eg08_useContext/Eg08ThemeContext';
+import Eg09Counter from './components/Eg09_useContext_state_in_context/Eg09Counter';
 
 
 function App() {
@@ -22,7 +24,8 @@ function App() {
     {name: "useState - Lazy Initialization", component: <Eg05Counter/>},
     {name: "customHook", component: <Eg06Counter/>},
     {name: "customHook - Local Storage", component: <Eg07Counter/>},
-
+    {name: "useContext", component: <Eg08ThemeContext/>},
+    {name: "useContext - State_in_context", component: <Eg09Counter/>},
   ];
 
   return (
