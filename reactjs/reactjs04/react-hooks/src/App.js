@@ -5,6 +5,9 @@ import Eg01Counter from './components/Eg01_useEffect_runs_after_every_re-render/
 import Eg02Counter from './components/Eg02_useEffect_runs_after_every_re-render_and_cleanup/Eg02Counter';
 import Eg03Counter from './components/Eg03_useEffect_run_after_a_state_variable_is_updated/Eg03Counter';
 import Eg04Counter from './components/Eg04_useEffect_run_only_once_like_componentDidMount/Eg04Counter';
+import Eg05Counter from './components/Eg05_useState_lazyInitialization/Eg05Counter';
+import Eg06Counter from './components/Eg06_customHook/Eg06Counter';
+import Eg07Counter from './components/Eg07_customHook_localStorage/Eg07Counter';
 
 
 function App() {
@@ -16,6 +19,9 @@ function App() {
     {name: "useEffect - Runs after every re-render and cleanup", component: <Eg02Counter/>},
     {name: "useEffect - Run after a state variable is updated", component: <Eg03Counter/>},
     {name: "useEffect - Run only once like componentDidMount()", component: <Eg04Counter/>},
+    {name: "useState - Lazy Initialization", component: <Eg05Counter/>},
+    {name: "customHook", component: <Eg06Counter/>},
+    {name: "customHook - Local Storage", component: <Eg07Counter/>},
 
   ];
 
