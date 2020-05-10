@@ -10,6 +10,8 @@ import Eg06Counter from './components/Eg06_customHook/Eg06Counter';
 import Eg07Counter from './components/Eg07_customHook_localStorage/Eg07Counter';
 import Eg08ThemeContext from './components/Eg08_useContext/Eg08ThemeContext';
 import Eg09Counter from './components/Eg09_useContext_state_in_context/Eg09Counter';
+import Eg10Counter from './components/Eg10_useReducer/Eg10Counter';
+import Eg11UseReducerUseContext from './components/Eg11_useReducer_and_useContext_globalState/Eg11UseReducerUseContext';
 
 
 function App() {
@@ -26,6 +28,8 @@ function App() {
     {name: "customHook - Local Storage", component: <Eg07Counter/>},
     {name: "useContext", component: <Eg08ThemeContext/>},
     {name: "useContext - State_in_context", component: <Eg09Counter/>},
+    {name: "useReducer", component: <Eg10Counter/>},
+    {name: "useReducer & useContext - Global state like redux", component: <Eg11UseReducerUseContext/>},
   ];
 
   return (
