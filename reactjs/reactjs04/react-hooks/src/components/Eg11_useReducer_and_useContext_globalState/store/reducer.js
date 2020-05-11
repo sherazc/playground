@@ -1,4 +1,4 @@
-import React, {useReducer} from "react";
+import React from "react";
 
 export const TYPE_INCREMENT = "TYPE_INCREMENT";
 export const TYPE_DECREMENT = "TYPE_DECREMENT";
