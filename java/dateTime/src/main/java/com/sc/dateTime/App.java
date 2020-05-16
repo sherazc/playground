@@ -60,8 +60,39 @@ import java.time.chrono.ThaiBuddhistChronology;
  *
  * ##################################
  *
+ * Convert Calendar to LocalDate
+ * Calendar calendar = Calendar.getInstance();
+ * LocalDate localDate = LocalDateTime.ofInstant(calendar.toInstant(), calendar.getTimeZone().toZoneId()).toLocalDate();
+ *
+ * #################################
+ *
+ * Hijrah months
+ *
+ * 1. Muharram
+ * 2. Safar
+ * 3. Rabi' al-awwal
+ * 4. Rabi' al-thani
+ * 5. Jumada al-awwal
+ * 6. Jumada al-thani
+ * 7. Rajab
+ * 8. Sha'ban
+ * 9. Ramadan
+ * 10. Shawwal
+ * 11. Dhu al-Qi'dah
+ * 12. Dhu al-Hijjah
  *
  *
+ * ###############################
+ * Ramadan calculator and end of month
+ *
+ * https://mkyong.com/java8/java-8-hijrahdate-how-to-calculate-the-ramadan-date/
+ *
+ *
+ * ##############################
+ *
+ * Add days to hijrah date
+ *
+ * https://www.geeksforgeeks.org/hijrahdate-pluslong-temporalunit-method-in-java-with-example/
  */
 public class App {
     public static void main(String[] args) {
