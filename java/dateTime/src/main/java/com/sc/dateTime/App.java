@@ -1,16 +1,12 @@
 package com.sc.dateTime;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.chrono.HijrahChronology;
 import java.time.chrono.JapaneseChronology;
 import java.time.chrono.MinguoChronology;
 import java.time.chrono.ThaiBuddhistChronology;
 
 /**
- * Hello world!
- *
- *
  *
  *
  *
@@ -93,11 +89,19 @@ import java.time.chrono.ThaiBuddhistChronology;
  * Add days to hijrah date
  *
  * https://www.geeksforgeeks.org/hijrahdate-pluslong-temporalunit-method-in-java-with-example/
+ *
+ * #####################
+ *
+ * String to LocalDate
+ *
+ * https://mkyong.com/java8/java-8-how-to-convert-string-to-localdate/
+ *
+ * ########################
+ *
+ *
  */
 public class App {
     public static void main(String[] args) {
-        //LocalDate date = LocalDate.of(1996, Month.OCTOBER, 29);
-
         LocalDate date = LocalDate.now();
 
         System.out.printf("%s%n",
@@ -108,7 +112,5 @@ public class App {
                 StringConverter.toString(date, ThaiBuddhistChronology.INSTANCE));
         System.out.printf("%s%n",
                 StringConverter.toString(date, HijrahChronology.INSTANCE));
-
-
     }
 }

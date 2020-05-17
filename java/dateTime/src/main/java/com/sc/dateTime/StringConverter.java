@@ -7,6 +7,9 @@ import java.time.temporal.*;
 import java.util.Locale;
 import java.io.PrintStream;
 
+// https://docs.oracle.com/javase/tutorial/displayCode.html?code=https://docs.oracle.com/javase/tutorial/datetime/iso/examples/StringConverter.java
+// https://docs.oracle.com/javase/tutorial/datetime/iso/examples/StringConverter.java
+
 public class StringConverter {
     /**
      * Converts a LocalDate (ISO) value to a ChronoLocalDate date

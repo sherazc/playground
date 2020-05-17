@@ -6,30 +6,28 @@ import java.time.chrono.HijrahDate;
 import java.time.chrono.IsoChronology;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
-import java.time.temporal.TemporalUnit;
 
 public class HijriGregorianConverter {
 
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 
-    public static final String gregorianToHijrah(TemporalAccessor gregorianDate) {
+    public static String gregorianToHijrah(TemporalAccessor gregorianDate) {
         HijrahDate hijrahDate = HijrahChronology.INSTANCE.date(gregorianDate);
         return dateFormatter.format(hijrahDate);
     }
 
-    public static final String gregorianToHijrah(int year, int month, int dayOfMonth) {
+    public static String gregorianToHijrah(int year, int month, int dayOfMonth) {
         LocalDate gregorianDate = LocalDate.of(year, month, dayOfMonth);
         HijrahDate hijrahDate = HijrahChronology.INSTANCE.date(gregorianDate);
         return dateFormatter.format(hijrahDate);
     }
 
-    public static final String hijrahToGregorian(TemporalAccessor hijrahDate) {
+    public static String hijrahToGregorian(TemporalAccessor hijrahDate) {
         LocalDate localDate = IsoChronology.INSTANCE.date(hijrahDate);
         return dateFormatter.format(localDate);
     }
 
-
-    public static final String hijrahToGregorian(int prolepticYear, int month, int dayOfMonth) {
+    public static String hijrahToGregorian(int prolepticYear, int month, int dayOfMonth) {
         HijrahDate hijrahDate = HijrahDate.of(prolepticYear, month, dayOfMonth);
         LocalDate localDate = IsoChronology.INSTANCE.date(hijrahDate);
         return dateFormatter.format(localDate);
