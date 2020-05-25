@@ -98,6 +98,9 @@ import java.time.chrono.ThaiBuddhistChronology;
  *
  * ########################
  *
+ * Date to LocalDate conversion
+ *
+ * https://www.baeldung.com/java-date-to-localdate-and-localdatetime
  *
  */
 public class App {

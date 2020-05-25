@@ -17,6 +17,7 @@ public class Prayer {
 
     @JsonFormat(pattern= Constants.DATE_TIME_FORMAT)
     private Date date;
+    private String hijriString;
     private String fajr;
     private String fajrIqama;
     private String dhuhr;
