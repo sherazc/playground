@@ -1,10 +1,12 @@
 package com.sc.cdb.data.model.prayer;
 
+import java.time.chrono.HijrahDate;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sc.cdb.data.common.util.Constants;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -13,10 +15,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Prayer {
+@Builder(toBuilder = true)
+public class Prayer implements Cloneable {
 
     @JsonFormat(pattern= Constants.DATE_TIME_FORMAT)
     private Date date;
+    private HijrahDate hijrahDate;
     private String hijriString;
     private String fajr;
     private String fajrIqama;
@@ -51,4 +55,13 @@ public class Prayer {
 
     @JsonFormat(pattern= Constants.DATE_TIME_FORMAT)
     private Date ishaChangeDate;
+
+    @Override
+    public Prayer clone() {
+        PrayerBuilder prayerBuilder = this.toBuilder();
+        if (this.date != null) {
+            prayerBuilder.date((Date) this.date.clone());
+        }
+        return prayerBuilder.build();
+    }
 }

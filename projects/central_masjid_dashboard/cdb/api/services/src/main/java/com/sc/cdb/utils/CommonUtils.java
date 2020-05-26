@@ -15,11 +15,15 @@ public class CommonUtils {
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DATE, date);
+        makeCalendarTimeZero(calendar);
+        return calendar;
+    }
+
+    public static void makeCalendarTimeZero(Calendar calendar) {
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
-        return calendar;
     }
 
     public static Calendar createCalendarTime(int hour24OfDay, int minute) {
