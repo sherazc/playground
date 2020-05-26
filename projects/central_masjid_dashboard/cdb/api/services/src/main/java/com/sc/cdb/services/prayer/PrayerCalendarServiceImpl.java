@@ -98,6 +98,8 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
                     .filter(p -> this.include229onlyIfLeapYear(p, prayerCloneYear))
                     .map(p -> p.toBuilder().build()) // Create Prayer clone
                     .map(p -> this.updatePrayerYear(p, prayerCloneYear))
+                    .map(p -> this.gregorianToHijri(p, 1)) // todo: get adjust days from centralControl.customConfiguration
+                    .map(p -> this.hijriToHijriString(p))
                     .collect(Collectors.toList());
 
             prayers3Copies.addAll(prayersClone);
@@ -196,6 +198,14 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
          */
 
         return response.build();
+    }
+
+    private Prayer hijriToHijriString(Prayer prayer) {
+        return null;
+    }
+
+    private Prayer gregorianToHijri(Prayer p, int adjustDays) {
+        return null;
     }
 
     private boolean include229onlyIfLeapYear(Prayer prayer, int year) {
