@@ -3,8 +3,10 @@ package com.sc.cdb.services.prayer;
 import java.time.LocalDate;
 import java.time.chrono.HijrahDate;
 import java.time.chrono.IsoChronology;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -42,6 +44,7 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
 
         ServiceResponse.ServiceResponseBuilder<List<Prayer>> response = ServiceResponse.builder();
 
+        // Validation
         if (!ObjectId.isValid(companyId)) {
             response.message("Invalid companyId. " + companyId);
             return response.build();
@@ -52,7 +55,7 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
             return response.build();
         }
 
-        if (userMonth < 1 || userMonth > 12) {
+        if (userMonth < 0 || userMonth > 12) {
             response.message("Invalid month. " + userYear);
             return response.build();
         }
@@ -76,17 +79,26 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
             return response.build();
         }
 
+        // Hijri Adjust Days
+        int hijriAdjustDays = getHijriAdjustDays(companyId);
+
+
+        int userGregorianYear = userYear;
+
+        if (CalenderType.hijri == calenderType) {
+            LocalDate localDate = hijriYearMonthToLocalDate(userYear, userMonth, hijriAdjustDays);
+            userGregorianYear = localDate.getYear();
+
+        }
+
+
+
 
         // CREATE DATA - CREATE 3 PRAYERS LIST CLONE. BEFORE, CURRENT, AFTER
         List<Prayer> sortedPrayers = prayers.stream()
                 .map(p -> this.updatePrayerYear(p, DateTimeCalculator.DEFAULT_YEAR))
                 .sorted(prayerComparator)
                 .collect(Collectors.toList());
-
-        int userGregorianYear = userYear;
-        if (CalenderType.hijri == calenderType) {
-            userGregorianYear = hijriYearMonthToGregorianYear(userYear, userMonth);
-        }
 
 
         // create 3 copies. before,current and after
@@ -107,6 +119,14 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
         }
 
         System.out.println(prayers3Copies);
+
+        // Calculate limits
+
+        Date[] limits = calculateLimits(calenderType, userYear, userMonth, hijriAdjustDays);
+
+
+
+
         /*
 
         Convert prayer to @Builder(toBuilder=true). To clone prayers.
@@ -200,6 +220,26 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
         return response.build();
     }
 
+    private Date[] calculateLimits(CalenderType calenderType, int userYear, int userMonth, int hijriAdjustDays) {
+        int gregorianYearFrom = userYear;
+        int gregorianYearTo = userYear;
+
+
+        int gregorianMonthFrom = 0;
+        int gregorianMonthTo = 0;
+
+        if (calenderType == CalenderType.hijri) {
+            LocalDate localDate = hijriYearMonthToLocalDate(userYear, userMonth, hijriAdjustDays);
+
+        }
+
+        return new Date[0];
+    }
+
+    private int getHijriAdjustDays(String companyId) {
+        return 1;
+    }
+
     private Prayer hijriToHijriString(Prayer prayer) {
         return null;
     }
@@ -224,10 +264,16 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
         return !febTwentyNine;
     }
 
-    private int hijriYearMonthToGregorianYear(int userYear, int userMonth) {
-        HijrahDate hijrahDate = HijrahDate.of(userYear, userMonth, 1);
-        LocalDate localDate = IsoChronology.INSTANCE.date(hijrahDate);
-        return localDate.getYear();
+    private LocalDate hijriYearMonthToLocalDate(int userYear, int userMonth, int hijriAdjustDays) {
+        int month = 1;
+        if (userMonth > 0) {
+            month = userMonth;
+        }
+        HijrahDate hijrahDate = HijrahDate
+                .of(userYear, month, 1)
+                .plus(hijriAdjustDays, ChronoUnit.DAYS);
+
+        return IsoChronology.INSTANCE.date(hijrahDate);
     }
 
     private Prayer updatePrayerYear(Prayer prayer, int year) {

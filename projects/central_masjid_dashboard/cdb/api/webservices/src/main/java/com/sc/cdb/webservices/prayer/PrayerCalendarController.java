@@ -26,8 +26,12 @@ public class PrayerCalendarController {
     public ServiceResponse<List<Prayer>> calendar(
             @PathVariable String companyId,
             @PathVariable CalenderType type,
-            @PathVariable int year,
-            @RequestParam int month) {
+            @PathVariable Integer year,
+            @RequestParam(required = false) Integer month) {
+        int userMonth = 0;
+        if (month != null) {
+            userMonth = month;
+        }
         return prayerCalendarService.calendar(companyId, type, year, month);
     }
 }
