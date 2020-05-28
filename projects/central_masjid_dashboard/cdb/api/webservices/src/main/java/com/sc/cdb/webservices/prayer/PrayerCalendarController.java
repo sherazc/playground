@@ -5,7 +5,7 @@ import java.util.List;
 import com.sc.cdb.data.model.prayer.CalenderType;
 import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.services.model.ServiceResponse;
-import com.sc.cdb.services.prayer.PrayerCalendarService;
+import com.sc.cdb.services.prayer.calendar.PrayerCalendarService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

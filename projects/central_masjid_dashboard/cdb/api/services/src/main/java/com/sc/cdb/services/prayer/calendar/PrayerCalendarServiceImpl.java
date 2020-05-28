@@ -1,4 +1,4 @@
-package com.sc.cdb.services.prayer;
+package com.sc.cdb.services.prayer.calendar;
 
 import java.time.LocalDate;
 import java.time.chrono.HijrahDate;
@@ -19,6 +19,7 @@ import com.sc.cdb.data.repository.PrayerConfigRepository;
 import com.sc.cdb.services.bulk.PrayerValidator;
 import com.sc.cdb.services.common.DateTimeCalculator;
 import com.sc.cdb.services.model.ServiceResponse;
+import com.sc.cdb.services.prayer.PrayerComparator;
 import com.sc.cdb.utils.CommonUtils;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
@@ -221,6 +222,34 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
     }
 
     private Date[] calculateLimits(CalenderType calenderType, int userYear, int userMonth, int hijriAdjustDays) {
+
+        /*
+
+        if month is 0
+            begin date = 1
+            begin month = 1
+            begin year = userYear
+            create begin date
+            minus a day from created begin date
+
+            end date = 1
+            end month = 1
+            end year = userYear + 1
+
+        if userMonth > 0
+            begin date = 1
+            begin month = userMonth
+            begin year = userYear
+            create begin date
+            minus a day from created begin date
+
+            end date = 1
+            end month = userMonth
+            end year = userYear
+            create end date
+            plus a month to end date
+         */
+
         int gregorianYearFrom = userYear;
         int gregorianYearTo = userYear;
 

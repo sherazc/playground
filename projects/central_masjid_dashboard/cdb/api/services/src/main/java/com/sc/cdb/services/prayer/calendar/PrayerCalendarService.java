@@ -1,4 +1,4 @@
-package com.sc.cdb.services.prayer;
+package com.sc.cdb.services.prayer.calendar;
 
 import java.util.List;
 
