@@ -12,7 +12,7 @@ import com.sc.cdb.data.model.prayer.CalenderType;
 public class GregorianDate {
     private CalenderType calenderType;
     private int year, month, date;
-    private int addYear, addMonth, addDays;
+    private int addYear, addMonth, addDays, addHijriAdjustDays;
 
     private GregorianDate(CalenderType calenderType, int year, int month, int date) {
         this.calenderType = calenderType;
@@ -40,13 +40,19 @@ public class GregorianDate {
         return this;
     }
 
+    public GregorianDate plusHijriAdjustDays(int hijriAdjustDays) {
+        this.addHijriAdjustDays += hijriAdjustDays;
+        return this;
+    }
+
     public Date create() {
         Date result;
         if (this.calenderType == CalenderType.hijri) {
             HijrahDate hijrahDate = HijrahDate.of(this.year, this.month, this.date)
-                    .plus(addYear, ChronoUnit.YEARS)
-                    .plus(addMonth, ChronoUnit.MONTHS)
-                    .plus(addDays, ChronoUnit.DAYS);
+                    .plus(this.addYear, ChronoUnit.YEARS)
+                    .plus(this.addMonth, ChronoUnit.MONTHS)
+                    .plus(this.addDays, ChronoUnit.DAYS)
+                    .plus(this.addHijriAdjustDays, ChronoUnit.DAYS);
 
             LocalDate localDate = IsoChronology.INSTANCE.date(hijrahDate);
 
@@ -54,11 +60,15 @@ public class GregorianDate {
         } else {
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.YEAR, this.year);
-            calendar.set(Calendar.MONTH, this.month);
+            calendar.set(Calendar.MONTH, this.month - 1);
             calendar.set(Calendar.DAY_OF_MONTH, this.date);
             calendar.set(Calendar.HOUR_OF_DAY, 0);
             calendar.set(Calendar.MINUTE, 0);
             calendar.set(Calendar.MILLISECOND, 0);
+
+            calendar.add(Calendar.YEAR, this.addMonth);
+            calendar.add(Calendar.MONTH, this.addMonth);
+            calendar.add(Calendar.DAY_OF_MONTH, this.addDays);
             result = calendar.getTime();
         }
 

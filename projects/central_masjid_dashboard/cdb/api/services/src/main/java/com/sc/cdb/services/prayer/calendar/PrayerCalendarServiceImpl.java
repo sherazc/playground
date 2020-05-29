@@ -18,6 +18,7 @@ import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.data.repository.PrayerConfigRepository;
 import com.sc.cdb.services.bulk.PrayerValidator;
 import com.sc.cdb.services.common.DateTimeCalculator;
+import com.sc.cdb.services.common.GregorianDate;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.services.prayer.PrayerComparator;
 import com.sc.cdb.utils.CommonUtils;
@@ -222,7 +223,28 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
     }
 
     private Date[] calculateLimits(CalenderType calenderType, int userYear, int userMonth, int hijriAdjustDays) {
+        Date beginLimit;
+        Date endLimit;
 
+        if (userMonth < 1) {
+            beginLimit = GregorianDate
+                    .of(calenderType, userYear, 1, 1)
+                    .plusDays(-1)
+                    .create();
+            endLimit = GregorianDate
+                    .of(calenderType, userYear, 1,1)
+                    .plusYear(1)
+                    .create();
+        } else {
+            beginLimit = GregorianDate
+                    .of(calenderType, userYear, userMonth, 1)
+                    .plusDays(-1)
+                    .create();
+            endLimit = GregorianDate
+                    .of(calenderType, userYear, userMonth,1)
+                    .plusMonth(1)
+                    .create();
+        }
         /*
 
         if month is 0
@@ -250,19 +272,7 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
             plus a month to end date
          */
 
-        int gregorianYearFrom = userYear;
-        int gregorianYearTo = userYear;
-
-
-        int gregorianMonthFrom = 0;
-        int gregorianMonthTo = 0;
-
-        if (calenderType == CalenderType.hijri) {
-            LocalDate localDate = hijriYearMonthToLocalDate(userYear, userMonth, hijriAdjustDays);
-
-        }
-
-        return new Date[0];
+        return new Date[]{beginLimit, endLimit};
     }
 
     private int getHijriAdjustDays(String companyId) {
