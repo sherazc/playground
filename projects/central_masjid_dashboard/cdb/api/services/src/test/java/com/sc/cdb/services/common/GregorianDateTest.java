@@ -59,5 +59,9 @@ public class GregorianDateTest {
         Assert.assertEquals(expectedYear, calendar.get(Calendar.YEAR));
         Assert.assertEquals(expectedMonth, calendar.get(Calendar.MONTH) + 1);
         Assert.assertEquals(expectedDayOfMonth, calendar.get(Calendar.DAY_OF_MONTH));
+        Assert.assertEquals(0, calendar.get(Calendar.HOUR_OF_DAY));
+        Assert.assertEquals(0, calendar.get(Calendar.MINUTE));
+        Assert.assertEquals(0, calendar.get(Calendar.SECOND));
+        Assert.assertEquals(0, calendar.get(Calendar.MILLISECOND));
     }
 }

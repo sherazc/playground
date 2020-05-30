@@ -12,7 +12,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.amazonaws.services.dynamodbv2.xspec.M;
 import com.sc.cdb.data.model.prayer.CalenderType;
 import com.sc.cdb.data.model.prayer.Month;
 import com.sc.cdb.data.model.prayer.Prayer;
@@ -44,9 +43,9 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
     }
 
     @Override
-    public ServiceResponse<List<Prayer>> calendar(String companyId, CalenderType calenderType, int userYear, int userMonth) {
+    public ServiceResponse<Map<Month, List<Prayer>>> calendar(String companyId, CalenderType calenderType, int userYear, int userMonth) {
 
-        ServiceResponse.ServiceResponseBuilder<List<Prayer>> response = ServiceResponse.builder();
+        ServiceResponse.ServiceResponseBuilder<Map<Month, List<Prayer>>> response = ServiceResponse.builder();
 
         // Validation
         if (!ObjectId.isValid(companyId)) {
@@ -128,7 +127,14 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
                 .filter(p -> p.getDate().after(limits[0]) && p.getDate().before(limits[1]))
                 .collect(Collectors.groupingBy(monthGroupingCollectorFunction));
 
-        System.out.println(prayersMonthGroups);
+
+        boolean validCalendar = isValidCalenar(userMonth, prayersMonthGroups);
+        response.successful(validCalendar);
+        if (validCalendar) {
+            response.target(prayersMonthGroups);
+        } else {
+            response.message("Failed to generate calendar.");
+        }
 
         /*
 
@@ -204,6 +210,12 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
          */
 
         return response.build();
+    }
+
+    private boolean isValidCalenar(int userMonth, Map<Month, List<Prayer>> prayersMonthGroups) {
+        return prayersMonthGroups != null
+                && ((userMonth < 1 && prayersMonthGroups.size() == 12)
+                        || (userMonth > 0 && prayersMonthGroups.size() == 1));
     }
 
     private Date[] calculateLimits(CalenderType calenderType, int userYear, int userMonth, int hijriAdjustDays) {

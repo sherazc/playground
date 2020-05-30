@@ -1,8 +1,10 @@
 package com.sc.cdb.webservices.prayer;
 
 import java.util.List;
+import java.util.Map;
 
 import com.sc.cdb.data.model.prayer.CalenderType;
+import com.sc.cdb.data.model.prayer.Month;
 import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.services.prayer.calendar.PrayerCalendarService;
@@ -23,7 +25,7 @@ public class PrayerCalendarController {
     }
 
     @GetMapping("/companyId/{companyId}/type/{type}/year/{year}")
-    public ServiceResponse<List<Prayer>> calendar(
+    public ServiceResponse<Map<Month, List<Prayer>>> calendar(
             @PathVariable String companyId,
             @PathVariable CalenderType type,
             @PathVariable Integer year,
