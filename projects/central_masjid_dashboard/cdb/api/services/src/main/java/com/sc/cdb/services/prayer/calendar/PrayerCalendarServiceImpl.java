@@ -6,6 +6,7 @@ import java.time.chrono.IsoChronology;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 
 import com.sc.cdb.data.model.prayer.CalenderType;
 import com.sc.cdb.data.model.prayer.Month;
+import com.sc.cdb.data.model.prayer.MonthPrayers;
 import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.data.repository.PrayerConfigRepository;
@@ -43,9 +45,9 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
     }
 
     @Override
-    public ServiceResponse<Map<Month, List<Prayer>>> calendar(String companyId, CalenderType calenderType, int userYear, int userMonth) {
+    public ServiceResponse<List<MonthPrayers>> calendar(String companyId, CalenderType calenderType, int userYear, int userMonth) {
 
-        ServiceResponse.ServiceResponseBuilder<Map<Month, List<Prayer>>> response = ServiceResponse.builder();
+        ServiceResponse.ServiceResponseBuilder<List<MonthPrayers>> response = ServiceResponse.builder();
 
         // Validation
         if (!ObjectId.isValid(companyId)) {
@@ -72,8 +74,8 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
             return response.build();
         }
 
-        List<Prayer> prayers = prayerConfigOptional.get().getPrayers();
-        Map<String, String> errors = prayerValidator.validatePrayers(prayers);
+        List<Prayer> prayersInDb = prayerConfigOptional.get().getPrayers();
+        Map<String, String> errors = prayerValidator.validatePrayers(prayersInDb);
 
         if (errors != null && !errors.isEmpty()) {
             response.fieldErrors(errors);
@@ -93,7 +95,7 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
         }
 
         // CREATE DATA - CREATE 3 PRAYERS LIST CLONE. BEFORE, CURRENT, AFTER
-        List<Prayer> sortedPrayers = prayers.stream()
+        List<Prayer> sortedPrayers = prayersInDb.stream()
                 .map(p -> this.updatePrayerYear(p, DateTimeCalculator.DEFAULT_YEAR)) // update all years to default 2016
                 .sorted(prayerComparator) // sort
                 .collect(Collectors.toList());
@@ -127,14 +129,19 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
                 .filter(p -> p.getDate().after(limits[0]) && p.getDate().before(limits[1]))
                 .collect(Collectors.groupingBy(monthGroupingCollectorFunction));
 
-
         boolean validCalendar = isValidCalenar(userMonth, prayersMonthGroups);
         response.successful(validCalendar);
-        if (validCalendar) {
-            response.target(prayersMonthGroups);
-        } else {
-            response.message("Failed to generate calendar.");
-        }
+        List<MonthPrayers> monthPrayersList = prayersMonthGroups.keySet()
+                .stream()
+                .map(month -> {
+                    List<Prayer> prayers = prayersMonthGroups.get(month);
+                    return new MonthPrayers(month, prayers);
+                })
+                .sorted(Comparator.comparing(mp -> mp.getMonth().getNumber()))
+                .collect(Collectors.toList());
+
+        response.target(monthPrayersList);
+
 
         /*
 
