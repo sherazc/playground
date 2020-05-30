@@ -120,12 +120,12 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
             yearAdd++;
         }
 
-        System.out.println(prayers3Copies);
 
         // Calculate limits
 
         Date[] limits = calculateLimits(calenderType, userYear, userMonth, hijriAdjustDays);
 
+        System.out.println(limits);
 
 
 

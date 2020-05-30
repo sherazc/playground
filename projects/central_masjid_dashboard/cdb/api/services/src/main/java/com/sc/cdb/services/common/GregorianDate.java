@@ -66,7 +66,7 @@ public class GregorianDate {
             calendar.set(Calendar.MINUTE, 0);
             calendar.set(Calendar.MILLISECOND, 0);
 
-            calendar.add(Calendar.YEAR, this.addMonth);
+            calendar.add(Calendar.YEAR, this.addYear);
             calendar.add(Calendar.MONTH, this.addMonth);
             calendar.add(Calendar.DAY_OF_MONTH, this.addDays);
             result = calendar.getTime();
