@@ -32,6 +32,6 @@ public class PrayerCalendarController {
         if (month != null) {
             userMonth = month;
         }
-        return prayerCalendarService.calendar(companyId, type, year, month);
+        return prayerCalendarService.calendar(companyId, type, year, userMonth);
     }
 }

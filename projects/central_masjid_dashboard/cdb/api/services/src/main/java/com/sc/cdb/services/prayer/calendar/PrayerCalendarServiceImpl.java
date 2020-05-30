@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 
 import com.amazonaws.services.dynamodbv2.xspec.M;
 import com.sc.cdb.data.model.prayer.CalenderType;
+import com.sc.cdb.data.model.prayer.Month;
 import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.data.repository.PrayerConfigRepository;
@@ -122,9 +123,9 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
 
         MonthGroupingCollectorFunction monthGroupingCollectorFunction = new MonthGroupingCollectorFunction(calenderType);
 
-        Map<String, List<Prayer>> prayersMonthGroups = prayers3Copies
+        Map<Month, List<Prayer>> prayersMonthGroups = prayers3Copies
                 .stream()
-                .filter(p -> p.getDate().after(limits[0]) || p.getDate().before(limits[1]))
+                .filter(p -> p.getDate().after(limits[0]) && p.getDate().before(limits[1]))
                 .collect(Collectors.groupingBy(monthGroupingCollectorFunction));
 
         System.out.println(prayersMonthGroups);

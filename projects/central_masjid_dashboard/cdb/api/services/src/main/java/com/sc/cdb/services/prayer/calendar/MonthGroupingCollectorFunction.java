@@ -7,9 +7,10 @@ import java.util.function.Function;
 
 import com.sc.cdb.data.model.prayer.CalenderType;
 import com.sc.cdb.data.model.prayer.HijriMonth;
+import com.sc.cdb.data.model.prayer.Month;
 import com.sc.cdb.data.model.prayer.Prayer;
 
-public class MonthGroupingCollectorFunction implements Function<Prayer, String> {
+public class MonthGroupingCollectorFunction implements Function<Prayer, Month> {
 
     private CalenderType calenderType;
 
@@ -18,17 +19,20 @@ public class MonthGroupingCollectorFunction implements Function<Prayer, String> 
     }
 
     @Override
-    public String apply(Prayer prayer) {
-        String monthName;
+    public Month apply(Prayer prayer) {
+        Month month;
 
         if (calenderType == CalenderType.hijri) {
             int monthNumber = prayer.getHijrahDate().get(ChronoField.MONTH_OF_YEAR);
-            monthName = HijriMonth.values()[monthNumber - 1].getDisplayName();
+            String monthName = HijriMonth.values()[monthNumber - 1].getDisplayName();
+            month = new Month(monthNumber, monthName);
         } else {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(prayer.getDate());
-            monthName = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+            int monthNumber = calendar.get(Calendar.MONTH) + 1;
+            String monthName = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+            month = new Month(monthNumber, monthName);
         }
-        return monthName;
+        return month;
     }
 }
