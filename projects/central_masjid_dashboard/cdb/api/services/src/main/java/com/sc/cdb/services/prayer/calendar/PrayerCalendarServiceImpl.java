@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.amazonaws.services.dynamodbv2.xspec.M;
 import com.sc.cdb.data.model.prayer.CalenderType;
 import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
@@ -71,7 +72,6 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
             return response.build();
         }
 
-
         List<Prayer> prayers = prayerConfigOptional.get().getPrayers();
         Map<String, String> errors = prayerValidator.validatePrayers(prayers);
 
@@ -84,7 +84,6 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
         // Hijri Adjust Days
         int hijriAdjustDays = getHijriAdjustDays(companyId);
 
-
         int userGregorianYear = userYear;
 
         if (CalenderType.hijri == calenderType) {
@@ -93,13 +92,10 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
 
         }
 
-
-
-
         // CREATE DATA - CREATE 3 PRAYERS LIST CLONE. BEFORE, CURRENT, AFTER
         List<Prayer> sortedPrayers = prayers.stream()
-                .map(p -> this.updatePrayerYear(p, DateTimeCalculator.DEFAULT_YEAR))
-                .sorted(prayerComparator)
+                .map(p -> this.updatePrayerYear(p, DateTimeCalculator.DEFAULT_YEAR)) // update all years to default 2016
+                .sorted(prayerComparator) // sort
                 .collect(Collectors.toList());
 
 
@@ -109,25 +105,29 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
         for (int i = 0; i < 3; i++) {
             int prayerCloneYear = userGregorianYear + yearAdd;
             List<Prayer> prayersClone = sortedPrayers.stream()
-                    .filter(p -> this.include229onlyIfLeapYear(p, prayerCloneYear))
+                    .filter(p -> this.include229onlyIfLeapYear(p, prayerCloneYear)) // filter 2/29 if not leap
                     .map(p -> p.toBuilder().build()) // Create Prayer clone
-                    .map(p -> this.updatePrayerYear(p, prayerCloneYear))
+                    .map(p -> this.updatePrayerYear(p, prayerCloneYear)) //
                     .map(p -> this.gregorianToHijri(p, 1)) // todo: get adjust days from centralControl.customConfiguration
-                    .map(p -> this.hijriToHijriString(p))
+                    .map(this::hijriToHijriString)
                     .collect(Collectors.toList());
 
             prayers3Copies.addAll(prayersClone);
             yearAdd++;
         }
 
-
+        // SLICE AND GROUP BY MONTH
         // Calculate limits
-
         Date[] limits = calculateLimits(calenderType, userYear, userMonth, hijriAdjustDays);
 
-        System.out.println(limits);
+        MonthGroupingCollectorFunction monthGroupingCollectorFunction = new MonthGroupingCollectorFunction(calenderType);
 
+        Map<String, List<Prayer>> prayersMonthGroups = prayers3Copies
+                .stream()
+                .filter(p -> p.getDate().after(limits[0]) || p.getDate().before(limits[1]))
+                .collect(Collectors.groupingBy(monthGroupingCollectorFunction));
 
+        System.out.println(prayersMonthGroups);
 
         /*
 
@@ -158,8 +158,6 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
                 Add clonePrayer to prayers3Copies
             loopYear++;
 
-
-
         SLICE prayers3Copies
 
         List<Prayer> prayerSlice;
@@ -168,14 +166,6 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
 
 
         GROUP BY
-
-
-
-
-
-
-
-
 
         if gregorian
             update prayer with the year that is passed
@@ -208,13 +198,6 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
             if CalenderType.hijri
 
 
-
-
-
-
-
-
-
         return map
 
          */
@@ -230,19 +213,23 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
             beginLimit = GregorianDate
                     .of(calenderType, userYear, 1, 1)
                     .plusDays(-1)
+                    .plusHijriAdjustDays(hijriAdjustDays)
                     .create();
             endLimit = GregorianDate
                     .of(calenderType, userYear, 1,1)
                     .plusYear(1)
+                    .plusHijriAdjustDays(hijriAdjustDays)
                     .create();
         } else {
             beginLimit = GregorianDate
                     .of(calenderType, userYear, userMonth, 1)
                     .plusDays(-1)
+                    .plusHijriAdjustDays(hijriAdjustDays)
                     .create();
             endLimit = GregorianDate
                     .of(calenderType, userYear, userMonth,1)
                     .plusMonth(1)
+                    .plusHijriAdjustDays(hijriAdjustDays)
                     .create();
         }
         /*
@@ -280,11 +267,11 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
     }
 
     private Prayer hijriToHijriString(Prayer prayer) {
-        return null;
+        return prayer;
     }
 
-    private Prayer gregorianToHijri(Prayer p, int adjustDays) {
-        return null;
+    private Prayer gregorianToHijri(Prayer prayer, int hijriAdjustDays) {
+        return prayer;
     }
 
     private boolean include229onlyIfLeapYear(Prayer prayer, int year) {
