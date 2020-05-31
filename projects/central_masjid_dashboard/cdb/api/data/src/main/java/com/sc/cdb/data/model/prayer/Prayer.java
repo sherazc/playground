@@ -4,6 +4,7 @@ import java.time.chrono.HijrahDate;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sc.cdb.data.common.util.Constants;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +21,7 @@ public class Prayer implements Cloneable {
 
     @JsonFormat(pattern= Constants.DATE_TIME_FORMAT)
     private Date date;
+    @JsonIgnore
     private HijrahDate hijrahDate;
     private String hijriString;
     private String fajr;

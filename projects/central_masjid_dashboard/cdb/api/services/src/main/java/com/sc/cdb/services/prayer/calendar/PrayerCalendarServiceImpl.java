@@ -3,6 +3,7 @@ package com.sc.cdb.services.prayer.calendar;
 import java.time.LocalDate;
 import java.time.chrono.HijrahDate;
 import java.time.chrono.IsoChronology;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -22,6 +23,7 @@ import com.sc.cdb.data.repository.PrayerConfigRepository;
 import com.sc.cdb.services.bulk.PrayerValidator;
 import com.sc.cdb.services.common.DateTimeCalculator;
 import com.sc.cdb.services.common.GregorianDate;
+import com.sc.cdb.services.common.GregorianHijriConverter;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.services.prayer.PrayerComparator;
 import com.sc.cdb.utils.CommonUtils;
@@ -31,17 +33,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class PrayerCalendarServiceImpl implements PrayerCalendarService {
 
+    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+
     private PrayerConfigRepository prayerConfigRepository;
     private PrayerValidator prayerValidator;
     private PrayerComparator prayerComparator;
+    private GregorianHijriConverter gregorianHijriConverter;
+
 
     public PrayerCalendarServiceImpl(
             PrayerConfigRepository prayerConfigRepository,
             PrayerValidator prayerValidator,
-            PrayerComparator prayerComparator) {
+            PrayerComparator prayerComparator,
+            GregorianHijriConverter gregorianHijriConverter) {
         this.prayerConfigRepository = prayerConfigRepository;
         this.prayerValidator = prayerValidator;
         this.prayerComparator = prayerComparator;
+        this.gregorianHijriConverter = gregorianHijriConverter;
     }
 
     @Override
@@ -55,13 +63,19 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
             return response.build();
         }
 
-        if (userYear < 0 || userYear > 3000) {
-            response.message("Invalid year. " + userYear);
+        // http://sbmt.jhuapl.edu/releases/test/sbmt/jre/lib/hijrah-config-umalqura.properties
+        if (calenderType == CalenderType.hijri && (userYear < 1302 || userYear > 1599)) {
+            response.message(String.format("Invalid hijri year %s. Hijri year should be between 1302 and 1599. ", userYear));
+            return response.build();
+        }
+
+        if (calenderType == CalenderType.gregorian && (userYear < 1882 || userYear > 2182)) {
+            response.message(String.format("Invalid year %s. Year should be between 1802 and 2182.", userYear));
             return response.build();
         }
 
         if (userMonth < 0 || userMonth > 12) {
-            response.message("Invalid month. " + userYear);
+            response.message(String.format("Invalid month %s. Month should be from 1 to 12.", userMonth));
             return response.build();
         }
 
@@ -109,8 +123,8 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
             List<Prayer> prayersClone = sortedPrayers.stream()
                     .filter(p -> this.include229onlyIfLeapYear(p, prayerCloneYear)) // filter 2/29 if not leap
                     .map(p -> p.toBuilder().build()) // Create Prayer clone
-                    .map(p -> this.updatePrayerYear(p, prayerCloneYear)) //
-                    .map(p -> this.gregorianToHijri(p, 1)) // todo: get adjust days from centralControl.customConfiguration
+                    .map(p -> this.updatePrayerYear(p, prayerCloneYear)) // year to series year
+                    .map(p -> this.gregorianToHijri(p, hijriAdjustDays)) // set Hijrah date
                     .map(this::hijriToHijriString)
                     .collect(Collectors.toList());
 
@@ -287,10 +301,19 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
     }
 
     private Prayer hijriToHijriString(Prayer prayer) {
+        if (prayer.getHijrahDate() != null) {
+            String hijriString = dateFormatter.format(prayer.getHijrahDate());
+            prayer.setHijriString(hijriString);
+        }
         return prayer;
     }
 
     private Prayer gregorianToHijri(Prayer prayer, int hijriAdjustDays) {
+        if (prayer.getDate() != null) {
+            HijrahDate hijrahDate = gregorianHijriConverter.fromGregorian(prayer.getDate());
+            HijrahDate hijrahDateWithAdjustDays = hijrahDate.plus(hijriAdjustDays, ChronoUnit.DAYS);
+            prayer.setHijrahDate(hijrahDateWithAdjustDays);
+        }
         return prayer;
     }
 
@@ -304,9 +327,6 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
         int month = calendar.get(Calendar.MONTH);
         int date = calendar.get(Calendar.DATE);
         boolean febTwentyNine = month == 1 && date == 29;
-        if (febTwentyNine) {
-            System.out.println("found leap year date.");
-        }
         return !febTwentyNine;
     }
 
