@@ -18,6 +18,10 @@
 		{
 			"name": "clock_type",
 			"value": "1"
+		},
+		{
+			"name": "hijri_adjust_days",
+			"value": 1
 		}
 	],
 	"events": [

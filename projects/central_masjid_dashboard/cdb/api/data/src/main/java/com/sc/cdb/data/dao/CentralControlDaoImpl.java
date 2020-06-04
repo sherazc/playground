@@ -5,9 +5,12 @@ import java.util.List;
 import com.mongodb.client.result.UpdateResult;
 import com.sc.cdb.data.model.cc.CentralControl;
 import com.sc.cdb.data.model.cc.CentralControlCompany;
+import com.sc.cdb.data.model.cc.CustomConfiguration;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.Fields;
+import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -35,6 +38,56 @@ public class CentralControlDaoImpl extends BaseDaoImpl<CentralControl> implement
         .getMappedResults();
   }
 
+  /*
+
+companyId = "5da2632ef2a2337a5fd916d3";
+configName = "hijri_adjust_days";
+
+db.getCollection('centralControl').aggregate([
+   { $match : {"companyId": ObjectId(companyId)} },
+   { $unwind : "$customConfigurations"},
+   { $project : {
+            _id: 0,
+            companyId: 1,
+            name : "$customConfigurations.name",
+            value : "$customConfigurations.value",
+        }
+    },
+    { $match : {"name" : configName} },
+]);
+
+   */
+
+  @Override
+  public List<CustomConfiguration> findCustomConfigurationByCompanyIdConfigName(ObjectId companyId, String configName) {
+    Criteria companyIdCriteria = Criteria
+            .where("companyId")
+            .is(companyId);
+
+    Criteria configNameCriteria = Criteria
+            .where("name")
+            .is(configName);
+
+
+    ProjectionOperation project = Aggregation.project(Fields.from(
+            Fields.field("name", "$customConfigurations.name"),
+            Fields.field("value", "$customConfigurations.value")));
+
+    Aggregation aggregation = Aggregation.newAggregation(
+            Aggregation.match(companyIdCriteria),
+            Aggregation.unwind("$customConfigurations"),
+            project,
+            Aggregation.match(configNameCriteria)
+    );
+
+    return this.getMongoTemplate()
+            .aggregate(
+                    aggregation,
+                    "centralControl",
+                    CustomConfiguration.class)
+            .getMappedResults();
+  }
+
   @Override
   public boolean isCentralControlExists(String companyId) {
     return this.getMongoTemplate().exists(
@@ -44,7 +97,7 @@ public class CentralControlDaoImpl extends BaseDaoImpl<CentralControl> implement
 
   // Do it PrayerDao
   @Deprecated
-  @Override
+  // @Override
   public boolean updatePrayerConfig(String companyId, PrayerConfig prayerConfig) {
     Query query = createCompanyIdQuery(companyId);
     Update update = new Update().set("prayerConfig", prayerConfig);

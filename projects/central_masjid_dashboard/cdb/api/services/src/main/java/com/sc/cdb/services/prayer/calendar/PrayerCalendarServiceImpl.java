@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.sc.cdb.data.dao.CentralControlDao;
+import com.sc.cdb.data.model.cc.CustomConfiguration;
 import com.sc.cdb.data.model.prayer.CalenderType;
 import com.sc.cdb.data.model.prayer.Month;
 import com.sc.cdb.data.model.prayer.MonthPrayers;
@@ -39,17 +41,20 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
     private PrayerValidator prayerValidator;
     private PrayerComparator prayerComparator;
     private GregorianHijriConverter gregorianHijriConverter;
+    private CentralControlDao centralControlDao;
 
 
     public PrayerCalendarServiceImpl(
             PrayerConfigRepository prayerConfigRepository,
             PrayerValidator prayerValidator,
             PrayerComparator prayerComparator,
-            GregorianHijriConverter gregorianHijriConverter) {
+            GregorianHijriConverter gregorianHijriConverter,
+            CentralControlDao centralControlDao) {
         this.prayerConfigRepository = prayerConfigRepository;
         this.prayerValidator = prayerValidator;
         this.prayerComparator = prayerComparator;
         this.gregorianHijriConverter = gregorianHijriConverter;
+        this.centralControlDao = centralControlDao;
     }
 
     @Override
@@ -297,6 +302,11 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
     }
 
     private int getHijriAdjustDays(String companyId) {
+
+        List<CustomConfiguration> customConfigurations = centralControlDao
+                .findCustomConfigurationByCompanyIdConfigName(new ObjectId(companyId), "hijri_adjust_days");
+
+        System.out.println(customConfigurations);
         return 1;
     }
 

@@ -120,3 +120,37 @@ db.getCollection('prayerConfig').find({"companyId": ObjectId(companyId)});
 db.getCollection('user').find({"companyId": ObjectId(companyId)});
 
 
+// Find centralControl.customConfiguration by companyId and centralControl.customConfiguration.name
+companyId = "5da2632ef2a2337a5fd916d3";
+configName = "hijri_adjust_days";
+
+db.getCollection('centralControl').aggregate([
+   { $match : {"companyId": ObjectId(companyId)} },
+   { $unwind : "$customConfigurations"},
+   { $project : {
+            _id: 0,
+            companyId: 1,
+            name : "$customConfigurations.name",
+            value : "$customConfigurations.value",
+        }
+    },
+    { $match : {"name" : configName} },
+]);
+
+
+// update customCustomConfiguration value
+// by below companyId and configName
+companyId = "5da2632ef2a2337a5fd916d3";
+configName = "hijri_adjust_days";
+configValue = 1;
+
+db.getCollection('centralControl').update(
+    {
+        "companyId": ObjectId(companyId),
+        "customConfigurations.name" : configName    
+    },
+    {$set:{
+        "customConfigurations.$.value" : configValue
+    }}
+);
+
