@@ -112,7 +112,7 @@ db.getCollection('company').aggregate([
 ]);
 
 
-let companyId = "5da2632ef2a2337a5fd916d3";
+var companyId = "5da2632ef2a2337a5fd916d3";
 
 db.getCollection("company").find({"_id": ObjectId(companyId)});
 db.getCollection('centralControl').find({"companyId": ObjectId(companyId)});
@@ -134,7 +134,7 @@ db.getCollection('centralControl').aggregate([
             value : "$customConfigurations.value",
         }
     },
-    { $match : {"name" : configName} },
+    { $match : {"name" : confiCusCgName} },
 ]);
 
 

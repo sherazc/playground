@@ -14,7 +14,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.sc.cdb.data.dao.CentralControlDao;
 import com.sc.cdb.data.model.cc.CustomConfiguration;
 import com.sc.cdb.data.model.prayer.CalenderType;
 import com.sc.cdb.data.model.prayer.Month;
@@ -23,6 +22,7 @@ import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.data.repository.PrayerConfigRepository;
 import com.sc.cdb.services.bulk.PrayerValidator;
+import com.sc.cdb.services.common.CustomConfigurationsService;
 import com.sc.cdb.services.common.DateTimeCalculator;
 import com.sc.cdb.services.common.GregorianDate;
 import com.sc.cdb.services.common.GregorianHijriConverter;
@@ -41,7 +41,7 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
     private PrayerValidator prayerValidator;
     private PrayerComparator prayerComparator;
     private GregorianHijriConverter gregorianHijriConverter;
-    private CentralControlDao centralControlDao;
+    private CustomConfigurationsService customConfigurationsService;
 
 
     public PrayerCalendarServiceImpl(
@@ -49,12 +49,12 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
             PrayerValidator prayerValidator,
             PrayerComparator prayerComparator,
             GregorianHijriConverter gregorianHijriConverter,
-            CentralControlDao centralControlDao) {
+            CustomConfigurationsService customConfigurationsService) {
         this.prayerConfigRepository = prayerConfigRepository;
         this.prayerValidator = prayerValidator;
         this.prayerComparator = prayerComparator;
         this.gregorianHijriConverter = gregorianHijriConverter;
-        this.centralControlDao = centralControlDao;
+        this.customConfigurationsService = customConfigurationsService;
     }
 
     @Override
@@ -302,12 +302,7 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
     }
 
     private int getHijriAdjustDays(String companyId) {
-
-        List<CustomConfiguration> customConfigurations = centralControlDao
-                .findCustomConfigurationByCompanyIdConfigName(new ObjectId(companyId), "hijri_adjust_days");
-
-        System.out.println(customConfigurations);
-        return 1;
+        return customConfigurationsService.getIntConfig(companyId, "hijri_adjust_days", 0);
     }
 
     private Prayer hijriToHijriString(Prayer prayer) {
