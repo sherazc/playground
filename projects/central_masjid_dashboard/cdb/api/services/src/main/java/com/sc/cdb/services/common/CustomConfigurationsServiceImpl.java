@@ -21,7 +21,7 @@ public class CustomConfigurationsServiceImpl implements CustomConfigurationsServ
     @Override
     public int getIntConfig(String companyId, String configName, int defaultValue) {
         String value = this.getStringConfig(companyId, configName, Integer.toString(defaultValue));
-        return NumberUtils.toInt(value);
+        return (int) NumberUtils.toDouble(value); // NumberUtils.toInt("1.0") return 0
     }
 
     @Override
