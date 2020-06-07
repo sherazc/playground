@@ -316,7 +316,7 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
     private Prayer gregorianToHijri(Prayer prayer, int hijriAdjustDays) {
         if (prayer.getDate() != null) {
             HijrahDate hijrahDate = gregorianHijriConverter.fromGregorian(prayer.getDate());
-            HijrahDate hijrahDateWithAdjustDays = hijrahDate.plus(hijriAdjustDays, ChronoUnit.DAYS);
+            HijrahDate hijrahDateWithAdjustDays = hijrahDate.plus(hijriAdjustDays * -1, ChronoUnit.DAYS);
             prayer.setHijrahDate(hijrahDateWithAdjustDays);
         }
         return prayer;

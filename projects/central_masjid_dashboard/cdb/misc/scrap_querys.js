@@ -134,7 +134,7 @@ db.getCollection('centralControl').aggregate([
             value : "$customConfigurations.value",
         }
     },
-    { $match : {"name" : confiCusCgName} },
+    { $match : {"name" : configName} },
 ]);
 
 
@@ -142,7 +142,7 @@ db.getCollection('centralControl').aggregate([
 // by below companyId and configName
 companyId = "5da2632ef2a2337a5fd916d3";
 configName = "hijri_adjust_days";
-configValue = 1;
+configValue = 0;
 
 db.getCollection('centralControl').update(
     {
