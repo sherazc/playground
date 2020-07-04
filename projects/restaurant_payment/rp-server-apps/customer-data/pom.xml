@@ -8,20 +8,20 @@
         <version>${revision}</version>
     </parent>
 
-    <groupId>com.sc.rp.app.system</groupId>
-    <artifactId>system-app</artifactId>
+    <groupId>com.sc.rp.data.customer</groupId>
+    <artifactId>customer-data</artifactId>
     <version>${revision}</version>
-    <name>system-app</name>
+    <name>customer-data</name>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.sc.rp.lib.common</groupId>
-            <artifactId>common-lib</artifactId>
-            <version>${revision}</version>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 </project>
