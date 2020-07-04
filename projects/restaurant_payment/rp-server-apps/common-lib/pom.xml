@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <artifactId>rp-server</artifactId>
+    <groupId>com.sc.rp</groupId>
+    <version>${revision}</version>
+  </parent>
+
+  <groupId>com.sc.rp.lib.common</groupId>
+  <artifactId>common-lib</artifactId>
+  <version>${revision}</version>
+  <name>common-lib</name>
+</project>

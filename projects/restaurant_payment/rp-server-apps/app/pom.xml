@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.sc.rp</groupId>
+		<artifactId>rp-server</artifactId>
+		<version>${revision}</version>
+	</parent>
+	<groupId>com.sc.rp.app</groupId>
+	<artifactId>app</artifactId>
+	<version>${revision}</version>
+	<name>app</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.sc.rp.app.system</groupId>
+			<artifactId>system-app</artifactId>
+			<version>${revision}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sc.rp.app.customer</groupId>
+			<artifactId>customer-pos-api-app</artifactId>
+			<version>${revision}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sc.rp.app.fulfilment</groupId>
+			<artifactId>fulfilment-api-app</artifactId>
+			<version>${revision}</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>rp-app-${revision}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+</project>
