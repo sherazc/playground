@@ -6,7 +6,7 @@
 		<artifactId>rp-server</artifactId>
 		<version>${revision}</version>
 	</parent>
-	<groupId>com.sc.rp.app</groupId>
+	<groupId>com.sc.rp.app.main</groupId>
 	<artifactId>app</artifactId>
 	<version>${revision}</version>
 	<name>app</name>

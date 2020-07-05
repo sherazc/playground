@@ -1,4 +1,4 @@
-package com.sc.rp.app;
+package com.sc.rp.app.main;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
