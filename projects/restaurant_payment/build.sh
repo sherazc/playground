@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
+echo "==============="
+echo "==== BUILD ===="
+echo "==============="
+
 
 # Build rp-server
 cd rp-server
 ./mvnw clean install
-docker build . -t rp-server-image
+docker build . -t rp-image
 cd ..
 
 

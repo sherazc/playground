@@ -1,10 +1,22 @@
 #!/usr/bin/env bash
+echo "=================="
+echo "==== CLEANING ===="
+echo "=================="
 
-# Cleaning dockers
-docker container rm -f rp-server-container
-docker rmi rp-server-image
+echo "==== Deleting containers ===="
+docker container rm -f rp-container
+
+echo "==== deleting app-mount ===="
+rm -rf app-mount
+
+echo "==== deleting docker images ===="
+docker rmi rp-image
 # docker rmi openjdk:13-jdk-alpine
 
+echo "==== deleting docker network ===="
+docker network rm rp-network
+
+echo "==== Cleaning code ===="
 cd rp-server
 ./mvnw clean
 cd ..
