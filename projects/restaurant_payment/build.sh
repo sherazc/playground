@@ -3,10 +3,16 @@ echo "==============="
 echo "==== BUILD ===="
 echo "==============="
 
+echo "==== Build rp-db-image ===="
+cd rp-db
+docker build . -t rp-db-image
+cd ..
 
-# Build rp-server
+
+echo "==== Building rp-server ===="
 cd rp-server
 ./mvnw clean install
+echo "==== Building rp-image ===="
 docker build . -t rp-image
 cd ..
 

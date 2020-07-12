@@ -1,17 +1,27 @@
 #!/usr/bin/env bash
+# Do not run this script on Production. This script cleans
+# - containers,
+# - development docker binding mounts,
+# - docker images,
+# - docker network,
+# - built code
+
 echo "=================="
 echo "==== CLEANING ===="
 echo "=================="
 
 echo "==== Deleting containers ===="
 docker container rm -f rp-container
+docker container rm -f rp-db-container
 
 echo "==== deleting app-mount ===="
-rm -rf app-mount
+# rm -rf app-mount
 
 echo "==== deleting docker images ===="
 docker rmi rp-image
+docker rmi rp-db-image
 # docker rmi openjdk:13-jdk-alpine
+# docker rmi mysql:5.7
 
 echo "==== deleting docker network ===="
 docker network rm rp-network
