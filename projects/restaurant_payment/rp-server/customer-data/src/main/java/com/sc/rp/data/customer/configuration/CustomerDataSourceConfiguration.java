@@ -1,5 +1,5 @@
 package com.sc.rp.data.customer.configuration;
-
+/*
 import com.sc.rp.data.customer.entity.Customer;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -53,3 +53,4 @@ public class CustomerDataSourceConfiguration {
 
 
 }
+*/

@@ -2,18 +2,17 @@ package com.sc.rp.app.system.controller;
 
 import java.util.List;
 
-import com.sc.rp.data.customer.entity.Customer;
-import com.sc.rp.data.customer.repository.CustomerRepository;
+import com.sc.rp.data.system.entity.Company;
+import com.sc.rp.data.system.repository.CompanyRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
+    private CompanyRepository companyRepository;
 
-    private CustomerRepository customerRepository;
-
-    public HomeController(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
+    public HomeController(CompanyRepository companyRepository) {
+        this.companyRepository = companyRepository;
     }
 
     @GetMapping({"/", "/home"})
@@ -21,10 +20,11 @@ public class HomeController {
         return "home";
     }
 
-    @GetMapping({"/customers"})
-    public List<Customer> getCustomers() {
-        return customerRepository.findAll();
+    @GetMapping({"/companies"})
+    public List<Company> getCompanies() {
+        return companyRepository.findAll();
     }
+
 
 
 }

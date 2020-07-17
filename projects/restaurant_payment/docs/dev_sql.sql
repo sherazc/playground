@@ -27,6 +27,6 @@ select * from customer_db.customer;
 insert into system_db.company(name)
 values('Company 1');
 
-select * from system_db.company;
+select * from system_db.Company;
 
 
