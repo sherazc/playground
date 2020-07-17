@@ -15,7 +15,7 @@ docker container rm -f rp-container
 docker container rm -f rp-db-container
 
 echo "==== deleting app-mount ===="
-# rm -rf app-mount
+rm -rf app-mount
 
 echo "==== deleting docker images ===="
 docker rmi rp-image

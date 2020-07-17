@@ -9,6 +9,7 @@ docker run \
   --env="MYSQL_ROOT_PASSWORD=password" \
   -v $PWD/app-mount/mysql-data:/var/lib/mysql \
   --network rp-network \
-  rp-db-image
+  rp-db-image \
+  --lower_case_table_names=1
 
 date

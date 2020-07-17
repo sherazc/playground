@@ -11,4 +11,5 @@ EXPOSE 8086
 ARG JAR_FILE=app/target/*.jar
 COPY ${JAR_FILE} app.jar
 
-ENTRYPOINT ["java","-jar","/app.jar"]
+# Runing it in run command becasue it was not taking program argument --spring.profiles.active
+# ENTRYPOINT ["java","-jar","/app.jar"]

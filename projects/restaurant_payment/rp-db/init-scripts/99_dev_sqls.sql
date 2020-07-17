@@ -14,3 +14,10 @@ create table if not exists company
     id   integer auto_increment primary key,
     name varchar(255)
 );
+
+
+insert into customer_db.customer(name)
+values('Customer 1');
+
+insert into system_db.company(name)
+values('Company 1');

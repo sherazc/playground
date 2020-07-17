@@ -6,6 +6,7 @@ import com.sc.rp.data.system.entity.Company;
 import com.sc.rp.data.system.repository.CompanyRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class HomeController {
@@ -21,7 +22,8 @@ public class HomeController {
     }
 
     @GetMapping({"/companies"})
-    public List<Company> getCompanies() {
+    public @ResponseBody
+    List<Company> getCompanies() {
         return companyRepository.findAll();
     }
 

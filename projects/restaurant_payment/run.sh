@@ -26,7 +26,8 @@ docker run -itd \
   -p 8086:8086 \
   -v $PWD/app-mount:/app-mount \
   --network rp-network \
-  rp-image
+  rp-image \
+  sh -c "java -jar -Dspring.profiles.active=docker app.jar"
 
 docker ps -a
 
