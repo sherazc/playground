@@ -27,5 +27,15 @@
             <artifactId>common-lib</artifactId>
             <version>${revision}</version>
         </dependency>
+        <dependency>
+            <groupId>com.sc.rp.data.customer</groupId>
+            <artifactId>customer-data</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sc.rp.data.system</groupId>
+            <artifactId>system-data</artifactId>
+            <version>${revision}</version>
+        </dependency>
     </dependencies>
 </project>
