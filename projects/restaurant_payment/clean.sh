@@ -34,8 +34,7 @@ cd ..
 date
 
 
-## Clean Logs
-#rm rf misc/logs/*.log
+## Clean Logs#rm rf misc/logs/*.log
 #rm -rf misc/logs/archived
 #mkdir misc/logs/archived
 #
