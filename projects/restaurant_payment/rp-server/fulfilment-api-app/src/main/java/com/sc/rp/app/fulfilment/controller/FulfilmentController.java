@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class FulfilmentController {
-    @GetMapping
+    @GetMapping("/v1/temp-fulfilment")
     public List<Customer> getAllCustomer() {
         return Arrays.asList(
                 new Customer(1L, "C1 fulfilment"),
