@@ -99,7 +99,7 @@ FOREIGN KEY (company_id)
 REFERENCES company(id);
 
 
--- company_user_role
+-- company_user_role @ManyToMany
 create table if not exists company_user_role (
     id integer auto_increment primary key,
 	company_id integer,
