@@ -42,7 +42,7 @@ create table if not exists product (
     id integer auto_increment primary key,
     name varchar(255),
     price double,
-    customer_id integer NOT NULL
+    company_id integer NOT NULL
 );
 
 -- order_line_item
