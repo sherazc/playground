@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <th:block th:replace="~{fragments/common-head-elements :: common-head-elements}"></th:block>
+    <th:block th:replace="~{fragments/common-head-elements :: common-head-elements}"/>
     <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Restaurant Payment</title>
 </head>
 <body>
@@ -22,5 +22,6 @@
         Footer Header
     </div>
 </footer>
+<th:block th:replace="~{fragments/common-js-scripts :: common-js-scripts}"/>
 </body>
 </html>
