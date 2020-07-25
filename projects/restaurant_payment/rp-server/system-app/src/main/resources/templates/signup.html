@@ -1,5 +1,7 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout01.html}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -8,6 +10,8 @@
     <title>Register</title>
 </head>
 <body>
-
+<div layout:fragment="content">
+    Signup content
+</div>
 </body>
 </html>
