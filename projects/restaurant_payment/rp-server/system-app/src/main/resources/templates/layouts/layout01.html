@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <th:block th:replace="~{fragments/common-head-elements :: common-head-elements}"></th:block>
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Restaurant Payment</title>
+</head>
+<body>
+<header>
+    <div th:replace="~{fragments/header01 :: header01}">
+        Static Header
+    </div>
+</header>
+<section>
+    <div layout:fragment="content">
+        <p>Static content</p>
+    </div>
+</section>
+<footer>
+    <div th:replace="~{fragments/footer01 :: footer01}">
+        Footer Header
+    </div>
+</footer>
+</body>
+</html>

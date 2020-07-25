@@ -23,10 +23,16 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
         <dependency>
+            <groupId>nz.net.ultraq.thymeleaf</groupId>
+            <artifactId>thymeleaf-layout-dialect</artifactId>
+            <version>2.4.1</version>
+        </dependency>
+        <dependency>
             <groupId>com.sc.rp.lib.common</groupId>
             <artifactId>common-lib</artifactId>
             <version>${revision}</version>
         </dependency>
+        <!-- Both customer and system data is available to system app -->
         <dependency>
             <groupId>com.sc.rp.data.customer</groupId>
             <artifactId>customer-data</artifactId>

@@ -14,7 +14,7 @@ public class CustomerController {
     @GetMapping("/v1/temp-customer")
     public List<Customer> getAllCustomer() {
         return Arrays.asList(
-                new Customer(1L, "C1 customer pos"),
-                new Customer(2L, "C2 customer pos"));
+                new Customer(),
+                new Customer());
     }
 }
