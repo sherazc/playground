@@ -1,1 +1,9 @@
-/* System main css*/
+header {
+    background-color: #bfcadb;
+    height: 60px;
+}
+
+footer {
+    background-color: #dbdbdb;
+    height: 100px;
+}

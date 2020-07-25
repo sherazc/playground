@@ -8,18 +8,24 @@
 </head>
 <body>
 <header>
-    <div th:replace="~{fragments/header01 :: header01}">
-        Static Header
+    <div class="container">
+        <div th:replace="~{fragments/header01 :: header01}">
+            Static Header
+        </div>
     </div>
 </header>
 <section>
-    <div layout:fragment="content">
-        <p>Static content</p>
+    <div class="container">
+        <div layout:fragment="content">
+            <p>Static content</p>
+        </div>
     </div>
 </section>
 <footer>
-    <div th:replace="~{fragments/footer01 :: footer01}">
-        Footer Header
+    <div class="container">
+        <div th:replace="~{fragments/footer01 :: footer01}">
+            Footer Header
+        </div>
     </div>
 </footer>
 <th:block th:replace="~{fragments/common-js-scripts :: common-js-scripts}"/>
