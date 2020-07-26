@@ -23,6 +23,10 @@ public class Company {
     private Long id;
     private String name;
     private String phone;
+    private String street;
+    private String city;
+    private String state;
+    private String zip;
 
     @Column(nullable = false, columnDefinition = "TINYINT(1)")
     private Boolean active;

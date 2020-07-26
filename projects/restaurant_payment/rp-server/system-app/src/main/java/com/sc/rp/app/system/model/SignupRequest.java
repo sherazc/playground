@@ -8,4 +8,5 @@ import lombok.Data;
 public class SignupRequest {
     private Company company;
     private CompanyUser companyUser;
+    private Long pricingPlanId;
 }

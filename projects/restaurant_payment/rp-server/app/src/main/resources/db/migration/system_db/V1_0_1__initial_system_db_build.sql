@@ -37,7 +37,11 @@ create table if not exists company (
     name varchar(255),
     phone varchar(255),
     active tinyint(1),
-	current_pricing_plan_id integer
+	current_pricing_plan_id integer,
+	street varchar(255),
+    city varchar(255),
+    state varchar(255),
+    zip varchar(255)
 );
 
 ALTER TABLE company 
