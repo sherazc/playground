@@ -13,32 +13,46 @@
 <div layout:fragment="content" class="row">
     <div class="col col-sm-6">
         <h1>Signup</h1>
-        <form>
+        <form th:object="${signupRequest}" method="post" action="#" th:action="@{/signup}"
+              oninput='confirmPassword.setCustomValidity(password.value != confirmPassword.value ? "Passwords do not match." : "")'>
             <h4>Admin User</h4>
 
             <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                <label for="firstName">First name</label>
+                <input th:field="*{companyUser.firstName}"
+                       type="email" class="form-control" id="firstName" placeholder="First Name" required>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last name</label>
+                <input th:field="*{companyUser.lastName}"
+                       type="email" class="form-control" id="lastName" placeholder="Last Name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input th:field="*{companyUser.email}"
+                       type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                       placeholder="Enter email" required>
                 <small id="emailHelp" class="form-text text-muted">Email will be used to login.</small>
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                <label for="password">Password</label>
+                <input th:field="*{companyUser.password}" type="password" class="form-control" id="password" placeholder="Enter password" required>
             </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
-
-            <h4>Restaurant</h4>
-
             <div class="form-group">
-                <label for="companyName">Restaurant Name</label>
-                <input type="text" class="form-control" id="companyName" aria-describedby="companyNameHelp" placeholder="Company Name">
-                <small id="companyNameHelp" class="form-text text-muted">Restaurant name</small>
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password">
             </div>
+            <hr/>
+            <!--
+                        <h4>Restaurant</h4>
 
-
+                        <div class="form-group">
+                            <label for="companyName">Restaurant Name</label>
+                            <input type="text" class="form-control" id="companyName" aria-describedby="companyNameHelp" placeholder="Company Name">
+                            <small id="companyNameHelp" class="form-text text-muted">Restaurant name</small>
+                        </div>
+            -->
+            <button type="submit" class="btn btn-primary">Submit</button>
 
         </form>
 
