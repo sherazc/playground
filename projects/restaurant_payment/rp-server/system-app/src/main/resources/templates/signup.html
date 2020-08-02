@@ -15,17 +15,17 @@
         <h1>Signup</h1>
         <form th:object="${signupRequest}" method="post" action="#" th:action="@{/signup}"
               oninput='confirmPassword.setCustomValidity(password.value != confirmPassword.value ? "Passwords do not match." : "")'>
-            <h4>Admin User</h4>
 
+            <h4>Admin User</h4>
             <div class="form-group">
                 <label for="firstName">First name</label>
                 <input th:field="*{companyUser.firstName}"
-                       type="email" class="form-control" id="firstName" placeholder="First Name" required>
+                       class="form-control" id="firstName" placeholder="First Name" required>
             </div>
             <div class="form-group">
                 <label for="lastName">Last name</label>
                 <input th:field="*{companyUser.lastName}"
-                       type="email" class="form-control" id="lastName" placeholder="Last Name" required>
+                       class="form-control" id="lastName" placeholder="Last Name" required>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
@@ -36,22 +36,53 @@
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input th:field="*{companyUser.password}" type="password" class="form-control" id="password" placeholder="Enter password" required>
+                <input th:field="*{companyUser.password}" type="password" class="form-control" id="password" placeholder="Enter password" >
             </div>
             <div class="form-group">
                 <label for="confirmPassword">Confirm Password</label>
                 <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password">
             </div>
             <hr/>
-            <!--
-                        <h4>Restaurant</h4>
+            <h4>Restaurant</h4>
+            <div class="form-group">
+                <label for="companyName">Restaurant name</label>
+                <input th:field="*{company.name}"
+                       class="form-control" id="companyName" placeholder="Restaurant Name" required>
+            </div>
+            <div class="form-group">
+                <label for="companyPhone">Phone</label>
+                <input th:field="*{company.phone}"
+                       class="form-control" id="companyPhone" placeholder="Phone" required>
+            </div>
+            <div class="form-group">
+                <label for="companyStreet">Street</label>
+                <input th:field="*{company.street}"
+                       class="form-control" id="companyStreet" placeholder="Street" required>
+            </div>
+            <div class="form-group">
+                <label for="companyCity">City</label>
+                <input th:field="*{company.city}"
+                       class="form-control" id="companyCity" placeholder="City" required>
+            </div>
+            <div class="form-group">
+                <label for="companyState">State</label>
+                <input th:field="*{company.state}"
+                       class="form-control" id="companyState" placeholder="State" required>
+            </div>
+            <div class="form-group">
+                <label for="companyZip">Zip code</label>
+                <input th:field="*{company.zip}"
+                       class="form-control" id="companyZip" placeholder="Zip code" required>
+            </div>
+            <h4>Strip Account</h4>
+            <div class="form-group">
+                <label for="bankAccount">Account number</label>
+                <input th:field="*{bank.stripAccount}"
+                       class="form-control" id="bankAccount" placeholder="Account number" required>
+            </div>
 
-                        <div class="form-group">
-                            <label for="companyName">Restaurant Name</label>
-                            <input type="text" class="form-control" id="companyName" aria-describedby="companyNameHelp" placeholder="Company Name">
-                            <small id="companyNameHelp" class="form-text text-muted">Restaurant name</small>
-                        </div>
-            -->
+
+
             <button type="submit" class="btn btn-primary">Submit</button>
 
         </form>
