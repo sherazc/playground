@@ -16,11 +16,19 @@
         <form th:object="${signupRequest}" method="post" action="#" th:action="@{/signup}"
               oninput='confirmPassword.setCustomValidity(password.value != confirmPassword.value ? "Passwords do not match." : "")'>
 
+            <b>Remove all error once form is complete</b>
+            <ul>
+                <li  th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+            </ul>
+
             <h4>Admin User</h4>
             <div class="form-group">
                 <label for="firstName">First name</label>
                 <input th:field="*{companyUser.firstName}"
+                       th:classappend="${not #lists.isEmpty(#fields.errors('companyUser.firstName'))} ? 'is-invalid'"
                        class="form-control" id="firstName" placeholder="First Name" required>
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('companyUser.firstName')}" th:errors="*{companyUser.firstName}">
+                </div>
             </div>
             <div class="form-group">
                 <label for="lastName">Last name</label>

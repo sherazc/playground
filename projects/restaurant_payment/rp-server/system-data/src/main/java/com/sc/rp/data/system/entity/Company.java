@@ -25,7 +25,7 @@ public class Company {
     private Long id;
 
     @NotNull
-    @Size(min=2, max=30)
+    @Size(min=2, max=30, message = "{company.name.invalid.length}")
     private String name;
     private String phone;
     private String street;

@@ -16,6 +16,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,9 +39,16 @@ public class CompanyUser {
     @Column(nullable = false, columnDefinition = "TINYINT(1)")
     private Boolean active;
 
+    @Size(min = 3, max = 30)
     private String firstName;
+
+    @Size(min = 3, max = 30)
     private String lastName;
+
+    @Email
     private String email;
+
+    @NotNull
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
