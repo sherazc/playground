@@ -27,24 +27,43 @@
                 <input th:field="*{companyUser.firstName}"
                        th:classappend="${not #lists.isEmpty(#fields.errors('companyUser.firstName'))} ? 'is-invalid'"
                        class="form-control" id="firstName" placeholder="First Name" required>
-                <div class="invalid-feedback" th:if="${#fields.hasErrors('companyUser.firstName')}" th:errors="*{companyUser.firstName}">
+                <div class="invalid-feedback"
+                     th:if="${#fields.hasErrors('companyUser.firstName')}"
+                     th:errors="*{companyUser.firstName}">
                 </div>
             </div>
             <div class="form-group">
                 <label for="lastName">Last name</label>
                 <input th:field="*{companyUser.lastName}"
+                       th:classappend="${not #lists.isEmpty(#fields.errors('companyUser.lastName'))} ? 'is-invalid'"
                        class="form-control" id="lastName" placeholder="Last Name" required>
+                <div class="invalid-feedback"
+                     th:if="${#fields.hasErrors('companyUser.lastName')}"
+                     th:errors="*{companyUser.lastName}">
+                </div>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
                 <input th:field="*{companyUser.email}"
+                       th:classappend="${not #lists.isEmpty(#fields.errors('companyUser.email'))} ? 'is-invalid'"
                        type="email" class="form-control" id="email" aria-describedby="emailHelp"
                        placeholder="Enter email" required>
                 <small id="emailHelp" class="form-text text-muted">Email will be used to login.</small>
+                <div class="invalid-feedback"
+                     th:if="${#fields.hasErrors('companyUser.email')}"
+                     th:errors="*{companyUser.email}">
+                </div>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input th:field="*{companyUser.password}" type="password" class="form-control" id="password" placeholder="Enter password" >
+                <input th:field="*{companyUser.password}"
+                       th:classappend="${not #lists.isEmpty(#fields.errors('companyUser.password'))} ? 'is-invalid'"
+                       type="password" class="form-control"
+                       id="password" placeholder="Enter password" >
+                <div class="invalid-feedback"
+                     th:if="${#fields.hasErrors('companyUser.password')}"
+                     th:errors="*{companyUser.password}">
+                </div>
             </div>
             <div class="form-group">
                 <label for="confirmPassword">Confirm Password</label>
@@ -55,32 +74,66 @@
             <div class="form-group">
                 <label for="companyName">Restaurant name</label>
                 <input th:field="*{company.name}"
+                       th:classappend="${not #lists.isEmpty(#fields.errors('company.name'))} ? 'is-invalid'"
                        class="form-control" id="companyName" placeholder="Restaurant Name" required>
+                <div class="invalid-feedback"
+                     th:if="${#fields.hasErrors('company.name')}"
+                     th:errors="*{company.name}">
+                </div>
             </div>
             <div class="form-group">
                 <label for="companyPhone">Phone</label>
                 <input th:field="*{company.phone}"
-                       class="form-control" id="companyPhone" placeholder="Phone" required>
+                       th:classappend="${not #lists.isEmpty(#fields.errors('company.phone'))} ? 'is-invalid'"
+                       class="form-control" id="companyPhone" aria-describedby="phoneHelp"
+                       placeholder="Phone" required>
+                <small id="phoneHelp" class="form-text text-muted">
+                    Enter 10 digits phone number. No spaces, -, () or #
+                </small>
+                <div class="invalid-feedback"
+                     th:if="${#fields.hasErrors('company.phone')}"
+                     th:errors="*{company.phone}">
+                </div>
             </div>
             <div class="form-group">
                 <label for="companyStreet">Street</label>
                 <input th:field="*{company.street}"
+                       th:classappend="${not #lists.isEmpty(#fields.errors('company.street'))} ? 'is-invalid'"
                        class="form-control" id="companyStreet" placeholder="Street" required>
+                <div class="invalid-feedback"
+                     th:if="${#fields.hasErrors('company.street')}"
+                     th:errors="*{company.street}">
+                </div>
             </div>
             <div class="form-group">
                 <label for="companyCity">City</label>
                 <input th:field="*{company.city}"
+                       th:classappend="${not #lists.isEmpty(#fields.errors('company.city'))} ? 'is-invalid'"
                        class="form-control" id="companyCity" placeholder="City" required>
+                <div class="invalid-feedback"
+                     th:if="${#fields.hasErrors('company.city')}"
+                     th:errors="*{company.city}">
+                </div>
             </div>
             <div class="form-group">
                 <label for="companyState">State</label>
                 <input th:field="*{company.state}"
+                       th:classappend="${not #lists.isEmpty(#fields.errors('company.city'))} ? 'is-invalid'"
                        class="form-control" id="companyState" placeholder="State" required>
+                <div class="invalid-feedback"
+                     th:if="${#fields.hasErrors('company.state')}"
+                     th:errors="*{company.state}">
+                </div>
             </div>
             <div class="form-group">
                 <label for="companyZip">Zip code</label>
                 <input th:field="*{company.zip}"
+                       th:classappend="${not #lists.isEmpty(#fields.errors('company.zip'))} ? 'is-invalid'"
                        class="form-control" id="companyZip" placeholder="Zip code" required>
+                <div class="invalid-feedback"
+                     th:if="${#fields.hasErrors('company.zip')}"
+                     th:errors="*{company.zip}">
+                </div>
             </div>
             <h4>Strip Account</h4>
             <div class="form-group">

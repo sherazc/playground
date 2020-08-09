@@ -1,7 +1,6 @@
 package com.sc.rp.data.system.entity;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -17,7 +16,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
@@ -39,16 +37,16 @@ public class CompanyUser {
     @Column(nullable = false, columnDefinition = "TINYINT(1)")
     private Boolean active;
 
-    @Size(min = 3, max = 30)
+    @Size(min = 1, max = 50, message = "{companyUser.firstName.invalid}")
     private String firstName;
 
-    @Size(min = 3, max = 30)
+    @Size(min = 1, max = 50, message = "{companyUser.lastName.invalid}")
     private String lastName;
 
-    @Email
+    @Email(message = "{companyUser.email.invalid}")
     private String email;
 
-    @NotNull
+    @Size(min = 8, max = 100, message = "{companyUser.password.invalid}")
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)

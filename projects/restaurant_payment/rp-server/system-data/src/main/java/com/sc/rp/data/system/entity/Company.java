@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
@@ -24,13 +24,21 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Size(min=2, max=30, message = "{company.name.invalid.length}")
+    @Size(min = 2, max = 60, message = "{company.name.invalid}")
     private String name;
+
+    @Pattern(regexp = "(^$|[0-9]{10})", message = "{company.phone.invalid}")
     private String phone;
+
+    @Size(min = 2, max = 60, message = "{company.street.invalid}")
     private String street;
+
+    @Size(min = 2, max = 60, message = "{company.city.invalid}")
     private String city;
+
     private String state;
+
+    @Size(min = 5, max = 10, message = "{company.zip.invalid}")
     private String zip;
 
     @Column(nullable = false, columnDefinition = "TINYINT(1)")
