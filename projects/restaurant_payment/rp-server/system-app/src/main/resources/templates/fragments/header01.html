@@ -9,9 +9,24 @@
 </head>
 <body>
 <div th:fragment="header01">
-    <a th:href="@{/}">Home</a>
-    |
-    <a th:href="@{/signup}">Signup</a>
+    <div class="row">
+        <div class="col-sm-6">
+            <a th:href="@{/}">Home</a>
+            |
+            <a th:href="@{/signup}">Signup</a>
+        </div>
+        <div class="col-sm-6">
+            <div style="text-align: right">
+                <a href="http://localhost:8084">Customer POS</a>
+                |
+                <a href="http://localhost:8086">Fulfilment</a>
+            </div>
+        </div>
+
+
+
+    </div>
+
 </div>
 </body>
 </html>
