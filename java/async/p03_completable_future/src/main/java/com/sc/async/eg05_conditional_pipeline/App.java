@@ -6,33 +6,34 @@ import com.sc.async.common.MyThreadUtils;
 
 public class App {
     public static void main(String[] args) {
+        // Create
         CompletableFuture<Integer> completableFuture = new CompletableFuture<>();
         int condition = ((int) (Math.random() * 10)) % 2;
 
+        // Defining
+        CompletableFuture<Integer> modifiedCompletableFuture;
         if (condition == 0) {
-            pipelineA(completableFuture);
+            modifiedCompletableFuture = pipelineA(completableFuture);
         } else {
-            pipelineB(completableFuture);
+            modifiedCompletableFuture = pipelineB(completableFuture);
         }
 
-        completableFuture.complete(10);
+        modifiedCompletableFuture
+                .thenAcceptAsync(System.out::println)
+                .thenRunAsync(() -> System.out.println("Done!"));
 
+        // Start
+        completableFuture.complete(10);
 
         // Sleeping so that non blocking tasks complete
         MyThreadUtils.sleep(2000);
     }
 
-    private static void pipelineA(CompletableFuture<Integer> completableFuture) {
-        completableFuture
-                .thenApplyAsync(i -> i * 3)
-                .thenAcceptAsync(System.out::println)
-                .thenRunAsync(() -> System.out.println("Done A!"));
+    private static CompletableFuture<Integer> pipelineA(CompletableFuture<Integer> completableFuture) {
+        return completableFuture.thenApplyAsync(i -> i * 3);
     }
 
-    private static void pipelineB(CompletableFuture<Integer> completableFuture) {
-        completableFuture
-                .thenApplyAsync(i -> i * 2)
-                .thenAcceptAsync(System.out::println)
-                .thenRunAsync(() -> System.out.println("Done B!"));
+    private static CompletableFuture<Integer> pipelineB(CompletableFuture<Integer> completableFuture) {
+        return completableFuture.thenApplyAsync(i -> i * 2);
     }
 }
