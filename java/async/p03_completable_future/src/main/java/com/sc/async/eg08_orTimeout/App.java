@@ -8,8 +8,8 @@ import com.sc.async.common.MyThreadUtils;
 public class App {
     public static void main(String[] args) {
         CompletableFuture
-                .supplyAsync(() -> longRunningStage())
-                .orTimeout( 1000, TimeUnit.MILLISECONDS) // Throws TimeoutException on timeout
+                .supplyAsync(() -> longRunningStage()) // Takes longer than timeout
+                .orTimeout(1000, TimeUnit.MILLISECONDS) // Throws TimeoutException on timeout
                 .exceptionally(throwable -> handleException(throwable))
                 .thenAccept(i -> System.out.println("Done " + i));
 
