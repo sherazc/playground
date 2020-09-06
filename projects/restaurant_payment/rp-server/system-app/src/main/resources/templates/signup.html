@@ -117,9 +117,14 @@
             </div>
             <div class="form-group">
                 <label for="companyState">State</label>
-                <input th:field="*{company.state}"
-                       th:classappend="${not #lists.isEmpty(#fields.errors('company.city'))} ? 'is-invalid'"
-                       class="form-control" id="companyState" placeholder="State" required>
+                <select th:field="*{company.state}"
+                        th:classappend="${not #lists.isEmpty(#fields.errors('company.city'))} ? 'is-invalid'"
+                        class="form-control" id="companyState" placeholder="State" required>
+                    <option th:each="state : ${T(com.sc.rp.lib.common.State).values()}"
+                            th:value="${state.abbreviation}"
+                            th:text="${state.name}">State
+                    </option>
+                </select>
                 <div class="invalid-feedback"
                      th:if="${#fields.hasErrors('company.state')}"
                      th:errors="*{company.state}">
@@ -141,14 +146,8 @@
                 <input th:field="*{bank.stripAccount}"
                        class="form-control" id="bankAccount" placeholder="Account number" required>
             </div>
-
-
-
             <button type="submit" class="btn btn-primary">Submit</button>
-
         </form>
-
-
     </div>
 </div>
 </body>
