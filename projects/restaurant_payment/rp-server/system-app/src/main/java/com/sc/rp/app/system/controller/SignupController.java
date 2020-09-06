@@ -25,9 +25,12 @@ public class SignupController {
     }
 
     @PostMapping("/signup")
-
     public String signUpSubmit(@Valid @ModelAttribute SignupRequest signupRequest, BindingResult errors, Model model) {
         model.addAttribute("signupRequest", signupRequest);
-        return "signup";
+        if (errors.hasErrors()) {
+            return "signup";
+        } else {
+            return "signup-confirm";
+        }
     }
 }
