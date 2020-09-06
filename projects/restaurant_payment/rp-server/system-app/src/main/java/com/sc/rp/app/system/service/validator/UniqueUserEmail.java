@@ -11,7 +11,7 @@ import javax.validation.Payload;
 @Constraint(validatedBy = UniqueCompanyValidator.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.FIELD })
-public @interface UniqueCompany {
+public @interface UniqueUserEmail {
     String message() default "{error.user.email.unique}";
 
     Class<?>[] groups() default {};
