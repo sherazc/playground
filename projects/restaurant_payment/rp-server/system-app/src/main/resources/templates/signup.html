@@ -75,7 +75,7 @@
                 <label for="companyName">Restaurant name</label>
                 <input th:field="*{company.name}"
                        th:classappend="${not #lists.isEmpty(#fields.errors('company.name'))} ? 'is-invalid'"
-                       class="form-control" id="companyName" placeholder="Restaurant Name" required>
+                       class="form-control" id="companyName" placeholder="Restaurant Name">
                 <div class="invalid-feedback"
                      th:if="${#fields.hasErrors('company.name')}"
                      th:errors="*{company.name}">

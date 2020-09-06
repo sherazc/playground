@@ -5,6 +5,7 @@ import javax.validation.ConstraintValidatorContext;
 
 import com.sc.rp.data.system.entity.Company;
 import com.sc.rp.data.system.repository.CompanyRepository;
+import com.sc.rp.lib.common.ValidatorUtils;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -14,14 +15,7 @@ public class UniqueCompanyValidator implements ConstraintValidator<UniqueCompany
 
     @Override
     public boolean isValid(Company company, ConstraintValidatorContext context) {
-        System.out.println(company);
-
-        boolean valid = false;
-        context.disableDefaultConstraintViolation();
-        context.buildConstraintViolationWithTemplate(context.getDefaultConstraintMessageTemplate())
-                .addPropertyNode( "name" ).addConstraintViolation();
-
-
+        ValidatorUtils.addPropertyNode(context, "name");
         return false;
     }
 }

@@ -12,4 +12,12 @@
   <artifactId>common-lib</artifactId>
   <version>${revision}</version>
   <name>common-lib</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+    </dependency>
+  </dependencies>
+
 </project>

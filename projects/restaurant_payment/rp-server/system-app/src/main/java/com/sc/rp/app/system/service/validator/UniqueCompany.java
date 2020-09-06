@@ -7,13 +7,12 @@ import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
-import javax.validation.Validator;
 
 @Constraint(validatedBy = UniqueCompanyValidator.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.FIELD })
 public @interface UniqueCompany {
-    String message() default "Company already exists";
+    String message() default "{error.company.unique}";
 
     Class<?>[] groups() default {};
 
