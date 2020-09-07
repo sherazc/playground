@@ -33,5 +33,5 @@ public class Bank {
     private Boolean active;
 
     @NotNull
-    private String stripAccount;
+    private String stripeAccount;
 }

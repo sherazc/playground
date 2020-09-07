@@ -70,7 +70,7 @@ create table if not exists bank (
     id integer auto_increment primary key,
     company_id integer,
     active tinyint(1),
-	strip_account varchar(255)
+	stripe_account varchar(255)
 );
 
 ALTER TABLE bank 

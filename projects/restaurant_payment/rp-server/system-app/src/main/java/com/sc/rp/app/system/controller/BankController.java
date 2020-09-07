@@ -18,7 +18,7 @@ public class BankController {
     public ResponseEntity<ServiceResponse<String>> validateBank(@Valid @RequestBody Bank bank) {
         // TODO Research on Strips and implement account validation service
         ServiceResponse.ServiceResponseBuilder<String> response = ServiceResponse.builder();
-        if ("000".equalsIgnoreCase(bank.getStripAccount())) {
+        if ("000".equalsIgnoreCase(bank.getStripeAccount())) {
             response.target("Bad Account").successful(false);
         } else {
             response.target("ABC123").successful(true);

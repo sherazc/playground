@@ -147,7 +147,7 @@
                     <div class="form-group">
                         <label for="bankAccount">Account number</label>
                         <div class="input-group">
-                            <input th:field="*{bank.stripAccount}" onkeydown="onEnterAccountNumber()"
+                            <input th:field="*{bank.stripeAccount}" onkeydown="onEnterAccountNumber()"
                                    class="form-control" id="bankAccount" placeholder="Account number" required>
                             <div class="input-group-append">
                                 <button id="validateAccountButton" onclick="validateAccount()" type="button" class="btn btn-primary" disabled>VALIDATE</button>
@@ -160,7 +160,9 @@
                 </div>
             </div>
 
-            Enter and Validate Strip Account before completing registration.
+            <div style="margin: 40px 0;">
+                Enter and validate Strip Account before completing registration.
+            </div>
             <button id="submitSignupButton" type="submit" class="btn btn-primary" disabled>SUBMIT</button>
         </form>
     </div>
