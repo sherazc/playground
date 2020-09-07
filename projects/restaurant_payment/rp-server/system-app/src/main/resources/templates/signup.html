@@ -8,6 +8,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Signup</title>
+    <script type="application/javascript" th:src="@{js/signup.js}"></script>
 </head>
 <body>
 <div layout:fragment="content" class="row">
@@ -140,13 +141,27 @@
                      th:errors="*{company.zip}">
                 </div>
             </div>
-            <h4>Strip Account</h4>
-            <div class="form-group">
-                <label for="bankAccount">Account number</label>
-                <input th:field="*{bank.stripAccount}"
-                       class="form-control" id="bankAccount" placeholder="Account number" required>
+            <h4>Stripe Account</h4>
+            <div class="row">
+                <div class="col col-sm-9">
+                    <div class="form-group">
+                        <label for="bankAccount">Account number</label>
+                        <div class="input-group">
+                            <input th:field="*{bank.stripAccount}" onkeydown="onEnterAccountNumber()"
+                                   class="form-control" id="bankAccount" placeholder="Account number" required>
+                            <div class="input-group-append">
+                                <button id="validateAccountButton" onclick="validateAccount()" type="button" class="btn btn-primary" disabled>VALIDATE</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-sm-3" id="bankValidStatus" style="background-color: #e7e7e7; text-align: center; vertical-align: center">
+                    Not validated
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+
+            Enter and Validate Strip Account before completing registration.
+            <button id="submitSignupButton" type="submit" class="btn btn-primary" disabled>SUBMIT</button>
         </form>
     </div>
 </div>
