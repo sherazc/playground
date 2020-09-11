@@ -23,12 +23,10 @@ public class Bank {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @NotNull
     @Column(nullable = false, columnDefinition = "TINYINT(1)")
     private Boolean active;
 

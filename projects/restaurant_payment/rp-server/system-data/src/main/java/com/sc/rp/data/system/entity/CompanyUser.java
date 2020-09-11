@@ -38,6 +38,7 @@ public class CompanyUser {
     private Boolean active;
 
     @Size(min = 1, max = 50, message = "{companyUser.firstName.invalid}")
+    @Column(name = "first_name")
     private String firstName;
 
     @Size(min = 1, max = 50, message = "{companyUser.lastName.invalid}")
