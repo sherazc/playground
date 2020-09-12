@@ -1,7 +1,5 @@
 package com.sc.rp.app.system.service;
 
-import javax.validation.Valid;
-
 import com.sc.rp.app.system.model.SignupRequest;
 import com.sc.rp.app.system.model.SignupResponse;
 import com.sc.rp.data.system.entity.Bank;

@@ -31,5 +31,6 @@ public class Bank {
     private Boolean active;
 
     @NotNull
+    @Column(name = "stripe_account")
     private String stripeAccount;
 }

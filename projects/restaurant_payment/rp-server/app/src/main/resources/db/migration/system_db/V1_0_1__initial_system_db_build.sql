@@ -145,3 +145,16 @@ ALTER TABLE company_invoice
 ADD CONSTRAINT company_invoice_pricing_plan_fk 
 FOREIGN KEY (pricing_plan_id) 
 REFERENCES pricing_plan(id);
+
+insert into pricing_plan
+(id, price, description, duration_days, active)
+values(100, 100.99, 'Silver Plan', 30, 1);
+
+insert into pricing_plan
+(id, price, description, duration_days, active)
+values(200, 200.99, 'Gold Plan', 180, 1);
+
+insert into pricing_plan
+(id, price, description, duration_days, active)
+values(300, 300.99, 'Silver Plan', 365, 1);
+

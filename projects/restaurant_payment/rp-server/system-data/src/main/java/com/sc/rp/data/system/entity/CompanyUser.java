@@ -42,6 +42,7 @@ public class CompanyUser {
     private String firstName;
 
     @Size(min = 1, max = 50, message = "{companyUser.lastName.invalid}")
+    @Column(name = "last_name")
     private String lastName;
 
     @Email(message = "{companyUser.email.invalid}")
