@@ -21,6 +21,7 @@ public class PricingPlan {
     private String name;
     private Double price;
     private String description;
+    @Column(name = "duration_days")
     private Integer durationDays;
     @Column(nullable = false, columnDefinition = "TINYINT(1)")
     private Boolean active;

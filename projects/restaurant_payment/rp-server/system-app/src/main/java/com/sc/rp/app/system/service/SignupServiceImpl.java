@@ -19,6 +19,7 @@ public class SignupServiceImpl implements SignupService {
     private CompanyRepository companyRepository;
     private CompanyUserRepository companyUserRepository;
     private BankRepository bankRepository;
+    private PricingPlanService pricingPlanService;
 
     @Override
     @Transactional
@@ -31,6 +32,9 @@ public class SignupServiceImpl implements SignupService {
         request.getBank().setCompany(company);
         Bank bank = bankRepository.save(request.getBank());
 
+        pricingPlanService
+                .findById(request.getPricingPlanId())
+                .ifPresent(company::setCurrentPricingPlan);
 
         SignupResponse signupResponse = new SignupResponse();
         signupResponse.setCompany(company);

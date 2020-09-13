@@ -45,6 +45,6 @@ public class SignupController {
     }
 
     private void populateSignupModel(Model model) {
-        model.addAttribute("pricingPlan", pricingPlanService.findAllActive());
+        model.addAttribute("pricingPlans", pricingPlanService.findAllActive());
     }
 }

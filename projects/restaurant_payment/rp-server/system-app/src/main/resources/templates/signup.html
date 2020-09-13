@@ -141,6 +141,25 @@
                      th:errors="*{company.zip}">
                 </div>
             </div>
+            <h4>Pricing Plan</h4>
+            <div class="form-group">
+                <label for="pricingPlanId">Pricing Plan</label>
+                <select th:field="*{pricingPlanId}"
+                        th:classappend="${not #lists.isEmpty(#fields.errors('pricingPlanId'))} ? 'is-invalid'"
+                        class="form-control" id="pricingPlanId" placeholder="Pricing Plan" required>
+
+                    <option th:each="pricingPlan : ${pricingPlans}"
+                            th:value="${pricingPlan.id}"
+                            th:text="${pricingPlan.name + ' - ' + pricingPlan.description}">
+                        Pricing Plan
+                    </option>
+
+                </select>
+                <div class="invalid-feedback"
+                     th:if="${#fields.hasErrors('pricingPlanId')}"
+                     th:errors="*{pricingPlanId}">
+                </div>
+            </div>
             <h4>Stripe Account</h4>
             <div class="row">
                 <div class="col col-sm-9">

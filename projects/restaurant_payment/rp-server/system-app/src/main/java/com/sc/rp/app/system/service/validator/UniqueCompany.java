@@ -12,7 +12,7 @@ import javax.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.FIELD })
 public @interface UniqueCompany {
-    String message() default "{error.user.email.unique}";
+    String message() default "{error.company.unique}";
 
     Class<?>[] groups() default {};
 

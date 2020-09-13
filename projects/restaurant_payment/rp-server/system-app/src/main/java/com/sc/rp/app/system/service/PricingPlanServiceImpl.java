@@ -1,6 +1,7 @@
 package com.sc.rp.app.system.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.sc.rp.data.system.entity.PricingPlan;
 import com.sc.rp.data.system.repository.PricingPlanRepository;
@@ -15,6 +16,14 @@ public class PricingPlanServiceImpl implements PricingPlanService {
 
     @Override
     public List<PricingPlan> findAllActive() {
-        return pricingPlanRepository.findByActiveTrue();
+        return pricingPlanRepository.findByActiveTrueOrderById();
+    }
+
+    @Override
+    public Optional<PricingPlan> findById(Long id) {
+        if (id == null) {
+            return Optional.empty();
+        }
+        return pricingPlanRepository.findById(id);
     }
 }

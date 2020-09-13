@@ -6,5 +6,5 @@ import com.sc.rp.data.system.entity.PricingPlan;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PricingPlanRepository extends JpaRepository<PricingPlan, Long> {
-    List<PricingPlan> findByActiveTrue();
+    List<PricingPlan> findByActiveTrueOrderById();
 }

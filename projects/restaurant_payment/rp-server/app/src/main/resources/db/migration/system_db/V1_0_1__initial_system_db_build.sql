@@ -147,14 +147,14 @@ FOREIGN KEY (pricing_plan_id)
 REFERENCES pricing_plan(id);
 
 insert into pricing_plan
-(id, price, description, duration_days, active)
-values(100, 100.99, 'Silver Plan', 30, 1);
+(id, name, price, description, duration_days, active)
+values(100, 'Silver Plan', 95.95, '$95.95 for 30 days', 30, 1);
 
 insert into pricing_plan
-(id, price, description, duration_days, active)
-values(200, 200.99, 'Gold Plan', 180, 1);
+(id, name, price, description, duration_days, active)
+values(200, 'Gold Plan', 195.95, '$195.95 for 180 days. 20% Discount.', 180, 1);
 
 insert into pricing_plan
-(id, price, description, duration_days, active)
-values(300, 300.99, 'Silver Plan', 365, 1);
+(id, name, price, description, duration_days, active)
+values(300, 'Platinum Plan', 295.95, '$295.95 for 365 days. 50% Discount', 365, 1);
 
