@@ -10,6 +10,8 @@
 <body>
 <h1>
     <a href="${pageContext.request.contextPath}/servlet-01">servlet-01</a>
+    <br>
+    <a href="${pageContext.request.contextPath}/AsyncLongRunningServlet">AsyncLongRunningServlet</a>
 </h1>
 </body>
 </html>

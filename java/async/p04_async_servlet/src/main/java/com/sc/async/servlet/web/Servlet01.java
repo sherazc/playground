@@ -35,7 +35,7 @@ public class Servlet01 extends HttpServlet {
                 while (out.isReady()) {
                     if (data.hasMoreElements()) {
                         out.write(data.nextElement().getBytes());
-                        MyThreadUtils.sleep(1000);
+                        MyThreadUtils.sleep(200);
                     } else {
                         context.complete();
                     }
@@ -52,11 +52,24 @@ public class Servlet01 extends HttpServlet {
     }
 
     private List<String> loadData(String content) {
+
+
         return Arrays.asList(
                 "<html>\n",
                 "<body>\n",
                 "<h1>\n",
                 content,
+                "\n<br>\n",content,
+                "\n<br>\n",content,
+                "\n<br>\n",content,
+                "\n<br>\n",content,
+                "\n<br>\n",content,
+                "\n<br>\n",content,
+                "\n<br>\n",content,
+                "\n<br>\n",content,
+                "\n<br>\n",content,
+                "\n<br>\n",content,
+                "\n<br>\n",
                 "\n</h1>\n",
                 "</body>\n",
                 "</html>\n"
