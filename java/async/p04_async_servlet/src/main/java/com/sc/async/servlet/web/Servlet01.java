@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sc.async.servlet.common.MyThreadUtils;
 
-@WebServlet(urlPatterns = "/servlet-01", asyncSupported = true)
+@WebServlet(urlPatterns = "/servlet01", asyncSupported = true)
 public class Servlet01 extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -35,6 +35,7 @@ public class Servlet01 extends HttpServlet {
                 while (out.isReady()) {
                     if (data.hasMoreElements()) {
                         out.write(data.nextElement().getBytes());
+                        out.flush();
                         MyThreadUtils.sleep(200);
                     } else {
                         context.complete();

@@ -62,7 +62,7 @@ public class AsyncLongRunningServlet extends HttpServlet {
 }
 
 
-@WebListener
+//@WebListener
 class AppAsyncListener implements AsyncListener {
 
     @Override
