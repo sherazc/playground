@@ -9,7 +9,7 @@ class Accounts extends Component {
     constructor(props) {
         super(props);
         this.animationSeconds = 1;
-        this.animationStaySeconds = 5;
+        this.animationStaySeconds = 30;
         this.currentSlide = 0;
         this.slides = [];
 

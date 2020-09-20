@@ -16,13 +16,16 @@ import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.data.repository.PrayerConfigRepository;
 import com.sc.cdb.services.auth.CompanyService;
 import com.sc.cdb.services.bulk.PrayerValidator;
+import com.sc.cdb.services.common.CustomConfigurationsService;
 import com.sc.cdb.services.dst.PrayerConfigDstApplier;
 import com.sc.cdb.services.model.ServiceResponse;
+import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class PrayerConfigServiceImpl implements PrayerConfigService {
 
     private PrayerConfigRepository prayerConfigRepository;
@@ -31,21 +34,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
     private CompanyService companyService;
     private PrayerComparator prayerComparator;
     private PrayerValidator prayerValidator;
-
-    public PrayerConfigServiceImpl(
-            PrayerConfigRepository prayerConfigRepository,
-            PrayerConfigDao prayerConfigDao,
-            PrayerConfigDstApplier prayerConfigDstApplier,
-            CompanyService companyService,
-            PrayerComparator prayerComparator,
-            PrayerValidator prayerValidator) {
-        this.prayerConfigRepository = prayerConfigRepository;
-        this.prayerConfigDao = prayerConfigDao;
-        this.prayerConfigDstApplier = prayerConfigDstApplier;
-        this.companyService = companyService;
-        this.prayerComparator = prayerComparator;
-        this.prayerValidator = prayerValidator;
-    }
+    private CustomConfigurationsService customConfigurationsService;
 
     @Override
     public ServiceResponse<Prayer> getPrayerByCompanyIdMonthAndDay(String companyId, int month, int day) {
@@ -76,11 +65,19 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
                 serviceResponseBuilder.successful(false).message("Prayer not found.");
             } else {
                 Prayer prayer = findDatePrayerAndNextChange(prayers, month, day);
+                populateMaghribIqama(companyId, prayer);
                 serviceResponseBuilder
                         .target(prayer)
                         .successful(true)
                         .message("Prayer found.");
             }
+        }
+    }
+
+    private void populateMaghribIqama(String companyId, Prayer prayer) {
+        if (prayer != null) {
+            String maghribIqama = customConfigurationsService.getStringConfig(companyId, "maghrib_iqama", "5 Mins");
+            prayer.setMaghribIqama(maghribIqama);
         }
     }
 

@@ -76,7 +76,7 @@ const buildWidgetHTML = (serverResponse) => {
             <tr>
                 <th>Maghrib</th>
                 <td>${time24To12(prayer.maghrib)}</td>
-                <td>5 min</td>
+                <td>${prayer.maghribIqama}</td>
                 <td>&nbsp;</td>
             </tr>
             <tr>

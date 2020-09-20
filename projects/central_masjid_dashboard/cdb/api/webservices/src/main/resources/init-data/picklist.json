@@ -24,6 +24,13 @@
         "label": "Clock Type",
         "defaultValue": "1",
         "description": "0 = no clock\n1 = analog\n2 = digital"
+      },
+      {
+        "name": "maghrib_iqama",
+        "type": "text",
+        "label": "Maghrib Iqama",
+        "defaultValue": "5 Mins",
+        "description": "Maghrib iqama time message."
       }
     ]
   }

@@ -105,7 +105,9 @@ class SalahTime extends Component {
                 <tr>
                     <th>Maghrib</th>
                     <td>{time24To12(prayer.maghrib)}</td>
-                    <td>5 min</td>
+                    <td>
+                        {getConfigValue("maghrib_iqama", this.props.companyConfigurations)}
+                    </td>
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
