@@ -83,7 +83,7 @@ class SalahTime extends Component {
                     <td colSpan="3">{time24To12(prayer.sunrise)}</td>
                 </tr>
                 <tr>
-                    <th>Thuhr</th>
+                    <th>Zuhr</th>
                     <td>{time24To12(prayer.dhuhr)}</td>
                     <td>{time24To12(prayer.dhuhrIqama)}</td>
                     <td className={this.blinkClassIfRequired(prayer.dhuhrChangeDate)}>
