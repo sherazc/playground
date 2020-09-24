@@ -11,6 +11,7 @@
 .DS_Store
 local.properties
 .directory
+*.log
 
 .svn/
 .git/
