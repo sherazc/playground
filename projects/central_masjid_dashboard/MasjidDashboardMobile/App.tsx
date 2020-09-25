@@ -24,7 +24,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import { AppRoot } from './src/components/AppRoot';
+import { NavRoutes } from './src/components/NavRoutes';
 
 const App: () => React.ReactElement = () => {
   return (
@@ -32,7 +32,7 @@ const App: () => React.ReactElement = () => {
       <StatusBar barStyle="dark-content" />
 
       <SafeAreaView>
-        <AppRoot firstName="Sheraz" lastName="Chaudhry" />
+        <NavRoutes />
       </SafeAreaView>
     </>
   );
