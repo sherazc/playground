@@ -17,12 +17,17 @@ export type MdParamList = {
     Settings: undefined;
 }
 
+const noHeaderOptions =  {
+        header: () => null
+    };
+
+
 export const NavRoutes: React.FC<Props> = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName="MasjidSelect">
-                <Stack.Screen name="MasjidSelect" component={MasjidSelect} />
-                <Stack.Screen name="PrayerTime" component={PrayerTime} />
+                <Stack.Screen name="MasjidSelect" component={MasjidSelect} options={noHeaderOptions}/>
+                <Stack.Screen name="PrayerTime" component={PrayerTime} options={noHeaderOptions} />
                 <Stack.Screen name="Settings" component={Settings} />
             </Stack.Navigator>
         </NavigationContainer>

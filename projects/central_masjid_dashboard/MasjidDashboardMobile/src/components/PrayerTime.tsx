@@ -1,13 +1,19 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Button, SafeAreaView, Text, View } from "react-native";
+import { StackNavigationProp } from '@react-navigation/stack';
+import { MdParamList } from "./NavRoutes";
+import { RouteProp } from '@react-navigation/native';
 
 interface Props {
+    navigation: StackNavigationProp<MdParamList, "MasjidSelect">;
+    route: RouteProp<MdParamList, "MasjidSelect">;
 }
 
-export const PrayerTime: React.FC<Props> = () => {
+export const PrayerTime: React.FC<Props> = ({navigation}) => {
     return (
-        <View>
+        <SafeAreaView>
+            <Button title="Settings" onPress={() => {navigation.navigate("Settings")}}/>
             <Text>Prayer Time</Text>
-        </View>
+        </SafeAreaView>
     );
 }
