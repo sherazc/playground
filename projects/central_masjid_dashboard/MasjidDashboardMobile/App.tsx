@@ -31,9 +31,7 @@ const App: () => React.ReactElement = () => {
     <>
       <StatusBar barStyle="dark-content" />
 
-      <SafeAreaView>
         <NavRoutes />
-      </SafeAreaView>
     </>
   );
 };
