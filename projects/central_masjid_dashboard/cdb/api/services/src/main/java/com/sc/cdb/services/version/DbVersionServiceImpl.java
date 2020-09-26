@@ -1,0 +1,87 @@
+package com.sc.cdb.services.version;
+
+import java.util.List;
+import java.util.Optional;
+
+import com.sc.cdb.data.model.version.CompanyDataVersion;
+import com.sc.cdb.data.model.version.CompanyListVersion;
+import com.sc.cdb.data.repository.CompanyDataVersionRepository;
+import com.sc.cdb.data.repository.CompanyListVersionRepository;
+import lombok.AllArgsConstructor;
+import org.bson.types.ObjectId;
+import org.springframework.stereotype.Component;
+
+@Component
+@AllArgsConstructor
+public class DbVersionServiceImpl implements DbVersionService {
+
+    private CompanyListVersionRepository companyListVersionRepository;
+    private CompanyDataVersionRepository companyDataVersionRepository;
+
+    @Override
+    public CompanyListVersion upgradeCompanyListVersion() {
+        CompanyListVersion companyListVersion = this.getCompanyListVersion();
+        companyListVersion.setVersion(companyListVersion.getVersion() + 1);
+        return companyListVersionRepository.save(companyListVersion);
+    }
+
+    @Override
+    public CompanyListVersion getCompanyListVersion() {
+        CompanyListVersion companyListVersion;
+        List<CompanyListVersion> companyListVersions = companyListVersionRepository.findAll();
+
+        if (companyListVersions.isEmpty()) {
+            CompanyListVersion newCompanyListVersion = new CompanyListVersion();
+            newCompanyListVersion.setVersion(1L);
+            companyListVersion = companyListVersionRepository.save(newCompanyListVersion);
+        } else {
+            companyListVersion = companyListVersions.get(0);
+            if (companyListVersion.getVersion() == null) {
+                companyListVersion.setVersion(1L);
+                companyListVersionRepository.save(companyListVersion);
+            }
+        }
+
+        return companyListVersion;
+    }
+
+    @Override
+    public CompanyDataVersion upgradeCompanyDataVersion(String companyId) {
+        CompanyDataVersion companyDataVersion = this.getCompanyDataVersion(companyId);
+        if (companyDataVersion == null) {
+            return null;
+        }
+        companyDataVersion.setVersion(companyDataVersion.getVersion() + 1);
+        return companyDataVersionRepository.save(companyDataVersion);
+    }
+
+    @Override
+    public CompanyDataVersion getCompanyDataVersion(String companyId) {
+        if (!ObjectId.isValid(companyId)) {
+            return null;
+        }
+        ObjectId companyObjectId = new ObjectId(companyId);
+
+        CompanyDataVersion companyDataVersion;
+        Optional<CompanyDataVersion> companyDataVersionOptional = companyDataVersionRepository.findByCompanyId(companyObjectId);
+
+
+
+        if (companyDataVersionOptional.isEmpty()) {
+            CompanyDataVersion newCompanyDataVersion = new CompanyDataVersion();
+            newCompanyDataVersion.setVersion(1L);
+            newCompanyDataVersion.setCompanyId(companyObjectId);
+            companyDataVersion = companyDataVersionRepository.save(newCompanyDataVersion);
+        } else {
+            companyDataVersion = companyDataVersionOptional.get();
+            if (companyDataVersion.getVersion() == null) {
+                companyDataVersion.setVersion(1L);
+                companyDataVersionRepository.save(companyDataVersion);
+            }
+        }
+
+        return companyDataVersion;
+    }
+
+
+}
