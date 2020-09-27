@@ -19,11 +19,14 @@ import com.sc.cdb.services.bulk.PrayerValidator;
 import com.sc.cdb.services.common.CustomConfigurationsService;
 import com.sc.cdb.services.dst.PrayerConfigDstApplier;
 import com.sc.cdb.services.model.ServiceResponse;
+import com.sc.cdb.services.version.DbVersionService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class PrayerConfigServiceImpl implements PrayerConfigService {
@@ -35,6 +38,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
     private PrayerComparator prayerComparator;
     private PrayerValidator prayerValidator;
     private CustomConfigurationsService customConfigurationsService;
+    private DbVersionService dbVersionService;
 
     @Override
     public ServiceResponse<Prayer> getPrayerByCompanyIdMonthAndDay(String companyId, int month, int day) {
@@ -83,6 +87,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
 
     @Override
     public ServiceResponse<String> saveDst(String companyId, Dst dst) {
+        log.debug("Saving DST. companyId = {}", companyId);
         ServiceResponse.ServiceResponseBuilder<String> serviceResponseBuilder = ServiceResponse.builder();
 
         if (StringUtils.isBlank(companyId) || dst == null) {
@@ -93,6 +98,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         } else {
             boolean updated = prayerConfigDao.updateDst(companyId, dst);
             if (updated) {
+                dbVersionService.upgradeCompanyDataVersion(companyId);
                 serviceResponseBuilder
                         .target("successful")
                         .successful(true)
@@ -199,14 +205,30 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
                     .message("Failed to save PrayerConfig")
                     .fieldErrors(fieldErrors);
         } else {
+            attemptUpgradeCompanyListVersion(prayerConfig);
             PrayerConfig save = prayerConfigRepository.save(prayerConfig);
             if (save == null || StringUtils.isBlank(save.getId())) {
                 serviceResponseBuilder.successful(false).message("Failed to save PrayerConfig");
             } else {
+                log.debug("Saved PrayerConfig. companyId = {}", prayerConfig.getCompanyId());
+                dbVersionService.upgradeCompanyDataVersion(prayerConfig.getCompanyId());
                 serviceResponseBuilder.target(save.getId()).successful(true).message("Successfully saved PrayerConfig");
             }
         }
         return serviceResponseBuilder.build();
+    }
+
+    private void attemptUpgradeCompanyListVersion(PrayerConfig prayerConfig) {
+        if (prayerConfig == null || StringUtils.isBlank(prayerConfig.getId())) {
+            return;
+        }
+        Optional<PrayerConfig> existingPrayerConfig = prayerConfigRepository.findById(prayerConfig.getId());
+        existingPrayerConfig.ifPresent(p -> {
+            // if new year prayers are being saved.
+            if(p.getPrayers() != null && p.getPrayers().isEmpty() && !prayerConfig.getPrayers().isEmpty()) {
+                dbVersionService.upgradeCompanyListVersion();
+            }
+        });
     }
 
     @Override

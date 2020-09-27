@@ -8,9 +8,11 @@ import com.sc.cdb.data.model.version.CompanyListVersion;
 import com.sc.cdb.data.repository.CompanyDataVersionRepository;
 import com.sc.cdb.data.repository.CompanyListVersionRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 @AllArgsConstructor
 public class DbVersionServiceImpl implements DbVersionService {
@@ -21,7 +23,9 @@ public class DbVersionServiceImpl implements DbVersionService {
     @Override
     public CompanyListVersion upgradeCompanyListVersion() {
         CompanyListVersion companyListVersion = this.getCompanyListVersion();
-        companyListVersion.setVersion(companyListVersion.getVersion() + 1);
+        long upgradedVersion = companyListVersion.getVersion() + 1;
+        log.debug("Upgrading companyListVersion. Upgraded version = {}", upgradedVersion);
+        companyListVersion.setVersion(upgradedVersion);
         return companyListVersionRepository.save(companyListVersion);
     }
 
@@ -51,7 +55,9 @@ public class DbVersionServiceImpl implements DbVersionService {
         if (companyDataVersion == null) {
             return null;
         }
-        companyDataVersion.setVersion(companyDataVersion.getVersion() + 1);
+        long upgradedVersion = companyDataVersion.getVersion() + 1;
+        companyDataVersion.setVersion(upgradedVersion);
+        log.debug("Upgrading companyDataVersion. companyId {}, Upgraded version = {}", companyId, upgradedVersion);
         return companyDataVersionRepository.save(companyDataVersion);
     }
 
@@ -64,8 +70,6 @@ public class DbVersionServiceImpl implements DbVersionService {
 
         CompanyDataVersion companyDataVersion;
         Optional<CompanyDataVersion> companyDataVersionOptional = companyDataVersionRepository.findByCompanyId(companyObjectId);
-
-
 
         if (companyDataVersionOptional.isEmpty()) {
             CompanyDataVersion newCompanyDataVersion = new CompanyDataVersion();
@@ -82,6 +86,4 @@ public class DbVersionServiceImpl implements DbVersionService {
 
         return companyDataVersion;
     }
-
-
 }

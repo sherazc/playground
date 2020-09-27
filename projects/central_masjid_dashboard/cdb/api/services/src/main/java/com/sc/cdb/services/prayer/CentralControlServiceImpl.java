@@ -6,16 +6,16 @@ import com.sc.cdb.data.dao.CentralControlDao;
 import com.sc.cdb.data.model.cc.CentralControl;
 import com.sc.cdb.data.model.cc.CentralControlCompany;
 import com.sc.cdb.services.model.ServiceResponse;
+import com.sc.cdb.services.version.DbVersionService;
+import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class CentralControlServiceImpl implements CentralControlService {
     private CentralControlDao centralControlDao;
-
-    public CentralControlServiceImpl(CentralControlDao centralControlDao) {
-        this.centralControlDao = centralControlDao;
-    }
+    private DbVersionService dbVersionService;
 
     public CentralControlCompany findByCompanyUrl(String url) {
         if (StringUtils.isBlank(url)) {
@@ -43,6 +43,9 @@ public class CentralControlServiceImpl implements CentralControlService {
         if (StringUtils.isBlank(savedCentralControl.getId())) {
             serviceResponseBuilder.successful(false).message("Failed to save CentralControl");
         } else {
+            if (StringUtils.isNotBlank(centralControl.getCompanyId())) {
+                dbVersionService.upgradeCompanyDataVersion(centralControl.getCompanyId());
+            }
             serviceResponseBuilder
                     .successful(true)
                     .message("Successfully saved CentralControl")

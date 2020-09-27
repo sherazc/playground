@@ -13,6 +13,8 @@ import com.sc.cdb.data.repository.CompanyRepository;
 import com.sc.cdb.data.repository.PrayerConfigRepository;
 import com.sc.cdb.data.repository.UserRepository;
 import com.sc.cdb.services.model.ServiceResponse;
+import com.sc.cdb.services.version.DbVersionService;
+import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
@@ -26,6 +28,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
+@AllArgsConstructor
 public class CompanyServiceImpl implements CompanyService {
     private static final Logger LOG = LoggerFactory.getLogger(CompanyServiceImpl.class);
 
@@ -37,23 +40,8 @@ public class CompanyServiceImpl implements CompanyService {
     private CompanyDefaultsCreator companyDefaultsCreator;
     private PicklistDao picklistDao;
     private CompanyDao companyDao;
+    private DbVersionService dbVersionService;
 
-    public CompanyServiceImpl(
-            CompanyRepository companyRepository,
-            PicklistDao picklistDao,
-            CentralControlRepository centralControlRepository,
-            CompanyDefaultsCreator companyDefaultsCreator,
-            CompanyDao companyDao,
-            PrayerConfigRepository prayerConfigRepository,
-            UserRepository userRepository) {
-        this.companyRepository = companyRepository;
-        this.picklistDao = picklistDao;
-        this.centralControlRepository = centralControlRepository;
-        this.companyDefaultsCreator = companyDefaultsCreator;
-        this.companyDao = companyDao;
-        this.prayerConfigRepository = prayerConfigRepository;
-        this.userRepository = userRepository;
-    }
 
     @Override
     public Optional<Company> findCompanyById(String companyId) {
@@ -183,6 +171,7 @@ public class CompanyServiceImpl implements CompanyService {
         boolean successful = companyDao.activateCompany(companyId, active);
         responseBuilder.successful(successful);
         if (successful) {
+            dbVersionService.upgradeCompanyListVersion();
             Company company = new Company();
             company.setId(companyId);
             company.setActive(active);
