@@ -70,7 +70,7 @@ public class DbVersionServiceImpl implements DbVersionService {
         if (companyDataVersionOptional.isEmpty()) {
             CompanyDataVersion newCompanyDataVersion = new CompanyDataVersion();
             newCompanyDataVersion.setVersion(1L);
-            newCompanyDataVersion.setCompanyId(companyObjectId);
+            newCompanyDataVersion.setCompanyId(companyId);
             companyDataVersion = companyDataVersionRepository.save(newCompanyDataVersion);
         } else {
             companyDataVersion = companyDataVersionOptional.get();

@@ -3,6 +3,7 @@ package com.sc.cdb.data.model.version;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.sc.cdb.data.model.auth.BaseModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -26,4 +27,21 @@ public class CompanyDataVersion {
 
     @NotNull
     private Long version;
+
+    public String getId() {
+        return BaseModel.objectIdToHexString(this.id);
+    }
+
+    public void setId(String id) {
+        this.id = BaseModel.hexStringToObjectId(id);
+    }
+
+    public String getCompanyId() {
+        return BaseModel.objectIdToHexString(this.companyId);
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = BaseModel.hexStringToObjectId(companyId);
+    }
+
 }
