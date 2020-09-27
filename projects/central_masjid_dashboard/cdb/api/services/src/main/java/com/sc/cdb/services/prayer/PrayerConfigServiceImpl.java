@@ -225,7 +225,8 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         Optional<PrayerConfig> existingPrayerConfig = prayerConfigRepository.findById(prayerConfig.getId());
         existingPrayerConfig.ifPresent(p -> {
             // if new year prayers are being saved.
-            if(p.getPrayers() != null && p.getPrayers().isEmpty() && !prayerConfig.getPrayers().isEmpty()) {
+            if((p.getPrayers() == null || p.getPrayers().isEmpty())
+                    && (prayerConfig.getPrayers() != null && !prayerConfig.getPrayers().isEmpty())) {
                 dbVersionService.upgradeCompanyListVersion();
             }
         });

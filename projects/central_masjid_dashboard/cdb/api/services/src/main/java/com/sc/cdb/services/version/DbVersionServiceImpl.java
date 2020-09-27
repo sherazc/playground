@@ -36,12 +36,12 @@ public class DbVersionServiceImpl implements DbVersionService {
 
         if (companyListVersions.isEmpty()) {
             CompanyListVersion newCompanyListVersion = new CompanyListVersion();
-            newCompanyListVersion.setVersion(1L);
+            newCompanyListVersion.setVersion(0L);
             companyListVersion = companyListVersionRepository.save(newCompanyListVersion);
         } else {
             companyListVersion = companyListVersions.get(0);
             if (companyListVersion.getVersion() == null) {
-                companyListVersion.setVersion(1L);
+                companyListVersion.setVersion(0L);
                 companyListVersionRepository.save(companyListVersion);
             }
         }
@@ -73,13 +73,13 @@ public class DbVersionServiceImpl implements DbVersionService {
 
         if (companyDataVersionOptional.isEmpty()) {
             CompanyDataVersion newCompanyDataVersion = new CompanyDataVersion();
-            newCompanyDataVersion.setVersion(1L);
+            newCompanyDataVersion.setVersion(0L);
             newCompanyDataVersion.setCompanyId(companyId);
             companyDataVersion = companyDataVersionRepository.save(newCompanyDataVersion);
         } else {
             companyDataVersion = companyDataVersionOptional.get();
             if (companyDataVersion.getVersion() == null) {
-                companyDataVersion.setVersion(1L);
+                companyDataVersion.setVersion(0L);
                 companyDataVersionRepository.save(companyDataVersion);
             }
         }
