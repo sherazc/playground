@@ -30,21 +30,34 @@ export interface Prayer {
     ishaChangeDate: Date;
 }
 
-export interface Masjid {
-    id: string;
-    url: string;
-    name: string;
+export interface Address {
+    street: string;
     city: string;
     state: string;
+    zip: string;
+    longitude?: string;
+    latitude?: string;
 }
 
-export interface MasjidListData extends ExpirableVersion {
-	masjidList: Array<Masjid>;
+export interface Company {
+    id: string;
+    name: string;
+    url: string;
+    website: string;
+    address: Address;
+    active: boolean;
+    expirationDate: Date;
 }
 
-export interface MasjidData extends ExpirableVersion {
-    masjid: Masjid;
+export interface CompanyListData {
+    companies: Array<Company>;
+    expirableVersion?: ExpirableVersion;
+}
+
+export interface CompanyData {
+    masjid: Company;
     prayer: Prayer;
+    expirableVersion?: ExpirableVersion;
 }
 
 export interface SettingData {

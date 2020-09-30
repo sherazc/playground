@@ -14,8 +14,12 @@ public interface CompanyService {
 
     List<Company> findAll();
 
+    List<Company> findAllActive();
+
+    @Deprecated
     List<Company> findAllActiveCompanyUrl();
 
+    @Deprecated
     List<Company> findAllCompanyUrl();
 
     List<CustomConfiguration> findCompanyConfigurations(String companyId);

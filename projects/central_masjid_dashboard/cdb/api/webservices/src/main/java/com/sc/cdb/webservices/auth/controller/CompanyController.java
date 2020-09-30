@@ -47,12 +47,16 @@ public class CompanyController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('SUPER_ADMIN')")
-    public ResponseEntity<?> getAllCompanies() {
+    public ResponseEntity<List<Company>> getAllCompanies() {
         return ResponseEntity.ok(companyService.findAll());
     }
 
+    @GetMapping("active")
+    public ResponseEntity<List<Company>> getAllActiveCompanies() {
+        return ResponseEntity.ok(companyService.findAllActive());
+    }
+
     @GetMapping("{id}")
-    @PreAuthorize("hasAnyRole('USER')")
     public ResponseEntity<Company> getCompanyById(@PathVariable("id") String id) {
         Optional<Company> companyOptional = companyService.findCompanyById(id);
         if (companyOptional.isPresent()) {
@@ -90,7 +94,7 @@ public class CompanyController {
     }
 
     @PostMapping
-    // @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
     public ResponseEntity<?> createOrUpdate(@Valid @RequestBody Company company, BindingResult bindingResult) {
         ServiceResponse<Object> invalidResponse = ServiceResponse.builder().target(company).build();
 
@@ -109,11 +113,21 @@ public class CompanyController {
         }
     }
 
+    /**
+     * @deprecated use getAllActiveCompanies() instead
+     * @return
+     */
+    @Deprecated
     @GetMapping("/url/active")
     public ResponseEntity<List<Company>> findAllActiveCompanyUrl() {
         return ResponseEntity.ok(this.companyService.findAllActiveCompanyUrl());
     }
 
+    /**
+     * @deprecated use getAllCompanies() instead
+     * @return
+     */
+    @Deprecated
     @GetMapping("/url")
     public ResponseEntity<List<Company>> findAllCompanyUrl() {
         return ResponseEntity.ok(this.companyService.findAllCompanyUrl());

@@ -113,6 +113,18 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
+    public List<Company> findAllActive() {
+        LOG.debug("Retrieving all active companies.");
+        List<Company> companyWithUrls = this.companyRepository.findAllActiveCompany();
+        List<PrayerConfig> validPrayerConfigs = this.prayerConfigRepository.findValidPrayerConfigs();
+
+        return companyWithUrls.stream()
+                .filter(company -> companyExistInPrayerConfigs(company, validPrayerConfigs))
+                .collect(Collectors.toList());
+    }
+
+    @Deprecated
+    @Override
     public List<Company> findAllActiveCompanyUrl() {
         List<Company> companyWithUrls = this.companyRepository.findAllActiveCompanyUrl();
         List<PrayerConfig> validPrayerConfigs = this.prayerConfigRepository.findValidPrayerConfigs();
@@ -122,6 +134,7 @@ public class CompanyServiceImpl implements CompanyService {
                 .collect(Collectors.toList());
     }
 
+    @Deprecated
     @Override
     public List<Company> findAllCompanyUrl() {
         List<Company> companyWithUrls = this.companyRepository.findAllCompanyUrl();

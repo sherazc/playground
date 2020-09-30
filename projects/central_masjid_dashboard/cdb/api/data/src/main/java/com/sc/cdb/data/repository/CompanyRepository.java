@@ -19,6 +19,10 @@ public interface CompanyRepository extends MongoRepository<Company, String> {
     @Query(value = "{active: true}", fields = "{name: 1, url: 1}")
     List<Company> findAllActiveCompanyUrl();
 
+    @Query(value = "{active: true}")
+    List<Company> findAllActiveCompany();
+
+
     @Query(value = "{}", fields = "{name: 1, url: 1}", sort = "{name: 1}")
     List<Company> findAllCompanyUrl();
 }
