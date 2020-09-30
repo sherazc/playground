@@ -1,12 +1,10 @@
 import {createStore, combineReducers} from "redux";
-// import counterReducer from "./counterReducer";
-// import nameReducer from "./nameReducer";
+import companyListDataReducer from './CompanyListDataReducer';
 
 const INITIAL_STATE = {};
 
 const rootReducer = combineReducers({
-    // counterReducer,
-    // nameReducer
+    companyListDataReducer
 });
 
 const store = createStore(rootReducer, INITIAL_STATE);

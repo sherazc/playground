@@ -49,17 +49,20 @@ export interface Company {
     expirationDate: Date;
 }
 
+// Redux/Async store
 export interface CompanyListData {
     companies: Array<Company>;
     expirableVersion?: ExpirableVersion;
 }
 
+// Redux/Async store
 export interface CompanyData {
     masjid: Company;
     prayer: Prayer;
     expirableVersion?: ExpirableVersion;
 }
 
+// Redux/Async store
 export interface SettingData {
 	azanAlert: boolean;
 	iqamaAlert: boolean;
