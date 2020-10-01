@@ -1,4 +1,4 @@
-import { CompanyListData } from '../types/types';
+import {CompanyListData} from '../types/types';
 
 // Types
 export const COMPANY_LIST_SET = "COMPANY_LIST_SET";
@@ -33,7 +33,7 @@ export default function companyListDataReducer(
                 expirableVersion: action.payload.expirableVersion
             };
         case "COMPANY_LIST_DELETE":
-            return { ...state, ...INITIAL_STATE };
+            return {...state, ...INITIAL_STATE};
         default:
             return state;
     }
