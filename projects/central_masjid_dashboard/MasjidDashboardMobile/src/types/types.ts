@@ -68,3 +68,17 @@ export interface SettingData {
 	iqamaAlert: boolean;
 	iqamaChangeAlert: boolean;
 }
+
+export interface CompanyDataVersion {
+  id: string;
+  companyId: string;
+  version: number;
+}
+
+export interface CompanyListVersion {
+    id: string;
+    version: number;
+}
+
+
+

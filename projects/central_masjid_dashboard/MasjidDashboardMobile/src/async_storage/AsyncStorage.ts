@@ -13,7 +13,7 @@ export const saveAsyncStorage = async <T>(key: string, data: T) => {
 }
 
 
-const readAsyncStorageData = async <T>(key: string): Promise<T | undefined> => {
+export const readAsyncStorage = async <T>(key: string): Promise<T | undefined> => {
     try {
         const stringData = await AsyncStorage.getItem(key)
 
