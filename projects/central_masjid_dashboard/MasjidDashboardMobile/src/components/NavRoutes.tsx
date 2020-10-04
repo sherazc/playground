@@ -6,11 +6,7 @@ import { MasjidSelect } from './MasjidSelect';
 import { PrayerTime } from './PrayerTime';
 import { Settings } from './Settings';
 import { useDispatch } from "react-redux"
-import { readAsyncStorage, saveAsyncStorage, COMPANY_LIST_DATA } from '../async_storage/AsyncStorage';
-import { CompanyListData, ExpirableVersion, CompanyListVersion } from '../types/types';
 import { RootState, useTypedSelector } from "../store/rootReducer";
-import { COMPANY_LIST_SET } from '../store/CompanyListDataReducer';
-import { END_POINT_COMPANY_LIST_VERSION } from '../services/Constants';
 
 const Stack = createStackNavigator<MdParamList>();
 
@@ -37,6 +33,8 @@ export const NavRoutes: React.FC<Props> = () => {
 
     useEffect(() => {
         // Redux already valid and not expired companyListData
+
+        /*
         if (isValidCompanyListData(companyListData) && !isExpired(companyListData.expirableVersion)) {
             console.log("Redux already valid and non expired companyListData");
             return;
@@ -80,6 +78,7 @@ export const NavRoutes: React.FC<Props> = () => {
             }
         });
 
+        */
 
         // TODO load data from async storage
         // on complete load it in redux
@@ -90,31 +89,11 @@ export const NavRoutes: React.FC<Props> = () => {
         */
     }, [])
 
-    const getCompanyListVersionNumber = (companyListData?: CompanyListData):(number | undefined) => {
-        if (companyListData
-            && companyListData.expirableVersion
-            && companyListData.expirableVersion.version) {
 
-            return companyListData.expirableVersion.version;
-        }
-    }
-
-    const isValidCompanyListData = (companyListData: CompanyListData) => {
-        return companyListData && companyListData.companies
-            && companyListData.companies.length > 0
-            && companyListData.expirableVersion;
-    }
-
-    const isExpired = (expirableVersion?: ExpirableVersion) => {
-        return !expirableVersion
-            || !expirableVersion.expirationDate
-            || expirableVersion.expirationDate.getTime() < new Date().getTime()
-    }
 
 
     return (
         <NavigationContainer>
-            <div>{companyListData}</div>
             <Stack.Navigator initialRouteName="MasjidSelect">
                 <Stack.Screen name="MasjidSelect" component={MasjidSelect} options={noHeaderOptions} />
                 <Stack.Screen name="PrayerTime" component={PrayerTime} options={noHeaderOptions} />
