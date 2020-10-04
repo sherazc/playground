@@ -8,7 +8,7 @@ const isExpired = (expirableVersion?: ExpirableVersion) => {
         || expirableVersion.expirationDate.getTime() < new Date().getTime()
 }
 
-export const createExpirableVersion = (e?: ExpirableVersion) => {
+export const createOrRefreshExpirableVersion = (e?: ExpirableVersion) => {
     const result: ExpirableVersion = {version: 0, expirationDate: createExpirationDate()};
     if (e && e.version) {
         result.version = e.version;
