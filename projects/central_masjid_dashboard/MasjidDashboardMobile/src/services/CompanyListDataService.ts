@@ -1,8 +1,8 @@
 
-import { CompanyListData, CompanyListVersion } from '../types/types';
+import { Company, CompanyListData, CompanyListVersion } from '../types/types';
 import { createOrRefreshExpirableVersion } from './ExpirableVersionService';
 import store from '../store/rootReducer';
-import { END_POINT_COMPANY_LIST_VERSION } from './Constants';
+import { END_POINT_COMPANY_LIST_VERSION, END_POINT_COMPANIES_ACTIVE } from './Constants';
 
 const isValidCompanyListData = (companyListData: CompanyListData) => {
     return companyListData && companyListData.companies
@@ -47,11 +47,16 @@ const updateCompanyListDataState = (companyListData : CompanyListData) => {
     });
 }
 
-
-const getOnlineCompanyListVersion = (callback: (c: CompanyListVersion) => any, errorCallback?: (error?: any) => any) => {
+const apiCompanyListVersion = (callback: (c: CompanyListVersion) => any, errorCallback?: (error?: any) => any) => {
     fetch(END_POINT_COMPANY_LIST_VERSION)
         .then(response => response.json())
         .then(responseBody => callback(responseBody as CompanyListVersion))
         .catch(error => errorCallback && errorCallback(error));
 }
 
+const apiCompaniesActive = (callback: (companies: Company[]) => any, errorCallback?: (error?: any) => any) => {
+    fetch(END_POINT_COMPANIES_ACTIVE)
+        .then(response => response.json())
+        .then(responseBody => callback(responseBody as Company[]))
+        .catch(error => errorCallback && errorCallback(error));
+}
