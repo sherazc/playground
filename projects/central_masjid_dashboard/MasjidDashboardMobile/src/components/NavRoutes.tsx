@@ -28,7 +28,6 @@ export const NavRoutes: React.FC<Props> = () => {
     const companyListData = useTypedSelector((state: RootState) => state.companyListData);
 
 
-
     const dispatch = useDispatch();
 
     useEffect(() => {

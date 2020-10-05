@@ -1,4 +1,19 @@
+import { saveAsyncStorage, readAsyncStorage1, readAsyncStorage2 } from '../storage/AsyncStorage';
 import {CompanyListData} from '../types/types';
+
+
+
+saveAsyncStorage("v1", {name: 'Sheraz'});
+
+readAsyncStorage2('v1').then(d => console.log(d));
+
+
+
+
+
+
+
+
 
 // Types
 export const COMPANY_LIST_SET = "COMPANY_LIST_SET";

@@ -13,7 +13,7 @@ export const saveAsyncStorage = async <T>(key: string, data: T) => {
 }
 
 
-export const readAsyncStorage = async <T>(key: string): Promise<T | undefined> => {
+export const readAsyncStorage1 = async <T>(key: string): Promise<T | undefined> => {
     try {
         const stringData = await AsyncStorage.getItem(key)
 
@@ -23,4 +23,17 @@ export const readAsyncStorage = async <T>(key: string): Promise<T | undefined> =
     } catch (e) {
         console.error('Failed to fetch the data from storage', e)
     }
+}
+
+
+export const readAsyncStorage2 =  (key: string) => {
+    /*
+    let c = ''
+    try {
+        c = AsyncStorage.getItem(key) ;
+    } catch (e) {
+        console.error('Failed to fetch the data from storage', e)
+    }
+*/
+    return AsyncStorage.getItem(key)
 }
