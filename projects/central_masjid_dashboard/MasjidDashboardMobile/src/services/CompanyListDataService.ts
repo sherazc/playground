@@ -60,3 +60,8 @@ const apiCompaniesActive = (callback: (companies: Company[]) => any, errorCallba
         .then(responseBody => callback(responseBody as Company[]))
         .catch(error => errorCallback && errorCallback(error));
 }
+
+export const updateCompanyListData = () => {
+    console.log("Updating Company List Data");
+    // TODO Implement "update company list" flow here
+}

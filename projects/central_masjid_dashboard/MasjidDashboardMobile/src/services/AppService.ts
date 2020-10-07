@@ -12,6 +12,8 @@ import {
 } from '../store/LoadingReducer';
 
 import { CompanyData, CompanyListData, SettingData } from '../types/types';
+import { updateCompanyListData } from './CompanyListDataService';
+import { UPDATE_INTERVAL_MILLIS } from './Constants';
 
 export const recoverAppFromStorage = () => {
     console.log("Recovering App from storage");
@@ -52,11 +54,23 @@ const processStorageFailed = () => {
     store.dispatch(RecoverInitFailedAction)
 }
 
+const updateData = () => {
+    updateCompanyListData();
+}
+
+let updateDataInterval: NodeJS.Timeout;
+
 export const beginApp = () => {
     console.log("Begining app");
+    updateData();
+    updateDataInterval = setInterval(() => {
+        updateData();
+    }, UPDATE_INTERVAL_MILLIS);
 }
 
 export const destroyedApp = () => {
     console.log("Destroying app");
+    if (updateDataInterval) {
+        clearInterval(updateDataInterval);
+    }
 }
-
