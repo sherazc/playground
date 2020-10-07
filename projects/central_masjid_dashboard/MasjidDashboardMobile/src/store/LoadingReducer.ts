@@ -10,9 +10,19 @@ export type RecoverInitStateSet = {
 
 export type LoadingActionTypes = RecoverInitStateSet;
 
+export const RecoverInitCompleteAction: RecoverInitStateSet = {
+    type: "RECOVER_INIT_STATE_SET",
+    payload: {recoverInitState: LoadingStatus.COMPLETE}
+}
+
+export const RecoverInitFailedAction: RecoverInitStateSet = {
+    type: "RECOVER_INIT_STATE_SET",
+    payload: {recoverInitState: LoadingStatus.FAILED}
+}
+
 // Initial State
 const INITIAL_STATE: Loading = {
-    recoverInitState: LoadingStatus.LOADING
+    recoverInitState: LoadingStatus.INIT
 };
 
 // Reducer

@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React from "react";
+import React, {useEffect} from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MasjidSelect } from './MasjidSelect';
@@ -8,6 +8,7 @@ import { Settings } from './Settings';
 import {useTypedSelector} from '../store/rootReducer'
 import { LoadingStatus } from '../types/types';
 import { RecoveringFromStorage } from './RecoveringFromStorage';
+import { recoverAppFromStorage, destroyedApp, beginApp } from '../services/AppService';
 
 const Stack = createStackNavigator<MdParamList>();
 
@@ -24,13 +25,25 @@ const noHeaderOptions = {
     header: () => null
 };
 
-
 export const NavRoutes: React.FC<Props> = () => {
-
     const loading = useTypedSelector(state => state.loading);
 
+    useEffect(() => {
+        recoverAppFromStorage();
+        return () => {
+            destroyedApp();
+        }
+    }, []);
 
-    if (loading.recoverInitState == LoadingStatus.LOADING) {
+    useEffect(() => {
+        if (loading.recoverInitState === LoadingStatus.COMPLETE
+            || loading.recoverInitState === LoadingStatus.FAILED) {
+            beginApp();
+        }
+    }, [loading.recoverInitState]);
+
+    if (loading.recoverInitState === LoadingStatus.LOADING
+        || loading.recoverInitState === LoadingStatus.INIT) {
         return <RecoveringFromStorage/>
     } else {
         return (

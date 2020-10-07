@@ -25,4 +25,7 @@ success/resolve data.
 */
 Promise.all([promiseA, promiseB]).then((resolveData) => {
     console.log(resolveData);
-});
+    setTimeout(() => {
+        console.log("Processing resolved data");
+    }, 5000);
+}).finally(() => console.log("All promises complete"));

@@ -80,7 +80,7 @@ export interface CompanyListVersion {
     version: number;
 }
 
-export enum LoadingStatus {LOADING, COMPLETE, FAILED}
+export enum LoadingStatus {INIT, LOADING, COMPLETE, FAILED}
 
 export interface Loading {
     recoverInitState: LoadingStatus;

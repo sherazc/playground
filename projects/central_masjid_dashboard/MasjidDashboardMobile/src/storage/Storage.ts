@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
-export const COMPANY_LIST_DATA = 'COMPANY_LIST_DATA';
-export const COMPANY_DATA = 'COMPANY_DATA';
-export const SETTING_DATA = 'SETTING_DATA';
+export const STORAGE_COMPANY_LIST_DATA = 'STORAGE_COMPANY_LIST_DATA';
+export const STORAGE_COMPANY_DATA = 'STORAGE_COMPANY_DATA';
+export const STORAGE_SETTING_DATA = 'STORAGE_SETTING_DATA';
 
 export const saveStorage = <T>(key: string, data: T) => {
     try {
