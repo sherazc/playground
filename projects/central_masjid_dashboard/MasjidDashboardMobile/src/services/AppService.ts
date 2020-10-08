@@ -54,20 +54,21 @@ const processStorageFailed = () => {
     store.dispatch(RecoverInitFailedAction)
 }
 
-const updateData = () => {
-    updateCompanyListData();
+const updateData = (companyListData: CompanyListData) => {
+    updateCompanyListData(companyListData);
+    // TODO: updateCompanyData();
 }
 
 let updateDataInterval: NodeJS.Timeout;
 
-export const beginApp = () => {
+export const beginApp = (companyListData: CompanyListData) => {
     if (updateDataInterval) {
         return;
     }
     console.log("Begining app");
-    updateData();
+    updateData(companyListData);
     updateDataInterval = setInterval(() => {
-        updateData();
+        updateData(companyListData);
     }, UPDATE_INTERVAL_MILLIS);
 }
 

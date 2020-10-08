@@ -1,4 +1,4 @@
-import {  } from '../storage/Storage';
+import { removeStorage, saveStorage, STORAGE_COMPANY_LIST_DATA } from '../storage/Storage';
 import {CompanyListData} from '../types/types';
 
 // Types
@@ -28,12 +28,17 @@ export default function companyListDataReducer(
 
     switch (action.type) {
         case "COMPANY_LIST_SET":
+            const companyListDataString = JSON.stringify(action.payload);
+            console.log("Updating CompanyListData in store and storage.", companyListDataString);
+            saveStorage(STORAGE_COMPANY_LIST_DATA, companyListDataString);
             return {
                 ...state,
                 companies: action.payload.companies,
                 expirableVersion: action.payload.expirableVersion
             };
         case "COMPANY_LIST_DELETE":
+            console.log("Removing CompanyListData from store and storage.");
+            removeStorage(STORAGE_COMPANY_LIST_DATA);
             return {...state, ...INITIAL_STATE};
         default:
             return state;

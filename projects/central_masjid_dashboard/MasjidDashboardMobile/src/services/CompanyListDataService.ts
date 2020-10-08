@@ -1,6 +1,6 @@
 
 import { Company, CompanyListData, CompanyListVersion } from '../types/types';
-import { createOrRefreshExpirableVersion } from './ExpirableVersionService';
+import { createOrRefreshExpirableVersion, isExpired } from './ExpirableVersionService';
 import store from '../store/rootReducer';
 import { END_POINT_COMPANY_LIST_VERSION, END_POINT_COMPANIES_ACTIVE } from './Constants';
 
@@ -40,13 +40,13 @@ const refeashCompanyListDataExpirableVersion = (companyListData: CompanyListData
     companyListData.expirableVersion = createOrRefreshExpirableVersion(companyListData.expirableVersion);
 }
 
-const updateCompanyListDataState = (companyListData : CompanyListData) => {
+const updateCompanyListDataState = (companyListData: CompanyListData) => {
     store.dispatch({
         type: "COMPANY_LIST_SET",
         payload: companyListData
     });
 }
-
+/*
 const apiCompanyListVersion = (callback: (c: CompanyListVersion) => any, errorCallback?: (error?: any) => any) => {
     fetch(END_POINT_COMPANY_LIST_VERSION)
         .then(response => response.json())
@@ -60,8 +60,52 @@ const apiCompaniesActive = (callback: (companies: Company[]) => any, errorCallba
         .then(responseBody => callback(responseBody as Company[]))
         .catch(error => errorCallback && errorCallback(error));
 }
+*/
 
-export const updateCompanyListData = () => {
-    console.log("Updating Company List Data");
-    // TODO Implement "update company list" flow here
+const apiCompanyListVersion = (): Promise<CompanyListVersion> => {
+    console.log("Calling API ", END_POINT_COMPANY_LIST_VERSION);
+    return fetch(END_POINT_COMPANY_LIST_VERSION).then(response => response.json());
+}
+
+const apiCompaniesActive = (): Promise<Company[]> => {
+    console.log("Calling API ", END_POINT_COMPANIES_ACTIVE);
+    return fetch(END_POINT_COMPANIES_ACTIVE).then(response => response.json());
+}
+
+const refeashCompanyListData = () => {
+    const companyListData = createCompanyListData();
+    apiCompanyListVersion().then(companyListVersion => {
+        if (companyListVersion && companyListVersion.version != null && companyListVersion.version != undefined) {
+            if (companyListData.expirableVersion) {
+                companyListData.expirableVersion.version = companyListVersion.version;
+            }
+
+            apiCompaniesActive().then(companies => {
+                companyListData.companies = companies;
+                updateCompanyListDataState(companyListData)
+            }).catch(e => {
+                console.log("Error Getting Company", e)
+            });
+        }
+    }).catch(e => {
+        console.log("Error Getting Version", e)
+    });
+}
+
+export const updateCompanyListData = (companyListData: CompanyListData) => {
+    console.log("Updating Company List Data ", companyListData);
+    if (isValidCompanyListData(companyListData)) {
+        if (isExpired(companyListData.expirableVersion)) {
+            apiCompanyListVersion().then(companyListVersion => {
+                if (isCompanyListVersionSame(companyListData, companyListVersion)) {
+                    refeashCompanyListDataExpirableVersion(companyListData)
+                    updateCompanyListDataState(companyListData)
+                } else {
+                    refeashCompanyListData();
+                }
+            })
+        }
+    } else {
+        refeashCompanyListData();
+    }
 }

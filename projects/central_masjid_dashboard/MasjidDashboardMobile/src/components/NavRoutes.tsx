@@ -36,15 +36,11 @@ export const NavRoutes: React.FC<Props> = () => {
         }
     }, []);
 
-
-    if (loading.recoverInitState === LoadingStatus.COMPLETE || loading.recoverInitState === LoadingStatus.FAILED) {
-        beginApp();
-    }
-
     if (loading.recoverInitState === LoadingStatus.LOADING
         || loading.recoverInitState === LoadingStatus.INIT) {
         return <RecoveringFromStorage/>
     } else {
+        beginApp(companyListData);
         return (
             <NavigationContainer>
                 <Stack.Navigator initialRouteName="MasjidSelect">
