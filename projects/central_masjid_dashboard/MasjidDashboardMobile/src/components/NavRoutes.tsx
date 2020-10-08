@@ -6,7 +6,7 @@ import { MasjidSelect } from './MasjidSelect';
 import { PrayerTime } from './PrayerTime';
 import { Settings } from './Settings';
 import {useTypedSelector} from '../store/rootReducer'
-import { LoadingStatus } from '../types/types';
+import { Company, LoadingStatus } from '../types/types';
 import { RecoveringFromStorage } from './RecoveringFromStorage';
 import { recoverAppFromStorage, destroyedApp, beginApp } from '../services/AppService';
 
@@ -17,7 +17,7 @@ interface Props {
 
 export type MdParamList = {
     MasjidSelect: undefined;
-    PrayerTime: undefined;
+    PrayerTime: {selectedMasjid?: Company};
     Settings: undefined;
 }
 

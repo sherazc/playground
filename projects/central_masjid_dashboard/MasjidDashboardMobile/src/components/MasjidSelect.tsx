@@ -14,17 +14,12 @@ interface Props {
 
 export const MasjidSelect: React.FC<Props> = ({navigation}) => {
     const companyListData = useTypedSelector(state => state.companyListData);
-    const [selectedMasjid, setSelectedMasjid] = useState<React.ReactText>("mh");
+    const [selectedMasjid, setSelectedMasjid] = useState<React.ReactText>("");
 
-    const dispatch = useTypedDispatch();
+    const dispatch = useTypedDispatch();    
 
-    const buildCompanyPickerItems = (cld?: CompanyListData) => {
-        if (!cld || !cld.companies || cld.companies.length < 1) {
-            return;
-        }
-
-        return cld.companies.map(c => <Picker.Item
-            label={`${c.name} - ${c.address.city}, ${c.address.state}`} value={c.id} />);
+    if (companyListData && companyListData.companies && companyListData.companies.length > 0 && !selectedMasjid) {
+        setSelectedMasjid(companyListData.companies[0].id);
     }
 
     return (
@@ -37,7 +32,13 @@ export const MasjidSelect: React.FC<Props> = ({navigation}) => {
                 onValueChange={(itemValue: React.ReactText, itemIndex: number) => setSelectedMasjid(itemValue)}>
                 {buildCompanyPickerItems(companyListData)}
             </Picker>
-            <Button title="Set Masjid" onPress={() => { navigation.navigate("PrayerTime") }} />
+            {/* 
+            TODO:
+            Create ComapnyData Store
+            Set selected masjid/company in redux CompanyData store
+            Navigate to Prayer time screen
+             */}
+            <Button title="Set Masjid" onPress={() => { navigation.navigate("PrayerTime", {selectedMasjid: undefined}) }} />
             <Button title="complete" onPress={() => dispatch({
                 type: "RECOVER_INIT_STATE_SET",
                 payload: {
@@ -59,4 +60,15 @@ export const MasjidSelect: React.FC<Props> = ({navigation}) => {
             })} />
         </SafeAreaView>
     );
+}
+
+
+
+const buildCompanyPickerItems = (cld?: CompanyListData) => {
+    if (!cld || !cld.companies || cld.companies.length < 1) {
+        return;
+    }
+
+    return cld.companies.map(c => <Picker.Item key={c.id}
+        label={`${c.name} - ${c.address.city}, ${c.address.state}`} value={c.id} />);
 }
