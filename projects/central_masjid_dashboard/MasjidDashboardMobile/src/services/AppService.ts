@@ -12,7 +12,7 @@ import {
 } from '../store/LoadingReducer';
 
 import { CompanyData, CompanyListData, SettingData } from '../types/types';
-import { updateCompanyListData } from './CompanyListDataService';
+import { isCompanyListDataVersionSame, updateCompanyListData } from './CompanyListDataService';
 import { UPDATE_INTERVAL_MILLIS } from './Constants';
 
 export const recoverAppFromStorage = () => {
@@ -54,28 +54,27 @@ const processStorageFailed = () => {
     store.dispatch(RecoverInitFailedAction)
 }
 
-const updateData = (companyListData: CompanyListData) => {
-    updateCompanyListData(companyListData);
-    // TODO: updateCompanyData();
-}
-
-let updateDataInterval: NodeJS.Timeout;
+let updateCompanyListDataInterval: NodeJS.Timeout;
+let previousCompanyListData: CompanyListData;
 
 export const beginApp = (companyListData: CompanyListData) => {
-    if (updateDataInterval) {
-        return;
+    if (!isCompanyListDataVersionSame(previousCompanyListData, companyListData)) {
+        console.log("Restarting updateCompanyListDataInterval");
+        updateCompanyListData(companyListData);
+        if (updateCompanyListDataInterval) {
+            clearInterval(updateCompanyListDataInterval);
+        }
+        updateCompanyListDataInterval = setInterval(() => {
+            updateCompanyListData(companyListData);
+        }, UPDATE_INTERVAL_MILLIS);
+        previousCompanyListData = companyListData;
     }
-    console.log("Begining app");
-    updateData(companyListData);
-    updateDataInterval = setInterval(() => {
-        updateData(companyListData);
-    }, UPDATE_INTERVAL_MILLIS);
 }
 
 export const destroyedApp = () => {
     console.log("Destroying app");
-    if (updateDataInterval) {
-        clearInterval(updateDataInterval);
+    if (updateCompanyListDataInterval) {
+        clearInterval(updateCompanyListDataInterval);
     }
 
 }

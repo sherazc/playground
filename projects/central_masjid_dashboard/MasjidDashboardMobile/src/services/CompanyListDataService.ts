@@ -18,12 +18,18 @@ const getCompanyListVersionNumber = (companyListData?: CompanyListData): (number
     }
 }
 
-const isCompanyListVersionSame = (c1: CompanyListData, clv: CompanyListVersion) => {
-    return c1 && clv
-        && c1.expirableVersion
-        && c1.expirableVersion.version
+const isCompanyListVersionSame = (cld: CompanyListData, clv: CompanyListVersion) => {
+    return cld && clv
+        && cld.expirableVersion
+        && cld.expirableVersion.version
         && clv.version
-        && c1.expirableVersion.version === clv.version;
+        && cld.expirableVersion.version === clv.version;
+}
+
+export const isCompanyListDataVersionSame = (c1?: CompanyListData, c2?: CompanyListData) => {
+    let c1Version = getCompanyListVersionNumber(c1);
+    let c2Version = getCompanyListVersionNumber(c2);
+    return c1Version && c2Version && c1Version === c2Version;
 }
 
 const createCompanyListData = (): CompanyListData => {
@@ -93,7 +99,7 @@ const refeashCompanyListData = () => {
 }
 
 export const updateCompanyListData = (companyListData: CompanyListData) => {
-    console.log("Updating Company List Data ", companyListData);
+    console.log("Attempting update CompanyListData ", companyListData);
     if (isValidCompanyListData(companyListData)) {
         if (isExpired(companyListData.expirableVersion)) {
             apiCompanyListVersion().then(companyListVersion => {
