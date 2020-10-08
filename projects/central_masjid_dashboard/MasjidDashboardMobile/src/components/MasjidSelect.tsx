@@ -5,7 +5,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { MdParamList } from "./NavRoutes";
 import { Picker } from "@react-native-community/picker";
 import { useTypedDispatch, useTypedSelector } from '../store/rootReducer';
-import { LoadingStatus } from "../types/types";
+import { CompanyListData, LoadingStatus } from "../types/types";
 
 interface Props {
     navigation: StackNavigationProp<MdParamList, "MasjidSelect">;
@@ -13,9 +13,19 @@ interface Props {
 }
 
 export const MasjidSelect: React.FC<Props> = ({navigation}) => {
+    const companyListData = useTypedSelector(state => state.companyListData);
     const [selectedMasjid, setSelectedMasjid] = useState<React.ReactText>("mh");
 
     const dispatch = useTypedDispatch();
+
+    const buildCompanyPickerItems = (cld?: CompanyListData) => {
+        if (!cld || !cld.companies || cld.companies.length < 1) {
+            return;
+        }
+
+        return cld.companies.map(c => <Picker.Item
+            label={`${c.name} - ${c.address.city}, ${c.address.state}`} value={c.id} />);
+    }
 
     return (
         <SafeAreaView>
@@ -25,8 +35,7 @@ export const MasjidSelect: React.FC<Props> = ({navigation}) => {
                 style={{ height: 150 }}
                 itemStyle={{ height: 150 }}
                 onValueChange={(itemValue: React.ReactText, itemIndex: number) => setSelectedMasjid(itemValue)}>
-                <Picker.Item label="Masjid Hamzah" value="mh" />
-                <Picker.Item label="Darul Arqam Institute" value="darularqam" />
+                {buildCompanyPickerItems(companyListData)}
             </Picker>
             <Button title="Set Masjid" onPress={() => { navigation.navigate("PrayerTime") }} />
             <Button title="complete" onPress={() => dispatch({

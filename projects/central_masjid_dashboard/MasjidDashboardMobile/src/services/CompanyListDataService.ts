@@ -1,4 +1,3 @@
-
 import { Company, CompanyListData, CompanyListVersion } from '../types/types';
 import { createOrRefreshExpirableVersion, isExpired } from './ExpirableVersionService';
 import store from '../store/rootReducer';
@@ -52,21 +51,6 @@ const updateCompanyListDataState = (companyListData: CompanyListData) => {
         payload: companyListData
     });
 }
-/*
-const apiCompanyListVersion = (callback: (c: CompanyListVersion) => any, errorCallback?: (error?: any) => any) => {
-    fetch(END_POINT_COMPANY_LIST_VERSION)
-        .then(response => response.json())
-        .then(responseBody => callback(responseBody as CompanyListVersion))
-        .catch(error => errorCallback && errorCallback(error));
-}
-
-const apiCompaniesActive = (callback: (companies: Company[]) => any, errorCallback?: (error?: any) => any) => {
-    fetch(END_POINT_COMPANIES_ACTIVE)
-        .then(response => response.json())
-        .then(responseBody => callback(responseBody as Company[]))
-        .catch(error => errorCallback && errorCallback(error));
-}
-*/
 
 const apiCompanyListVersion = (): Promise<CompanyListVersion> => {
     console.log("Calling API ", END_POINT_COMPANY_LIST_VERSION);
@@ -89,13 +73,9 @@ const refeashCompanyListData = () => {
             apiCompaniesActive().then(companies => {
                 companyListData.companies = companies;
                 updateCompanyListDataState(companyListData)
-            }).catch(e => {
-                console.log("Error Getting Company", e)
-            });
+            }).catch(e => console.log("Error Getting Company", e));
         }
-    }).catch(e => {
-        console.log("Error Getting Version", e)
-    });
+    }).catch(e => console.log("Error Getting Version", e));
 }
 
 export const updateCompanyListData = (companyListData: CompanyListData) => {
