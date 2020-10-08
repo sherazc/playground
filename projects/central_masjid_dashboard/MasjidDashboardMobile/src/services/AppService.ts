@@ -61,6 +61,9 @@ const updateData = () => {
 let updateDataInterval: NodeJS.Timeout;
 
 export const beginApp = () => {
+    if (updateDataInterval) {
+        return;
+    }
     console.log("Begining app");
     updateData();
     updateDataInterval = setInterval(() => {
@@ -73,4 +76,5 @@ export const destroyedApp = () => {
     if (updateDataInterval) {
         clearInterval(updateDataInterval);
     }
+
 }

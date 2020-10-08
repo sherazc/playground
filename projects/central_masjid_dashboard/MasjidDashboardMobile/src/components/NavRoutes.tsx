@@ -27,6 +27,7 @@ const noHeaderOptions = {
 
 export const NavRoutes: React.FC<Props> = () => {
     const loading = useTypedSelector(state => state.loading);
+    const companyListData = useTypedSelector(state => state.companyListData);
 
     useEffect(() => {
         recoverAppFromStorage();
@@ -35,12 +36,10 @@ export const NavRoutes: React.FC<Props> = () => {
         }
     }, []);
 
-    useEffect(() => {
-        if (loading.recoverInitState === LoadingStatus.COMPLETE
-            || loading.recoverInitState === LoadingStatus.FAILED) {
-            beginApp();
-        }
-    }, [loading.recoverInitState]);
+
+    if (loading.recoverInitState === LoadingStatus.COMPLETE || loading.recoverInitState === LoadingStatus.FAILED) {
+        beginApp();
+    }
 
     if (loading.recoverInitState === LoadingStatus.LOADING
         || loading.recoverInitState === LoadingStatus.INIT) {

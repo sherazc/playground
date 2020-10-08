@@ -10,17 +10,28 @@ export const RecoveringFromStorage: React.FC<Props> = () => {
 
     const dispatch = useTypedDispatch();
 
-    const onComplete = () => {
-        dispatch({
-            type: "RECOVER_INIT_STATE_SET",
-            payload: {recoverInitState: LoadingStatus.COMPLETE}
-        });
-    }
-
     return (
         <SafeAreaView>
             <Text>Loading...</Text>
-            <Button title="Complete (Delete it)" onPress={onComplete} />
+            <Button title="complete" onPress={() => dispatch({
+                type: "RECOVER_INIT_STATE_SET",
+                payload: {
+                    recoverInitState: LoadingStatus.COMPLETE
+                }
+            })} />
+
+            <Button title="failed" onPress={() => dispatch({
+                type: "RECOVER_INIT_STATE_SET",
+                payload: {
+                    recoverInitState: LoadingStatus.FAILED
+                }
+            })} />
+            <Button title="loading" onPress={() => dispatch({
+                type: "RECOVER_INIT_STATE_SET",
+                payload: {
+                    recoverInitState: LoadingStatus.LOADING
+                }
+            })} />
         </SafeAreaView>
     );
 }

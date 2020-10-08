@@ -4,6 +4,8 @@ import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { MdParamList } from "./NavRoutes";
 import { Picker } from "@react-native-community/picker";
+import { useTypedDispatch, useTypedSelector } from '../store/rootReducer';
+import { LoadingStatus } from "../types/types";
 
 interface Props {
     navigation: StackNavigationProp<MdParamList, "MasjidSelect">;
@@ -12,6 +14,9 @@ interface Props {
 
 export const MasjidSelect: React.FC<Props> = ({navigation}) => {
     const [selectedMasjid, setSelectedMasjid] = useState<React.ReactText>("mh");
+
+    const dispatch = useTypedDispatch();
+
     return (
         <SafeAreaView>
             <Text style={{ textAlign: "center", fontSize: 30, marginBottom: '10%' }}>Masjid Dashboard</Text>
@@ -24,6 +29,25 @@ export const MasjidSelect: React.FC<Props> = ({navigation}) => {
                 <Picker.Item label="Darul Arqam Institute" value="darularqam" />
             </Picker>
             <Button title="Set Masjid" onPress={() => { navigation.navigate("PrayerTime") }} />
+            <Button title="complete" onPress={() => dispatch({
+                type: "RECOVER_INIT_STATE_SET",
+                payload: {
+                    recoverInitState: LoadingStatus.COMPLETE
+                }
+            })} />
+
+            <Button title="failed" onPress={() => dispatch({
+                type: "RECOVER_INIT_STATE_SET",
+                payload: {
+                    recoverInitState: LoadingStatus.FAILED
+                }
+            })} />
+            <Button title="loading" onPress={() => dispatch({
+                type: "RECOVER_INIT_STATE_SET",
+                payload: {
+                    recoverInitState: LoadingStatus.LOADING
+                }
+            })} />
         </SafeAreaView>
     );
 }
