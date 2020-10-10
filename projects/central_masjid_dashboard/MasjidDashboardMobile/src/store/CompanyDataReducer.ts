@@ -17,9 +17,12 @@ export type CompanyDataDelete = {
 export type CompanyDataActionTypes = CompanyDataSet | CompanyDataDelete;
 
 // Initial State
+
 const INITIAL_STATE: CompanyData = {
-    company: undefined,
-    prayer: undefined,
+    // @ts-ignore
+    company: {},
+    // @ts-ignore
+    prayer: {},
     expirableVersion: {}
 };
 

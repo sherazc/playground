@@ -3,7 +3,7 @@ import { createOrRefreshExpirableVersion, isExpired } from './ExpirableVersionSe
 import store from '../store/rootReducer';
 import { END_POINT_COMPANY_LIST_VERSION, END_POINT_COMPANIES_ACTIVE } from './Constants';
 
-const isValidCompanyListData = (companyListData: CompanyListData) => {
+const isValidCompanyListData = (companyListData?: CompanyListData) => {
     return companyListData && companyListData.companies
         && companyListData.companies.length > 0;
 }
@@ -67,33 +67,30 @@ const refeashCompanyListData = () => {
     const companyListData = createCompanyListData();
     apiCompanyListVersion().then(companyListVersion => {
         if (companyListVersion && companyListVersion.version != null && companyListVersion.version != undefined) {
-            if (companyListData.expirableVersion) {
-                companyListData.expirableVersion.version = companyListVersion.version;
-            }
+            // @ts-ignore companyData.expirableVersion will be created in createCompanyListData() call
+            companyListData.expirableVersion.version = companyListVersion.version;
 
             apiCompaniesActive().then(companies => {
                 companyListData.companies = companies;
                 updateCompanyListDataState(companyListData)
-            }).catch(e => console.log("Error Getting Company", e));
+            }).catch(e => console.log("Error calling GET Active Company List API", e));
         }
-    }).catch(e => console.log("Error Getting Version", e));
+    }).catch(e => console.log("Error calling GET Company List version API", e));
 }
 
 
 // Creates new CompanyList by calling APIs or updates expirationData if online version is the same
 export const updateCompanyListData = (companyListData: CompanyListData) => {
     console.log("Attempting update CompanyListData ", companyListData);
-    if (isValidCompanyListData(companyListData)) {
-        if (isExpired(companyListData.expirableVersion)) {
-            apiCompanyListVersion().then(companyListVersion => {
-                if (isCompanyListVersionSame(companyListData, companyListVersion)) {
-                    refeashCompanyListDataExpirableVersion(companyListData)
-                    updateCompanyListDataState(companyListData)
-                } else {
-                    refeashCompanyListData();
-                }
-            })
-        }
+    if (isValidCompanyListData(companyListData) && isExpired(companyListData.expirableVersion)) {
+        apiCompanyListVersion().then(companyListVersion => {
+            if (isCompanyListVersionSame(companyListData, companyListVersion)) {
+                refeashCompanyListDataExpirableVersion(companyListData)
+                updateCompanyListDataState(companyListData)
+            } else {
+                refeashCompanyListData();
+            }
+        });
     } else {
         refeashCompanyListData();
     }

@@ -1,15 +1,20 @@
 import { Company, CompanyData, CompanyDataVersion, Prayer } from "../types/types";
-import { createOrRefreshExpirableVersion } from "./ExpirableVersionService";
+import { createOrRefreshExpirableVersion, isExpired } from "./ExpirableVersionService";
 import { COMPANY_DATA_SET } from '../store/CompanyDataReducer';
 import store from '../store/rootReducer';
 import { createCompanyDataVersionEndpoint } from '../services/Constants';
 import { createPrayerEndpoint } from './Constants';
 
-const isValidCompanyData = (companyData: CompanyData) => {
-    return companyData
-        && companyData.company && companyData.company.id
-        && companyData.prayer && companyData.prayer.date
-        && companyData.expirableVersion && companyData.expirableVersion.version;
+const isValidCompanyData = (companyData?: CompanyData) => {
+    return companyData && isValidCompany(companyData.company) && isValidPrayer(companyData.prayer);
+}
+
+const isValidCompany = (company?: Company) => {
+    return company && company.id;
+}
+
+const isValidPrayer = (prayer?: Prayer) => {
+    return prayer && prayer.date;
 }
 
 const getCompanyDataVersionNumber = (companyData?: CompanyData): (number | undefined) => {
@@ -76,33 +81,39 @@ const refeashCompanyData = (company: Company, month: string, day: string) => {
 
     apiCompanyDataVersion(company.id).then(companyDataVersion => {
         if (companyDataVersion && companyDataVersion.version != null && companyDataVersion.version != undefined) {
-            if (companyData.expirableVersion) {
-                companyData.expirableVersion.version = companyDataVersion.version;
-            }
+            // @ts-ignore companyData.expirableVersion will be created in createCompanyData() call
+            companyData.expirableVersion.version = companyDataVersion.version;
 
-            apiCompaniesActive().then(companies => {
-                companyData.companies = companies;
+            apiPrayer(company.id, month, day).then(prayer => {
+                companyData.prayer = prayer;
                 updateCompanyDataState(companyData)
-            }).catch(e => console.log("Error Getting Company", e));
+            }).catch(e => console.log("Error calling GET Prayer API", e));
         }
-    }).catch(e => console.log("Error Getting Version", e));
+    }).catch(e => console.log("Error calling GET Company Data version API", e));
+}
+
+const shouldUpdateCompanyData = (companyData?: CompanyData) => {
+    return companyData
+        && isValidCompany(companyData.company)
+        && (isExpired(companyData.expirableVersion) || !isValidPrayer(companyData.prayer));
 }
 
 // Creates new CompanyData by calling APIs or updates expirationData if online version is the same
-export const updateCompanyData = (companyData: CompanyData) => {
+export const updateCompanyData = (companyData: CompanyData, month: string, day: string) => {
     console.log("Attempting update CompanyData ", companyData);
-    if (isValidCompanyData(companyData)) {
-        if (isExpired(companyData.expirableVersion)) {
-            apiCompanyDataVersion().then(companyListVersion => {
-                if (isCompanyDataVersionSame(companyData, companyListVersion)) {
-                    refeashCompanyDataExpirableVersion(companyData)
-                    updateCompanyDataState(companyData)
-                } else {
-                    refeashCompanyData();
-                }
-            })
-        }
+    if (shouldUpdateCompanyData(companyData)) {
+        // @ts-ignore
+        apiCompanyDataVersion(companyData.company.id).then(companyDataVersion => {
+            if (isCompanyVersionSame(companyData, companyDataVersion)) {
+                refeashCompanyDataExpirableVersion(companyData)
+                updateCompanyDataState(companyData)
+            } else {
+                // @ts-ignore
+                refeashCompanyData(companyData.company, month, day);
+            }
+        });
+
     } else {
-        refeashCompanyData();
+        console.error("Can not refresh CompanyData. Maybe no Company selected")
     }
 }

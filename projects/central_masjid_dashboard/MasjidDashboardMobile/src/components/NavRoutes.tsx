@@ -17,7 +17,7 @@ interface Props {
 
 export type MdParamList = {
     MasjidSelect: undefined;
-    PrayerTime: {selectedMasjid?: Company};
+    PrayerTime: {selectedCompany?: Company};
     Settings: undefined;
 }
 
