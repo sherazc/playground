@@ -57,8 +57,8 @@ export interface CompanyListData {
 
 // Redux/Async store
 export interface CompanyData {
-    masjid: Company;
-    prayer: Prayer;
+    company?: Company;
+    prayer?: Prayer;
     expirableVersion?: ExpirableVersion;
 }
 

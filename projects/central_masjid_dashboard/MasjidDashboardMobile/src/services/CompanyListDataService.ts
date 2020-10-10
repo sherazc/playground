@@ -18,11 +18,11 @@ const getCompanyListVersionNumber = (companyListData?: CompanyListData): (number
 }
 
 const isCompanyListVersionSame = (cld: CompanyListData, clv: CompanyListVersion) => {
-    return cld && clv
-        && cld.expirableVersion
-        && cld.expirableVersion.version
+    const companyListVersionNumber = getCompanyListVersionNumber(cld);
+    return companyListVersionNumber
+        && clv
         && clv.version
-        && cld.expirableVersion.version === clv.version;
+        && companyListVersionNumber === clv.version;
 }
 
 export const isCompanyListDataVersionSame = (c1?: CompanyListData, c2?: CompanyListData) => {
@@ -62,6 +62,7 @@ const apiCompaniesActive = (): Promise<Company[]> => {
     return fetch(END_POINT_COMPANIES_ACTIVE).then(response => response.json());
 }
 
+// Creates new CompanyList by calling APIs
 const refeashCompanyListData = () => {
     const companyListData = createCompanyListData();
     apiCompanyListVersion().then(companyListVersion => {
@@ -78,6 +79,8 @@ const refeashCompanyListData = () => {
     }).catch(e => console.log("Error Getting Version", e));
 }
 
+
+// Creates new CompanyList by calling APIs or updates expirationData if online version is the same
 export const updateCompanyListData = (companyListData: CompanyListData) => {
     console.log("Attempting update CompanyListData ", companyListData);
     if (isValidCompanyListData(companyListData)) {

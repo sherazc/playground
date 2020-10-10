@@ -2,15 +2,17 @@ import {createStore, combineReducers} from 'redux';
 import {useSelector, TypedUseSelectorHook, useDispatch as _useDispatch} from "react-redux"
 import companyListDataReducer, {CompanyListActionTypes} from './CompanyListDataReducer';
 import loadingReducer, { LoadingActionTypes } from './LoadingReducer';
+import companyDataReducer, { CompanyDataActionTypes } from './CompanyDataReducer';
 
 const INITIAL_STATE = {};
 
 const rootReducer = combineReducers({
   companyListData: companyListDataReducer,
+  companyData: companyDataReducer,
   loading: loadingReducer
 });
 
-export type RootActionType = CompanyListActionTypes | LoadingActionTypes;
+export type RootActionType = CompanyListActionTypes | CompanyDataActionTypes | LoadingActionTypes;
 export type RootState = ReturnType<typeof rootReducer>
 
 export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;

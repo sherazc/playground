@@ -1,6 +1,31 @@
 export const BASE_URL = "https://www.masjiddashboard.com";
 export const END_POINT_COMPANIES_ACTIVE = `${BASE_URL}/api/auth/companies/active`;
 export const END_POINT_COMPANY_LIST_VERSION = `${BASE_URL}/api/version/company/list`;
-export const createCompanyDataEndpoint = (companyId: string) => `${BASE_URL}/api/version/company/${companyId}/data`;
-export const EXPIRATION_MILLIS = 15 * 60 * 1000; // 15 mins
-export const UPDATE_INTERVAL_MILLIS = 60 * 1000;
+export const createCompanyDataVersionEndpoint = (companyId: string) => `${BASE_URL}/api/version/company/${companyId}/data`;
+export const createPrayerEndpoint = (companyId: string, month: string, day: string) => `${BASE_URL}/api/prayer/companyId/${companyId}/month/${month}/day/${day}`;
+export const EXPIRATION_MILLIS = 1500 * 60 * 1000; // 15 mins
+export const UPDATE_INTERVAL_MILLIS = 6000 * 1000;
+
+/*
+Example Version calls:
+
+Company List
+https://www.masjiddashboard.com/api/version/company/list
+https://www.masjiddashboard.com/api/version/company/list/upgrade
+https://www.masjiddashboard.com/api/auth/companies/active
+
+Company Data
+https://www.masjiddashboard.com/api/version/company/5f709f2e4f16bc7f7632ee42/data
+https://www.masjiddashboard.com/api/version/company/5f709f2e4f16bc7f7632ee42/data/upgrade
+
+
+Company Prayers
+https://www.masjiddashboard.com/api/prayer/companyId/5f709f2e4f16bc7f7632ee42/month/01/day/01
+
+
+Company Year Prayers
+Gregorian
+https://www.masjiddashboard.com/api/calendar/companyId/5f709f2e4f16bc7f7632ee42/type/gregorian/year/2020
+Hijri
+https://www.masjiddashboard.com/api/calendar/companyId/5f709f2e4f16bc7f7632ee42/type/hijri/year/1440
+*/
