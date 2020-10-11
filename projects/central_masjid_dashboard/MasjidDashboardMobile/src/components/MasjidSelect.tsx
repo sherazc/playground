@@ -14,50 +14,43 @@ interface Props {
 
 export const MasjidSelect: React.FC<Props> = ({navigation}) => {
     const companyListData = useTypedSelector(state => state.companyListData);
-    const [selectedMasjid, setSelectedMasjid] = useState<React.ReactText>("");
+    const [selectedCompanyId, setSelectedCompanyId] = useState<React.ReactText>("");
 
-    const dispatch = useTypedDispatch();    
+    const dispatch = useTypedDispatch();
 
-    if (companyListData && companyListData.companies && companyListData.companies.length > 0 && !selectedMasjid) {
-        setSelectedMasjid(companyListData.companies[0].id);
+    if (companyListData && companyListData.companies && companyListData.companies.length > 0 && !selectedCompanyId) {
+        setSelectedCompanyId(companyListData.companies[0].id);
     }
 
+    const onSetCompany = () => {
+        if (!selectedCompanyId) {
+            return;
+        }
+        const selectedCompany = companyListData.companies.find(c => c.id === selectedCompanyId);
+        if (selectedCompany) {
+            navigation.navigate("PrayerTime", {selectedCompany});
+        }
+
+    }
+    console.log(selectedCompanyId)
     return (
         <SafeAreaView>
             <Text style={{ textAlign: "center", fontSize: 30, marginBottom: '10%' }}>Masjid Dashboard</Text>
             <Picker
-                selectedValue={selectedMasjid}
+                selectedValue={selectedCompanyId}
                 style={{ height: 150 }}
                 itemStyle={{ height: 150 }}
-                onValueChange={(itemValue: React.ReactText, itemIndex: number) => setSelectedMasjid(itemValue)}>
+                onValueChange={(itemValue: React.ReactText, itemIndex: number) => setSelectedCompanyId(itemValue)}>
                 {buildCompanyPickerItems(companyListData)}
             </Picker>
-            {/* 
+            {/*
             TODO:
             Create ComapnyData Store
             Set selected masjid/company in redux CompanyData store
             Navigate to Prayer time screen
              */}
-            <Button title="Set Masjid" onPress={() => { navigation.navigate("PrayerTime", {selectedMasjid: undefined}) }} />
-            <Button title="complete" onPress={() => dispatch({
-                type: "RECOVER_INIT_STATE_SET",
-                payload: {
-                    recoverInitState: LoadingStatus.COMPLETE
-                }
-            })} />
+            <Button title="Set Masjid" disabled={!selectedCompanyId} onPress={onSetCompany} />
 
-            <Button title="failed" onPress={() => dispatch({
-                type: "RECOVER_INIT_STATE_SET",
-                payload: {
-                    recoverInitState: LoadingStatus.FAILED
-                }
-            })} />
-            <Button title="loading" onPress={() => dispatch({
-                type: "RECOVER_INIT_STATE_SET",
-                payload: {
-                    recoverInitState: LoadingStatus.LOADING
-                }
-            })} />
         </SafeAreaView>
     );
 }
@@ -68,7 +61,10 @@ const buildCompanyPickerItems = (cld?: CompanyListData) => {
     if (!cld || !cld.companies || cld.companies.length < 1) {
         return;
     }
+    const pickerItems = [<Picker.Item key={0} label="Select Masjid" value="" />]
 
-    return cld.companies.map(c => <Picker.Item key={c.id}
-        label={`${c.name} - ${c.address.city}, ${c.address.state}`} value={c.id} />);
+    cld.companies.forEach(c => pickerItems.push(<Picker.Item key={c.id}
+        label={`${c.name} - ${c.address.city}, ${c.address.state}`} value={c.id} />));
+
+    return pickerItems;
 }
