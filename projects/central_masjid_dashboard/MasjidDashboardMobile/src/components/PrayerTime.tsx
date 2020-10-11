@@ -5,6 +5,8 @@ import { MdParamList } from "./NavRoutes";
 import { RouteProp } from '@react-navigation/native';
 import { useTypedDispatch, useTypedSelector } from "../store/rootReducer";
 import { CompanyData } from "../types/types";
+import { Loading } from "./Loading";
+import { PrayerTimeGrid } from './PrayerTimeGrid';
 
 interface Props {
     navigation: StackNavigationProp<MdParamList, "PrayerTime">;
@@ -15,6 +17,7 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
     const companyData = useTypedSelector(state => state.companyData);
     const dispatch = useTypedDispatch();
 
+    // Inits
     useEffect(() => {
         if (isSameCompanySelected(companyData, route)) return;
         if (route.params && route.params.selectedCompany) {
@@ -32,16 +35,22 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
             if (!companyData.company || !companyData.company.id) {
                 navigation.navigate("MasjidSelect");
             }
-          });
-          return unsubscribe;
+        });
+        return unsubscribe;
     }, [navigation, companyData]);
 
     return (
         <SafeAreaView>
             <Text style={{ textAlign: "center", fontSize: 30, marginBottom: '10%' }}>{companyData.company ? companyData.company.name : "No Company Selected"}</Text>
             <Button title="Settings" onPress={() => { navigation.navigate("Settings") }} />
+            {loadPrayerTimeGrid(companyData)}
         </SafeAreaView>
     );
+}
+
+const loadPrayerTimeGrid = (companyData: CompanyData) => {
+    if (!companyData || !companyData.prayer || !companyData.prayer.date) return <Loading />
+    return <PrayerTimeGrid prayer={companyData.prayer} />
 }
 
 const isSameCompanySelected = (companyData: CompanyData, routeParams: RouteProp<MdParamList, "PrayerTime">) => {
