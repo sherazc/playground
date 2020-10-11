@@ -9,7 +9,7 @@ const isValidCompanyData = (companyData?: CompanyData) => {
     return companyData && isValidCompany(companyData.company) && isValidPrayer(companyData.prayer);
 }
 
-const isValidCompany = (company?: Company) => {
+export const isValidCompany = (company?: Company) => {
     return company && company.id;
 }
 
@@ -38,6 +38,14 @@ export const isCompanyDataVersionSame = (c1?: CompanyData, c2?: CompanyData) => 
     let c1Version = getCompanyDataVersionNumber(c1);
     let c2Version = getCompanyDataVersionNumber(c2);
     return c1Version && c2Version && c1Version === c2Version;
+}
+
+export const isCompanyDataCompanySame = (c1?: CompanyData, c2?: CompanyData) => {
+    return c1 && c2 && isCompanySame(c1.company, c2.company);
+}
+
+export const isCompanySame = (c1?: Company, c2?: Company) => {
+    return c1 && c2 && c1.id && c2.id && c1.id === c2.id;
 }
 
 const createCompanyData = (): CompanyData => {

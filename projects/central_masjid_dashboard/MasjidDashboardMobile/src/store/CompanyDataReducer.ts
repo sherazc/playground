@@ -17,12 +17,9 @@ export type CompanyDataDelete = {
 export type CompanyDataActionTypes = CompanyDataSet | CompanyDataDelete;
 
 // Initial State
-
 const INITIAL_STATE: CompanyData = {
-    // @ts-ignore
-    company: {},
-    // @ts-ignore
-    prayer: {},
+    company: undefined,
+    prayer: undefined,
     expirableVersion: {}
 };
 
@@ -43,8 +40,8 @@ export default function companyDataReducer(
             };
         case "COMPANY_DATA_DELETE":
             console.log("Removing CompanyData from store and storage.");
-            removeStorage(STORAGE_COMPANY_DATA);
-            return { ...state, ...INITIAL_STATE };
+            // removeStorage(STORAGE_COMPANY_DATA);
+            return { ...state, ...INITIAL_STATE, company: undefined };
         default:
             return state;
     }
