@@ -7,6 +7,8 @@ import { useTypedDispatch, useTypedSelector } from "../store/rootReducer";
 import { CompanyData } from "../types/types";
 import { Loading } from "./Loading";
 import { PrayerTimeGrid } from './PrayerTimeGrid';
+import { beginPrayerTimeInterval, destroyCompanyDataInterval } from '../services/AppService';
+import { todaysDay, todaysMonth } from '../services/DateService';
 
 interface Props {
     navigation: StackNavigationProp<MdParamList, "PrayerTime">;
@@ -38,6 +40,12 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
         });
         return unsubscribe;
     }, [navigation, companyData]);
+
+
+    useEffect(() => {
+        beginPrayerTimeInterval(companyData, todaysMonth().toString(), todaysDay().toString());
+        return destroyCompanyDataInterval;
+    }, [companyData]);
 
     return (
         <SafeAreaView>

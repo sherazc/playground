@@ -1,0 +1,1 @@
+export const isEqualStrings = (s1?:string, s2?: string) => s1 && s2 && s1 === s2;

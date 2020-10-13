@@ -14,6 +14,8 @@ import {
 import { CompanyData, CompanyListData, SettingData } from '../types/types';
 import { isCompanyListDataVersionSame, updateCompanyListData } from './CompanyListDataService';
 import { UPDATE_INTERVAL_MILLIS } from './Constants';
+import { isCompanyDataCompanySame, isCompanyDataVersionSame, isValidCompany, updateCompanyData } from './CompanyDataService';
+import { isEqualStrings } from './Utilities';
 
 export const recoverAppFromStorage = () => {
     console.log("Recovering App from storage");
@@ -80,5 +82,38 @@ export const destroyedApp = () => {
     if (updateCompanyListDataInterval) {
         clearInterval(updateCompanyListDataInterval);
     }
+}
 
+let updateCompanyDataInterval: NodeJS.Timeout;
+let previousCompanyData: CompanyData;
+let previousCompanyDataPrayerMonth: string;
+let previousCompanyDataPrayerDay: string;
+export const beginPrayerTimeInterval = (companyData: CompanyData, month: string, day: string) => {
+    if (!companyData || !isValidCompany(companyData.company)) return;
+
+    if (!isCompanyDataCompanySame(previousCompanyData, companyData)
+        || !isCompanyDataVersionSame(previousCompanyData, companyData)
+        || !isEqualStrings(previousCompanyDataPrayerMonth, month)
+        || !isEqualStrings(previousCompanyDataPrayerDay, day)) {
+
+        console.log("Restarting updateCompanyListDataInterval");
+        updateCompanyData(companyData, month, day);
+        if (updateCompanyDataInterval) {
+            clearInterval(updateCompanyListDataInterval);
+        }
+        updateCompanyDataInterval = setInterval(() => {
+            updateCompanyData(companyData, month, day);
+        }, UPDATE_INTERVAL_MILLIS);
+
+        previousCompanyData = companyData;
+        previousCompanyDataPrayerMonth = month;
+        previousCompanyDataPrayerDay = day;
+    }
+}
+
+export const destroyCompanyDataInterval = () => {
+    console.log("Destroying updateCompanyDataInterval", updateCompanyDataInterval);
+    if (updateCompanyDataInterval) {
+        clearInterval(updateCompanyDataInterval);
+    }
 }
