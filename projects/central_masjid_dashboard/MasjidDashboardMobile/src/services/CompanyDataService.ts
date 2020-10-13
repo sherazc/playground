@@ -1,4 +1,4 @@
-import { Company, CompanyData, CompanyDataVersion, Prayer } from "../types/types";
+import { Company, CompanyData, CompanyDataVersion, Prayer, ServiceResponse } from "../types/types";
 import { createOrRefreshExpirableVersion, isExpired } from "./ExpirableVersionService";
 import { COMPANY_DATA_SET } from '../store/CompanyDataReducer';
 import store from '../store/rootReducer';
@@ -76,10 +76,15 @@ const apiCompanyDataVersion = (companyId: string): Promise<CompanyDataVersion> =
     return fetch(endpoint).then(response => response.json());
 }
 
-const apiPrayer = (companyId: string, month: string, day: string): Promise<Prayer> => {
+const apiPrayer = (companyId: string, month: string, day: string): Promise<ServiceResponse<Prayer>> => {
     const endpoint = createPrayerEndpoint(companyId, month, day);
     console.log("Calling API ", endpoint);
     return fetch(endpoint).then(response => response.json());
+}
+
+const isValidServiceResponsePrayer = (serviceResponse: ServiceResponse<Prayer>) => {
+    return serviceResponse && serviceResponse.successful
+        && serviceResponse.target && serviceResponse.target.date;
 }
 
 // Creates new CompanyData by calling APIs
@@ -92,9 +97,11 @@ const refeashCompanyData = (company: Company, month: string, day: string) => {
             // @ts-ignore companyData.expirableVersion will be created in createCompanyData() call
             companyData.expirableVersion.version = companyDataVersion.version;
 
-            apiPrayer(company.id, month, day).then(prayer => {
-                companyData.prayer = prayer;
-                updateCompanyDataState(companyData)
+            apiPrayer(company.id, month, day).then(prayerResponse => {
+                if (isValidServiceResponsePrayer(prayerResponse)) {
+                    companyData.prayer = prayerResponse.target;
+                    updateCompanyDataState(companyData)
+                }
             }).catch(e => console.log("Error calling GET Prayer API", e));
         }
     }).catch(e => console.log("Error calling GET Company Data version API", e));
@@ -122,6 +129,6 @@ export const updateCompanyData = (companyData: CompanyData, month: string, day: 
         });
 
     } else {
-        console.error("Can not refresh CompanyData. Maybe no Company selected")
+        console.log("Not updating CompanyData. Maybe no Company selected or its still a non expired CompanyData.")
     }
 }

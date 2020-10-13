@@ -49,6 +49,13 @@ export interface Company {
     expirationDate: Date;
 }
 
+export interface ServiceResponse<T> {
+    successful:boolean;
+    message:string;
+    fieldErrors: object;
+    target: T;
+}
+
 // Redux/Async store
 export interface CompanyListData {
     companies: Array<Company>;
