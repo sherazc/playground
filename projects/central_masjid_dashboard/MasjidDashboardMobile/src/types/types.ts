@@ -1,10 +1,10 @@
 export interface ExpirableVersion {
-	expirationDate?: Date;
-	version?: number;
+    expirationDate?: Date;
+    version?: number;
 }
 
 export interface Prayer {
-    date: Date ;
+    date: Date;
     hijrahDate: string; // HijrahDate
     hijriString: string;
     fajr: string;
@@ -50,8 +50,8 @@ export interface Company {
 }
 
 export interface ServiceResponse<T> {
-    successful:boolean;
-    message:string;
+    successful: boolean;
+    message: string;
     fieldErrors: object;
     target: T;
 }
@@ -71,15 +71,15 @@ export interface CompanyData {
 
 // Redux/Async store
 export interface SettingData {
-	azanAlert: boolean;
-	iqamaAlert: boolean;
-	iqamaChangeAlert: boolean;
+    azanAlert: boolean;
+    iqamaAlert: boolean;
+    iqamaChangeAlert: boolean;
 }
 
 export interface CompanyDataVersion {
-  id: string;
-  companyId: string;
-  version: number;
+    id: string;
+    companyId: string;
+    version: number;
 }
 
 export interface CompanyListVersion {
@@ -87,7 +87,7 @@ export interface CompanyListVersion {
     version: number;
 }
 
-export enum LoadingStatus {INIT, LOADING, COMPLETE, FAILED}
+export enum LoadingStatus { INIT, LOADING, COMPLETE, FAILED }
 
 export interface Loading {
     recoverInitState: LoadingStatus;
