@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { dateToDisplayDateShort, time24To12 } from '../services/DateService';
 import { Prayer } from '../types/types';
 
 interface Props {
@@ -9,9 +10,50 @@ interface Props {
 export const PrayerTimeGrid: React.FC<Props> = ({ prayer }) => {
     return (
         <View>
-            <Text>PrayerTimeGrid </Text>
-            <Text>Date {prayer.date} </Text>
-            <Text>Fajr:{prayer.fajr}</Text>
+            <View style={{...styles.row, ...styles.rowHeading}}>
+                <Text style={{...styles.column1, ...styles.cell}}></Text>
+                <Text style={{...styles.column2, ...styles.cell}}>
+                    Azan
+                </Text>
+                <Text style={{...styles.column3, ...styles.cell}}>
+                    Iqama
+                </Text>
+                <Text style={{...styles.column4, ...styles.cell}}>
+                    Next Change
+                </Text>
+            </View>
+            <View style={{...styles.row, ...styles.rowActive}}>
+                <Text style={{...styles.prayerName, ...styles.cell, ...styles.column1}}>
+                    Fajr
+                </Text>
+                <Text style={{...styles.prayerAzan, ...styles.cell, ...styles.column2}}>
+                    {time24To12(prayer.fajr)}
+                </Text>
+                <Text style={{...styles.prayerIqama, ...styles.cell, ...styles.column3}}>
+                    {time24To12(prayer.fajrIqama)}
+                </Text>
+                <View style={{...styles.prayerNextChange, ...styles.cell, ...styles.column4}}>
+                    <Text>{dateToDisplayDateShort(prayer.fajrChangeDate)}</Text>
+                    <Text>{time24To12(prayer.fajrChange)}</Text>
+                </View>
+            </View>
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    row: { flexDirection: "row" },
+    cell: {padding: 3, alignContent: "center", justifyContent:"center"},
+    column1: {},
+    column2: {},
+    column3: {},
+    column4: {},
+    rowHeading: {},
+    rowInactive: {backgroundColor: "red"},
+    rowActive: {backgroundColor: "green"},
+    prayerName: {},
+    prayerAzan: {},
+    prayerIqama: {},
+    prayerNextChange: {},
+});
+
