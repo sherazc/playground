@@ -1,11 +1,11 @@
 import 'react-native-gesture-handler';
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MasjidSelect } from './MasjidSelect';
 import { PrayerTime } from './PrayerTime/PrayerTime';
 import { Settings } from './Settings';
-import {useTypedSelector} from '../store/rootReducer'
+import { useTypedSelector } from '../store/rootReducer'
 import { Company, LoadingStatus } from '../types/types';
 import { RecoveringFromStorage } from './RecoveringFromStorage';
 import { recoverAppFromStorage, destroyedApp, beginApp } from '../services/AppService';
@@ -17,7 +17,7 @@ interface Props {
 
 export type MdParamList = {
     MasjidSelect: undefined;
-    PrayerTime: {selectedCompany?: Company};
+    PrayerTime: { selectedCompany?: Company };
     Settings: undefined;
 }
 
@@ -36,9 +36,24 @@ export const NavRoutes: React.FC<Props> = () => {
         }
     }, []);
 
+/*
+https://reactnative.dev/docs/dimensions
+TODO: set dimention and in redux store and use it to size components
+    const onChange = ({ window, screen }) => {
+        setDimensions({ window, screen });
+    };
+
+    useEffect(() => {
+        Dimensions.addEventListener("change", onChange);
+        return () => {
+            Dimensions.removeEventListener("change", onChange);
+        };
+    });
+*/
+
     if (loading.recoverInitState === LoadingStatus.LOADING
         || loading.recoverInitState === LoadingStatus.INIT) {
-        return <RecoveringFromStorage/>
+        return <RecoveringFromStorage />
     } else {
         beginApp(companyListData);
         return (

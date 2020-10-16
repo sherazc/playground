@@ -8,7 +8,7 @@ interface Props {
 export const TodayDetail: React.FC<Props> = ({ }) => {
 
     return (
-        <View style={{backgroundColor: "#aeaeae"}}>
+        <View style={{ backgroundColor: "#aeaeae" }}>
             <Text>Current Prayer Name</Text>
             <Text>Time to next Prayer</Text>
             <Text>Jummah Time. Get it from config API</Text>
