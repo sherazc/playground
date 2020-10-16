@@ -18,6 +18,10 @@ Company Data
 https://www.masjiddashboard.com/api/version/company/5f709f2e4f16bc7f7632ee42/data
 https://www.masjiddashboard.com/api/version/company/5f709f2e4f16bc7f7632ee42/data/upgrade
 
+Company Configuration
+
+https://www.masjiddashboard.com/api/auth/companies/5f709f2e4f16bc7f7632ee42/configurations
+
 
 Company Prayers
 https://www.masjiddashboard.com/api/prayer/companyId/5f709f2e4f16bc7f7632ee42/month/01/day/01
