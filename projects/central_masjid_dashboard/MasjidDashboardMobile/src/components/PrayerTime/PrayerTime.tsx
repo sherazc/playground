@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
 import { Button, SafeAreaView, Text, View } from "react-native";
 import { StackNavigationProp } from '@react-navigation/stack';
-import { MdParamList } from "./NavRoutes";
+import { MdParamList } from "../NavRoutes";
 import { RouteProp } from '@react-navigation/native';
-import { useTypedDispatch, useTypedSelector } from "../store/rootReducer";
-import { CompanyData } from "../types/types";
-import { Loading } from "./Loading";
+import { useTypedDispatch, useTypedSelector } from "../../store/rootReducer";
+import { CompanyData } from "../../types/types";
+import { Loading } from "../Loading";
 import { PrayerTimeGrid } from './PrayerTimeGrid';
-import { beginPrayerTimeInterval, destroyCompanyDataInterval } from '../services/AppService';
-import { todaysDay, todaysMonth } from '../services/DateService';
+import { beginPrayerTimeInterval, destroyCompanyDataInterval } from '../../services/AppService';
+import { todaysDay, todaysMonth } from '../../services/DateService';
+import { TodayDetail } from "./TodayDetail";
 
 interface Props {
     navigation: StackNavigationProp<MdParamList, "PrayerTime">;
@@ -51,14 +52,19 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
         <SafeAreaView>
             <Text style={{ textAlign: "center", fontSize: 30, marginBottom: '10%' }}>{companyData.company ? companyData.company.name : "No Company Selected"}</Text>
             <Button title="Settings" onPress={() => { navigation.navigate("Settings") }} />
-            {loadPrayerTimeGrid(companyData)}
+            {loadPrayerTime(companyData)}
         </SafeAreaView>
     );
 }
 
-const loadPrayerTimeGrid = (companyData: CompanyData) => {
+const loadPrayerTime = (companyData: CompanyData) => {
     if (!companyData || !companyData.prayer || !companyData.prayer.date) return <Loading />
-    return <PrayerTimeGrid prayer={companyData.prayer} />
+    return (
+        <View>
+            <TodayDetail />
+            <PrayerTimeGrid prayer={companyData.prayer} />
+        </View>
+    );
 }
 
 const isSameCompanySelected = (companyData: CompanyData, routeParams: RouteProp<MdParamList, "PrayerTime">) => {

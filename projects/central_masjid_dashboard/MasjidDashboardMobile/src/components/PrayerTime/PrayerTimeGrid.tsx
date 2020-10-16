@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { dateToDisplayDateShort, time24To12 } from '../services/DateService';
-import { Prayer } from '../types/types';
+import { dateToDisplayDateShort, time24To12 } from '../../services/DateService';
+import { Prayer } from '../../types/types';
 
 interface Props {
     prayer: Prayer;

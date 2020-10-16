@@ -3,7 +3,7 @@ import React, {useEffect} from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MasjidSelect } from './MasjidSelect';
-import { PrayerTime } from './PrayerTime';
+import { PrayerTime } from './PrayerTime/PrayerTime';
 import { Settings } from './Settings';
 import {useTypedSelector} from '../store/rootReducer'
 import { Company, LoadingStatus } from '../types/types';
