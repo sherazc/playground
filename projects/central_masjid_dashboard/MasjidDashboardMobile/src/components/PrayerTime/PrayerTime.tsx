@@ -61,7 +61,7 @@ const loadPrayerTime = (companyData: CompanyData) => {
     if (!companyData || !companyData.prayer || !companyData.prayer.date) return <Loading />
     return (
         <View>
-            <TodayDetail />
+            <TodayDetail prayer={companyData.prayer} />
             <PrayerTimeGrid prayer={companyData.prayer} />
         </View>
     );
