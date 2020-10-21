@@ -9,7 +9,7 @@ import { Loading } from "../Loading";
 import { PrayerTimeGrid } from './PrayerTimeGrid';
 import { beginPrayerTimeInterval, destroyCompanyDataInterval } from '../../services/AppService';
 import { todaysDay, todaysMonth } from '../../services/DateService';
-import { TodayDetail } from "./TodayDetail";
+import { TodaysDetail } from "./TodaysDetail";
 
 interface Props {
     navigation: StackNavigationProp<MdParamList, "PrayerTime">;
@@ -61,7 +61,7 @@ const loadPrayerTime = (companyData: CompanyData) => {
     if (!companyData || !companyData.prayer || !companyData.prayer.date) return <Loading />
     return (
         <View>
-            <TodayDetail prayer={companyData.prayer} />
+            <TodaysDetail prayer={companyData.prayer} />
             <PrayerTimeGrid prayer={companyData.prayer} />
         </View>
     );

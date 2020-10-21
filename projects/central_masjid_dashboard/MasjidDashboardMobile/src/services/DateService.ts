@@ -1,9 +1,9 @@
-import { EXPIRATION_MILLIS } from './Constants';
+import { Constants } from './Constants';
 import { numberTo2DigitsString } from './Utilities';
 
 const TIME_24_REGX = /([01]?[0-9]|2[0-3]):[0-5][0-9]/;
 
-export const createExpirationDate = () => new Date(Date.now() + EXPIRATION_MILLIS);
+export const createExpirationDate = () => new Date(Date.now() + Constants.EXPIRATION_MILLIS);
 export const todaysDay = () => (new Date()).getDate();
 export const todaysMonth = () => (new Date()).getMonth() + 1;
 

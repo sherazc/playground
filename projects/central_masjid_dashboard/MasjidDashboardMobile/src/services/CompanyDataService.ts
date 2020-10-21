@@ -2,8 +2,7 @@ import { Company, CompanyData, CompanyDataVersion, Prayer, ServiceResponse } fro
 import { createOrRefreshExpirableVersion, isExpired } from "./ExpirableVersionService";
 import { COMPANY_DATA_SET } from '../store/CompanyDataReducer';
 import store from '../store/rootReducer';
-import { createCompanyDataVersionEndpoint } from '../services/Constants';
-import { createPrayerEndpoint } from './Constants';
+import { Constants } from './Constants';
 
 const isValidCompanyData = (companyData?: CompanyData) => {
     return companyData && isValidCompany(companyData.company) && isValidPrayer(companyData.prayer);
@@ -71,13 +70,13 @@ const updateCompanyDataState = (companyData: CompanyData) => {
 }
 
 const apiCompanyDataVersion = (companyId: string): Promise<CompanyDataVersion> => {
-    const endpoint = createCompanyDataVersionEndpoint(companyId)
+    const endpoint = Constants.createCompanyDataVersionEndpoint(companyId)
     console.log("Calling API ", endpoint);
     return fetch(endpoint).then(response => response.json());
 }
 
 const apiPrayer = (companyId: string, month: string, day: string): Promise<ServiceResponse<Prayer>> => {
-    const endpoint = createPrayerEndpoint(companyId, month, day);
+    const endpoint = Constants.createPrayerEndpoint(companyId, month, day);
     console.log("Calling API ", endpoint);
     return fetch(endpoint).then(response => response.json());
 }

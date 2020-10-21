@@ -13,7 +13,7 @@ import {
 
 import { CompanyData, CompanyListData, SettingData } from '../types/types';
 import { isCompanyListDataVersionSame, updateCompanyListData } from './CompanyListDataService';
-import { UPDATE_INTERVAL_MILLIS } from './Constants';
+import { Constants } from './Constants';
 import { isCompanyDataCompanySame, isCompanyDataVersionSame, isValidCompany, updateCompanyData } from './CompanyDataService';
 import { isEqualStrings } from './Utilities';
 
@@ -72,7 +72,7 @@ export const beginApp = (companyListData: CompanyListData) => {
         }
         updateCompanyListDataInterval = setInterval(() => {
             updateCompanyListData(companyListData);
-        }, UPDATE_INTERVAL_MILLIS);
+        }, Constants.UPDATE_INTERVAL_MILLIS);
         previousCompanyListData = companyListData;
     }
 }
@@ -103,7 +103,7 @@ export const beginPrayerTimeInterval = (companyData: CompanyData, month: string,
         }
         updateCompanyDataInterval = setInterval(() => {
             updateCompanyData(companyData, month, day);
-        }, UPDATE_INTERVAL_MILLIS);
+        }, Constants.UPDATE_INTERVAL_MILLIS);
 
         previousCompanyData = companyData;
         previousCompanyDataPrayerMonth = month;

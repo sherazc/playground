@@ -1,7 +1,7 @@
 import { Company, CompanyListData, CompanyListVersion } from '../types/types';
 import { createOrRefreshExpirableVersion, isExpired } from './ExpirableVersionService';
 import store from '../store/rootReducer';
-import { END_POINT_COMPANY_LIST_VERSION, END_POINT_COMPANIES_ACTIVE } from './Constants';
+import { Constants } from './Constants';
 
 const isValidCompanyListData = (companyListData?: CompanyListData) => {
     return companyListData && companyListData.companies
@@ -53,13 +53,13 @@ const updateCompanyListDataState = (companyListData: CompanyListData) => {
 }
 
 const apiCompanyListVersion = (): Promise<CompanyListVersion> => {
-    console.log("Calling API ", END_POINT_COMPANY_LIST_VERSION);
-    return fetch(END_POINT_COMPANY_LIST_VERSION).then(response => response.json());
+    console.log("Calling API ", Constants.END_POINT_COMPANY_LIST_VERSION);
+    return fetch(Constants.END_POINT_COMPANY_LIST_VERSION).then(response => response.json());
 }
 
 const apiCompaniesActive = (): Promise<Company[]> => {
-    console.log("Calling API ", END_POINT_COMPANIES_ACTIVE);
-    return fetch(END_POINT_COMPANIES_ACTIVE).then(response => response.json());
+    console.log("Calling API ", Constants.END_POINT_COMPANIES_ACTIVE);
+    return fetch(Constants.END_POINT_COMPANIES_ACTIVE).then(response => response.json());
 }
 
 // Creates new CompanyList by calling APIs

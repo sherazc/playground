@@ -1,11 +1,14 @@
-export const BASE_URL = "https://www.masjiddashboard.com";
-export const END_POINT_COMPANIES_ACTIVE = `${BASE_URL}/api/auth/companies/active`;
-export const END_POINT_COMPANY_LIST_VERSION = `${BASE_URL}/api/version/company/list`;
-export const createCompanyDataVersionEndpoint = (companyId: string) => `${BASE_URL}/api/version/company/${companyId}/data`;
-export const createPrayerEndpoint = (companyId: string, month: string, day: string) => `${BASE_URL}/api/prayer/companyId/${companyId}/month/${month}/day/${day}`;
-export const EXPIRATION_MILLIS = 1500 * 60 * 1000; // 15 mins
-export const UPDATE_INTERVAL_MILLIS = 6000 * 1000;
+const BASE_URL = "https://www.masjiddashboard.com";
 
+export const Constants = {
+    BASE_URL,
+    END_POINT_COMPANIES_ACTIVE: `${BASE_URL}/api/auth/companies/active`,
+    END_POINT_COMPANY_LIST_VERSION: `${BASE_URL}/api/version/company/list`,
+    createCompanyDataVersionEndpoint: (companyId: string) => `${BASE_URL}/api/version/company/${companyId}/data`,
+    createPrayerEndpoint: (companyId: string, month: string, day: string) => `${BASE_URL}/api/prayer/companyId/${companyId}/month/${month}/day/${day}`,
+    EXPIRATION_MILLIS: 1500 * 60 * 1000, // 15 mins
+    UPDATE_INTERVAL_MILLIS: 6000 * 1000,
+}
 /*
 Example Version calls:
 
