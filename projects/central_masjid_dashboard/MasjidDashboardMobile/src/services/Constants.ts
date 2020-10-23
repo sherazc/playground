@@ -1,4 +1,6 @@
 const BASE_URL = "https://www.masjiddashboard.com";
+const PRAYER_DURATION_MIN = 15; // 15 Min. Duration for "Salah in progress"
+const MAGHRIB_LIMIT_MIN = 40; // 40 Min. Maghrib salah will end in.
 
 export const Constants = {
     BASE_URL,
@@ -8,6 +10,11 @@ export const Constants = {
     createPrayerEndpoint: (companyId: string, month: string, day: string) => `${BASE_URL}/api/prayer/companyId/${companyId}/month/${month}/day/${day}`,
     EXPIRATION_MILLIS: 1500 * 60 * 1000, // 15 mins
     UPDATE_INTERVAL_MILLIS: 6000 * 1000,
+    PRAYER_NAME: ["Fajar", "Zuhar", "Asr", "Maghrib", "Isha", "Shurooq"],
+    MAGHRIB_LIMIT_MILLIS: MAGHRIB_LIMIT_MIN * 1000 * 60,
+    SALAH_DURATION_MILLIS: PRAYER_DURATION_MIN * 1000 * 60,
+    PRAYER_DURATION_MIN,
+    MAGHRIB_LIMIT_MIN,
 }
 /*
 Example Version calls:

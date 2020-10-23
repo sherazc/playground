@@ -98,3 +98,14 @@ export interface TodaysDetailMessage {
     currentJamat: string; // e.g. Jamat starts in 30 mins at 5:00pm. || Jamat in progress for next 5 mins || Jamat complete.
     nextPrayer: string; // e.g. Maghrib azan in 2hours and 30 mins
 }
+
+export interface PrayerTime {
+    name: string;
+    azan: Date;
+    iqamah: Date;
+}
+
+export interface DawnTime {
+    name: string;
+    time: Date;
+}
