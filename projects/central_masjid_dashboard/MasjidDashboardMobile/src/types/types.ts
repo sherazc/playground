@@ -105,7 +105,7 @@ export interface PrayerTime {
     iqamah: Date;
 }
 
-export interface DawnTime {
+export interface SunriseTime {
     name: string;
     time: Date;
 }

@@ -1,11 +1,11 @@
 
 import { ExpirableVersion } from '../types/types';
-import { createExpirationDate } from './DateService';
+import { createExpirationDate, nowUtcDate } from './DateService';
 
 export const isExpired = (expirableVersion?: ExpirableVersion) => {
     return !expirableVersion
         || !expirableVersion.expirationDate
-        || expirableVersion.expirationDate.getTime() < new Date().getTime()
+        || expirableVersion.expirationDate.getTime() < nowUtcDate().getTime()
 }
 
 export const createOrRefreshExpirableVersion = (e?: ExpirableVersion) => {

@@ -36,6 +36,12 @@ https://www.masjiddashboard.com/api/auth/companies/5f709f2e4f16bc7f7632ee42/conf
 Company Prayers
 https://www.masjiddashboard.com/api/prayer/companyId/5f709f2e4f16bc7f7632ee42/month/01/day/01
 
+Old prayer time
+https://www.masjidhamzah.com/dashboard/salat_time.php
+https://www.masjidhamzah.com/dashboard/services/jummah.php
+https://www.masjidhamzah.com/dashboard/salat_time.php?callback=buildSalatTable&_=1603507306208
+https://www.masjidhamzah.com/dashboard/services/jummah.php?callback=buildJummahTable&_=1603507306209
+
 
 Company Year Prayers
 Gregorian
