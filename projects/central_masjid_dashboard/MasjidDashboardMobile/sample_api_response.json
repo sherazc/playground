@@ -1,3 +1,33 @@
+[
+    {
+        "name": "Fajar",
+        "azan": "2020-10-24T06:27:00.000Z",
+        "iqamah": "2020-10-24T06:45:00.000Z"
+    },
+    {
+        "name": "Zuhar",
+        "azan": "2020-10-24T13:24:00.000Z",
+        "iqamah": "2020-10-24T14:00:00.000Z"
+    },
+    {
+        "name": "Asr",
+        "azan": "2020-10-24T17:17:00.000Z",
+        "iqamah": "2020-10-24T18:00:00.000Z"
+    },
+    {
+        "name": "Maghrib",
+        "azan": "2020-10-24T18:58:00.000Z"
+    },
+    {
+        "name": "Isha",
+        "azan": "2020-10-24T20:18:00.000Z",
+        "iqamah": "2020-10-24T20:30:00.000Z"
+    },
+    {
+        "name": "Shurooq",
+        "time": "2020-10-24T07:52:00.000Z"
+    }
+]
 
 // masjiddashboard.com prayer
 {
@@ -30,7 +60,6 @@
         "ishaChangeDate": "2020-01-16T00:00:00.000Z"
     }
 }
-
 // masjiddashboard.com configuration
 [
     {
@@ -50,7 +79,6 @@
         "value": "5 Mins"
     }
 ]
-
 // masjidhamzah.com prayer
 {
     "id": "662",
@@ -75,7 +103,6 @@
     "isha_change": "0000-00-00 20:00:00",
     "isha_change_date": "2020-11-03"
 }
-
 // masjidhamzah.com jummah
 [
     {

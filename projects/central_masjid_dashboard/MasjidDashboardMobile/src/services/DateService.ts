@@ -1,5 +1,6 @@
 import { Constants } from './Constants';
 import { numberTo2DigitsString, subStringToNumber } from './Utilities';
+import { PrayerTime} from '../types/types';
 
 const TIME_24_REGX = /([01]?[0-9]|2[0-3]):[0-5][0-9].*/;
 
@@ -74,4 +75,57 @@ export const time24To12 = (time24: string) => {
     const amPm = hours24 > 12 ? "pm" : "am";
 
     return `${numberTo2DigitsString(hours12)}:${numberTo2DigitsString(minutes)}${amPm}`;
+};
+
+
+export const addDays = (date:Date, days:number) => {
+    if (!date || !days) {
+        return;
+    }
+    const calculatedDate = new Date(date.getTime());
+    calculatedDate.setUTCDate(date.getUTCDate() + days);
+    return calculatedDate;
+}
+
+export const addMinutes = (date:Date, minutes:number) => {
+    if (!date || !minutes) {
+        return;
+    }
+    const calculatedDate = new Date(date.getTime());
+    calculatedDate.setMinutes(date.getUTCMinutes() + minutes);
+    return calculatedDate;
+}
+
+export const millisDurationToTimeString = (duration:number) => {
+    if (duration === null
+        || duration === undefined || duration < 0) {
+        return;
+    }
+
+    let seconds:(number | string) = Math.floor((duration/1000)%60),
+        minutes:(number | string) = Math.floor((duration/(1000*60))%60),
+        hours:(number | string) = Math.floor(duration/(1000*60*60));
+
+    hours = (hours < 10) ? "0" + hours : hours;
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    seconds = (seconds < 10) ? "0" + seconds : seconds;
+    return hours + ":" + minutes + ":" + seconds;
+}
+
+export const isTimeBetweenAzans = (timeMillis:number, prayerPeriod:PrayerTime[]) => {
+    if (!timeMillis || !prayerPeriod || prayerPeriod.length != 2
+        || !prayerPeriod[0].azan || !prayerPeriod[1].azan) {
+        return false;
+    }
+
+    return timeMillis > prayerPeriod[0].azan.getTime()
+        && timeMillis < prayerPeriod[1].azan.getTime()
+}
+
+export const toISODateString = (date:Date) => {
+    if (!date) {
+        return;
+    }
+    const isoString = date.toISOString();
+    return isoString.substring(0, 10);
 };
