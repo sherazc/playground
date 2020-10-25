@@ -99,6 +99,14 @@ export interface TodaysDetailMessage {
     nextPrayer: string; // e.g. Maghrib azan in 2hours and 30 mins
 }
 
+export interface PrayerTimeSummary {
+    currentPrayerPeriod: (PrayerTime[] | undefined);
+    timeBetweenShrooqAndZuhar: boolean;
+    prayerInProgressMillis: number;
+    prayerAboutToStartMillis: number;
+    nextPrayerInMillis: number;
+}
+
 export interface PrayerTime {
     name: string;
     azan: Date;

@@ -1,13 +1,17 @@
-import { Prayer, PrayerTime, SunriseTime, TodaysDetailMessage } from "../types/types";
+import { Prayer, PrayerTime, SunriseTime, TodaysDetailMessage, PrayerTimeSummary } from "../types/types";
 import { Constants } from "./Constants";
 import { addDays, millisDurationToTimeString, nowUtcDate, stringH24MinToDate } from "./DateService";
 
-export const processPrayerMessage = (prayer: Prayer): TodaysDetailMessage => {
-    const result: TodaysDetailMessage = {
-        currentPrayer: "",
-        currentJamat: "",
-        nextPrayer: ""
+export const processPrayerTime = (prayer: Prayer): PrayerTimeSummary => {
+    const result: PrayerTimeSummary = {
+        currentPrayerPeriod: [],
+        timeBetweenShrooqAndZuhar: false,
+        prayerInProgressMillis: -1,
+        prayerAboutToStartMillis: -1,
+        nextPrayerInMillis: -1
     };
+
+    // TODO: Write a validatePrayer method
     if (!prayer || !prayer.date) {
         return result;
     }
@@ -31,13 +35,13 @@ export const processPrayerMessage = (prayer: Prayer): TodaysDetailMessage => {
     const prayerAboutToStartMillis = getPrayerAboutToStartMillis(now, currentPrayerPeriod);
     const nextPrayerInMillis = getNextPrayerInMillis(now, currentPrayerPeriod);
 
+    result.currentPrayerPeriod = currentPrayerPeriod;
+    result.timeBetweenShrooqAndZuhar = timeBetweenShrooqAndZuhar;
+    result.prayerInProgressMillis = prayerInProgressMillis;
+    result.prayerAboutToStartMillis = prayerAboutToStartMillis;
+    result.nextPrayerInMillis = nextPrayerInMillis;
 
-    console.log("prayerTimes", prayerTimes);
-    console.log("currentPrayerPeriod", currentPrayerPeriod);
-    console.log("timeBetweenShrooqAndZuhar", timeBetweenShrooqAndZuhar);
-    console.log("prayerInProgressMillis", prayerInProgressMillis);
-    console.log("prayerAboutToStartMillis", prayerAboutToStartMillis);
-    console.log("nextPrayerInMillis", nextPrayerInMillis);
+    console.log("processPrayerTime result", result);
 
     console.log("prayerInProgressMillis", millisDurationToTimeString(prayerInProgressMillis));
     console.log("prayerAboutToStartMillis", millisDurationToTimeString(prayerAboutToStartMillis));
@@ -96,7 +100,7 @@ let getCurrentPrayerPeriod = (now: Date, prayerTimes: PrayerTime[]): (PrayerTime
 };
 
 
-const isTimeBetweenShrooqAndZuhar = (now: Date, zuharPrayerTime: PrayerTime, sunriseTime: SunriseTime) => {
+const isTimeBetweenShrooqAndZuhar = (now: Date, zuharPrayerTime: PrayerTime, sunriseTime: SunriseTime):boolean => {
     if (!now || !zuharPrayerTime || !zuharPrayerTime.azan || !sunriseTime || !sunriseTime.time) {
         return false;
     }
@@ -104,7 +108,12 @@ const isTimeBetweenShrooqAndZuhar = (now: Date, zuharPrayerTime: PrayerTime, sun
     const nowTime = now.getTime();
     let sunriseTimeMillis = sunriseTime.time.getTime();
     let zuharAzanMillis = zuharPrayerTime.azan.getTime();
-    return nowTime && sunriseTimeMillis && zuharAzanMillis && nowTime > sunriseTimeMillis && nowTime < zuharAzanMillis;
+
+    return nowTime > 0
+        && sunriseTimeMillis > 0
+        && zuharAzanMillis > 0
+        && nowTime > sunriseTimeMillis
+        && nowTime < zuharAzanMillis;
 };
 
 // Returns positive millis if prayer is in progress

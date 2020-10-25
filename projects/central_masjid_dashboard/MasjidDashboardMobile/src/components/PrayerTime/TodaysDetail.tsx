@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Button } from "react-native";
 import { Prayer, TodaysDetailMessage } from "../../types/types";
-import { processPrayerMessage } from '../../services/TodaysDetailProcessor';
-
-
+import { processPrayerTime } from '../../services/PrayerTimeProcessor';
 
 interface Props {
     prayer: Prayer
@@ -23,7 +21,8 @@ export const TodaysDetail: React.FC<Props> = ({prayer}) => {
             return;
         }
 
-        setTodaysDetailMessage(processPrayerMessage(prayer))
+        // TODO: Set TodaysDetailMessage or TodaysDetailTime in state
+        processPrayerTime(prayer);
 
         // TODO: state and process prayer interval and return clear interval method.
         console.log("new Prayer reveived");
