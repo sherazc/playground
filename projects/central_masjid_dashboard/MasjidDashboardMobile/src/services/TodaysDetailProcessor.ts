@@ -1,6 +1,6 @@
 import { Prayer, PrayerTime, SunriseTime, TodaysDetailMessage } from "../types/types";
 import { Constants } from "./Constants";
-import { addDays, nowUtcDate, stringH24MinToDate } from "./DateService";
+import { addDays, millisDurationToTimeString, nowUtcDate, stringH24MinToDate } from "./DateService";
 
 export const processPrayerMessage = (prayer: Prayer): TodaysDetailMessage => {
     const result: TodaysDetailMessage = {
@@ -29,6 +29,7 @@ export const processPrayerMessage = (prayer: Prayer): TodaysDetailMessage => {
     const timeBetweenShrooqAndZuhar = isTimeBetweenShrooqAndZuhar(now, prayerTimes[1], sunriseTime);
     const prayerInProgressMillis = getPrayerInProgressMillis(now, currentPrayerPeriod);
     const prayerAboutToStartMillis = getPrayerAboutToStartMillis(now, currentPrayerPeriod);
+    const nextPrayerInMillis = getNextPrayerInMillis(now, currentPrayerPeriod);
 
 
     console.log("prayerTimes", prayerTimes);
@@ -36,6 +37,11 @@ export const processPrayerMessage = (prayer: Prayer): TodaysDetailMessage => {
     console.log("timeBetweenShrooqAndZuhar", timeBetweenShrooqAndZuhar);
     console.log("prayerInProgressMillis", prayerInProgressMillis);
     console.log("prayerAboutToStartMillis", prayerAboutToStartMillis);
+    console.log("nextPrayerInMillis", nextPrayerInMillis);
+
+    console.log("prayerInProgressMillis", millisDurationToTimeString(prayerInProgressMillis));
+    console.log("prayerAboutToStartMillis", millisDurationToTimeString(prayerAboutToStartMillis));
+    console.log("nextPrayerInMillis", millisDurationToTimeString(nextPrayerInMillis));
 
     return result;
 }
@@ -115,7 +121,7 @@ const getPrayerInProgressMillis = (now: Date, prayerPeriod: (PrayerTime[] | unde
 
     const prayerInProgress = nowMillis > prayerStartMillis && nowMillis < prayerEndMillis;
     if (prayerInProgress) {
-        return prayerEndMillis - nowMillis;
+        return nowMillis - prayerStartMillis;
     } else {
         return -1;
     }
@@ -123,26 +129,27 @@ const getPrayerInProgressMillis = (now: Date, prayerPeriod: (PrayerTime[] | unde
 
 // Returns positive millis if prayer is about to start
 const getPrayerAboutToStartMillis = (now: Date, prayerPeriod: (PrayerTime[] | undefined)): number => {
-    if (!now || !prayerPeriod || !prayerPeriod[0] || !prayerPeriod[0].iqamah) {
+    if (!now || !prayerPeriod || !prayerPeriod[0] || !prayerPeriod[0].iqamah || !prayerPeriod[0].azan) {
         return -1;
     }
 
     const currentPrayerTime: PrayerTime = prayerPeriod[0];
 
     const nowMillis = now.getTime();
+    const azanMillis = currentPrayerTime.azan.getTime();
     const prayerStartMillis = currentPrayerTime.iqamah.getTime();
     const prayerAboutToStartMillis = currentPrayerTime.iqamah.getTime() - Constants.PRAYER_ABOUT_TO_START_MILLIS;
 
+    const azanCalled = nowMillis > azanMillis;
     const prayerAboutToStart = nowMillis > prayerAboutToStartMillis && nowMillis < prayerStartMillis;
-    if (prayerAboutToStart) {
-        return nowMillis - prayerAboutToStartMillis;
+
+    if (azanCalled && prayerAboutToStart) {
+        return prayerStartMillis - nowMillis;
     } else {
         return -1;
     }
 }
 
-
-// Returns positive millis if prayer is about to start
 const getNextPrayerInMillis = (now: Date, prayerPeriod: (PrayerTime[] | undefined)): number => {
     if (!now || !prayerPeriod || !prayerPeriod[1] || !prayerPeriod[1].azan) {
         return -1;
