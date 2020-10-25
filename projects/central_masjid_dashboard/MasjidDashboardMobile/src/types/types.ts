@@ -105,6 +105,12 @@ export interface PrayerTimeSummary {
     prayerInProgressMillis: number;
     prayerAboutToStartMillis: number;
     nextPrayerInMillis: number;
+    currentPrayerName: string;
+    currentPrayerNumber: number;
+}
+
+export interface PrayerTimeSummaryMessage {
+    prayerTimeSummary: PrayerTimeSummary
 }
 
 export interface PrayerTime {
