@@ -1,5 +1,6 @@
 const BASE_URL = "https://www.masjiddashboard.com";
-const PRAYER_DURATION_MIN = 15; // 15 Min. Duration for "Salah in progress"
+const PRAYER_DURATION_MIN = 10; // 15 Min. Duration for "Salah in progress"
+const PRAYER_ABOUT_TO_START_MIN = 10; // 15 Min. Prayer about to start.
 const MAGHRIB_LIMIT_MIN = 40; // 40 Min. Maghrib salah will end in.
 
 export const Constants = {
@@ -12,10 +13,13 @@ export const Constants = {
     UPDATE_INTERVAL_MILLIS: 6000 * 1000,
     PRAYER_NAME: ["Fajar", "Zuhar", "Asr", "Maghrib", "Isha", "Shurooq"],
     MAGHRIB_LIMIT_MILLIS: MAGHRIB_LIMIT_MIN * 1000 * 60,
-    SALAH_DURATION_MILLIS: PRAYER_DURATION_MIN * 1000 * 60,
+    PRAYER_DURATION_MILLIS: PRAYER_DURATION_MIN * 1000 * 60,
+    PRAYER_ABOUT_TO_START_MILLIS: PRAYER_ABOUT_TO_START_MIN * 1000 * 60,
     PRAYER_DURATION_MIN,
     MAGHRIB_LIMIT_MIN,
+    PRAYER_ABOUT_TO_START_MIN
 }
+
 /*
 Example Version calls:
 
@@ -41,7 +45,6 @@ https://www.masjidhamzah.com/dashboard/salat_time.php
 https://www.masjidhamzah.com/dashboard/services/jummah.php
 https://www.masjidhamzah.com/dashboard/salat_time.php?callback=buildSalatTable&_=1603507306208
 https://www.masjidhamzah.com/dashboard/services/jummah.php?callback=buildJummahTable&_=1603507306209
-
 
 Company Year Prayers
 Gregorian

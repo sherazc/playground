@@ -21,7 +21,7 @@ export const nowUtcDate = (): Date => {
     return new Date(utcMillis);
 };
 
-export const dateFromISO = (isoDateString: string): (Date | undefined) => {
+export const dateFromISO = (isoDateString?: string): (Date | undefined) => {
     if (!isoDateString || isoDateString.length < 4) {
         return;
     }
@@ -46,7 +46,7 @@ export const dateFromISO = (isoDateString: string): (Date | undefined) => {
     }
 };
 
-export const stringH24MinToDate = (date: Date, time: string): (Date | undefined) => {
+export const stringH24MinToDate = (date: (Date| undefined), time?: string): (Date | undefined) => {
     if (!date || !time || !TIME_24_REGX.test(time)) {
         return;
     }
@@ -63,7 +63,7 @@ export const dateToDisplayDateShort = (date: Date) => {
     return `${d.getUTCMonth() + 1}/${d.getUTCDate()}`;
 };
 
-export const time24To12 = (time24: string) => {
+export const time24To12 = (time24?: string) => {
     if (!time24 || !TIME_24_REGX.test(time24)) {
         return "";
     }
@@ -78,7 +78,7 @@ export const time24To12 = (time24: string) => {
 };
 
 
-export const addDays = (date:Date, days:number) => {
+export const addDays = (date:(Date| undefined), days?:number) => {
     if (!date || !days) {
         return;
     }
@@ -87,7 +87,7 @@ export const addDays = (date:Date, days:number) => {
     return calculatedDate;
 }
 
-export const addMinutes = (date:Date, minutes:number) => {
+export const addMinutes = (date:(Date| undefined), minutes?:number) => {
     if (!date || !minutes) {
         return;
     }
@@ -96,7 +96,7 @@ export const addMinutes = (date:Date, minutes:number) => {
     return calculatedDate;
 }
 
-export const millisDurationToTimeString = (duration:number) => {
+export const millisDurationToTimeString = (duration?:number) => {
     if (duration === null
         || duration === undefined || duration < 0) {
         return;
@@ -112,7 +112,7 @@ export const millisDurationToTimeString = (duration:number) => {
     return hours + ":" + minutes + ":" + seconds;
 }
 
-export const isTimeBetweenAzans = (timeMillis:number, prayerPeriod:PrayerTime[]) => {
+export const isTimeBetweenAzans = (timeMillis:(number | undefined), prayerPeriod?:PrayerTime[]) => {
     if (!timeMillis || !prayerPeriod || prayerPeriod.length != 2
         || !prayerPeriod[0].azan || !prayerPeriod[1].azan) {
         return false;
@@ -122,7 +122,7 @@ export const isTimeBetweenAzans = (timeMillis:number, prayerPeriod:PrayerTime[])
         && timeMillis < prayerPeriod[1].azan.getTime()
 }
 
-export const toISODateString = (date:Date) => {
+export const toISODateString = (date?:Date) => {
     if (!date) {
         return;
     }
