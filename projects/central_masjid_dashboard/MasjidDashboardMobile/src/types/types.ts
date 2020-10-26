@@ -101,6 +101,7 @@ export interface TodaysDetailMessage {
 
 export interface PrayerTimeSummary {
     currentPrayerPeriod: (PrayerTime[] | undefined);
+    sunriseTime: Date | undefined;
     timeBetweenShrooqAndZuhar: boolean;
     prayerInProgressMillis: number;
     prayerAboutToStartMillis: number;
@@ -117,9 +118,4 @@ export interface PrayerTime {
     name: string;
     azan: Date;
     iqamah: Date;
-}
-
-export interface SunriseTime {
-    name: string;
-    time: Date;
 }

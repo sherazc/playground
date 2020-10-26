@@ -116,3 +116,31 @@
         "khateeb": "2pm:Shaikh Isa    2:40pm:Br.Tareef"
     }
 ]
+
+
+
+
+const sunriseTime = stringH24MinToDate(now, prayer.sunrise)
+const currentPrayerPeriod = getCurrentPrayerPeriod(now, prayerTimes);
+const timeBetweenShrooqAndZuhar = isTimeBetweenShrooqAndZuhar(now, prayerTimes[1], sunriseTime);
+const prayerInProgressMillis = getPrayerInProgressMillis(now, currentPrayerPeriod);
+const prayerAboutToStartMillis = getPrayerAboutToStartMillis(now, currentPrayerPeriod);
+const nextPrayerInMillis = getNextPrayerInMillis(now, currentPrayerPeriod);
+const currentPrayerName = getCurrentPrayerName(currentPrayerPeriod, timeBetweenShrooqAndZuhar);
+const currentPrayerNumber = getCurrentPrayerNumber(currentPrayerPeriod, timeBetweenShrooqAndZuhar);
+
+// Name and location
+Masjid Hamzah
+Alpharetta GA
+
+// Prayer Name
+DUHAR
+
+// Jammat status
+Jammat about to start in
+00:05:49
+
+// Next 
+Asr azan will be called in
+02:30:35
+

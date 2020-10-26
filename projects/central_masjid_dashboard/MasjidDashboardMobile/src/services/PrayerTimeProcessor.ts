@@ -1,10 +1,11 @@
-import { Prayer, PrayerTime, SunriseTime, TodaysDetailMessage, PrayerTimeSummary } from "../types/types";
+import { Prayer, PrayerTime, TodaysDetailMessage, PrayerTimeSummary } from "../types/types";
 import { Constants } from "./Constants";
 import { addDays, millisDurationToTimeString, nowUtcDate, stringH24MinToDate } from "./DateService";
 
 export const processPrayerTime = (prayer: Prayer): PrayerTimeSummary => {
     const result: PrayerTimeSummary = {
         currentPrayerPeriod: [],
+        sunriseTime: undefined,
         timeBetweenShrooqAndZuhar: false,
         prayerInProgressMillis: -1,
         prayerAboutToStartMillis: -1,
@@ -28,9 +29,7 @@ export const processPrayerTime = (prayer: Prayer): PrayerTimeSummary => {
         makePrayerTime(now, Constants.PRAYER_NAME[4], prayer.isha, prayer.ishaIqama)
     ];
 
-    // @ts-ignore
-    const sunriseTime: SunriseTime = { name: Constants.PRAYER_NAME[5], time: stringH24MinToDate(now, prayer.sunrise) }
-
+    const sunriseTime = stringH24MinToDate(now, prayer.sunrise)
     const currentPrayerPeriod = getCurrentPrayerPeriod(now, prayerTimes);
     const timeBetweenShrooqAndZuhar = isTimeBetweenShrooqAndZuhar(now, prayerTimes[1], sunriseTime);
     const prayerInProgressMillis = getPrayerInProgressMillis(now, currentPrayerPeriod);
@@ -46,6 +45,7 @@ export const processPrayerTime = (prayer: Prayer): PrayerTimeSummary => {
     result.nextPrayerInMillis = nextPrayerInMillis;
     result.currentPrayerName = currentPrayerName;
     result.currentPrayerNumber = currentPrayerNumber;
+    result.sunriseTime = sunriseTime;
 
     console.log("processPrayerTime result", result);
 
@@ -106,13 +106,13 @@ let getCurrentPrayerPeriod = (now: Date, prayerTimes: PrayerTime[]): (PrayerTime
 };
 
 
-const isTimeBetweenShrooqAndZuhar = (now: Date, zuharPrayerTime: PrayerTime, sunriseTime: SunriseTime): boolean => {
-    if (!now || !zuharPrayerTime || !zuharPrayerTime.azan || !sunriseTime || !sunriseTime.time) {
+const isTimeBetweenShrooqAndZuhar = (now: Date, zuharPrayerTime: PrayerTime, sunriseTime: Date | undefined): boolean => {
+    if (!now || !zuharPrayerTime || !zuharPrayerTime.azan || !sunriseTime) {
         return false;
     }
 
     const nowTime = now.getTime();
-    let sunriseTimeMillis = sunriseTime.time.getTime();
+    let sunriseTimeMillis = sunriseTime.getTime();
     let zuharAzanMillis = zuharPrayerTime.azan.getTime();
 
     return nowTime > 0
