@@ -28,8 +28,7 @@
         "time": "2020-10-24T07:52:00.000Z"
     }
 ]
-
-// masjiddashboard.com prayer
+// masjiddashboard.com prayer for a day
 {
     "successful": true,
     "message": "Prayer found.",
@@ -59,6 +58,106 @@
         "ishaChange": "19:45",
         "ishaChangeDate": "2020-01-16T00:00:00.000Z"
     }
+}
+
+// masjiddashboard.com prayers for a year
+{
+    "successful": true,
+    "message": null,
+    "fieldErrors": {},
+    "target": [
+        {
+            "month": {
+                "number": 1,
+                "name": "January"
+            },
+            "prayers": [
+                {
+                    "date": "2020-01-01T00:00:00.000Z",
+                    "hijriString": "1441/05/06",
+                    "fajr": "06:15",
+                    "fajrIqama": "06:30",
+                    "dhuhr": "12:44",
+                    "dhuhrIqama": "13:30",
+                    "asr": "16:04",
+                    "asrIqama": "16:30",
+                    "maghrib": "17:44",
+                    "maghribIqama": "",
+                    "isha": "19:10",
+                    "ishaIqama": "19:30",
+                    "sunrise": "07:45",
+                    "fajrChange": null,
+                    "fajrChangeDate": null,
+                    "dhuhrChange": null,
+                    "dhuhrChangeDate": null,
+                    "asrChange": null,
+                    "asrChangeDate": null,
+                    "maghribChange": null,
+                    "maghribChangeDate": null,
+                    "ishaChange": null,
+                    "ishaChangeDate": null
+                }
+            ]
+        },
+        {
+            "month": {
+                "number": 2,
+                "name": "February"
+            },
+            "prayers": [
+                {
+                    "date": "2020-02-01T00:00:00.000Z",
+                    "hijriString": "1441/06/07",
+                    "fajr": "06:10",
+                    "fajrIqama": "06:30",
+                    "dhuhr": "12:54",
+                    "dhuhrIqama": "13:30",
+                    "asr": "16:33",
+                    "asrIqama": "17:00",
+                    "maghrib": "18:13",
+                    "maghribIqama": "",
+                    "isha": "19:35",
+                    "ishaIqama": "19:45",
+                    "sunrise": "07:37",
+                    "fajrChange": null,
+                    "fajrChangeDate": null,
+                    "dhuhrChange": null,
+                    "dhuhrChangeDate": null,
+                    "asrChange": null,
+                    "asrChangeDate": null,
+                    "maghribChange": null,
+                    "maghribChangeDate": null,
+                    "ishaChange": null,
+                    "ishaChangeDate": null
+                },
+                {
+                    "date": "2020-02-02T00:00:00.000Z",
+                    "hijriString": "1441/06/08",
+                    "fajr": "06:09",
+                    "fajrIqama": "06:30",
+                    "dhuhr": "12:54",
+                    "dhuhrIqama": "13:30",
+                    "asr": "16:34",
+                    "asrIqama": "17:00",
+                    "maghrib": "18:14",
+                    "maghribIqama": "",
+                    "isha": "19:36",
+                    "ishaIqama": "20:00",
+                    "sunrise": "07:36",
+                    "fajrChange": null,
+                    "fajrChangeDate": null,
+                    "dhuhrChange": null,
+                    "dhuhrChangeDate": null,
+                    "asrChange": null,
+                    "asrChangeDate": null,
+                    "maghribChange": null,
+                    "maghribChangeDate": null,
+                    "ishaChange": null,
+                    "ishaChangeDate": null
+                }
+            ]
+        }
+    ]
 }
 // masjiddashboard.com configuration
 [
@@ -122,7 +221,9 @@
 
 const sunriseTime = stringH24MinToDate(now, prayer.sunrise)
 const currentPrayerPeriod = getCurrentPrayerPeriod(now, prayerTimes);
-const timeBetweenShrooqAndZuhar = isTimeBetweenShrooqAndZuhar(now, prayerTimes[1], sunriseTime);
+const timeBetweenShrooqAndZuhar = isTimeBetweenShrooqAndZuhar(now, prayerTimes[
+    1
+], sunriseTime);
 const prayerInProgressMillis = getPrayerInProgressMillis(now, currentPrayerPeriod);
 const prayerAboutToStartMillis = getPrayerAboutToStartMillis(now, currentPrayerPeriod);
 const nextPrayerInMillis = getNextPrayerInMillis(now, currentPrayerPeriod);
@@ -138,9 +239,7 @@ DUHAR
 
 // Jammat status
 Jammat about to start in
-00:05:49
-
-// Next 
+00: 05: 49
+// Next
 Asr azan will be called in
-02:30:35
-
+02: 30: 35
