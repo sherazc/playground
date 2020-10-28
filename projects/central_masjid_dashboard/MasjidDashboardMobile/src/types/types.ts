@@ -110,10 +110,6 @@ export interface PrayerTimeSummary {
     currentPrayerNumber: number;
 }
 
-export interface PrayerTimeSummaryMessage {
-    prayerTimeSummary: PrayerTimeSummary
-}
-
 export interface PrayerTime {
     name: string;
     azan: Date;
