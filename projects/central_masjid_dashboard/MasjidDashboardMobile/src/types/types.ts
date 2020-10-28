@@ -93,12 +93,6 @@ export interface Loading {
     recoverInitState: LoadingStatus;
 }
 
-export interface TodaysDetailMessage {
-    currentPrayer: string; // e.g. Asr
-    currentJamat: string; // e.g. Jamat starts in 30 mins at 5:00pm. || Jamat in progress for next 5 mins || Jamat complete.
-    nextPrayer: string; // e.g. Maghrib azan in 2hours and 30 mins
-}
-
 export interface PrayerTimeSummary {
     currentPrayerPeriod: (PrayerTime[] | undefined);
     sunriseTime: Date | undefined;

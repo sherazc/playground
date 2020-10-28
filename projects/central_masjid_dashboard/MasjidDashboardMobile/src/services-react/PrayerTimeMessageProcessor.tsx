@@ -1,16 +1,11 @@
 import React from 'react';
-import { PrayerTimeSummaryMessage } from "../types/react-types";
+import { createEmptyPrayerTimeSummaryMessage, PrayerTimeSummaryMessage } from "../types/react-types";
 import { PrayerTimeSummary } from "../types/types";
 import { Text } from 'react-native';
 import { millisDurationToTimeString } from '../services/DateService';
 
 export const processPrayerTimeMessage = (prayerTimeSummary?: PrayerTimeSummary): PrayerTimeSummaryMessage => {
-    const result: PrayerTimeSummaryMessage = {
-        prayerName: <></>,
-        jamatStatus: <></>,
-        nextPrayerStatus: <></>,
-        prayerTimeSummary: undefined,
-    };
+    const result = createEmptyPrayerTimeSummaryMessage();
 
     if (!prayerTimeSummary || !prayerTimeSummary.currentPrayerName) {
         return result;

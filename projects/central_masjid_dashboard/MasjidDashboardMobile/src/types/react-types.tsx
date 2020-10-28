@@ -1,3 +1,4 @@
+import React from "react";
 import { PrayerTimeSummary } from "./types";
 
 export interface PrayerTimeSummaryMessage {
@@ -5,4 +6,14 @@ export interface PrayerTimeSummaryMessage {
     prayerName: JSX.Element;
     jamatStatus: JSX.Element;
     nextPrayerStatus: JSX.Element;
+}
+
+
+export const createEmptyPrayerTimeSummaryMessage = (): PrayerTimeSummaryMessage => {
+    return {
+        prayerName: <></>,
+        jamatStatus: <></>,
+        nextPrayerStatus: <></>,
+        prayerTimeSummary: undefined,
+    };
 }
