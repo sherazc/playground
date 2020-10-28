@@ -6,38 +6,10 @@ import { createEmptyPrayerTimeSummaryMessage, PrayerTimeSummaryMessage } from ".
 import { processPrayerTimeMessage } from '../../services-react/PrayerTimeMessageProcessor';
 
 interface Props {
-    prayer: Prayer
+    prayerTimeMessage: PrayerTimeSummaryMessage
 }
 
-export const TodaysDetail: React.FC<Props> = ({prayer}) => {
-    const [prayerTimeMessage, setPrayerTimeMessage] = useState(createEmptyPrayerTimeSummaryMessage());
-
-    let prayerTimeMessageInterval: NodeJS.Timeout;
-
-    useEffect(() => {
-        if (!prayer || !prayer.date) {
-            return;
-        }
-
-        destroyPrayerTimeMessageInterval();
-
-        startPrayerTimeMessageInterval(prayer, setPrayerTimeMessage);
-        prayerTimeMessageInterval = setInterval(() => startPrayerTimeMessageInterval(prayer, setPrayerTimeMessage), 1000);
-
-        return destroyPrayerTimeMessageInterval;
-    }, [prayer]);
-
-    const destroyPrayerTimeMessageInterval = () => {
-        if (prayerTimeMessageInterval) {
-            clearInterval(prayerTimeMessageInterval);
-        }
-    }
-
-    const startPrayerTimeMessageInterval = (prayer: Prayer, setPrayerTimeMessage: React.Dispatch<React.SetStateAction<PrayerTimeSummaryMessage>>) => {
-        const prayerTimeSummary = processPrayerTime(prayer);
-        const prayerTimeMessage = processPrayerTimeMessage(prayerTimeSummary);
-        setPrayerTimeMessage(prayerTimeMessage);
-    }
+export const TodaysDetail: React.FC<Props> = ({prayerTimeMessage}) => {
 
     return (
         <View style={{ backgroundColor: "#aeaeae" }}>
