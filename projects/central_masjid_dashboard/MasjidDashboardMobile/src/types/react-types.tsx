@@ -6,6 +6,7 @@ export interface PrayerTimeSummaryMessage {
     prayerName: JSX.Element;
     jamatStatus: JSX.Element;
     nextPrayerStatus: JSX.Element;
+    jamatStatusSet: boolean;
 }
 
 
@@ -14,6 +15,7 @@ export const createEmptyPrayerTimeSummaryMessage = (): PrayerTimeSummaryMessage 
         prayerName: <></>,
         jamatStatus: <></>,
         nextPrayerStatus: <></>,
+        jamatStatusSet: false,
         prayerTimeSummary: undefined,
     };
 }
