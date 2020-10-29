@@ -36,6 +36,7 @@ export default function companyDataReducer(
                 ...state,
                 company: action.payload.company,
                 prayer: action.payload.prayer,
+                configurations: action.payload.configurations,
                 expirableVersion: action.payload.expirableVersion
             };
         case "COMPANY_DATA_DELETE":

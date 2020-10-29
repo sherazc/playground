@@ -52,7 +52,7 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
     // Starts CompanyData Interval and PrayerTimeMessage interval
     useEffect(() => {
         beginPrayerTimeInterval(companyData, todaysMonth().toString(), todaysDay().toString());
-        
+
         const prayer = companyData.prayer;
 
         if (!prayer || !prayer.date) {
@@ -95,7 +95,7 @@ const loadPrayerTime = (companyData: CompanyData, prayerTimeMessage: PrayerTimeS
     if (!companyData || !companyData.prayer || !companyData.prayer.date) return <Loading />
     return (
         <View>
-            <TodaysDetail prayerTimeMessage={prayerTimeMessage} />
+            <TodaysDetail prayerTimeMessage={prayerTimeMessage} companyData={companyData} />
             <PrayerTimeGrid prayer={companyData.prayer} />
         </View>
     );

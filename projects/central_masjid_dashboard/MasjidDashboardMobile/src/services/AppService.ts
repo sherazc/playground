@@ -42,7 +42,6 @@ const processStorage = (data: (string | null)[]) => {
     }
 
     if (data[1]) {
-        const companyData = JSON.parse(data[1]) as CompanyData;
         store.dispatch({
             type: "COMPANY_DATA_SET",
             payload: JSON.parse(data[1]) as CompanyData

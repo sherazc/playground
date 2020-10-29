@@ -1,4 +1,4 @@
-import { Company, CompanyData, CompanyDataVersion, Prayer, ServiceResponse } from "../types/types";
+import { Company, CompanyData, CompanyDataVersion, Configuration, Prayer, ServiceResponse } from "../types/types";
 import { createOrRefreshExpirableVersion, isExpired } from "./ExpirableVersionService";
 import { COMPANY_DATA_SET } from '../store/CompanyDataReducer';
 import store from '../store/rootReducer';
@@ -51,6 +51,7 @@ const createCompanyData = (): CompanyData => {
     return {
         company: undefined,
         prayer: undefined,
+        configurations: [],
         expirableVersion: createOrRefreshExpirableVersion()
     };
 }
@@ -81,6 +82,12 @@ const apiPrayer = (companyId: string, month: string, day: string): Promise<Servi
     return fetch(endpoint).then(response => response.json());
 }
 
+const apiConfiguration = (companyId: string): Promise<Configuration[]> => {
+    const endpoint = Constants.createConfigurationEndpoint(companyId);
+    console.log("Calling API ", endpoint);
+    return fetch(endpoint).then(response => response.json());
+}
+
 const isValidServiceResponsePrayer = (serviceResponse: ServiceResponse<Prayer>) => {
     return serviceResponse && serviceResponse.successful
         && serviceResponse.target && serviceResponse.target.date;
@@ -96,14 +103,38 @@ const refeashCompanyData = (company: Company, month: string, day: string) => {
             // @ts-ignore companyData.expirableVersion will be created in createCompanyData() call
             companyData.expirableVersion.version = companyDataVersion.version;
 
+            const promises = [
+                apiPrayer(company.id, month, day),
+                apiConfiguration(company.id)];
+
+            // @ts-ignore
+            Promise.all(promises).then(apiResponses => processCompanyData(companyData, apiResponses))
+                .catch(e => console.log("Error calling company data APIs", e));
+/*
             apiPrayer(company.id, month, day).then(prayerResponse => {
                 if (isValidServiceResponsePrayer(prayerResponse)) {
                     companyData.prayer = prayerResponse.target;
                     updateCompanyDataState(companyData)
                 }
             }).catch(e => console.log("Error calling GET Prayer API", e));
+*/
         }
     }).catch(e => console.log("Error calling GET Company Data version API", e));
+}
+
+const processCompanyData = (companyData: CompanyData, apiResponses: (ServiceResponse<Prayer> | Configuration[])[]) => {
+    if (!apiResponses || apiResponses.length < 2) {
+        return;
+    }
+
+    const prayerResponse = apiResponses[0] as ServiceResponse<Prayer>;
+    const configurations = apiResponses[1] as Configuration[];
+
+    if (isValidServiceResponsePrayer(prayerResponse)) {
+        companyData.prayer = prayerResponse.target;
+        companyData.configurations = configurations;
+        updateCompanyDataState(companyData)
+    }
 }
 
 const shouldUpdateCompanyData = (companyData?: CompanyData) => {

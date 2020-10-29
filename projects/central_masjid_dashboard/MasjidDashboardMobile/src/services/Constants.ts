@@ -9,6 +9,7 @@ export const Constants = {
     END_POINT_COMPANY_LIST_VERSION: `${BASE_URL}/api/version/company/list`,
     createCompanyDataVersionEndpoint: (companyId: string) => `${BASE_URL}/api/version/company/${companyId}/data`,
     createPrayerEndpoint: (companyId: string, month: string, day: string) => `${BASE_URL}/api/prayer/companyId/${companyId}/month/${month}/day/${day}`,
+    createConfigurationEndpoint: (companyId: string) => `${BASE_URL}/api/auth/companies/${companyId}/configurations`,
     EXPIRATION_MILLIS: 1500 * 60 * 1000, // 15 mins
     UPDATE_INTERVAL_MILLIS: 6000 * 1000,
     PRAYER_NAME: ["Fajar", "Zuhar", "Asr", "Maghrib", "Isha", "Shurooq"],
@@ -18,6 +19,10 @@ export const Constants = {
     PRAYER_DURATION_MIN,
     MAGHRIB_LIMIT_MIN,
     PRAYER_ABOUT_TO_START_MIN
+}
+
+export const ConfigurationKey = {
+    JUMAH_PRAYER: "jumah_prayer"
 }
 
 /*

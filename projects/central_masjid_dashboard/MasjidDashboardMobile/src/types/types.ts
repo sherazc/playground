@@ -66,6 +66,7 @@ export interface CompanyListData {
 export interface CompanyData {
     company?: Company;
     prayer?: Prayer;
+    configurations: Configuration[];
     expirableVersion?: ExpirableVersion;
 }
 
@@ -108,4 +109,9 @@ export interface PrayerTime {
     name: string;
     azan: Date;
     iqamah: Date;
+}
+
+export interface Configuration {
+    name: string;
+    value: string;
 }
