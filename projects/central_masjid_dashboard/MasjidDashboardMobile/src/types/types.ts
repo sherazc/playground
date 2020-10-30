@@ -70,6 +70,15 @@ export interface CompanyData {
     expirableVersion?: ExpirableVersion;
 }
 
+export const createEmptyCompanyData = (): CompanyData => {
+    return {
+        company: undefined,
+        prayer: undefined,
+        configurations: [],
+        expirableVersion: {}
+    };
+}
+
 // Redux/Async store
 export interface SettingData {
     azanAlert: boolean;

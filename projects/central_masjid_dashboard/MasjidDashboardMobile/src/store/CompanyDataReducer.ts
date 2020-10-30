@@ -1,5 +1,5 @@
-import { removeStorage, saveStorage, STORAGE_COMPANY_DATA } from '../storage/Storage';
-import { CompanyData } from '../types/types';
+import { saveStorage, STORAGE_COMPANY_DATA } from '../storage/Storage';
+import { CompanyData, createEmptyCompanyData } from '../types/types';
 
 // Types
 export const COMPANY_DATA_SET = "COMPANY_DATA_SET";
@@ -17,11 +17,7 @@ export type CompanyDataDelete = {
 export type CompanyDataActionTypes = CompanyDataSet | CompanyDataDelete;
 
 // Initial State
-const INITIAL_STATE: CompanyData = {
-    company: undefined,
-    prayer: undefined,
-    expirableVersion: {}
-};
+const INITIAL_STATE = createEmptyCompanyData();
 
 // Reducer
 export default function companyDataReducer(

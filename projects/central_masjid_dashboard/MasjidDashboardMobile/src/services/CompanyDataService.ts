@@ -1,6 +1,5 @@
-import { Company, CompanyData, CompanyDataVersion, Configuration, Prayer, ServiceResponse } from "../types/types";
+import { Company, CompanyData, CompanyDataVersion, Configuration, createEmptyCompanyData, Prayer, ServiceResponse } from "../types/types";
 import { createOrRefreshExpirableVersion, isExpired } from "./ExpirableVersionService";
-import { COMPANY_DATA_SET } from '../store/CompanyDataReducer';
 import store from '../store/rootReducer';
 import { Constants } from './Constants';
 
@@ -47,15 +46,6 @@ export const isCompanySame = (c1?: Company, c2?: Company) => {
     return c1 && c2 && c1.id && c2.id && c1.id === c2.id;
 }
 
-const createCompanyData = (): CompanyData => {
-    return {
-        company: undefined,
-        prayer: undefined,
-        configurations: [],
-        expirableVersion: createOrRefreshExpirableVersion()
-    };
-}
-
 const refeashCompanyDataExpirableVersion = (companyData: CompanyData) => {
     if (!companyData) {
         return;
@@ -95,7 +85,10 @@ const isValidServiceResponsePrayer = (serviceResponse: ServiceResponse<Prayer>) 
 
 // Creates new CompanyData by calling APIs
 const refeashCompanyData = (company: Company, month: string, day: string) => {
-    const companyData = createCompanyData();
+    const companyData:CompanyData = {
+        ...createEmptyCompanyData(),
+        expirableVersion: createOrRefreshExpirableVersion()
+    };
     companyData.company = company;
 
     apiCompanyDataVersion(company.id).then(companyDataVersion => {
