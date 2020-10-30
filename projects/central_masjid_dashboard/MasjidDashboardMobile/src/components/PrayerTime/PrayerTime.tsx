@@ -96,7 +96,7 @@ const loadPrayerTime = (companyData: CompanyData, prayerTimeMessage: PrayerTimeS
     return (
         <View>
             <TodaysDetail prayerTimeMessage={prayerTimeMessage} companyData={companyData} />
-            <PrayerTimeGrid prayer={companyData.prayer} />
+            <PrayerTimeGrid prayerTimeMessage={prayerTimeMessage} prayer={companyData.prayer} />
         </View>
     );
 }
