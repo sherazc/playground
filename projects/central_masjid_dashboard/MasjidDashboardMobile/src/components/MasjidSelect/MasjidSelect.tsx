@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Button, SafeAreaView, Text, View } from "react-native";
+import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { MdParamList } from "../NavRoutes";
 import { Picker } from "@react-native-community/picker";
 import { useTypedSelector } from '../../store/rootReducer';
 import { CompanyListData } from "../../types/types";
+import { Brand } from './Brand';
 
 interface Props {
     navigation: StackNavigationProp<MdParamList, "MasjidSelect">;
@@ -43,6 +44,16 @@ export const MasjidSelect: React.FC<Props> = ({navigation}) => {
     }
 
     return (
+        <View style={styles.container}>
+            <View style={styles.brandContainer}>
+                <Brand />
+            </View>
+            <View style={styles.companyListContainer}>
+                <Text>CompanyList</Text>
+            </View>
+        </View>
+
+/*
         <SafeAreaView>
             <Text style={{ textAlign: "center", fontSize: 30, marginBottom: '10%' }}>Masjid Dashboard</Text>
             <Picker
@@ -54,6 +65,8 @@ export const MasjidSelect: React.FC<Props> = ({navigation}) => {
             </Picker>
             <Button title="Set Masjid" disabled={!selectedCompanyId} onPress={onSetCompany} />
         </SafeAreaView>
+*/
+
     );
 }
 
@@ -68,3 +81,17 @@ const buildCompanyPickerItems = (cld?: CompanyListData) => {
 
     return pickerItems;
 }
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: "red"
+    },
+    brandContainer: {
+        backgroundColor: "green",
+        height: "40%"
+    },
+    companyListContainer: {
+        backgroundColor: "yellow",
+        height: "60%"
+    }
+});
