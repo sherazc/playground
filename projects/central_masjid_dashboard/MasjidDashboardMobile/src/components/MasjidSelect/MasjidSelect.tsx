@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Button, SafeAreaView, Text, View } from "react-native";
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { MdParamList } from "./NavRoutes";
+import { MdParamList } from "../NavRoutes";
 import { Picker } from "@react-native-community/picker";
-import { useTypedSelector } from '../store/rootReducer';
-import { CompanyListData } from "../types/types";
+import { useTypedSelector } from '../../store/rootReducer';
+import { CompanyListData } from "../../types/types";
 
 interface Props {
     navigation: StackNavigationProp<MdParamList, "MasjidSelect">;

@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React, { useEffect } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { MasjidSelect } from './MasjidSelect';
+import { MasjidSelect } from './MasjidSelect/MasjidSelect';
 import { PrayerTime } from './PrayerTime/PrayerTime';
 import { Settings } from './Settings';
 import { useTypedSelector } from '../store/rootReducer'
