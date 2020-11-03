@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
+import Logo from '../../images/Logo';
 import SvgCssLogo from '../../images/SvgCssLogo';
 
 interface Props {
@@ -9,7 +10,8 @@ export const Brand: React.FC<Props> = () => {
     return (
         <View style={styles.container}>
             <Text>Branding</Text>
-            <SvgCssLogo/>
+            {/* <SvgCssLogo/> */}
+            <Logo width="200" height="200"/>
         </View>
     );
 }
