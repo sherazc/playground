@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { MdParamList } from "../NavRoutes";
@@ -7,6 +7,7 @@ import { Picker } from "@react-native-community/picker";
 import { useTypedSelector } from '../../store/rootReducer';
 import { CompanyListData } from "../../types/types";
 import { Brand } from './Brand';
+import { CompanyList } from './CompanyList';
 
 interface Props {
     navigation: StackNavigationProp<MdParamList, "CompanySelect">;
@@ -53,7 +54,7 @@ export const CompanySelect: React.FC<Props> = ({navigation}) => {
                     <Brand />
                 </View>
                 <View style={styles.companyList}>
-                    <Text>CompanyList</Text>
+                    <CompanyList companyListData={companyListData} />
                 </View>
             </View>
         </View>
@@ -101,18 +102,18 @@ const styles = StyleSheet.create({
         resizeMode: 'cover'
     },
     content: {
-        // backgroundColor: "red",
         position: "absolute",
         top: 0,
         height: "100%",
         width: "100%"
     },
     brand: {
-        // backgroundColor: "green",
         height: "40%"
     },
     companyList: {
-        // backgroundColor: "yellow",
-        height: "60%"
+        height: "60%",
+        paddingBottom: 15,
+        paddingLeft: 15,
+        paddingRight: 15,
     }
 });
