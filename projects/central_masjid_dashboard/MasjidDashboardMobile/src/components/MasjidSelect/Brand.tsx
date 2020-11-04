@@ -10,8 +10,8 @@ export const Brand: React.FC<Props> = () => {
     return (
         <View style={styles.container}>
             <Text>Branding</Text>
-            {/* <SvgCssLogo/> */}
-            <Logo width="200" height="200"/>
+            <SvgCssLogo/>
+            {/* <Logo width="200" height="200"/> */}
         </View>
     );
 }
@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "100%",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        elevation: 10
     },
     content: {
     }
