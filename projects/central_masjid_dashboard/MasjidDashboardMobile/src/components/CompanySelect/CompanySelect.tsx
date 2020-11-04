@@ -9,11 +9,11 @@ import { CompanyListData } from "../../types/types";
 import { Brand } from './Brand';
 
 interface Props {
-    navigation: StackNavigationProp<MdParamList, "MasjidSelect">;
-    route: RouteProp<MdParamList, "MasjidSelect">;
+    navigation: StackNavigationProp<MdParamList, "CompanySelect">;
+    route: RouteProp<MdParamList, "CompanySelect">;
 }
 
-export const MasjidSelect: React.FC<Props> = ({navigation}) => {
+export const CompanySelect: React.FC<Props> = ({navigation}) => {
     const companyData = useTypedSelector(state => state.companyData);
     const companyListData = useTypedSelector(state => state.companyListData);
     const [selectedCompanyId, setSelectedCompanyId] = useState<React.ReactText>("");

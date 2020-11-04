@@ -9,9 +9,9 @@ interface Props {
 export const Brand: React.FC<Props> = () => {
     return (
         <View style={styles.container}>
-            <Text>Branding</Text>
-            <SvgCssLogo/>
-            {/* <Logo width="200" height="200"/> */}
+            <Text style={styles.title}>MASJID DASHBOARD</Text>
+            {/* <SvgCssLogo/> */}
+            <Logo width="100" height="100"/>
         </View>
     );
 }
@@ -25,5 +25,14 @@ const styles = StyleSheet.create({
         elevation: 10
     },
     content: {
+    },
+    title: {
+        fontSize: 25,
+        color: "#fff",
+        letterSpacing: 3,
+        textShadowColor: 'rgba(0, 0, 0, 0.75)',
+        textShadowOffset: {width: -1, height: 1},
+        textShadowRadius: 10,
+        marginBottom: 20
     }
 });

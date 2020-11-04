@@ -37,11 +37,11 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
         }
     }, []);
 
-    // Navigate to MasjidSelect because there is no selected company
+    // Navigate to CompanySelect because there is no selected company
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
             if (!companyData.company || !companyData.company.id) {
-                navigation.navigate("MasjidSelect");
+                navigation.navigate("CompanySelect");
             }
         });
         return unsubscribe;

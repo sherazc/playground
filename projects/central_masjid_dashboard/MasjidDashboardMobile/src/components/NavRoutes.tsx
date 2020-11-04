@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React, { useEffect } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { MasjidSelect } from './MasjidSelect/MasjidSelect';
+import { CompanySelect } from './CompanySelect/CompanySelect';
 import { PrayerTime } from './PrayerTime/PrayerTime';
 import { Settings } from './Settings';
 import { useTypedSelector } from '../store/rootReducer'
@@ -16,7 +16,7 @@ interface Props {
 }
 
 export type MdParamList = {
-    MasjidSelect: undefined;
+    CompanySelect: undefined;
     PrayerTime: { selectedCompany?: Company };
     Settings: undefined;
 }
@@ -58,8 +58,8 @@ TODO: set dimention and in redux store and use it to size components
         beginApp(companyListData);
         return (
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="MasjidSelect">
-                    <Stack.Screen name="MasjidSelect" component={MasjidSelect} options={noHeaderOptions} />
+                <Stack.Navigator initialRouteName="CompanySelect">
+                    <Stack.Screen name="CompanySelect" component={CompanySelect} options={noHeaderOptions} />
                     <Stack.Screen name="PrayerTime" component={PrayerTime} options={noHeaderOptions} />
                     <Stack.Screen name="Settings" component={Settings} />
                 </Stack.Navigator>

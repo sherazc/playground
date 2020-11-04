@@ -6,8 +6,8 @@ import { RouteProp } from '@react-navigation/native';
 import { useTypedDispatch } from "../store/rootReducer";
 
 interface Props {
-    navigation: StackNavigationProp<MdParamList, "MasjidSelect">;
-    route: RouteProp<MdParamList, "MasjidSelect">;
+    navigation: StackNavigationProp<MdParamList, "CompanySelect">;
+    route: RouteProp<MdParamList, "CompanySelect">;
 }
 
 export const Settings: React.FC<Props> = ({navigation}) => {
@@ -15,7 +15,7 @@ export const Settings: React.FC<Props> = ({navigation}) => {
 
     const onResetMasjid = () => {
         dispatch({type: "COMPANY_DATA_DELETE"});
-        navigation.navigate("MasjidSelect");
+        navigation.navigate("CompanySelect");
     }
 
     return (
