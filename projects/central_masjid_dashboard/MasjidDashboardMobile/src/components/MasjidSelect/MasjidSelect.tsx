@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { Button, Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { MdParamList } from "../NavRoutes";
@@ -45,11 +45,16 @@ export const MasjidSelect: React.FC<Props> = ({navigation}) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.brandContainer}>
-                <Brand />
+            <View style={styles.background}>
+                <Image source={require('../../images/background1.png')} style={styles.backgroundImage}/>
             </View>
-            <View style={styles.companyListContainer}>
-                <Text>CompanyList</Text>
+            <View style={styles.content}>
+                <View style={styles.brand}>
+                    <Brand />
+                </View>
+                <View style={styles.companyList}>
+                    <Text>CompanyList</Text>
+                </View>
             </View>
         </View>
 
@@ -84,14 +89,30 @@ const buildCompanyPickerItems = (cld?: CompanyListData) => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "red"
     },
-    brandContainer: {
-        backgroundColor: "green",
+    background: {
+        height: "100%",
+        width: "100%"
+    },
+    backgroundImage: {
+        flex: 1,
+        width: undefined,
+        height: undefined,
+        resizeMode: 'cover'
+    },
+    content: {
+        // backgroundColor: "red",
+        position: "absolute",
+        top: 0,
+        height: "100%",
+        width: "100%"
+    },
+    brand: {
+        // backgroundColor: "green",
         height: "40%"
     },
-    companyListContainer: {
-        backgroundColor: "yellow",
+    companyList: {
+        // backgroundColor: "yellow",
         height: "60%"
     }
 });

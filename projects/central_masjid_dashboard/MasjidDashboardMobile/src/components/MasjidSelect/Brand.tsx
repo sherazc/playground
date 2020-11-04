@@ -18,7 +18,6 @@ export const Brand: React.FC<Props> = () => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "purple",
         width: "100%",
         height: "100%",
         alignItems: "center",
