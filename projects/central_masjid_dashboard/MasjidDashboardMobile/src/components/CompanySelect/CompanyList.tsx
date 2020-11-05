@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { CompanyListData, Company } from '../../types/types';
@@ -22,7 +22,7 @@ export const CompanyList: React.FC<Props> = ({ companyListData, navigation }) =>
         }
         const selectedCompany = companyListData.companies.find(c => c.id === selectedCompanyId);
         if (selectedCompany) {
-            navigation.navigate("PrayerTime", {selectedCompany});
+            navigation.navigate("PrayerTime", { selectedCompany });
         }
     }
 
@@ -43,11 +43,11 @@ export const CompanyList: React.FC<Props> = ({ companyListData, navigation }) =>
         );
     }
 
-    const buildCompanyListItem = ({ item }: { item: Company}) => {
+    const buildCompanyListItem = ({ item }: { item: Company }) => {
         if (!item || !item.id) {
             return;
         }
-        let companyName = item.name? item.name: "";
+        let companyName = item.name ? item.name : "";
         let companyAddress = "";
         if (item.address) {
             if (isNotBlankString(item.address.city) && isNotBlankString(item.address.state)) {
@@ -60,26 +60,25 @@ export const CompanyList: React.FC<Props> = ({ companyListData, navigation }) =>
         }
 
         return (
-            <TouchableOpacity style={styles.listItem} onPress={ () => onSetCompany(item.id)}>
+            <TouchableOpacity style={styles.listItem} onPress={() => onSetCompany(item.id)}>
                 <View style={{
-                        ...styles.companyIcon,
-                        backgroundColor: stringToHslColor(companyName, 50, 70)
-                    }}>
+                    ...styles.companyIcon,
+                    backgroundColor: stringToHslColor(companyName, 50, 70)
+                }}>
                     <Text style={styles.companyIconInitials}>
                         {nameToInitials(companyName)}
                     </Text>
                 </View>
                 <View style={styles.listItemName}>
-                    <Text style={{fontSize: 16}}>{trimEllipsis(companyName, 25)}</Text>
-                    <Text style={{fontSize: 12}}>{trimEllipsis(companyAddress, 40)}</Text>
+                    <Text style={{ fontSize: 16 }}>{trimEllipsis(companyName, 25)}</Text>
+                    <Text style={{ fontSize: 12 }}>{trimEllipsis(companyAddress, 40)}</Text>
                 </View>
                 <View style={styles.listItemArrow}>
-                    <RightArrow height={15} width={15} fill="#aeaeae"/>
+                    <RightArrow height={15} width={15} fill="#aeaeae" />
                 </View>
             </TouchableOpacity>
         );
     }
-
 
     return (
         <View style={styles.container}>
