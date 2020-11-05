@@ -25,6 +25,32 @@ export const ConfigurationKey = {
     JUMAH_PRAYER: "jumah_prayer"
 }
 
+export const ConstantsStyles = {
+    shadowSmall: {
+        shadowColor: '#999',
+        shadowOffset: { width: 2, height: 2 },
+        shadowOpacity: 0.75,
+        shadowRadius: 2
+    },
+    shadowSmallDark: {
+        shadowColor: '#333',
+        shadowOffset: { width: 2, height: 2 },
+        shadowOpacity: 0.75,
+        shadowRadius: 2
+    },
+    shadowSmallText: {
+        textShadowColor: 'rgba(150, 150, 150, 0.75)',
+        textShadowOffset: {width: 2, height: 2},
+        textShadowRadius: 2
+    },
+    shadowSmallDarkText: {
+        textShadowColor: 'rgba(50, 50, 50, 0.75)',
+        textShadowOffset: {width: 2, height: 2},
+        textShadowRadius: 2
+    }
+}
+
+
 /*
 Example Version calls:
 

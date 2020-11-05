@@ -3,6 +3,8 @@ import { StyleSheet, Text, View } from "react-native";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { CompanyListData, Company } from '../../types/types';
 import { nameToInitials, stringToHslColor } from '../../services/Utilities';
+import RightArrow from "../../images/RightArrow";
+import { ConstantsStyles } from "../../services/Constants";
 
 interface Props {
     companyListData: CompanyListData;
@@ -52,7 +54,7 @@ const buildCompanyListItem = ({ item, onPress, style }: { item: Company, onPress
                 <Text>{item.name}</Text>
             </View>
             <View style={styles.listItemArrow}>
-                <Text>V</Text>
+                <RightArrow height={15} width={15} fill="#aeaeae"/>
             </View>
         </TouchableOpacity>
     );
@@ -64,17 +66,21 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "100%",
         borderRadius: 10,
-        padding: 20
+        padding: 20,
+        ...ConstantsStyles.shadowSmallDark
     },
     listLabel: {
         fontSize: 20,
         marginBottom: 20
     },
     listItem: {
-        backgroundColor: "#efefef",
-        marginBottom: 10,
+        backgroundColor: "#f0f0f0",
+        marginBottom: 15,
         padding: 10,
-        flexDirection: "row"
+        marginRight: 3,
+        flexDirection: "row",
+        borderRadius: 3,
+        ...ConstantsStyles.shadowSmall
     },
     companyIcon: {
         borderRadius: 50,

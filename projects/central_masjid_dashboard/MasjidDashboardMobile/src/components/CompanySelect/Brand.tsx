@@ -2,6 +2,7 @@ import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import Logo from '../../images/Logo';
 import SvgCssLogo from '../../images/SvgCssLogo';
+import { Constants, ConstantsStyles } from '../../services/Constants';
 
 interface Props {
 }
@@ -30,9 +31,7 @@ const styles = StyleSheet.create({
         fontSize: 25,
         color: "#fff",
         letterSpacing: 3,
-        textShadowColor: 'rgba(0, 0, 0, 0.75)',
-        textShadowOffset: {width: -1, height: 1},
-        textShadowRadius: 10,
-        marginBottom: 20
+        marginBottom: 20,
+        ...ConstantsStyles.shadowSmallDarkText
     }
 });
