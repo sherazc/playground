@@ -1,5 +1,8 @@
-export const isEqualStrings = (s1?: string, s2?: string) => s1 && s2 && s1 === s2;
 import { Configuration } from '../types/types';
+
+export const isEqualStrings = (s1?: string, s2?: string) => s1 && s2 && s1 === s2;
+export const isNotBlankString = (s: string) => s && s.length > 0;
+export const isBlankString = (s: string) => !isNotBlankString(s);
 
 export const numberTo2DigitsString = (number: number) => {
     return number < 10 && number > -1 ? `0${number}` : number;
@@ -30,20 +33,30 @@ export const findConfigurationByName = (configurations: Configuration[], name: s
     return result;
 }
 
-export const stringToHslColor = (string: string, saturation: number,
+export const stringToHslColor = (str: string, saturation: number,
     lightness: number) => {
 
     let hash = 10;
-    for (let i = 0; i < string.length; i++) {
-        hash = string.charCodeAt(i) + ((hash << 4) - hash);
+    for (let i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 4) - hash);
     }
 
     const h = hash % 360;
     return `hsl(${h}, ${saturation}%, ${lightness}%)`;
 }
 
-
 export const nameToInitials = (name: string) => {
     const initials = name.match(/\b\w/g) || [];
     return ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
 }
+
+export const trimEllipsis = (str:string, maxLength: number) => {
+    if (!str) {
+        return "";
+    }
+    if (str.length > maxLength) {
+       return `${str.substring(0, maxLength)}...`;
+    } else {
+        return str;
+    }
+ };
