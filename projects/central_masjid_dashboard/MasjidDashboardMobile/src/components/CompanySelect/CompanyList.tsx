@@ -8,7 +8,6 @@ import { ConstantsStyles } from "../../services/Constants";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { MdParamList } from "../NavRoutes";
 
-
 interface Props {
     companyListData: CompanyListData;
     navigation: StackNavigationProp<MdParamList, "CompanySelect">;
@@ -32,7 +31,7 @@ export const CompanyList: React.FC<Props> = ({ companyListData, navigation }) =>
         }
 
         return (
-            <View>
+            <View style={styles.listContainer}>
                 <FlatList
                     data={cld.companies}
                     // @ts-ignore
@@ -97,6 +96,9 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         padding: 20,
         ...ConstantsStyles.shadowSmallDark
+    },
+    listContainer: {
+        height: "85%"
     },
     listLabel: {
         fontSize: 20,
