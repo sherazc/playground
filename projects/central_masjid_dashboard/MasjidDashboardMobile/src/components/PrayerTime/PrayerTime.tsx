@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Image, SafeAreaView, Text, StyleSheet, View } from "react-native";
+import { Image, SafeAreaView, StyleSheet, View } from "react-native";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MdParamList } from "../NavRoutes";
 import { RouteProp } from '@react-navigation/native';
@@ -83,38 +83,35 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
     }
 
     return (
-/*
-        <SafeAreaView>
-            <Text style={{ textAlign: "center", fontSize: 30, marginBottom: '10%' }}>{companyData.company ? companyData.company.name : "No Company Selected"}</Text>
-            <Button title="Settings" onPress={() => { navigation.navigate("Settings") }} />
-            {loadPrayerTime(companyData, prayerTimeMessage)}
-        </SafeAreaView>
-*/
-<View style={styles.container}>
-<View style={styles.background}>
-    <Image source={require('../../images/background3.png')} style={styles.backgroundImage} />
-</View>
-<View style={styles.content}>
-    <View style={styles.todaysDetail}>
-        <Text style={{color: "red"}}>todaysDetail</Text>
-    </View>
-    <View style={styles.prayerTimeGrid}>
-        <Text style={{color: "green"}}>PrayerTimeGrid</Text>
-    </View>
-</View>
-</View>
-
-
-    );
-}
-
-const loadPrayerTime = (companyData: CompanyData, prayerTimeMessage: PrayerTimeSummaryMessage) => {
-    if (!companyData || !companyData.prayer || !companyData.prayer.date) return <Loading />
-    return (
-        <View>
-            <TodaysDetail prayerTimeMessage={prayerTimeMessage} companyData={companyData} />
-            <PrayerTimeGrid prayerTimeMessage={prayerTimeMessage} prayer={companyData.prayer} />
+        /*
+                <SafeAreaView>
+                    <Text style={{ textAlign: "center", fontSize: 30, marginBottom: '10%' }}>{companyData.company ? companyData.company.name : "No Company Selected"}</Text>
+                    <Button title="Settings" onPress={() => { navigation.navigate("Settings") }} />
+                    {loadPrayerTime(companyData, prayerTimeMessage)}
+                </SafeAreaView>
+        */
+        <View style={styles.container}>
+            <View style={styles.background}>
+                <Image source={require('../../images/background3.png')} style={styles.backgroundImage} />
+            </View>
+            <View style={styles.content}>
+                {(!companyData || !companyData.prayer || !companyData.prayer.date) &&
+                    <SafeAreaView>
+                        <Loading style={{color: "white"}}/>
+                    </SafeAreaView>
+                }
+                {(companyData && companyData.prayer && companyData.prayer.date) && <>
+                    <View style={styles.todaysDetail}>
+                        <TodaysDetail prayerTimeMessage={prayerTimeMessage} companyData={companyData} />
+                    </View>
+                    <View style={styles.prayerTimeGrid}>
+                        <PrayerTimeGrid prayerTimeMessage={prayerTimeMessage} prayer={companyData.prayer} />
+                    </View>
+                </>}
+            </View>
         </View>
+
+
     );
 }
 
@@ -123,7 +120,6 @@ const isSameCompanySelected = (companyData: CompanyData, routeParams: RouteProp<
         && routeParams.params && routeParams.params.selectedCompany
         && companyData.company.id !== routeParams.params.selectedCompany.id;
 }
-
 
 const styles = StyleSheet.create({
     container: {
