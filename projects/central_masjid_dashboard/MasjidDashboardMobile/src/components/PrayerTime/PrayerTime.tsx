@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, SafeAreaView, Text, View } from "react-native";
+import { Button, Image, SafeAreaView, Text, StyleSheet, View } from "react-native";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MdParamList } from "../NavRoutes";
 import { RouteProp } from '@react-navigation/native';
@@ -83,11 +83,28 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
     }
 
     return (
+/*
         <SafeAreaView>
             <Text style={{ textAlign: "center", fontSize: 30, marginBottom: '10%' }}>{companyData.company ? companyData.company.name : "No Company Selected"}</Text>
             <Button title="Settings" onPress={() => { navigation.navigate("Settings") }} />
             {loadPrayerTime(companyData, prayerTimeMessage)}
         </SafeAreaView>
+*/
+<View style={styles.container}>
+<View style={styles.background}>
+    <Image source={require('../../images/background3.png')} style={styles.backgroundImage} />
+</View>
+<View style={styles.content}>
+    <View style={styles.todaysDetail}>
+        <Text style={{color: "red"}}>todaysDetail</Text>
+    </View>
+    <View style={styles.prayerTimeGrid}>
+        <Text style={{color: "green"}}>PrayerTimeGrid</Text>
+    </View>
+</View>
+</View>
+
+
     );
 }
 
@@ -106,3 +123,35 @@ const isSameCompanySelected = (companyData: CompanyData, routeParams: RouteProp<
         && routeParams.params && routeParams.params.selectedCompany
         && companyData.company.id !== routeParams.params.selectedCompany.id;
 }
+
+
+const styles = StyleSheet.create({
+    container: {
+    },
+    background: {
+        height: "100%",
+        width: "100%"
+    },
+    backgroundImage: {
+        flex: 1,
+        width: undefined,
+        height: undefined,
+        resizeMode: 'cover'
+    },
+    content: {
+        position: "absolute",
+        top: 0,
+        height: "100%",
+        width: "100%",
+        backgroundColor: "#183f62da" // TODO Change this color for all prayers
+    },
+    todaysDetail: {
+        height: "40%",
+    },
+    prayerTimeGrid: {
+        height: "60%",
+        paddingBottom: 15,
+        paddingLeft: 15,
+        paddingRight: 15,
+    }
+});
