@@ -13,7 +13,7 @@
    viewBox="0 0 1080 2400"
    version="1.1"
    id="svg8"
-   inkscape:version="1.0.1 (0767f8302a, 2020-10-17)"
+   inkscape:version="1.0.1 (c497b03c, 2020-09-10)"
    sodipodi:docname="ui_mobile_prayer_time_screen.svg"
    inkscape:export-filename="/Users/sheraz/Desktop/Masjid Dashboard Design.png"
    inkscape:export-xdpi="48.73"
@@ -879,19 +879,19 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.31563398"
-     inkscape:cx="1387.4304"
-     inkscape:cy="1046.6322"
+     inkscape:zoom="0.24515629"
+     inkscape:cx="-223.29893"
+     inkscape:cy="1200"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="false"
      units="px"
      inkscape:showpageshadow="false"
-     inkscape:window-width="2488"
-     inkscape:window-height="1016"
-     inkscape:window-x="72"
-     inkscape:window-y="27"
+     inkscape:window-width="1440"
+     inkscape:window-height="855"
+     inkscape:window-x="0"
+     inkscape:window-y="23"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata5">
@@ -4030,7 +4030,7 @@
       </g>
     </g>
     <rect
-       style="fill:#144584;fill-opacity:0.85547751;stroke:none;stroke-width:4;stroke-linecap:round"
+       style="fill:#09203d;fill-opacity:0.85547751;stroke:none;stroke-width:4;stroke-linecap:round"
        id="rect1720"
        width="1080"
        height="2400"
@@ -4412,7 +4412,7 @@
     <path
        d="m 1026.2813,183.31607 v -13.2227 c -6.7546,-2.4015 -11.0217,-3.0766 -13.1696,-8.2601 v 0 c -2.156,-5.1999 0.4091,-8.7306 3.4653,-15.166 l -9.3484,-9.3484 c -6.3864,3.0357 -9.9539,5.6254 -15.1661,3.4652 v 0 c -5.1918,-2.1519 -5.8709,-6.4477 -8.2602,-13.1695 h -13.2227 c -2.3811,6.6891 -3.0643,11.0135 -8.2601,13.1695 v 0 c -5.1999,2.1602 -8.7224,-0.4009 -15.166,-3.4652 l -9.3484,9.3484 c 3.0479,6.415 5.6254,9.9579 3.4652,15.166 -2.156,5.1999 -6.4804,5.8831 -13.1695,8.2642 v 13.2227 c 6.6768,2.3729 11.0135,3.0643 13.1695,8.2602 2.1684,5.2449 -0.4664,8.8615 -3.4652,15.166 l 9.3484,9.3525 c 6.3904,-3.0398 9.9579,-5.6254 15.166,-3.4653 v 0 c 5.1958,2.152 5.875,6.46 8.2601,13.1696 h 13.2227 c 2.3811,-6.6932 3.0684,-11.0053 8.2929,-13.1819 v 0 c 5.1631,-2.1437 8.6733,0.4133 15.1292,3.4817 l 9.3484,-9.3525 c -3.0439,-6.3945 -5.6254,-9.9539 -3.4694,-15.162 2.1561,-5.1999 6.4968,-5.8913 13.1778,-8.2683 z m -49.0943,9.7534 c -9.0375,0 -16.3648,-7.3273 -16.3648,-16.3647 0,-9.0375 7.3273,-16.3648 16.3648,-16.3648 9.0374,0 16.3647,7.3273 16.3647,16.3648 0,9.0374 -7.3273,16.3647 -16.3647,16.3647 z"
        id="path2623"
-       style="fill:#bfbfbf;fill-opacity:1;stroke-width:4.09119"
+       style="fill:#ffffff;fill-opacity:0.60080647;stroke-width:4.09119"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
     <text
@@ -4477,18 +4477,6 @@
          y="470.93237"
          style="fill:#ffffff;fill-opacity:1;stroke-width:2.59052"
          sodipodi:role="line">3:41</tspan></text>
-    <rect
-       style="fill:#bfbfbf;fill-opacity:1;stroke:none;stroke-width:2.35483;stroke-linecap:round"
-       id="rect3253"
-       width="258.56689"
-       height="10.254507"
-       x="377.31747"
-       y="-416.07935"
-       rx="5.0147715"
-       ry="6.9111109"
-       transform="rotate(90)"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:43.9674px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.09919"
@@ -4520,5 +4508,13 @@
          y="685.91443"
          style="fill:#ffffff;fill-opacity:1;stroke-width:1.09919"
          id="tspan3285">2nd salah at 2:40pm</tspan></text>
+    <path
+       id="path2027"
+       style="fill:#ffffff;fill-opacity:0.60080647;stroke:none;stroke-width:4.05019;stroke-linecap:round"
+       d="m 404.19407,231.65169 c 15.56969,-0.99504 14.48113,19.75538 0,18.55476 -86.74279,-7.19178 -178.16399,-6.28843 -267.25304,-9.27802 89.08905,-3.04826 180.49083,-3.73191 267.25304,-9.27674 z m 114.77447,0 c -15.56968,-0.99504 -14.48098,19.75538 0,18.55476 86.7428,-7.19178 178.16398,-6.28843 267.25303,-9.27802 -89.08905,-3.04826 -180.49066,-3.73191 -267.25303,-9.27674 z m -70.8143,9.28513 a 9.8724952,8.3204412 0 0 1 -9.87248,8.32043 9.8724952,8.3204412 0 0 1 -9.87248,-8.32043 9.8724952,8.3204412 0 0 1 9.87248,-8.32044 9.8724952,8.3204412 0 0 1 9.87248,8.32044 z m 23.29955,0 a 9.8724952,8.3204412 0 0 1 -9.87248,8.32043 9.8724952,8.3204412 0 0 1 -9.87248,-8.32043 9.8724952,8.3204412 0 0 1 9.87248,-8.32044 9.8724952,8.3204412 0 0 1 9.87248,8.32044 z m 23.29953,0 a 9.8724952,8.3204412 0 0 1 -9.87248,8.32043 9.8724952,8.3204412 0 0 1 -9.87248,-8.32043 9.8724952,8.3204412 0 0 1 9.87248,-8.32044 9.8724952,8.3204412 0 0 1 9.87248,8.32044 z" />
+    <path
+       id="path3191"
+       style="fill:#ffffff;fill-opacity:0.60080647;stroke:none;stroke-width:2.73319;stroke-linecap:round"
+       d="m 408.37744,668.85653 c -2.9971,-41.07547 -5.24789,-101.51642 -8.99444,-125.36006 0.2913,-13.67798 18,-14.13837 18,0 -4.78897,23.41575 -7.25883,84.77731 -9.00556,125.36006 z m 7.36633,-162.25561 a 7.3607806,7.889901 0 0 1 -7.36078,7.8899 7.3607806,7.889901 0 0 1 -7.36077,-7.8899 7.3607806,7.889901 0 0 1 7.36077,-7.88989 7.3607806,7.889901 0 0 1 7.36078,7.88989 z m -7.36633,-162.25561 c -2.9971,41.07547 -5.24789,101.51642 -8.99444,125.36005 0.2913,13.67799 18,14.13837 18,0 -4.78897,-23.41574 -7.25883,-84.77731 -9.00556,-125.36005 z" />
   </g>
 </svg>
