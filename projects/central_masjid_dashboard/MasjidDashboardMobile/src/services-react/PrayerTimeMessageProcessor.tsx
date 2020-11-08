@@ -7,7 +7,7 @@ import { millisDurationToTimeString } from '../services/DateService';
 export const processPrayerTimeMessage = (prayerTimeSummary?: PrayerTimeSummary): PrayerTimeSummaryMessage => {
     const result = createEmptyPrayerTimeSummaryMessage();
 
-    if (!prayerTimeSummary || !prayerTimeSummary.currentPrayerName) {
+    if (!prayerTimeSummary) {
         return result;
     }
 
