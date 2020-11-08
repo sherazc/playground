@@ -47,8 +47,6 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
         return unsubscribe;
     }, [navigation, companyData]);
 
-
-
     // Starts CompanyData Interval and PrayerTimeMessage interval
     useEffect(() => {
         beginPrayerTimeInterval(companyData, todaysMonth().toString(), todaysDay().toString());
@@ -84,34 +82,32 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
 
     return (
         /*
-                <SafeAreaView>
-                    <Text style={{ textAlign: "center", fontSize: 30, marginBottom: '10%' }}>{companyData.company ? companyData.company.name : "No Company Selected"}</Text>
-                    <Button title="Settings" onPress={() => { navigation.navigate("Settings") }} />
-                    {loadPrayerTime(companyData, prayerTimeMessage)}
-                </SafeAreaView>
+        <SafeAreaView>
+            <Text style={{ textAlign: "center", fontSize: 30, marginBottom: '10%' }}>{companyData.company ? companyData.company.name : "No Company Selected"}</Text>
+            <Button title="Settings" onPress={() => { navigation.navigate("Settings") }} />
+            {loadPrayerTime(companyData, prayerTimeMessage)}
+        </SafeAreaView>
         */
         <View style={styles.container}>
             <View style={styles.background}>
                 <Image source={require('../../images/background3.png')} style={styles.backgroundImage} />
             </View>
             <View style={styles.content}>
-                {(!companyData || !companyData.prayer || !companyData.prayer.date) &&
-                    <SafeAreaView>
-                        <Loading style={{color: "white"}}/>
-                    </SafeAreaView>
-                }
-                {(companyData && companyData.prayer && companyData.prayer.date) && <>
-                    <View style={styles.todaysDetail}>
-                        <TodaysDetail prayerTimeMessage={prayerTimeMessage} companyData={companyData} />
-                    </View>
-                    <View style={styles.prayerTimeGrid}>
-                        <PrayerTimeGrid prayerTimeMessage={prayerTimeMessage} prayer={companyData.prayer} />
-                    </View>
-                </>}
+                <SafeAreaView>
+                    {(!companyData || !companyData.prayer || !companyData.prayer.date) &&
+                        <Loading style={{ color: "white" }} />
+                    }
+                    {(companyData && companyData.prayer && companyData.prayer.date) && <>
+                        <View style={styles.todaysDetail}>
+                            <TodaysDetail prayerTimeMessage={prayerTimeMessage} companyData={companyData} />
+                        </View>
+                        <View style={styles.prayerTimeGrid}>
+                            <PrayerTimeGrid prayerTimeMessage={prayerTimeMessage} prayer={companyData.prayer} />
+                        </View>
+                    </>}
+                </SafeAreaView>
             </View>
         </View>
-
-
     );
 }
 
