@@ -1,4 +1,4 @@
-import { Prayer, PrayerTime, TodaysDetailMessage, PrayerTimeSummary } from "../types/types";
+import { Prayer, PrayerTime, PrayerTimeSummary } from "../types/types";
 import { Constants } from "./Constants";
 import { addDays, millisDurationToTimeString, nowUtcDate, stringH24MinToDate } from "./DateService";
 

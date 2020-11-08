@@ -81,13 +81,6 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
     }
 
     return (
-        /*
-        <SafeAreaView>
-            <Text style={{ textAlign: "center", fontSize: 30, marginBottom: '10%' }}>{companyData.company ? companyData.company.name : "No Company Selected"}</Text>
-            <Button title="Settings" onPress={() => { navigation.navigate("Settings") }} />
-            {loadPrayerTime(companyData, prayerTimeMessage)}
-        </SafeAreaView>
-        */
         <View style={styles.container}>
             <View style={styles.background}>
                 <Image source={require('../../images/background3.png')} style={styles.backgroundImage} />
@@ -104,8 +97,20 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
                                 prayerTimeMessage={prayerTimeMessage}
                                 companyData={companyData} />
                         </View>
+                        <View style={{
+                            height: 3,
+                            alignItems: "center",
+                            justifyContent: "center"
+                        }}>
+                            <View style={{
+                                height: 3,
+                                backgroundColor: "#fff",
+                                borderRadius: 3,
+                                width: "70%"
+                            }} />
+                        </View>
                         <View style={styles.prayerTimeGrid}>
-                            <PrayerTimeGrid prayerTimeMessage={prayerTimeMessage} prayer={companyData.prayer} />
+                            <PrayerTimeGrid companyData={companyData} prayerTimeMessage={prayerTimeMessage} prayer={companyData.prayer} />
                         </View>
                     </>}
                 </SafeAreaView>
@@ -138,15 +143,21 @@ const styles = StyleSheet.create({
         top: 0,
         height: "100%",
         width: "100%",
-        backgroundColor: "#183f62da" // TODO Change this color for all prayers
+        backgroundColor: "#183f62ef" // TODO Change this color for all prayers
     },
     todaysDetail: {
         height: "40%",
+        //backgroundColor: "red",
+        alignContent: "center",
+        justifyContent: "center"
     },
     prayerTimeGrid: {
         height: "60%",
         paddingBottom: 15,
-        paddingLeft: 15,
-        paddingRight: 15,
+        paddingLeft: 5,
+        paddingRight: 5,
+        // backgroundColor: "purple",
+        alignContent: "center",
+        justifyContent: "center"
     }
 });

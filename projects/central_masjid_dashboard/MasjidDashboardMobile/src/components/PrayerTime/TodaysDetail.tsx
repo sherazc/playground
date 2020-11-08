@@ -83,7 +83,7 @@ const getSunriseComponent = (prayerTimeMessage: PrayerTimeSummaryMessage) => {
         && prayerTimeMessage.prayerTimeSummary.sunriseTime) {
 
         result = <>
-            <Sunrise fill="#fff" width={65} height={35} />
+            <Sunrise fill="#fff" width={55} height={25} />
             <Text style={styles.heading}>Sunrise</Text>
             <Text style={styles.textNormal}>
                 {dateToTime12h(prayerTimeMessage.prayerTimeSummary.sunriseTime)}
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     prayerView: {
-        flexBasis: 140,
+        flexBasis: 150,
         flexGrow: 0,
         flexShrink: 0,
         alignItems: "center",
@@ -129,8 +129,8 @@ const styles = StyleSheet.create({
     },
     prayerName: {
         color: "#fff",
-        fontSize: 50,
-        marginBottom: 15,
+        fontSize: 35,
+        marginBottom: 10,
     },
     prayerJammatSeparatorView: {
         flexBasis: 10,

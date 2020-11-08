@@ -1,15 +1,18 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { dateToDisplayDateShort, time24To12 } from '../../services/DateService';
-import { Prayer, PrayerTimeSummary } from '../../types/types';
+import { Prayer, PrayerTimeSummary, CompanyData } from '../../types/types';
 import { PrayerTimeSummaryMessage } from '../../types/react-types';
+import { findConfigurationByName } from '../../services/Utilities';
+import { ConfigurationKey } from '../../services/Constants';
 
 interface Props {
     prayer: Prayer;
     prayerTimeMessage: PrayerTimeSummaryMessage;
+    companyData: CompanyData;
 }
 
-export const PrayerTimeGrid: React.FC<Props> = ({ prayer, prayerTimeMessage }) => {
+export const PrayerTimeGrid: React.FC<Props> = ({companyData, prayer, prayerTimeMessage }) => {
     return (
         <View style={styles.mainBox}>
             <View style={{ ...styles.row, ...styles.rowHeading }}>
@@ -24,6 +27,8 @@ export const PrayerTimeGrid: React.FC<Props> = ({ prayer, prayerTimeMessage }) =
                     <Text style={{ ...styles.prayerNextChangeHeading, }}>Next Change</Text>
                 </View>
             </View>
+
+
             <View style={{
                 ...styles.row,
                 ...getActiveOrInActiveStyle(1, prayerTimeMessage.prayerTimeSummary, styles.rowActive, styles.rowInactive)
@@ -42,17 +47,6 @@ export const PrayerTimeGrid: React.FC<Props> = ({ prayer, prayerTimeMessage }) =
                     <Text style={{ ...styles.prayerNextChange, }}>{time24To12(prayer.fajrChange)}</Text>
                 </View>
             </View>
-
-
-            <View style={{ ...styles.row, ...styles.rowInactive }}>
-                <View style={{ ...styles.cell, ...styles.column1 }}>
-                    <Text style={{ ...styles.prayerName, }}>Shurooq</Text>
-                </View>
-                <View style={{ ...styles.cell, ...styles.column2 }}>
-                    <Text style={{ ...styles.prayerAzan, }}>{time24To12(prayer.sunrise)}</Text>
-                </View>
-            </View>
-
 
             <View style={{
                 ...styles.row,
@@ -102,10 +96,10 @@ export const PrayerTimeGrid: React.FC<Props> = ({ prayer, prayerTimeMessage }) =
                 <View style={{ ...styles.cell, ...styles.column2 }}>
                     <Text style={{ ...styles.prayerAzan, }}>{time24To12(prayer.maghrib)}</Text>
                 </View>
-                <View style={{ ...styles.cell, ...styles.column3 }}>
-                    <Text style={{ ...styles.prayerIqama, }}>{prayer.maghrib}</Text>
-                </View>
-                <View style={{ ...styles.cell, ...styles.column4 }}>
+                <View style={{ ...styles.cell, ...styles.column3, flex: 3.2 }}>
+                    <Text style={{ ...styles.prayerIqama, fontSize: 12}}>
+                        {findConfigurationByName(companyData.configurations, ConfigurationKey.MAGHRIB_IQAMA)}
+                    </Text>
                 </View>
             </View>
 
@@ -128,12 +122,14 @@ export const PrayerTimeGrid: React.FC<Props> = ({ prayer, prayerTimeMessage }) =
                     <Text style={{ ...styles.prayerNextChange, }}>{time24To12(prayer.ishaChange)}</Text>
                 </View>
             </View>
+
+
         </View>
     );
 }
 
-const primaryColor = "#6181b0";
-const borderColor = primaryColor;// "#4d6485"
+const primaryColor = "#0c274bd5";
+const borderColor =   primaryColor;// "#4d6485"
 
 const styles = StyleSheet.create({
     mainBox: {
@@ -152,7 +148,7 @@ const styles = StyleSheet.create({
     column4: {},
     rowHeading: { backgroundColor: primaryColor, color: "white", borderTopLeftRadius: 5, borderTopRightRadius: 5 },
     rowInactive: { backgroundColor: "#fefefe" },
-    rowActive: { backgroundColor: "#f2fcf0" },
+    rowActive: { backgroundColor: "#d1e9f6" },
     prayerName: { fontSize: 12, color: primaryColor, fontWeight: "bold" },
     prayerAzan: { fontSize: 15 },
     prayerIqama: { fontSize: 15 },

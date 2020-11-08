@@ -22,7 +22,8 @@ export const Constants = {
 }
 
 export const ConfigurationKey = {
-    JUMAH_PRAYER: "jumah_prayer"
+    JUMAH_PRAYER: "jumah_prayer",
+    MAGHRIB_IQAMA: "maghrib_iqama"
 }
 
 export const ConstantsStyles = {

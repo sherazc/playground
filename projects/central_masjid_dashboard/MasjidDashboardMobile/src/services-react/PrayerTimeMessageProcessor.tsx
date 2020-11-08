@@ -74,6 +74,6 @@ const styles = StyleSheet.create({
     },
     durationText: {
         color: "#fff",
-        fontSize: 30,
+        fontSize: 25,
     }
 });
