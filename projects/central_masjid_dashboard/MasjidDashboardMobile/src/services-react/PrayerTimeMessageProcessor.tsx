@@ -1,7 +1,7 @@
 import React from 'react';
 import { createEmptyPrayerTimeSummaryMessage, PrayerTimeSummaryMessage } from "../types/react-types";
 import { PrayerTimeSummary } from "../types/types";
-import { Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { millisDurationToTimeString } from '../services/DateService';
 
 export const processPrayerTimeMessage = (prayerTimeSummary?: PrayerTimeSummary): PrayerTimeSummaryMessage => {
@@ -24,15 +24,15 @@ const createJamatStatus = (prayerTimeSummary: PrayerTimeSummary): JSX.Element =>
 
     if (prayerTimeSummary.prayerAboutToStartMillis && prayerTimeSummary.prayerAboutToStartMillis > 0) {
         result = (<>
-            <Text>{prayerTimeSummary.currentPrayerName} jammat about to start in</Text>
-            <Text>{millisDurationToTimeString(prayerTimeSummary.prayerAboutToStartMillis)}</Text>
+            <Text style={styles.heading}>{prayerTimeSummary.currentPrayerName} jammat about to start in</Text>
+            <Text style={styles.durationText}>{millisDurationToTimeString(prayerTimeSummary.prayerAboutToStartMillis)}</Text>
         </>);
     }
 
     if (prayerTimeSummary.prayerInProgressMillis && prayerTimeSummary.prayerInProgressMillis > 0) {
         result = (<>
-            <Text>{prayerTimeSummary.currentPrayerName} jammat is in progress for</Text>
-            <Text>{millisDurationToTimeString(prayerTimeSummary.prayerInProgressMillis)}</Text>
+            <Text style={styles.heading}>{prayerTimeSummary.currentPrayerName} jammat is in progress for</Text>
+            <Text style={styles.durationText}>{millisDurationToTimeString(prayerTimeSummary.prayerInProgressMillis)}</Text>
         </>);
     }
     return result;
@@ -47,8 +47,8 @@ const createNextPrayerStatus = (prayerTimeSummary: PrayerTimeSummary): JSX.Eleme
         && prayerTimeSummary.currentPrayerPeriod[1].name
     ) {
         result = (<>
-            <Text>Next prayer {prayerTimeSummary.currentPrayerPeriod[1].name} in</Text>
-            <Text>{millisDurationToTimeString(prayerTimeSummary.nextPrayerInMillis)}</Text>
+            <Text style={styles.heading}>Next prayer {prayerTimeSummary.currentPrayerPeriod[1].name} in</Text>
+            <Text style={styles.durationText}>{millisDurationToTimeString(prayerTimeSummary.nextPrayerInMillis)}</Text>
         </>);
     }
 
@@ -63,3 +63,17 @@ const createPrayerName = (prayerTimeSummary: PrayerTimeSummary): JSX.Element => 
     }
     return result;
 }
+
+
+
+const styles = StyleSheet.create({
+    heading: {
+        color: "#fff",
+        fontSize: 15,
+        fontWeight: "bold"
+    },
+    durationText: {
+        color: "#fff",
+        fontSize: 30,
+    }
+});

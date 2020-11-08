@@ -74,8 +74,16 @@ export const time24To12 = (time24?: string) => {
     const minutes = Number.parseInt(hoursMinutes[1]);
     const amPm = hours24 > 12 ? "pm" : "am";
 
-    return `${numberTo2DigitsString(hours12)}:${numberTo2DigitsString(minutes)}${amPm}`;
+    return `${hours12}:${numberTo2DigitsString(minutes)}${amPm}`;
 };
+
+export const dateToTime12h = (d: Date | undefined) => {
+    if (!d) {
+        return "";
+    }
+    const dateIso = d.toISOString();
+    return time24To12(dateIso.substring(11, 16));
+}
 
 
 export const addDays = (date:(Date| undefined), days?:number) => {
@@ -106,10 +114,15 @@ export const millisDurationToTimeString = (duration?:number) => {
         minutes:(number | string) = Math.floor((duration/(1000*60))%60),
         hours:(number | string) = Math.floor(duration/(1000*60*60));
 
-    hours = (hours < 10) ? "0" + hours : hours;
+    //hours = (hours < 10) ? "0" + hours : hours;
     minutes = (minutes < 10) ? "0" + minutes : minutes;
     seconds = (seconds < 10) ? "0" + seconds : seconds;
-    return hours + ":" + minutes + ":" + seconds;
+    if (hours > 0) {
+        return hours + ":" + minutes + ":" + seconds;
+    } else {
+        return minutes + ":" + seconds;
+    }
+
 }
 
 export const isTimeBetweenAzans = (timeMillis:(number | undefined), prayerPeriod?:PrayerTime[]) => {

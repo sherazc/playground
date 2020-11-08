@@ -99,7 +99,10 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
                     }
                     {(companyData && companyData.prayer && companyData.prayer.date) && <>
                         <View style={styles.todaysDetail}>
-                            <TodaysDetail prayerTimeMessage={prayerTimeMessage} companyData={companyData} />
+                            <TodaysDetail
+                                navigation={navigation}
+                                prayerTimeMessage={prayerTimeMessage}
+                                companyData={companyData} />
                         </View>
                         <View style={styles.prayerTimeGrid}>
                             <PrayerTimeGrid prayerTimeMessage={prayerTimeMessage} prayer={companyData.prayer} />

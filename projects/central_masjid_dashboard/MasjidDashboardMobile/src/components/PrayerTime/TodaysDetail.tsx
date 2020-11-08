@@ -1,23 +1,164 @@
+
+import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import Cog from "../../images/Cog";
+import Sunrise from "../../images/Sunrise";
+import Underline from "../../images/Underline";
 import { ConfigurationKey } from "../../services/Constants";
-import { findConfigurationByName } from "../../services/Utilities";
+import { dateToTime12h } from "../../services/DateService";
+import { findConfigurationByName, trimEllipsis } from "../../services/Utilities";
 import { PrayerTimeSummaryMessage } from "../../types/react-types";
 import { CompanyData } from '../../types/types';
+import { MdParamList } from "../NavRoutes";
+
 
 interface Props {
     prayerTimeMessage: PrayerTimeSummaryMessage;
     companyData: CompanyData;
+    navigation: StackNavigationProp<MdParamList, "PrayerTime">;
 }
 
-export const TodaysDetail: React.FC<Props> = ({prayerTimeMessage, companyData}) => {
+export const TodaysDetail: React.FC<Props> = ({ prayerTimeMessage, companyData, navigation }) => {
 
     return (
-        <View style={{ backgroundColor: "#aeaeae" }}>
-            <Text>{prayerTimeMessage.prayerName}</Text>
-            <Text>{prayerTimeMessage.jamatStatus}</Text>
-            <Text>{prayerTimeMessage.nextPrayerStatus}</Text>
-            <Text>Jummah Time. {findConfigurationByName(companyData.configurations, ConfigurationKey.JUMAH_PRAYER)}</Text>
+        <View>
+            {/* Company name and Setting */}
+            <View style={styles.companyNameSettingView}>
+                <View style={styles.companyNameView}>
+                    <Text style={styles.companyName}>
+                        {getCompanyName(companyData)}
+                    </Text>
+
+                    <Underline fill="#fff" width={220} />
+
+                </View>
+                <View style={styles.settingView}>
+                    <TouchableOpacity onPress={() => { navigation.navigate("Settings") }}>
+                        <Cog fill="#fff" />
+                    </TouchableOpacity>
+                </View>
+            </View>
+            {/* Salah Details */}
+            <View style={styles.prayerJammatView}>
+                <View style={styles.prayerView}>
+                    <Text style={styles.prayerName}>{prayerTimeMessage.prayerName}</Text>
+                    {getSunriseComponent(prayerTimeMessage)}
+                </View>
+                <View style={styles.prayerJammatSeparatorView}>
+                    <View style={styles.prayerJammatSeparator}></View>
+                </View>
+                <View style={styles.jammatView}>
+                    {getPrayerOrNextPrayerStatus(prayerTimeMessage)}
+                    <Text style={{ ...styles.heading, marginTop: 20 }}>Jummah</Text>
+                    <Text style={styles.textNormal}>
+                        {findConfigurationByName(companyData.configurations, ConfigurationKey.JUMAH_PRAYER)}
+                    </Text>
+                </View>
+            </View>
         </View>
     );
 }
+
+const getCompanyName = (companyData: CompanyData) => {
+    let result = "";
+    if (companyData && companyData.company && companyData.company.name) {
+        result = trimEllipsis(companyData.company.name, 25);
+    }
+    return result;
+}
+
+const getPrayerOrNextPrayerStatus = (prayerTimeMessage: PrayerTimeSummaryMessage) => {
+    if (prayerTimeMessage.jamatStatusSet) {
+        return prayerTimeMessage.jamatStatus
+    } else {
+        return prayerTimeMessage.nextPrayerStatus
+    }
+}
+
+const getSunriseComponent = (prayerTimeMessage: PrayerTimeSummaryMessage) => {
+    let result = <></>
+    if (prayerTimeMessage && prayerTimeMessage.prayerTimeSummary
+        && prayerTimeMessage.prayerTimeSummary.sunriseTime) {
+
+        result = <>
+            <Sunrise fill="#fff" width={65} height={35} />
+            <Text style={styles.heading}>Sunrise</Text>
+            <Text style={styles.textNormal}>
+                {dateToTime12h(prayerTimeMessage.prayerTimeSummary.sunriseTime)}
+            </Text>
+        </>
+    }
+
+    return result;
+}
+
+
+const styles = StyleSheet.create({
+    companyNameSettingView: {
+        flexDirection: "row",
+    },
+    companyNameView: {
+        flexGrow: 1,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    companyName: {
+        fontSize: 25,
+        color: "#fff",
+        marginTop: 10,
+    },
+    settingView: {
+        flexBasis: 50,
+        flexGrow: 0,
+        flexShrink: 0,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    prayerJammatView: {
+        flexDirection: "row",
+        marginTop: 20
+    },
+    prayerView: {
+        flexBasis: 140,
+        flexGrow: 0,
+        flexShrink: 0,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    prayerName: {
+        color: "#fff",
+        fontSize: 50,
+        marginBottom: 15,
+    },
+    prayerJammatSeparatorView: {
+        flexBasis: 10,
+        flexGrow: 0,
+        flexShrink: 0,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    prayerJammatSeparator: {
+        width: 3,
+        height: 100,
+        backgroundColor: "#fff",
+        borderRadius: 3,
+    },
+    jammatView: {
+        flexGrow: 1,
+        paddingLeft: 10,
+        paddingRight: 10,
+
+        justifyContent: "center",
+    },
+    heading: {
+        color: "#fff",
+        fontSize: 15,
+        fontWeight: "bold"
+    },
+    textNormal: {
+        color: "#fff",
+        fontSize: 15,
+    }
+});
