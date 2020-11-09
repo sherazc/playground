@@ -13,6 +13,7 @@ import { TodaysDetail } from "./TodaysDetail";
 import { createEmptyPrayerTimeSummaryMessage, PrayerTimeSummaryMessage } from "../../types/react-types";
 import { processPrayerTime } from "../../services/PrayerTimeProcessor";
 import { processPrayerTimeMessage } from "../../services-react/PrayerTimeMessageProcessor";
+import { ConstantsStyles } from "../../services/Constants";
 
 interface Props {
     navigation: StackNavigationProp<MdParamList, "PrayerTime">;
@@ -104,7 +105,7 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
                         }}>
                             <View style={{
                                 height: 3,
-                                backgroundColor: "#fff",
+                                backgroundColor: ConstantsStyles.linesColor,
                                 borderRadius: 3,
                                 width: "70%"
                             }} />

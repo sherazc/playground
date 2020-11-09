@@ -30,7 +30,7 @@ export const CompanySelect: React.FC<Props> = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.background}>
-                <Image source={require('../../images/background1.png')} style={styles.backgroundImage} />
+                <Image source={require('../../images/background3.png')} style={styles.backgroundImage} />
             </View>
             <View style={styles.content}>
                 <View style={styles.brand}>
@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
         resizeMode: 'cover'
     },
     content: {
+        backgroundColor: "#183f62ef",
         position: "absolute",
         top: 0,
         height: "100%",

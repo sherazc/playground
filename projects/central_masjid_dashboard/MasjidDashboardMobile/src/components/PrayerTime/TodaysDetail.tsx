@@ -6,7 +6,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import Cog from "../../images/Cog";
 import Sunrise from "../../images/Sunrise";
 import Underline from "../../images/Underline";
-import { ConfigurationKey } from "../../services/Constants";
+import { ConfigurationKey, ConstantsStyles } from "../../services/Constants";
 import { dateToTime12h } from "../../services/DateService";
 import { findConfigurationByName, trimEllipsis } from "../../services/Utilities";
 import { PrayerTimeSummaryMessage } from "../../types/react-types";
@@ -31,12 +31,12 @@ export const TodaysDetail: React.FC<Props> = ({ prayerTimeMessage, companyData, 
                         {getCompanyName(companyData)}
                     </Text>
 
-                    <Underline fill="#fff" width={220} />
+                    <Underline fill={ConstantsStyles.linesColor} width={220} />
 
                 </View>
                 <View style={styles.settingView}>
                     <TouchableOpacity onPress={() => { navigation.navigate("Settings") }}>
-                        <Cog fill="#fff" />
+                        <Cog fill={ConstantsStyles.linesColor} />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -141,8 +141,8 @@ const styles = StyleSheet.create({
     },
     prayerJammatSeparator: {
         width: 3,
-        height: 100,
-        backgroundColor: "#fff",
+        height: 60,
+        backgroundColor: ConstantsStyles.linesColor,
         borderRadius: 3,
     },
     jammatView: {

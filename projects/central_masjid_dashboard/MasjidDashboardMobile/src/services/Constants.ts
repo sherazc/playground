@@ -1,7 +1,7 @@
 const BASE_URL = "https://www.masjiddashboard.com";
 const PRAYER_DURATION_MIN = 10; // 15 Min. Duration for "Salah in progress"
 const PRAYER_ABOUT_TO_START_MIN = 10; // 15 Min. Prayer about to start.
-const MAGHRIB_LIMIT_MIN = 40; // 40 Min. Maghrib salah will end in.
+const MAGHRIB_LIMIT_MIN = 10; // 40 Min. Maghrib salah will end in.
 
 export const Constants = {
     BASE_URL,
@@ -27,6 +27,7 @@ export const ConfigurationKey = {
 }
 
 export const ConstantsStyles = {
+    linesColor: "#ffffff55",
     shadowSmall: {
         shadowColor: '#999',
         shadowOffset: { width: 2, height: 2 },
