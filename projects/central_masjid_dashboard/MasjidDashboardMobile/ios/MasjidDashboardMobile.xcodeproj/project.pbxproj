@@ -161,7 +161,6 @@
 				52AAE6EACF5B97B4D28B49A2 /* Pods-MasjidDashboardMobile-tvOSTests.debug.xcconfig */,
 				C76F4837E88302C1BF6806C0 /* Pods-MasjidDashboardMobile-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
