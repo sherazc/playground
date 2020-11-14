@@ -15,9 +15,20 @@ export const processPrayerTimeMessage = (prayerTimeSummary?: PrayerTimeSummary):
     result.prayerName = createPrayerName(prayerTimeSummary);
     result.jamatStatus = createJamatStatus(prayerTimeSummary);
     result.nextPrayerStatus = createNextPrayerStatus(prayerTimeSummary);
-
+    result.jamatStatusSet = isJamatStatusSet(prayerTimeSummary)
     return result;
 }
+
+const isJamatStatusSet = (prayerTimeSummary: PrayerTimeSummary): boolean => {
+    if (!prayerTimeSummary) {
+        return false;
+    }
+
+    // @ts-ignore
+    return (prayerTimeSummary.prayerAboutToStartMillis && prayerTimeSummary.prayerAboutToStartMillis > 0) 
+    || (prayerTimeSummary.prayerInProgressMillis && prayerTimeSummary.prayerInProgressMillis > 0);
+}
+
 
 const createJamatStatus = (prayerTimeSummary: PrayerTimeSummary): JSX.Element => {
     let result = <></>;

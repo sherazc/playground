@@ -4,7 +4,7 @@ import { dateToDisplayDateShort, time24To12 } from '../../services/DateService';
 import { Prayer, PrayerTimeSummary, CompanyData } from '../../types/types';
 import { PrayerTimeSummaryMessage } from '../../types/react-types';
 import { findConfigurationByName } from '../../services/Utilities';
-import { ConfigurationKey } from '../../services/Constants';
+import { ConfigurationKey, ConstantsStyles } from '../../services/Constants';
 
 interface Props {
     prayer: Prayer;
@@ -128,8 +128,8 @@ export const PrayerTimeGrid: React.FC<Props> = ({companyData, prayer, prayerTime
     );
 }
 
-const primaryColor = "#0c274bd5";
-const borderColor =   primaryColor;// "#4d6485"
+const primaryColor = ConstantsStyles.color.background2;
+const borderColor =   primaryColor;
 
 const styles = StyleSheet.create({
     mainBox: {
@@ -146,16 +146,16 @@ const styles = StyleSheet.create({
     column2: { flex: 1.8 },
     column3: { flex: 1.8 },
     column4: {},
-    rowHeading: { backgroundColor: primaryColor, color: "white", borderTopLeftRadius: 5, borderTopRightRadius: 5 },
-    rowInactive: { backgroundColor: "#fefefe" },
+    rowHeading: { backgroundColor: primaryColor, color: ConstantsStyles.text.colorLight, borderTopLeftRadius: 5, borderTopRightRadius: 5 },
+    rowInactive: { backgroundColor: ConstantsStyles.color.background4 },
     rowActive: { backgroundColor: "#d1e9f6" },
     prayerName: { fontSize: 12, color: primaryColor, fontWeight: "bold" },
-    prayerAzan: { fontSize: 15 },
-    prayerIqama: { fontSize: 15 },
-    prayerNextChange: { fontSize: 10, textAlign: "center" },
-    prayerAzanHeading: { fontSize: 15, color: "white", fontWeight: "bold" },
-    prayerIqamaHeading: { fontSize: 15, color: "white", fontWeight: "bold" },
-    prayerNextChangeHeading: { color: "white", fontSize: 10, textAlign: "center", fontWeight: "bold" }
+    prayerAzan: { fontSize: 15, color: ConstantsStyles.text.colorDark },
+    prayerIqama: { fontSize: 15, color: ConstantsStyles.text.colorDark },
+    prayerNextChange: { fontSize: 10, textAlign: "center", color: ConstantsStyles.text.colorDark },
+    prayerAzanHeading: { fontSize: 15, color: ConstantsStyles.text.colorLight, fontWeight: "bold" },
+    prayerIqamaHeading: { fontSize: 15, color: ConstantsStyles.text.colorLight, fontWeight: "bold" },
+    prayerNextChangeHeading: { color: ConstantsStyles.text.colorLight, fontSize: 10, textAlign: "center", fontWeight: "bold" }
 });
 
 const getActiveOrInActiveStyle = (prayerNumber: number,

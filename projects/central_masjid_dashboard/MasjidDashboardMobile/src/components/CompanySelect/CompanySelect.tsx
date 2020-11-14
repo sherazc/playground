@@ -7,6 +7,7 @@ import { useTypedSelector } from '../../store/rootReducer';
 
 import { Brand } from './Brand';
 import { CompanyList } from './CompanyList';
+import { ConstantsStyles } from "../../services/Constants";
 
 interface Props {
     navigation: StackNavigationProp<MdParamList, "CompanySelect">;
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
         resizeMode: 'cover'
     },
     content: {
-        backgroundColor: "#183f62ef",
+        backgroundColor: ConstantsStyles.color.background1,
         position: "absolute",
         top: 0,
         height: "100%",

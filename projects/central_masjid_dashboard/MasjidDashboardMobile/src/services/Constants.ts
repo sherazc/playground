@@ -27,7 +27,19 @@ export const ConfigurationKey = {
 }
 
 export const ConstantsStyles = {
-    linesColor: "#ffffff55",
+    text: {
+        colorLight: "#fff",
+        colorDark: "#000"
+    },
+    color: {
+        lines: "#ffffff55", // separators
+        background1: "#183f62ef", // company select background        
+        background2: "#0c274b", // Prayer grid header and borders, Settings Header 
+        background3: "#183f62", // Settings
+        background4: "#f0f0f0", // Company List, Prayer Grid times
+        background5: "#fff", // Company List Item
+    },
+
     shadowSmall: {
         shadowColor: '#999',
         shadowOffset: { width: 2, height: 2 },

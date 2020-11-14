@@ -72,7 +72,7 @@ export const time24To12 = (time24?: string) => {
     const hours24 = Number.parseInt(hoursMinutes[0]);
     const hours12 = hours24 > 12 ? hours24 % 12 : hours24;
     const minutes = Number.parseInt(hoursMinutes[1]);
-    const amPm = hours24 > 12 ? "pm" : "am";
+    const amPm = hours24 > 11 ? "pm" : "am";
 
     return `${hours12}:${numberTo2DigitsString(minutes)}${amPm}`;
 };

@@ -89,7 +89,7 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
             <View style={styles.content}>
                 <SafeAreaView>
                     {(!companyData || !companyData.prayer || !companyData.prayer.date) &&
-                        <Loading style={{ color: "white" }} />
+                        <Loading style={{ color: ConstantsStyles.text.colorLight }} />
                     }
                     {(companyData && companyData.prayer && companyData.prayer.date) && <>
                         <View style={styles.todaysDetail}>
@@ -105,7 +105,7 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
                         }}>
                             <View style={{
                                 height: 3,
-                                backgroundColor: ConstantsStyles.linesColor,
+                                backgroundColor: ConstantsStyles.color.lines,
                                 borderRadius: 3,
                                 width: "70%"
                             }} />
@@ -148,7 +148,6 @@ const styles = StyleSheet.create({
     },
     todaysDetail: {
         height: "40%",
-        //backgroundColor: "red",
         alignContent: "center",
         justifyContent: "center"
     },
@@ -157,7 +156,6 @@ const styles = StyleSheet.create({
         paddingBottom: 15,
         paddingLeft: 5,
         paddingRight: 5,
-        // backgroundColor: "purple",
         alignContent: "center",
         justifyContent: "center"
     }

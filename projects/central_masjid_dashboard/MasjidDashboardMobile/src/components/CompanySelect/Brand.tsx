@@ -13,7 +13,7 @@ export const Brand: React.FC<Props> = () => {
         <View style={styles.container}>
             <Text style={styles.title}>MASJID DASHBOARD</Text>
             {/* <SvgCssLogo/> */}
-            <Underline fill={ConstantsStyles.linesColor} width={220} />
+            <Underline fill={ConstantsStyles.color.lines} width={220} />
             <View style={{marginTop: 20}}>
             <Logo width="100" height="100"/>
             </View>
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 25,
-        color: "#fff",
+        color: ConstantsStyles.text.colorLight,
         letterSpacing: 3,
         marginBottom: 0,
         ...ConstantsStyles.shadowSmallDarkText

@@ -90,7 +90,7 @@ export const CompanyList: React.FC<Props> = ({ companyListData, navigation }) =>
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#f0f0f0",
+        backgroundColor: ConstantsStyles.color.background4,
         width: "100%",
         height: "100%",
         borderRadius: 10,
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
         marginBottom: 20
     },
     listItem: {
-        backgroundColor: "#fff",
+        backgroundColor: ConstantsStyles.color.background5,
         marginBottom: 15,
         padding: 10,
         marginRight: 3,
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     companyIconInitials: {
-        color: "#fff",
+        color: ConstantsStyles.text.colorLight,
         fontSize: 20
     },
     listItemName: {

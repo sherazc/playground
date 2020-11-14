@@ -31,12 +31,12 @@ export const TodaysDetail: React.FC<Props> = ({ prayerTimeMessage, companyData, 
                         {getCompanyName(companyData)}
                     </Text>
 
-                    <Underline fill={ConstantsStyles.linesColor} width={220} />
+                    <Underline fill={ConstantsStyles.color.lines} width={220} />
 
                 </View>
                 <View style={styles.settingView}>
                     <TouchableOpacity onPress={() => { navigation.navigate("Settings") }}>
-                        <Cog fill={ConstantsStyles.linesColor} />
+                        <Cog fill={ConstantsStyles.color.lines} />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     },
     companyName: {
         fontSize: 25,
-        color: "#fff",
+        color: ConstantsStyles.text.colorLight,
         marginTop: 10,
     },
     settingView: {
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     prayerName: {
-        color: "#fff",
+        color: ConstantsStyles.text.colorLight,
         fontSize: 35,
         marginBottom: 10,
     },
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     prayerJammatSeparator: {
         width: 3,
         height: 60,
-        backgroundColor: ConstantsStyles.linesColor,
+        backgroundColor: ConstantsStyles.color.lines,
         borderRadius: 3,
     },
     jammatView: {
@@ -153,12 +153,12 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     heading: {
-        color: "#fff",
+        color: ConstantsStyles.text.colorLight,
         fontSize: 15,
         fontWeight: "bold"
     },
     textNormal: {
-        color: "#fff",
+        color: ConstantsStyles.text.colorLight,
         fontSize: 15,
     }
 });
