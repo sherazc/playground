@@ -1,6 +1,6 @@
 import { Prayer, PrayerTime, PrayerTimeSummary } from "../types/types";
 import { Constants } from "./Constants";
-import { addDays, millisDurationToTimeString, nowUtcDate, stringH24MinToDate } from "./DateService";
+import { addDays, nowUtcDate, stringH24MinToDate } from "./DateService";
 
 export const processPrayerTime = (prayer: Prayer): PrayerTimeSummary => {
     const result: PrayerTimeSummary = {

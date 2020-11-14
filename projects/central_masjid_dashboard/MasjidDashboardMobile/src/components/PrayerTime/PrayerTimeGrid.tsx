@@ -163,7 +163,10 @@ const getActiveOrInActiveStyle = (prayerNumber: number,
     activeStyle: object, inactiveStyle: object) => {
 
     let result = inactiveStyle;
-    if (prayerTimeSummay && prayerTimeSummay.currentPrayerNumber != undefined
+
+    if (prayerTimeSummay
+        && !prayerTimeSummay.timeBetweenMaghribLimitAndIsha
+        && prayerTimeSummay.currentPrayerNumber != undefined
         && prayerTimeSummay.currentPrayerNumber === prayerNumber) {
         result = activeStyle;
     }
