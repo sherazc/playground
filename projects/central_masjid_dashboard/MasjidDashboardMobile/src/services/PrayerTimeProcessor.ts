@@ -7,6 +7,7 @@ export const processPrayerTime = (prayer: Prayer): PrayerTimeSummary => {
         currentPrayerPeriod: [],
         sunriseTime: undefined,
         timeBetweenShrooqAndZuhar: false,
+        timeBetweenMaghribLimitAndIsha: false,
         prayerInProgressMillis: -1,
         prayerAboutToStartMillis: -1,
         nextPrayerInMillis: -1,
@@ -35,11 +36,13 @@ export const processPrayerTime = (prayer: Prayer): PrayerTimeSummary => {
     const prayerInProgressMillis = getPrayerInProgressMillis(now, currentPrayerPeriod);
     const prayerAboutToStartMillis = getPrayerAboutToStartMillis(now, currentPrayerPeriod);
     const nextPrayerInMillis = getNextPrayerInMillis(now, currentPrayerPeriod);
-    const currentPrayerName = getCurrentPrayerName(currentPrayerPeriod, timeBetweenShrooqAndZuhar);
+    const timeBetweenMaghribLimitAndIsha = isTimeBetweenMaghribLimitAndIsha(now, prayerTimes);
+    const currentPrayerName = getCurrentPrayerName(currentPrayerPeriod, timeBetweenShrooqAndZuhar, timeBetweenMaghribLimitAndIsha);
     const currentPrayerNumber = getCurrentPrayerNumber(currentPrayerPeriod, timeBetweenShrooqAndZuhar);
 
     result.currentPrayerPeriod = currentPrayerPeriod;
     result.timeBetweenShrooqAndZuhar = timeBetweenShrooqAndZuhar;
+    result.timeBetweenMaghribLimitAndIsha = timeBetweenMaghribLimitAndIsha;
     result.prayerInProgressMillis = prayerInProgressMillis;
     result.prayerAboutToStartMillis = prayerAboutToStartMillis;
     result.nextPrayerInMillis = nextPrayerInMillis;
@@ -54,6 +57,20 @@ export const processPrayerTime = (prayer: Prayer): PrayerTimeSummary => {
     console.log("nextPrayerInMillis", millisDurationToTimeString(nextPrayerInMillis));
 
     return result;
+}
+
+const isTimeBetweenMaghribLimitAndIsha = (date: Date, prayerTimes: PrayerTime[]): boolean => {
+    if (!date || !prayerTimes || prayerTimes.length < 5
+        || !prayerTimes[4] || !prayerTimes[4].azan
+        || !prayerTimes[5] || !prayerTimes[5].azan) {
+        return false;
+    }
+
+    const dateMillis = date.getTime()
+    const maghribPrayerLimitMillis = prayerTimes[4].azan.getTime() + Constants.MAGHRIB_LIMIT_MILLIS;
+    const ishaAzanMillis = prayerTimes[4].azan.getTime();
+
+    return dateMillis > maghribPrayerLimitMillis && dateMillis < ishaAzanMillis;
 }
 
 const makePrayerTime = (date: Date, name: string, azanTimeString: string, iqamahTimeString: string): PrayerTime => {
@@ -178,8 +195,9 @@ const getNextPrayerInMillis = (now: Date, prayerPeriod: (PrayerTime[] | undefine
 }
 
 
-const getCurrentPrayerName = (prayerPeriod: (PrayerTime[] | undefined), timeBetweenShrooqAndZuhar: boolean): string => {
-    if (timeBetweenShrooqAndZuhar) {
+const getCurrentPrayerName = (prayerPeriod: (PrayerTime[] | undefined),
+        timeBetweenShrooqAndZuhar: boolean, timeBetweenMaghribLimitAndIsha: boolean): string => {
+    if (timeBetweenShrooqAndZuhar || timeBetweenMaghribLimitAndIsha) {
         return "";
     }
 

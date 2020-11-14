@@ -107,6 +107,7 @@ export interface PrayerTimeSummary {
     currentPrayerPeriod: (PrayerTime[] | undefined);
     sunriseTime: Date | undefined;
     timeBetweenShrooqAndZuhar: boolean;
+    timeBetweenMaghribLimitAndIsha: boolean;
     prayerInProgressMillis: number;
     prayerAboutToStartMillis: number;
     nextPrayerInMillis: number;
