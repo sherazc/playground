@@ -1,7 +1,7 @@
 const BASE_URL = "https://www.masjiddashboard.com";
 const PRAYER_DURATION_MIN = 10; // 15 Min. Duration for "Salah in progress"
 const PRAYER_ABOUT_TO_START_MIN = 10; // 15 Min. Prayer about to start.
-const MAGHRIB_LIMIT_MIN = 10; // 40 Min. Maghrib salah will end in.
+const MAGHRIB_LIMIT_MIN = 40; // 40 Min. Maghrib salah will end in.
 
 export const Constants = {
     BASE_URL,
@@ -33,8 +33,8 @@ export const ConstantsStyles = {
     },
     color: {
         lines: "#ffffff55", // separators
-        background1: "#183f62ef", // company select background        
-        background2: "#0c274b", // Prayer grid header and borders, Settings Header 
+        background1: "#183f62ef", // company select background
+        background2: "#0c274b", // Prayer grid header and borders, Settings Header
         background3: "#183f62", // Settings
         background4: "#f0f0f0", // Company List, Prayer Grid times
         background5: "#fff", // Company List Item

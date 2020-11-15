@@ -23,7 +23,7 @@ import store from "./src/store/rootReducer";
 const App: () => React.ReactElement = () => {
     return (
         <Provider store={store}>
-            <StatusBar barStyle="dark-content"/>
+            <StatusBar barStyle="light-content"/>
             <NavRoutes/>
         </Provider>
     );

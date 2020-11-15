@@ -51,23 +51,18 @@ export const processPrayerTime = (prayer: Prayer): PrayerTimeSummary => {
     result.sunriseTime = sunriseTime;
 
     console.log("processPrayerTime result", result);
-
-    console.log("prayerInProgressMillis", millisDurationToTimeString(prayerInProgressMillis));
-    console.log("prayerAboutToStartMillis", millisDurationToTimeString(prayerAboutToStartMillis));
-    console.log("nextPrayerInMillis", millisDurationToTimeString(nextPrayerInMillis));
-
     return result;
 }
 
 const isTimeBetweenMaghribLimitAndIsha = (date: Date, prayerTimes: PrayerTime[]): boolean => {
     if (!date || !prayerTimes || prayerTimes.length < 5
-        || !prayerTimes[4] || !prayerTimes[4].azan
-        || !prayerTimes[5] || !prayerTimes[5].azan) {
+        || !prayerTimes[3] || !prayerTimes[3].azan
+        || !prayerTimes[4] || !prayerTimes[4].azan) {
         return false;
     }
 
     const dateMillis = date.getTime()
-    const maghribPrayerLimitMillis = prayerTimes[4].azan.getTime() + Constants.MAGHRIB_LIMIT_MILLIS;
+    const maghribPrayerLimitMillis = prayerTimes[3].azan.getTime() + Constants.MAGHRIB_LIMIT_MILLIS;
     const ishaAzanMillis = prayerTimes[4].azan.getTime();
 
     return dateMillis > maghribPrayerLimitMillis && dateMillis < ishaAzanMillis;
