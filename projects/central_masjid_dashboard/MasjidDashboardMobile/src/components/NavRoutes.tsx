@@ -9,6 +9,7 @@ import { useTypedSelector } from '../store/rootReducer'
 import { Company, LoadingStatus } from '../types/types';
 import { RecoveringFromStorage } from './RecoveringFromStorage';
 import { recoverAppFromStorage, destroyedApp, beginApp } from '../services/AppService';
+import { ConstantsStyles } from '../services/Constants';
 
 const Stack = createStackNavigator<MdParamList>();
 
@@ -60,8 +61,18 @@ TODO: set dimention and in redux store and use it to size components
             <NavigationContainer>
                 <Stack.Navigator initialRouteName="CompanySelect">
                     <Stack.Screen name="CompanySelect" component={CompanySelect} options={noHeaderOptions} />
-                    <Stack.Screen name="PrayerTime" component={PrayerTime} options={noHeaderOptions} />
-                    <Stack.Screen name="Settings" component={Settings} />
+                    <Stack.Screen name="PrayerTime" component={PrayerTime} options={{...noHeaderOptions, title:"Salah"}} />
+                    <Stack.Screen name="Settings" component={Settings}
+                        options={{
+                            headerStyle: {
+                                backgroundColor: ConstantsStyles.color.background2,
+                              },
+                              headerTintColor: ConstantsStyles.text.colorLight,
+                              headerTitleStyle: {
+                                fontWeight: 'bold',
+                              },
+                        }}
+                    />
                 </Stack.Navigator>
             </NavigationContainer>
         );

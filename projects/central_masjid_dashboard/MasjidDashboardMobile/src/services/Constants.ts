@@ -35,7 +35,7 @@ export const ConstantsStyles = {
         lines: "#ffffff55", // separators
         background1: "#183f62ef", // company select background
         background2: "#0c274b", // Prayer grid header and borders, Settings Header
-        background3: "#183f62", // Settings
+        background3: "#183c5b", // Settings
         background4: "#f0f0f0", // Company List, Prayer Grid times
         background5: "#fff", // Company List Item
     },

@@ -1,4 +1,5 @@
 cd android
+./gradlew clean
 # This command builds app-release.aab
 # ./gradlew bundleRelease
 
