@@ -120,12 +120,12 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         marginTop: 20
     },
+    // Container for Prayer and Sunrise
     prayerView: {
-        flexBasis: 150,
-        flexGrow: 0,
-        flexShrink: 0,
+        flexGrow: 1,
         alignItems: "center",
         justifyContent: "center",
+        // backgroundColor: "red"
     },
     prayerName: {
         color: ConstantsStyles.text.colorLight,
@@ -145,12 +145,12 @@ const styles = StyleSheet.create({
         backgroundColor: ConstantsStyles.color.lines,
         borderRadius: 3,
     },
+    // Container for Jammat and Jummah
     jammatView: {
         flexGrow: 1,
-        paddingLeft: 10,
-        paddingRight: 10,
-
+        alignItems: "center",
         justifyContent: "center",
+        // backgroundColor: "blue"
     },
     heading: {
         color: ConstantsStyles.text.colorLight,
