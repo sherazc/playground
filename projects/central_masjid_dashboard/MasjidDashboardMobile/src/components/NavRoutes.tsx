@@ -19,7 +19,7 @@ interface Props {
 export type MdParamList = {
     CompanySelect: undefined;
     PrayerTime: { selectedCompany?: Company };
-    Settings: undefined;
+    Settings: {backScreenName: string};
 }
 
 const noHeaderOptions = {

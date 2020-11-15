@@ -1,19 +1,22 @@
+import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import ArrowLeft from '../images/ArrowLeft';
 import { ConstantsStyles } from '../services/Constants';
+import { MdParamList } from './NavRoutes';
 
 interface Props {
     backScreenName: string;
     screenName: string;
+    navigation: StackNavigationProp<MdParamList, "Settings">;
 }
 
-export const AppBar: React.FC<Props> = ({ backScreenName, screenName }) => {
+export const AppBar: React.FC<Props> = ({ backScreenName, screenName, navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.leftView}>
-                <TouchableOpacity style={{ flexDirection: "row" }}>
+                <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => navigation.goBack()}>
                     <ArrowLeft fill={ConstantsStyles.text.colorLight} width={20} height={20} />
                     <Text style={styles.backScreenName}>{backScreenName}</Text>
                 </TouchableOpacity>

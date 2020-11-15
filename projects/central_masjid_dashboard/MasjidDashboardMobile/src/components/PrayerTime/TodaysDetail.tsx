@@ -13,7 +13,6 @@ import { PrayerTimeSummaryMessage } from "../../types/react-types";
 import { CompanyData } from '../../types/types';
 import { MdParamList } from "../NavRoutes";
 
-
 interface Props {
     prayerTimeMessage: PrayerTimeSummaryMessage;
     companyData: CompanyData;
@@ -21,7 +20,6 @@ interface Props {
 }
 
 export const TodaysDetail: React.FC<Props> = ({ prayerTimeMessage, companyData, navigation }) => {
-
     return (
         <View>
             {/* Company name and Setting */}
@@ -30,12 +28,10 @@ export const TodaysDetail: React.FC<Props> = ({ prayerTimeMessage, companyData, 
                     <Text style={styles.companyName}>
                         {getCompanyName(companyData)}
                     </Text>
-
                     <Underline fill={ConstantsStyles.color.lines} width={220} />
-
                 </View>
                 <View style={styles.settingView}>
-                    <TouchableOpacity onPress={() => { navigation.navigate("Settings") }}>
+                    <TouchableOpacity onPress={() => { navigation.navigate("Settings", {backScreenName: "Salah"}) }}>
                         <Cog fill={ConstantsStyles.color.lines} />
                     </TouchableOpacity>
                 </View>

@@ -11,11 +11,11 @@ import Reset from "../images/Reset";
 
 
 interface Props {
-    navigation: StackNavigationProp<MdParamList, "CompanySelect">;
-    route: RouteProp<MdParamList, "CompanySelect">;
+    navigation: StackNavigationProp<MdParamList, "Settings">;
+    route: RouteProp<MdParamList, "Settings">;
 }
 
-export const Settings: React.FC<Props> = ({ navigation }) => {
+export const Settings: React.FC<Props> = ({ navigation, route }) => {
     const dispatch = useTypedDispatch();
 
     const onResetMasjid = () => {
@@ -23,12 +23,20 @@ export const Settings: React.FC<Props> = ({ navigation }) => {
         navigation.navigate("CompanySelect");
     }
 
+    const getBackScreenName = (route: RouteProp<MdParamList, "Settings">) => {
+        let result = "";
+        if (route && route.params && route.params.backScreenName) {
+            result = route.params.backScreenName;
+        }
+        return result;
+    }
+
     return (
         <>
             <SafeAreaView style={styles.safeAreaViewTop} />
             <SafeAreaView style={styles.safeAreaViewBottom}>
                 <View style={styles.container}>
-                    <AppBar backScreenName="Salah" screenName="Settings" />
+                    <AppBar navigation={navigation} backScreenName={getBackScreenName(route)} screenName="Settings" />
                     <TouchableOpacity style={styles.settingRow} onPress={onResetMasjid}>
                         <View style={styles.nameView}>
                             <Text style={styles.name}>
