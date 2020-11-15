@@ -61,18 +61,8 @@ TODO: set dimention and in redux store and use it to size components
             <NavigationContainer>
                 <Stack.Navigator initialRouteName="CompanySelect">
                     <Stack.Screen name="CompanySelect" component={CompanySelect} options={noHeaderOptions} />
-                    <Stack.Screen name="PrayerTime" component={PrayerTime} options={{...noHeaderOptions, title:"Salah"}} />
-                    <Stack.Screen name="Settings" component={Settings}
-                        options={{
-                            headerStyle: {
-                                backgroundColor: ConstantsStyles.color.background2,
-                              },
-                              headerTintColor: ConstantsStyles.text.colorLight,
-                              headerTitleStyle: {
-                                fontWeight: 'bold',
-                              },
-                        }}
-                    />
+                    <Stack.Screen name="PrayerTime" component={PrayerTime} options={noHeaderOptions} />
+                    <Stack.Screen name="Settings" component={Settings} options={noHeaderOptions} />
                 </Stack.Navigator>
             </NavigationContainer>
         );

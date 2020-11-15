@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { CompanyListData, Company } from '../../types/types';
 import { isNotBlankString, nameToInitials, stringToHslColor, trimEllipsis } from '../../services/Utilities';
-import RightArrow from "../../images/RightArrow";
+import ArrowRight from "../../images/ArrowRight";
 import { ConstantsStyles } from "../../services/Constants";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { MdParamList } from "../NavRoutes";
@@ -73,7 +73,7 @@ export const CompanyList: React.FC<Props> = ({ companyListData, navigation }) =>
                     <Text style={{ fontSize: 12 }}>{trimEllipsis(companyAddress, 40)}</Text>
                 </View>
                 <View style={styles.listItemArrow}>
-                    <RightArrow height={15} width={15} fill="#aeaeae" />
+                    <ArrowRight height={15} width={15} fill="#aeaeae" />
                 </View>
             </TouchableOpacity>
         );
