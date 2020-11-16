@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, StyleSheet, View, Text, SafeAreaView } from "react-native";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MdParamList } from "./NavRoutes";
@@ -8,6 +8,7 @@ import { ConstantsStyles } from '../services/Constants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AppBar } from "./AppBar";
 import Reset from "../images/Reset";
+import { Checkbox } from './Checkbox';
 
 
 interface Props {
@@ -18,9 +19,15 @@ interface Props {
 export const Settings: React.FC<Props> = ({ navigation, route }) => {
     const dispatch = useTypedDispatch();
 
+    const [deleteItCheck, setDeleteItCheck] = useState(false);
+
     const onResetMasjid = () => {
         dispatch({ type: "COMPANY_DATA_DELETE" });
         navigation.navigate("CompanySelect");
+    }
+
+    const onDeleteItCheck = () => {
+        setDeleteItCheck(!deleteItCheck);
     }
 
     const getBackScreenName = (route: RouteProp<MdParamList, "Settings">) => {
@@ -37,6 +44,7 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
             <SafeAreaView style={styles.safeAreaViewBottom}>
                 <View style={styles.container}>
                     <AppBar navigation={navigation} backScreenName={getBackScreenName(route)} screenName="Settings" />
+                    {/* Reset Masjid */}
                     <TouchableOpacity style={styles.settingRow} onPress={onResetMasjid}>
                         <View style={styles.nameView}>
                             <Text style={styles.name}>
@@ -48,7 +56,51 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
                         </View>
                     </TouchableOpacity>
                     <View style={styles.separator} />
-
+                    {/* Azan reminder */}
+                    <TouchableOpacity style={styles.settingRow} onPress={onDeleteItCheck}>
+                        <View style={styles.nameView}>
+                            <Text style={styles.name}>
+                                Azan reminder
+                            </Text>
+                        </View>
+                        <View style={styles.iconView}>
+                            <Checkbox
+                                checked={deleteItCheck}
+                                fill={ConstantsStyles.text.colorLight}
+                                width={20} height={20} />
+                        </View>
+                    </TouchableOpacity>
+                    <View style={styles.separator} />
+                    {/* Iqama reminder */}
+                    <TouchableOpacity style={styles.settingRow} onPress={onDeleteItCheck}>
+                        <View style={styles.nameView}>
+                            <Text style={styles.name}>
+                                Iqama reminder
+                            </Text>
+                        </View>
+                        <View style={styles.iconView}>
+                            <Checkbox
+                                checked={deleteItCheck}
+                                fill={ConstantsStyles.text.colorLight}
+                                width={20} height={20} />
+                        </View>
+                    </TouchableOpacity>
+                    <View style={styles.separator} />
+                    {/* 10 minute iqama reminder */}
+                    <TouchableOpacity style={styles.settingRow} onPress={onDeleteItCheck}>
+                        <View style={styles.nameView}>
+                            <Text style={styles.name}>
+                                10 minute iqama reminder
+                            </Text>
+                        </View>
+                        <View style={styles.iconView}>
+                            <Checkbox
+                                checked={deleteItCheck}
+                                fill={ConstantsStyles.text.colorLight}
+                                width={20} height={20} />
+                        </View>
+                    </TouchableOpacity>
+                    <View style={styles.separator} />
                 </View>
             </SafeAreaView>
         </>
