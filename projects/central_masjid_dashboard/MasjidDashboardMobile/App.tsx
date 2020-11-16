@@ -1,71 +1,18 @@
 
 import React from 'react';
-import {Provider} from "react-redux";
-
-
-import {
-    StyleSheet,
-    StatusBar
-} from 'react-native';
-
-import {
-    Header,
-    LearnMoreLinks,
-    Colors,
-    DebugInstructions,
-    ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-import {NavRoutes} from './src/components/NavRoutes';
-
+import { Provider } from "react-redux";
+import { StatusBar } from 'react-native';
+import { NavRoutes } from './src/components/NavRoutes';
 import store from "./src/store/rootReducer";
+import { ConstantsStyles } from './src/services/Constants';
 
 const App: () => React.ReactElement = () => {
     return (
         <Provider store={store}>
-            <StatusBar barStyle="light-content"/>
-            <NavRoutes/>
+            <StatusBar barStyle="light-content" backgroundColor={ConstantsStyles.color.background2} />
+            <NavRoutes />
         </Provider>
     );
 };
-
-const styles = StyleSheet.create({
-    scrollView: {
-        backgroundColor: Colors.lighter,
-    },
-    engine: {
-        position: 'absolute',
-        right: 0,
-    },
-    body: {
-        backgroundColor: Colors.white,
-    },
-    sectionContainer: {
-        marginTop: 32,
-        paddingHorizontal: 24,
-    },
-    sectionTitle: {
-        fontSize: 24,
-        fontWeight: '600',
-        color: Colors.black,
-    },
-    sectionDescription: {
-        marginTop: 8,
-        fontSize: 18,
-        fontWeight: '400',
-        color: Colors.dark,
-    },
-    highlight: {
-        fontWeight: '700',
-    },
-    footer: {
-        color: Colors.dark,
-        fontSize: 12,
-        fontWeight: '600',
-        padding: 4,
-        paddingRight: 12,
-        textAlign: 'right',
-    },
-});
 
 export default App;
