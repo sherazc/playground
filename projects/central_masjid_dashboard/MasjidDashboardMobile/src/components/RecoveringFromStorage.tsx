@@ -1,37 +1,34 @@
 import React from 'react';
-import { Button, SafeAreaView, Text} from "react-native";
-import { LoadingStatus } from '../types/types';
-import { useTypedDispatch } from '../store/rootReducer';
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { ConstantsStyles } from '../services/Constants';
+import { Brand } from './CompanySelect/Brand';
 
 interface Props {
 }
 
 export const RecoveringFromStorage: React.FC<Props> = () => {
-
-    const dispatch = useTypedDispatch();
-
     return (
-        <SafeAreaView>
-            <Text>Loading...</Text>
-            <Button title="complete" onPress={() => dispatch({
-                type: "RECOVER_INIT_STATE_SET",
-                payload: {
-                    recoverInitState: LoadingStatus.COMPLETE
-                }
-            })} />
-
-            <Button title="failed" onPress={() => dispatch({
-                type: "RECOVER_INIT_STATE_SET",
-                payload: {
-                    recoverInitState: LoadingStatus.FAILED
-                }
-            })} />
-            <Button title="loading" onPress={() => dispatch({
-                type: "RECOVER_INIT_STATE_SET",
-                payload: {
-                    recoverInitState: LoadingStatus.LOADING
-                }
-            })} />
+        <SafeAreaView style={styles.container}>
+            <View style={{height: 300}}>
+                <Brand />
+            </View>
+            <Text style={styles.loadingText}>
+                Loading...
+            </Text>
         </SafeAreaView>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: ConstantsStyles.color.background2,
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    loadingText: {
+        fontSize: 25,
+        color: ConstantsStyles.text.colorLight,
+        marginBottom: 100
+    }
+});

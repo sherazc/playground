@@ -9,7 +9,6 @@ import { useTypedSelector } from '../store/rootReducer'
 import { Company, LoadingStatus } from '../types/types';
 import { RecoveringFromStorage } from './RecoveringFromStorage';
 import { recoverAppFromStorage, destroyedApp, beginApp } from '../services/AppService';
-import { ConstantsStyles } from '../services/Constants';
 
 const Stack = createStackNavigator<MdParamList>();
 
