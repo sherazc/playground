@@ -69,8 +69,8 @@ export const CompanyList: React.FC<Props> = ({ companyListData, navigation }) =>
                     </Text>
                 </View>
                 <View style={styles.listItemName}>
-                    <Text style={{ fontSize: 16 }}>{trimEllipsis(companyName, 25)}</Text>
-                    <Text style={{ fontSize: 12 }}>{trimEllipsis(companyAddress, 40)}</Text>
+                    <Text style={{ fontSize: 16, color: ConstantsStyles.text.colorDark }}>{trimEllipsis(companyName, 25)}</Text>
+                    <Text style={{ fontSize: 12, color: ConstantsStyles.text.colorDark }}>{trimEllipsis(companyAddress, 40)}</Text>
                 </View>
                 <View style={styles.listItemArrow}>
                     <ArrowRight height={15} width={15} fill="#aeaeae" />
@@ -102,7 +102,8 @@ const styles = StyleSheet.create({
     },
     listLabel: {
         fontSize: 20,
-        marginBottom: 20
+        marginBottom: 20,
+        color: ConstantsStyles.text.colorDark
     },
     listItem: {
         backgroundColor: ConstantsStyles.color.background5,
@@ -128,7 +129,7 @@ const styles = StyleSheet.create({
         height: 50,
         flexGrow: 1,
         justifyContent: "center",
-        paddingLeft: 10
+        paddingLeft: 10,
     },
     listItemArrow: {
         width: 30,
