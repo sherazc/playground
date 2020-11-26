@@ -28,9 +28,8 @@ export default function companyListDataReducer(
 
     switch (action.type) {
         case "COMPANY_LIST_SET":
-            const companyListDataString = JSON.stringify(action.payload);
-            console.log("Updating CompanyListData in store and storage.", companyListDataString);
-            saveStorage(STORAGE_COMPANY_LIST_DATA, companyListDataString);
+            console.log("Updating CompanyListData in store and storage.", action.payload);
+            saveStorage(STORAGE_COMPANY_LIST_DATA, action.payload);
             return {
                 ...state,
                 companies: action.payload.companies,
