@@ -16,6 +16,7 @@ import { isCompanyListDataVersionSame, updateCompanyListData } from './CompanyLi
 import { Constants } from './Constants';
 import { isCompanyDataCompanySame, isCompanyDataVersionSame, isValidCompany, updateCompanyData } from './CompanyDataService';
 import { isEqualStrings } from './Utilities';
+import { fixObjectDates} from './DateService';
 
 export const recoverAppFromStorage = () => {
     console.log("Recovering App from storage");
@@ -35,16 +36,20 @@ const processStorage = (data: (string | null)[]) => {
     console.log("Processing recovered storage data", data);
 
     if (data[0]) {
+        const companyListData = JSON.parse(data[0])
+        fixObjectDates(companyListData);
         store.dispatch({
             type: "COMPANY_LIST_SET",
-            payload: JSON.parse(data[0]) as CompanyListData
+            payload: companyListData as CompanyListData
         });
     }
 
     if (data[1]) {
+        const companyData = JSON.parse(data[1])
+        fixObjectDates(companyData);
         store.dispatch({
             type: "COMPANY_DATA_SET",
-            payload: JSON.parse(data[1]) as CompanyData
+            payload: companyData as CompanyData
         });
     }
 
