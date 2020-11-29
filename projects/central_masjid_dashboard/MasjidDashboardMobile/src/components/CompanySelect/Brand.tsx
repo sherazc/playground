@@ -1,13 +1,24 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 import Logo from '../../images/Logo';
 import Underline from '../../images/Underline';
 import { ConstantsStyles } from '../../services/Constants';
+import PushNotification from 'react-native-push-notification';
 
 interface Props {
 }
 
 export const Brand: React.FC<Props> = () => {
+
+    const showNotification = () => {
+        PushNotification.localNotificationSchedule({
+            //... You can use all the options from localNotifications
+            message: "My Notification Message now", // (required)
+            date: new Date(Date.now()), // in 60 secs
+            allowWhileIdle: false, // (optional) set notification to work while on doze, default: false
+          });
+    }
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>MASJID DASHBOARD</Text>
@@ -15,6 +26,7 @@ export const Brand: React.FC<Props> = () => {
             <View style={{ marginTop: 20 }}>
                 <Logo width="100" height="100" />
             </View>
+            <Button onPress={showNotification} title="Notification"/>
         </View>
     );
 }
