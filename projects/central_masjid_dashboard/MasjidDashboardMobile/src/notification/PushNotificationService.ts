@@ -1,14 +1,60 @@
 
 /*
 
+Save setting items in the store and strorage.
+See if they are recovered properly in store from storange on app start.
+
+Save prayer year caendar in the store and strorage.
+See if prayer year caendar are recovered properly in store from storange on app start.
+
+
+if the company is selected and prayer year calendar in not in store then after 5 seconds load year calendar
+Set a flag in store that prayer year calendar was properly loaded
+
+
+Re understand how application works and how intervals are scheduled
+
+Document main methods
 
 
 
+create a setupNotification method
+
+
+
+
+
+----------------
+
+
+Expectation
+-----------
 Set push notification logic
 NotificationTypes:
 1 = At Azan
 2 = Before Iqama
 3 = At Iqama
+
+Year prayer API
+---------------
+/api/calendar/companyId/{companyId}/type/{type}/year/{year}
+
+This API returns List of MonthPrayers
+
+Domain
+------
+export interface Month {
+    number: number;
+    name: string;
+}
+
+export interface MonthPrayers {
+    month: Month;
+    prayers: Prayer[];
+}
+
+Constant.NOTIFICATION_SET_DAYS = 10;
+Constant.NOTIFICATION_UPDATE_EXPIRE_SECONDS = 1000 * 60 * 50;
 
 export interface Notification {
 	date: Date;
@@ -18,8 +64,22 @@ export interface Notification {
 	notificationType: number;
 }
 
+export interface SettingData {
+    azanAlert: boolean;
+    iqamaAlert: boolean;
+    iqamaChangeAlert: boolean;
+    notificationUpdateDate: Date;
+}
 
 
+
+Store Changes
+-------------
+
+
+
+Main Logic
+----------
 
 
 On app start, or setting changed set 3 seconds timer.
@@ -27,11 +87,23 @@ On app start, or setting changed set 3 seconds timer.
 
 Remove all notifications;
 
-If prayer in redux store {
-if (notification setting on) {
-	start build notifications process
-	start schedule notification process
+If yearPrayers in redux store {
+  if (notification setting on) {
+    start build notifications process
+    start schedule notification process
+  }
 }
+
+
+build notification process
+--------------------------
+
+const buildDayNotifications = (prayer: Prayer, azanFlag: boolean, azanNotificationFlag: boolean, azanNotificationFlag: boolean): Notification[] {
+  const notifications: Notification[] = [];
+  notifications.push(buildAzanNotifications(prayer));
+  notifications.push(buildIqamaNotifications(prayer));
+  notifications.push(buildBeforeIqamaNotifications(prayer));
+  return notifications;
 }
 
 
