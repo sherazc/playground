@@ -68,23 +68,29 @@ let updateCompanyListDataInterval: NodeJS.Timeout;
 let previousCompanyListData: CompanyListData;
 
 export const beginApp = (companyListData: CompanyListData) => {
-    if (!isCompanyListDataVersionSame(previousCompanyListData, companyListData)) {
-        console.log("Restarting updateCompanyListDataInterval");
-        updateCompanyListData(companyListData);
-        if (updateCompanyListDataInterval) {
-            clearInterval(updateCompanyListDataInterval);
-        }
-        updateCompanyListDataInterval = setInterval(() => {
-            updateCompanyListData(companyListData);
-        }, Constants.UPDATE_INTERVAL_MILLIS);
-        previousCompanyListData = companyListData;
+    if (isCompanyListDataVersionSame(previousCompanyListData, companyListData)) {
+        return;
     }
+    
+    console.log("Restarting updateCompanyListDataInterval");
+    updateCompanyListData(companyListData);
+    if (updateCompanyListDataInterval) {
+        clearInterval(updateCompanyListDataInterval);
+    }
+    updateCompanyListDataInterval = setInterval(() => {
+        updateCompanyListData(companyListData);
+    }, Constants.UPDATE_INTERVAL_MILLIS);
+    previousCompanyListData = companyListData;
+    
 }
 
 export const destroyedApp = () => {
     console.log("Destroying app");
     if (updateCompanyListDataInterval) {
         clearInterval(updateCompanyListDataInterval);
+    }
+    if (updateCompanyDataInterval) {
+        clearInterval(updateCompanyDataInterval);
     }
 }
 

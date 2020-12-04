@@ -67,3 +67,40 @@ TODO: set dimention and in redux store and use it to size components
         );
     }
 }
+
+/*
+
+Application Flow
+################
+
+NavRoutes
+=========
+    - on app init recoverAppFromStorage()
+    - Start application beginApp(companyListData);
+    - on app destroy destroyedApp()
+
+recoverAppFromStorage()
+=======================
+    - Use AsyncStorage to load promisses of
+        - STORAGE_COMPANY_LIST_DATA
+        - STORAGE_COMPANY_DATA
+        - STORAGE_SETTING_DATA
+    - dispatches recovered data in Store
+    - dispatches recovery complete flag in Store
+
+destroyedApp()
+==============
+    - Clear intervals
+        - updateCompanyListDataInterval
+        - updateCompanyDataInterval
+
+beginApp(companyListData)
+=========================
+This method runs on every rerender when companyListData is updated in the store.
+Because of this it run only if arguments are different from last execution.
+
+
+
+
+
+*/
