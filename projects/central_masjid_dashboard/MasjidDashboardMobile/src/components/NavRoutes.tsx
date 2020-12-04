@@ -70,17 +70,24 @@ TODO: set dimention and in redux store and use it to size components
 
 /*
 
+TODO
+####
+On api calls in catch update store that api failed. 
+Update user message on loading screen
+Do a retry
+
+
 Application Flow
 ################
 
-NavRoutes
-=========
+NavRoutes Component
+===================
     - on app init recoverAppFromStorage()
     - Start application beginApp(companyListData);
     - on app destroy destroyedApp()
 
 recoverAppFromStorage()
-=======================
+-----------------------
     - Use AsyncStorage to load promisses of
         - STORAGE_COMPANY_LIST_DATA
         - STORAGE_COMPANY_DATA
@@ -89,17 +96,50 @@ recoverAppFromStorage()
     - dispatches recovery complete flag in Store
 
 destroyedApp()
-==============
+--------------
     - Clear intervals
         - updateCompanyListDataInterval
         - updateCompanyDataInterval
 
 beginApp(companyListData)
-=========================
+-----------------------
 This method runs on every rerender when companyListData is updated in the store.
 Because of this it run only if arguments are different from last execution.
 
+    - If true isCompanyListDataVersionSame(previousCompanyListData, companyListData) prevents re-run.
+    - updateCompanyListData(companyListData)
+    - clear interval updateCompanyListDataInterval
+    - Sets updateCompanyListDataInterval interval for every Constants.UPDATE_INTERVAL_MILLIS to run updateCompanyListData(companyListData)
+    - Sets global variable previousCompanyListData
 
+updateCompanyListData(companyListData)
+-------------------------------------
+Creates new CompanyList by calling APIs or updates expirationData if online version is the same
+
+    - if companyListData valid and expired
+        - calls apiCompanyListVersion() API
+            If isCompanyListVersionSame(companyListData, companyListVersion)
+                refresh version refeashCompanyListDataExpirableVersion(companyListData)
+                updateCompanyListDataState(companyListData)
+            else 
+                refeashCompanyListData()
+    - else 
+        - refeashCompanyListData()
+
+refeashCompanyListData()
+------------------------
+
+
+Modern Programming language
+
+
+False God Money
+    - Mufti relationship elfy
+        - Pupi naraz - shadi dancing
+    - Quran people of hell fire. Sadaka
+    - Office politics
+
+    
 
 
 
