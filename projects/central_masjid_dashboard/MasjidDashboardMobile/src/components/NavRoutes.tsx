@@ -8,7 +8,7 @@ import { Settings } from './Settings';
 import { useTypedSelector } from '../store/rootReducer'
 import { Company, LoadingStatus } from '../types/types';
 import { RecoveringFromStorage } from './RecoveringFromStorage';
-import { recoverAppFromStorage, destroyedApp, beginApp } from '../services/AppService';
+import { recoverAppFromStorage, destroyedCompanyListDataInterval, beginCompanyListDataInterval } from '../services/AppService';
 
 const Stack = createStackNavigator<MdParamList>();
 
@@ -32,7 +32,7 @@ export const NavRoutes: React.FC<Props> = () => {
     useEffect(() => {
         recoverAppFromStorage();
         return () => {
-            destroyedApp();
+            destroyedCompanyListDataInterval();
         }
     }, []);
 
@@ -55,7 +55,8 @@ TODO: set dimention and in redux store and use it to size components
         || loading.recoverInitState === LoadingStatus.INIT) {
         return <RecoveringFromStorage />
     } else {
-        beginApp(companyListData);
+        // TODO: Check if this call could be movedin CompanySelect. That will be more consistant with beginCompanyDataInterval in PrayerTime.
+        beginCompanyListDataInterval(companyListData);
         return (
             <NavigationContainer>
                 <Stack.Navigator initialRouteName="CompanySelect">
@@ -72,7 +73,7 @@ TODO: set dimention and in redux store and use it to size components
 
 TODO
 ####
-On api calls in catch update store that api failed. 
+On api calls in catch update store that api failed.
 Update user message on loading screen
 Do a retry
 
@@ -83,8 +84,14 @@ Application Flow
 NavRoutes Component
 ===================
     - on app init recoverAppFromStorage()
-    - Start application beginApp(companyListData);
-    - on app destroy destroyedApp()
+    - on app destroy destroyedCompanyListDataInterval()
+
+    - if LoadingStatus.LOADING LoadingStatus.INIT then
+        - show RecoveringFromStorage component
+    else
+        - Start beginCompanyListDataInterval(companyListData);
+        - Show CompanySelect Component
+
 
 recoverAppFromStorage()
 -----------------------
@@ -93,18 +100,19 @@ recoverAppFromStorage()
         - STORAGE_COMPANY_DATA
         - STORAGE_SETTING_DATA
     - dispatches recovered data in Store
-    - dispatches recovery complete flag in Store
+    - dispatches recovery complete flag in Store RECOVER_INIT_STATE_SET = LoadingStatus.COMPLETE
 
-destroyedApp()
+destroyedCompanyListDataInterval()
 --------------
     - Clear intervals
         - updateCompanyListDataInterval
         - updateCompanyDataInterval
 
-beginApp(companyListData)
+beginCompanyListDataInterval(companyListData)
 -----------------------
 This method runs on every rerender when companyListData is updated in the store.
 Because of this it run only if arguments are different from last execution.
+In other words if same arguments passed then prevent re-run
 
     - If true isCompanyListDataVersionSame(previousCompanyListData, companyListData) prevents re-run.
     - updateCompanyListData(companyListData)
@@ -121,26 +129,60 @@ Creates new CompanyList by calling APIs or updates expirationData if online vers
             If isCompanyListVersionSame(companyListData, companyListVersion)
                 refresh version refeashCompanyListDataExpirableVersion(companyListData)
                 updateCompanyListDataState(companyListData)
-            else 
+            else
                 refeashCompanyListData()
-    - else 
+    - else
         - refeashCompanyListData()
 
 refeashCompanyListData()
 ------------------------
+    - apiCompanyListVersion() API
+    - apiCompaniesActive() API
+    - updateCompanyListDataState(companyListData)
 
+CompanySelect Component
+===================
+    - On component mount, if companyData in store, navigate to PrayerTime Screen
+    - On company select navigate to PrayerTime Screen. Pass selectedCompany as navigation parameter
+
+PrayerTime
+==========
+    - On component mount, if selectedCompany then set company in store's companyData
+    - On companyData set, if no company then navigate to CompanySelect
+    - On companyData set
+        - beginCompanyDataInterval() Interval to update API prayer and version
+        - startPrayerTimeMessageInterval() Interval to update Azan, Salah and Jammat time messages on screen
+
+beginCompanyDataInterval(companyData: CompanyData, month: string, day: string)
+-------------------------
+Just list beginCompanyListDataInterval(companyListData) this method run on every re-render of PrayerTime
+If same arguments passed then it will prevent re-run
+
+
+
+startPrayerTimeMessageInterval()
+--------------------------------
+
+
+
+
+####################################
 
 Modern Programming language
+    - Fetch API call javascript
+    - Money is very important for business
+    - ESPN Soccer score application
+    - Game, Graphics, Obj File, Number of animations
 
+Jim ameican programmer
+    - H1B Facebook sue
+    - Bill pay bigger company
+    -
 
 False God Money
     - Mufti relationship elfy
         - Pupi naraz - shadi dancing
     - Quran people of hell fire. Sadaka
     - Office politics
-
-    
-
-
 
 */

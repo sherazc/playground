@@ -7,7 +7,7 @@ import { useTypedDispatch, useTypedSelector } from "../../store/rootReducer";
 import { CompanyData, Prayer } from "../../types/types";
 import { Loading } from "../Loading";
 import { PrayerTimeGrid } from './PrayerTimeGrid';
-import { beginPrayerTimeInterval, destroyCompanyDataInterval } from '../../services/AppService';
+import { beginCompanyDataInterval, destroyCompanyDataInterval } from '../../services/AppService';
 import { todaysDay, todaysMonth } from '../../services/DateService';
 import { TodaysDetail } from "./TodaysDetail";
 import { createEmptyPrayerTimeSummaryMessage, PrayerTimeSummaryMessage } from "../../types/react-types";
@@ -50,7 +50,8 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
 
     // Starts CompanyData Interval and PrayerTimeMessage interval
     useEffect(() => {
-        beginPrayerTimeInterval(companyData, todaysMonth().toString(), todaysDay().toString());
+        // Interval to update API prayer and version
+        beginCompanyDataInterval(companyData, todaysMonth().toString(), todaysDay().toString());
 
         const prayer = companyData.prayer;
 
@@ -58,8 +59,8 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
             return;
         }
 
+        // Interval to update Azan, Salah and Jammat time messages on screen
         destroyPrayerTimeMessageInterval();
-
         startPrayerTimeMessageInterval(prayer, setPrayerTimeMessage);
         prayerTimeMessageInterval = setInterval(() => startPrayerTimeMessageInterval(prayer, setPrayerTimeMessage), 1000);
 
@@ -75,6 +76,7 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
         destroyCompanyDataInterval()
     }
 
+    // Interval to update Azan, Salah and Jammat time messages on screen
     const startPrayerTimeMessageInterval = (prayer: Prayer, setPrayerTimeMessage: React.Dispatch<React.SetStateAction<PrayerTimeSummaryMessage>>) => {
         const prayerTimeSummary = processPrayerTime(prayer);
         const prayerTimeMessage = processPrayerTimeMessage(prayerTimeSummary);

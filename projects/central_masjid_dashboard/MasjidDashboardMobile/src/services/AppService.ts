@@ -67,11 +67,11 @@ const processStorageFailed = () => {
 let updateCompanyListDataInterval: NodeJS.Timeout;
 let previousCompanyListData: CompanyListData;
 
-export const beginApp = (companyListData: CompanyListData) => {
+export const beginCompanyListDataInterval = (companyListData: CompanyListData) => {
     if (isCompanyListDataVersionSame(previousCompanyListData, companyListData)) {
         return;
     }
-    
+
     console.log("Restarting updateCompanyListDataInterval");
     updateCompanyListData(companyListData);
     if (updateCompanyListDataInterval) {
@@ -81,10 +81,10 @@ export const beginApp = (companyListData: CompanyListData) => {
         updateCompanyListData(companyListData);
     }, Constants.UPDATE_INTERVAL_MILLIS);
     previousCompanyListData = companyListData;
-    
+
 }
 
-export const destroyedApp = () => {
+export const destroyedCompanyListDataInterval = () => {
     console.log("Destroying app");
     if (updateCompanyListDataInterval) {
         clearInterval(updateCompanyListDataInterval);
@@ -98,7 +98,9 @@ let updateCompanyDataInterval: NodeJS.Timeout;
 let previousCompanyData: CompanyData;
 let previousCompanyDataPrayerMonth: string;
 let previousCompanyDataPrayerDay: string;
-export const beginPrayerTimeInterval = (companyData: CompanyData, month: string, day: string) => {
+
+// Interval to update API prayer and version
+export const beginCompanyDataInterval = (companyData: CompanyData, month: string, day: string) => {
     if (!companyData || !isValidCompany(companyData.company)) return;
 
     if (!isCompanyDataCompanySame(previousCompanyData, companyData)
