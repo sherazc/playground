@@ -67,6 +67,7 @@ const processStorageFailed = () => {
 let updateCompanyListDataInterval: NodeJS.Timeout;
 let previousCompanyListData: CompanyListData;
 
+// Interval to update companyList and Version
 export const beginCompanyListDataInterval = (companyListData: CompanyListData) => {
     if (isCompanyListDataVersionSame(previousCompanyListData, companyListData)) {
         return;
@@ -99,7 +100,7 @@ let previousCompanyData: CompanyData;
 let previousCompanyDataPrayerMonth: string;
 let previousCompanyDataPrayerDay: string;
 
-// Interval to update API prayer and version
+// Interval to update API prayer, configurations and version
 export const beginCompanyDataInterval = (companyData: CompanyData, month: string, day: string) => {
     if (!companyData || !isValidCompany(companyData.company)) return;
 

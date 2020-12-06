@@ -103,14 +103,6 @@ const refeashCompanyData = (company: Company, month: string, day: string) => {
             // @ts-ignore
             Promise.all(promises).then(apiResponses => processCompanyData(companyData, apiResponses))
                 .catch(e => console.log("Error calling company data APIs", e));
-/*
-            apiPrayer(company.id, month, day).then(prayerResponse => {
-                if (isValidServiceResponsePrayer(prayerResponse)) {
-                    companyData.prayer = prayerResponse.target;
-                    updateCompanyDataState(companyData)
-                }
-            }).catch(e => console.log("Error calling GET Prayer API", e));
-*/
         }
     }).catch(e => console.log("Error calling GET Company Data version API", e));
 }

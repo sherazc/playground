@@ -109,7 +109,8 @@ destroyedCompanyListDataInterval()
         - updateCompanyDataInterval
 
 beginCompanyListDataInterval(companyListData)
------------------------
+---------------------------------------------
+Interval to update companyList and Version
 This method runs on every rerender when companyListData is updated in the store.
 Because of this it run only if arguments are different from last execution.
 In other words if same arguments passed then prevent re-run
@@ -155,15 +156,43 @@ PrayerTime
 
 beginCompanyDataInterval(companyData: CompanyData, month: string, day: string)
 -------------------------
+// Interval to update API prayer, configurations and version
 Just list beginCompanyListDataInterval(companyListData) this method run on every re-render of PrayerTime
 If same arguments passed then it will prevent re-run
+    - If same arguments then prevent re-run
+    - Clear previous interval
+    - updateCompanyData(companyData, month, day)
+
+
+updateCompanyData(companyData, month, day)
+------------------------------------------
+    - shouldUpdateCompanyData(companyData)
+    - apiCompanyDataVersion()
+    - if true isCompanyVersionSame() then
+        - refeashCompanyDataExpirableVersion()
+        - updateCompanyDataState()
+    - else
+        - refeashCompanyData()
+
+refeashCompanyData()
+--------------------
+    - Create new companyData Object by
+        - Setting company
+        - ExpirableVersion
+        - apiCompanyDataVersion() CompanyDataVersion
+        - apiPrayer() Prayer
+        - apiConfiguration() Configuration[]
+    - Set companyData in store
 
 
 
 startPrayerTimeMessageInterval()
 --------------------------------
+Interval to update Azan, Salah and Jammat time messages on screen
 
-
+    - processPrayerTime() Builds PrayerTimeSummary
+    - processPrayerTimeMessage() Builds PrayerTimeSummaryMessage
+    - set PrayerTimeSummaryMessage in PrayerTime state
 
 
 ####################################
