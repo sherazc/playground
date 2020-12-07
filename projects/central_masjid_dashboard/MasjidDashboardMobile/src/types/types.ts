@@ -86,12 +86,22 @@ export interface SettingData {
     iqamaChangeAlert: boolean;
 }
 
+export const createDefaultSettingData = (): SettingData => {
+    return {
+        azanAlert: false,
+        iqamaAlert: false,
+        iqamaChangeAlert: false
+    }
+}
+
+// API Response
 export interface CompanyDataVersion {
     id: string;
     companyId: string;
     version: number;
 }
 
+// API Response
 export interface CompanyListVersion {
     id: string;
     version: number;

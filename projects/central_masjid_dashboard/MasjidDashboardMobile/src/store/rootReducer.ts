@@ -3,16 +3,18 @@ import {useSelector, TypedUseSelectorHook, useDispatch as _useDispatch} from "re
 import companyListDataReducer, {CompanyListActionTypes} from './CompanyListDataReducer';
 import loadingReducer, { LoadingActionTypes } from './LoadingReducer';
 import companyDataReducer, { CompanyDataActionTypes } from './CompanyDataReducer';
+import settingReducer, { SettingActionTypes } from './SettingReducer';
 
 const INITIAL_STATE = {};
 
 const rootReducer = combineReducers({
   companyListData: companyListDataReducer,
   companyData: companyDataReducer,
-  loading: loadingReducer
+  loading: loadingReducer,
+  setting: settingReducer
 });
 
-export type RootActionType = CompanyListActionTypes | CompanyDataActionTypes | LoadingActionTypes;
+export type RootActionType = CompanyListActionTypes | CompanyDataActionTypes | LoadingActionTypes | SettingActionTypes;
 export type RootState = ReturnType<typeof rootReducer>
 
 export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;

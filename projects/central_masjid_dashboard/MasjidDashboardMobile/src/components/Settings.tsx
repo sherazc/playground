@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Button, StyleSheet, View, Text, SafeAreaView } from "react-native";
+import { StyleSheet, View, Text, SafeAreaView } from "react-native";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MdParamList } from "./NavRoutes";
 import { RouteProp } from '@react-navigation/native';
-import { useTypedDispatch } from "../store/rootReducer";
+import { useTypedDispatch, useTypedSelector } from "../store/rootReducer";
 import { ConstantsStyles } from '../services/Constants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AppBar } from "./AppBar";
@@ -18,6 +18,7 @@ interface Props {
 
 export const Settings: React.FC<Props> = ({ navigation, route }) => {
     const dispatch = useTypedDispatch();
+    const setting = useTypedSelector(state => state.setting);
 
     const [deleteItCheck, setDeleteItCheck] = useState(false);
 

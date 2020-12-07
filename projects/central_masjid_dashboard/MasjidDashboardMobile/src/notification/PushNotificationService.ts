@@ -1,4 +1,3 @@
-
 /*
 
 Save setting items in the store and strorage.

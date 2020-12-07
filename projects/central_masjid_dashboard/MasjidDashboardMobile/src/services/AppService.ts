@@ -55,6 +55,10 @@ const processStorage = (data: (string | null)[]) => {
 
     if (data[2]) {
         const settingData = JSON.parse(data[2]) as SettingData;
+        store.dispatch({
+            type: "SETTING_SET",
+            payload: settingData
+        });
     }
     store.dispatch(RecoverInitCompleteAction)
 }
