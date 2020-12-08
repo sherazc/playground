@@ -20,15 +20,39 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
     const dispatch = useTypedDispatch();
     const setting = useTypedSelector(state => state.setting);
 
-    const [deleteItCheck, setDeleteItCheck] = useState(false);
-
     const onResetMasjid = () => {
         dispatch({ type: "COMPANY_DATA_DELETE" });
         navigation.navigate("CompanySelect");
     }
 
-    const onDeleteItCheck = () => {
-        setDeleteItCheck(!deleteItCheck);
+    const onCheckAzan = () => {
+        dispatch({
+            type: "SETTING_SET",
+            payload: {
+                ...setting,
+                azanAlert: !setting.azanAlert
+            }
+        });
+    }
+
+    const onCheckIqama = () => {
+        dispatch({
+            type: "SETTING_SET",
+            payload: {
+                ...setting,
+                iqamaAlert: !setting.iqamaAlert
+            }
+        });
+    }
+
+    const onCheckBeforeIqama = () => {
+        dispatch({
+            type: "SETTING_SET",
+            payload: {
+                ...setting,
+                beforeIqamaAlert: !setting.beforeIqamaAlert
+            }
+        });
     }
 
     const getBackScreenName = (route: RouteProp<MdParamList, "Settings">) => {
@@ -58,7 +82,7 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
                     </TouchableOpacity>
                     <View style={styles.separator} />
                     {/* Azan reminder */}
-                    <TouchableOpacity style={styles.settingRow} onPress={onDeleteItCheck}>
+                    <TouchableOpacity style={styles.settingRow} onPress={onCheckAzan}>
                         <View style={styles.nameView}>
                             <Text style={styles.name}>
                                 Azan reminder
@@ -66,14 +90,15 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
                         </View>
                         <View style={styles.iconView}>
                             <Checkbox
-                                checked={deleteItCheck}
+                                onPress={onCheckAzan}
+                                checked={setting.azanAlert}
                                 fill={ConstantsStyles.text.colorLight}
                                 width={20} height={20} />
                         </View>
                     </TouchableOpacity>
                     <View style={styles.separator} />
                     {/* Iqama reminder */}
-                    <TouchableOpacity style={styles.settingRow} onPress={onDeleteItCheck}>
+                    <TouchableOpacity style={styles.settingRow} onPress={onCheckIqama}>
                         <View style={styles.nameView}>
                             <Text style={styles.name}>
                                 Iqama reminder
@@ -81,14 +106,15 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
                         </View>
                         <View style={styles.iconView}>
                             <Checkbox
-                                checked={deleteItCheck}
+                                onPress={onCheckIqama}
+                                checked={setting.iqamaAlert}
                                 fill={ConstantsStyles.text.colorLight}
                                 width={20} height={20} />
                         </View>
                     </TouchableOpacity>
                     <View style={styles.separator} />
                     {/* 10 minute iqama reminder */}
-                    <TouchableOpacity style={styles.settingRow} onPress={onDeleteItCheck}>
+                    <TouchableOpacity style={styles.settingRow} onPress={onCheckBeforeIqama}>
                         <View style={styles.nameView}>
                             <Text style={styles.name}>
                                 10 minute iqama reminder
@@ -96,7 +122,8 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
                         </View>
                         <View style={styles.iconView}>
                             <Checkbox
-                                checked={deleteItCheck}
+                                onPress={onCheckBeforeIqama}
+                                checked={setting.beforeIqamaAlert}
                                 fill={ConstantsStyles.text.colorLight}
                                 width={20} height={20} />
                         </View>

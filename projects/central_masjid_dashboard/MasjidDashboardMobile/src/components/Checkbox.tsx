@@ -8,7 +8,7 @@ interface Props {
     width?: number;
     height?: number;
     fill?: string;
-    onPress?: () => {};
+    onPress?: () => void;
 }
 
 export const Checkbox: React.FC<Props> = ({

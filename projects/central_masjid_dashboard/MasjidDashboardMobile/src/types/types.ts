@@ -83,14 +83,14 @@ export const createEmptyCompanyData = (): CompanyData => {
 export interface SettingData {
     azanAlert: boolean;
     iqamaAlert: boolean;
-    iqamaChangeAlert: boolean;
+    beforeIqamaAlert: boolean;
 }
 
 export const createDefaultSettingData = (): SettingData => {
     return {
         azanAlert: false,
         iqamaAlert: false,
-        iqamaChangeAlert: false
+        beforeIqamaAlert: false
     }
 }
 
