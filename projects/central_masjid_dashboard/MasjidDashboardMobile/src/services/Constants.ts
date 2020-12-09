@@ -10,6 +10,7 @@ export const Constants = {
     createCompanyDataVersionEndpoint: (companyId: string) => `${BASE_URL}/api/version/company/${companyId}/data`,
     createPrayerEndpoint: (companyId: string, month: string, day: string) => `${BASE_URL}/api/prayer/companyId/${companyId}/month/${month}/day/${day}`,
     createConfigurationEndpoint: (companyId: string) => `${BASE_URL}/api/auth/companies/${companyId}/configurations`,
+    createYearCalendarEndpoint: (companyId: string, year: number) => `${BASE_URL}/api/calendar/companyId/${companyId}/type/gregorian/year/${year}`,
     EXPIRATION_MILLIS: 12 * 60 * 1000, // Loaded companyList and companyData expiration.
     UPDATE_INTERVAL_MILLIS: 15 * 60 * 1000, // How often companyList and companyData expiration will be checked
     PRAYER_NAME: ["Fajar", "Zuhar", "Asr", "Maghrib", "Isha", "Shurooq"],
