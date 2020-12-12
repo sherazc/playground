@@ -30,6 +30,16 @@ export interface Prayer {
     ishaChangeDate: Date;
 }
 
+export interface Month {
+    number: number;
+    name: string;
+}
+
+export interface PrayersMonth {
+    month: Month;
+    prayers: Prayer[];
+}
+
 export interface Address {
     street: string;
     city: string;
