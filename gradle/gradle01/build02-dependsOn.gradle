@@ -1,0 +1,17 @@
+task("step-1") {
+    doLast() {
+        println("Running step-1");
+    }
+}
+
+task("step-2") {
+    doLast() {
+        println("Running step-2");
+    }
+}
+
+task('finish', dependsOn: ["step-1", "step-2"]) {
+    doLast() {
+        println("Finished");
+    }
+}

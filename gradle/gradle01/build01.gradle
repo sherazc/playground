@@ -1,0 +1,11 @@
+task('myTask') {
+    // Configuration stage
+    println('Groovy code configuration')
+    System.out.println("Java code configuration");
+
+    doLast() {
+        // Execution stage
+        println('Groovy code execution')
+        System.out.println("Java code execution");
+    }
+}

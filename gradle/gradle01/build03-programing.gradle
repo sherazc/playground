@@ -1,0 +1,17 @@
+task("myTask") {
+}
+
+myTask.doLast() {
+    println("myTask doLast")
+}
+
+task("finish") {
+}
+
+finish.doLast() {
+    println("finish doLast")
+}
+
+ if(Math.random() < 0.5) {
+    finish.dependsOn(["myTask"]);
+}
