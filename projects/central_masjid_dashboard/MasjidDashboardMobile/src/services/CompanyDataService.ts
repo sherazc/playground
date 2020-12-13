@@ -3,7 +3,7 @@ import { createOrRefreshExpirableVersion, isExpired } from "./ExpirableVersionSe
 import store from '../store/rootReducer';
 import { Constants } from './Constants';
 
-const isValidCompanyData = (companyData?: CompanyData) => {
+export const isValidCompanyData = (companyData?: CompanyData) => {
     return companyData && isValidCompany(companyData.company) && isValidPrayer(companyData.prayer);
 }
 
