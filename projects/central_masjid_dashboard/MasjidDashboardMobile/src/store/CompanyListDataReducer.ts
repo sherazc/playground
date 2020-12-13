@@ -30,11 +30,7 @@ export default function companyListDataReducer(
         case "COMPANY_LIST_SET":
             console.log("Updating CompanyListData in store and storage.", action.payload);
             saveStorage(STORAGE_COMPANY_LIST_DATA, action.payload);
-            return {
-                ...state,
-                companies: action.payload.companies,
-                expirableVersion: action.payload.expirableVersion
-            };
+            return {...state, ...action.payload};
         case "COMPANY_LIST_DELETE":
             console.log("Removing CompanyListData from store and storage.");
             removeStorage(STORAGE_COMPANY_LIST_DATA);

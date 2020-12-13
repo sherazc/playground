@@ -20,10 +20,9 @@ export default function settingReducer(
 
     switch (action.type) {
         case "SETTING_SET":
+            console.log("Updating Setting in store and storage.", action.payload);
             saveStorage(STORAGE_SETTING_DATA, action.payload);
-            const newSettingState = {...state, ...action.payload};
-            console.log("Updating Setting in store and storage.", newSettingState);
-            return newSettingState;
+            return {...state, ...action.payload};
         default:
             return state;
     }

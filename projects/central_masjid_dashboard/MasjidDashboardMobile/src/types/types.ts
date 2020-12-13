@@ -40,6 +40,11 @@ export interface PrayersMonth {
     prayers: Prayer[];
 }
 
+export interface PrayersYear {
+    year: number;
+    prayersMonths: PrayersMonth[]
+}
+
 export interface Address {
     street: string;
     city: string;
@@ -78,6 +83,7 @@ export interface CompanyData {
     prayer?: Prayer;
     configurations: Configuration[];
     expirableVersion?: ExpirableVersion;
+    prayersYear?: PrayersYear;
 }
 
 export const createEmptyCompanyData = (): CompanyData => {
@@ -85,7 +91,8 @@ export const createEmptyCompanyData = (): CompanyData => {
         company: undefined,
         prayer: undefined,
         configurations: [],
-        expirableVersion: {}
+        expirableVersion: {},
+        prayersYear: undefined
     };
 }
 

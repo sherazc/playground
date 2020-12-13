@@ -27,13 +27,7 @@ export default function companyDataReducer(
         case "COMPANY_DATA_SET":
             console.log("Updating CompanyData in store and storage.", action.payload);
             saveStorage(STORAGE_COMPANY_DATA, action.payload);
-            return {
-                ...state,
-                company: action.payload.company,
-                prayer: action.payload.prayer,
-                configurations: action.payload.configurations,
-                expirableVersion: action.payload.expirableVersion
-            };
+            return {...state, ...action.payload};
         case "COMPANY_DATA_DELETE":
             console.log("Removing CompanyData from store and storage.");
             // removeStorage(STORAGE_COMPANY_DATA);
