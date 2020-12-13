@@ -2,6 +2,7 @@ import { Company, CompanyData, CompanyDataVersion, Configuration, createEmptyCom
 import { createOrRefreshExpirableVersion, isExpired } from "./ExpirableVersionService";
 import store from '../store/rootReducer';
 import { Constants } from './Constants';
+import setupNotifications from "./NotificationService";
 
 export const isValidCompanyData = (companyData?: CompanyData) => {
     return companyData && isValidCompany(companyData.company) && isValidPrayer(companyData.prayer);
@@ -142,6 +143,8 @@ export const updateCompanyData = (companyData: CompanyData, month: string, day: 
                 refeashCompanyData(companyData.company, month, day);
             }
         });
+        // @ts-ignore
+        setupNotifications(companyData.company.id)
 
     } else {
         console.log("Not updating CompanyData. Maybe no Company selected or its still a non expired CompanyData.")

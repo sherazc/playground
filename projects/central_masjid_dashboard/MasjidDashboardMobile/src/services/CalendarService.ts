@@ -1,9 +1,9 @@
-import { CompanyData, PrayersMonth, PrayersYear } from '../types/types';
+import { CompanyData, PrayersMonth, PrayersYear, ServiceResponse } from '../types/types';
 import { Constants } from './Constants';
-import store, { useTypedDispatch } from '../store/rootReducer';
+import store from '../store/rootReducer';
 import { isValidCompanyData } from './CompanyDataService';
 
-const apiYearCalendar = (companyId: string, year: number): Promise<PrayersMonth[]> => {
+const apiYearCalendar = (companyId: string, year: number): Promise<ServiceResponse<PrayersMonth[]>> => {
     const endpoint = Constants.createYearCalendarEndpoint(companyId, year);
     console.log("Calling year API ", endpoint);
     return fetch(endpoint).then(response => response.json());
@@ -25,15 +25,21 @@ export const loadCompanyPrayerYear = (companyId: string, year: number): Promise<
         } else {
             apiYearCalendar(companyId, year)
                 .then(
-                    (prayersMonths) => resolveNewPrayerYear(resolve, companyDataInStore, year, prayersMonths),
+                    (response) => {
+                        if (response && response.successful && isValidPrayersMonths(response.target)) {
+                            resolveNewPrayerYear(resolve, companyDataInStore, year, response.target);
+                        } else {
+                            rejectNewPrayerYear(reject, response);
+                        }
+                    },
                     (error) => rejectNewPrayerYear(reject, error))
-                .catch((error) => rejectNewPrayerYear(reject, error))
+                .catch((error) => rejectNewPrayerYear(reject, error));
         }
     });
 }
 
 const resolveNewPrayerYear = (resolve: Function, companyData: CompanyData, year: number, prayersMonths: PrayersMonth[]) => {
-    companyData.prayersYear = {year, prayersMonths};
+    companyData.prayersYear = { year, prayersMonths };
     store.dispatch({
         type: "COMPANY_DATA_SET",
         payload: companyData
@@ -49,6 +55,9 @@ const rejectNewPrayerYear = (reject: Function, error: any) => {
 const isValidPrayerYear = (prayersYear?: PrayersYear): boolean => {
     return prayersYear != undefined
         && prayersYear.year != undefined
-        && prayersYear.prayersMonths != undefined
-        && prayersYear.prayersMonths.length > 11;
+        && isValidPrayersMonths(prayersYear.prayersMonths);
+}
+
+const isValidPrayersMonths = (prayersMonths: PrayersMonth[]): boolean => {
+    return prayersMonths != undefined && prayersMonths.length > 11;
 }
