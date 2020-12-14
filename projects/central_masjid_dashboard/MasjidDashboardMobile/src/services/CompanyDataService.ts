@@ -3,13 +3,14 @@ import { createOrRefreshExpirableVersion, isExpired } from "./ExpirableVersionSe
 import store from '../store/rootReducer';
 import { Constants } from './Constants';
 import setupNotifications from "./NotificationService";
+import { fixObjectDates } from "./DateService";
 
 export const isValidCompanyData = (companyData?: CompanyData) => {
     return companyData && isValidCompany(companyData.company) && isValidPrayer(companyData.prayer);
 }
 
 export const isValidCompany = (company?: Company) => {
-    return company && company.id;
+    return company != undefined && company.id != undefined;
 }
 
 const isValidPrayer = (prayer?: Prayer) => {
@@ -117,6 +118,7 @@ const processCompanyData = (companyData: CompanyData, apiResponses: (ServiceResp
     const configurations = apiResponses[1] as Configuration[];
 
     if (isValidServiceResponsePrayer(prayerResponse)) {
+        fixObjectDates(prayerResponse.target);
         companyData.prayer = prayerResponse.target;
         companyData.configurations = configurations;
         updateCompanyDataState(companyData)
