@@ -1,9 +1,10 @@
-import { Company, CompanyData, CompanyDataVersion, Configuration, createEmptyCompanyData, Prayer, ServiceResponse } from "../types/types";
+import { Company, CompanyData, CompanyDataVersion, Configuration, createEmptyCompanyData, Prayer, PrayersMonth, ServiceResponse } from "../types/types";
 import { createOrRefreshExpirableVersion, isExpired } from "./ExpirableVersionService";
 import store from '../store/rootReducer';
 import { Constants } from './Constants';
 import setupNotifications from "./NotificationService";
 import { fixObjectDates } from "./DateService";
+import { apiYearCalendar } from "./CalendarService";
 
 export const isValidCompanyData = (companyData?: CompanyData) => {
     return companyData && isValidCompany(companyData.company) && isValidPrayer(companyData.prayer);
@@ -100,7 +101,8 @@ const refeashCompanyData = (company: Company, month: string, day: string) => {
 
             const promises = [
                 apiPrayer(company.id, month, day),
-                apiConfiguration(company.id)];
+                apiConfiguration(company.id),
+                apiYearCalendar(company.id)];
 
             // @ts-ignore
             Promise.all(promises).then(apiResponses => processCompanyData(companyData, apiResponses))
@@ -109,18 +111,20 @@ const refeashCompanyData = (company: Company, month: string, day: string) => {
     }).catch(e => console.log("Error calling GET Company Data version API", e));
 }
 
-const processCompanyData = (companyData: CompanyData, apiResponses: (ServiceResponse<Prayer> | Configuration[])[]) => {
-    if (!apiResponses || apiResponses.length < 2) {
+const processCompanyData = (companyData: CompanyData, apiResponses: (ServiceResponse<Prayer> | Configuration[] | ServiceResponse<PrayersMonth[]>)[]) => {
+    if (!apiResponses || apiResponses.length < 3) {
         return;
     }
 
     const prayerResponse = apiResponses[0] as ServiceResponse<Prayer>;
     const configurations = apiResponses[1] as Configuration[];
-
+    const yearPrayersResponse = apiResponses[2] as ServiceResponse<PrayersMonth[]>;
+    
     if (isValidServiceResponsePrayer(prayerResponse)) {
-        fixObjectDates(prayerResponse.target);
+        fixObjectDates(prayerResponse.target); // TODO: check if this can be done in API call function.
         companyData.prayer = prayerResponse.target;
         companyData.configurations = configurations;
+        companyData.prayersYear = yearPrayersResponse.target;
         updateCompanyDataState(companyData)
     }
 }

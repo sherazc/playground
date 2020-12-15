@@ -8,8 +8,8 @@ export default function setupNotifications(companyId: string) {
     const now = nowUtcDate();
 
     // Set delay to setup notifications. Maybe create a new setupNotificationWithDelay(); Or maybe accecpt
-    loadCompanyPrayerYear(companyId, now.getFullYear())
-        .then(loadPrayersYearSuccessful, loadPrayersYearFailed);
+    // loadCompanyPrayerYear(companyId, now.getFullYear())
+    //     .then(loadPrayersYearSuccessful, loadPrayersYearFailed);
 }
 
 const loadPrayersYearSuccessful = (prayersYear: PrayersYear) => {

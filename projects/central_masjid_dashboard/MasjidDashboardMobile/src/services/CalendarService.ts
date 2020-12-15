@@ -2,14 +2,43 @@ import { CompanyData, PrayersMonth, PrayersYear, ServiceResponse } from '../type
 import { Constants } from './Constants';
 import store from '../store/rootReducer';
 import { isValidCompany, isValidCompanyData } from './CompanyDataService';
-import { fixObjectDates } from './DateService';
+import { fixObjectDates, nowUtcDate } from './DateService';
 
 const apiYearCalendar = (companyId: string, year: number): Promise<ServiceResponse<PrayersMonth[]>> => {
+    
+    // @ts-ignore
     const endpoint = Constants.createYearCalendarEndpoint(companyId, year);
     console.log("Calling year API ", endpoint);
     return fetch(endpoint).then(response => response.json());
 }
 
+export const apiPrayersYear = (companyId: string, year?: number): Promise<PrayersYear> => {
+    let calendarYear = nowUtcDate().getFullYear();
+    if (year != undefined) {
+        calendarYear = year;
+    }
+
+    return new Promise((resolve, reject) => { 
+        apiYearCalendar(companyId, calendarYear)
+            .then(
+                (response) => {
+                    if (response && response.successful && isValidPrayersMonths(response.target)) {
+                        fixObjectDates(response.target);
+                        const prayersYear:PrayersYear = {
+                            year: calendarYear,
+                            prayersMonths: response.target
+                        }
+                        // TODO resolve prayersYear
+                    } else {
+                        rejectNewPrayerYear(reject, response);
+                    }
+                }, 
+                (error) => rejectNewPrayerYear(reject, error))
+                .catch((error) => rejectNewPrayerYear(reject, error));
+    });
+}
+
+// @Depricated
 export const loadCompanyPrayerYear = (companyId: string, year: number): Promise<PrayersYear> => {
 
     return new Promise((resolve, reject) => {
@@ -39,6 +68,7 @@ export const loadCompanyPrayerYear = (companyId: string, year: number): Promise<
     });
 }
 
+// @Depricated
 const resolveNewPrayerYear = (resolve: Function, companyData: CompanyData, year: number, prayersMonths: PrayersMonth[]) => {
     companyData.prayersYear = { year, prayersMonths };
     store.dispatch({
