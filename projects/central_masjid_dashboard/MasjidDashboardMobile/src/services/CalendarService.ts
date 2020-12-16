@@ -5,7 +5,7 @@ import { isValidCompany, isValidCompanyData } from './CompanyDataService';
 import { fixObjectDates, nowUtcDate } from './DateService';
 
 const apiYearCalendar = (companyId: string, year: number): Promise<ServiceResponse<PrayersMonth[]>> => {
-    
+
     // @ts-ignore
     const endpoint = Constants.createYearCalendarEndpoint(companyId, year);
     console.log("Calling year API ", endpoint);
@@ -18,28 +18,28 @@ export const apiPrayersYear = (companyId: string, year?: number): Promise<Prayer
         calendarYear = year;
     }
 
-    return new Promise((resolve, reject) => { 
+    return new Promise((resolve, reject) => {
         apiYearCalendar(companyId, calendarYear)
             .then(
                 (response) => {
                     if (response && response.successful && isValidPrayersMonths(response.target)) {
                         fixObjectDates(response.target);
-                        const prayersYear:PrayersYear = {
+                        const prayersYear: PrayersYear = {
                             year: calendarYear,
                             prayersMonths: response.target
                         }
-                        // TODO resolve prayersYear
+                        resolve(prayersYear);
                     } else {
                         rejectNewPrayerYear(reject, response);
                     }
-                }, 
+                },
                 (error) => rejectNewPrayerYear(reject, error))
-                .catch((error) => rejectNewPrayerYear(reject, error));
+            .catch((error) => rejectNewPrayerYear(reject, error));
     });
 }
 
 // @Depricated
-export const loadCompanyPrayerYear = (companyId: string, year: number): Promise<PrayersYear> => {
+const loadCompanyPrayerYear = (companyId: string, year: number): Promise<PrayersYear> => {
 
     return new Promise((resolve, reject) => {
         const companyDataInStore = store.getState().companyData;

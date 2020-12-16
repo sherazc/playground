@@ -1,10 +1,10 @@
-import { Company, CompanyData, CompanyDataVersion, Configuration, createEmptyCompanyData, Prayer, PrayersMonth, ServiceResponse } from "../types/types";
+import { Company, CompanyData, CompanyDataVersion, Configuration, createEmptyCompanyData, Prayer, PrayersMonth, PrayersYear, ServiceResponse } from "../types/types";
 import { createOrRefreshExpirableVersion, isExpired } from "./ExpirableVersionService";
 import store from '../store/rootReducer';
 import { Constants } from './Constants';
 import setupNotifications from "./NotificationService";
 import { fixObjectDates } from "./DateService";
-import { apiYearCalendar } from "./CalendarService";
+import { apiPrayersYear } from "./CalendarService";
 
 export const isValidCompanyData = (companyData?: CompanyData) => {
     return companyData && isValidCompany(companyData.company) && isValidPrayer(companyData.prayer);
@@ -88,7 +88,7 @@ const isValidServiceResponsePrayer = (serviceResponse: ServiceResponse<Prayer>) 
 
 // Creates new CompanyData by calling APIs
 const refeashCompanyData = (company: Company, month: string, day: string) => {
-    const companyData:CompanyData = {
+    const companyData: CompanyData = {
         ...createEmptyCompanyData(),
         expirableVersion: createOrRefreshExpirableVersion()
     };
@@ -102,7 +102,7 @@ const refeashCompanyData = (company: Company, month: string, day: string) => {
             const promises = [
                 apiPrayer(company.id, month, day),
                 apiConfiguration(company.id),
-                apiYearCalendar(company.id)];
+                apiPrayersYear(company.id)];
 
             // @ts-ignore
             Promise.all(promises).then(apiResponses => processCompanyData(companyData, apiResponses))
@@ -111,20 +111,20 @@ const refeashCompanyData = (company: Company, month: string, day: string) => {
     }).catch(e => console.log("Error calling GET Company Data version API", e));
 }
 
-const processCompanyData = (companyData: CompanyData, apiResponses: (ServiceResponse<Prayer> | Configuration[] | ServiceResponse<PrayersMonth[]>)[]) => {
+const processCompanyData = (companyData: CompanyData, apiResponses: (ServiceResponse<Prayer> | Configuration[] | PrayersYear)[]) => {
     if (!apiResponses || apiResponses.length < 3) {
         return;
     }
 
     const prayerResponse = apiResponses[0] as ServiceResponse<Prayer>;
     const configurations = apiResponses[1] as Configuration[];
-    const yearPrayersResponse = apiResponses[2] as ServiceResponse<PrayersMonth[]>;
-    
+    const prayersYear = apiResponses[2] as PrayersYear;
+
     if (isValidServiceResponsePrayer(prayerResponse)) {
         fixObjectDates(prayerResponse.target); // TODO: check if this can be done in API call function.
         companyData.prayer = prayerResponse.target;
         companyData.configurations = configurations;
-        companyData.prayersYear = yearPrayersResponse.target;
+        companyData.prayersYear = prayersYear;
         updateCompanyDataState(companyData)
     }
 }
@@ -149,8 +149,9 @@ export const updateCompanyData = (companyData: CompanyData, month: string, day: 
                 refeashCompanyData(companyData.company, month, day);
             }
         });
+        // Setup notifications
         // @ts-ignore
-        setupNotifications(companyData.company.id)
+        // setupNotifications(companyData.company.id)
 
     } else {
         console.log("Not updating CompanyData. Maybe no Company selected or its still a non expired CompanyData.")

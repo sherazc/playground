@@ -1,4 +1,3 @@
-import { loadCompanyPrayerYear } from './CalendarService';
 import { PrayersYear } from '../types/types';
 import { nowUtcDate } from './DateService';
 
