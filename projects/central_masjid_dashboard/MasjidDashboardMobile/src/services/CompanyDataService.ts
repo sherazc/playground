@@ -2,7 +2,7 @@ import { Company, CompanyData, CompanyDataVersion, Configuration, createEmptyCom
 import { createOrRefreshExpirableVersion, isExpired } from "./ExpirableVersionService";
 import store from '../store/rootReducer';
 import { Constants } from './Constants';
-import setupNotifications from "./NotificationService";
+// import setupNotifications from "./NotificationService";
 import { fixObjectDates } from "./DateService";
 import { apiPrayersYear } from "./CalendarService";
 
