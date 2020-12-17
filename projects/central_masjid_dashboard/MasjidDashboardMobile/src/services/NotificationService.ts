@@ -2,6 +2,8 @@ import { PrayersYear, CompanyData } from '../types/types';
 import { nowUtcDate } from './DateService';
 import store from '../store/rootReducer';
 import { Constants } from './Constants';
+import PushNotification from "react-native-push-notification";
+
 
 // TODO: find proper way to call it. Once if not expired.
 export default function setupNotifications(companyId: string) {
@@ -16,7 +18,7 @@ export default function setupNotifications(companyId: string) {
 const startNotificaitonsSetInterval = (companyId: string) => {
     const resetNotificationInterval = setInterval(() => {
         const companyData = store.getState().companyData;
-        
+
         if (!isValidCompanyDataAvailable(companyId, companyData)) {
             console.log("Not setting up ")
             return
@@ -29,6 +31,10 @@ const startNotificaitonsSetInterval = (companyId: string) => {
 }
 
 const resetNotifications = (companyData: CompanyData) => {
+
+    removeAllExisitngNotificaitons();
+
+
     /*
 
     Call notifcation api to cancle previous notifications
@@ -37,6 +43,20 @@ const resetNotifications = (companyData: CompanyData) => {
 
     update notificaitions expiration time
     */
+}
+
+
+const removeAllExisitngNotificaitons = () => {
+    console.log("Removing all previously set notifications.");
+    PushNotification.removeAllDeliveredNotifications();
+
+    PushNotification.getScheduledLocalNotifications((notifications) => {
+        if (notifications && notifications.length > 0) {
+            notifications.forEach(n => {
+                PushNotification.cancelLocalNotifications({ id: `${n.id}` });
+            });
+        }
+    });
 }
 
 const isNotificationAlreadySet = (companyId: string): boolean => {
