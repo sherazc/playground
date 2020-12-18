@@ -1,5 +1,5 @@
 import { PrayersYear, CompanyData, SettingData, PrayersMonth, Prayer } from '../types/types';
-import { nowUtcDate } from './DateService';
+import { nowUtcDate, dayOfTheYear } from './DateService';
 import store from '../store/rootReducer';
 import { Constants } from './Constants';
 import PushNotification from "react-native-push-notification";
@@ -59,7 +59,7 @@ const getUpcommingPrayers = (pryerMonths: PrayersMonth[]) => {
         .forEach(prayers => prayers.map(p => allPrayers.push(p)));
     const now = nowUtcDate();
 
-    now.get
+    const d = dayOfTheYear(now);
 }
 
 const isAnyAlertOn = (setting: SettingData): boolean => {
