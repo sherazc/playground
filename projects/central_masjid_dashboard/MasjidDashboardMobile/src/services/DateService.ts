@@ -1,6 +1,6 @@
 import { Constants } from './Constants';
 import { numberTo2DigitsString, subStringToNumber } from './Utilities';
-import { PrayerTime} from '../types/types';
+import { PrayerTime } from '../types/types';
 
 const TIME_24_REGX = /([01]?[0-9]|2[0-3]):[0-5][0-9].*/;
 const DATE_TIME_REGX = /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/;
@@ -10,11 +10,11 @@ export const todaysDay = () => (nowUtcDate()).getDate();
 export const todaysMonth = () => (nowUtcDate()).getMonth() + 1;
 
 export const fixObjectDates = (obj: any) => {
-    for(var i in obj) {
-        if(typeof obj[i] === 'object'){
+    for (var i in obj) {
+        if (typeof obj[i] === 'object') {
             fixObjectDates(obj[i]);
         } else {
-            if(DATE_TIME_REGX.test(obj[i])) {
+            if (DATE_TIME_REGX.test(obj[i])) {
                 obj[i] = new Date(obj[i]);
             }
         }
@@ -60,7 +60,7 @@ export const dateFromISO = (isoDateString?: string): (Date | undefined) => {
     }
 };
 
-export const stringH24MinToDate = (date: (Date| undefined), time?: string): (Date | undefined) => {
+export const stringH24MinToDate = (date: (Date | undefined), time?: string): (Date | undefined) => {
     if (!date || !time || !TIME_24_REGX.test(time)) {
         return;
     }
@@ -100,7 +100,7 @@ export const dateToTime12h = (d: Date | undefined) => {
 }
 
 
-export const addDays = (date:(Date| undefined), days?:number) => {
+export const addDays = (date: (Date | undefined), days?: number) => {
     if (!date || !days) {
         return;
     }
@@ -109,7 +109,7 @@ export const addDays = (date:(Date| undefined), days?:number) => {
     return calculatedDate;
 }
 
-export const addMinutes = (date:(Date| undefined), minutes?:number) => {
+export const addMinutes = (date: (Date | undefined), minutes?: number) => {
     if (!date || !minutes) {
         return;
     }
@@ -118,15 +118,15 @@ export const addMinutes = (date:(Date| undefined), minutes?:number) => {
     return calculatedDate;
 }
 
-export const millisDurationToTimeString = (duration?:number) => {
+export const millisDurationToTimeString = (duration?: number) => {
     if (duration === null
         || duration === undefined || duration < 0) {
         return;
     }
 
-    let seconds:(number | string) = Math.floor((duration/1000)%60),
-        minutes:(number | string) = Math.floor((duration/(1000*60))%60),
-        hours:(number | string) = Math.floor(duration/(1000*60*60));
+    let seconds: (number | string) = Math.floor((duration / 1000) % 60),
+        minutes: (number | string) = Math.floor((duration / (1000 * 60)) % 60),
+        hours: (number | string) = Math.floor(duration / (1000 * 60 * 60));
 
     //hours = (hours < 10) ? "0" + hours : hours;
     minutes = (minutes < 10) ? "0" + minutes : minutes;
@@ -139,7 +139,7 @@ export const millisDurationToTimeString = (duration?:number) => {
 
 }
 
-export const isTimeBetweenAzans = (timeMillis:(number | undefined), prayerPeriod?:PrayerTime[]) => {
+export const isTimeBetweenAzans = (timeMillis: (number | undefined), prayerPeriod?: PrayerTime[]) => {
     if (!timeMillis || !prayerPeriod || prayerPeriod.length != 2
         || !prayerPeriod[0].azan || !prayerPeriod[1].azan) {
         return false;
@@ -149,7 +149,7 @@ export const isTimeBetweenAzans = (timeMillis:(number | undefined), prayerPeriod
         && timeMillis < prayerPeriod[1].azan.getTime()
 }
 
-export const toISODateString = (date?:Date) => {
+export const toISODateString = (date?: Date) => {
     if (!date) {
         return;
     }
@@ -157,24 +157,18 @@ export const toISODateString = (date?:Date) => {
     return isoString.substring(0, 10);
 };
 
+export const dayOfTheYear = (date: Date): number => {
+    const yearStartDate = new Date(date.getTime());
+    yearStartDate.setMonth(0);
+    yearStartDate.setDate(0);
+    yearStartDate.setHours(0);
+    yearStartDate.setMinutes(0);
+    yearStartDate.setSeconds(0);
+    yearStartDate.setMilliseconds(0);
 
-export const dayOfTheYear = () => {
+    const diffMillis = date.getTime() - yearStartDate.getTime();
 
-var now = new Date('2020-01-01T00:00:00.000Z');
-var start = new Date('2020-12-31T00:00:00.000Z');
-start.setMonth(0);
-start.setDate(0);
-start.setHours(0);
-start.setMinutes(0);
-start.setSeconds(0);
-start.setMilliseconds(0);
-
-
-var diff = now.getTime() - start.getTime();
-console.log(diff)
-var oneDay = 1000 * 60 * 60 * 24;
-var day = Math.floor(diff / oneDay);
-console.log('Day of year: ' + day);
-
-
+    const oneDayMillis = 1000 * 60 * 60 * 24;
+    
+    return Math.floor(diffMillis / oneDayMillis);
 }
