@@ -1,4 +1,4 @@
-import { PrayersYear, CompanyData } from '../types/types';
+import { PrayersYear, CompanyData, SettingData, PrayersMonth, Prayer } from '../types/types';
 import { nowUtcDate } from './DateService';
 import store from '../store/rootReducer';
 import { Constants } from './Constants';
@@ -20,7 +20,7 @@ const startNotificaitonsSetInterval = (companyId: string) => {
         const companyData = store.getState().companyData;
 
         if (!isValidCompanyDataAvailable(companyId, companyData)) {
-            console.log("Not setting up ")
+            console.log(`Not setting up notification. Valid company data not available.`);
             return
         }
 
@@ -31,9 +31,16 @@ const startNotificaitonsSetInterval = (companyId: string) => {
 }
 
 const resetNotifications = (companyData: CompanyData) => {
-
     removeAllExisitngNotificaitons();
 
+    const setting = store.getState().setting;
+    if (!isAnyAlertOn(setting)) {
+        console.log(`Not setting up notification. No notification setting truned on.`);
+        return;
+    }
+
+    // @ts-ignore
+    const prayers = getUpcommingPrayers(companyData.prayersYear?.prayersMonths);
 
     /*
 
@@ -43,6 +50,20 @@ const resetNotifications = (companyData: CompanyData) => {
 
     update notificaitions expiration time
     */
+}
+
+const getUpcommingPrayers = (pryerMonths: PrayersMonth[]) => {
+    const allPrayers: Prayer[] = [];
+    pryerMonths
+        .map(pm => pm.prayers)
+        .forEach(prayers => prayers.map(p => allPrayers.push(p)));
+    const now = nowUtcDate();
+
+    now.get
+}
+
+const isAnyAlertOn = (setting: SettingData): boolean => {
+    return setting.azanAlert || setting.beforeIqamaAlert || setting.iqamaAlert;
 }
 
 

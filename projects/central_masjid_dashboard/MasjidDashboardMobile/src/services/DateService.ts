@@ -156,3 +156,25 @@ export const toISODateString = (date?:Date) => {
     const isoString = date.toISOString();
     return isoString.substring(0, 10);
 };
+
+
+export const dayOfTheYear = () => {
+
+var now = new Date('2020-01-01T00:00:00.000Z');
+var start = new Date('2020-12-31T00:00:00.000Z');
+start.setMonth(0);
+start.setDate(0);
+start.setHours(0);
+start.setMinutes(0);
+start.setSeconds(0);
+start.setMilliseconds(0);
+
+
+var diff = now.getTime() - start.getTime();
+console.log(diff)
+var oneDay = 1000 * 60 * 60 * 24;
+var day = Math.floor(diff / oneDay);
+console.log('Day of year: ' + day);
+
+
+}
