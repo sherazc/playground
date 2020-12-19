@@ -1,13 +1,12 @@
-import { PrayersYear, CompanyData, SettingData, PrayersMonth, Prayer } from '../types/types';
+import { CompanyData, SettingData, PrayersMonth, Prayer } from '../types/types';
 import { nowUtcDate, dayOfTheYear as dateToDayOfYear } from './DateService';
 import store from '../store/rootReducer';
-import { Constants } from './Constants';
 import PushNotification from "react-native-push-notification";
 
 
 // TODO: find proper way to call it. Once if not expired.
 export default function setupNotifications(companyId: string) {
-    if (!isNotificationAlreadySet(companyId)) {
+    if (isNotificationAlreadySet(companyId)) {
         console.log(`Not setting up notification. Notification already set for company ${companyId}.`);
         return
     }
@@ -25,7 +24,9 @@ const startNotificaitonsSetInterval = (companyId: string) => {
         }
 
         resetNotifications(companyData);
-
+        // TODO update notification expiration
+        // TODO update companyId in companyData.notification
+        // TODO update companyData in store
         clearInterval(resetNotificationInterval);
     }, 2000);
 }
@@ -42,18 +43,29 @@ const resetNotifications = (companyData: CompanyData) => {
     // @ts-ignore
     const prayers = getUpcommingPrayers(companyData.prayersYear?.prayersMonths, 10);  // TODO: Move this number to Constant.ts
 
-    console.log(prayers)
+    // console.log(prayers)
 
+    prayers.forEach(p => setupPrayerNotification(setting, p));
 
 
     /*
 
-    Call notifcation api to cancle previous notifications
+    TODO:
 
-    use prayersYear to build scheduled notifications for next 10 days
+    ✅ Call notifcation api to cancle previous notifications
+
+    ✅ find next 10 upcomming days prayers
+
+    build notification from prayer array
+
+    schedule notifications
 
     update notificaitions expiration time
     */
+}
+
+const setupPrayerNotification = (setting: SettingData, prayer: Prayer) => {
+
 }
 
 const getUpcommingPrayers = (pryerMonths: PrayersMonth[], daysCount: number): Prayer[] => {
