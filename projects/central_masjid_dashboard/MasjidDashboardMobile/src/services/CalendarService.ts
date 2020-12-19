@@ -1,7 +1,7 @@
 import { CompanyData, PrayersMonth, PrayersYear, ServiceResponse } from '../types/types';
 import { Constants } from './Constants';
 import store from '../store/rootReducer';
-import { isValidCompany, isValidCompanyData } from './CompanyDataService';
+import { isValidCompany } from './CompanyDataService';
 import { fixObjectDates, nowUtcDate } from './DateService';
 
 const apiYearCalendar = (companyId: string, year: number): Promise<ServiceResponse<PrayersMonth[]>> => {

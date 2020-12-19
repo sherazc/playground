@@ -64,6 +64,11 @@ export interface Company {
     expirationDate: Date;
 }
 
+export interface CompanyNotification {
+    companyId: string;
+    expirationMillis: number;
+}
+
 export interface ServiceResponse<T> {
     successful: boolean;
     message: string;
@@ -84,7 +89,7 @@ export interface CompanyData {
     configurations: Configuration[];
     expirableVersion?: ExpirableVersion;
     prayersYear?: PrayersYear;
-    notificationExpirationMillis?: number;
+    companyNotificaiton?: CompanyNotification;
 }
 
 export const createEmptyCompanyData = (): CompanyData => {

@@ -169,6 +169,6 @@ export const dayOfTheYear = (date: Date): number => {
     const diffMillis = date.getTime() - yearStartDate.getTime();
 
     const oneDayMillis = 1000 * 60 * 60 * 24;
-    
+
     return Math.floor(diffMillis / oneDayMillis);
 }

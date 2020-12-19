@@ -1,5 +1,5 @@
 import { PrayersYear, CompanyData, SettingData, PrayersMonth, Prayer } from '../types/types';
-import { nowUtcDate, dayOfTheYear } from './DateService';
+import { nowUtcDate, dayOfTheYear as dateToDayOfYear } from './DateService';
 import store from '../store/rootReducer';
 import { Constants } from './Constants';
 import PushNotification from "react-native-push-notification";
@@ -8,7 +8,7 @@ import PushNotification from "react-native-push-notification";
 // TODO: find proper way to call it. Once if not expired.
 export default function setupNotifications(companyId: string) {
     if (!isNotificationAlreadySet(companyId)) {
-        console.log(`Not setting up notification. Notification already set for ${companyId}.`);
+        console.log(`Not setting up notification. Notification already set for company ${companyId}.`);
         return
     }
 
@@ -40,7 +40,11 @@ const resetNotifications = (companyData: CompanyData) => {
     }
 
     // @ts-ignore
-    const prayers = getUpcommingPrayers(companyData.prayersYear?.prayersMonths);
+    const prayers = getUpcommingPrayers(companyData.prayersYear?.prayersMonths, 10);  // TODO: Move this number to Constant.ts
+
+    console.log(prayers)
+
+
 
     /*
 
@@ -52,14 +56,18 @@ const resetNotifications = (companyData: CompanyData) => {
     */
 }
 
-const getUpcommingPrayers = (pryerMonths: PrayersMonth[]) => {
+const getUpcommingPrayers = (pryerMonths: PrayersMonth[], daysCount: number): Prayer[] => {
     const allPrayers: Prayer[] = [];
     pryerMonths
         .map(pm => pm.prayers)
         .forEach(prayers => prayers.map(p => allPrayers.push(p)));
     const now = nowUtcDate();
 
-    const d = dayOfTheYear(now);
+    const dayOfYear = dateToDayOfYear(now);
+    return Array(daysCount)
+            .fill(0)
+            .map((_, i) => (i + dayOfYear) % 366)
+            .map(i => allPrayers[i]);
 }
 
 const isAnyAlertOn = (setting: SettingData): boolean => {
@@ -81,14 +89,15 @@ const removeAllExisitngNotificaitons = () => {
 }
 
 const isNotificationAlreadySet = (companyId: string): boolean => {
-    const companyData = store.getState().companyData;
-    const notificationExpirationMillis = companyData.notificationExpirationMillis == undefined
-        ? 0 : companyData.notificationExpirationMillis;
+    const companyNotification = store.getState().companyData.companyNotificaiton;
+    if (companyNotification === undefined) {
+        return false;
+    }
 
     const currentTimeMillis = nowUtcDate().getTime();
 
-    return isSameCompany(companyId, companyData)
-        && currentTimeMillis < notificationExpirationMillis;
+    return companyNotification.companyId === companyId
+        && currentTimeMillis < companyNotification.expirationMillis;
 }
 
 // Checks same company and valid prayerYear
