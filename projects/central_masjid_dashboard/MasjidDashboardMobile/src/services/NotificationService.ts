@@ -2,6 +2,7 @@ import { CompanyData, SettingData, PrayersMonth, Prayer, ScheduleNotification } 
 import { nowUtcDate, dayOfTheYear as dateToDayOfYear, TIME_24_REGX } from './DateService';
 import store from '../store/rootReducer';
 import PushNotification from "react-native-push-notification";
+import { Constants } from './Constants';
 
 
 // TODO: find proper way to call it. Once if not expired.
@@ -76,25 +77,31 @@ const setupPrayerNotification = (now: Date, setting: SettingData, prayer: Prayer
 const setupAzanAlert = (now: Date, prayer: Prayer) => {
 
     const notifications = [] as ScheduleNotification[];
+    addAzanNotification(notifications, now, prayer.date, Constants.PRAYER_NAME[0], prayer.fajr);
+    addAzanNotification(notifications, now, prayer.date, Constants.PRAYER_NAME[1], prayer.dhuhr);
+    addAzanNotification(notifications, now, prayer.date, Constants.PRAYER_NAME[2], prayer.asr);
+    addAzanNotification(notifications, now, prayer.date, Constants.PRAYER_NAME[3], prayer.maghrib);
+    addAzanNotification(notifications, now, prayer.date, Constants.PRAYER_NAME[4], prayer.isha);
+}
 
-
-    if (TIME_24_REGX.test(prayer.fajr)) {
-
+// TODO: add masjid name in notification message
+const addAzanNotification = (notifications: ScheduleNotification[], now: Date, prayerDate: Date, name: string, time: string) => {
+    if (!TIME_24_REGX.test(time)) {
+        return;
     }
 
-    // notifications.push({
-    //     date: currentYearUtcToLocalDate(now, prayer.fajr)
-    // });
+    const timeSplit = time.split(':');
 
-}
+    const year = now.getUTCFullYear() > prayerDate.getUTCFullYear() ? now.getUTCFullYear() + 1 : now.getUTCFullYear();
 
-const addAzanNotification = (notifications: ScheduleNotification[], now: Date, name: string, time: string) => {
+    const scheduleDate = new Date(year, prayerDate.getUTCMonth(), prayerDate.getUTCDate(),
+            +timeSplit[0], +timeSplit[1], 0, 0);
 
-}
-
-const currentYearUtcToLocalDate = (now: Date, date: Date) => {
-    return new Date(now.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
-            date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds(), date.getUTCMilliseconds());
+    notifications.push({
+        date: scheduleDate,
+        title: `${name} Azan`,
+        message: `${name} azan time`
+    });
 }
 
 
