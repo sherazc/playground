@@ -1,5 +1,5 @@
-import { CompanyData, SettingData, PrayersMonth, Prayer } from '../types/types';
-import { nowUtcDate, dayOfTheYear as dateToDayOfYear } from './DateService';
+import { CompanyData, SettingData, PrayersMonth, Prayer, ScheduleNotification } from '../types/types';
+import { nowUtcDate, dayOfTheYear as dateToDayOfYear, TIME_24_REGX } from './DateService';
 import store from '../store/rootReducer';
 import PushNotification from "react-native-push-notification";
 
@@ -40,12 +40,14 @@ const resetNotifications = (companyData: CompanyData) => {
         return;
     }
 
+    const now = nowUtcDate();
+
     // @ts-ignore
-    const prayers = getUpcommingPrayers(companyData.prayersYear?.prayersMonths, 10);  // TODO: Move this number to Constant.ts
+    const prayers = getUpcommingPrayers(now, companyData.prayersYear?.prayersMonths, 10);  // TODO: Move this number to Constant.ts
 
     // console.log(prayers)
 
-    prayers.forEach(p => setupPrayerNotification(setting, p));
+    prayers.forEach(p => setupPrayerNotification(now, setting, p));
 
 
     /*
@@ -64,16 +66,43 @@ const resetNotifications = (companyData: CompanyData) => {
     */
 }
 
-const setupPrayerNotification = (setting: SettingData, prayer: Prayer) => {
+const setupPrayerNotification = (now: Date, setting: SettingData, prayer: Prayer) => {
+    if (setting.azanAlert) {
+        setupAzanAlert(now, prayer);
+    }
+}
+
+
+const setupAzanAlert = (now: Date, prayer: Prayer) => {
+
+    const notifications = [] as ScheduleNotification[];
+
+
+    if (TIME_24_REGX.test(prayer.fajr)) {
+
+    }
+
+    // notifications.push({
+    //     date: currentYearUtcToLocalDate(now, prayer.fajr)
+    // });
 
 }
 
-const getUpcommingPrayers = (pryerMonths: PrayersMonth[], daysCount: number): Prayer[] => {
+const addAzanNotification = (notifications: ScheduleNotification[], now: Date, name: string, time: string) => {
+
+}
+
+const currentYearUtcToLocalDate = (now: Date, date: Date) => {
+    return new Date(now.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
+            date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds(), date.getUTCMilliseconds());
+}
+
+
+const getUpcommingPrayers = (now: Date, pryerMonths: PrayersMonth[], daysCount: number): Prayer[] => {
     const allPrayers: Prayer[] = [];
     pryerMonths
         .map(pm => pm.prayers)
         .forEach(prayers => prayers.map(p => allPrayers.push(p)));
-    const now = nowUtcDate();
 
     const dayOfYear = dateToDayOfYear(now);
     return Array(daysCount)

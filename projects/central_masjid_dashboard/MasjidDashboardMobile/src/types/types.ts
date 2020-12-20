@@ -69,6 +69,12 @@ export interface CompanyNotification {
     expirationMillis: number;
 }
 
+export interface ScheduleNotification {
+    date: Date;
+    title: string;
+    message: string;
+}
+
 export interface ServiceResponse<T> {
     successful: boolean;
     message: string;
