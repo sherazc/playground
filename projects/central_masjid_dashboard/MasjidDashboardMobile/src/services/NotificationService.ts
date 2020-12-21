@@ -1,4 +1,4 @@
-import { CompanyData, SettingData, PrayersMonth, Prayer, ScheduleNotification } from '../types/types';
+import { Company, CompanyData, SettingData, PrayersMonth, Prayer, ScheduleNotification } from '../types/types';
 import { nowUtcDate, dayOfTheYear as dateToDayOfYear, TIME_24_REGX } from './DateService';
 import store from '../store/rootReducer';
 import PushNotification from "react-native-push-notification";
@@ -48,7 +48,7 @@ const resetNotifications = (companyData: CompanyData) => {
 
     // console.log(prayers)
 
-    prayers.forEach(p => setupPrayerNotification(now, setting, p));
+    prayers.forEach(p => setupPrayerNotification(companyData.company, now, setting, p));
 
 
     /*
@@ -67,43 +67,47 @@ const resetNotifications = (companyData: CompanyData) => {
     */
 }
 
-const setupPrayerNotification = (now: Date, setting: SettingData, prayer: Prayer) => {
+const setupPrayerNotification = (company: (Company | undefined), now: Date, setting: SettingData, prayer: Prayer) => {
     if (setting.azanAlert) {
-        setupAzanAlert(now, prayer);
+        setupAzanAlert(company, now, prayer);
     }
 }
 
 
-const setupAzanAlert = (now: Date, prayer: Prayer) => {
-
+const setupAzanAlert = (company: (Company | undefined), now: Date, prayer: Prayer) => {
     const notifications = [] as ScheduleNotification[];
-    addAzanNotification(notifications, now, prayer.date, Constants.PRAYER_NAME[0], prayer.fajr);
-    addAzanNotification(notifications, now, prayer.date, Constants.PRAYER_NAME[1], prayer.dhuhr);
-    addAzanNotification(notifications, now, prayer.date, Constants.PRAYER_NAME[2], prayer.asr);
-    addAzanNotification(notifications, now, prayer.date, Constants.PRAYER_NAME[3], prayer.maghrib);
-    addAzanNotification(notifications, now, prayer.date, Constants.PRAYER_NAME[4], prayer.isha);
+    addAzanNotification(company, notifications, now, prayer.date, Constants.PRAYER_NAME[0], prayer.fajr);
+    addAzanNotification(company, notifications, now, prayer.date, Constants.PRAYER_NAME[1], prayer.dhuhr);
+    addAzanNotification(company, notifications, now, prayer.date, Constants.PRAYER_NAME[2], prayer.asr);
+    addAzanNotification(company, notifications, now, prayer.date, Constants.PRAYER_NAME[3], prayer.maghrib);
+    addAzanNotification(company, notifications, now, prayer.date, Constants.PRAYER_NAME[4], prayer.isha);
+
+    console.log(notifications);
 }
 
 // TODO: add masjid name in notification message
-const addAzanNotification = (notifications: ScheduleNotification[], now: Date, prayerDate: Date, name: string, time: string) => {
+const addAzanNotification = (company: (Company | undefined), notifications: ScheduleNotification[], now: Date, prayerDate: Date, name: string, time: string) => {
     if (!TIME_24_REGX.test(time)) {
         return;
     }
 
     const timeSplit = time.split(':');
-
-    const year = now.getUTCFullYear() > prayerDate.getUTCFullYear() ? now.getUTCFullYear() + 1 : now.getUTCFullYear();
-
+    const nowYear = now.getUTCFullYear();
+    const year = nowYear > prayerDate.getUTCFullYear() ? nowYear + 1 : nowYear;
     const scheduleDate = new Date(year, prayerDate.getUTCMonth(), prayerDate.getUTCDate(),
-            +timeSplit[0], +timeSplit[1], 0, 0);
+        +timeSplit[0], +timeSplit[1], 0, 0);
 
-    notifications.push({
-        date: scheduleDate,
-        title: `${name} Azan`,
-        message: `${name} azan time`
-    });
+    if (scheduleDate.getTime() > now.getTime()) {
+        notifications.push({
+            date: scheduleDate,
+            title: `${name} Azan`,
+            message: `${name} azan time`
+        });
+    }
 }
 
+
+const getCompanyName
 
 const getUpcommingPrayers = (now: Date, pryerMonths: PrayersMonth[], daysCount: number): Prayer[] => {
     const allPrayers: Prayer[] = [];
@@ -113,9 +117,9 @@ const getUpcommingPrayers = (now: Date, pryerMonths: PrayersMonth[], daysCount: 
 
     const dayOfYear = dateToDayOfYear(now);
     return Array(daysCount)
-            .fill(0)
-            .map((_, i) => (i + dayOfYear) % 366)
-            .map(i => allPrayers[i]);
+        .fill(0)
+        .map((_, i) => (i + dayOfYear) % 366)
+        .map(i => allPrayers[i]);
 }
 
 const isAnyAlertOn = (setting: SettingData): boolean => {
