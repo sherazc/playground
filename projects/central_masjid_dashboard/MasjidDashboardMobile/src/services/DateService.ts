@@ -172,3 +172,22 @@ export const dayOfTheYear = (date: Date): number => {
 
     return Math.floor(diffMillis / oneDayMillis);
 }
+
+export const utcToLocalDate = (date: Date): Date => {
+    return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
+    date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds(), date.getUTCMilliseconds());
+}
+
+
+export const localToUtcDate = (date: Date): Date => {
+    const result = new Date();
+    result.setUTCFullYear(date.getFullYear());
+    result.setUTCMonth(date.getMonth());
+    result.setUTCDate(date.getUTCDate());
+    result.setUTCHours(date.getHours());
+    result.setUTCMinutes(date.getMinutes());
+    result.setUTCSeconds(date.getSeconds());
+    result.setUTCMilliseconds(date.getMilliseconds());
+
+    return result;
+}

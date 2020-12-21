@@ -1,5 +1,5 @@
 import { Company, CompanyData, SettingData, PrayersMonth, Prayer, ScheduleNotification } from '../types/types';
-import { nowUtcDate, dayOfTheYear as dateToDayOfYear, TIME_24_REGX } from './DateService';
+import { nowUtcDate, dayOfTheYear as dateToDayOfYear, TIME_24_REGX, utcToLocalDate } from './DateService';
 import store from '../store/rootReducer';
 import PushNotification from "react-native-push-notification";
 import { Constants } from './Constants';
@@ -85,7 +85,6 @@ const setupAzanAlert = (company: (Company | undefined), now: Date, prayer: Praye
     console.log(notifications);
 }
 
-// TODO: add masjid name in notification message
 const addAzanNotification = (company: (Company | undefined), notifications: ScheduleNotification[], now: Date, prayerDate: Date, name: string, time: string) => {
     if (!TIME_24_REGX.test(time)) {
         return;
@@ -97,18 +96,22 @@ const addAzanNotification = (company: (Company | undefined), notifications: Sche
     const scheduleDate = new Date(year, prayerDate.getUTCMonth(), prayerDate.getUTCDate(),
         +timeSplit[0], +timeSplit[1], 0, 0);
 
-    if (scheduleDate.getTime() > now.getTime()) {
+    if (scheduleDate.getTime() > utcToLocalDate(now).getTime()) {
+        const companyName = getCompanyName(company);
         notifications.push({
             date: scheduleDate,
-            title: `${name} Azan`,
-            message: `${name} azan time`
+            title: `${name} at ${companyName}`,
+            message: `It's ${name} azan time at ${companyName}`
         });
     }
 }
 
 
-const getCompanyName
+const getCompanyName = (company: (Company | undefined)): string => {
+    return company && company.name ? company.name : "";
+}
 
+// TODO: Defect: It returns prayers from tomorrow onwards. Include today as well
 const getUpcommingPrayers = (now: Date, pryerMonths: PrayersMonth[], daysCount: number): Prayer[] => {
     const allPrayers: Prayer[] = [];
     pryerMonths
