@@ -157,16 +157,15 @@ export const toISODateString = (date?: Date) => {
     return isoString.substring(0, 10);
 };
 
-export const dayOfTheYear = (date: Date): number => {
-    const yearStartDate = new Date(date.getTime());
+
+export const dayOfTheYear = (year: number, month: number, date: number): number => {
+
+    const dateWithoutTime = createZeroTimeDate(new Date(year, month, date));
+    const yearStartDate = createZeroTimeDate(new Date(year, month, date));
     yearStartDate.setMonth(0);
     yearStartDate.setDate(0);
-    yearStartDate.setHours(0);
-    yearStartDate.setMinutes(0);
-    yearStartDate.setSeconds(0);
-    yearStartDate.setMilliseconds(0);
 
-    const diffMillis = date.getTime() - yearStartDate.getTime();
+    const diffMillis = dateWithoutTime.getTime() - yearStartDate.getTime();
 
     const oneDayMillis = 1000 * 60 * 60 * 24;
 
@@ -190,4 +189,14 @@ export const localToUtcDate = (date: Date): Date => {
     result.setUTCMilliseconds(date.getMilliseconds());
 
     return result;
+}
+
+
+const createZeroTimeDate = (date:Date) => {
+    const d = new Date(date.getTime());
+    d.setHours(0);
+    d.setMinutes(0);
+    d.setSeconds(0);
+    d.setMilliseconds(0);
+    return date;
 }

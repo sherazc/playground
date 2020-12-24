@@ -1,8 +1,9 @@
 import { Company, CompanyData, SettingData, PrayersMonth, Prayer, ScheduleNotification } from '../types/types';
-import { nowUtcDate, dayOfTheYear as dateToDayOfYear, TIME_24_REGX, utcToLocalDate } from './DateService';
+import { nowUtcDate, dayOfTheYear, TIME_24_REGX, utcToLocalDate } from './DateService';
 import store from '../store/rootReducer';
 import PushNotification from "react-native-push-notification";
 import { Constants } from './Constants';
+import { isNotBlankString } from './Utilities';
 
 
 // TODO: find proper way to call it. Once if not expired.
@@ -73,8 +74,30 @@ const setupPrayerNotification = (company: (Company | undefined), now: Date, sett
     }
 }
 
+const scheduleNotification = (notifications: ScheduleNotification[]): void => {
+    if (!notifications || notifications.length < 1) {
+        return;
+    }
+
+    notifications
+        .filter(n => n.date && isNotBlankString(n.message) && isNotBlankString(n.title))
+        .forEach(n =>
+            PushNotification.localNotificationSchedule({
+                title: n.title,
+                message: n.message,
+                date: n.date,
+                allowWhileIdle: false
+            })
+        );
+}
+
 
 const setupAzanAlert = (company: (Company | undefined), now: Date, prayer: Prayer) => {
+    if (!prayer || !prayer.date) {
+        console.log("Not setting up azan alerts. Prayer not found.")
+        return;
+    }
+
     const notifications = [] as ScheduleNotification[];
     addAzanNotification(company, notifications, now, prayer.date, Constants.PRAYER_NAME[0], prayer.fajr);
     addAzanNotification(company, notifications, now, prayer.date, Constants.PRAYER_NAME[1], prayer.dhuhr);
@@ -82,7 +105,7 @@ const setupAzanAlert = (company: (Company | undefined), now: Date, prayer: Praye
     addAzanNotification(company, notifications, now, prayer.date, Constants.PRAYER_NAME[3], prayer.maghrib);
     addAzanNotification(company, notifications, now, prayer.date, Constants.PRAYER_NAME[4], prayer.isha);
 
-    console.log(notifications);
+    scheduleNotification(notifications);
 }
 
 const addAzanNotification = (company: (Company | undefined), notifications: ScheduleNotification[], now: Date, prayerDate: Date, name: string, time: string) => {
@@ -111,14 +134,29 @@ const getCompanyName = (company: (Company | undefined)): string => {
     return company && company.name ? company.name : "";
 }
 
-// TODO: Defect: It returns prayers from tomorrow onwards. Include today as well
+/*
+Test cases
+getUpcommingPrayers(new Date(2020, 0, 1, 0, 0, 0, 0), companyData.prayersYear?.prayersMonths, 10);
+getUpcommingPrayers(new Date(2020, 0, 1, 23, 59, 0, 0), companyData.prayersYear?.prayersMonths, 10);
+
+getUpcommingPrayers(new Date(2020, 11, 31, 0, 0, 0, 0), companyData.prayersYear?.prayersMonths, 10);
+getUpcommingPrayers(new Date(2020, 11, 31, 23, 59, 0, 0), companyData.prayersYear?.prayersMonths, 10);
+
+
+getUpcommingPrayers(new Date('2020-01-01T00:00:00.000Z'), companyData.prayersYear?.prayersMonths, 10);
+getUpcommingPrayers(new Date('2020-01-01T23:59:00.000Z'), companyData.prayersYear?.prayersMonths, 10);
+
+getUpcommingPrayers(new Date('2020-12-31T00:00:00.000Z'), companyData.prayersYear?.prayersMonths, 10);
+getUpcommingPrayers(new Date('2020-12-31T23:59:00.000Z'), companyData.prayersYear?.prayersMonths, 10);
+
+*/
 const getUpcommingPrayers = (now: Date, pryerMonths: PrayersMonth[], daysCount: number): Prayer[] => {
     const allPrayers: Prayer[] = [];
     pryerMonths
         .map(pm => pm.prayers)
         .forEach(prayers => prayers.map(p => allPrayers.push(p)));
 
-    const dayOfYear = dateToDayOfYear(now);
+    const dayOfYear = dayOfTheYear(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
     return Array(daysCount)
         .fill(0)
         .map((_, i) => (i + dayOfYear) % 366)
