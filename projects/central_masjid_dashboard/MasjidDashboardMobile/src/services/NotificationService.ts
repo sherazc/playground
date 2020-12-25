@@ -109,9 +109,43 @@ const setupPrayerNotification = (company: (Company | undefined), now: Date, sett
         // Isha
         title = createAzanTitle(companyName, Constants.PRAYER_NAME[3]);
         message = createAzanMessage(companyName, Constants.PRAYER_NAME[3]);
-        notification = createNotification(title, message, now, prayer.date, prayer.maghrib);
+        notification = createNotification(title, message, now, prayer.date, prayer.maghribIqama);
         if (notification) notifications.push(notification);
     }
+
+    if (setting.iqamaAlert) {
+        // Fajr Iqama
+        title = createIqamaTitle(companyName, Constants.PRAYER_NAME[0]);
+        message = createIqamaMessage(companyName, Constants.PRAYER_NAME[0]);
+        notification = createNotification(title, message, now, prayer.date, prayer.fajrIqama);
+        if (notification) notifications.push(notification);
+
+        // Duhar Iqama
+        title = createIqamaTitle(companyName, Constants.PRAYER_NAME[1]);
+        message = createIqamaMessage(companyName, Constants.PRAYER_NAME[1]);
+        notification = createNotification(title, message, now, prayer.date, prayer.dhuhrIqama);
+        if (notification) notifications.push(notification);
+
+        // Asr Iqama
+        title = createIqamaTitle(companyName, Constants.PRAYER_NAME[2]);
+        message = createIqamaMessage(companyName, Constants.PRAYER_NAME[2]);
+        notification = createNotification(title, message, now, prayer.date, prayer.asrIqama);
+        if (notification) notifications.push(notification);
+
+        // Maghrib Iqama
+        title = createIqamaTitle(companyName, Constants.PRAYER_NAME[3]);
+        message = createIqamaMessage(companyName, Constants.PRAYER_NAME[3]);
+        notification = createNotification(title, message, now, prayer.date, prayer.maghribIqama);
+        if (notification) notifications.push(notification);
+
+        // Isha Iqama
+        title = createIqamaTitle(companyName, Constants.PRAYER_NAME[3]);
+        message = createIqamaMessage(companyName, Constants.PRAYER_NAME[3]);
+        notification = createNotification(title, message, now, prayer.date, prayer.maghribIqama);
+        if (notification) notifications.push(notification);
+    }
+
+
 
     scheduleNotification(notifications);
 
@@ -176,12 +210,20 @@ const createNotification = (title: string, message: string, now: Date, prayerDat
     return notification;
 }
 
-const createAzanMessage = (companyName: string, prayerName: string) => {
-    return `It's ${prayerName} azan time at ${companyName}`;
-}
-
 const createAzanTitle = (companyName: string, prayerName: string) => {
     return `${prayerName} at ${companyName}`;
+}
+
+const createAzanMessage = (companyName: string, prayerName: string) => {
+    return `It's ${prayerName} azan time at your ${companyName}. Get ready for salah.`;
+}
+
+const createIqamaTitle = (companyName: string, prayerName: string) => {
+    return `${prayerName} iqama at ${companyName}`;
+}
+
+const createIqamaMessage = (companyName: string, prayerName: string) => {
+    return `${prayerName} jamat is starting at ${companyName}.`;
 }
 
 const scheduleNotification = (notifications: ScheduleNotification[]): void => {
