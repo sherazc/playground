@@ -68,47 +68,75 @@ const resetNotifications = (companyData: CompanyData) => {
     */
 }
 
-const setupPrayerNotification = (company: (Company | undefined), now: Date, setting: SettingData, prayer: Prayer) => {
-    if (setting.azanAlert) {
-        setupAzanAlert(company, now, prayer);
-    }
-}
 
-const scheduleNotification = (notifications: ScheduleNotification[]): void => {
-    if (!notifications || notifications.length < 1) {
+
+const setupPrayerNotification = (company: (Company | undefined), now: Date, setting: SettingData, prayer: Prayer) => {
+    if (!prayer || !prayer.date) {
+        console.log("Not setting up alerts. Prayer not found.")
         return;
     }
+    const notifications = [] as ScheduleNotification[];
+    const companyName = getCompanyName(company);
 
-    notifications
-        .filter(n => n.date && isNotBlankString(n.message) && isNotBlankString(n.title))
-        .forEach(n =>
-            PushNotification.localNotificationSchedule({
-                title: n.title,
-                message: n.message,
-                date: n.date,
-                allowWhileIdle: false
-            })
-        );
+    let title: string;
+    let message: string;
+    let notification: (ScheduleNotification | undefined);
+    if (setting.azanAlert) {
+        // Fajr
+        title = createAzanTitle(companyName, Constants.PRAYER_NAME[0]);
+        message = createAzanMessage(companyName, Constants.PRAYER_NAME[0]);
+        notification = createNotification(title, message, now, prayer.date, prayer.fajr);
+        if (notification) notifications.push(notification);
+
+        // Duhar
+        title = createAzanTitle(companyName, Constants.PRAYER_NAME[1]);
+        message = createAzanMessage(companyName, Constants.PRAYER_NAME[1]);
+        notification = createNotification(title, message, now, prayer.date, prayer.dhuhr);
+        if (notification) notifications.push(notification);
+
+        // Asr
+        title = createAzanTitle(companyName, Constants.PRAYER_NAME[2]);
+        message = createAzanMessage(companyName, Constants.PRAYER_NAME[2]);
+        notification = createNotification(title, message, now, prayer.date, prayer.asr);
+        if (notification) notifications.push(notification);
+
+        // Maghrib
+        title = createAzanTitle(companyName, Constants.PRAYER_NAME[3]);
+        message = createAzanMessage(companyName, Constants.PRAYER_NAME[3]);
+        notification = createNotification(title, message, now, prayer.date, prayer.maghrib);
+        if (notification) notifications.push(notification);
+
+        // Isha
+        title = createAzanTitle(companyName, Constants.PRAYER_NAME[3]);
+        message = createAzanMessage(companyName, Constants.PRAYER_NAME[3]);
+        notification = createNotification(title, message, now, prayer.date, prayer.maghrib);
+        if (notification) notifications.push(notification);
+    }
+
+    scheduleNotification(notifications);
+
 }
 
-
+// @Depricated
 const setupAzanAlert = (company: (Company | undefined), now: Date, prayer: Prayer) => {
+
     if (!prayer || !prayer.date) {
         console.log("Not setting up azan alerts. Prayer not found.")
         return;
     }
 
     const notifications = [] as ScheduleNotification[];
-    addAzanNotification(company, notifications, now, prayer.date, Constants.PRAYER_NAME[0], prayer.fajr);
-    addAzanNotification(company, notifications, now, prayer.date, Constants.PRAYER_NAME[1], prayer.dhuhr);
-    addAzanNotification(company, notifications, now, prayer.date, Constants.PRAYER_NAME[2], prayer.asr);
-    addAzanNotification(company, notifications, now, prayer.date, Constants.PRAYER_NAME[3], prayer.maghrib);
-    addAzanNotification(company, notifications, now, prayer.date, Constants.PRAYER_NAME[4], prayer.isha);
+    addNotification(company, notifications, now, prayer.date, Constants.PRAYER_NAME[0], prayer.fajr);
+    addNotification(company, notifications, now, prayer.date, Constants.PRAYER_NAME[1], prayer.dhuhr);
+    addNotification(company, notifications, now, prayer.date, Constants.PRAYER_NAME[2], prayer.asr);
+    addNotification(company, notifications, now, prayer.date, Constants.PRAYER_NAME[3], prayer.maghrib);
+    addNotification(company, notifications, now, prayer.date, Constants.PRAYER_NAME[4], prayer.isha);
 
     scheduleNotification(notifications);
 }
 
-const addAzanNotification = (company: (Company | undefined), notifications: ScheduleNotification[], now: Date, prayerDate: Date, name: string, time: string) => {
+// @Depricated
+const addNotification = (company: (Company | undefined), notifications: ScheduleNotification[], now: Date, prayerDate: Date, name: string, time: string) => {
     if (!TIME_24_REGX.test(time)) {
         return;
     }
@@ -129,6 +157,53 @@ const addAzanNotification = (company: (Company | undefined), notifications: Sche
     }
 }
 
+const createNotification = (title: string, message: string, now: Date, prayerDate: Date, time: string):(ScheduleNotification | undefined) => {
+    if (!TIME_24_REGX.test(time)) {
+        return;
+    }
+
+    const timeSplit = time.split(':');
+    const nowYear = now.getUTCFullYear();
+    const year = nowYear > prayerDate.getUTCFullYear() ? nowYear + 1 : nowYear;
+    const scheduleDate = new Date(year, prayerDate.getUTCMonth(), prayerDate.getUTCDate(),
+        +timeSplit[0], +timeSplit[1], 0, 0);
+
+    let notification: (ScheduleNotification | undefined);
+    if (scheduleDate.getTime() > utcToLocalDate(now).getTime()) {
+        notification = {date: scheduleDate, title,message};
+    }
+
+    return notification;
+}
+
+const createAzanMessage = (companyName: string, prayerName: string) => {
+    return `It's ${prayerName} azan time at ${companyName}`;
+}
+
+const createAzanTitle = (companyName: string, prayerName: string) => {
+    return `${prayerName} at ${companyName}`;
+}
+
+const scheduleNotification = (notifications: ScheduleNotification[]): void => {
+    if (!notifications || notifications.length < 1) {
+        return;
+    }
+
+    notifications
+        .filter(n => n)
+        .filter(n => n.date && isNotBlankString(n.message) && isNotBlankString(n.title))
+        .forEach(n =>
+            PushNotification.localNotificationSchedule({
+                title: n.title,
+                message: n.message,
+                date: n.date,
+                allowWhileIdle: false
+            })
+        );
+}
+
+
+
 
 const getCompanyName = (company: (Company | undefined)): string => {
     return company && company.name ? company.name : "";
@@ -136,6 +211,9 @@ const getCompanyName = (company: (Company | undefined)): string => {
 
 /*
 Test cases
+getUpcommingPrayers(now, companyData.prayersYear?.prayersMonths, 10)[0].date.toISOString()
+getUpcommingPrayers(now, companyData.prayersYear?.prayersMonths, 10)[9].date.toISOString()
+
 getUpcommingPrayers(new Date(2020, 0, 1, 0, 0, 0, 0), companyData.prayersYear?.prayersMonths, 10);
 getUpcommingPrayers(new Date(2020, 0, 1, 23, 59, 0, 0), companyData.prayersYear?.prayersMonths, 10);
 
@@ -159,7 +237,7 @@ const getUpcommingPrayers = (now: Date, pryerMonths: PrayersMonth[], daysCount: 
     const dayOfYear = dayOfTheYear(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
     return Array(daysCount)
         .fill(0)
-        .map((_, i) => (i + dayOfYear) % 366)
+        .map((_, i) => Math.abs((i + dayOfYear - 1) % 366))
         .map(i => allPrayers[i]);
 }
 
