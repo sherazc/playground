@@ -118,6 +118,20 @@ export const addMinutes = (date: (Date | undefined), minutes?: number) => {
     return calculatedDate;
 }
 
+export const addMinutesToTime = (time: string, minutes: number):(string | undefined) => {
+    if (!TIME_24_REGX.test(time)) {
+        return;
+    }
+
+    const timeSplit = time.split(':');
+    const date = createZeroTimeDate(new Date());
+    date.setHours(+timeSplit[0]);
+    date.setMinutes(+timeSplit[1]);
+    const updatedDate = addMinutes(date, minutes);
+    return updatedDate?.toISOString().substring(14, 19);
+
+}
+
 export const millisDurationToTimeString = (duration?: number) => {
     if (duration === null
         || duration === undefined || duration < 0) {

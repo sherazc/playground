@@ -1,5 +1,5 @@
 import { Company, CompanyData, SettingData, PrayersMonth, Prayer, ScheduleNotification } from '../types/types';
-import { nowUtcDate, dayOfTheYear, TIME_24_REGX, utcToLocalDate } from './DateService';
+import { nowUtcDate, dayOfTheYear, TIME_24_REGX, utcToLocalDate, addMinutesToTime } from './DateService';
 import store from '../store/rootReducer';
 import PushNotification from "react-native-push-notification";
 import { Constants } from './Constants';
@@ -81,6 +81,8 @@ const setupPrayerNotification = (company: (Company | undefined), now: Date, sett
     let title: string;
     let message: string;
     let notification: (ScheduleNotification | undefined);
+
+    // AZAN
     if (setting.azanAlert) {
         // Fajr
         title = createAzanTitle(companyName, Constants.PRAYER_NAME[0]);
@@ -113,6 +115,7 @@ const setupPrayerNotification = (company: (Company | undefined), now: Date, sett
         if (notification) notifications.push(notification);
     }
 
+    // IQAMA
     if (setting.iqamaAlert) {
         // Fajr Iqama
         title = createIqamaTitle(companyName, Constants.PRAYER_NAME[0]);
@@ -145,53 +148,51 @@ const setupPrayerNotification = (company: (Company | undefined), now: Date, sett
         if (notification) notifications.push(notification);
     }
 
+    // BEFORE IQAMA
+    let time;
 
+    if (setting.iqamaAlert) {
+        // Fajr Before Iqama
+        title = createIqamaTitle(companyName, Constants.PRAYER_NAME[0]);
+        message = createIqamaMessage(companyName, Constants.PRAYER_NAME[0]);
+        time = addMinutesToTime(prayer.fajrIqama, -Constants.PRAYER_ABOUT_TO_START_MIN)
+        notification = time ? createNotification(title, message, now, prayer.date, time) : undefined;
+        if (notification) notifications.push(notification);
+
+        // Duhar Before Iqama
+        title = createIqamaTitle(companyName, Constants.PRAYER_NAME[1]);
+        message = createIqamaMessage(companyName, Constants.PRAYER_NAME[1]);
+        time = addMinutesToTime(prayer.dhuhrIqama, -Constants.PRAYER_ABOUT_TO_START_MIN)
+        notification = time ? createNotification(title, message, now, prayer.date, time) : undefined;
+        if (notification) notifications.push(notification);
+
+        // Asr Before Iqama
+        title = createIqamaTitle(companyName, Constants.PRAYER_NAME[2]);
+        message = createIqamaMessage(companyName, Constants.PRAYER_NAME[2]);
+        time = addMinutesToTime(prayer.asrIqama, -Constants.PRAYER_ABOUT_TO_START_MIN)
+        notification = time ? createNotification(title, message, now, prayer.date, time) : undefined;
+        if (notification) notifications.push(notification);
+
+        // Maghrib Before Iqama
+        title = createIqamaTitle(companyName, Constants.PRAYER_NAME[3]);
+        message = createIqamaMessage(companyName, Constants.PRAYER_NAME[3]);
+        time = addMinutesToTime(prayer.maghrib, -Constants.PRAYER_ABOUT_TO_START_MIN)
+        notification = time ? createNotification(title, message, now, prayer.date, time) : undefined;
+        if (notification) notifications.push(notification);
+
+        // Isha Before Iqama
+        title = createIqamaTitle(companyName, Constants.PRAYER_NAME[3]);
+        message = createIqamaMessage(companyName, Constants.PRAYER_NAME[3]);
+        time = addMinutesToTime(prayer.maghribIqama, -Constants.PRAYER_ABOUT_TO_START_MIN)
+        notification = time ? createNotification(title, message, now, prayer.date, time) : undefined;
+        if (notification) notifications.push(notification);
+    }
 
     scheduleNotification(notifications);
-
 }
 
-// @Depricated
-const setupAzanAlert = (company: (Company | undefined), now: Date, prayer: Prayer) => {
 
-    if (!prayer || !prayer.date) {
-        console.log("Not setting up azan alerts. Prayer not found.")
-        return;
-    }
-
-    const notifications = [] as ScheduleNotification[];
-    addNotification(company, notifications, now, prayer.date, Constants.PRAYER_NAME[0], prayer.fajr);
-    addNotification(company, notifications, now, prayer.date, Constants.PRAYER_NAME[1], prayer.dhuhr);
-    addNotification(company, notifications, now, prayer.date, Constants.PRAYER_NAME[2], prayer.asr);
-    addNotification(company, notifications, now, prayer.date, Constants.PRAYER_NAME[3], prayer.maghrib);
-    addNotification(company, notifications, now, prayer.date, Constants.PRAYER_NAME[4], prayer.isha);
-
-    scheduleNotification(notifications);
-}
-
-// @Depricated
-const addNotification = (company: (Company | undefined), notifications: ScheduleNotification[], now: Date, prayerDate: Date, name: string, time: string) => {
-    if (!TIME_24_REGX.test(time)) {
-        return;
-    }
-
-    const timeSplit = time.split(':');
-    const nowYear = now.getUTCFullYear();
-    const year = nowYear > prayerDate.getUTCFullYear() ? nowYear + 1 : nowYear;
-    const scheduleDate = new Date(year, prayerDate.getUTCMonth(), prayerDate.getUTCDate(),
-        +timeSplit[0], +timeSplit[1], 0, 0);
-
-    if (scheduleDate.getTime() > utcToLocalDate(now).getTime()) {
-        const companyName = getCompanyName(company);
-        notifications.push({
-            date: scheduleDate,
-            title: `${name} at ${companyName}`,
-            message: `It's ${name} azan time at ${companyName}`
-        });
-    }
-}
-
-const createNotification = (title: string, message: string, now: Date, prayerDate: Date, time: string):(ScheduleNotification | undefined) => {
+const createNotification = (title: string, message: string, now: Date, prayerDate: Date, time: string): (ScheduleNotification | undefined) => {
     if (!TIME_24_REGX.test(time)) {
         return;
     }
@@ -204,7 +205,7 @@ const createNotification = (title: string, message: string, now: Date, prayerDat
 
     let notification: (ScheduleNotification | undefined);
     if (scheduleDate.getTime() > utcToLocalDate(now).getTime()) {
-        notification = {date: scheduleDate, title,message};
+        notification = { date: scheduleDate, title, message };
     }
 
     return notification;
@@ -225,6 +226,15 @@ const createIqamaTitle = (companyName: string, prayerName: string) => {
 const createIqamaMessage = (companyName: string, prayerName: string) => {
     return `${prayerName} jamat is starting at ${companyName}.`;
 }
+
+const createBeforeIqamaTitle = (companyName: string, prayerName: string) => {
+    return `${prayerName} iqama at ${companyName}`;
+}
+
+const createBeforeIqamaMessage = (companyName: string, prayerName: string) => {
+    return `${prayerName} jamat is starting at ${companyName}.`;
+}
+
 
 const scheduleNotification = (notifications: ScheduleNotification[]): void => {
     if (!notifications || notifications.length < 1) {
