@@ -1,7 +1,5 @@
 package eg02
 
-import java.lang.NullPointerException
-
 fun main(args: Array<String>) {
     val a:String? = null
     val b = a?.length; // Find length if a is not null

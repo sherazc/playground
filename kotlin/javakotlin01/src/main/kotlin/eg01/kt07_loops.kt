@@ -1,13 +1,9 @@
-import java.util.Random
-
 fun main(args: Array<String>) {
     // For loop
     for (i in 1..10) {
         print(i)
     }
     println()
-
-
 
     for (i in 1..10) {
         if (i < 4) {

@@ -1,7 +1,5 @@
 package eg02
 
-import java.lang.Exception
-
 fun main(args: Array<String>) {
     try {
         val a = 3 / 0;
@@ -9,4 +7,3 @@ fun main(args: Array<String>) {
         e.printStackTrace();
     }
 }
-

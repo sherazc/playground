@@ -10,5 +10,4 @@ fun main(args: Array<String>) {
     val grade = 'A';
 
     println("grade is Char ${grade is Char}")
-
 }

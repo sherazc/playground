@@ -18,6 +18,4 @@ fName substring from 2 to 5 = ${fName.subSequence(2, 5)}
 """
 
     println(multiLineString)
-
-
 }
