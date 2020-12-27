@@ -1,4 +1,4 @@
-package eg02
+package eg01_basic_language
 
 @Throws(MyException::class)
 fun main(args: Array<String>){

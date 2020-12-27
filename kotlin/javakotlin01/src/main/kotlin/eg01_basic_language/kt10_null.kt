@@ -1,4 +1,4 @@
-package eg02
+package eg01_basic_language
 
 fun main(args: Array<String>) {
     val a:String? = null
