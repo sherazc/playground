@@ -142,8 +142,8 @@ const setupPrayerNotification = (company: (Company | undefined), now: Date, sett
         if (notification) notifications.push(notification);
 
         // Isha Iqama
-        title = createIqamaTitle(companyName, Constants.PRAYER_NAME[3]);
-        message = createIqamaMessage(companyName, Constants.PRAYER_NAME[3]);
+        title = createIqamaTitle(companyName, Constants.PRAYER_NAME[4]);
+        message = createIqamaMessage(companyName, Constants.PRAYER_NAME[4]);
         notification = createNotification(title, message, now, prayer.date, prayer.maghribIqama);
         if (notification) notifications.push(notification);
     }
@@ -153,36 +153,36 @@ const setupPrayerNotification = (company: (Company | undefined), now: Date, sett
 
     if (setting.iqamaAlert) {
         // Fajr Before Iqama
-        title = createIqamaTitle(companyName, Constants.PRAYER_NAME[0]);
-        message = createIqamaMessage(companyName, Constants.PRAYER_NAME[0]);
+        title = createBeforeIqamaTitle(companyName, Constants.PRAYER_NAME[0]);
+        message = createBeforeIqamaMessage(companyName, Constants.PRAYER_NAME[0]);
         time = addMinutesToTime(prayer.fajrIqama, -Constants.PRAYER_ABOUT_TO_START_MIN)
         notification = time ? createNotification(title, message, now, prayer.date, time) : undefined;
         if (notification) notifications.push(notification);
 
         // Duhar Before Iqama
-        title = createIqamaTitle(companyName, Constants.PRAYER_NAME[1]);
-        message = createIqamaMessage(companyName, Constants.PRAYER_NAME[1]);
+        title = createBeforeIqamaTitle(companyName, Constants.PRAYER_NAME[1]);
+        message = createBeforeIqamaMessage(companyName, Constants.PRAYER_NAME[1]);
         time = addMinutesToTime(prayer.dhuhrIqama, -Constants.PRAYER_ABOUT_TO_START_MIN)
         notification = time ? createNotification(title, message, now, prayer.date, time) : undefined;
         if (notification) notifications.push(notification);
 
         // Asr Before Iqama
-        title = createIqamaTitle(companyName, Constants.PRAYER_NAME[2]);
-        message = createIqamaMessage(companyName, Constants.PRAYER_NAME[2]);
+        title = createBeforeIqamaTitle(companyName, Constants.PRAYER_NAME[2]);
+        message = createBeforeIqamaMessage(companyName, Constants.PRAYER_NAME[2]);
         time = addMinutesToTime(prayer.asrIqama, -Constants.PRAYER_ABOUT_TO_START_MIN)
         notification = time ? createNotification(title, message, now, prayer.date, time) : undefined;
         if (notification) notifications.push(notification);
 
         // Maghrib Before Iqama
-        title = createIqamaTitle(companyName, Constants.PRAYER_NAME[3]);
-        message = createIqamaMessage(companyName, Constants.PRAYER_NAME[3]);
+        title = createBeforeIqamaTitle(companyName, Constants.PRAYER_NAME[3]);
+        message = createBeforeIqamaMessage(companyName, Constants.PRAYER_NAME[3]);
         time = addMinutesToTime(prayer.maghrib, -Constants.PRAYER_ABOUT_TO_START_MIN)
         notification = time ? createNotification(title, message, now, prayer.date, time) : undefined;
         if (notification) notifications.push(notification);
 
         // Isha Before Iqama
-        title = createIqamaTitle(companyName, Constants.PRAYER_NAME[3]);
-        message = createIqamaMessage(companyName, Constants.PRAYER_NAME[3]);
+        title = createIqamaTitle(companyName, Constants.PRAYER_NAME[4]);
+        message = createIqamaMessage(companyName, Constants.PRAYER_NAME[4]);
         time = addMinutesToTime(prayer.maghribIqama, -Constants.PRAYER_ABOUT_TO_START_MIN)
         notification = time ? createNotification(title, message, now, prayer.date, time) : undefined;
         if (notification) notifications.push(notification);
@@ -224,15 +224,15 @@ const createIqamaTitle = (companyName: string, prayerName: string) => {
 }
 
 const createIqamaMessage = (companyName: string, prayerName: string) => {
-    return `${prayerName} jamat is starting at ${companyName}.`;
+    return `${prayerName} jamah is starting at ${companyName}.`;
 }
 
 const createBeforeIqamaTitle = (companyName: string, prayerName: string) => {
-    return `${prayerName} iqama at ${companyName}`;
+    return `${Constants.PRAYER_ABOUT_TO_START_MIN} mins - ${prayerName} iqama at ${companyName}`;
 }
 
 const createBeforeIqamaMessage = (companyName: string, prayerName: string) => {
-    return `${prayerName} jamat is starting at ${companyName}.`;
+    return `${prayerName} jamah is about to stand in ${Constants.PRAYER_ABOUT_TO_START_MIN} minutes at ${companyName}.`;
 }
 
 
