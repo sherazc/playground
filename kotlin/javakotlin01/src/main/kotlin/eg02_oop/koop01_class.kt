@@ -52,7 +52,3 @@ fun main(args: Array<String>) {
     val obj = SecondaryConstructorCallPrimary(10, 20)
     println("SecondaryConstructorCallPrimary.b = ${obj.b}")
 }
-
-
-
-
