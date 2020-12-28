@@ -12,6 +12,11 @@ import org.springframework.context.annotation.Bean
 @SpringBootApplication
 class Application {
 
+    // Single line function that create function interface object
+    // This syntax create function "init"
+    // Dependency inject employeeRepository in it
+    // Create instance of CommandLineRunner in its run() implementation create employees
+    // returns CommandLineRunner as spring bean
     @Bean
     fun init(employeeRepository: EmployeeRepository) = CommandLineRunner {
         employeeRepository.save(Employee(100, "E1"))
