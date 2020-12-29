@@ -1,4 +1,4 @@
-fun main(args: Array<String>) {
+fun main() {
     // For loop
     for (i in 1..10) {
         print(i)

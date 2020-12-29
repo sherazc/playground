@@ -1,4 +1,4 @@
-fun main(args: Array<String>) {
+fun main() {
     var printSpace = {it: Any -> print("$it ")};
 
     var nums = 1..10;

@@ -4,7 +4,7 @@ fun a.test() {
     println("Testing")
 }
 
-fun main(args: Array<String>) {
+fun main() {
     val nums = 1..10
 
     val t = a();

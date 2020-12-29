@@ -1,4 +1,4 @@
-fun main(args: Array<String>) {
+fun main() {
     val age = 14;
 
     val ageIsInt = age is Int

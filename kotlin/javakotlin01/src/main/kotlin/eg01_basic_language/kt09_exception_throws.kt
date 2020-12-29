@@ -1,7 +1,7 @@
 package eg01_basic_language
 
 @Throws(MyException::class)
-fun main(args: Array<String>){
+fun main(){
     try {
         val a = 3 / 0
     } catch (e: ArithmeticException) {

@@ -1,6 +1,6 @@
 package eg01_basic_language
 
-fun main(args: Array<String>) {
+fun main() {
     // it. For single argument lambda, "it" can be used and not specify variable name
     fun calculate1(a: Int, b: (Int) -> Int) = println("calculate1 = ${b(a)}")
     calculate1(2) { i -> i * 2 }

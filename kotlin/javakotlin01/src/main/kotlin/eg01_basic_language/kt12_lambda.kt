@@ -2,7 +2,7 @@ package eg01_basic_language
 
 import java.util.*
 
-fun main(args: Array<String>) {
+fun main() {
     // Defining lambdas
     val sumA: (Int, Int) -> Int = {a: Int, b: Int ->
         // Multi line lambda body

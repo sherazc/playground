@@ -1,4 +1,4 @@
-fun main(args: Array<String>) {
+fun main() {
 
     val fName: String = "Sheraz"
     var lName = "Chaudhry"

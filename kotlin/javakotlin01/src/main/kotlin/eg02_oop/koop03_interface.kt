@@ -28,7 +28,7 @@ class D: A, B, C {
     }
 }
 
-fun main(args: Array<String>) {
+fun main() {
     val x = D();
     x.a1()
     x.a2()

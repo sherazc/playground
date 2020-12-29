@@ -33,7 +33,7 @@ class Person {
         }
 }
 
-fun main(args: Array<String>) {
+fun main() {
     val p = Person()
     // Setter and getter are called because of below assignment and statement
     p.customGetterSetterWithBody = 50

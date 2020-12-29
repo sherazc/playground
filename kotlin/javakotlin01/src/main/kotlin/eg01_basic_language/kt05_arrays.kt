@@ -1,4 +1,4 @@
-fun main(args: Array<String>) {
+fun main() {
     // Creating Array. Any type Array
     var array1 = arrayOf(1, 1.23, "Sheraz", 'A')
 
