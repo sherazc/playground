@@ -22,14 +22,17 @@ fun main() {
     2.rangeTo(20).step(2).reversed().forEach(printSpace)
 
     println("\n==================")
+    for(i in 1 until 10) {
+        printSpace(i)
+    }
 
-    var age = 22
-    // when is like "if".
-    // It's is used to compare single value, list of comma separated values, or ranges
-    when(age) {
-        13 -> print("You just became teenager")
-        22,33,44 -> println("You are an adult");
-        in 1..5 -> println("You are a child")
-        else -> println("I don't know your age")
+    println("\n==================")
+    for(i in 1 until 10 step 2) {
+        printSpace(i)
+    }
+
+    println("\n==================")
+    for(i in 10 downTo 1 step 2) {
+        printSpace(i)
     }
 }
