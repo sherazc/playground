@@ -151,7 +151,7 @@ const setupPrayerNotification = (company: (Company | undefined), now: Date, sett
     // BEFORE IQAMA
     let time;
 
-    if (setting.iqamaAlert) {
+    if (setting.beforeIqamaAlert) {
         // Fajr Before Iqama
         title = createBeforeIqamaTitle(companyName, Constants.PRAYER_NAME[0]);
         message = createBeforeIqamaMessage(companyName, Constants.PRAYER_NAME[0]);

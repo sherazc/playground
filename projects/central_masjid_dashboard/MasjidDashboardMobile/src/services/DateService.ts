@@ -114,7 +114,7 @@ export const addMinutes = (date: (Date | undefined), minutes?: number) => {
         return;
     }
     const calculatedDate = new Date(date.getTime());
-    calculatedDate.setMinutes(date.getUTCMinutes() + minutes);
+    calculatedDate.setUTCMinutes(date.getUTCMinutes() + minutes);
     return calculatedDate;
 }
 
@@ -124,12 +124,9 @@ export const addMinutesToTime = (time: string, minutes: number):(string | undefi
     }
 
     const timeSplit = time.split(':');
-    const date = createZeroTimeDate(new Date());
-    date.setHours(+timeSplit[0]);
-    date.setMinutes(+timeSplit[1]);
+    const date = new Date(2020, 0, 1, +timeSplit[0], +timeSplit[1], 0, 0);
     const updatedDate = addMinutes(date, minutes);
-    return updatedDate?.toISOString().substring(14, 19);
-
+    return updatedDate?.toTimeString().substring(0, 5);
 }
 
 export const millisDurationToTimeString = (duration?: number) => {
