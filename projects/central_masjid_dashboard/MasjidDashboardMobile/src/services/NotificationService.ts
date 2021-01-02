@@ -1,5 +1,5 @@
 import { Company, CompanyData, SettingData, PrayersMonth, Prayer, ScheduleNotification } from '../types/types';
-import { nowUtcDate, dayOfTheYear, TIME_24_REGX, utcToLocalDate, addMinutesToTime } from './DateService';
+import { nowUtcDate, dayOfTheYear, TIME_24_REGX, utcToLocalDate, addMinutesToTime, createExpirationDate } from './DateService';
 import store from '../store/rootReducer';
 import PushNotification from "react-native-push-notification";
 import { Constants } from './Constants';
@@ -8,28 +8,29 @@ import { isNotBlankString } from './Utilities';
 
 // TODO: find proper way to call it. Once if not expired.
 export default function setupNotifications(companyId: string) {
-    if (isNotificationAlreadySet(companyId)) {
+    const companyData = store.getState().companyData;
+    if (isNotificationAlreadySet(companyId, companyData)) {
         console.log(`Not setting up notification. Notification already set for company ${companyId}.`);
         return
     }
 
-    startNotificaitonsSetInterval(companyId);
+    startNotificaitonsTimeout(companyId, companyData);
 }
 
-const startNotificaitonsSetInterval = (companyId: string) => {
-    const resetNotificationInterval = setInterval(() => {
-        const companyData = store.getState().companyData;
-
+const startNotificaitonsTimeout = (companyId: string, companyData: CompanyData) => {
+    setTimeout(() => {
         if (!isValidCompanyDataAvailable(companyId, companyData)) {
             console.log(`Not setting up notification. Valid company data not available.`);
             return
         }
 
         resetNotifications(companyData);
-        // TODO update notification expiration
-        // TODO update companyId in companyData.notification
-        // TODO update companyData in store
-        clearInterval(resetNotificationInterval);
+        companyData.companyNotificaiton = {
+            companyId,
+            expirationMillis: createExpirationDate().getTime()
+        }
+
+        store.dispatch({type: "COMPANY_DATA_SET", payload: companyData})
     }, 2000);
 }
 
@@ -60,11 +61,11 @@ const resetNotifications = (companyData: CompanyData) => {
 
     ✅ find next 10 upcomming days prayers
 
-    build notification from prayer array
+    ✅ build notification from prayer array
 
-    schedule notifications
+    ✅ schedule notifications
 
-    update notificaitions expiration time
+    ✅ update notificaitions expiration time
     */
 }
 
@@ -315,8 +316,8 @@ const removeAllExisitngNotificaitons = () => {
     });
 }
 
-const isNotificationAlreadySet = (companyId: string): boolean => {
-    const companyNotification = store.getState().companyData.companyNotificaiton;
+const isNotificationAlreadySet = (companyId: string, companyData: CompanyData): boolean => {
+    const companyNotification = companyData.companyNotificaiton;
     if (companyNotification === undefined) {
         return false;
     }
