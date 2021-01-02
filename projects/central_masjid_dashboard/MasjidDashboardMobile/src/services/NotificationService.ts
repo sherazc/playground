@@ -81,6 +81,7 @@ const setupPrayerNotification = (company: (Company | undefined), now: Date, sett
     let title: string;
     let message: string;
     let notification: (ScheduleNotification | undefined);
+    let time;
 
     // AZAN
     if (setting.azanAlert) {
@@ -138,8 +139,11 @@ const setupPrayerNotification = (company: (Company | undefined), now: Date, sett
         // Maghrib Iqama
         title = createIqamaTitle(companyName, Constants.PRAYER_NAME[3]);
         message = createIqamaMessage(companyName, Constants.PRAYER_NAME[3]);
-        notification = createNotification(title, message, now, prayer.date, prayer.maghribIqama);
-        if (notification) notifications.push(notification);
+        time = addMinutesToTime(prayer.maghrib, 3);
+        if (time) {
+            notification = createNotification(title, message, now, prayer.date, time);
+            if (notification) notifications.push(notification);
+        }
 
         // Isha Iqama
         title = createIqamaTitle(companyName, Constants.PRAYER_NAME[4]);
@@ -149,7 +153,7 @@ const setupPrayerNotification = (company: (Company | undefined), now: Date, sett
     }
 
     // BEFORE IQAMA
-    let time;
+
 
     if (setting.beforeIqamaAlert) {
         // Fajr Before Iqama
@@ -183,7 +187,7 @@ const setupPrayerNotification = (company: (Company | undefined), now: Date, sett
         // Isha Before Iqama
         title = createIqamaTitle(companyName, Constants.PRAYER_NAME[4]);
         message = createIqamaMessage(companyName, Constants.PRAYER_NAME[4]);
-        time = addMinutesToTime(prayer.maghribIqama, -Constants.PRAYER_ABOUT_TO_START_MIN)
+        time = addMinutesToTime(prayer.ishaIqama, -Constants.PRAYER_ABOUT_TO_START_MIN)
         notification = time ? createNotification(title, message, now, prayer.date, time) : undefined;
         if (notification) notifications.push(notification);
     }
