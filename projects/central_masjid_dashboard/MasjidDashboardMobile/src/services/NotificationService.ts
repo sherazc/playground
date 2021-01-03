@@ -1,37 +1,55 @@
-import { Company, CompanyData, SettingData, PrayersMonth, Prayer, ScheduleNotification } from '../types/types';
+import { Company, CompanyData, SettingData, PrayersMonth, Prayer, ScheduleNotification, CompanyNotification } from '../types/types';
 import { nowUtcDate, dayOfTheYear, TIME_24_REGX, utcToLocalDate, addMinutesToTime, createExpirationDate } from './DateService';
 import store from '../store/rootReducer';
 import PushNotification from "react-native-push-notification";
 import { Constants } from './Constants';
 import { isNotBlankString } from './Utilities';
 
-
 // TODO: find proper way to call it. Once if not expired.
-export default function setupNotifications(companyId: string) {
-    const companyData = store.getState().companyData;
-    if (isNotificationAlreadySet(companyId, companyData)) {
+export default function setupNotifications(companyId: string, forceUpdate: boolean) {
+
+    if (!forceUpdate && isNotificationAlreadySet(companyId)) {
         console.log(`Not setting up notification. Notification already set for company ${companyId}.`);
         return
     }
 
-    startNotificaitonsTimeout(companyId, companyData);
+    startNotificaitonsSetInterval(companyId);
 }
 
-const startNotificaitonsTimeout = (companyId: string, companyData: CompanyData) => {
-    setTimeout(() => {
-        if (!isValidCompanyDataAvailable(companyId, companyData)) {
-            console.log(`Not setting up notification. Valid company data not available.`);
-            return
-        }
+const startNotificaitonsSetInterval = (companyId: string) => {
 
-        resetNotifications(companyData);
-        companyData.companyNotificaiton = {
-            companyId,
-            expirationMillis: createExpirationDate().getTime()
-        }
+    const notificaitonPromise = new Promise<CompanyData>((resolve, reject) => {
+        const resetNotificationInterval = setInterval(() => {
+            // Getting latest companyData from the store becasue
+            // stale companyData prayer and prayerMonths state is not updated and
+            // is ending up in endless loop.
+            const companyData = store.getState().companyData;
+            if (!isValidCompanyDataAvailable(companyId, companyData)) {
+                console.log(`Not setting up notification. Valid company data not available.`);
+                return
+            }
 
-        store.dispatch({type: "COMPANY_DATA_SET", payload: companyData})
-    }, 2000);
+            resetNotifications(companyData);
+
+            resolve(companyData);
+            clearInterval(resetNotificationInterval);
+        }, 2000);
+    });
+
+    notificaitonPromise.then((companyData: CompanyData) => updateNotificationExpiration(companyData))
+}
+
+const updateNotificationExpiration = (companyData: CompanyData) => {
+    console.log(`Company notifications set for ${companyData.companyNotificaiton}`)
+
+    const companyNotification:CompanyNotification = {
+        companyId: companyData.company ? companyData.company.id : "",
+        expirationMillis: createExpirationDate().getTime()
+    };
+
+    companyData.companyNotificaiton = companyNotification;
+
+    store.dispatch({ type: "COMPANY_DATA_SET", payload: companyData });
 }
 
 const resetNotifications = (companyData: CompanyData) => {
@@ -45,12 +63,14 @@ const resetNotifications = (companyData: CompanyData) => {
 
     const now = nowUtcDate();
 
-    // @ts-ignore
-    const prayers = getUpcommingPrayers(now, companyData.prayersYear?.prayersMonths, 10);  // TODO: Move this number to Constant.ts
+    if (companyData.prayersYear && companyData.prayersYear.prayersMonths) {
+        const prayers = getUpcommingPrayers(now, companyData.prayersYear?.prayersMonths, 10);  // TODO: Move this number to Constant.ts
 
-    // console.log(prayers)
+        // console.log(prayers)
 
-    prayers.forEach(p => setupPrayerNotification(companyData.company, now, setting, p));
+        prayers.forEach(p => setupPrayerNotification(companyData.company, now, setting, p));
+    }
+
 
 
     /*
@@ -316,7 +336,11 @@ const removeAllExisitngNotificaitons = () => {
     });
 }
 
-const isNotificationAlreadySet = (companyId: string, companyData: CompanyData): boolean => {
+const isNotificationAlreadySet = (companyId: string): boolean => {
+    // Getting latest companyData from the store becasue
+    // stale companyData notification state is not updated and
+    // is ending up in endless loop.
+    const companyData = store.getState().companyData;
     const companyNotification = companyData.companyNotificaiton;
     if (companyNotification === undefined) {
         return false;

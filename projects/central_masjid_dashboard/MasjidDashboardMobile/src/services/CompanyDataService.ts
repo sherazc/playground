@@ -151,7 +151,7 @@ export const updateCompanyData = (companyData: CompanyData, month: string, day: 
         });
         // Setup notifications
         // @ts-ignore
-        setupNotifications(companyData.company.id)
+        setupNotifications(companyData.company.id, false)
 
     } else {
         console.log("Not updating CompanyData. Maybe no Company selected or its still a non expired CompanyData.")
