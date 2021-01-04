@@ -50,7 +50,7 @@ export const processPrayerTime = (prayer: Prayer): PrayerTimeSummary => {
     result.currentPrayerNumber = currentPrayerNumber;
     result.sunriseTime = sunriseTime;
 
-    console.log("processPrayerTime result", result);
+    // console.log("processPrayerTime result", result);
     return result;
 }
 

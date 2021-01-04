@@ -1,4 +1,4 @@
-import { Company, CompanyData, CompanyDataVersion, Configuration, createEmptyCompanyData, Prayer, PrayersMonth, PrayersYear, ServiceResponse } from "../types/types";
+import { Company, CompanyData, CompanyDataVersion, Configuration, createEmptyCompanyData, Prayer, PrayersYear, ServiceResponse } from "../types/types";
 import { createOrRefreshExpirableVersion, isExpired } from "./ExpirableVersionService";
 import store from '../store/rootReducer';
 import { Constants } from './Constants';
@@ -151,7 +151,7 @@ export const updateCompanyData = (companyData: CompanyData, month: string, day: 
         });
         // Setup notifications
         // @ts-ignore
-        setupNotifications(companyData.company.id, false)
+        setupNotifications(companyData.company.id, false);
 
     } else {
         console.log("Not updating CompanyData. Maybe no Company selected or its still a non expired CompanyData.")
