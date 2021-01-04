@@ -4,6 +4,7 @@ import Logo from '../../images/Logo';
 import Underline from '../../images/Underline';
 import { ConstantsStyles } from '../../services/Constants';
 import PushNotification from 'react-native-push-notification';
+import { longRunningTask } from '../../services/DeleteIt';
 
 interface Props {
 }
@@ -11,6 +12,7 @@ interface Props {
 export const Brand: React.FC<Props> = () => {
 
     const showNotification = () => {
+        longRunningTask();
         PushNotification.localNotificationSchedule({
             //... You can use all the options from localNotifications
             message: "My Notification Message now", // (required)

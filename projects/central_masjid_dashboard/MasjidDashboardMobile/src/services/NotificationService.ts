@@ -71,8 +71,6 @@ const resetNotifications = (companyData: CompanyData) => {
         prayers.forEach(p => setupPrayerNotification(companyData.company, now, setting, p));
     }
 
-
-
     /*
 
     TODO:
@@ -174,8 +172,6 @@ const setupPrayerNotification = (company: (Company | undefined), now: Date, sett
     }
 
     // BEFORE IQAMA
-
-
     if (setting.beforeIqamaAlert) {
         // Fajr Before Iqama
         title = createBeforeIqamaTitle(companyName, Constants.PRAYER_NAME[0]);
@@ -206,8 +202,8 @@ const setupPrayerNotification = (company: (Company | undefined), now: Date, sett
         if (notification) notifications.push(notification);
 
         // Isha Before Iqama
-        title = createIqamaTitle(companyName, Constants.PRAYER_NAME[4]);
-        message = createIqamaMessage(companyName, Constants.PRAYER_NAME[4]);
+        title = createBeforeIqamaTitle(companyName, Constants.PRAYER_NAME[4]);
+        message = createBeforeIqamaMessage(companyName, Constants.PRAYER_NAME[4]);
         time = addMinutesToTime(prayer.ishaIqama, -Constants.PRAYER_ABOUT_TO_START_MIN)
         notification = time ? createNotification(title, message, now, prayer.date, time) : undefined;
         if (notification) notifications.push(notification);
