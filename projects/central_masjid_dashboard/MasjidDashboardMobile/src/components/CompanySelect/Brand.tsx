@@ -4,7 +4,7 @@ import Logo from '../../images/Logo';
 import Underline from '../../images/Underline';
 import { ConstantsStyles } from '../../services/Constants';
 import PushNotification from 'react-native-push-notification';
-import { longRunningTask } from '../../services/DeleteIt';
+
 
 interface Props {
 }
@@ -12,12 +12,9 @@ interface Props {
 export const Brand: React.FC<Props> = () => {
 
     const showNotification = () => {
-        longRunningTask();
         PushNotification.localNotificationSchedule({
-            //... You can use all the options from localNotifications
-            message: "My Notification Message now", // (required)
-            date: new Date(Date.now()), // in 60 secs
-            allowWhileIdle: false, // (optional) set notification to work while on doze, default: false
+            message: "My Notification Message now",
+            date: new Date(Date.now()), 
           });
     }
 
