@@ -319,7 +319,7 @@ const isAnyAlertOn = (setting: SettingData): boolean => {
 }
 
 
-const removeAllExisitngNotificaitons = () => {
+export const removeAllExisitngNotificaitons = () => {
     console.log("Removing all previously set notifications.");
     PushNotification.removeAllDeliveredNotifications();
 

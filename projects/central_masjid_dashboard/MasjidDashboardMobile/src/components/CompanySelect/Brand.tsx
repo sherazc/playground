@@ -5,6 +5,7 @@ import Underline from '../../images/Underline';
 import { ConstantsStyles } from '../../services/Constants';
 import PushNotification from 'react-native-push-notification';
 import { longRunningTask } from '../../services/DeleteIt';
+import { removeAllExisitngNotificaitons } from '../../services/NotificationService';
 
 interface Props {
 }
@@ -20,8 +21,15 @@ export const Brand: React.FC<Props> = () => {
             // channelName:
             //... You can use all the options from localNotifications
             message: "My Notification Message now", // (required)
-            date: new Date(Date.now()), // in 60 secs
+            date: new Date(Date.now() + 2000), // in 60 secs
+            id: 10,
+            allowWhileIdle: true
           });
+    }
+
+    const removeNotifications = () => {
+        console.log("Removed Notifications")
+        removeAllExisitngNotificaitons();
     }
 
     return (
@@ -31,6 +39,7 @@ export const Brand: React.FC<Props> = () => {
             <View style={{ marginTop: 20 }}>
                 <Logo width="100" height="100" />
             </View>
+            <Button onPress={removeNotifications} title="Remove Notificaitons"/>
             <Button onPress={showNotification} title="Notification"/>
         </View>
     );
