@@ -12,12 +12,15 @@ interface Props {
 export const Brand: React.FC<Props> = () => {
 
     const showNotification = () => {
-        longRunningTask();
+        // longRunningTask();
+        console.log("Showing sample notification");
+
         PushNotification.localNotificationSchedule({
+            channelId: "masjid_dashbaord_channel",
+            // channelName:
             //... You can use all the options from localNotifications
             message: "My Notification Message now", // (required)
             date: new Date(Date.now()), // in 60 secs
-            allowWhileIdle: false, // (optional) set notification to work while on doze, default: false
           });
     }
 

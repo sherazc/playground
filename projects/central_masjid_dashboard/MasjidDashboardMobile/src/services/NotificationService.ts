@@ -64,7 +64,7 @@ const resetNotifications = (companyData: CompanyData) => {
     const now = nowUtcDate();
 
     if (companyData.prayersYear && companyData.prayersYear.prayersMonths) {
-        const prayers = getUpcommingPrayers(now, companyData.prayersYear?.prayersMonths, 10);  // TODO: Move this number to Constant.ts
+        const prayers = getUpcommingPrayers(now, companyData.prayersYear?.prayersMonths, Constants.NOTIFICATION_SETUP_DAYS);
 
         // console.log(prayers)
 
@@ -131,7 +131,7 @@ const setupPrayerNotification = (company: (Company | undefined), now: Date, sett
         // Isha
         title = createAzanTitle(companyName, Constants.PRAYER_NAME[3]);
         message = createAzanMessage(companyName, Constants.PRAYER_NAME[3]);
-        notification = createNotification(title, message, now, prayer.date, prayer.maghribIqama);
+        notification = createNotification(title, message, now, prayer.date, prayer.isha);
         if (notification) notifications.push(notification);
     }
 
@@ -167,7 +167,7 @@ const setupPrayerNotification = (company: (Company | undefined), now: Date, sett
         // Isha Iqama
         title = createIqamaTitle(companyName, Constants.PRAYER_NAME[4]);
         message = createIqamaMessage(companyName, Constants.PRAYER_NAME[4]);
-        notification = createNotification(title, message, now, prayer.date, prayer.maghribIqama);
+        notification = createNotification(title, message, now, prayer.date, prayer.ishaIqama);
         if (notification) notifications.push(notification);
     }
 
