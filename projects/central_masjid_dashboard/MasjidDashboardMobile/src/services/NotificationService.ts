@@ -109,7 +109,7 @@ const setupPrayerNotification = (company: (Company | undefined), now: Date, sett
         message = createAzanMessage(companyName, Constants.PRAYER_NAME[0]);
         notification = createNotification(title, message, now, prayer.date, prayer.fajr);
         if (notification) notifications.push(notification);
-
+/*
         // Duhar
         title = createAzanTitle(companyName, Constants.PRAYER_NAME[1]);
         message = createAzanMessage(companyName, Constants.PRAYER_NAME[1]);
@@ -133,10 +133,11 @@ const setupPrayerNotification = (company: (Company | undefined), now: Date, sett
         message = createAzanMessage(companyName, Constants.PRAYER_NAME[3]);
         notification = createNotification(title, message, now, prayer.date, prayer.isha);
         if (notification) notifications.push(notification);
+        */
     }
 
     // IQAMA
-    if (setting.iqamaAlert) {
+    if (false && setting.iqamaAlert) {
         // Fajr Iqama
         title = createIqamaTitle(companyName, Constants.PRAYER_NAME[0]);
         message = createIqamaMessage(companyName, Constants.PRAYER_NAME[0]);
@@ -172,7 +173,7 @@ const setupPrayerNotification = (company: (Company | undefined), now: Date, sett
     }
 
     // BEFORE IQAMA
-    if (setting.beforeIqamaAlert) {
+    if (false &&  setting.beforeIqamaAlert) {
         // Fajr Before Iqama
         title = createBeforeIqamaTitle(companyName, Constants.PRAYER_NAME[0]);
         message = createBeforeIqamaMessage(companyName, Constants.PRAYER_NAME[0]);
