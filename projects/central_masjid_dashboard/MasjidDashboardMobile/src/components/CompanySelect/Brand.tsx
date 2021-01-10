@@ -4,12 +4,7 @@ import Logo from '../../images/Logo';
 import Underline from '../../images/Underline';
 import { ConstantsStyles } from '../../services/Constants';
 import PushNotification from 'react-native-push-notification';
-<<<<<<< HEAD
-import { longRunningTask } from '../../services/DeleteIt';
 import { removeAllExisitngNotificaitons } from '../../services/NotificationService';
-=======
-
->>>>>>> e19ff7a8ae8a450314190040e5f0597094276fa9
 
 interface Props {
 }
@@ -17,7 +12,6 @@ interface Props {
 export const Brand: React.FC<Props> = () => {
 
     const showNotification = () => {
-<<<<<<< HEAD
         // longRunningTask();
         console.log("Showing sample notification");
 
@@ -29,11 +23,6 @@ export const Brand: React.FC<Props> = () => {
             date: new Date(Date.now() + 2000), // in 60 secs
             id: 10,
             allowWhileIdle: true
-=======
-        PushNotification.localNotificationSchedule({
-            message: "My Notification Message now",
-            date: new Date(Date.now()), 
->>>>>>> e19ff7a8ae8a450314190040e5f0597094276fa9
           });
     }
 
