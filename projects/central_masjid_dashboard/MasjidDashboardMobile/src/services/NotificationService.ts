@@ -5,6 +5,12 @@ import PushNotification from "react-native-push-notification";
 import { Constants } from './Constants';
 import { isNotBlankString } from './Utilities';
 
+const NotificationConfig = {
+    NOTIFICATION_SETUP_DAYS: 2,
+    CHANNEL_NAME: "MDB_NOTIFICATION",
+    CHANNEL_DESCRIPTION: "Masjid dashboard notificaiton channel"
+}
+
 // TODO: find proper way to call it. Once if not expired.
 export default function setupNotifications(companyId: string, forceUpdate: boolean) {
 
@@ -64,7 +70,7 @@ const resetNotifications = (companyData: CompanyData) => {
     const now = nowUtcDate();
 
     if (companyData.prayersYear && companyData.prayersYear.prayersMonths) {
-        const prayers = getUpcommingPrayers(now, companyData.prayersYear?.prayersMonths, Constants.NOTIFICATION_SETUP_DAYS);
+        const prayers = getUpcommingPrayers(now, companyData.prayersYear?.prayersMonths, NotificationConfig.NOTIFICATION_SETUP_DAYS);
 
         // console.log(prayers)
 
@@ -109,7 +115,7 @@ const setupPrayerNotification = (company: (Company | undefined), now: Date, sett
         message = createAzanMessage(companyName, Constants.PRAYER_NAME[0]);
         notification = createNotification(title, message, now, prayer.date, prayer.fajr);
         if (notification) notifications.push(notification);
-/*
+
         // Duhar
         title = createAzanTitle(companyName, Constants.PRAYER_NAME[1]);
         message = createAzanMessage(companyName, Constants.PRAYER_NAME[1]);
@@ -133,11 +139,10 @@ const setupPrayerNotification = (company: (Company | undefined), now: Date, sett
         message = createAzanMessage(companyName, Constants.PRAYER_NAME[3]);
         notification = createNotification(title, message, now, prayer.date, prayer.isha);
         if (notification) notifications.push(notification);
-        */
     }
 
     // IQAMA
-    if (false && setting.iqamaAlert) {
+    if (setting.iqamaAlert) {
         // Fajr Iqama
         title = createIqamaTitle(companyName, Constants.PRAYER_NAME[0]);
         message = createIqamaMessage(companyName, Constants.PRAYER_NAME[0]);
@@ -173,7 +178,7 @@ const setupPrayerNotification = (company: (Company | undefined), now: Date, sett
     }
 
     // BEFORE IQAMA
-    if (false &&  setting.beforeIqamaAlert) {
+    if (setting.beforeIqamaAlert) {
         // Fajr Before Iqama
         title = createBeforeIqamaTitle(companyName, Constants.PRAYER_NAME[0]);
         message = createBeforeIqamaMessage(companyName, Constants.PRAYER_NAME[0]);
@@ -270,8 +275,7 @@ const scheduleNotification = (notifications: ScheduleNotification[]): void => {
             PushNotification.localNotificationSchedule({
                 title: n.title,
                 message: n.message,
-                date: n.date,
-                allowWhileIdle: false
+                date: n.date
             })
         );
 }
@@ -318,7 +322,6 @@ const getUpcommingPrayers = (now: Date, pryerMonths: PrayersMonth[], daysCount: 
 const isAnyAlertOn = (setting: SettingData): boolean => {
     return setting.azanAlert || setting.beforeIqamaAlert || setting.iqamaAlert;
 }
-
 
 export const removeAllExisitngNotificaitons = () => {
     console.log("Removing all previously set notifications.");

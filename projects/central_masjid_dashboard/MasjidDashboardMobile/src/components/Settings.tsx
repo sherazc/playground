@@ -9,6 +9,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AppBar } from "./AppBar";
 import Reset from "../images/Reset";
 import { Checkbox } from './Checkbox';
+import { removeAllExisitngNotificaitons } from "../services/NotificationService";
 
 
 interface Props {
@@ -23,6 +24,7 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
     const onResetMasjid = () => {
         dispatch({ type: "COMPANY_DATA_DELETE" });
         navigation.navigate("CompanySelect");
+        removeAllExisitngNotificaitons();
     }
 
     const onCheckAzan = () => {

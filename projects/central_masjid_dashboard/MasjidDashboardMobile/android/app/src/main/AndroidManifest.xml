@@ -14,16 +14,17 @@
     </activity>
     <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
 
-    <!-- Start React Native Push Notification -->
-    <meta-data android:name="com.dieam.reactnativepushnotification.notification_channel_name" android:value="masjid_dashbaord_channel" />
-    <meta-data android:name="com.dieam.reactnativepushnotification.notification_channel_description" android:value="Masjid Dashbaord Channel" />
+    <!-- React Push Notification Changes Start -->
+    <meta-data android:name="com.dieam.reactnativepushnotification.notification_channel_name" android:value="MDB_NOTIFICATION"/>
+    <meta-data android:name="com.dieam.reactnativepushnotification.notification_channel_description" android:value="Masjid dashboard notificaiton channel"/>
 
     <!-- Change the value to true to enable pop-up for in foreground (remote-only, for local use ignoreInForeground) -->
-    <meta-data android:name="com.dieam.reactnativepushnotification.notification_foreground" android:value="false" />
+    <meta-data android:name="com.dieam.reactnativepushnotification.notification_foreground" android:value="false"/>
     <!-- Change the value to false if you don't want the creation of the default channel -->
-    <meta-data android:name="com.dieam.reactnativepushnotification.channel_create_default" android:value="true" />
+    <meta-data android:name="com.dieam.reactnativepushnotification.channel_create_default" android:value="true"/>
     <!-- Change the resource name to your App's accent color - or any other color you want -->
-    <meta-data android:name="com.dieam.reactnativepushnotification.notification_color" android:resource="@color/white" /> <!-- or @android:color/{name} to use a standard color -->
+    <meta-data android:name="com.dieam.reactnativepushnotification.notification_color" android:resource="@color/white"/>
+    <!-- or @android:color/{name} to use a standard color -->
 
     <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationActions" />
     <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationPublisher" />
@@ -32,8 +33,14 @@
         <action android:name="android.intent.action.BOOT_COMPLETED" />
       </intent-filter>
     </receiver>
-
-    <!-- End React Native Push Notification -->
+    <!-- 
+      <service android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationListenerService" android:exported="false">
+        <intent-filter>
+            <action android:name="com.google.firebase.MESSAGING_EVENT" />
+        </intent-filter>
+      </service>
+ -->
+    <!-- React Push Notification Changes End -->
 
   </application>
 </manifest>

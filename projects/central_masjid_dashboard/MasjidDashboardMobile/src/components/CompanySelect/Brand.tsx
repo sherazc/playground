@@ -16,13 +16,10 @@ export const Brand: React.FC<Props> = () => {
         console.log("Showing sample notification");
 
         PushNotification.localNotificationSchedule({
-            channelId: "masjid_dashbaord_channel",
-            // channelName:
-            //... You can use all the options from localNotifications
+            channelId: "MDB_NOTIFICATION",
+            
             message: "My Notification Message now", // (required)
             date: new Date(Date.now() + 2000), // in 60 secs
-            id: 10,
-            allowWhileIdle: true
           });
     }
 
