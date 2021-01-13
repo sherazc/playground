@@ -71,9 +71,6 @@ const resetNotifications = (companyData: CompanyData) => {
 
     if (companyData.prayersYear && companyData.prayersYear.prayersMonths) {
         const prayers = getUpcommingPrayers(now, companyData.prayersYear?.prayersMonths, NotificationConfig.NOTIFICATION_SETUP_DAYS);
-
-        // console.log(prayers)
-
         prayers.forEach(p => setupPrayerNotification(companyData.company, now, setting, p));
     }
 
@@ -92,8 +89,6 @@ const resetNotifications = (companyData: CompanyData) => {
     ✅ update notificaitions expiration time
     */
 }
-
-
 
 const setupPrayerNotification = (company: (Company | undefined), now: Date, setting: SettingData, prayer: Prayer) => {
     if (!prayer || !prayer.date) {
@@ -262,7 +257,6 @@ const createBeforeIqamaMessage = (companyName: string, prayerName: string) => {
     return `${prayerName} jamah is about to stand in ${Constants.PRAYER_ABOUT_TO_START_MIN} minutes at ${companyName}.`;
 }
 
-
 const scheduleNotification = (notifications: ScheduleNotification[]): void => {
     if (!notifications || notifications.length < 1) {
         return;
@@ -279,9 +273,6 @@ const scheduleNotification = (notifications: ScheduleNotification[]): void => {
             })
         );
 }
-
-
-
 
 const getCompanyName = (company: (Company | undefined)): string => {
     return company && company.name ? company.name : "";
