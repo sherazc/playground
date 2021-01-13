@@ -12,6 +12,9 @@ import PushNotification from "react-native-push-notification";
 
 // Must be outside of any component LifeCycle (such as `componentDidMount`).
 PushNotification.configure({
+  largeIcon: "ic_launcher",
+  smallIcon: "ic_notification",
+  
   // (optional) Called when Token is generated (iOS and Android)
   onRegister: function (token) {
     console.log("TOKEN:", token);
