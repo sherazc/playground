@@ -20,8 +20,8 @@ export const Brand: React.FC<Props> = () => {
 
             message: "My Notification Message now", // (required)
             date: new Date(Date.now() + 1000), // in 60 secs
-            largeIcon: "status_bar_icon",
-            smallIcon: "status_bar_icon",
+            largeIcon: "status_bar_icon_large",
+            smallIcon: "status_bar_icon_small",
           });
     }
 

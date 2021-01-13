@@ -269,7 +269,9 @@ const scheduleNotification = (notifications: ScheduleNotification[]): void => {
             PushNotification.localNotificationSchedule({
                 title: n.title,
                 message: n.message,
-                date: n.date
+                date: n.date,
+                largeIcon: "status_bar_icon_large",
+                smallIcon: "status_bar_icon_small",
             })
         );
 }
