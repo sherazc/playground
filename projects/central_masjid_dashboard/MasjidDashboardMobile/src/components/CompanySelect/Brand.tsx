@@ -17,9 +17,11 @@ export const Brand: React.FC<Props> = () => {
 
         PushNotification.localNotificationSchedule({
             channelId: "MDB_NOTIFICATION",
-            
+
             message: "My Notification Message now", // (required)
-            date: new Date(Date.now() + 2000), // in 60 secs
+            date: new Date(Date.now() + 1000), // in 60 secs
+            largeIcon: "status_bar_icon",
+            smallIcon: "status_bar_icon",
           });
     }
 
