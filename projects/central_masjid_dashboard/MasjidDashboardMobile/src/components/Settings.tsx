@@ -10,6 +10,29 @@ import { AppBar } from "./AppBar";
 import Reset from "../images/Reset";
 import { Checkbox } from './Checkbox';
 import { removeAllExisitngNotificaitons } from "../services/NotificationService";
+import { createDefaultSettingData } from '../types/types';
+
+
+/*
+Timmed alert setting change design
+----------------------------------
+
+DELAY = 5 seconds
+
+On setting change
+    - set lastSettingChange Time
+    - call changeAlertWithDelay()
+    
+changeAlertWithDelay()
+    - if timed settingInterval is not set then set it
+    settingInterval
+        - if current time > lastSettingChange + DELAY
+            - set setting in redux
+            - clear settingInterval
+            - make settingInterval undefined
+            - execute alerts reset method
+
+*/
 
 
 interface Props {
@@ -17,9 +40,17 @@ interface Props {
     route: RouteProp<MdParamList, "Settings">;
 }
 
+
+
 export const Settings: React.FC<Props> = ({ navigation, route }) => {
+    const companyData = useTypedSelector(state => state.companyData);
+
     const dispatch = useTypedDispatch();
-    const setting = useTypedSelector(state => state.setting);
+    // const setting = useTypedSelector(state => state.setting);
+    const [setting, setSetting] = useState(createDefaultSettingData());
+
+    // setSetting({...setting, azanAlert: false})
+    
 
     const onResetMasjid = () => {
         dispatch({ type: "COMPANY_DATA_DELETE" });
@@ -28,6 +59,9 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
     }
 
     const onCheckAzan = () => {
+        setSetting({...setting,azanAlert: !setting.azanAlert});
+
+        /*
         dispatch({
             type: "SETTING_SET",
             payload: {
@@ -35,9 +69,11 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
                 azanAlert: !setting.azanAlert
             }
         });
+        */
     }
 
     const onCheckIqama = () => {
+        /*
         dispatch({
             type: "SETTING_SET",
             payload: {
@@ -45,9 +81,11 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
                 iqamaAlert: !setting.iqamaAlert
             }
         });
+        */
     }
 
     const onCheckBeforeIqama = () => {
+        /*
         dispatch({
             type: "SETTING_SET",
             payload: {
@@ -55,7 +93,10 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
                 beforeIqamaAlert: !setting.beforeIqamaAlert
             }
         });
+        */
     }
+
+    
 
     const getBackScreenName = (route: RouteProp<MdParamList, "Settings">) => {
         let result = "";
