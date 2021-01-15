@@ -9,31 +9,9 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AppBar } from "./AppBar";
 import Reset from "../images/Reset";
 import { Checkbox } from './Checkbox';
-import { removeAllExisitngNotificaitons } from "../services/NotificationService";
+import setupNotifications, { removeAllExisitngNotificaitons } from "../services/NotificationService";
 import { createDefaultSettingData } from '../types/types';
-
-
-/*
-Timmed alert setting change design
-----------------------------------
-
-DELAY = 5 seconds
-
-On setting change
-    - set lastSettingChange Time
-    - call changeAlertWithDelay()
-    
-changeAlertWithDelay()
-    - if timed settingInterval is not set then set it
-    settingInterval
-        - if current time > lastSettingChange + DELAY
-            - set setting in redux
-            - clear settingInterval
-            - make settingInterval undefined
-            - execute alerts reset method
-
-*/
-
+import { getCompanyId } from '../services/CompanyDataService';
 
 interface Props {
     navigation: StackNavigationProp<MdParamList, "Settings">;
@@ -43,6 +21,7 @@ interface Props {
 
 
 export const Settings: React.FC<Props> = ({ navigation, route }) => {
+
     const companyData = useTypedSelector(state => state.companyData);
 
     const dispatch = useTypedDispatch();
@@ -50,7 +29,7 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
     const [setting, setSetting] = useState(createDefaultSettingData());
 
     // setSetting({...setting, azanAlert: false})
-    
+
 
     const onResetMasjid = () => {
         dispatch({ type: "COMPANY_DATA_DELETE" });
@@ -59,7 +38,7 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
     }
 
     const onCheckAzan = () => {
-        setSetting({...setting,azanAlert: !setting.azanAlert});
+        setSetting({ ...setting, azanAlert: !setting.azanAlert });
 
         /*
         dispatch({
@@ -96,7 +75,7 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
         */
     }
 
-    
+
 
     const getBackScreenName = (route: RouteProp<MdParamList, "Settings">) => {
         let result = "";
@@ -104,6 +83,65 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
             result = route.params.backScreenName;
         }
         return result;
+    }
+
+
+
+
+
+    /*
+    Timmed alert setting change design
+    ----------------------------------
+    
+    DELAY = 5 seconds
+    
+    On setting change
+        - set lastSettingChange Time
+        - call changeAlertWithDelay()
+        
+    changeAlertWithDelay()
+        - if timed settingInterval is not set then set it
+        settingInterval
+            - if current time > lastSettingChange + DELAY
+                - set setting in redux
+                - clear settingInterval
+                - make settingInterval, lastSettingChange undefined
+                - execute alerts reset method
+    
+    */
+
+    const settingDelay = 5 * 1000;
+    const settingIntervalMillis = 1000;
+    let settingInterval: (NodeJS.Timeout | undefined);
+    let lastSettingChangeTime: (number | undefined);
+
+    const changeAlertWithDelay = () => {
+        let companyId = getCompanyId(companyData.company);
+
+        if (settingInterval || !lastSettingChangeTime || !companyId) {
+            return;
+        }
+
+        settingInterval = setInterval(() => {
+            const nowTime = new Date().getTime();
+            if (!lastSettingChangeTime || nowTime < lastSettingChangeTime + settingDelay) {
+                return;
+            }
+
+            removeAllExisitngNotificaitons();
+            if (companyId) {
+                setupNotifications(companyId, true);
+            }
+
+            dispatch({ type: "SETTING_SET", payload: setting });
+
+            if (settingInterval) {
+                clearInterval(settingInterval);
+            }
+
+            lastSettingChangeTime = settingInterval = undefined;
+        }, settingIntervalMillis);
+
     }
 
     return (

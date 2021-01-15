@@ -4,6 +4,7 @@ import store from '../store/rootReducer';
 import PushNotification from "react-native-push-notification";
 import { Constants } from './Constants';
 import { isNotBlankString } from './Utilities';
+import { getCompanyName } from './CompanyDataService';
 
 const NotificationConfig = {
     NOTIFICATION_SETUP_DAYS: 2,
@@ -274,10 +275,6 @@ const scheduleNotification = (notifications: ScheduleNotification[]): void => {
                 smallIcon: "status_bar_icon_small",
             })
         );
-}
-
-const getCompanyName = (company: (Company | undefined)): string => {
-    return company && company.name ? company.name : "";
 }
 
 /*

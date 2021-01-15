@@ -157,3 +157,11 @@ export const updateCompanyData = (companyData: CompanyData, month: string, day: 
         console.log("Not updating CompanyData. Maybe no Company selected or its still a non expired CompanyData.")
     }
 }
+
+export const getCompanyName = (company: (Company | undefined)): string => {
+    return company && company.name ? company.name : "";
+}
+
+export const getCompanyId = (company: (Company | undefined)): (string | undefined) => {
+    return company && company.id ? company.id : undefined;
+}
