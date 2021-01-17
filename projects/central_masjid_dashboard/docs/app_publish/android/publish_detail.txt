@@ -1,0 +1,15 @@
+App name
+--------
+Masjid Dashboard
+
+Short description
+-----------------
+Your masjid's prayer and iqamah time
+
+
+Full description
+----------------
+Masjid Dashboard is a central, customizable app for prayer and iqamah times.
+Masjid that do not have a mobile app can be register by visiting https://www.masjiddashboard.com.
+Once your masjid is setup Masjid Dashboard will show your masjid's prayer and iqamah times.
+If you choose to it will notify at Azan and iqamah times.
