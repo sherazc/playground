@@ -7,7 +7,7 @@ import { isNotBlankString } from './Utilities';
 import { getCompanyName } from './CompanyDataService';
 
 const NotificationConfig = {
-    NOTIFICATION_SETUP_DAYS: 2,
+    NOTIFICATION_SETUP_DAYS: 5,
     CHANNEL_NAME: "MDB_NOTIFICATION",
     CHANNEL_DESCRIPTION: "Masjid dashboard notificaiton channel"
 }
