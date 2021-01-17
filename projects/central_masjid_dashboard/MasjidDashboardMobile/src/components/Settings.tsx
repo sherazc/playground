@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, SafeAreaView } from "react-native";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MdParamList } from "./NavRoutes";
@@ -10,26 +10,27 @@ import { AppBar } from "./AppBar";
 import Reset from "../images/Reset";
 import { Checkbox } from './Checkbox';
 import setupNotifications, { removeAllExisitngNotificaitons } from "../services/NotificationService";
-import { createDefaultSettingData } from '../types/types';
+import { createDefaultSettingData, SettingData } from '../types/types';
 import { getCompanyId } from '../services/CompanyDataService';
-
 interface Props {
     navigation: StackNavigationProp<MdParamList, "Settings">;
     route: RouteProp<MdParamList, "Settings">;
 }
 
-
+let lastSettingChangeTime: (number | undefined);
+let settingInterval: (NodeJS.Timeout | undefined);
 
 export const Settings: React.FC<Props> = ({ navigation, route }) => {
 
     const companyData = useTypedSelector(state => state.companyData);
-
     const dispatch = useTypedDispatch();
-    // const setting = useTypedSelector(state => state.setting);
+    const settingStore = useTypedSelector(state => state.setting);
     const [setting, setSetting] = useState(createDefaultSettingData());
 
-    // setSetting({...setting, azanAlert: false})
-
+    // onload load setting from redux
+    useEffect(() => {
+        setSetting(settingStore)
+    }, [settingStore]);
 
     const onResetMasjid = () => {
         dispatch({ type: "COMPANY_DATA_DELETE" });
@@ -38,44 +39,23 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
     }
 
     const onCheckAzan = () => {
-        setSetting({ ...setting, azanAlert: !setting.azanAlert });
+        const newSetting = { ...setting, azanAlert: !setting.azanAlert };
+        setSetting(newSetting);
+        changeAlertWithDelay(newSetting);
 
-        /*
-        dispatch({
-            type: "SETTING_SET",
-            payload: {
-                ...setting,
-                azanAlert: !setting.azanAlert
-            }
-        });
-        */
     }
 
     const onCheckIqama = () => {
-        /*
-        dispatch({
-            type: "SETTING_SET",
-            payload: {
-                ...setting,
-                iqamaAlert: !setting.iqamaAlert
-            }
-        });
-        */
+        const newSetting = { ...setting, iqamaAlert: !setting.iqamaAlert };
+        setSetting(newSetting);
+        changeAlertWithDelay(newSetting);
     }
 
     const onCheckBeforeIqama = () => {
-        /*
-        dispatch({
-            type: "SETTING_SET",
-            payload: {
-                ...setting,
-                beforeIqamaAlert: !setting.beforeIqamaAlert
-            }
-        });
-        */
+        const newSetting = { ...setting, beforeIqamaAlert: !setting.beforeIqamaAlert };
+        setSetting(newSetting);
+        changeAlertWithDelay(newSetting);
     }
-
-
 
     const getBackScreenName = (route: RouteProp<MdParamList, "Settings">) => {
         let result = "";
@@ -86,43 +66,45 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
     }
 
 
-
-
-
     /*
     Timmed alert setting change design
     ----------------------------------
-    
+
     DELAY = 5 seconds
-    
+
     On setting change
         - set lastSettingChange Time
         - call changeAlertWithDelay()
-        
+
     changeAlertWithDelay()
-        - if timed settingInterval is not set then set it
-        settingInterval
-            - if current time > lastSettingChange + DELAY
-                - set setting in redux
-                - clear settingInterval
-                - make settingInterval, lastSettingChange undefined
-                - execute alerts reset method
-    
+        - ✅ if setting interval is already set then do not proceed further
+        - ✅ if timed settingInterval is not set then set it
+        ✅ settingInterval
+            - ✅ if current time > lastSettingChange + DELAY
+                - ✅ set setting in redux
+                - ✅ clear settingInterval
+                - ✅ make settingInterval, lastSettingChange undefined
+                - ✅ execute alerts reset method
+
     */
 
     const settingDelay = 5 * 1000;
     const settingIntervalMillis = 1000;
-    let settingInterval: (NodeJS.Timeout | undefined);
-    let lastSettingChangeTime: (number | undefined);
 
-    const changeAlertWithDelay = () => {
+    const changeAlertWithDelay = (newSetting: SettingData) => {
+        dispatch({ type: "SETTING_SET", payload: newSetting });
+        lastSettingChangeTime = new Date().getTime();
+
         let companyId = getCompanyId(companyData.company);
 
-        if (settingInterval || !lastSettingChangeTime || !companyId) {
+        console.log(`Setting interval ${settingInterval}`)
+        if (settingInterval || !companyId) {
+            console.log(`Returning Setting interval ${settingInterval}`)
             return;
         }
 
         settingInterval = setInterval(() => {
+
             const nowTime = new Date().getTime();
             if (!lastSettingChangeTime || nowTime < lastSettingChangeTime + settingDelay) {
                 return;
@@ -133,8 +115,8 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
                 setupNotifications(companyId, true);
             }
 
-            dispatch({ type: "SETTING_SET", payload: setting });
 
+            console.log(`Clearing interval ${settingInterval}`)
             if (settingInterval) {
                 clearInterval(settingInterval);
             }
@@ -142,6 +124,7 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
             lastSettingChangeTime = settingInterval = undefined;
         }, settingIntervalMillis);
 
+        console.log(`Setting interval 2 ${settingInterval}`)
     }
 
     return (
