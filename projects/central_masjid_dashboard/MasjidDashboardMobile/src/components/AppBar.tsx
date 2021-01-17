@@ -17,7 +17,9 @@ export const AppBar: React.FC<Props> = ({ backScreenName, screenName, navigation
         <View style={styles.container}>
             <View style={styles.leftView}>
                 <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => navigation.goBack()}>
-                    <ArrowLeft fill={ConstantsStyles.text.colorLight} width={20} height={20} />
+                    <View style={{paddingTop: 3}}>
+                        <ArrowLeft fill={ConstantsStyles.text.colorLight} width={20} height={20} />
+                    </View>
                     <Text style={styles.backScreenName}>{backScreenName}</Text>
                 </TouchableOpacity>
             </View>
@@ -46,15 +48,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingLeft: 8,
         flexDirection: "row",
-        // backgroundColor: "red"
     },
     rightView: {
         flexBasis: 100,
-        // backgroundColor: "blue",
     },
     centerView: {
         flex: 1,
-        // backgroundColor: "green",
         justifyContent: "center",
         alignItems: "center"
     },

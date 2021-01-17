@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View, Text } from "react-native";
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { MdParamList } from "../NavRoutes";
@@ -8,6 +8,8 @@ import { useTypedSelector } from '../../store/rootReducer';
 import { Brand } from './Brand';
 import { CompanyList } from './CompanyList';
 import { ConstantsStyles } from "../../services/Constants";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { ArrowLeft } from '../../images/ArrowLeft';
 
 interface Props {
     navigation: StackNavigationProp<MdParamList, "CompanySelect">;
@@ -40,6 +42,24 @@ export const CompanySelect: React.FC<Props> = ({ navigation }) => {
                 <View style={styles.companyList}>
                     <CompanyList navigation={navigation} companyListData={companyListData} />
                 </View>
+                <View style={{
+                    height: "8%",
+                    alignItems: "center", justifyContent: "center",
+                }}>
+                    <TouchableOpacity style={{
+                        flexDirection: "row",alignItems: "center", justifyContent: "center",
+                        backgroundColor: ConstantsStyles.color.background2,
+                        borderRadius: 5,
+                        width: 320, padding: 3,
+                        }}>
+                        <View style={{marginRight: 3}}>
+                            <ArrowLeft height={10} width={10} fill={ConstantsStyles.text.colorLight}></ArrowLeft>
+                        </View>
+                        <Text style={{fontSize: 15, color: ConstantsStyles.text.colorLight}}>
+                            Register at masjiddashboard.com
+                        </Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     );
@@ -66,11 +86,11 @@ const styles = StyleSheet.create({
         width: "100%"
     },
     brand: {
-        height: "40%"
+        height: "36%"
     },
     companyList: {
-        height: "60%",
-        paddingBottom: 15,
+        height: "56%",
+        paddingBottom: 0,
         paddingLeft: 15,
         paddingRight: 15,
     }
