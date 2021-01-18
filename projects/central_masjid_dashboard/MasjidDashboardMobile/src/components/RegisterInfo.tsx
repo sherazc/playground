@@ -1,22 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, SafeAreaView } from "react-native";
+import React from "react";
+import { StyleSheet, View, Text, SafeAreaView, Linking} from "react-native";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MdParamList } from "./NavRoutes";
 import { RouteProp } from '@react-navigation/native';
-import { useTypedDispatch, useTypedSelector } from "../store/rootReducer";
 import { ConstantsStyles } from '../services/Constants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AppBar } from "./AppBar";
-import Reset from "../images/Reset";
-import { Checkbox } from './Checkbox';
-import setupNotifications, { removeAllExisitngNotificaitons } from "../services/NotificationService";
-import { createDefaultSettingData, SettingData } from '../types/types';
-import { getCompanyId } from '../services/CompanyDataService';
 
+// TODO: Fix inline styles
 interface Props {
     navigation: StackNavigationProp<MdParamList, "RegisterInfo">;
     route: RouteProp<MdParamList, "RegisterInfo">;
 }
+
+const REGISTER_LINK = "https://www.masjiddashboard.com/auth/company/create"
 
 export const RegisterInfo: React.FC<Props> = ({ navigation, route }) => {
 
@@ -28,13 +25,42 @@ export const RegisterInfo: React.FC<Props> = ({ navigation, route }) => {
         return result;
     }
 
+    const onRegister = () => {
+        Linking.canOpenURL(REGISTER_LINK)
+            .then(() => {
+                Linking.openURL(REGISTER_LINK);
+            });
+    }
+
     return (
         <>
             <SafeAreaView style={styles.safeAreaViewTop} />
             <SafeAreaView style={styles.safeAreaViewBottom}>
                 <View style={styles.container}>
-                    <AppBar navigation={navigation} backScreenName={getBackScreenName(route)} screenName="RegisterInfo" />
-                    <Text>This is register info</Text>
+                    <AppBar navigation={navigation} backScreenName={getBackScreenName(route)} screenName="Members" />
+                    <View style={{padding: 15}}>
+                        <Text style={styles.paragraph}>
+                            Masjid Dashboard shows all masjids that are registered at masjiddashboard.com
+                        </Text>
+                        <Text style={styles.paragraph}>
+                            Please visit masjiddashboard.com, to make your masjid part of Masjid Dashboard
+                        </Text>
+                        <View style={{alignItems: "center", justifyContent: "center", marginTop: 30}}>
+                            <TouchableOpacity
+                                onPress={onRegister}
+                                style={{
+                                    flexDirection: "row",alignItems: "center", justifyContent: "center",
+                                    backgroundColor: ConstantsStyles.color.background2,
+                                    borderRadius: 5,
+                                    width: 320, padding: 15,
+                                    }}>
+
+                                <Text style={{fontSize: 15, color: ConstantsStyles.text.colorLight}}>
+                                    Become a member
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                 </View>
             </SafeAreaView>
         </>
@@ -57,29 +83,9 @@ const styles = StyleSheet.create({
         flex: 1
 
     },
-    settingRow: {
-        flexDirection: "row",
-        height: 75
-    },
-    nameView: {
-        flex: 1,
-        paddingLeft: 20,
-        justifyContent: "center",
-        // backgroundColor: "#ffffff44"
-    },
-    iconView: {
-        flexBasis: 100,
-        // backgroundColor: "#ffffff22",
-        alignItems: "center",
-        justifyContent: "center"
-    },
-    name: {
+    paragraph: {
+        fontSize: 18,
         color: ConstantsStyles.text.colorLight,
-        fontSize: 18
-    },
-    separator: {
-        height: 3,
-        width: "100%",
-        backgroundColor: ConstantsStyles.color.lines
+        marginBottom: 20
     }
 });

@@ -9,9 +9,9 @@ import { Brand } from './Brand';
 import { CompanyList } from './CompanyList';
 import { ConstantsStyles } from "../../services/Constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { ArrowLeft } from '../../images/ArrowLeft';
 import { Info } from '../../images/Info';
 
+// TODO: Fix inline styles
 interface Props {
     navigation: StackNavigationProp<MdParamList, "CompanySelect">;
     route: RouteProp<MdParamList, "CompanySelect">;
@@ -59,7 +59,7 @@ export const CompanySelect: React.FC<Props> = ({ navigation }) => {
                             <Info height={15} width={15} fill={ConstantsStyles.text.colorLight}></Info>
                         </View>
                         <Text style={{fontSize: 15, color: ConstantsStyles.text.colorLight}}>
-                            Register at masjiddashboard.com
+                            Become part of Masjid Dashboard
                         </Text>
                     </TouchableOpacity>
                 </View>
