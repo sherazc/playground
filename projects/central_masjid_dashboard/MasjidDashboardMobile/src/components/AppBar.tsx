@@ -17,10 +17,12 @@ export const AppBar: React.FC<Props> = ({ backScreenName, screenName, navigation
         <View style={styles.container}>
             <View style={styles.leftView}>
                 <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => navigation.goBack()}>
-                    <View style={{paddingTop: 3}}>
+                    <View style={{height: 20, justifyContent: "center", alignItems: "center", marginTop: 1}}>
                         <ArrowLeft fill={ConstantsStyles.text.colorLight} width={20} height={20} />
                     </View>
-                    <Text style={styles.backScreenName}>{backScreenName}</Text>
+                    <View style={{height: 20, justifyContent: "center", alignItems: "center"}}>
+                        <Text style={styles.backScreenName}>{backScreenName}</Text>
+                    </View>
                 </TouchableOpacity>
             </View>
             <View style={styles.centerView}>
