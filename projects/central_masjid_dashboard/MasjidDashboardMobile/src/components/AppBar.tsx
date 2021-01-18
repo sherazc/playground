@@ -9,7 +9,7 @@ import { MdParamList } from './NavRoutes';
 interface Props {
     backScreenName: string;
     screenName: string;
-    navigation: StackNavigationProp<MdParamList, "Settings">;
+    navigation: (StackNavigationProp<MdParamList, "Settings"> | StackNavigationProp<MdParamList, "RegisterInfo">);
 }
 
 export const AppBar: React.FC<Props> = ({ backScreenName, screenName, navigation }) => {

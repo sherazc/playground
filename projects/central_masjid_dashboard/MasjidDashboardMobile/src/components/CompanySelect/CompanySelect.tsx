@@ -47,11 +47,13 @@ export const CompanySelect: React.FC<Props> = ({ navigation }) => {
                     height: "8%",
                     alignItems: "center", justifyContent: "center",
                 }}>
-                    <TouchableOpacity style={{
+                    <TouchableOpacity
+                        onPress={() => { navigation.navigate("RegisterInfo", {backScreenName: "Masjid"}) }}
+                        style={{
                         flexDirection: "row",alignItems: "center", justifyContent: "center",
                         backgroundColor: ConstantsStyles.color.background2,
                         borderRadius: 5,
-                        width: 320, padding: 3,
+                        width: 320, padding: 5,
                         }}>
                         <View style={{marginRight: 5}}>
                             <Info height={15} width={15} fill={ConstantsStyles.text.colorLight}></Info>

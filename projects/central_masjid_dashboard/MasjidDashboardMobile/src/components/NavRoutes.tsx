@@ -9,6 +9,7 @@ import { useTypedSelector } from '../store/rootReducer'
 import { Company, LoadingStatus } from '../types/types';
 import { RecoveringFromStorage } from './RecoveringFromStorage';
 import { recoverAppFromStorage, destroyedCompanyListDataInterval, beginCompanyListDataInterval } from '../services/AppService';
+import { RegisterInfo } from './RegisterInfo';
 
 const Stack = createStackNavigator<MdParamList>();
 
@@ -19,6 +20,7 @@ export type MdParamList = {
     CompanySelect: undefined;
     PrayerTime: { selectedCompany?: Company };
     Settings: {backScreenName: string};
+    RegisterInfo: {backScreenName: string};
 }
 
 const noHeaderOptions = {
@@ -63,6 +65,7 @@ TODO: set dimention and in redux store and use it to size components
                     <Stack.Screen name="CompanySelect" component={CompanySelect} options={noHeaderOptions} />
                     <Stack.Screen name="PrayerTime" component={PrayerTime} options={noHeaderOptions} />
                     <Stack.Screen name="Settings" component={Settings} options={noHeaderOptions} />
+                    <Stack.Screen name="RegisterInfo" component={RegisterInfo} options={noHeaderOptions} />
                 </Stack.Navigator>
             </NavigationContainer>
         );
@@ -200,7 +203,8 @@ Interval to update Azan, Salah and Jammat time messages on screen
 Modern Programming language
     - Fetch API call javascript
     - Money is very important for business
-    - ESPN Soccer score application
+    - ESPN Soccer scimport { RegisterInfo } from './RegisterInfo';
+ore application
     - Game, Graphics, Obj File, Number of animations
 
 Jim ameican programmer
