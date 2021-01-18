@@ -10,6 +10,7 @@ import { CompanyList } from './CompanyList';
 import { ConstantsStyles } from "../../services/Constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { ArrowLeft } from '../../images/ArrowLeft';
+import { Info } from '../../images/Info';
 
 interface Props {
     navigation: StackNavigationProp<MdParamList, "CompanySelect">;
@@ -52,8 +53,8 @@ export const CompanySelect: React.FC<Props> = ({ navigation }) => {
                         borderRadius: 5,
                         width: 320, padding: 3,
                         }}>
-                        <View style={{marginRight: 3}}>
-                            <ArrowLeft height={10} width={10} fill={ConstantsStyles.text.colorLight}></ArrowLeft>
+                        <View style={{marginRight: 5}}>
+                            <Info height={15} width={15} fill={ConstantsStyles.text.colorLight}></Info>
                         </View>
                         <Text style={{fontSize: 15, color: ConstantsStyles.text.colorLight}}>
                             Register at masjiddashboard.com
