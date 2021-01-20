@@ -37,8 +37,10 @@ export const Brand: React.FC<Props> = () => {
             <View style={{ marginTop: 20 }}>
                 <Logo width="100" height="100" />
             </View>
+{/*
             <Button onPress={removeNotifications} title="Remove Notificaitons"/>
             <Button onPress={showNotification} title="Notification"/>
+             */}
         </View>
     );
 }
