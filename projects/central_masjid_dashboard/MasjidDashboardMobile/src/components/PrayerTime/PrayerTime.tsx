@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Image, SafeAreaView, StyleSheet, View } from "react-native";
+import { Alert, BackHandler, Image, Platform, SafeAreaView, StyleSheet, View } from "react-native";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MdParamList } from "../NavRoutes";
 import { RouteProp } from '@react-navigation/native';
@@ -36,7 +36,41 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
                 payload: companyData
             });
         }
+
+        if (Platform.OS === 'android') {
+            BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+            return () => BackHandler.removeEventListener('hardwareBackPress', handleBackButton);    
+        }
+        
     }, []);
+
+    // const onButtonPress = () => {
+    //     BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+    //     // then navigate
+    //     // navigate('NewScreen');
+    // }
+
+
+    const handleBackButton = () => {
+        BackHandler.exitApp();
+        /*
+        Alert.alert(
+            'Exit App',
+            'Exiting the application?', [{
+                text: 'Cancel',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel'
+            }, {
+                text: 'OK',
+                onPress: () => BackHandler.exitApp()
+            }, ], {
+                cancelable: false
+            }
+         )
+        */
+        return true;
+    }
+
 
     // Navigate to CompanySelect because there is no selected company
     useEffect(() => {

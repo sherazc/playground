@@ -7,6 +7,7 @@ import ArrowRight from "../../images/ArrowRight";
 import { ConstantsStyles } from "../../services/Constants";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { MdParamList } from "../NavRoutes";
+import { StackActions } from "@react-navigation/native";
 
 interface Props {
     companyListData: CompanyListData;
@@ -21,7 +22,10 @@ export const CompanyList: React.FC<Props> = ({ companyListData, navigation }) =>
         }
         const selectedCompany = companyListData.companies.find(c => c.id === selectedCompanyId);
         if (selectedCompany) {
+            // This will add screen to the stack
             navigation.navigate("PrayerTime", { selectedCompany });
+            // This will not
+            // navigation.dispatch(StackActions.replace("PrayerTime", { selectedCompany }));
         }
     }
 
