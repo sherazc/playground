@@ -1,10 +1,10 @@
-package graphqa01;
+package com.sc.graphqa01;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Graphqa01ApplicationTests {
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {
