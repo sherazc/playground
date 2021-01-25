@@ -1,0 +1,20 @@
+type Department {
+    id: ID!
+    name: String
+}
+
+type Employee {
+    id: ID!
+    name: String
+    salary: Float
+    department_id: Int
+}
+
+
+type Query {
+    allDepartments: [Department]
+}
+
+schema {
+    query: Query
+}
