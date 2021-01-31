@@ -21,6 +21,7 @@ import AdminControl from "./components/business/admin/AdminControl";
 import CompanyDashboard from "./components/business/CompanyDashboard/CompanyDashboard";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import VerifyEmail from "./components/auth/company/VerifyEmail";
+import Calendar from './components/business/Calendar/Calendar';
 // import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 // import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 // import { ThemeProvider } from '@material-ui/core/styles';
@@ -103,6 +104,10 @@ class App extends Component {
                             <Route path={`${process.env.PUBLIC_URL}/forbidden`} component={Forbidden} exact/>
 
                             <Route path={`${process.env.PUBLIC_URL}/404`} component={PageNotFound} exact/>
+
+                            <Route
+                                path={`${process.env.PUBLIC_URL}/calendar/:companyDashboardUrl`}
+                                component={Calendar}/>
 
                             <Route
                                 path={`${process.env.PUBLIC_URL}/:companyDashboardUrl`}
