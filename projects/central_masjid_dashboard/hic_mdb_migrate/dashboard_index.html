@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masjid Dashboard - Hamzah Islamic Center</title>
+    <meta name="description"
+        content="Masjid Dashboard. Prayer and Salah times of HIC. Masjid monthly and yearly expeses. Quran and Hadith Reminder Of The Day.">
+    <meta name="robots" content="noindex" />
+    <META NAME="geo.position" CONTENT="34.117420; -84.248680">
+    <META NAME="geo.placename" CONTENT="Hamzah Islamic Center">
+    <META NAME="geo.region" CONTENT="US Georgia Alparetta 30004">
+</head>
+<style>
+    html,
+    body {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgb(30, 32, 37);
+    }
+    /* removes iframe border */
+    #dashboardApp .dbContainer iframe {
+        border: 0;
+    }
+</style>
+
+<body>
+    <div id="dashboardApp"></div>
+    <script>
+        var dashboardServerUrl = "https://www.masjiddashboard.com";
+        var dashboardAppDivId = "dashboardApp";
+        var companyUrl = "hic";
+    </script>
+    <script type="application/javascript"
+        src="https://www.masjiddashboard.com/static/dashboard-widget/app.min.js"></script>
+</body>
+</html>
