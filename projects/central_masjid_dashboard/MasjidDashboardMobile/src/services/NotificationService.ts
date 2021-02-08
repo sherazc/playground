@@ -7,7 +7,8 @@ import { isNotBlankString } from './Utilities';
 import { getCompanyName } from './CompanyDataService';
 
 const NotificationConfig = {
-    NOTIFICATION_SETUP_DAYS: 5,
+    MAX_NOTIFICATION_SETUP_DAYS: 5,
+    MAX_NOTIFICATIONS: 60, // iOS allows 64 maximum local schedule notifications
     CHANNEL_NAME: "MDB_NOTIFICATION",
     CHANNEL_DESCRIPTION: "Masjid dashboard notificaiton channel"
 }
@@ -71,24 +72,26 @@ const resetNotifications = (companyData: CompanyData) => {
     const now = nowUtcDate();
 
     if (companyData.prayersYear && companyData.prayersYear.prayersMonths) {
-        const prayers = getUpcommingPrayers(now, companyData.prayersYear?.prayersMonths, NotificationConfig.NOTIFICATION_SETUP_DAYS);
+        const days = calculatePossibleNotificationDays(setting, NotificationConfig.MAX_NOTIFICATION_SETUP_DAYS);
+        const prayers = getUpcommingPrayers(now, companyData.prayersYear?.prayersMonths, days);
         prayers.forEach(p => setupPrayerNotification(companyData.company, now, setting, p));
     }
+}
 
-    /*
+const calculatePossibleNotificationDays = (setting: SettingData, maxNotificationDays: number) => {
+    let multiplier = 0;
+    multiplier = setting.azanAlert ? multiplier + 1 : multiplier;
+    multiplier = setting.beforeIqamaAlert ? multiplier + 1 : multiplier;
+    multiplier = setting.iqamaAlert ? multiplier + 1 : multiplier;
+    const notificationCount = maxNotificationDays * 5 * multiplier;
 
-    TODO:
-
-    ✅ Call notifcation api to cancle previous notifications
-
-    ✅ find next 10 upcomming days prayers
-
-    ✅ build notification from prayer array
-
-    ✅ schedule notifications
-
-    ✅ update notificaitions expiration time
-    */
+    let days:number;
+    if (notificationCount > NotificationConfig.MAX_NOTIFICATIONS) {
+        days = NotificationConfig.MAX_NOTIFICATIONS / 5 / multiplier;
+    } else {
+        days = notificationCount / 5 / multiplier;
+    }
+    return Math.floor(days);
 }
 
 const setupPrayerNotification = (company: (Company | undefined), now: Date, setting: SettingData, prayer: Prayer) => {
@@ -131,8 +134,8 @@ const setupPrayerNotification = (company: (Company | undefined), now: Date, sett
         if (notification) notifications.push(notification);
 
         // Isha
-        title = createAzanTitle(companyName, Constants.PRAYER_NAME[3]);
-        message = createAzanMessage(companyName, Constants.PRAYER_NAME[3]);
+        title = createAzanTitle(companyName, Constants.PRAYER_NAME[4]);
+        message = createAzanMessage(companyName, Constants.PRAYER_NAME[4]);
         notification = createNotification(title, message, now, prayer.date, prayer.isha);
         if (notification) notifications.push(notification);
     }
