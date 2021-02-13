@@ -99,7 +99,7 @@ export const time24To12 = (time24) => {
     const minutes = hoursMinutes[1] - 0;
     const amPm = hours24 > 11 ? "pm" : "am";
 
-    return `${numberTo2DigitsString(hours12)}:${numberTo2DigitsString(minutes)} ${amPm}`;
+    return `${numberTo2DigitsString(hours12)}:${numberTo2DigitsString(minutes)}${amPm}`;
 
 };
 

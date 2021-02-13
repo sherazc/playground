@@ -31,6 +31,13 @@
         "label": "Maghrib Iqama",
         "defaultValue": "5 Mins",
         "description": "Maghrib iqama time message."
+      },
+      {
+        "name": "fajar_iqamah_override",
+        "type": "time",
+        "label": "Fajar Iqamah Override",
+        "defaultValue": "",
+        "description": "Overrides fajar iqamah time."
       }
     ]
   }

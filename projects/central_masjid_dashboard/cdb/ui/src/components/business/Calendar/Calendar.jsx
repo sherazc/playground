@@ -35,6 +35,7 @@ class Calendar extends Component {
     }
 
     getYears(calendarType, year) {
+        let months;
         if (calendarType && calendarType === "Gregorian") {
             months = [100, 200, 300];
         } else {

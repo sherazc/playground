@@ -114,6 +114,7 @@ class CompanyDashboard extends Component {
                     <AnalogClock sizeLg="8" sizeMd="18" />}
                     {clockType === "2" &&
                     <DigitalClock sizeLg="15" sizeMd="25" />}
+                    { /*
                     <div className={styles.settings}>
                         <Link to="/">
                             <Icon>
@@ -121,7 +122,7 @@ class CompanyDashboard extends Component {
                             </Icon>
                         </Link>
                     </div>
-
+                    */}
                     <div className={styles.companyName}>
                         <a href={website}>
                         {this.getCompanyName(this.state.centralControl)}

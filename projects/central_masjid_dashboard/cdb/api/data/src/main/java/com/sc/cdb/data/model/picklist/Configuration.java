@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 public class Configuration {
     enum Type {
-        text, date, number, bool
+        text, date, number, bool, time
     }
     private String name;
     private Type type;
