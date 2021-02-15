@@ -82,7 +82,7 @@ class Jummah extends Component {
                         name={"date_" + index}
                         onChange={this.onChange}
                         type="date"
-                        value={jummah.date.substr(0,10)}/>
+                        value={jummah.date && jummah.date.substr(0,10)}/>
                 </td>
                 <td>
                     <Checkbox color="primary"
