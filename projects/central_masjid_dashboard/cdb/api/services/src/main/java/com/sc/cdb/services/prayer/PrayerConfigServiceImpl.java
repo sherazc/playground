@@ -22,7 +22,7 @@ import com.sc.cdb.services.common.CustomConfigurationsService;
 import com.sc.cdb.services.dst.PrayerConfigDstApplier;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.services.version.DbVersionService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
@@ -30,17 +30,17 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PrayerConfigServiceImpl implements PrayerConfigService {
 
-    private PrayerConfigRepository prayerConfigRepository;
-    private PrayerConfigDao prayerConfigDao;
-    private PrayerConfigDstApplier prayerConfigDstApplier;
-    private CompanyService companyService;
-    private PrayerComparator prayerComparator;
-    private PrayerValidator prayerValidator;
-    private CustomConfigurationsService customConfigurationsService;
-    private DbVersionService dbVersionService;
+    private final PrayerConfigRepository prayerConfigRepository;
+    private final PrayerConfigDao prayerConfigDao;
+    private final PrayerConfigDstApplier prayerConfigDstApplier;
+    private final CompanyService companyService;
+    private final PrayerComparator prayerComparator;
+    private final PrayerValidator prayerValidator;
+    private final CustomConfigurationsService customConfigurationsService;
+    private final DbVersionService dbVersionService;
 
     @Override
     public ServiceResponse<Prayer> getPrayerByCompanyIdMonthAndDay(String companyId, int month, int day) {
@@ -71,7 +71,6 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
                 serviceResponseBuilder.successful(false).message("Prayer not found.");
             } else {
                 Prayer prayer = findDatePrayerAndNextChange(prayers, month, day);
-                populateMaghribIqama(companyId, prayer);
                 overrideIqamas(companyId, prayer);
                 serviceResponseBuilder
                         .target(prayer)
@@ -131,16 +130,6 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         return configs.stream()
                 .filter(c -> StringUtils.equals(c.getName(), name))
                 .findFirst();
-    }
-
-    @Deprecated
-    private void populateMaghribIqama(String companyId, Prayer prayer) {
-        if (prayer != null) {
-
-            String maghribIqama = customConfigurationsService.getStringConfig(companyId, "maghrib_iqama", "5 Mins");
-            prayer.setMaghribIqama(maghribIqama);
-
-        }
     }
 
     @Override

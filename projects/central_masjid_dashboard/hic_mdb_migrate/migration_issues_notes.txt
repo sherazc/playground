@@ -1,10 +1,4 @@
-
-In prayer time widget, remove space between time and ampm
-Try to do it also in dashboard
-
-
 test if the hijri days are changing because of adjust days setting
-
 
 Fix blank khateeb name and date error on login
 
