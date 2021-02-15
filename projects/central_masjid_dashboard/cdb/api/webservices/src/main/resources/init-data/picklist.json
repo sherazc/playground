@@ -30,35 +30,35 @@
         "type": "time",
         "label": "Fajar Iqama",
         "defaultValue": "",
-        "description": "Overrides Fajar iqama time.\nIqama and next change time in calendar will be ignored.\nEnter time in 24 hours format or a message."
+        "description": "Overrides Fajar iqama time.\nIqama and next change time in calendar will be ignored.\nEnter time in 24 hours format 00:00 or a short message."
       },
       {
         "name": "zuhar_iqama",
         "type": "time",
         "label": "Zuhar Iqama",
         "defaultValue": "",
-        "description": "Overrides Zuhar iqama time.\nIqama and next change time in calendar will be ignored.\nEnter time in 24 hours format or a message."
+        "description": "Overrides Zuhar iqama time.\nIqama and next change time in calendar will be ignored.\nEnter time in 24 hours format 00:00 or a short message."
       },
       {
         "name": "asr_iqama",
         "type": "time",
         "label": "Asr Iqama",
         "defaultValue": "",
-        "description": "Overrides Asr iqama time.\nIqama and next change time in calendar will be ignored.\nEnter time in 24 hours format or a message."
+        "description": "Overrides Asr iqama time.\nIqama and next change time in calendar will be ignored.\nEnter time in 24 hours format 00:00 or a short message."
       },
       {
         "name": "maghrib_iqama",
         "type": "text",
         "label": "Maghrib Iqama",
         "defaultValue": "5 Mins",
-        "description": "Overrides Magrib time.\nIqama and next change time in calendar will be ignored.\nEnter time in 24 hours format or a message."
+        "description": "Overrides Magrib time.\nIqama and next change time in calendar will be ignored.\nEnter time in 24 hours format 00:00 or a short message."
       },
       {
         "name": "isha_iqama",
         "type": "time",
         "label": "Isha Iqama",
         "defaultValue": "",
-        "description": "Overrides Isha iqama time.\nIqama and next change time in calendar will be ignored.\nEnter time in 24 hours format or a message."
+        "description": "Overrides Isha iqama time.\nIqama and next change time in calendar will be ignored.\nEnter time in 24 hours format 00:00 or a short message."
       }
     ]
   }

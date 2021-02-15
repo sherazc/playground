@@ -72,7 +72,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
             } else {
                 Prayer prayer = findDatePrayerAndNextChange(prayers, month, day);
                 populateMaghribIqama(companyId, prayer);
-                overrideIqama(companyId, prayer);
+                overrideIqamas(companyId, prayer);
                 serviceResponseBuilder
                         .target(prayer)
                         .successful(true)
@@ -81,28 +81,41 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         }
     }
 
-    private void overrideIqama(String companyId, Prayer prayer) {
+    private void overrideIqamas(String companyId, Prayer prayer) {
         List<CustomConfiguration> configs = customConfigurationsService.getAllConfig(companyId);
-/*
-        configs.stream()
-                .filter(c -> StringUtils.equals(c.getName(), "fajar_iqama"))
-                .findFirst()
-                .filter(c -> StringUtils.isNotBlank(c.getValue()))
-                .ifPresent(c -> {
-                    prayer.setFajrIqama(c.getValue());
-                    prayer.setFajrChange(null);
-                    prayer.setFajrChangeDate(null);
-                });
-*/
 
-        ov(configs, "fajar_iqama", s -> {
+        overrideIqama(configs, "fajar_iqama", s -> {
             prayer.setFajrIqama(s);
             prayer.setFajrChange(null);
             prayer.setFajrChangeDate(null);
         });
+
+        overrideIqama(configs, "zuhar_iqama", s -> {
+            prayer.setDhuhrIqama(s);
+            prayer.setDhuhrChange(null);
+            prayer.setDhuhrChangeDate(null);
+        });
+
+        overrideIqama(configs, "asr_iqama", s -> {
+            prayer.setAsrIqama(s);
+            prayer.setAsrChange(null);
+            prayer.setAsrChangeDate(null);
+        });
+
+        overrideIqama(configs, "maghrib_iqama", s -> {
+            prayer.setMaghribIqama(s);
+            prayer.setMaghribChange(null);
+            prayer.setMaghribChangeDate(null);
+        });
+
+        overrideIqama(configs, "isha_iqama", s -> {
+            prayer.setIshaIqama(s);
+            prayer.setIshaChange(null);
+            prayer.setIshaChangeDate(null);
+        });
     }
 
-    private void ov(List<CustomConfiguration> configs, String configName, Consumer<String> consumer) {
+    private void overrideIqama(List<CustomConfiguration> configs, String configName, Consumer<String> consumer) {
         configs.stream()
                 .filter(c -> StringUtils.equals(c.getName(), configName))
                 .findFirst()

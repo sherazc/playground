@@ -86,7 +86,7 @@ class Configuration extends Component {
         return (
             <div>
                 <CloseablePanel
-                    title="Configuration"
+                    title="Customization"
                     editMode={this.state.editMode}
                     defaultExpanded={this.props.defaultExpanded}
                     onSave={this.props.onSave}
