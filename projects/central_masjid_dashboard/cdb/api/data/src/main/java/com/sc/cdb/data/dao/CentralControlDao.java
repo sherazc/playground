@@ -14,4 +14,6 @@ public interface CentralControlDao extends BaseDao<CentralControl> {
   List<CentralControlCompany> findByCompanyUrl(String url);
 
   List<CustomConfiguration> findCustomConfigurationByCompanyIdConfigName(ObjectId companyId, String configName);
+
+  List<CustomConfiguration> findCustomConfigurationByCompanyId(ObjectId companyId);
 }

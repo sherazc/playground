@@ -7,3 +7,7 @@ test if the hijri days are changing because of adjust days setting
 
 
 Fix blank khateeb name and date error on login
+
+Deprecate picklist collection and convert it to enum
+
+

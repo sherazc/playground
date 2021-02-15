@@ -6,9 +6,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 import com.sc.cdb.data.dao.PrayerConfigDao;
 import com.sc.cdb.data.model.auth.Company;
+import com.sc.cdb.data.model.cc.CustomConfiguration;
 import com.sc.cdb.data.model.cc.GeoCode;
 import com.sc.cdb.data.model.prayer.Dst;
 import com.sc.cdb.data.model.prayer.Prayer;
@@ -70,6 +72,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
             } else {
                 Prayer prayer = findDatePrayerAndNextChange(prayers, month, day);
                 populateMaghribIqama(companyId, prayer);
+                overrideIqama(companyId, prayer);
                 serviceResponseBuilder
                         .target(prayer)
                         .successful(true)
@@ -78,10 +81,52 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         }
     }
 
+    private void overrideIqama(String companyId, Prayer prayer) {
+        List<CustomConfiguration> configs = customConfigurationsService.getAllConfig(companyId);
+/*
+        configs.stream()
+                .filter(c -> StringUtils.equals(c.getName(), "fajar_iqama"))
+                .findFirst()
+                .filter(c -> StringUtils.isNotBlank(c.getValue()))
+                .ifPresent(c -> {
+                    prayer.setFajrIqama(c.getValue());
+                    prayer.setFajrChange(null);
+                    prayer.setFajrChangeDate(null);
+                });
+*/
+
+        ov(configs, "fajar_iqama", s -> {
+            prayer.setFajrIqama(s);
+            prayer.setFajrChange(null);
+            prayer.setFajrChangeDate(null);
+        });
+    }
+
+    private void ov(List<CustomConfiguration> configs, String configName, Consumer<String> consumer) {
+        configs.stream()
+                .filter(c -> StringUtils.equals(c.getName(), configName))
+                .findFirst()
+                .filter(c -> StringUtils.isNotBlank(c.getValue()))
+                .ifPresent(c -> consumer.accept(c.getValue()));
+    }
+
+
+    private Optional<CustomConfiguration> getConfigByName(List<CustomConfiguration> configs, String name) {
+        if (configs == null || configs.isEmpty()) {
+            return Optional.empty();
+        }
+        return configs.stream()
+                .filter(c -> StringUtils.equals(c.getName(), name))
+                .findFirst();
+    }
+
+    @Deprecated
     private void populateMaghribIqama(String companyId, Prayer prayer) {
         if (prayer != null) {
+
             String maghribIqama = customConfigurationsService.getStringConfig(companyId, "maghrib_iqama", "5 Mins");
             prayer.setMaghribIqama(maghribIqama);
+
         }
     }
 
@@ -129,9 +174,9 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
             // comparePrayerMonthDate() args month and date for the next year was not
             // considered to be greater value.
             // if (comparePrayerMonthDate(yearPrayersMutable.get(i), month, date) < 0)
-              //  continue;
+            //  continue;
             Prayer loopPrayer = yearPrayersMutable.get(i);
-            if(foundPrayer == null && prayerComparator.comparePrayerMonthDate(loopPrayer, month, date) == 0) {
+            if (foundPrayer == null && prayerComparator.comparePrayerMonthDate(loopPrayer, month, date) == 0) {
                 foundPrayer = loopPrayer;
                 foundIndex = i;
             }
@@ -225,7 +270,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         Optional<PrayerConfig> existingPrayerConfig = prayerConfigRepository.findById(prayerConfig.getId());
         existingPrayerConfig.ifPresent(p -> {
             // if new year prayers are being saved.
-            if((p.getPrayers() == null || p.getPrayers().isEmpty())
+            if ((p.getPrayers() == null || p.getPrayers().isEmpty())
                     && (prayerConfig.getPrayers() != null && !prayerConfig.getPrayers().isEmpty())) {
                 dbVersionService.upgradeCompanyListVersion();
             }

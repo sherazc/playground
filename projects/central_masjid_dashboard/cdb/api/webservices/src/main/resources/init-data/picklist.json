@@ -33,9 +33,9 @@
         "description": "Maghrib iqama time message."
       },
       {
-        "name": "fajar_iqamah_override",
+        "name": "fajar_iqama",
         "type": "time",
-        "label": "Fajar Iqamah Override",
+        "label": "Override ",
         "defaultValue": "",
         "description": "Overrides fajar iqamah time."
       }

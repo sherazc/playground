@@ -77,8 +77,30 @@ db.getCollection('centralControl').aggregate([
             Aggregation.match(companyIdCriteria),
             Aggregation.unwind("$customConfigurations"),
             project,
-            Aggregation.match(configNameCriteria)
-    );
+            Aggregation.match(configNameCriteria));
+
+    return this.getMongoTemplate()
+            .aggregate(
+                    aggregation,
+                    "centralControl",
+                    CustomConfiguration.class)
+            .getMappedResults();
+  }
+
+  @Override
+  public List<CustomConfiguration> findCustomConfigurationByCompanyId(ObjectId companyId) {
+    Criteria companyIdCriteria = Criteria
+            .where("companyId")
+            .is(companyId);
+
+    ProjectionOperation project = Aggregation.project(Fields.from(
+            Fields.field("name", "$customConfigurations.name"),
+            Fields.field("value", "$customConfigurations.value")));
+
+    Aggregation aggregation = Aggregation.newAggregation(
+            Aggregation.match(companyIdCriteria),
+            Aggregation.unwind("$customConfigurations"),
+            project);
 
     return this.getMongoTemplate()
             .aggregate(
