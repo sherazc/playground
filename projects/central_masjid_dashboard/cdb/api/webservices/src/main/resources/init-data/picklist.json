@@ -26,18 +26,39 @@
         "description": "0 = no clock\n1 = analog\n2 = digital"
       },
       {
+        "name": "fajar_iqama",
+        "type": "time",
+        "label": "Fajar Iqama",
+        "defaultValue": "",
+        "description": "Overrides Fajar iqama time.\nIqama and next change time in calendar will be ignored.\nEnter time in 24 hours format or a message."
+      },
+      {
+        "name": "zuhar_iqama",
+        "type": "time",
+        "label": "Zuhar Iqama",
+        "defaultValue": "",
+        "description": "Overrides Zuhar iqama time.\nIqama and next change time in calendar will be ignored.\nEnter time in 24 hours format or a message."
+      },
+      {
+        "name": "asr_iqama",
+        "type": "time",
+        "label": "Asr Iqama",
+        "defaultValue": "",
+        "description": "Overrides Asr iqama time.\nIqama and next change time in calendar will be ignored.\nEnter time in 24 hours format or a message."
+      },
+      {
         "name": "maghrib_iqama",
         "type": "text",
         "label": "Maghrib Iqama",
         "defaultValue": "5 Mins",
-        "description": "Maghrib iqama time message."
+        "description": "Overrides Magrib time.\nIqama and next change time in calendar will be ignored.\nEnter time in 24 hours format or a message."
       },
       {
-        "name": "fajar_iqama",
+        "name": "isha_iqama",
         "type": "time",
-        "label": "Override ",
+        "label": "Isha Iqama",
         "defaultValue": "",
-        "description": "Overrides fajar iqamah time."
+        "description": "Overrides Isha iqama time.\nIqama and next change time in calendar will be ignored.\nEnter time in 24 hours format or a message."
       }
     ]
   }
