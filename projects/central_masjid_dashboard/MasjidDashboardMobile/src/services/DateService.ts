@@ -74,12 +74,19 @@ export const dateToDisplayDateShort = (date: Date) => {
         return "";
     }
     const d = date instanceof Date ? date : new Date(date);
+    if (isNaN(d.getTime())) { // if not valid date
+        return date;
+    }
     return `${d.getUTCMonth() + 1}/${d.getUTCDate()}`;
 };
 
 export const time24To12 = (time24?: string) => {
-    if (!time24 || !TIME_24_REGX.test(time24)) {
+    if (!time24) {
         return "";
+    }
+
+    if (!TIME_24_REGX.test(time24)) {
+        return time24;
     }
 
     const hoursMinutes = time24.split(":");

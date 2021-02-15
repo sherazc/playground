@@ -82,6 +82,9 @@ export const datesMonthDatePart = (date) => {
         return;
     }
     const d = date instanceof Date ? date : new Date(date);
+    if (isNaN(d.getTime())) { // if not valid date
+        return date;
+    }
     return `-${numberTo2DigitsString(d.getUTCMonth() + 1)}-${numberTo2DigitsString(d.getUTCDate())}`;
 };
 
@@ -90,8 +93,11 @@ const numberTo2DigitsString = (number) => {
 };
 
 export const time24To12 = (time24) => {
-    if (!time24 || !TIME_24_REGX.test(time24)) {
+    if (!time24) {
         return "";
+    }
+    if (!TIME_24_REGX.test(time24)) {
+        return time24;
     }
     const hoursMinutes = time24.split(":");
     const hours24 = hoursMinutes[0] - 0;
