@@ -2,17 +2,12 @@
 
 $borderRadius: 10px;
 
-.centerFlex {
-  display: flex;
-  justify-content: center;
-  align-content: center;
-}
-
 .container {
   @extend .centerFlex;
   background: linear-gradient(#8d9fb0, #ffffff);
   // height: 100%;
   padding: 3vw;
+  flex-direction: column;
   @media screen and (max-width: $screen-break) {
     padding: 1vw;
   }
@@ -25,10 +20,12 @@ $borderRadius: 10px;
   box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.40);
   display: flex;
   flex-direction: row;
+  margin: 0 auto;
   @media screen and (max-width: $screen-break) {
     flex-direction: column;
     width: 100%;
     height: 100%;
+    margin-bottom: 100px;
   }
 }
 
@@ -63,7 +60,4 @@ $borderRadius: 10px;
   @media screen and (max-width: $screen-break) {
     padding: 8vw 0;
   }
-}
-
-.contentCenter {
 }

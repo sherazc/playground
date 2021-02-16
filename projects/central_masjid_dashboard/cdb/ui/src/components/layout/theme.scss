@@ -158,3 +158,22 @@ $screen-break: 959px;
     margin-top: 22vw !important;
   }
 }
+
+.anchorLight {
+  color: $colorTextLight;
+  text-decoration: none;
+}
+
+.anchorLight:hover {
+  color: $colorTextLight;
+  text-decoration: underline;
+}
+
+.center {
+  justify-content: center;
+  align-content: center;
+}
+.centerFlex {
+  @extend .center;
+  display: flex;
+}

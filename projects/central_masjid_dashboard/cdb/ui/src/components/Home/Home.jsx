@@ -4,6 +4,7 @@ import Login from "./Login/Login";
 import styles from "./Home.module.scss";
 import Welcome from "./Welcome/Welcome";
 import {getQueryParam} from "../../services/utilities";
+import Footer02 from "../layout/Footer02/Footer02";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
@@ -50,6 +51,7 @@ class Home extends Component {
                         </div>
                     </div>
                 </div>
+                <Footer02/>
             </div>
         );
     }

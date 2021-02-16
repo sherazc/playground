@@ -13,6 +13,16 @@ code {
     monospace;
 }
 
+a {
+  color: #3f51b5;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #3f51b5;
+  text-decoration: underline;
+}
+
 label {
   margin-right: 10px;
   font-weight: bold;

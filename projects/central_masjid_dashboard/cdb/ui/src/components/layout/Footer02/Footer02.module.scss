@@ -1,0 +1,23 @@
+@import "../theme";
+
+.mainFooter {
+  @extend .centerFlex;
+  border-top: 1px solid #05364f;
+  background-color: $color1BackgroundDark;
+  color: $colorTextLight;
+  width: 100%;
+  z-index: 100;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 60px;
+  flex-direction: column;
+}
+
+.mainFooterContent {
+  @extend .centerFlex;
+}
+
+.mainFooterBreak {
+  margin: 0 10px;
+}
