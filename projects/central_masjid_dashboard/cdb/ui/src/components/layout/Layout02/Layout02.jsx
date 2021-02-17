@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import styles from "./Layout02.module.scss";
 import Footer02 from "../Footer02/Footer02";
 import Header02 from "../Header02/Header02";
 

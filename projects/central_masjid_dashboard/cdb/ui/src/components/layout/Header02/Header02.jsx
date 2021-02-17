@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import styles from "./Header02.module.scss";
 
 const baseLinkUrl = process.env.PUBLIC_URL;
 
