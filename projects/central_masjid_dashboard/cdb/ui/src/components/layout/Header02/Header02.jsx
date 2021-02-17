@@ -10,7 +10,7 @@ class Header02 extends Component {
 
     render() {
         return (
-            <div>
+            <div style={{backgroundColor: "red"}}>
                 Header 02
             </div>
         );

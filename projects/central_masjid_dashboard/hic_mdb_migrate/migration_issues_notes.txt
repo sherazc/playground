@@ -5,3 +5,6 @@ Fix blank khateeb name and date error on login
 Deprecate picklist collection and convert it to enum
 
 
+Give home page a layout. import footer in home from layout
+
+Make footer not fixed position
