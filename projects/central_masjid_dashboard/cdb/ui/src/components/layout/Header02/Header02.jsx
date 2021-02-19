@@ -10,8 +10,13 @@ class Header02 extends Component {
 
     render() {
         return (
-            <div style={{backgroundColor: "red"}}>
-                Header 02
+            <div className={styles.container}>
+                <div className={styles.logoContainer}>
+Masjid Dashboard
+                </div>
+                <div className={styles.logoContainer}>
+                    {this.props.title}
+                </div>
             </div>
         );
     }
