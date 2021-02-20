@@ -227,7 +227,7 @@ class PrivacyPolicy extends Component {
                         <p>If you have any questions about this Privacy Policy, You can contact us:</p>
                         <ul>
                             <li>
-                                <p>By email: sherazcadp@gmail.com</p>
+                                <p>By email: masjiddashboard@gmail.com</p>
                             </li>
                             {/*
                             <li>
