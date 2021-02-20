@@ -11,11 +11,13 @@ class Header02 extends Component {
     render() {
         return (
             <div className={styles.container}>
-                <div className={styles.logoContainer}>
-Masjid Dashboard
-                </div>
-                <div className={styles.logoContainer}>
-                    {this.props.title}
+                <div className={styles.content}>
+                    <div className={styles.logoContainer}>
+                        Masjid Dashboard
+                    </div>
+                    <div className={styles.titleContainer}>
+                        {this.props.title}
+                    </div>
                 </div>
             </div>
         );

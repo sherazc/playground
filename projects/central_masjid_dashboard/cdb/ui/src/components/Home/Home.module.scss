@@ -1,10 +1,9 @@
 @import "../layout/theme";
 
-$borderRadius: 10px;
+$borderRadius: 5px;
 
 .container {
   @extend .centerFlex;
-  background: linear-gradient(#8d9fb0, #ffffff);
   // height: 100%;
   padding: 0vw;
   flex-direction: column;
