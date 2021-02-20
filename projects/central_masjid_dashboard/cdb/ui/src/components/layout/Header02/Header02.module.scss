@@ -12,9 +12,11 @@
 
 .content {
   // background-color: red;
-  width: 85%;
+  width: $screen-width;
+  padding: 0 $content-padding;
   @media screen and (max-width: $screen-break) {
-    width: 98%;
+    width: $screen-width-mobile;
+    padding: 0 $content-padding-mobile;
   }
 }
 

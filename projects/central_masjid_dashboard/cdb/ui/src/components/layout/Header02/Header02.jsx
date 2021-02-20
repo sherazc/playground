@@ -13,7 +13,7 @@ class Header02 extends Component {
             <div className={styles.container}>
                 <div className={styles.content}>
                     <div className={styles.logoContainer}>
-                        Masjid Dashboard
+                        <a className={`${styles.anchorLight}`} href={`baseLinkUrl`}>Masjid Dashboard</a>
                     </div>
                     <div className={styles.titleContainer}>
                         {this.props.title}

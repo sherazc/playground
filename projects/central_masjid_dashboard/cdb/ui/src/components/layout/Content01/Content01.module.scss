@@ -1,0 +1,20 @@
+@import "../theme";
+
+.container {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.content {
+  @extend .card-2;
+  background-color: white;
+  height: 100%;
+  width: $screen-width;
+  padding: 0 $content-padding;
+  @media screen and (max-width: $screen-break) {
+    width: $screen-width-mobile;
+    padding: 0 $content-padding-mobile;
+  }
+}
+
