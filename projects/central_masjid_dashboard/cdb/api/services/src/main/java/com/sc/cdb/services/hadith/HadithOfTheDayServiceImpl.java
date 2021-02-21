@@ -1,5 +1,6 @@
 package com.sc.cdb.services.hadith;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -36,8 +37,8 @@ public class HadithOfTheDayServiceImpl implements HadithOfTheDayService {
         Sort sort = Sort.by(new Sort.Order(Sort.Direction.ASC, "_id"));
         Pageable pageRequest = PageRequest.of(hadithNumber, 1, sort);
         Page<Hadith> hadithPage = hadithRepository.findAll(pageRequest);
-
-        if (hadithPage.hasNext()) {
+        List<Hadith> content = hadithPage.getContent();
+        if (content != null && !content.isEmpty()) {
             hadithOptional = Optional.of(hadithPage.getContent().get(0));
         }
 
