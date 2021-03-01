@@ -14,12 +14,13 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.sc.cdb.data.model.cc.CustomConfiguration;
+import com.sc.cdb.data.model.auth.Company;
 import com.sc.cdb.data.model.prayer.CalenderType;
 import com.sc.cdb.data.model.prayer.Month;
 import com.sc.cdb.data.model.prayer.MonthPrayers;
 import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
+import com.sc.cdb.data.repository.CompanyRepository;
 import com.sc.cdb.data.repository.PrayerConfigRepository;
 import com.sc.cdb.services.bulk.PrayerValidator;
 import com.sc.cdb.services.common.CustomConfigurationsService;
@@ -29,32 +30,40 @@ import com.sc.cdb.services.common.GregorianHijriConverter;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.services.prayer.PrayerComparator;
 import com.sc.cdb.utils.CommonUtils;
+import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class PrayerCalendarServiceImpl implements PrayerCalendarService {
 
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 
-    private PrayerConfigRepository prayerConfigRepository;
-    private PrayerValidator prayerValidator;
-    private PrayerComparator prayerComparator;
-    private GregorianHijriConverter gregorianHijriConverter;
-    private CustomConfigurationsService customConfigurationsService;
+    private final PrayerConfigRepository prayerConfigRepository;
+    private final PrayerValidator prayerValidator;
+    private final PrayerComparator prayerComparator;
+    private final GregorianHijriConverter gregorianHijriConverter;
+    private final CustomConfigurationsService customConfigurationsService;
+    private final CompanyRepository companyRepository;
 
 
-    public PrayerCalendarServiceImpl(
-            PrayerConfigRepository prayerConfigRepository,
-            PrayerValidator prayerValidator,
-            PrayerComparator prayerComparator,
-            GregorianHijriConverter gregorianHijriConverter,
-            CustomConfigurationsService customConfigurationsService) {
-        this.prayerConfigRepository = prayerConfigRepository;
-        this.prayerValidator = prayerValidator;
-        this.prayerComparator = prayerComparator;
-        this.gregorianHijriConverter = gregorianHijriConverter;
-        this.customConfigurationsService = customConfigurationsService;
+    @Override
+    public ServiceResponse<List<MonthPrayers>> calendarByCompanyUrl(String companyUrl, CalenderType type,
+                                                                    int year, int month) {
+
+        ServiceResponse.ServiceResponseBuilder<List<MonthPrayers>> response = ServiceResponse.builder();
+        if (StringUtils.isBlank(companyUrl)) {
+            return response.message("Can not find calendar. Company URL is blank.").build();
+        }
+        Optional<Company> companyOptional = companyRepository.findByUrlIgnoreCaseAndActiveTrue(companyUrl);
+        if (companyOptional.isEmpty() || StringUtils.isBlank(companyOptional.get().getId())) {
+            return response.message("Can not find calendar. Can not find company by URL").build();
+        }
+
+
+        return this.calendar(companyOptional.get().getId(), type, year, month);
     }
 
     @Override
@@ -148,7 +157,7 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
                 .filter(p -> p.getDate().after(limits[0]) && p.getDate().before(limits[1]))
                 .collect(Collectors.groupingBy(monthGroupingCollectorFunction));
 
-        boolean validCalendar = isValidCalenar(userMonth, prayersMonthGroups);
+        boolean validCalendar = isValidCalendar(userMonth, prayersMonthGroups);
         response.successful(validCalendar);
         List<MonthPrayers> monthPrayersList = prayersMonthGroups.keySet()
                 .stream()
@@ -161,84 +170,10 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
 
         response.target(monthPrayersList);
 
-
-        /*
-
-        Convert prayer to @Builder(toBuilder=true). To clone prayers.
-        Find out if Builder will cause any jackson message issues.
-
-        PrayerValidatator.validatePrayers(List<Prayer> prayers)
-
-        CREATE DATA
-
-
-        Update all prayer years to 2016 // this is to keep all records and respect leap year
-
-        sort prayers list by gregorian date
-
-        use userGregorianYear. If userGregorianYear not passed by user, then
-        find it from userHijriYear
-
-        List<Prayer> prayers3Copies;
-
-        loop 3 times
-            loopYear = -1
-            loop over prayers
-                Create clonePrayer
-                * clonePrayerYear = userGregorianYear + loopYear;
-                * continue prayers loop if clonePrayer.date is 2/29 and clonePrayerYear is not leap year
-                update clonePrayer.date with  clonePrayerYear
-                Add clonePrayer to prayers3Copies
-            loopYear++;
-
-        SLICE prayers3Copies
-
-        List<Prayer> prayerSlice;
-        find limits by CalenderType, userYear and userMonth
-        add prayers3Copies's prayer if prayers3Copies's prayer.date is within limits
-
-
-        GROUP BY
-
-        if gregorian
-            update prayer with the year that is passed
-
-        if hijri
-            find gregorian equal year of 1/1/{year}
-            update prayers year with the found year
-
-        sort prayers list by gregorian date
-
-        Make new list 3 copies of the prayers with updated year
-            Run loop 3 times
-            Do below with 2 times
-                loop over prayers
-                    clone each prayer and add it to a new list
-                    update prayer year with year + 1
-
-        Update the entire list's hijriString. hijriString should have year
-
-        Create TreeMap<String, List<Prayer>>
-
-        if month < 1 // create data for year
-            if CalenderType.gregorian
-
-            if CalenderType.hijri
-
-        if month > 0 // create data for month
-            if CalenderType.gregorian
-
-            if CalenderType.hijri
-
-
-        return map
-
-         */
-
         return response.build();
     }
 
-    private boolean isValidCalenar(int userMonth, Map<Month, List<Prayer>> prayersMonthGroups) {
+    private boolean isValidCalendar(int userMonth, Map<Month, List<Prayer>> prayersMonthGroups) {
         return prayersMonthGroups != null
                 && ((userMonth < 1 && prayersMonthGroups.size() == 12)
                         || (userMonth > 0 && prayersMonthGroups.size() == 1));

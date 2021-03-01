@@ -12,7 +12,9 @@ public interface CompanyRepository extends MongoRepository<Company, String> {
 
     Optional<Company> findByIdIsNotAndNameIgnoreCase(String id, String companyName);
 
-    Optional<Company> findByUrlIgnoreCase(String companyName);
+    Optional<Company> findByUrlIgnoreCase(String companyUrl);
+
+    Optional<Company> findByUrlIgnoreCaseAndActiveTrue(String companyUrl);
 
     Optional<Company> findByIdIsNotAndUrlIgnoreCase(String id, String companyName);
 

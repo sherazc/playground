@@ -37,4 +37,17 @@ public class PrayerCalendarController {
         }
         return prayerCalendarService.calendar(companyId, type, year, userMonth);
     }
+
+    @GetMapping("/companyUrl/{companyUrl}/type/{type}/year/{year}")
+    public ServiceResponse<List<MonthPrayers>> calendarByUrl(
+            @PathVariable String companyUrl,
+            @PathVariable CalenderType type,
+            @PathVariable Integer year,
+            @RequestParam(required = false) Integer month) {
+        int userMonth = 0;
+        if (month != null) {
+            userMonth = month;
+        }
+        return prayerCalendarService.calendarByCompanyUrl(companyUrl, type, year, userMonth);
+    }
 }

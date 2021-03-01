@@ -11,4 +11,5 @@ import com.sc.cdb.services.model.ServiceResponse;
 
 public interface PrayerCalendarService {
     ServiceResponse<List<MonthPrayers>> calendar(String companyId, CalenderType type, int year, int month);
+    ServiceResponse<List<MonthPrayers>> calendarByCompanyUrl(String companyUrl, CalenderType type, int year, int month);
 }
