@@ -3,6 +3,7 @@ import {
     Select, MenuItem, Button
 } from '@material-ui/core';
 
+import axios from "axios";
 import styles from "./Calendar.module.scss";
 import Header02 from "../../layout/Header02/Header02";
 import Content01 from "../../layout/Content01/Content01";
@@ -16,8 +17,11 @@ import {
     yearsGregorian,
     yearsHijri
 } from "../../../services/CalendarService";
+import {getReactRouterPathParamFromUrl, isSuccessfulAxiosServiceResponse} from "../../../services/utilities";
 
-export default () => {
+const baseUrl = process.env.REACT_APP_API_BASE_PATH;
+
+export default (props) => {
     const createEmptySearch = () => {
       return {
           selectedType: 0,
@@ -50,6 +54,32 @@ export default () => {
         });
     }
 
+    const onSearch = () => {
+        // Sample api endpoint
+        // http://localhost:8085/api/calendar/companyUrl/mh/type/gregorian/year/2020?month=1
+        const companyUrl = getReactRouterPathParamFromUrl(props, "companyUrl");
+        const type = calendarTypes[search.selectedType].toLowerCase();
+        const year = getYears(search.selectedType)[search.selectedYear];
+        let endpoint = `${baseUrl}/api/calendar/companyUrl/${companyUrl}/type/${type}/year/${year}`;
+        if (search.selectedMonth) {
+            endpoint = `${endpoint}?month=${search.selectedMonth}`;
+        }
+
+        axios.get(endpoint)
+            .then(response => {
+                console.log(response)
+                if (isSuccessfulAxiosServiceResponse(response)) {
+                    handleMonthsResponse(response.data.target);
+                } else {
+                    console.log("Handle error message 1", response);
+                }
+                }, error => console.log("Handle error message 2", error))
+            .catch(error => console.log("Handle error message 3", error));
+    }
+
+    const handleMonthsResponse = (months) => {
+        console.log("Got months", months);
+    }
 
     return (
         <Layout02>
@@ -85,7 +115,7 @@ export default () => {
                     </div>
                 </div>
                 <div>
-                    <Button>Search</Button>
+                    <Button onClick={onSearch}>Search</Button>
                 </div>
             </Content01>
             <Footer02/>

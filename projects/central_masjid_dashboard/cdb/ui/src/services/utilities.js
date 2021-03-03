@@ -242,3 +242,10 @@ export const fieldErrorsToKvList = (fieldErrors) => {
     return kvList;
 };
 
+export const isSuccessfulAxiosServiceResponse = (axiosServiceResponse) => {
+    return axiosServiceResponse
+        && axiosServiceResponse.status && axiosServiceResponse.status === 200
+        && axiosServiceResponse.data && axiosServiceResponse.data.successful
+        && axiosServiceResponse.data.target;
+}
+

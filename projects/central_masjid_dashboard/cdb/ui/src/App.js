@@ -108,7 +108,7 @@ class App extends Component {
                             <Route path={`${process.env.PUBLIC_URL}/privacy-policy`} component={PrivacyPolicy} exact/>
 
                             <Route
-                                path={`${process.env.PUBLIC_URL}/calendar/:companyDashboardUrl`}
+                                path={`${process.env.PUBLIC_URL}/calendar/:companyUrl`}
                                 component={Calendar}/>
 
                             <Route
