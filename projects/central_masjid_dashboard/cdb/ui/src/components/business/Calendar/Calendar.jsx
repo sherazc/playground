@@ -85,9 +85,13 @@ export default (props) => {
         <Layout02>
             <Header02 title={"Calendar"}/>
             <Content01>
-                <div>
-                    <div>
+                <div className={styles.searchFieldContainer}>
+                    <div className={styles.searchFieldBox}>
+                        <div className={styles.searchFieldLabel}>
+                            Calendar type
+                        </div>
                         <Select
+                            className={styles.searchField}
                             name="type"
                             label="Calendar Type"
                             onChange={onChangeType}
@@ -95,8 +99,12 @@ export default (props) => {
                             {createMenuItems(calendarTypes)}
                         </Select>
                     </div>
-                    <div>
+                    <div className={styles.searchFieldBox}>
+                        <div className={styles.searchFieldLabel}>
+                            Year
+                        </div>
                         <Select
+                            className={styles.searchField}
                             name="selectedYear"
                             label="Year"
                             onChange={onChange}
@@ -104,8 +112,12 @@ export default (props) => {
                             {createMenuItems(getYears(search.selectedType))}
                         </Select>
                     </div>
-                    <div>
+                    <div className={styles.searchFieldBox}>
+                        <div className={styles.searchFieldLabel}>
+                            Month
+                        </div>
                         <Select
+                            className={styles.searchField}
                             name="selectedMonth"
                             label="Month"
                             onChange={onChange}
@@ -114,8 +126,10 @@ export default (props) => {
                         </Select>
                     </div>
                 </div>
-                <div>
-                    <Button onClick={onSearch}>Search</Button>
+                <div className={styles.searchButtonContainer}>
+                    <Button onClick={onSearch} variant="outlined" color="primary">
+                        Search
+                    </Button>
                 </div>
             </Content01>
             <Footer02/>

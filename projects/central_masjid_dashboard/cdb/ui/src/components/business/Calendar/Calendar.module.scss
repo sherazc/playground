@@ -1,0 +1,38 @@
+@import "../../layout/theme";
+
+.searchFieldContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 20px 0;
+  flex-direction: row;
+  @media screen and (max-width: $screen-break) {
+    flex-direction: column;
+  }
+}
+
+.searchFieldBox {
+  width: 25%;
+  margin: 10px;
+  @media screen and (max-width: $screen-break) {
+    width: 90%;
+  }
+}
+
+.searchFieldLabel {
+  width: 100%;
+  font-weight: 500;
+  letter-spacing: 2px;
+  font-size: large;
+}
+
+.searchField {
+  width: 100%;
+}
+
+.searchButtonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0 30px 0;
+}
