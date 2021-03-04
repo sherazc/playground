@@ -18,6 +18,7 @@ import {
     yearsHijri
 } from "../../../services/CalendarService";
 import {getReactRouterPathParamFromUrl, isSuccessfulAxiosServiceResponse} from "../../../services/utilities";
+import PrayerDay from "../admin/TabPrayer/PrayersMonth/PrayerDay/PrayerDay";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
@@ -31,6 +32,7 @@ export default (props) => {
     };
 
     const [search, setSearch] = useState(createEmptySearch());
+    const [months, setMonths] = useState([]);
 
     const createMenuItems = (items) => {
         return items.map((item, index) => <MenuItem key={index} value={index}>{item}</MenuItem>);
@@ -69,7 +71,7 @@ export default (props) => {
             .then(response => {
                 console.log(response)
                 if (isSuccessfulAxiosServiceResponse(response)) {
-                    handleMonthsResponse(response.data.target);
+                    setMonths(response.data.target);
                 } else {
                     console.log("Handle error message 1", response);
                 }
@@ -77,8 +79,45 @@ export default (props) => {
             .catch(error => console.log("Handle error message 3", error));
     }
 
-    const handleMonthsResponse = (months) => {
-        console.log("Got months", months);
+    const createMonth = (month) => {
+        return (
+        <div key={month.month.name} className={styles.monthContainer}>
+            <div>
+                <table className={styles.prayerMonthGrid} border="1">
+                    <thead>
+                    <tr>
+                        <th colSpan="100%">{month.month.name}</th>
+                    </tr>
+                    <tr>
+                        <th>Date</th>
+                        <th colSpan="2">Fajr</th>
+                        <th>Shurooq</th>
+                        <th colSpan="2">Zuhar</th>
+                        <th colSpan="2">Asr</th>
+                        <th>Maghrib</th>
+                        <th colSpan="2">Isha</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Azan</td>
+                        <td>Iqmah</td>
+                        <td></td>
+                        <td>Azan</td>
+                        <td>Iqmah</td>
+                        <td>Azan</td>
+                        <td>Iqmah</td>
+                        <td>Azan</td>
+                        <td>Azan</td>
+                        <td>Iqmah</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        );
     }
 
     return (
@@ -131,6 +170,16 @@ export default (props) => {
                         Search
                     </Button>
                 </div>
+                {months.length > 0 &&
+                    <div className={styles.calendarContainer}>
+                        {months.map(m => createMonth(m))}
+                    </div>
+                }
+                {months.length === 0 &&
+                    <div className={styles.calendarContainer}>
+                        No months
+                    </div>
+                }
             </Content01>
             <Footer02/>
         </Layout02>
