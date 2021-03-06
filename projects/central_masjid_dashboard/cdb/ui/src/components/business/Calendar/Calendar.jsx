@@ -19,6 +19,7 @@ import {
 } from "../../../services/CalendarService";
 import {getReactRouterPathParamFromUrl, isSuccessfulAxiosServiceResponse} from "../../../services/utilities";
 import PrayerDay from "../admin/TabPrayer/PrayersMonth/PrayerDay/PrayerDay";
+import PrayerViewRow from "./PrayerViewRow";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
@@ -82,48 +83,51 @@ export default (props) => {
     const createMonth = (month) => {
         return (
         <div key={month.month.name} className={styles.monthContainer}>
-            <div>
-                <table className={styles.prayerMonthGrid} border="1">
-                    <thead>
-                    <tr>
-                        <th colSpan="100%">{month.month.name}</th>
-                    </tr>
-                    <tr>
-                        <th>Date</th>
-                        <th colSpan="2">Fajr</th>
-                        <th>Shurooq</th>
-                        <th colSpan="2">Zuhar</th>
-                        <th colSpan="2">Asr</th>
-                        <th>Maghrib</th>
-                        <th colSpan="2">Isha</th>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Azan</td>
-                        <td>Iqmah</td>
-                        <td></td>
-                        <td>Azan</td>
-                        <td>Iqmah</td>
-                        <td>Azan</td>
-                        <td>Iqmah</td>
-                        <td>Azan</td>
-                        <td>Azan</td>
-                        <td>Iqmah</td>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
-            </div>
+            <table className={styles.monthTable}>
+                <thead>
+                <tr>
+                    <th colSpan="100%">{month.month.number} {month.month.name}</th>
+                </tr>
+                <tr>
+                    <th>Date</th>
+                    <th>Hijri</th>
+                    <th colSpan="2">Fajr</th>
+                    <th>Shurooq</th>
+                    <th colSpan="2">Zuhar</th>
+                    <th colSpan="2">Asr</th>
+                    <th>Maghrib</th>
+                    <th colSpan="2">Isha</th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Azan</td>
+                    <td>Iqmah</td>
+                    <td></td>
+                    <td>Azan</td>
+                    <td>Iqmah</td>
+                    <td>Azan</td>
+                    <td>Iqmah</td>
+                    <td>Azan</td>
+                    <td>Azan</td>
+                    <td>Iqmah</td>
+                </tr>
+                </thead>
+                <tbody>
+                {month.prayers.map((p, i) => <PrayerViewRow key={i} prayer={p}/>)}
+                </tbody>
+            </table>
         </div>
         );
     }
 
     return (
-        <Layout02>
-            <Header02 title={"Calendar"}/>
-            <Content01>
+        //
+        // <Layout02>
+        //     <Header02 title={"Calendar"}/>
+        //     <Content01>
+        //
+        <div>
                 <div className={styles.searchFieldContainer}>
                     <div className={styles.searchFieldBox}>
                         <div className={styles.searchFieldLabel}>
@@ -172,7 +176,9 @@ export default (props) => {
                 </div>
                 {months.length > 0 &&
                     <div className={styles.calendarContainer}>
+                        <div className={styles.calendarContainerChild}>
                         {months.map(m => createMonth(m))}
+                        </div>
                     </div>
                 }
                 {months.length === 0 &&
@@ -180,8 +186,11 @@ export default (props) => {
                         No months
                     </div>
                 }
-            </Content01>
-            <Footer02/>
-        </Layout02>
+
+        </div>
+        //     </Content01>
+        //     <Footer02/>
+        // </Layout02>
+        //
     );
 }
