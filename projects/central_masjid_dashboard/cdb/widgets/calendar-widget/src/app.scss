@@ -1,0 +1,29 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.dbContainer {
+  background-color: #6392b0;
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.dbContainer iframe {
+  width: 100%;
+  height: 100%;
+}
+
+.dbContainer iframe:focus {
+  outline: none;
+}
+
+.dbContainer iframe[seamless] {
+  display: block;
+}

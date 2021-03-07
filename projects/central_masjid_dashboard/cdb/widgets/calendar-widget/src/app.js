@@ -16,7 +16,7 @@ const callback = () => {
 };
 
 // these variables are used inside callback function
-const appDivId = dashboardAppDivId;
-const serverUrl = dashboardServerUrl;
+const appDivId = calendarAppDivId;
+const serverUrl = calendarServerUrl;
 
 callback();
