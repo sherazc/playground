@@ -93,6 +93,10 @@
   color: $colorTextDark;
 }
 
+.monthTable thead tr:nth-child(2) th {
+  text-align: left;
+}
+
 .monthTable thead tr:nth-child(3) {
   background-color: $color4BackgroundLight;
   color: $colorTextDark;
