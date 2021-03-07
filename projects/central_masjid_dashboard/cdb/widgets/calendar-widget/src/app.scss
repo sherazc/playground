@@ -3,27 +3,24 @@ html, body {
   padding: 0;
   border: 0;
   background: transparent;
+  height: 100%
 }
 
-.dbContainer {
-  background-color: #6392b0;
-  position: fixed;
-  z-index: 1000;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-}
-
-.dbContainer iframe {
+.calendarContainer {
   width: 100%;
   height: 100%;
 }
 
-.dbContainer iframe:focus {
+.calendarContainer iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.calendarContainer iframe:focus {
   outline: none;
 }
 
-.dbContainer iframe[seamless] {
+.calendarContainer iframe[seamless] {
   display: block;
 }

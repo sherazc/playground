@@ -2,8 +2,8 @@ import "./app.scss";
 
 const buildWidgetHTML = () => {
     let resultHtml = `
-    <div class="dbContainer">
-        <iframe src="${serverUrl}/${companyUrl}"></iframe>
+    <div class="calendarContainer">
+        <iframe src="${serverUrl}/calendar/${companyUrl}"></iframe>
     </div>
     `;
 
