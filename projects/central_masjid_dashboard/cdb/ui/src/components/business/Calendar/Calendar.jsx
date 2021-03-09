@@ -1,4 +1,4 @@
-import React, {Component, useState} from "react";
+import React, {Component, useState, useEffect} from "react";
 import {
     Select, MenuItem, Button
 } from '@material-ui/core';
@@ -56,6 +56,14 @@ export default (props) => {
             "selectedType": event.target.value,
         });
     }
+
+    useEffect(() => {
+        // Send dimension message to parent
+        const rootContainer = document.getElementById("root");
+        const width = rootContainer.scrollWidth;
+        const height = rootContainer.scrollHeight;
+        window.parent.postMessage({"dimensions": {width, height}}, "*");
+    })
 
     const onSearch = () => {
         // Sample api endpoint

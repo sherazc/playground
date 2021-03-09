@@ -3,8 +3,9 @@ import "./app.scss";
 const buildWidgetHTML = () => {
     let resultHtml = `
     <div class="calendarContainer">
-        <iframe  frameborder="0" allowfullscreen  src="${serverUrl}/calendar/${companyUrl}"></iframe>
+        <iframe id="calendarIframe"  frameborder="0" allowfullscreen  src="${serverUrl}/calendar/${companyUrl}"></iframe>
     </div>
+    
     `;
 
     return resultHtml;
@@ -13,7 +14,21 @@ const buildWidgetHTML = () => {
 const callback = () => {
     const appDiv = document.getElementById(appDivId);
     appDiv.innerHTML = buildWidgetHTML();
+
+    window.addEventListener("message", function (event) {
+        console.log("Message received", event)
+        const calendarIframe = document.getElementById("calendarIframe");
+        const dimensions = event.data.dimensions;
+        if (calendarIframe && dimensions && dimensions.height && dimensions.height > 0) {
+            calendarIframe.height = dimensions.height;
+            console.log("Height set to ", dimensions)
+        }
+        // window.iframe.height = event.data.dimension.height;
+        // can message back using event.source.postMessage(...)
+    });
 };
+
+
 
 // these variables are used inside callback function
 const appDivId = calendarAppDivId;

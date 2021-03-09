@@ -5,32 +5,43 @@ npm install npm -g
 npm install yarn -g
 
 # Install UI dependencies
-cd ui
+cd ./ui
 rm -rf build
 yarn install
+cd ..
+
+# Build calendar-widget
+cd ./widgets/calendar-widget
+yarn install
+yarn build
+cd ..
 
 # Build rod-widget
-cd ../widgets/rod-widget
+cd ./widgets/rod-widget
 yarn install
 yarn build
+cd ..
 
 # Build prayer-time-widget
-cd ../prayer-time-widget
+cd ./prayer-time-widget
 yarn install
 yarn build
+cd ..
 
 # Build dashboard-widget
-cd ../dashboard-widget
+cd ./dashboard-widget
 yarn install
 yarn build
+cd ..
 
 # Build jummah-schedule-widget
-cd ../jummah-schedule-widget
+cd ./jummah-schedule-widget
 yarn install
 yarn build
+cd ..
 
 # Build UI
-cd ../../ui
+cd ../ui
 # UI is already been cleaned up
 yarn build
 
