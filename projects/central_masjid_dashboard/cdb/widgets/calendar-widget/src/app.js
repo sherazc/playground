@@ -5,7 +5,6 @@ const buildWidgetHTML = () => {
     <div class="calendarContainer">
         <iframe id="calendarIframe"  frameborder="0" allowfullscreen  src="${serverUrl}/calendar/${companyUrl}"></iframe>
     </div>
-    
     `;
 
     return resultHtml;
@@ -16,15 +15,12 @@ const callback = () => {
     appDiv.innerHTML = buildWidgetHTML();
 
     window.addEventListener("message", function (event) {
-        console.log("Message received", event)
         const calendarIframe = document.getElementById("calendarIframe");
         const dimensions = event.data.dimensions;
         if (calendarIframe && dimensions && dimensions.height && dimensions.height > 0) {
             calendarIframe.height = dimensions.height;
-            console.log("Height set to ", dimensions)
+
         }
-        // window.iframe.height = event.data.dimension.height;
-        // can message back using event.source.postMessage(...)
     });
 };
 

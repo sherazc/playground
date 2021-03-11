@@ -17,7 +17,7 @@ yarn build
 cd ..
 
 # Build rod-widget
-cd ./widgets/rod-widget
+cd ./rod-widget
 yarn install
 yarn build
 cd ..
