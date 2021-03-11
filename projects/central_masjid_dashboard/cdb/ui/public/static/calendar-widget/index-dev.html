@@ -17,7 +17,7 @@
         var appNamePrefix = "calendar";
         var appScriptSrc = "/static/calendar-widget/app.min.js";
         var companyUrl = (new URLSearchParams(window.location.search)).get("companyUrl");
-        window[`${appNamePrefix}ServerUrl`] = "http://localhost:8085";  // dev testing
+        window[`${appNamePrefix}ServerUrl`] = "http://localhost:3000";  // dev testing
         // window[`${appNamePrefix}ServerUrl`] = location.origin;
         window[`${appNamePrefix}AppDivId`] = `${appNamePrefix}App`;
         window.onload = function () {

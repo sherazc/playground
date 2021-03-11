@@ -18,7 +18,7 @@ const callback = () => {
         const calendarIframe = document.getElementById("calendarIframe");
         const dimensions = event.data.dimensions;
         if (calendarIframe && dimensions && dimensions.height && dimensions.height > 0) {
-            calendarIframe.height = dimensions.height;
+            calendarIframe.height = dimensions.height + 200;
 
         }
     });

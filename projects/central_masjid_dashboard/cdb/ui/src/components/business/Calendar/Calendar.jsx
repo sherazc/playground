@@ -27,7 +27,7 @@ export default (props) => {
     const createEmptySearch = () => {
       return {
           selectedType: 0,
-          selectedYear: 1,
+          selectedYear: 2,
           selectedMonth: 0
       }
     };
@@ -191,7 +191,7 @@ export default (props) => {
                 }
                 {months.length === 0 &&
                     <div className={styles.calendarContainer}>
-                        No months
+                        Select calendar, year, month and click "Search"
                     </div>
                 }
 
