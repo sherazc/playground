@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Calendar</title>
+    <style>
+        .codeTextDiv {
+            margin: 20px;
+            margin-bottom: 40px;
+        }
+    </style>
+    <script>
+        // Set these variables
+        var appNamePrefix = "calendar";
+        var appScriptSrc = "/static/calendar-widget/app.min.js";
+        var companyUrl = (new URLSearchParams(window.location.search)).get("companyUrl");
+        // window[`${appNamePrefix}ServerUrl`] = "http://localhost:3000";  // dev testing
+        window[`${appNamePrefix}ServerUrl`] = location.origin;
+        window[`${appNamePrefix}AppDivId`] = `${appNamePrefix}App`;
+        window.onload = function () {
+            var widgetScriptHelp = `<div id="${appNamePrefix}App"></div>
+<script>
+var ${appNamePrefix}ServerUrl = "${location.origin}";
+var ${appNamePrefix}AppDivId = "${appNamePrefix}App";
+var companyUrl = "${companyUrl}"
+<\/script>
+<script type="application/javascript" src="${location.origin}${appScriptSrc}"><\/script>`;
+
+            var scriptTextarea = document.querySelector(".codeTextDiv textarea");
+            scriptTextarea.value = widgetScriptHelp;
+        };
+    </script>
+</head>
+<body>
+<h1>Calendar</h1>
+<p>
+    Copy paste this script in your web-page.
+</p>
+<div class="codeTextDiv">
+    <textarea cols="80" rows="10"></textarea>
+</div>
+
+<script>
+    document.write(`<div style="height: fit-content" id="${appNamePrefix}App"></div>`);
+</script>
+<script type="application/javascript" src="app.min.js"></script>
+</body>
+</html>

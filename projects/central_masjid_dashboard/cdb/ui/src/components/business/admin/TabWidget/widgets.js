@@ -33,17 +33,19 @@ var companyId = "${company.id}";
             , liveLink: `/static/prayer-time-widget/index.html?companyId=${company.id}`
         },
         {
-            name: "Reminder Of The Day",
-            description: `Reminder Of The Day widget, will pick new Ayas every day.`,
-            image: "/images/widget/sample_rod.png",
-            imageDescription: "Above Image is sample output.",
-            script: `<div id="rodApp"></div>
+            name: "Calendar",
+            description: `
+Yearly and monthly calendar.`,
+            image: "/images/widget/sample_calendar.png",
+            imageDescription: "This is sample output.",
+            script: `<div id="calendarApp"></div>
 <script>
-var rodServerUrl = "${baseUrl}";
-var rodAppDivId = "rodApp";
+var calendarServerUrl = "${baseUrl}";
+var calendarAppDivId = "calendarApp";
+var companyUrl = "${company.url}";
 </script>
-<script type="application/javascript" src="${baseUrl}/static/rod-widget/app.min.js"></script>`
-            , liveLink: "/static/rod-widget/index.html"
+<script type="application/javascript" src="${baseUrl}/static/calendar-widget/app.min.js"></script>`
+            , liveLink: `/static/calendar-widget/index.html?companyUrl=${company.url}`
         },
         {
             name: "Jummah Schedule",
@@ -58,6 +60,19 @@ var companyId = "${company.id}";
 </script>
 <script type="application/javascript" src="${baseUrl}/static/jummah-schedule-widget/app.min.js"></script>`
             , liveLink: `/static/jummah-schedule-widget/index.html?companyId=${company.id}`
+        },
+        {
+            name: "Reminder Of The Day",
+            description: `Reminder Of The Day widget, will pick new Ayas every day.`,
+            image: "/images/widget/sample_rod.png",
+            imageDescription: "Above Image is sample output.",
+            script: `<div id="rodApp"></div>
+<script>
+var rodServerUrl = "${baseUrl}";
+var rodAppDivId = "rodApp";
+</script>
+<script type="application/javascript" src="${baseUrl}/static/rod-widget/app.min.js"></script>`
+            , liveLink: "/static/rod-widget/index.html"
         }
     ];
 };
