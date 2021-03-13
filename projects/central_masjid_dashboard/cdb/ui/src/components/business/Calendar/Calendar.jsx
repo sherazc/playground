@@ -59,7 +59,7 @@ export default (props) => {
 
     useEffect(() => {
         // Send dimension message to parent
-        const rootContainer = document.getElementById("root");
+        const rootContainer = document.getElementById("calendarRoot");
         const width = rootContainer.scrollWidth;
         const height = rootContainer.scrollHeight;
         window.parent.postMessage({"dimensions": {width, height}}, "*");
@@ -78,14 +78,13 @@ export default (props) => {
 
         axios.get(endpoint)
             .then(response => {
-                console.log(response)
                 if (isSuccessfulAxiosServiceResponse(response)) {
                     setMonths(response.data.target);
                 } else {
-                    console.log("Handle error message 1", response);
+                    console.error("Calendar API failed 1", endpoint, response);
                 }
-                }, error => console.log("Handle error message 2", error))
-            .catch(error => console.log("Handle error message 3", error));
+                }, error => console.error("Calendar API failed 2", endpoint, error))
+            .catch(error => console.error("Calendar API failed 3", endpoint, error));
     }
 
     const createMonth = (month) => {
@@ -135,7 +134,7 @@ export default (props) => {
         //     <Header02 title={"Calendar"}/>
         //     <Content01>
         //
-        <div>
+        <div id="calendarRoot" className={styles.calendarRoot}>
                 <div className={styles.searchFieldContainer}>
                     <div className={styles.searchFieldBox}>
                         <div className={styles.searchFieldLabel}>
