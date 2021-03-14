@@ -28,7 +28,19 @@ var ${appNamePrefix}ServerUrl = "${location.origin}";
 var ${appNamePrefix}AppDivId = "${appNamePrefix}App";
 var companyId = "${companyId}";
 <\/script>
-<script type="application/javascript" src="${location.origin}${appScriptSrc}"><\/script>`;
+<script type="application/javascript" src="${location.origin}${appScriptSrc}"><\/script>
+<style>
+    .ptContainer {
+        /*width: 100%*/
+    }
+    .ptHeader {
+        background-color: #3b90cf;
+        font-size: x-large;
+        padding: 20px;
+    }
+    .ptTableContainer {}
+    .ptTable {}
+</style>`;
 
             var scriptTextarea = document.querySelector(".codeTextDiv textarea");
             scriptTextarea.value = widgetScriptHelp;
@@ -48,5 +60,17 @@ var companyId = "${companyId}";
     document.write(`<div id="${appNamePrefix}App"></div>`);
 </script>
 <script type="application/javascript" src="app.min.js"></script>
+<style>
+    .ptContainer {
+        /*width: 100%*/
+    }
+    .ptHeader {
+        background-color: #3b90cf;
+        font-size: x-large;
+        padding: 20px;
+    }
+    .ptTableContainer {}
+    .ptTable {}
+</style>
 </body>
 </html>

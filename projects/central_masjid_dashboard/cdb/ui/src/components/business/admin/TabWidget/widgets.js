@@ -29,7 +29,19 @@ var prayerTimeServerUrl = "${baseUrl}";
 var prayerTimeAppDivId = "prayerTimeApp";
 var companyId = "${company.id}";
 </script>
-<script type="application/javascript" src="${baseUrl}/static/prayer-time-widget/app.min.js"></script>`
+<script type="application/javascript" src="${baseUrl}/static/prayer-time-widget/app.min.js"></script>
+<style>
+    .ptContainer {
+        /*width: 100%*/
+    }
+    .ptHeader {
+        background-color: #3b90cf;
+        font-size: x-large;
+        padding: 20px;
+    }
+    .ptTableContainer {}
+    .ptTable {}
+</style>`
             , liveLink: `/static/prayer-time-widget/index.html?companyId=${company.id}`
         },
         {
@@ -58,7 +70,19 @@ var jummahScheduleServerUrl = "${baseUrl}";
 var jummahScheduleAppDivId = "jummahScheduleApp";
 var companyId = "${company.id}";
 </script>
-<script type="application/javascript" src="${baseUrl}/static/jummah-schedule-widget/app.min.js"></script>`
+<script type="application/javascript" src="${baseUrl}/static/jummah-schedule-widget/app.min.js"></script>
+<style>
+    .jsContainer {
+        /*width: 100%*/
+    }
+    .jsHeader {
+        background-color: #3b90cf;
+        font-size: x-large;
+        padding: 20px;
+    }
+    .jsTableContainer {}
+    .jsTable {}
+</style>`
             , liveLink: `/static/jummah-schedule-widget/index.html?companyId=${company.id}`
         },
         {
