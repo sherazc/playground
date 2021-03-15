@@ -2,3 +2,7 @@ test if the hijri days are changing because of adjust days setting
 
 Deprecate picklist collection and convert it to enum
 
+In calendar DST start is 1 day early.
+If I remove
+CommonUtils.makeCalendarTimeZero(calendar);
+then DST end date repeats.

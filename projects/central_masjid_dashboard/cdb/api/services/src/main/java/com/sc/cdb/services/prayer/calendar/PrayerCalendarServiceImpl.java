@@ -27,6 +27,7 @@ import com.sc.cdb.services.common.CustomConfigurationsService;
 import com.sc.cdb.services.common.DateTimeCalculator;
 import com.sc.cdb.services.common.GregorianDate;
 import com.sc.cdb.services.common.GregorianHijriConverter;
+import com.sc.cdb.services.dst.PrayerConfigDstApplier;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.services.prayer.PrayerComparator;
 import com.sc.cdb.utils.CommonUtils;
@@ -47,7 +48,7 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
     private final GregorianHijriConverter gregorianHijriConverter;
     private final CustomConfigurationsService customConfigurationsService;
     private final CompanyRepository companyRepository;
-
+    private final PrayerConfigDstApplier prayerConfigDstApplier;
 
     @Override
     public ServiceResponse<List<MonthPrayers>> calendarByCompanyUrl(String companyUrl, CalenderType type,
@@ -101,6 +102,8 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
             response.message("Can not find prayers. Maybe Prayers are not setup yet. " + companyId);
             return response.build();
         }
+
+        prayerConfigDstApplier.addHour(prayerConfigOptional.get(), userYear, 1);
 
         List<Prayer> prayersInDb = prayerConfigOptional.get().getPrayers();
         Map<String, String> errors = prayerValidator.validatePrayers(prayersInDb);
