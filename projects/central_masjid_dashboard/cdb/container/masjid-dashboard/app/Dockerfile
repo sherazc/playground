@@ -1,4 +1,4 @@
 FROM openjdk:13
-ADD ./app.jar app.jar
+ADD ./cdb.jar cdb.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-Dspring.profiles.active=dev", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=dev", "-jar", "cdb.jar"]
