@@ -1,0 +1,17 @@
+masjid-dashboard
+    |
+    |
+    |_ md-install
+    |       |_ app
+    |       |_ nginx
+    |       |_ install bash scripts
+    |
+    |
+    |_ logs
+    |   |_ app
+    |   |_ nginx
+    |   |_ db
+    |
+    |
+    |
+    |_ db
