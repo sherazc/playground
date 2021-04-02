@@ -83,7 +83,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
     private void overrideIqamas(String companyId, Prayer prayer) {
         List<CustomConfiguration> configs = customConfigurationsService.getAllConfig(companyId);
 
-        overrideIqama(configs, "fajar_iqama", s -> {
+        overrideIqama(configs, "fajr_iqama", s -> {
             prayer.setFajrIqama(s);
             prayer.setFajrChange(null);
             prayer.setFajrChangeDate(null);

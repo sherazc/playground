@@ -54,7 +54,7 @@ const buildWidgetHTML = (serverResponse) => {
                 <td colSpan="3">${time24To12(prayer.sunrise)}</td>
             </tr>
             <tr>
-                <th>Thuhr</th>
+                <th>Zuhar</th>
                 <td>${time24To12(prayer.dhuhr)}</td>
                 <td>${time24To12(prayer.dhuhrIqama)}</td>
                 <td>

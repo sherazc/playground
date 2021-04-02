@@ -88,7 +88,7 @@ let getCurrentPrayerPeriod = (now: Date, prayerTimes: PrayerTime[]): (PrayerTime
     let prayerPeriod = [];
 
     if (nowTime < prayerTimes[0].azan.getTime()) {
-        // current time is before today's fajar azan
+        // current time is before today's fajr azan
         // yesterday isha
         prayerPeriod.push(makePrayerTimeFromDates(prayerTimes[4].name, addDays(prayerTimes[4].azan, -1), addDays(prayerTimes[4].iqamah, -1)));
         prayerPeriod.push(prayerTimes[0]);
@@ -97,7 +97,7 @@ let getCurrentPrayerPeriod = (now: Date, prayerTimes: PrayerTime[]): (PrayerTime
         prayerPeriod.push(prayerTimes[4]);
         prayerPeriod.push(makePrayerTimeFromDates(prayerTimes[0].name, addDays(prayerTimes[0].azan, 1), addDays(prayerTimes[0].iqamah, 1)));
     } else {
-        // Current time is after today's fajar azan and before isha
+        // Current time is after today's fajr azan and before isha
         for (let currentSalahIndex = 0; currentSalahIndex < prayerTimes.length; currentSalahIndex++) {
             let nextSalahIndex = (currentSalahIndex) + 1;
             if (nextSalahIndex > 4) {
@@ -205,7 +205,7 @@ const getCurrentPrayerName = (prayerPeriod: (PrayerTime[] | undefined),
 /**
  * -1 = Invalid
  * 0 = timeBetweenShrooqAndZuhar
- * 1 = Fajar
+ * 1 = Fajr
  * 2 = Zuhar
  * 3 = Asr
  * 4 = Maghrib

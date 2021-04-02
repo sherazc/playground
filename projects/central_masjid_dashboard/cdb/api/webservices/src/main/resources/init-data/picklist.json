@@ -26,11 +26,11 @@
         "description": "0 = no clock\n1 = analog\n2 = digital"
       },
       {
-        "name": "fajar_iqama",
+        "name": "fajr_iqama",
         "type": "time",
-        "label": "Fajar Iqama",
+        "label": "Fajr Iqama",
         "defaultValue": "",
-        "description": "Overrides Fajar iqama time.\nIqama and next change time in calendar will be ignored.\nEnter time in 24 hours format 00:00 or a short message."
+        "description": "Overrides Fajr iqama time.\nIqama and next change time in calendar will be ignored.\nEnter time in 24 hours format 00:00 or a short message."
       },
       {
         "name": "zuhar_iqama",
