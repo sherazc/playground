@@ -5,10 +5,9 @@ import {
 
 import axios from "axios";
 import styles from "./Calendar.module.scss";
-import Header02 from "../../layout/Header02/Header02";
-import Content01 from "../../layout/Content01/Content01";
-import Layout02 from "../../layout/Layout02/Layout02";
-import Footer02 from "../../layout/Footer02/Footer02";
+
+// Sample URL
+// http://localhost:3000/calendar/mh/print?type=gregorian&year=2020&month=1
 
 import {
     calendarTypes,
