@@ -100,7 +100,7 @@ export default (props) => {
                     <th>Hijri</th>
                     <th colSpan="2">Fajr</th>
                     <th>Shurooq</th>
-                    <th colSpan="2">Zuhar</th>
+                    <th colSpan="2">Zuhr</th>
                     <th colSpan="2">Asr</th>
                     <th>Maghrib</th>
                     <th colSpan="2">Isha</th>

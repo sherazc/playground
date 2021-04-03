@@ -13,7 +13,7 @@ export const Constants = {
     createYearCalendarEndpoint: (companyId: string, year: number) => `${BASE_URL}/api/calendar/companyId/${companyId}/type/gregorian/year/${year}`,
     EXPIRATION_MILLIS: 12 * 60 * 1000, // Loaded companyList and companyData expiration, and notification set.
     UPDATE_INTERVAL_MILLIS: 15 * 60 * 1000, // How often companyList and companyData expiration will be checked
-    PRAYER_NAME: ["Fajr", "Zuhar", "Asr", "Maghrib", "Isha", "Shurooq"],
+    PRAYER_NAME: ["Fajr", "Zuhr", "Asr", "Maghrib", "Isha", "Shurooq"],
     MAGHRIB_LIMIT_MILLIS: MAGHRIB_LIMIT_MIN * 1000 * 60,
     PRAYER_DURATION_MILLIS: PRAYER_DURATION_MIN * 1000 * 60,
     PRAYER_ABOUT_TO_START_MILLIS: PRAYER_ABOUT_TO_START_MIN * 1000 * 60,

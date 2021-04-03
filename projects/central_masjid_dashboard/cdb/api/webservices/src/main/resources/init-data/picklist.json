@@ -35,9 +35,9 @@
       {
         "name": "zuhar_iqama",
         "type": "time",
-        "label": "Zuhar Iqama",
+        "label": "Zuhr Iqama",
         "defaultValue": "",
-        "description": "Overrides Zuhar iqama time.\nIqama and next change time in calendar will be ignored.\nEnter time in 24 hours format 00:00 or a short message."
+        "description": "Overrides Zuhr iqama time.\nIqama and next change time in calendar will be ignored.\nEnter time in 24 hours format 00:00 or a short message."
       },
       {
         "name": "asr_iqama",

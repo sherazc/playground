@@ -1,5 +1,6 @@
 package com.sc.cdb.services.prayer;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.sc.cdb.data.model.prayer.Dst;
@@ -15,4 +16,6 @@ public interface PrayerConfigService {
     ServiceResponse<Prayer> getPrayerByCompanyIdMonthAndDay(String companyId, int month, int day);
 
     ServiceResponse<String> saveDst(String companyId, Dst dst);
+
+    void overrideIqamas(String companyId, List<Prayer> prayers);
 }

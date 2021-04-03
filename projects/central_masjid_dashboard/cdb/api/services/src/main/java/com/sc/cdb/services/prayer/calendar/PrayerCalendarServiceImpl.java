@@ -30,6 +30,7 @@ import com.sc.cdb.services.common.GregorianHijriConverter;
 import com.sc.cdb.services.dst.PrayerConfigDstApplier;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.services.prayer.PrayerComparator;
+import com.sc.cdb.services.prayer.PrayerConfigService;
 import com.sc.cdb.utils.CommonUtils;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -49,6 +50,7 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
     private final CustomConfigurationsService customConfigurationsService;
     private final CompanyRepository companyRepository;
     private final PrayerConfigDstApplier prayerConfigDstApplier;
+    private final PrayerConfigService prayerConfigService;
 
     @Override
     public ServiceResponse<List<MonthPrayers>> calendarByCompanyUrl(String companyUrl, CalenderType type,
@@ -125,6 +127,7 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
 
         }
 
+        prayerConfigService.overrideIqamas(companyId, prayersInDb);
         // CREATE DATA - CREATE 3 PRAYERS LIST CLONE. BEFORE, CURRENT, AFTER
         List<Prayer> sortedPrayers = prayersInDb.stream()
                 .map(p -> this.updatePrayerYear(p, DateTimeCalculator.DEFAULT_YEAR)) // update all years to default 2016
