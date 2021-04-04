@@ -4,10 +4,8 @@ import {
 } from '@material-ui/core';
 
 import axios from "axios";
-import styles from "./Calendar.module.scss";
-
-// Sample URL
-// http://localhost:3000/calendar/mh/print?type=gregorian&year=2020&month=1
+import stylesCalendar from "./Calendar.module.scss";
+import stylesCalendarPrint from "./CalendarPrint.module.scss";
 
 import {
     calendarTypes,
@@ -16,10 +14,15 @@ import {
     yearsGregorian,
     yearsHijri
 } from "../../../services/CalendarService";
-import {getReactRouterPathParamFromUrl, isSuccessfulAxiosServiceResponse} from "../../../services/utilities";
-import PrayerDay from "../admin/TabPrayer/PrayersMonth/PrayerDay/PrayerDay";
+import {
+    getQueryParam,
+    getReactRouterPathParamFromUrl,
+    isSuccessfulAxiosServiceResponse
+} from "../../../services/utilities";
 import PrayerViewRow from "./PrayerViewRow";
 
+
+// http://localhost:3000/calendar/mh?view=print&type=hijri&year=1442&month=9
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
 export default (props) => {
@@ -33,6 +36,9 @@ export default (props) => {
 
     const [search, setSearch] = useState(createEmptySearch());
     const [months, setMonths] = useState([]);
+    const [company, setCompany] = useState({});
+    const [styles, setStyles] = useState(stylesCalendar);
+    const [view, setView] = useState(stylesCalendar);
 
     const createMenuItems = (items) => {
         return items.map((item, index) => <MenuItem key={index} value={index}>{item}</MenuItem>);
@@ -62,11 +68,41 @@ export default (props) => {
         const width = rootContainer.scrollWidth;
         const height = rootContainer.scrollHeight;
         window.parent.postMessage({"dimensions": {width, height}}, "*");
+
+        setView(getQueryParam("view"));
     })
 
+
+    useEffect(() => {
+        const companyUrl = getReactRouterPathParamFromUrl(props, "companyUrl");
+        const type = getQueryParam("type");
+        const year = getQueryParam("year");
+        const month = getQueryParam("month");
+
+        if (!companyUrl || !type || !year) {
+            return;
+        }
+
+        setStyles(stylesCalendarPrint);
+        let endpoint = `${baseUrl}/api/calendar/companyUrl/${companyUrl}/type/${type}/year/${year}`;
+        if (month) {
+            endpoint = `${endpoint}?month=${month}`;
+        }
+
+        callSearchApi(endpoint);
+    }, [view]);
+
+    const setSearchResult = (companyPrayerMonths) => {
+        if (companyPrayerMonths.company && companyPrayerMonths.company.id) {
+            setCompany(companyPrayerMonths.company);
+        }
+
+        if (companyPrayerMonths.monthPrayers) {
+            setMonths(companyPrayerMonths.monthPrayers);
+        }
+    }
+
     const onSearch = () => {
-        // Sample api endpoint
-        // http://localhost:8085/api/calendar/companyUrl/mh/type/gregorian/year/2020?month=1
         const companyUrl = getReactRouterPathParamFromUrl(props, "companyUrl");
         const type = calendarTypes[search.selectedType].toLowerCase();
         const year = getYears(search.selectedType)[search.selectedYear];
@@ -74,15 +110,18 @@ export default (props) => {
         if (search.selectedMonth) {
             endpoint = `${endpoint}?month=${search.selectedMonth}`;
         }
+        callSearchApi(endpoint)
+    }
 
+    const callSearchApi = (endpoint) => {
         axios.get(endpoint)
             .then(response => {
                 if (isSuccessfulAxiosServiceResponse(response)) {
-                    setMonths(response.data.target);
+                    setSearchResult(response.data.target);
                 } else {
                     console.error("Calendar API failed 1", endpoint, response);
                 }
-                }, error => console.error("Calendar API failed 2", endpoint, error))
+            }, error => console.error("Calendar API failed 2", endpoint, error))
             .catch(error => console.error("Calendar API failed 3", endpoint, error));
     }
 
@@ -128,11 +167,6 @@ export default (props) => {
     }
 
     return (
-        //
-        // <Layout02>
-        //     <Header02 title={"Calendar"}/>
-        //     <Content01>
-        //
         <div id="calendarRoot" className={styles.calendarRoot}>
                 <div className={styles.searchFieldContainer}>
                     <div className={styles.searchFieldBox}>
@@ -180,6 +214,21 @@ export default (props) => {
                         Search
                     </Button>
                 </div>
+                {company.name &&
+                    <div className={styles.headingContainer}>
+                        <div className={styles.headingText}>Salah Calendar</div>
+                        <div className={styles.headingCompanyName}>{company.name}</div>
+                        {company.address &&
+                        <div className={styles.headingCompanyAddress}>
+                            <div>
+                                {company.address.street}
+                            </div>
+                            <div>
+                                {company.address.city}, {company.address.state} {company.address.zip}
+                            </div>
+                        </div>}
+                    </div>
+                }
                 {months.length > 0 &&
                     <div className={styles.calendarContainer}>
                         <div className={styles.calendarContainerChild}>
@@ -194,9 +243,5 @@ export default (props) => {
                 }
 
         </div>
-        //     </Content01>
-        //     <Footer02/>
-        // </Layout02>
-        //
     );
 }

@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 import com.sc.cdb.data.model.auth.Company;
 import com.sc.cdb.data.model.prayer.CalenderType;
+import com.sc.cdb.data.model.prayer.CompanyMonthPrayers;
 import com.sc.cdb.data.model.prayer.Month;
 import com.sc.cdb.data.model.prayer.MonthPrayers;
 import com.sc.cdb.data.model.prayer.Prayer;
@@ -53,10 +54,10 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
     private final PrayerConfigService prayerConfigService;
 
     @Override
-    public ServiceResponse<List<MonthPrayers>> calendarByCompanyUrl(String companyUrl, CalenderType type,
-                                                                    int year, int month) {
+    public ServiceResponse<CompanyMonthPrayers> calendarByCompanyUrl(String companyUrl, CalenderType type,
+                                                                     int year, int month) {
 
-        ServiceResponse.ServiceResponseBuilder<List<MonthPrayers>> response = ServiceResponse.builder();
+        ServiceResponse.ServiceResponseBuilder<CompanyMonthPrayers> response = ServiceResponse.builder();
         if (StringUtils.isBlank(companyUrl)) {
             return response.message("Can not find calendar. Company URL is blank.").build();
         }
@@ -66,7 +67,13 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
         }
 
 
-        return this.calendar(companyOptional.get().getId(), type, year, month);
+        ServiceResponse<List<MonthPrayers>> monthPrayersResponse = this.calendar(companyOptional.get().getId(), type, year, month);
+        response.target(new CompanyMonthPrayers(companyOptional.get(), monthPrayersResponse.getTarget()));
+        response.message(monthPrayersResponse.getMessage());
+        response.successful(monthPrayersResponse.isSuccessful());
+        response.fieldErrors(monthPrayersResponse.getFieldErrors());
+
+        return response.build();
     }
 
     @Override

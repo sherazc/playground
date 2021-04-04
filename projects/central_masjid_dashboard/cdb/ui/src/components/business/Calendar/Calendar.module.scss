@@ -129,3 +129,29 @@
 .monthTable tbody tr:hover {
   background-color: $color4BackgroundLight;
 }
+
+.headingContainer {
+  text-align: center;
+}
+
+.headingText {
+  font-size: 3vw;
+  padding: 2vw;
+  @media screen and (max-width: $screen-break) {
+    font-size: 5vw;
+  }
+}
+
+.headingCompanyName {
+  font-weight: lighter;
+  letter-spacing: 3px;
+  font-size: 1.5vw;
+  @media screen and (max-width: $screen-break) {
+    font-size: 3vw;
+  }
+}
+
+.headingCompanyAddress {
+  color: gray;
+  padding-bottom: 2vw;
+}

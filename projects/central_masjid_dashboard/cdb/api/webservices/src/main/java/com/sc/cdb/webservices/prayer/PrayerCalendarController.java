@@ -1,12 +1,10 @@
 package com.sc.cdb.webservices.prayer;
 
 import java.util.List;
-import java.util.Map;
 
 import com.sc.cdb.data.model.prayer.CalenderType;
-import com.sc.cdb.data.model.prayer.Month;
+import com.sc.cdb.data.model.prayer.CompanyMonthPrayers;
 import com.sc.cdb.data.model.prayer.MonthPrayers;
-import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.services.prayer.calendar.PrayerCalendarService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +37,7 @@ public class PrayerCalendarController {
     }
 
     @GetMapping("/companyUrl/{companyUrl}/type/{type}/year/{year}")
-    public ServiceResponse<List<MonthPrayers>> calendarByUrl(
+    public ServiceResponse<CompanyMonthPrayers> calendarByUrl(
             @PathVariable String companyUrl,
             @PathVariable CalenderType type,
             @PathVariable Integer year,
