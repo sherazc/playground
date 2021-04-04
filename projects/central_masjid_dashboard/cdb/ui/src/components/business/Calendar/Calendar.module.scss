@@ -155,3 +155,13 @@
   color: gray;
   padding-bottom: 2vw;
 }
+
+.printLink {
+  text-align: right;
+  padding-right: 2vw;
+  font-size: 1.5vw;
+  @media screen and (max-width: $screen-break) {
+    font-size: 4vw;
+    padding-right: 8vw;
+  }
+}

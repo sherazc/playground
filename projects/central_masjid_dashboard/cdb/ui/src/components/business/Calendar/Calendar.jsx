@@ -1,4 +1,4 @@
-import React, {Component, useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import {
     Select, MenuItem, Button
 } from '@material-ui/core';
@@ -21,8 +21,6 @@ import {
 } from "../../../services/utilities";
 import PrayerViewRow from "./PrayerViewRow";
 
-
-// http://localhost:3000/calendar/mh?view=print&type=hijri&year=1442&month=9
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 
 export default (props) => {
@@ -39,6 +37,7 @@ export default (props) => {
     const [company, setCompany] = useState({});
     const [styles, setStyles] = useState(stylesCalendar);
     const [view, setView] = useState(stylesCalendar);
+    const [printHref, setPrintHref] = useState("");
 
     const createMenuItems = (items) => {
         return items.map((item, index) => <MenuItem key={index} value={index}>{item}</MenuItem>);
@@ -107,10 +106,13 @@ export default (props) => {
         const type = calendarTypes[search.selectedType].toLowerCase();
         const year = getYears(search.selectedType)[search.selectedYear];
         let endpoint = `${baseUrl}/api/calendar/companyUrl/${companyUrl}/type/${type}/year/${year}`;
+        let tempPrintLinkHref = `${baseUrl}/calendar/${companyUrl}?view=print&type=${type}&year=${year}`;
         if (search.selectedMonth) {
             endpoint = `${endpoint}?month=${search.selectedMonth}`;
+            tempPrintLinkHref = `${tempPrintLinkHref}&month=${search.selectedMonth}`;
         }
         callSearchApi(endpoint)
+        setPrintHref(tempPrintLinkHref)
     }
 
     const callSearchApi = (endpoint) => {
@@ -214,6 +216,13 @@ export default (props) => {
                         Search
                     </Button>
                 </div>
+                {months.length > 0 &&
+                    <div className={styles.printLink}>
+                        <a href={printHref} target="_blank">
+                            🖨 Print
+                        </a>
+                    </div>
+                }
                 {company.name &&
                     <div className={styles.headingContainer}>
                         <div className={styles.headingText}>Salah Calendar</div>
