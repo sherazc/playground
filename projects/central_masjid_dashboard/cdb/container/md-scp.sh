@@ -1,2 +1,2 @@
 #!/bin/bash
-scp target/masjid-dashboard.tar.gz sheraz@sheraz-lubuntu1
+scp target/*.tar.gz sheraz@sheraz-lubuntu1:~/masjid-dashboard

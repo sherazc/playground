@@ -5,7 +5,8 @@ export md_container_app=md_app_container
 export md_container_db=md_db_container
 
 # App paths
-export md_path_root=~/md
+export md_path_root=~/masjid-dashboard
+export md_path_install_root=$md_path_root/md-install
 export md_path_db=$md_path_root/db
 export md_path_nginx=$md_path_root/nginx
 

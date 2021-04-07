@@ -1,0 +1,33 @@
+masjid-dashboard
+    |
+    |
+    |
+    |
+    |_ md-install
+    |       |_ app
+    |       |_ nginx
+    |       |_ bash scripts. clean run contianers
+    |       |_ bash scripts. renew certs
+    |
+    |
+    |
+    |
+    |_ logs
+    |   |_ app
+    |   |_ nginx
+    |   |_ db
+    |
+    |
+    |
+    |_ db
+    |
+    |
+    |
+    |
+    |_ nginx
+    |
+    |
+    |
+    |
+    |_ bash script. clean previous install dir. extract new install. run md-install/clean-install.sh
+
