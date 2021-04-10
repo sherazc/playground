@@ -1,5 +1,7 @@
 #!/bin/bash
-export md_path_install=./md-install
+./md-install/env.sh
+
+
 export md_path_target=./target
 
 rm -rf $md_path_target
