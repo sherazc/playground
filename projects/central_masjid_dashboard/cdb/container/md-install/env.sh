@@ -5,6 +5,7 @@ export md_container_app=md_app_container
 export md_container_db=md_db_container
 
 # App paths
+export md_app_jar=cdb.jar
 export md_install=md-install
 export md_path_root=~/masjid-dashboard
 export md_path_install_root=$md_path_root/$md-install
