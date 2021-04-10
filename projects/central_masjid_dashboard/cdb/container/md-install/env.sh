@@ -4,6 +4,7 @@
 md_app_jar=cdb.jar
 md_install=md-install
 md_app_jar_source=api/webservices/target/$md_app_jar
+md_path_package=target/$md_install.tar.gz
 
 # Remote machine
 md_remote_root=~/masjid-dashboard
