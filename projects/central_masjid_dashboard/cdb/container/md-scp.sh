@@ -1,2 +1,5 @@
 #!/bin/bash
-scp target/*.tar.gz sheraz@sheraz-lubuntu1:~/masjid-dashboard
+. ./md-install/env.sh
+
+
+# scp target/*.tar.gz sheraz@192.168.1.212:~/masjid-dashboard

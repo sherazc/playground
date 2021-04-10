@@ -1,9 +1,12 @@
 #!/bin/bash
 
-# Package variables
+# Package
 md_app_jar=cdb.jar
 md_install=md-install
 md_app_jar_source=api/webservices/target/$md_app_jar
+
+# Remote machine
+md_remote_root=~/masjid-dashboard
 
 # Containers
 md_container_network=md_network
