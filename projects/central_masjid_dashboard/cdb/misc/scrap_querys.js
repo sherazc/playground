@@ -217,4 +217,9 @@ mongoimport --uri="mongodb://localhost:27017/cdb"  --collection=user  --file=./c
 mongoimport --uri="mongodb://localhost:27017/cdb"  --collection=hadith  --file=./cdb/hadith.json
 mongoimport --uri="mongodb://localhost:27017/cdb"  --collection=picklist  --file=./cdb/picklist.json
 
+Download backup
+
+scp -i /Users/sheraz/.ssh/id_rsa -r \
+    ubuntu@3.215.75.115:/home/ubuntu/cdb/data_export/cdb_20210510_a.tar.gz \
+    ./cdb/misc/data_export/cdb_20210510_a.tar.gz
 */
