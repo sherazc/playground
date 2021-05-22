@@ -60,7 +60,7 @@ public class PrayerExporterImpl implements PrayerExporter {
             file.getContent().append(createHeading());
             List<Prayer> prayers = prayerConfigOptional.get().getPrayers();
             prayers.sort(prayerComparator);
-            prayers.forEach(prayer -> file.getContent().append(prayerTransformer.prayerToCsv(prayer)));
+            prayers.forEach(prayer -> file.getContent().append(prayerTransformer.prayerToTxt(prayer)));
 
             builder.successful(true);
             builder.target(file);
@@ -81,13 +81,13 @@ public class PrayerExporterImpl implements PrayerExporter {
         String timeStamp = new SimpleDateFormat("yyyyMMdd").format(new Date());
         String fileName;
         if (companyOptional.isEmpty() || StringUtils.isBlank(companyOptional.get().getName())) {
-            fileName = String.format("mdb_prayers_%s.csv", timeStamp);
+            fileName = String.format("mdb_prayers_%s.txt", timeStamp);
         } else {
             String companyName = companyOptional.get()
                     .getName()
                     .replaceAll("\\s+", " ")
                     .replaceAll("\\s", "_");
-            fileName = String.format("mdb_prayers_%s_%s.csv", timeStamp, companyName);
+            fileName = String.format("mdb_prayers_%s_%s.txt", timeStamp, companyName);
         }
         return fileName;
     }

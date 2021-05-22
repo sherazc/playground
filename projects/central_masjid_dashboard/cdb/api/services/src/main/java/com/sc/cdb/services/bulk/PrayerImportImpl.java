@@ -32,8 +32,8 @@ public class PrayerImportImpl implements PrayerImport {
             String fileName, String contentType, InputStream inputStream) {
 
         ServiceResponse.ServiceResponseBuilder<List<Prayer>> builder = ServiceResponse.builder();
-        if (!"text/csv".equalsIgnoreCase(contentType)) {
-            return builder.message("Please upload .csv file").build();
+        if (!"text/text".equalsIgnoreCase(contentType) || !fileName.toLowerCase().endsWith(".txt")) {
+            return builder.message("Please upload .txt file").build();
         }
 
         Map<String, String> fieldErrors = new HashMap<>();
@@ -53,7 +53,7 @@ public class PrayerImportImpl implements PrayerImport {
                 if (lineFieldErrors.size() > 0) {
                     fieldErrors.putAll(lineFieldErrors);
                 } else {
-                    prayers.add(prayerTransformer.csvToPrayer(line));
+                    prayers.add(prayerTransformer.txtToPrayer(line));
                 }
             }
 

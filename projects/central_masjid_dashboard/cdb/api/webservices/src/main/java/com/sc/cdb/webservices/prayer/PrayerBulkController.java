@@ -1,8 +1,10 @@
 package com.sc.cdb.webservices.prayer;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest;
 
 // https://www.callicoder.com/spring-boot-file-upload-download-rest-api-example/
 
@@ -62,16 +65,32 @@ public class PrayerBulkController {
 
 
     @PostMapping("/validateImport")
-    public ResponseEntity<ServiceResponse<List<Prayer>>> validateImport(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<ServiceResponse<List<Prayer>>> validateImport(StandardMultipartHttpServletRequest file) {
         try {
-            ServiceResponse<List<Prayer>> serviceResponse = prayerImport
-                    .importPrayersFile(file.getName(), file.getContentType(), file.getInputStream());
+            Optional<MultipartFile> multipartFile = Optional.ofNullable(file.getFile("file"));
+
+            ServiceResponse<List<Prayer>> serviceResponse = prayerImport.importPrayersFile(
+                    multipartFile.map(MultipartFile::getOriginalFilename).orElse(null),
+                    multipartFile.map(MultipartFile::getContentType).orElse(null),
+                    multipartFile.map(this::getInputStream).orElse(null)
+            );
             return ResponseEntity.ok(serviceResponse);
-        } catch (IOException e) {
+        } catch (Exception e) {
+            String errorMessage = "Failed to upload file " + e.getMessage();
             ServiceResponse.ServiceResponseBuilder<List<Prayer>> builder = ServiceResponse.builder();
-            builder.message("Unable to read uploaded file");
+            builder.message(errorMessage);
             return ResponseEntity.badRequest().body(builder.build());
         }
+    }
+
+    private InputStream getInputStream(MultipartFile multipartFile) {
+        InputStream result;
+        try {
+            result = multipartFile.getInputStream();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
     }
 
     @GetMapping(value = "/export/{companyId}")
@@ -80,7 +99,7 @@ public class PrayerBulkController {
         PrintWriter writer = response.getWriter();
         if (serviceResponse.isSuccessful()) {
             File file = serviceResponse.getTarget();
-            response.setContentType("text/csv");
+            response.setContentType("text/text");
             response.setStatus(HttpServletResponse.SC_OK);
             response.setHeader("Content-Disposition",
                     String.format("attachment; filename=\"%s\"", file.getName()));

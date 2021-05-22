@@ -63,7 +63,7 @@ class PrayerImportExport extends Component {
         if (serviceResponse.successful) {
             dialog = this.handleImportSuccess(serviceResponse.target);
         } else {
-            dialog = this.handleImportError(serviceResponse.fieldErrors);
+            dialog = this.handleImportError(serviceResponse);
 
         }
         this.setState({dialog});
@@ -79,13 +79,15 @@ class PrayerImportExport extends Component {
         return dialog;
     }
 
-    handleImportError(fieldErrors) {
+    handleImportError(serviceResponse) {
+        const fieldErrors = serviceResponse.fieldErrors;
         const dialog = {open: true};
         dialog.title = "Import Failed";
         dialog.onConfirm = () => this.setState({dialog: createBlankAlertDialogState()});
         if (fieldErrors) {
             dialog.description = (<>
                 Failed to import <b>{this.state.uploadFile.name}</b>
+                {serviceResponse.message && <p>{serviceResponse.message}</p>}
                 {makeFieldFieldErrorsUl(fieldErrors)}
             </>);
         } else {
@@ -152,11 +154,11 @@ class PrayerImportExport extends Component {
                     <Button onClick={() => {this.setState({uploadFileText: ""})}} variant="outlined" color="primary" component="label">
                         Upload Prayer Times
                         <input
-                            accept="text/csv"
+                            accept="text/plain"
                             type="file"
                             value={this.state.uploadFileText}
                             onChange={this.onChangeFile}
-                            style={{ display: "none" }}
+                            style={{ display: "block" }}
                         />
                     </Button>
                 </div>
@@ -167,6 +169,14 @@ class PrayerImportExport extends Component {
                 </div>}
                 <hr/>
                 <AlertDialog dialog={this.state.dialog}/>
+                {/*
+                <input
+                    accept="text/plain"
+                    type="file"
+                    value={this.state.uploadFileText}
+                    onChange={this.onChangeFile}
+                    style={{ display: "block" }}/>
+                    */}
             </div>
         );}
 }

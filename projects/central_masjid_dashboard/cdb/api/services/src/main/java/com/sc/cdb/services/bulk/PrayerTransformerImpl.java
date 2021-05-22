@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class PrayerTransformerImpl implements PrayerTransformer {
 
     @Override
-    public String prayerToCsv(Prayer prayer) {
+    public String prayerToTxt(Prayer prayer) {
         Date prayerDate = prayer.getDate();
         String line = String.format("%tm/%td,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
                 prayerDate,
@@ -37,7 +37,7 @@ public class PrayerTransformerImpl implements PrayerTransformer {
     }
 
     @Override
-    public Prayer csvToPrayer(String csvLine) {
+    public Prayer txtToPrayer(String csvLine) {
         Prayer prayer = new Prayer();
         String[] csvParts = csvLine.split(",", -1);
         prayer.setDate(stringToDate(csvParts[0].trim()));
