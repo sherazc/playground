@@ -79,6 +79,7 @@ public class PrayerBulkController {
             String errorMessage = "Failed to upload file " + e.getMessage();
             ServiceResponse.ServiceResponseBuilder<List<Prayer>> builder = ServiceResponse.builder();
             builder.message(errorMessage);
+            log.error(errorMessage, e);
             return ResponseEntity.badRequest().body(builder.build());
         }
     }

@@ -158,7 +158,7 @@ class PrayerImportExport extends Component {
                             type="file"
                             value={this.state.uploadFileText}
                             onChange={this.onChangeFile}
-                            style={{ display: "block" }}
+                            style={{ display: "none" }}
                         />
                     </Button>
                 </div>
