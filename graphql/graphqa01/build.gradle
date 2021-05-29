@@ -27,6 +27,9 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	runtimeOnly 'com.h2database:h2'
+	compile "com.graphql-java-kickstart:graphql-java-tools:11.0.1"
+	compile 'com.graphql-java-kickstart:graphql-java-servlet:11.1.1'
+	compile "com.graphql-java-kickstart:graphql-spring-boot-starter:11.1.0"
 }
 
 test {
