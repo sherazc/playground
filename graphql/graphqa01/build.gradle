@@ -29,7 +29,7 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	compile "com.graphql-java-kickstart:graphql-java-tools:11.0.1"
 	compile 'com.graphql-java-kickstart:graphql-java-servlet:11.1.1'
-	compile "com.graphql-java-kickstart:graphql-spring-boot-starter:11.1.0"
+	compile "com.graphql-java-kickstart:graphiql-spring-boot-starter:11.1.0"
 }
 
 test {

@@ -11,9 +11,9 @@ import graphql.kickstart.tools.GraphQLQueryResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-@Component
+
 @RequiredArgsConstructor
-public class RootQuery implements GraphQLQueryResolver {
+public class Query implements GraphQLQueryResolver {
     private final DepartmentService departmentService;
     /*
     public List<Integer> getRandomNumbers() {
@@ -23,10 +23,6 @@ public class RootQuery implements GraphQLQueryResolver {
                 .collect(Collectors.toList());
     }
     */
-
-    public String myName() {
-        return "Sheraz";
-    }
 
     public List<Department> allDepartments() {
         return departmentService.getAllDepartments();
