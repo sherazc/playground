@@ -13,6 +13,7 @@ type Department {
 
 type Query {
     allDepartments: [Department]
+    getRandomNumbers: [Int]
 }
 
 schema {
