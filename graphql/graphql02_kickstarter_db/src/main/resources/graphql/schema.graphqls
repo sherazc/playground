@@ -2,18 +2,10 @@ type Department {
     id: ID!
     name: String
 }
-#
-#type Employee {
-#    id: ID!
-#    name: String
-#    salary: Float
-#    department_id: Int
-#}
-
 
 type Query {
     allDepartments: [Department]
-    getRandomNumbers: [Int]
+    getDepartmentById(id: Int): Department
 }
 
 schema {

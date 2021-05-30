@@ -15,14 +15,11 @@ import org.springframework.stereotype.Component;
 public class RootQuery implements GraphQLQueryResolver {
     private final DepartmentService departmentService;
 
-    public List<Integer> getRandomNumbers() {
-        return IntStream.range(0, 10)
-                .map(i -> (int) (Math.random() * 1000))
-                .boxed()
-                .collect(Collectors.toList());
-    }
-
     public List<Department> allDepartments() {
         return departmentService.getAllDepartments();
+    }
+
+    public Department getDepartmentById(Long id) {
+        return departmentService.findById(id);
     }
 }

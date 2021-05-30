@@ -16,4 +16,8 @@ public class DepartmentService {
     public List<Department> getAllDepartments() {
         return departmentRepository.findAll();
     }
+
+    public Department findById(Long id) {
+        return departmentRepository.findById(id).orElse(null);
+    }
 }
