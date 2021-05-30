@@ -1,8 +1,8 @@
-type Query {
+type RootQuery {
     getMyName: String
     getRandomNumbers(count: Int): [Int]
 }
 
 schema {
-    query: Query
+    query: RootQuery
 }
