@@ -1,0 +1,8 @@
+type Query {
+    getMyName: String
+    getRandomNumbers(count: Int): [Int]
+}
+
+schema {
+    query: Query
+}
