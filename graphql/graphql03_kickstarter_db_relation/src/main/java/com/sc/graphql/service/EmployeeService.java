@@ -1,9 +1,9 @@
-package com.sc.graphqa01.service;
+package com.sc.graphql.service;
 
 import java.util.List;
 
-import com.sc.graphqa01.entity.Employee;
-import com.sc.graphqa01.repository.EmployeeRepository;
+import com.sc.graphql.entity.Employee;
+import com.sc.graphql.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,4 +15,6 @@ public class EmployeeService {
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
     }
+
+
 }

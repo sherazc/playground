@@ -1,6 +1,6 @@
-package com.sc.graphqa01.config;
+package com.sc.graphql.config;
 
-import com.sc.graphqa01.resolver.RootQuery;
+import com.sc.graphql.resolver.RootQuery;
 import graphql.kickstart.servlet.GraphQLHttpServlet;
 import graphql.kickstart.tools.SchemaParser;
 import graphql.schema.GraphQLSchema;

@@ -1,11 +1,13 @@
-package com.sc.graphqa01.resolver;
+package com.sc.graphql.resolver;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import com.sc.graphqa01.entity.Department;
-import com.sc.graphqa01.service.DepartmentService;
+import com.sc.graphql.entity.Department;
+import com.sc.graphql.entity.Employee;
+import com.sc.graphql.service.DepartmentService;
+import com.sc.graphql.service.EmployeeService;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,15 +16,14 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class RootQuery implements GraphQLQueryResolver {
     private final DepartmentService departmentService;
-
-    public List<Integer> getRandomNumbers() {
-        return IntStream.range(0, 10)
-                .map(i -> (int) (Math.random() * 1000))
-                .boxed()
-                .collect(Collectors.toList());
-    }
+    private final EmployeeService employeeService;
 
     public List<Department> allDepartments() {
         return departmentService.getAllDepartments();
     }
+
+    public List<Employee> allEmployees() {
+        return employeeService.getAllEmployees();
+    }
+
 }
