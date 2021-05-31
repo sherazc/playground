@@ -1,6 +1,7 @@
 type Department {
     id: ID!
     name: String
+    employees: [Employee]
 }
 
 type Employee {
@@ -9,7 +10,6 @@ type Employee {
     salary: Float
     department: Department
 }
-
 
 type Query {
     allDepartments: [Department]

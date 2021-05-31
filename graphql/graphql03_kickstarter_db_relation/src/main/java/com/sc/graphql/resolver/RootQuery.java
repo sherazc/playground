@@ -1,8 +1,6 @@
 package com.sc.graphql.resolver;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import com.sc.graphql.entity.Department;
 import com.sc.graphql.entity.Employee;

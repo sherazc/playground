@@ -1,5 +1,7 @@
 package com.sc.graphql.config;
 
+import com.sc.graphql.resolver.DepartmentResolver;
+import com.sc.graphql.resolver.EmployeeResolver;
 import com.sc.graphql.resolver.RootQuery;
 import graphql.kickstart.servlet.GraphQLHttpServlet;
 import graphql.kickstart.tools.SchemaParser;
@@ -13,6 +15,8 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 public class GraphQlConfiguration {
     private final RootQuery rootQuery;
+    private final EmployeeResolver employeeResolver;
+    private final DepartmentResolver departmentResolver;
 
     @Bean
     public ServletRegistrationBean<GraphQLHttpServlet> graphQlServlet() {
@@ -24,7 +28,7 @@ public class GraphQlConfiguration {
         return SchemaParser
                 .newParser()
                 .file("graphql/schema.graphqls")
-                .resolvers(rootQuery)
+                .resolvers(rootQuery, departmentResolver, employeeResolver)
                 .build()
                 .makeExecutableSchema();
     }
