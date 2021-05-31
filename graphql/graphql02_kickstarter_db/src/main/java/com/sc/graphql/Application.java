@@ -1,6 +1,6 @@
-package com.sc.graphqa01;
+package com.sc.graphql;
 
-import com.sc.graphqa01.service.DataLoader;
+import com.sc.graphql.service.DataLoader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

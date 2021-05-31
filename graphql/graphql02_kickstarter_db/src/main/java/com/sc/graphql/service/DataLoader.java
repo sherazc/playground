@@ -1,9 +1,9 @@
-package com.sc.graphqa01.service;
+package com.sc.graphql.service;
 
 import java.util.stream.IntStream;
 
-import com.sc.graphqa01.entity.Department;
-import com.sc.graphqa01.repository.DepartmentRepository;
+import com.sc.graphql.entity.Department;
+import com.sc.graphql.repository.DepartmentRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

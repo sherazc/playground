@@ -1,9 +1,9 @@
-package com.sc.graphqa01.service;
+package com.sc.graphql.service;
 
 import java.util.List;
 
-import com.sc.graphqa01.entity.Department;
-import com.sc.graphqa01.repository.DepartmentRepository;
+import com.sc.graphql.entity.Department;
+import com.sc.graphql.repository.DepartmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

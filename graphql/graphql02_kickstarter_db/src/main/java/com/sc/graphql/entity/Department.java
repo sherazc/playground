@@ -1,4 +1,4 @@
-package com.sc.graphqa01.entity;
+package com.sc.graphql.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
