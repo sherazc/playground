@@ -1,0 +1,8 @@
+type RootQuery {
+    getMyName: String
+    getRandomNumbers(count: Int): [Int]
+}
+
+schema {
+    query: RootQuery
+}

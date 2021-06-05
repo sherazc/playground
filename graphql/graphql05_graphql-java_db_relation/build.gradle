@@ -4,7 +4,7 @@ plugins {
 	id 'java'
 }
 
-group = 'com.sc.graphql04_core_graphql-java_only'
+group = 'com.sc.graphql05_graphql-java_db_relation'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
