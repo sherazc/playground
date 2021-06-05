@@ -1,8 +1,21 @@
-type RootQuery {
-    getMyName: String
-    getRandomNumbers(count: Int): [Int]
+type Department {
+    id: ID!
+    name: String
+    employees: [Employee]
+}
+
+type Employee {
+    id: ID!
+    name: String
+    salary: Float
+    department: Department
+}
+
+type Query {
+    allDepartments: [Department]
+    allEmployees: [Employee]
 }
 
 schema {
-    query: RootQuery
+    query: Query
 }
