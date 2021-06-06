@@ -1,12 +1,12 @@
 package com.sc.graphql.config;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import com.sc.graphql.fetcher.RootQueryFetcher;
+import com.sc.graphql.fetcher.DepartmentFetcher;
+import com.sc.graphql.fetcher.EmployeeFetcher;
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.idl.RuntimeWiring;
@@ -25,7 +25,8 @@ import org.springframework.core.io.ClassPathResource;
 @Slf4j
 public class GraphQlConfiguration {
 
-    private final RootQueryFetcher rootQueryFetcher;
+    private final DepartmentFetcher departmentFetcher;
+    private final EmployeeFetcher employeeFetcher;
 
     @Bean
     public GraphQL graphQl() {
@@ -50,11 +51,19 @@ public class GraphQlConfiguration {
 
     private RuntimeWiring buildWiring() {
         TypeRuntimeWiring.Builder rootQueryWiringBuilder = TypeRuntimeWiring.newTypeWiring("RootQuery")
-                .dataFetcher("getMyName", rootQueryFetcher.getMyName())
-                .dataFetcher("getRandomNumbers", rootQueryFetcher.getRandomNumbers());
+                .dataFetcher("allDepartments", departmentFetcher.allDepartments())
+                .dataFetcher("allEmployees", employeeFetcher.allEmployees());
+
+        TypeRuntimeWiring.Builder departmentWiringBuilder = TypeRuntimeWiring.newTypeWiring("Department")
+                .dataFetcher("employees", employeeFetcher.getDepartmentEmployees());
+
+        TypeRuntimeWiring.Builder employeeWiringBuilder = TypeRuntimeWiring.newTypeWiring("Employee")
+                .dataFetcher("department", departmentFetcher.getEmployeeDepartment());
 
         return RuntimeWiring.newRuntimeWiring()
                 .type(rootQueryWiringBuilder)
+                .type(departmentWiringBuilder)
+                .type(employeeWiringBuilder)
                 .build();
     }
 
