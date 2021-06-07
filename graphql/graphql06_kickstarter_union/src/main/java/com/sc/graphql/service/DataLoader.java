@@ -18,7 +18,7 @@ public class DataLoader {
     private final EmployeeRepository employeeRepository;
 
     public void load() {
-        IntStream.range(1, 10)
+        IntStream.range(1, 5)
                 .forEach(i -> {
                     Department department = new Department(null, "Department " + (i + 10));
                     Department savedDepartment = departmentRepository.save(department);
