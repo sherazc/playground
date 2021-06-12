@@ -1,0 +1,37 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.2'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.sc.graphql08_kickstarter_mutation'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'com.graphql-java:graphql-java:16.2'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	runtimeOnly 'com.h2database:h2'
+	compile "com.graphql-java-kickstart:graphql-java-tools:11.0.1"
+	compile 'com.graphql-java-kickstart:graphql-java-servlet:11.1.1'
+	compile "com.graphql-java-kickstart:graphiql-spring-boot-starter:11.1.0"
+}
+
+test {
+	useJUnitPlatform()
+}
