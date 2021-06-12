@@ -1,0 +1,26 @@
+interface Identity {
+    id: ID!
+    name: String
+}
+type Department implements Identity {
+    id: ID!
+    name: String
+    employees: [Employee]
+}
+
+type Employee implements Identity {
+    id: ID!
+    name: String
+    salary: Float
+    department: Department
+}
+
+type Query {
+    allDepartments: [Department]
+    allEmployees: [Employee]
+    allIdentities: [Identity]
+}
+
+schema {
+    query: Query
+}
