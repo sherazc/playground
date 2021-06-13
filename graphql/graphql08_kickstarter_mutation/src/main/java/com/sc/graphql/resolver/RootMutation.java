@@ -23,4 +23,11 @@ public class RootMutation implements GraphQLMutationResolver {
         return employeeService.addEmployee(employeeInput);
     }
 
+    public Employee deleteEmployee(Long id) {
+        return employeeService.deleteEmployee(id);
+    }
+
+    public Employee updateEmployee(Long id, EmployeeInput employeeInput) {
+        return employeeService.updateEmployee(id, employeeInput);
+    }
 }

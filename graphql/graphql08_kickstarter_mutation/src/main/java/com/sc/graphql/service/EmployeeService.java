@@ -1,6 +1,7 @@
 package com.sc.graphql.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.sc.graphql.entity.Employee;
 import com.sc.graphql.entity.EmployeeInput;
@@ -27,6 +28,19 @@ public class EmployeeService {
                 employeeInput.getSalary(),
                 employeeInput.getDepartmentId());
 
+        return employeeRepository.save(employee);
+    }
+
+    public Employee deleteEmployee(Long id) {
+        return employeeRepository.findById(id)
+                .map(e -> {
+                    employeeRepository.deleteById(e.getId());
+                    return e;
+                }).orElse(null);
+    }
+
+    public Employee updateEmployee(Long id, EmployeeInput employeeInput) {
+        Employee employee = new Employee(id, employeeInput.getName(), employeeInput.getSalary(), employeeInput.getDepartmentId());
         return employeeRepository.save(employee);
     }
 }

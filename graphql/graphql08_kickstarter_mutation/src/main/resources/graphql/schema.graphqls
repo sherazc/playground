@@ -20,6 +20,8 @@ input EmployeeInput {
 type Mutation {
     addDepartment(name: String) : Department
     addEmployee(employeeInput: EmployeeInput): Employee
+    deleteEmployee(id: ID!): Employee
+    updateEmployee(id: ID!, employeeInput: EmployeeInput): Employee
 }
 
 type Query {
