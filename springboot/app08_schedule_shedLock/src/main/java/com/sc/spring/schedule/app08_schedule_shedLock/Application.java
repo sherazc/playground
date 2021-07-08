@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import net.javacrumbs.shedlock.core.LockAssert;
 import net.javacrumbs.shedlock.core.LockProvider;
 import net.javacrumbs.shedlock.provider.jdbctemplate.JdbcTemplateLockProvider;
 import net.javacrumbs.shedlock.spring.annotation.EnableSchedulerLock;
@@ -28,9 +29,10 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    @Scheduled(fixedRate = 2000)
+    @Scheduled(fixedDelay = 2000)
     @SchedulerLock(name = "myJobName")
     void someJob() {
+        LockAssert.assertLocked();
         jdbcTemplate.queryForList("select * from shedlock").forEach(r ->
                 r.forEach((k, v) -> System.out.println(k + "=" + v)));
 
