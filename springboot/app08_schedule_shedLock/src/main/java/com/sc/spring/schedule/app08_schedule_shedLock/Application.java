@@ -38,6 +38,11 @@ public class Application {
 
         System.out.println(Thread.currentThread().getName() + " - Date: " + new Date());
         System.out.println("================================");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
 
