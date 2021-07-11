@@ -18,11 +18,11 @@ local.properties
 **/.git/
 **/target/
 **/.gradle/
-./dist
+dist
 node_modules
 **/node_modules/
 *.js
-
+.vscode
 
 
 

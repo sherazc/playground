@@ -15,6 +15,7 @@ class Calculator {
 }
 
 (function() {
+    console.log("Started");
     let calculator: Calculator = new Calculator();
     calculator.about();
 
