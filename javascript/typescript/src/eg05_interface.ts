@@ -1,11 +1,11 @@
-interface I {
+interface Eg05Interface {
     show(): void;
 }
 
-class C implements I {
+class Eg05Class implements Eg05Interface {
     show(): void {
         console.log("I am C")
     }
 }
 
-new C().show();
+new Eg05Class().show();

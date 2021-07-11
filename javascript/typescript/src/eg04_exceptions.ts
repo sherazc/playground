@@ -8,6 +8,7 @@ function validate(str: string): boolean{
 
 try {
     console.log("Sheraz = " + validate("Sheraz"));
+    // @ts-ignore
     console.log(" = " + validate(null));
 } catch (e) {
     console.log(e)

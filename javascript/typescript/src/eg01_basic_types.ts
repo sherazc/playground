@@ -42,9 +42,9 @@ x = ["hello", 10]; // OK
 console.log(x[0].substr(1)); // OK
 //console.log(x[1].substr(1)); // Error, 'number' does not have 'substr'
 
-x[3] = "world"; // OK, 'string' can be assigned to 'string | number'
+// x[3] = "world"; // OK, 'string' can be assigned to 'string | number'
 
-console.log(x[5].toString()); // OK, 'string' and 'number' both have 'toString'
+// console.log(x[5].toString()); // OK, 'string' and 'number' both have 'toString'
 
 // x[6] = true; // Error, 'boolean' isn't 'string | number'
 
@@ -64,7 +64,7 @@ let c3: Color3 = Color3.Green;
 enum Color4 {Red = 1, Green, Blue};
 let colorName: string = Color4[2];
 
-alert(colorName);
+console.log(colorName);
 
 
 /****************
@@ -75,8 +75,8 @@ notSure1 = "maybe a string instead";
 notSure1 = false; // okay, definitely a boolean
 
 let notSure2: any = 4;
-notSure2.ifItExists(); // okay, ifItExists might exist at runtime
-notSure2.toFixed(); // okay, toFixed exists (but the compiler doesn't check)
+// notSure2.ifItExists(); // okay, ifItExists might exist at runtime
+// notSure2.toFixed(); // okay, toFixed exists (but the compiler doesn't check)
 
 let prettySure: Object = 4;
 //prettySure.toFixed(); // Error: Property 'toFixed' doesn't exist on type 'Object'.
@@ -88,7 +88,7 @@ list3[1] = 100;
  * Void
  ***************/
 function warnUser(): void {
-    alert("This is my warning message");
+    console.log("This is my warning message");
 }
 
 let unusable: void = undefined;
