@@ -9,9 +9,9 @@
         <relativePath/>
     </parent>
     <groupId>com.sc.kafka</groupId>
-    <artifactId>kafka01_producer</artifactId>
+    <artifactId>kafka02_producer_object</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>kafka01_producer</name>
+    <name>kafka02_producer_object</name>
     <description>Kafka Example</description>
     <properties>
         <java.version>11</java.version>
