@@ -1,4 +1,4 @@
-package com.sc.kafka.kafka01_producer;
+package com.sc.kafka;
 
 import lombok.Data;
 
