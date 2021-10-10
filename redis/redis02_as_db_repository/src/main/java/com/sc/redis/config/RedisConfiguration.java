@@ -7,8 +7,6 @@ import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
-import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
 @EnableRedisRepositories
@@ -20,16 +18,11 @@ public class RedisConfiguration {
         return new JedisConnectionFactory(configuration);
     }
 
+    // NOTE: it works without creating RedisTemplate
     @Bean
-    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
-        RedisTemplate<String, Object> template = new RedisTemplate<>();
-        template.setConnectionFactory(connectionFactory);
-        template.setKeySerializer(new StringRedisSerializer());
-        template.setHashKeySerializer(new JdkSerializationRedisSerializer());
-        template.setValueSerializer(new JdkSerializationRedisSerializer());
-        // template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
-        template.setEnableTransactionSupport(true);
-        template.afterPropertiesSet();
+    public RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        RedisTemplate<byte[], byte[]> template = new RedisTemplate<>();
+        template.setConnectionFactory(redisConnectionFactory);
         return template;
     }
 }

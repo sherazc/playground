@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.sc.redis</groupId>
-    <artifactId>redis01_as_db_template</artifactId>
+    <artifactId>redis02_as_db_repository</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>redis01_as_db_template</name>
-    <description>redis01_as_db_template</description>
+    <name>redis02_as_db_repository</name>
+    <description>redis02_as_db_repository</description>
     <properties>
         <java.version>17</java.version>
     </properties>
@@ -26,15 +26,17 @@
         Because of 2 ClassLoader
         Look at this for more information
         https://stackoverflow.com/questions/37977166/java-lang-classcastexception-dtoobject-cannot-be-cast-to-dtoobject
+
+        I dont get this error when using CrudRepository
         -->
-        <!--
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-        -->
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
