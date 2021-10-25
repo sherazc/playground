@@ -22,9 +22,11 @@ public class TestRedisEmbServiceConfiguration {
                 .override(OS.MAC_OS_X, Architecture.x86_64, "/Users/sheraz/dev/redis-6.2.6/src/redis-server");
 
         try {
+            // Server that is installed
             this.redisServer = new RedisServer(customProvider, redisProperties.getRedisPort());
         } catch (IOException e) {
             e.printStackTrace();
+            // Embedded server
             this.redisServer = new RedisServer(redisProperties.getRedisPort());
         }
     }
