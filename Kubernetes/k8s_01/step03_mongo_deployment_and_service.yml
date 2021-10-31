@@ -1,0 +1,82 @@
+# This file contains deployment and service for mongodb
+# NOTE: lables are mandatory for pods and containers. This is how they will be identified and referenced.
+
+
+# Use docs to copy sample syntax of deployment
+# https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#creating-a-deployment
+
+################
+# Deployment - Configure pods and container
+################
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-deployment
+  labels:
+    app: mongo
+spec:
+  replicas: 1
+  # selector is relation between service and pod
+  selector:
+    # Used to identify all pods under a deployment
+    # "app" key is a convention
+    matchLabels:
+      app: mongo
+  # template is configuration of a single pod
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      # There can be multiple container in a single pod
+      containers:
+      # Use this image to create mongodb container
+      # https://hub.docker.com/layers/mongo/library/mongo/5.0/images/sha256-add6da48a188a4f979c1b99e6f1e2baa746b4fbdd42ff5d176d45de97d48d448?context=explore
+      - name: mongodb
+        image: mongo:5.0
+        ports:
+        - containerPort: 27017
+        # According to mongodb docs https://hub.docker.com/_/mongo
+        # we need to set environment variables MONGO_INITDB_ROOT_USERNAME, MONGO_INITDB_ROOT_PASSWORD
+        # "env" is used to set environment variables.
+        env: 
+          - name: MONGO_INITDB_ROOT_USERNAME
+            # To get the value from secret use "valueForm" instead of "value"
+            valueFrom: 
+              secretKeyRef: 
+                # "mongo-secret" is the name of secrets in mongo-secret.yml
+                name: mongo-secret
+                # "mongo-user" is the data key
+                key: mongo-user
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            valueFrom: 
+              secretKeyRef: 
+                name: mongo-secret
+                key: mongo-password
+
+
+# Use docs to copy sample syntax of service
+# https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
+################
+# Service - configures connection to pod, networking and load balancing
+################
+---
+apiVersion: v1
+kind: Service
+metadata:
+  # This the same name that defined in mongo-config.yml
+  # Instead of using IP & port we will use service name to connect.
+  name: mongo-service
+spec:
+  # selector is relation between service and pod
+  selector:
+    app: mongo
+  ports:
+    - protocol: TCP
+      # exposed port
+      port: 27017
+      # port of the pod to forward the request to
+      targetPort: 27017
+
+

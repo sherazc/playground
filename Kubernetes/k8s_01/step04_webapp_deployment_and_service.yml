@@ -1,0 +1,66 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-deployment
+  labels:
+    app: webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      # Using this sample webapp
+      # https://hub.docker.com/layers/nanajanashia/k8s-demo-app/v1.0/images/sha256-6f554135da39ac00a1c2f43e44c2b0b54ca13d3d8044da969361e7781adb7f95?context=explore
+      containers:
+      - name: webapp
+        image: nanajanashia/k8s-demo-app:v1.0
+        ports:
+        - containerPort: 3000
+        # Below are the custom env vars that webapp requires
+        # Values are retrieved from secret
+        env: 
+          - name: USER_NAME
+            valueFrom: 
+              secretKeyRef: 
+                name: mongo-secret
+                key: mongo-user
+          - name: USER_PWD
+            valueFrom: 
+              secretKeyRef: 
+                name: mongo-secret
+                key: mongo-password
+          - name: DB_URL
+            # Value is retrieved from configMap
+            valueFrom:
+              configMapKeyRef:
+                name: mongo-config
+                value: mongo-url
+
+################
+# Service
+################
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp-service
+spec:
+  # set type to "NodePort", to make service accessible/publish from outside k8s
+  type: NodePort # Default type is ClusterIP
+  selector:
+    app: webapp
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+      # https://kubernetes.io/docs/concepts/services-networking/service/#nodeport
+      # NodePort range 30000-32767
+      nodePort: 30100
+
+

@@ -1,0 +1,14 @@
+# Use docs to copy sample syntax
+# https://kubernetes.io/docs/concepts/configuration/configmap/#configmaps-and-pods
+
+# Use this file for key value pair for any configuration in k8s
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongo-config
+data:
+  # Service name of mongodb
+  # Endpoint of mongodb
+  mongo-url: mongo-service
+
