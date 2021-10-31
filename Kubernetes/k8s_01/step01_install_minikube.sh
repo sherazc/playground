@@ -8,3 +8,5 @@
 # brew install kubernetes-cli
 
 brew install minikube
+
+# NOTE: Lookout for kubectl installation and configuration errors. Fix as its sugessted

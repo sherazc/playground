@@ -40,7 +40,7 @@ spec:
             valueFrom:
               configMapKeyRef:
                 name: mongo-config
-                value: mongo-url
+                key: mongo-url
 
 ################
 # Service
