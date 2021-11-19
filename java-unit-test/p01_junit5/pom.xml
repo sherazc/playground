@@ -28,11 +28,24 @@
     </dependencyManagement>
 
     <dependencies>
+        <!--
+            Contains:
+                - junit-jupiter-api
+                - junit-jupiter-engine
+                - junit-jupiter-params
+        -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- Allows to run Junit4 and Junit3 -->
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
