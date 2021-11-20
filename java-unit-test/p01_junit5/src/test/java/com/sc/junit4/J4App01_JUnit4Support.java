@@ -1,9 +1,9 @@
-package com.sc.junit5;
+package com.sc.junit4;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-public class App05_junit4Test {
+public class J4App01_JUnit4Support {
 
     // Able to run because of junit-vintage-engine dependency
     @Test
