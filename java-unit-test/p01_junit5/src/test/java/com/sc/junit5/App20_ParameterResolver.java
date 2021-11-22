@@ -7,9 +7,12 @@ import org.junit.jupiter.api.extension.*;
 import java.lang.reflect.Parameter;
 import java.util.Collections;
 
-@ExtendWith({App20_ParameterResolver.class})
+
 class App20_ParameterResolverTest {
+
+    // Both class or method can be Extended
     @Test
+    @ExtendWith({App20_ParameterResolver.class})
     void test01(String name, int times) {
         String string = String.join(", ", Collections.nCopies(times, name));
         Assertions.assertEquals("Sheraz, Sheraz", string);
@@ -18,6 +21,7 @@ class App20_ParameterResolverTest {
 
 class App20_ParameterResolver implements ParameterResolver {
 
+    // Check if parameter is supported
     @Override
     public boolean supportsParameter(
             ParameterContext parameterContext, ExtensionContext extensionContext)
@@ -25,6 +29,7 @@ class App20_ParameterResolver implements ParameterResolver {
         return true;
     }
 
+    // Return value of the parameter
     @Override
     public Object resolveParameter(
             ParameterContext parameterContext, ExtensionContext extensionContext)
