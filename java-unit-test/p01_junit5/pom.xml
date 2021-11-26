@@ -29,7 +29,7 @@
 
     <dependencies>
         <!--
-            Contains:
+            junit-jupiter contains:
                 - junit-jupiter-api
                 - junit-jupiter-engine
                 - junit-jupiter-params
@@ -45,7 +45,6 @@
             <artifactId>junit-vintage-engine</artifactId>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -68,29 +67,67 @@
                 <version>3.7.1</version>
             </plugin>
 
-            <!-- Code coverage plugin -->
+            <!-- Code coverage jacoco plugin -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.7</version>
+                <configuration>
+                    <!-- excludes paths from the coverage check and report -->
+                    <excludes>
+                        <exclude>com/sc/junit5/domain/**/*.*</exclude>
+                        <exclude>com/sc/**/domain/**/*.*</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <id>default-prepare-agent</id>
                         <goals>
+                            <!-- creates jacoco runtime under target/jacoco-exec -->
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
+                    <!--
+                    Prepares the property pointing to the JaCoCo runtime agent which
+                    is passed as VM argument when Maven the Surefire plugin is executed.
+                    -->
                     <execution>
-                        <id>default-report</id>
+                        <id>pre-unit-test</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <!--
+                            Sets the name of the property containing the settings for JaCoCo
+                            runtime agent.
+                            -->
+                            <propertyName>surefireArgLine</propertyName>
+                        </configuration>
+                    </execution>
+                    <!--
+                    Ensures that the code coverage report for unit tests is created
+                    after unit tests have been run.
+                    -->
+                    <execution>
+                        <id>post-unit-test</id>
+                        <!--
+                        Dont have to explicitly call:
+                        $ mvn jacoco:report
+
+                        It will run automatically on
+                        $ mvn test
+                        -->
+                        <phase>test</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>
-                                ${project.build.directory}/jacoco_code_coverage
-                            </outputDirectory>
+                            <!-- Sets the output directory for the code coverage report. -->
+                            <!-- Builds report under target/site/jacoco-coverage-report -->
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco-coverage-report</outputDirectory>
                         </configuration>
                     </execution>
+                    <!-- Verify if coverage ratio met -->
                     <execution>
                         <id>default-check</id>
                         <goals>
@@ -104,6 +141,7 @@
                                         <limit>
                                             <counter>COMPLEXITY</counter>
                                             <value>COVEREDRATIO</value>
+                                            <!-- Fail the build if coverage goes below 60% -->
                                             <minimum>0.60</minimum>
                                         </limit>
                                     </limits>
@@ -123,23 +161,6 @@
                 <artifactId>maven-surefire-report-plugin</artifactId>
                 <version>3.0.0-M5</version>
             </plugin>
-
-            <!-- Code coverage report -->
-            <!--
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.7</version>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            &lt;!&ndash; select non-aggregate reports &ndash;&gt;
-                            <report>report</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-
-            </plugin>-->
         </plugins>
     </reporting>
 </project>
