@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.sc.junit.spring</groupId>
-    <artifactId>p03_junit5_spring</artifactId>
+    <artifactId>p04_junit5_spring</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>p03_junit5_spring</name>
-    <description>p03_junit5_spring</description>
+    <name>p04_junit5_spring</name>
+    <description>p04_junit5_spring</description>
     <properties>
         <java.version>17</java.version>
     </properties>
