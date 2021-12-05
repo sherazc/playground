@@ -47,4 +47,16 @@ class Eg03_objectProperties_Test {
                 Matchers.hasItem( // Check each element
                         Matchers.hasProperty("zip", Matchers.is(100))));
     }
+
+    @Test
+    void matchListPropertyNameAndValueA() {
+        MatcherAssert.assertThat(employee.getAddresses(), Matchers.allOf(
+                Matchers.hasItem(Matchers.hasProperty("zip", Matchers.is(100))),
+                Matchers.hasItem(Matchers.hasProperty("city", Matchers.instanceOf(String.class))),
+                Matchers.anyOf(
+                        Matchers.hasItem(Matchers.hasProperty("zip", Matchers.greaterThan(50))),
+                        Matchers.hasItem(Matchers.hasProperty("zip", Matchers.greaterThan(500)))
+                )
+        ));
+    }
 }
