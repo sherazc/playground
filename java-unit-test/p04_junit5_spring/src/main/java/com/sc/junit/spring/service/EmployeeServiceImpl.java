@@ -1,4 +1,4 @@
-package com.sc.junit.spring.controller;
+package com.sc.junit.spring.service;
 
 import com.sc.junit.spring.model.Employee;
 import org.springframework.stereotype.Component;

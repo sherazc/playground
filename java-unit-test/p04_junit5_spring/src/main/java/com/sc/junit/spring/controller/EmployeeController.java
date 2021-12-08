@@ -1,6 +1,7 @@
 package com.sc.junit.spring.controller;
 
 import com.sc.junit.spring.model.Employee;
+import com.sc.junit.spring.service.EmployeeService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
