@@ -1,12 +1,13 @@
 package com.sc.junit.spring.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sc.junit.spring.model.Employee;
 import com.sc.junit.spring.service.EmployeeService;
 import com.sc.junit.spring.service.EmployeeServiceImpl;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -15,17 +16,17 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.fail;
 
 // https://www.infoworld.com/article/3543268/junit-5-tutorial-part-2-unit-testing-spring-mvc-with-junit-5.html?page=3
 
@@ -63,7 +64,7 @@ class EmployeeControllerTest {
     }
 
     @Test
-    void findAll() throws Exception {
+    void getFindAll() throws Exception {
         /*
         Jayway - JSON Path
         Go through these pages
@@ -101,16 +102,33 @@ class EmployeeControllerTest {
 
     }
 
-    private List<Employee> createEmployees() {
-        Date dob1 = EmployeeServiceImpl.dateFrom(2001, 1, 1);
-        Date dob2 = EmployeeServiceImpl.dateFrom(2002, 2, 2);
-        return List.of(
-                new Employee(10, "name10", 10, dob1),
-                new Employee(20, "name20", 20, dob2));
-    }
-
     @Test
-    void add() {
+    void postAdd() throws Exception {
+        // Setup
+        Date dob1 = EmployeeServiceImpl.dateFrom(2001, 1, 1);
+        Employee employeeInput = new Employee(10, "name10", 10, dob1);
+        Mockito.when(employeeService.findAll()).thenReturn(new ArrayList<Employee>());
+
+
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                .post("/employees")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(objectToJson(employeeInput));
+
+        // Call
+        ResultActions resultActions = mockMvc.perform(requestBuilder);
+
+        // Assert
+        resultActions
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(10)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name", Matchers.is("name10")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.age", Matchers.is(10)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.dateOfBirth",
+                        Matchers.is("2001-01-01T05:00:00.000+00:00")));
     }
 
     @Test
@@ -119,5 +137,24 @@ class EmployeeControllerTest {
 
     @Test
     void deleteById() {
+    }
+
+    private List<Employee> createEmployees() {
+        Date dob1 = EmployeeServiceImpl.dateFrom(2001, 1, 1);
+        Date dob2 = EmployeeServiceImpl.dateFrom(2002, 2, 2);
+        return List.of(
+                new Employee(10, "name10", 10, dob1),
+                new Employee(20, "name20", 20, dob2));
+    }
+
+    private static String objectToJson(Object object) {
+        String result = "";
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            result = objectMapper.writeValueAsString(object);
+        } catch (JsonProcessingException e) {
+            fail("Can not serialize object " + object, e);
+        }
+        return result;
     }
 }
