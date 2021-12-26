@@ -124,7 +124,7 @@ db.getCollection('centralControl').aggregate([
     Query query = createCompanyIdQuery(companyId);
     Update update = new Update().set("prayerConfig", prayerConfig);
     UpdateResult updateResult = this.getMongoTemplate().updateMulti(query, update, CentralControl.class);
-    return updateResult != null && updateResult.isModifiedCountAvailable();
+    return updateResult != null && updateResult.getModifiedCount() > 0;
   }
 
   // TODO remove below method this is just for testing updating complex object

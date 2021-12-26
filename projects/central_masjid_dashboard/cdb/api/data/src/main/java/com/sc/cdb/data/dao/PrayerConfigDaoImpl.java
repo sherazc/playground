@@ -65,7 +65,7 @@ public class PrayerConfigDaoImpl implements PrayerConfigDao {
 
         UpdateResult updateResult = mongoTemplate.updateMulti(query, update, PrayerConfig.class);
 
-        return updateResult.isModifiedCountAvailable()
+        return updateResult.getModifiedCount() > 0
                 // not doing updateResult.getModifiedCount() because mongo do not update if the object is same.
                 // && updateResult.getModifiedCount() > 0
                 && updateResult.getMatchedCount() > 0;
