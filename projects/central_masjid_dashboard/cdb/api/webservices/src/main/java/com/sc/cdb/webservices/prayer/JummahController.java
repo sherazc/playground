@@ -4,11 +4,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import com.sc.cdb.data.model.cc.Jummah;
-import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.services.prayer.JummahService;
 import com.sc.cdb.webservices.utils.JsonpService;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +27,6 @@ public class JummahController {
         this.jsonpService = jsonpService;
     }
 
-    @ApiOperation(value = "Jummah Schedule", response = ServiceResponse.class)
     @GetMapping("companyId/{companyId}")
     public ResponseEntity<?> schedule(@PathVariable String companyId,
             @RequestParam(value = "cb", required = false) String cb) {

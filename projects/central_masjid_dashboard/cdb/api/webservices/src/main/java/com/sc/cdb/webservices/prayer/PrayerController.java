@@ -12,7 +12,6 @@ import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.services.prayer.PrayerConfigService;
 import com.sc.cdb.services.prayer.PrayerService;
 import com.sc.cdb.webservices.utils.JsonpService;
-import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -85,7 +84,6 @@ public class PrayerController {
         }
     }
 
-    @ApiOperation(value = "Prayer time", response = ServiceResponse.class)
     @GetMapping("companyId/{companyId}/month/{month}/day/{day}")
     public ResponseEntity<?> getPrayerByCompanyIdMonthAndDay(
             @PathVariable String companyId, @PathVariable int month, @PathVariable int day,
