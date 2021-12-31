@@ -2,7 +2,7 @@
 
 # Vars
 baseDir=$PWD
-dataDir=$baseDir/mongo-data
+dataDir=$baseDir/misc/mongo-data
 
 # Clean up
 rm -rf $dataDir

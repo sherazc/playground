@@ -23,7 +23,7 @@
 /dist/
 /nbdist/
 /.nb-gradle/
-/mongo-data
+misc/mongo-data
 
 misc/logs
 
