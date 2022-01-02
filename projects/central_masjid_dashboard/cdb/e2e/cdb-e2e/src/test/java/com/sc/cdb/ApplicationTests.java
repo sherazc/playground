@@ -1,4 +1,4 @@
-package com.sc.cdb.e2e;
+package com.sc.cdb;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
