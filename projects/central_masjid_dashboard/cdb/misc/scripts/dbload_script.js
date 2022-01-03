@@ -1,5 +1,5 @@
 // use cdb;
-
+// mongoimport --db agg --collection person --jsonArray --legacy --drop --file Persons.json
 // TODO Create authenticated mongodb connection
 /*
 db.createUser(

@@ -1,3 +1,5 @@
+// mongoimport --db agg --collection person --jsonArray --legacy --drop --file Persons.json
+
 use agg
 
 show collections

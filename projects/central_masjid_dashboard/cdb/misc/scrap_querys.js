@@ -202,6 +202,9 @@ mongoexport --uri="mongodb://localhost:27017/cdb"  --collection=user  --out=./cd
 mongoexport --uri="mongodb://localhost:27017/cdb"  --collection=hadith  --out=./cdb/hadith.json
 mongoexport --uri="mongodb://localhost:27017/cdb"  --collection=picklist  --out=./cdb/picklist.json
 
+// Sample import
+// mongoimport --db agg --collection person --jsonArray --legacy --drop --file Persons.json
+
 tar -cvzf cdb.tar.gz cdb
 rm -rf cdb
 
