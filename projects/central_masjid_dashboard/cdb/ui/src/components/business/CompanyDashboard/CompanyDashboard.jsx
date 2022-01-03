@@ -83,6 +83,7 @@ class CompanyDashboard extends Component {
 
     getCompanyName(centralControl) {
         let companyName = "Masjid Dashboard";
+        // TODO - 2022-02-03. Make these changes. centralControl now contains Array of single company.
         if(centralControl && centralControl.company && centralControl.company.name) {
             companyName = centralControl.company.name;
         }
