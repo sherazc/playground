@@ -4,6 +4,7 @@ import com.sc.cdb.data.model.auth.Company;
 import com.sc.cdb.data.model.auth.User;
 import com.sc.cdb.data.model.cc.CentralControl;
 import com.sc.cdb.data.model.cc.Hadith;
+import com.sc.cdb.data.model.picklist.Picklist;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.data.model.version.CompanyDataVersion;
 import com.sc.cdb.data.model.version.CompanyListVersion;
@@ -12,6 +13,7 @@ import com.sc.cdb.data.repository.CompanyDataVersionRepository;
 import com.sc.cdb.data.repository.CompanyListVersionRepository;
 import com.sc.cdb.data.repository.CompanyRepository;
 import com.sc.cdb.data.repository.HadithRepository;
+import com.sc.cdb.data.repository.PicklistRepository;
 import com.sc.cdb.data.repository.PrayerConfigRepository;
 import com.sc.cdb.data.repository.UserRepository;
 import com.sc.cdb.model.CollectionRepositoryType;
@@ -44,8 +46,11 @@ public class CollectionRepositoryConfig {
         HadithRepository hadithRepository = context.getBean(HadithRepository.class);
         collectionTypes.put("hadith", new CollectionRepositoryType(Hadith.class, hadithRepository));
 
+        PicklistRepository picklistRepository = context.getBean(PicklistRepository.class);
+        collectionTypes.put("picklist", new CollectionRepositoryType(Picklist.class, picklistRepository));
+
         PrayerConfigRepository prayerConfigRepository = context.getBean(PrayerConfigRepository.class);
-        collectionTypes.put("hadith", new CollectionRepositoryType(PrayerConfig.class, prayerConfigRepository));
+        collectionTypes.put("prayerConfig", new CollectionRepositoryType(PrayerConfig.class, prayerConfigRepository));
 
         UserRepository userRepository = context.getBean(UserRepository.class);
         collectionTypes.put("user", new CollectionRepositoryType(User.class, userRepository));

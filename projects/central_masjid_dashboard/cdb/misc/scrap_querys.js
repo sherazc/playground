@@ -1,11 +1,27 @@
+use cdb
+
+/*
+
+db.getCollection('company').drop();
+db.getCollection('centralControl').drop();
+db.getCollection('prayerConfig').drop();
+db.getCollection('user').drop();
+db.getCollection('companyListVersion').drop();
+db.getCollection('companyDataVersion').drop();
+db.getCollection('hadith').drop();
+db.getCollection('picklist').drop();
+*/
+
 // Collections
 db.getCollection('company').find({});
 db.getCollection('centralControl').find({});
 db.getCollection('prayerConfig').find({});
-
 db.getCollection('user').find({});
 db.getCollection('hadith').find({});
 db.getCollection('picklist').find({});
+db.getCollection('companyListVersion').find({});
+db.getCollection('companyDataVersion').find({});
+
 
 // Join centralControl and Company
 db.getCollection('centralControl').aggregate([
@@ -18,7 +34,7 @@ db.getCollection('centralControl').aggregate([
             as: "company"
         }
    },
-   // { $match : { companyId : ObjectId("5da2632ef2a2337a5fd916d3") } }
+   { $match : { "company.url" : "inttest" } }
 ]);
 
 // Used in PicklistDao.getAllConfiguration()
