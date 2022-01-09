@@ -21,6 +21,21 @@ public class CentralControlDaoImpl extends BaseDaoImpl<CentralControl> implement
 
   @Override
   public List<CentralControlCompany> findByCompanyUrl(String url) {
+    /*
+    db.getCollection('centralControl').aggregate([
+        {
+          $lookup:
+             {
+                from: "company",
+                localField: "companyId",
+                foreignField: "_id",
+                as: "company"
+            }
+       },
+       { $match : { "company.url" : "inttest" } }
+    ]);
+     */
+
     Criteria criteria = Criteria
         .where("company.url")
         .is(url);
