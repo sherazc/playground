@@ -20,6 +20,8 @@ import {
 
 } from 'react-native';
 
+import PushNotification from 'react-native-push-notification';
+
 import {
   Colors,
   DebugInstructions,
@@ -37,9 +39,45 @@ const App = () => {
   };
 
   const onSendNotification = () => {
-    Alert.alert(
-      "Alert Title",
-      "My Alert Msg");
+    // Alert.alert(
+    //   "Alert Title",
+    //   "My Alert Msg");
+
+      console.log("Notification", new Date());
+
+      PushNotification.localNotification({
+        channelId: "MDB_NOTIFICATION",
+        message: "My Notification Message now",
+      });
+/*
+      PushNotification.localNotification({
+        channelId: "MDB_NOTIFICATION",
+
+        message: "My Notification Message now", // (required)
+        // date: new Date(Date.now() + 1000), // in 60 secs
+        // largeIcon: "status_bar_icon_large",
+        // smallIcon: "status_bar_icon_small",
+      });
+
+      PushNotification.localNotificationSchedule({
+        channelId: "MDB_NOTIFICATION",
+
+        message: "My Notification Message now", // (required)
+        date: new Date(Date.now() + 1000), // in 60 secs
+        largeIcon: "status_bar_icon_large",
+        smallIcon: "status_bar_icon_small",
+      });
+
+      PushNotification.localNotificationSchedule({
+        channelId: "MDB_NOTIFICATION",
+        title: "Atitle",
+        message: "n.message",
+        date: new Date(Date.now() + 1000),
+        largeIcon: "status_bar_icon_large",
+        smallIcon: "status_bar_icon_small",
+    })
+*/
+
   }
 
 
