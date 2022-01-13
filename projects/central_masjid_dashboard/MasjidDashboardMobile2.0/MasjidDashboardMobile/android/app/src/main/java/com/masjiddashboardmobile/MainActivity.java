@@ -1,5 +1,6 @@
 package com.masjiddashboardmobile;
 
+import android.os.Bundle;
 import com.facebook.react.ReactActivity;
 
 public class MainActivity extends ReactActivity {
@@ -11,5 +12,11 @@ public class MainActivity extends ReactActivity {
   @Override
   protected String getMainComponentName() {
     return "MasjidDashboardMobile";
+  }
+
+  // Added as specified in https://reactnavigation.org/docs/getting-started/
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(null);
   }
 }
