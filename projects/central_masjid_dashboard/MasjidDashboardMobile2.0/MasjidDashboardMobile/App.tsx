@@ -12,7 +12,6 @@ import React from 'react';
 import {
   SafeAreaView,
   ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   useColorScheme,
@@ -30,7 +29,14 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import { Provider } from "react-redux";
+import { StatusBar } from 'react-native';
+import { NavRoutes } from './src/components/NavRoutes';
+import store from "./src/store/rootReducer";
+import { ConstantsStyles } from './src/services/Constants';
 
+
+/*
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -49,7 +55,7 @@ const App = () => {
         channelId: "MDB_NOTIFICATION",
         message: "My Notification Message now",
       });
-/*
+
       PushNotification.localNotification({
         channelId: "MDB_NOTIFICATION",
 
@@ -76,7 +82,7 @@ const App = () => {
         largeIcon: "status_bar_icon_large",
         smallIcon: "status_bar_icon_small",
     })
-*/
+
 
   }
 
@@ -102,5 +108,16 @@ const App = () => {
 const styles = StyleSheet.create({
   
 });
+
+*/
+
+const App: () => React.ReactElement = () => {
+  return (
+      <Provider store={store}>
+          <StatusBar barStyle="light-content" backgroundColor={ConstantsStyles.color.background2} />
+          <NavRoutes />
+      </Provider>
+  );
+};
 
 export default App;
