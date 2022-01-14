@@ -1,6 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
+import { StyleSheet, Text, View, TouchableOpacity, FlatList } from "react-native";
 import { CompanyListData, Company } from '../../types/types';
 import { isNotBlankString, nameToInitials, stringToHslColor, trimEllipsis } from '../../services/Utilities';
 import ArrowRight from "../../images/ArrowRight";
@@ -36,12 +35,14 @@ export const CompanyList: React.FC<Props> = ({ companyListData, navigation }) =>
 
         return (
             <View style={styles.listContainer}>
+                
                 <FlatList
                     data={cld.companies}
                     // @ts-ignore
                     renderItem={buildCompanyListItem}
                     keyExtractor={item => item.id}
                 />
+                
             </View>
         );
     }
