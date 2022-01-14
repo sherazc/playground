@@ -8,7 +8,6 @@ import { useTypedSelector } from '../../store/rootReducer';
 import { Brand } from './Brand';
 import { CompanyList } from './CompanyList';
 import { ConstantsStyles } from "../../services/Constants";
-// import { TouchableOpacity } from "react-native-gesture-handler";
 import { Info } from '../../images/Info';
 
 // TODO: Fix inline styles

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, BackHandler, Image, Platform, SafeAreaView, StyleSheet, View } from "react-native";
+import { BackHandler, Image, Platform, SafeAreaView, StyleSheet, View } from "react-native";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MdParamList } from "../NavRoutes";
 import { RouteProp } from '@react-navigation/native';
