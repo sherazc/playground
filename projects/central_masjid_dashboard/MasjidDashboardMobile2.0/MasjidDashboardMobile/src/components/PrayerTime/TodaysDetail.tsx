@@ -1,8 +1,7 @@
 
 import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Cog from "../../images/Cog";
 import Sunrise from "../../images/Sunrise";
 import Underline from "../../images/Underline";

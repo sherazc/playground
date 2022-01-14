@@ -1,6 +1,6 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { FlatList } from "react-native-gesture-handler";
 import { CompanyListData, Company } from '../../types/types';
 import { isNotBlankString, nameToInitials, stringToHslColor, trimEllipsis } from '../../services/Utilities';
 import ArrowRight from "../../images/ArrowRight";

@@ -1,6 +1,6 @@
 import React from 'react';
 import { CheckboxCheck } from '../images/CheckboxCheck';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity } from "react-native";
 import CheckboxUncheck from '../images/CheckboxUncheck';
 
 interface Props {

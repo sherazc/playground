@@ -5,7 +5,6 @@ import { MdParamList } from "./NavRoutes";
 import { RouteProp } from '@react-navigation/native';
 import { useTypedDispatch, useTypedSelector } from "../store/rootReducer";
 import { ConstantsStyles } from '../services/Constants';
-// import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AppBar } from "./AppBar";
 import Reset from "../images/Reset";
 import { Checkbox } from './Checkbox';

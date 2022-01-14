@@ -4,7 +4,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { MdParamList } from "./NavRoutes";
 import { RouteProp } from '@react-navigation/native';
 import { ConstantsStyles } from '../services/Constants';
-// import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AppBar } from "./AppBar";
 
 // TODO: Fix inline styles
