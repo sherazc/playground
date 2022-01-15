@@ -95,7 +95,7 @@ export interface CompanyData {
     configurations: Configuration[];
     expirableVersion?: ExpirableVersion;
     prayersYear?: PrayersYear;
-    companyNotificaiton?: CompanyNotification;
+    companyNotification?: CompanyNotification;
 }
 
 export const createEmptyCompanyData = (): CompanyData => {

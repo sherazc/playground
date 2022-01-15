@@ -8,7 +8,7 @@ import { ConstantsStyles } from '../services/Constants';
 import { AppBar } from "./AppBar";
 import Reset from "../images/Reset";
 import { Checkbox } from './Checkbox';
-import setupNotifications, { removeAllExisitngNotificaitons } from "../services/NotificationService";
+import setupNotifications, { removeAllExistingNotifications } from "../services/NotificationService";
 import { createDefaultSettingData, SettingData } from '../types/types';
 import { getCompanyId } from '../services/CompanyDataService';
 interface Props {
@@ -34,7 +34,7 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
     const onResetMasjid = () => {
         dispatch({ type: "COMPANY_DATA_DELETE" });
         navigation.navigate("CompanySelect");
-        removeAllExisitngNotificaitons();
+        removeAllExistingNotifications();
     }
 
     const onCheckAzan = () => {
@@ -109,7 +109,7 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
                 return;
             }
 
-            removeAllExisitngNotificaitons();
+            removeAllExistingNotifications();
             if (companyId) {
                 setupNotifications(companyId, true);
             }

@@ -10,7 +10,7 @@ const NotificationConfig = {
     MAX_NOTIFICATION_SETUP_DAYS: 5,
     MAX_NOTIFICATIONS: 60, // iOS allows 64 maximum local schedule notifications
     CHANNEL_NAME: "MDB_NOTIFICATION",
-    CHANNEL_DESCRIPTION: "Masjid dashboard notificaiton channel"
+    CHANNEL_DESCRIPTION: "Masjid dashboard notification channel"
 }
 
 // TODO: find proper way to call it. Once if not expired.
@@ -21,14 +21,14 @@ export default function setupNotifications(companyId: string, forceUpdate: boole
         return
     }
 
-    startNotificaitonsSetInterval(companyId);
+    startNotificationsSetInterval(companyId);
 }
 
-const startNotificaitonsSetInterval = (companyId: string) => {
+const startNotificationsSetInterval = (companyId: string) => {
 
-    const notificaitonPromise = new Promise<CompanyData>((resolve, reject) => {
+    const notificationPromise = new Promise<CompanyData>((resolve, reject) => {
         const resetNotificationInterval = setInterval(() => {
-            // Getting latest companyData from the store becasue
+            // Getting latest companyData from the store because
             // stale companyData prayer and prayerMonths state is not updated and
             // is ending up in endless loop.
             const companyData = store.getState().companyData;
@@ -44,24 +44,24 @@ const startNotificaitonsSetInterval = (companyId: string) => {
         }, 2000);
     });
 
-    notificaitonPromise.then((companyData: CompanyData) => updateNotificationExpiration(companyData))
+    notificationPromise.then((companyData: CompanyData) => updateNotificationExpiration(companyData))
 }
 
 const updateNotificationExpiration = (companyData: CompanyData) => {
-    console.log(`Company notifications set for ${companyData.companyNotificaiton}`)
+    console.log(`Company notifications set for ${companyData.companyNotification}`)
 
     const companyNotification:CompanyNotification = {
         companyId: companyData.company ? companyData.company.id : "",
         expirationMillis: createExpirationDate().getTime()
     };
 
-    companyData.companyNotificaiton = companyNotification;
+    companyData.companyNotification = companyNotification;
 
     store.dispatch({ type: "COMPANY_DATA_SET", payload: companyData });
 }
 
 const resetNotifications = (companyData: CompanyData) => {
-    removeAllExisitngNotificaitons();
+    removeAllExistingNotifications();
 
     const setting = store.getState().setting;
     if (!isAnyAlertOn(setting)) {
@@ -73,7 +73,7 @@ const resetNotifications = (companyData: CompanyData) => {
 
     if (companyData.prayersYear && companyData.prayersYear.prayersMonths) {
         const days = calculatePossibleNotificationDays(setting, NotificationConfig.MAX_NOTIFICATION_SETUP_DAYS);
-        const prayers = getUpcommingPrayers(now, companyData.prayersYear?.prayersMonths, days);
+        const prayers = getUpcomingPrayers(now, companyData.prayersYear?.prayersMonths, days);
         prayers.forEach(p => setupPrayerNotification(companyData.company, now, setting, p));
     }
 }
@@ -282,24 +282,24 @@ const scheduleNotification = (notifications: ScheduleNotification[]): void => {
 
 /*
 Test cases
-getUpcommingPrayers(now, companyData.prayersYear?.prayersMonths, 10)[0].date.toISOString()
-getUpcommingPrayers(now, companyData.prayersYear?.prayersMonths, 10)[9].date.toISOString()
+getUpcomingPrayers(now, companyData.prayersYear?.prayersMonths, 10)[0].date.toISOString()
+getUpcomingPrayers(now, companyData.prayersYear?.prayersMonths, 10)[9].date.toISOString()
 
-getUpcommingPrayers(new Date(2020, 0, 1, 0, 0, 0, 0), companyData.prayersYear?.prayersMonths, 10);
-getUpcommingPrayers(new Date(2020, 0, 1, 23, 59, 0, 0), companyData.prayersYear?.prayersMonths, 10);
+getUpcomingPrayers(new Date(2020, 0, 1, 0, 0, 0, 0), companyData.prayersYear?.prayersMonths, 10);
+getUpcomingPrayers(new Date(2020, 0, 1, 23, 59, 0, 0), companyData.prayersYear?.prayersMonths, 10);
 
-getUpcommingPrayers(new Date(2020, 11, 31, 0, 0, 0, 0), companyData.prayersYear?.prayersMonths, 10);
-getUpcommingPrayers(new Date(2020, 11, 31, 23, 59, 0, 0), companyData.prayersYear?.prayersMonths, 10);
+getUpcomingPrayers(new Date(2020, 11, 31, 0, 0, 0, 0), companyData.prayersYear?.prayersMonths, 10);
+getUpcomingPrayers(new Date(2020, 11, 31, 23, 59, 0, 0), companyData.prayersYear?.prayersMonths, 10);
 
 
-getUpcommingPrayers(new Date('2020-01-01T00:00:00.000Z'), companyData.prayersYear?.prayersMonths, 10);
-getUpcommingPrayers(new Date('2020-01-01T23:59:00.000Z'), companyData.prayersYear?.prayersMonths, 10);
+getUpcomingPrayers(new Date('2020-01-01T00:00:00.000Z'), companyData.prayersYear?.prayersMonths, 10);
+getUpcomingPrayers(new Date('2020-01-01T23:59:00.000Z'), companyData.prayersYear?.prayersMonths, 10);
 
-getUpcommingPrayers(new Date('2020-12-31T00:00:00.000Z'), companyData.prayersYear?.prayersMonths, 10);
-getUpcommingPrayers(new Date('2020-12-31T23:59:00.000Z'), companyData.prayersYear?.prayersMonths, 10);
+getUpcomingPrayers(new Date('2020-12-31T00:00:00.000Z'), companyData.prayersYear?.prayersMonths, 10);
+getUpcomingPrayers(new Date('2020-12-31T23:59:00.000Z'), companyData.prayersYear?.prayersMonths, 10);
 
 */
-const getUpcommingPrayers = (now: Date, pryerMonths: PrayersMonth[], daysCount: number): Prayer[] => {
+const getUpcomingPrayers = (now: Date, pryerMonths: PrayersMonth[], daysCount: number): Prayer[] => {
     const allPrayers: Prayer[] = [];
     pryerMonths
         .map(pm => pm.prayers)
@@ -316,7 +316,7 @@ const isAnyAlertOn = (setting: SettingData): boolean => {
     return setting.azanAlert || setting.beforeIqamaAlert || setting.iqamaAlert;
 }
 
-export const removeAllExisitngNotificaitons = () => {
+export const removeAllExistingNotifications = () => {
     console.log("Removing all previously set notifications.");
     PushNotification.removeAllDeliveredNotifications();
 
@@ -334,7 +334,7 @@ const isNotificationAlreadySet = (companyId: string): boolean => {
     // stale companyData notification state is not updated and
     // is ending up in endless loop.
     const companyData = store.getState().companyData;
-    const companyNotification = companyData.companyNotificaiton;
+    const companyNotification = companyData.companyNotification;
     if (companyNotification === undefined) {
         return false;
     }

@@ -4,7 +4,7 @@ import Logo from '../../images/Logo';
 import Underline from '../../images/Underline';
 import { ConstantsStyles } from '../../services/Constants';
 import PushNotification from 'react-native-push-notification';
-import { removeAllExisitngNotificaitons } from '../../services/NotificationService';
+import { removeAllExistingNotifications } from '../../services/NotificationService';
 
 interface Props {
 }
@@ -27,7 +27,7 @@ export const Brand: React.FC<Props> = () => {
 
     const removeNotifications = () => {
         console.log("Removed Notifications")
-        removeAllExisitngNotificaitons();
+        removeAllExistingNotifications();
     }
 
     return (
