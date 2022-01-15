@@ -171,12 +171,12 @@ updateCompanyData(companyData, month, day)
     - shouldUpdateCompanyData(companyData)
     - apiCompanyDataVersion()
     - if true isCompanyVersionSame() then
-        - refeashCompanyDataExpirableVersion()
+        - refreshCompanyDataExpirableVersion()
         - updateCompanyDataState()
     - else
-        - refeashCompanyData()
+        - refreshCompanyData()
 
-refeashCompanyData()
+refreshCompanyData()
 --------------------
     - Create new companyData Object by
         - Setting company

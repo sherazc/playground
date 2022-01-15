@@ -49,7 +49,7 @@ export const isCompanySame = (c1?: Company, c2?: Company) => {
     return c1 && c2 && c1.id && c2.id && c1.id === c2.id;
 }
 
-const refeashCompanyDataExpirableVersion = (companyData: CompanyData) => {
+const refreshCompanyDataExpirableVersion = (companyData: CompanyData) => {
     if (!companyData) {
         return;
     }
@@ -87,7 +87,7 @@ const isValidServiceResponsePrayer = (serviceResponse: ServiceResponse<Prayer>) 
 }
 
 // Creates new CompanyData by calling APIs
-const refeashCompanyData = (company: Company, month: string, day: string) => {
+const refreshCompanyData = (company: Company, month: string, day: string) => {
     const companyData: CompanyData = {
         ...createEmptyCompanyData(),
         expirableVersion: createOrRefreshExpirableVersion()
@@ -142,11 +142,11 @@ export const updateCompanyData = (companyData: CompanyData, month: string, day: 
         // @ts-ignore
         apiCompanyDataVersion(companyData.company.id).then(companyDataVersion => {
             if (isCompanyVersionSame(companyData, companyDataVersion)) {
-                refeashCompanyDataExpirableVersion(companyData)
+                refreshCompanyDataExpirableVersion(companyData)
                 updateCompanyDataState(companyData)
             } else {
                 // @ts-ignore
-                refeashCompanyData(companyData.company, month, day);
+                refreshCompanyData(companyData.company, month, day);
             }
         });
         // Setup notifications

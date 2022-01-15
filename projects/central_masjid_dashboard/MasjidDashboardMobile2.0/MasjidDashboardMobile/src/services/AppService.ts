@@ -17,6 +17,7 @@ import { Constants } from './Constants';
 import { isCompanyDataCompanySame, isCompanyDataVersionSame, isValidCompany, updateCompanyData } from './CompanyDataService';
 import { isEqualStrings } from './Utilities';
 import { fixObjectDates} from './DateService';
+import { isExpired } from './ExpirableVersionService';
 
 export const recoverAppFromStorage = () => {
     console.log("Recovering App from storage");
@@ -111,14 +112,17 @@ export const beginCompanyDataInterval = (companyData: CompanyData, month: string
     if (!isCompanyDataCompanySame(previousCompanyData, companyData)
         || !isCompanyDataVersionSame(previousCompanyData, companyData)
         || !isEqualStrings(previousCompanyDataPrayerMonth, month)
-        || !isEqualStrings(previousCompanyDataPrayerDay, day)) {
+        || !isEqualStrings(previousCompanyDataPrayerDay, day)
+        || isExpired(companyData.expirableVersion)) {
 
-        console.log("Restarting updateCompanyListDataInterval");
+        console.log("Restarting updateCompanyDataInterval");
         updateCompanyData(companyData, month, day);
         if (updateCompanyDataInterval) {
-            clearInterval(updateCompanyListDataInterval);
+            console.log("################### Clearing company data interval");
+            clearInterval(updateCompanyDataInterval);
         }
         updateCompanyDataInterval = setInterval(() => {
+            console.log("################### Running inside company data interval");
             updateCompanyData(companyData, month, day);
         }, Constants.UPDATE_INTERVAL_MILLIS);
 
