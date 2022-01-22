@@ -115,15 +115,26 @@ export const beginCompanyDataInterval = (companyData: CompanyData, month: string
         || !isEqualStrings(previousCompanyDataPrayerDay, day)
         || isExpired(companyData.expirableVersion)) {
 
-        console.log("Restarting updateCompanyDataInterval");
-        updateCompanyData(companyData, month, day);
+        console.log("Restarting updateCompanyDataInterval ", updateCompanyDataInterval);
         if (updateCompanyDataInterval) {
-            console.log("################### Clearing company data interval");
             clearInterval(updateCompanyDataInterval);
+            // @ts-ignore
+            previousUpdateCompanyDataInterval = undefined;
         }
+
+        updateCompanyData(companyData, month, day);
+        
+        let previousUpdateCompanyDataInterval = updateCompanyDataInterval;
+
         updateCompanyDataInterval = setInterval(() => {
-            console.log("################### Running inside company data interval");
             updateCompanyData(companyData, month, day);
+
+            if (previousUpdateCompanyDataInterval) {
+                clearInterval(previousUpdateCompanyDataInterval);
+                // @ts-ignore
+                previousUpdateCompanyDataInterval = undefined;
+            }
+
         }, Constants.UPDATE_INTERVAL_MILLIS);
 
         previousCompanyData = companyData;

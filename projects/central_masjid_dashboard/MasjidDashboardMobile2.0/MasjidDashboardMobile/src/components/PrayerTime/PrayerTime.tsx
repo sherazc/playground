@@ -102,12 +102,14 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
 
     }, [companyData]);
 
+    useEffect(() => destroyCompanyDataInterval, []);
+
 
     const destroyPrayerTimeMessageInterval = () => {
         if (prayerTimeMessageInterval) {
             clearInterval(prayerTimeMessageInterval);
         }
-        destroyCompanyDataInterval()
+        // destroyCompanyDataInterval()
     }
 
     // Interval to update Azan, Salah and Jammat time messages on screen
