@@ -87,28 +87,27 @@ const isValidServiceResponsePrayer = (serviceResponse: ServiceResponse<Prayer>) 
 }
 
 // Creates new CompanyData by calling APIs
-const refreshCompanyData = (company: Company, month: string, day: string) => {
+const refreshCompanyData = (company: Company, companyDataVersion: CompanyDataVersion, month: string, day: string) => {
     const companyData: CompanyData = {
         ...createEmptyCompanyData(),
         expirableVersion: createOrRefreshExpirableVersion()
     };
+
     companyData.company = company;
+    
+    if (companyDataVersion && companyDataVersion.version != null && companyDataVersion.version != undefined) {
+        // @ts-ignore companyData.expirableVersion will be created in createCompanyData() call
+        companyData.expirableVersion.version = companyDataVersion.version;
 
-    apiCompanyDataVersion(company.id).then(companyDataVersion => {
-        if (companyDataVersion && companyDataVersion.version != null && companyDataVersion.version != undefined) {
-            // @ts-ignore companyData.expirableVersion will be created in createCompanyData() call
-            companyData.expirableVersion.version = companyDataVersion.version;
+        const promises = [
+            apiPrayer(company.id, month, day),
+            apiConfiguration(company.id),
+            apiPrayersYear(company.id)];
 
-            const promises = [
-                apiPrayer(company.id, month, day),
-                apiConfiguration(company.id),
-                apiPrayersYear(company.id)];
-
-            // @ts-ignore
-            Promise.all(promises).then(apiResponses => processCompanyData(companyData, apiResponses))
-                .catch(e => console.log("Error calling company data APIs", e));
-        }
-    }).catch(e => console.log("Error calling GET Company Data version API", e));
+        // @ts-ignore
+        Promise.all(promises).then(apiResponses => processCompanyData(companyData, apiResponses))
+            .catch(e => console.log("Error calling company data APIs", e));
+    }
 }
 
 const processCompanyData = (companyData: CompanyData, apiResponses: (ServiceResponse<Prayer> | Configuration[] | PrayersYear)[]) => {
@@ -141,17 +140,16 @@ export const updateCompanyData = (companyData: CompanyData, month: string, day: 
     if (shouldUpdateCompanyData(companyData)) {
         // @ts-ignore
         apiCompanyDataVersion(companyData.company.id).then(companyDataVersion => {
-            if (isCompanyVersionSame(companyData, companyDataVersion)) {
-                refreshCompanyDataExpirableVersion(companyData)
-                updateCompanyDataState(companyData)
-            } else {
+            if (!isCompanyVersionSame(companyData, companyDataVersion) || isExpired(companyData.expirableVersion)) {
+                
+                
+                refreshCompanyData(companyData.company, companyDataVersion, month, day);
+                // Setup notifications
                 // @ts-ignore
-                refreshCompanyData(companyData.company, month, day);
+                setupNotifications(companyData.company.id, false);
             }
         });
-        // Setup notifications
-        // @ts-ignore
-        setupNotifications(companyData.company.id, false);
+        
 
     } else {
         console.log("Not updating CompanyData. Maybe no Company selected or its still a non expired CompanyData.")
