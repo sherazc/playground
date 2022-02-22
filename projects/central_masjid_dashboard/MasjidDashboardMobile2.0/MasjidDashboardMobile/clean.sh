@@ -1,3 +1,10 @@
+# clean node
+rm yarn.lock
+# rm -rf node_modules
+
+# download dependencies
+npm install
+
 # clean android
 cd android
 rm -rf .idea
@@ -11,13 +18,23 @@ rm Podfile.lock
 rm -rf Pods
 cd ..
 
-# clean node
-rm yarn.lock
-rm -rf node_modules
 
-
-# download dependencies
-yarn install
+# pod install
 cd ios
-npx pod-install
+
+# intel
+# npx pod-install
+
+
+# 
+# M Chip
+# https://stackoverflow.com/questions/68044863/react-native-error-bug-in-ruby-interpreter-failed-to-install-cocoapods-depend
+# https://github.com/CocoaPods/CocoaPods/issues/10349#issuecomment-849468291
+
+# First time
+# brew install cocoapods
+# sudo arch -x86_64 gem install ffi
+
+# Every Clean
+arch -x86_64 pod install
 cd ..
