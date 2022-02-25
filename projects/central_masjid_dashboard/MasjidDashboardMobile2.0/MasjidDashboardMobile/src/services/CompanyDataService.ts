@@ -129,6 +129,11 @@ const processCompanyData = (companyData: CompanyData, apiResponses: (ServiceResp
 }
 
 const shouldUpdateCompanyData = (companyData?: CompanyData) => {
+    console.log("companyData", companyData);
+    console.log("isValidCompany(companyData.company)", isValidCompany(companyData.company));
+    console.log("isExpired(companyData.expirableVersion)", isExpired(companyData.expirableVersion));
+    console.log("isValidPrayer(companyData.prayer)", isValidPrayer(companyData.prayer));
+
     return companyData
         && isValidCompany(companyData.company)
         && (isExpired(companyData.expirableVersion) || !isValidPrayer(companyData.prayer));

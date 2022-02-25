@@ -38,7 +38,7 @@ const createCompanyListData = (): CompanyListData => {
     };
 }
 
-const refeashCompanyListDataExpirableVersion = (companyListData: CompanyListData) => {
+const refreshCompanyListDataExpirableVersion = (companyListData: CompanyListData) => {
     if (!companyListData) {
         return;
     }
@@ -63,7 +63,7 @@ const apiCompaniesActive = (): Promise<Company[]> => {
 }
 
 // Creates new CompanyList by calling APIs
-const refeashCompanyListData = () => {
+const refreshCompanyListData = () => {
     const companyListData = createCompanyListData();
     apiCompanyListVersion().then(companyListVersion => {
         if (companyListVersion && companyListVersion.version != null && companyListVersion.version != undefined) {
@@ -81,17 +81,18 @@ const refeashCompanyListData = () => {
 
 // Creates new CompanyList by calling APIs or updates expirationData if online version is the same
 export const updateCompanyListData = (companyListData: CompanyListData) => {
+    return;
     console.log("Attempting update CompanyListData ", companyListData);
     if (isValidCompanyListData(companyListData) && isExpired(companyListData.expirableVersion)) {
         apiCompanyListVersion().then(companyListVersion => {
             if (isCompanyListVersionSame(companyListData, companyListVersion)) {
-                refeashCompanyListDataExpirableVersion(companyListData)
+                refreshCompanyListDataExpirableVersion(companyListData)
                 updateCompanyListDataState(companyListData)
             } else {
-                refeashCompanyListData();
+                refreshCompanyListData();
             }
         });
     } else {
-        refeashCompanyListData();
+        refreshCompanyListData();
     }
 }
