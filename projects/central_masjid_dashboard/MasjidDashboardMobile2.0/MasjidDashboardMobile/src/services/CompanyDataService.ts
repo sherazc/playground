@@ -49,12 +49,12 @@ export const isCompanySame = (c1?: Company, c2?: Company) => {
     return c1 && c2 && c1.id && c2.id && c1.id === c2.id;
 }
 
-const refreshCompanyDataExpirableVersion = (companyData: CompanyData) => {
-    if (!companyData) {
-        return;
-    }
-    companyData.expirableVersion = createOrRefreshExpirableVersion(companyData.expirableVersion);
-}
+// const refreshCompanyDataExpirableVersion = (companyData: CompanyData) => {
+//     if (!companyData) {
+//         return;
+//     }
+//     companyData.expirableVersion = createOrRefreshExpirableVersion(companyData.expirableVersion);
+// }
 
 const updateCompanyDataState = (companyData: CompanyData) => {
     store.dispatch({

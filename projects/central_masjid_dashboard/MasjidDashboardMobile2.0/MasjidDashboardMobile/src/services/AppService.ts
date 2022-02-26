@@ -16,7 +16,7 @@ import { isCompanyListDataVersionSame, updateCompanyListData } from './CompanyLi
 import { Constants } from './Constants';
 import { isCompanyDataCompanySame, isCompanyDataVersionSame, isValidCompany, updateCompanyData } from './CompanyDataService';
 import { isEqualStrings } from './Utilities';
-import { fixObjectDates} from './DateService';
+import { fixObjectDates, todaysDay, todaysMonth} from './DateService';
 import { isExpired } from './ExpirableVersionService';
 
 export const recoverAppFromStorage = () => {
@@ -127,13 +127,15 @@ export const beginCompanyDataInterval = (companyData: CompanyData, month: string
         let previousUpdateCompanyDataInterval = updateCompanyDataInterval;
 
         updateCompanyDataInterval = setInterval(() => {
-            updateCompanyData(companyData, month, day);
+            updateCompanyData(companyData, todaysMonth().toString(), todaysDay().toString());
 
+/*
             if (previousUpdateCompanyDataInterval) {
                 clearInterval(previousUpdateCompanyDataInterval);
                 // @ts-ignore
                 previousUpdateCompanyDataInterval = undefined;
             }
+*/
 
         }, Constants.UPDATE_INTERVAL_MILLIS);
 

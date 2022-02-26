@@ -100,7 +100,7 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
 
         return destroyPrayerTimeMessageInterval;
 
-    }, [companyData]);
+    }, []);
 
     useEffect(() => destroyCompanyDataInterval, []);
 
