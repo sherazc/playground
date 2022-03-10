@@ -27,6 +27,8 @@ const getCompanyDataVersionNumber = (companyData?: CompanyData): (number | undef
     }
 }
 
+
+// @Deprecated
 const isCompanyVersionSame = (cd: CompanyData, cdv: CompanyDataVersion) => {
     const companyDataVersionNumber = getCompanyDataVersionNumber(cd);
     return companyDataVersionNumber
@@ -34,6 +36,12 @@ const isCompanyVersionSame = (cd: CompanyData, cdv: CompanyDataVersion) => {
         && cdv.version
         && companyDataVersionNumber === cdv.version;
 }
+
+
+const isCompanyVersionSame2 = (version?: number, cdv2?: CompanyDataVersion) => {
+    return version !== undefined && cdv2 && version === cdv2?.version;
+}
+
 
 export const isCompanyDataVersionSame = (c1?: CompanyData, c2?: CompanyData) => {
     let c1Version = getCompanyDataVersionNumber(c1);
@@ -87,14 +95,14 @@ const isValidServiceResponsePrayer = (serviceResponse: ServiceResponse<Prayer>) 
 }
 
 // Creates new CompanyData by calling APIs
-const refreshCompanyData = (company: Company, companyDataVersion: CompanyDataVersion, month: string, day: string) => {
+const refreshCompanyData = (companyData: CompanyData, companyDataVersion: CompanyDataVersion, month: string, day: string) => {
     const companyData: CompanyData = {
         ...createEmptyCompanyData(),
         expirableVersion: createOrRefreshExpirableVersion()
     };
 
     companyData.company = company;
-    
+
     if (companyDataVersion && companyDataVersion.version != null && companyDataVersion.version != undefined) {
         // @ts-ignore companyData.expirableVersion will be created in createCompanyData() call
         companyData.expirableVersion.version = companyDataVersion.version;
@@ -139,6 +147,7 @@ const shouldUpdateCompanyData = (companyData?: CompanyData) => {
         && (isExpired(companyData.expirableVersion) || !isValidPrayer(companyData.prayer));
 }
 
+// @Deprecated
 // Creates new CompanyData by calling APIs or updates expirationData if online version is the same
 export const updateCompanyData = (companyData: CompanyData, month: string, day: string) => {
     console.log("Attempting update CompanyData ", companyData);
@@ -146,15 +155,15 @@ export const updateCompanyData = (companyData: CompanyData, month: string, day: 
         // @ts-ignore
         apiCompanyDataVersion(companyData.company.id).then(companyDataVersion => {
             if (!isCompanyVersionSame(companyData, companyDataVersion) || isExpired(companyData.expirableVersion)) {
-                
-                
+
+
                 refreshCompanyData(companyData.company, companyDataVersion, month, day);
                 // Setup notifications
                 // @ts-ignore
                 setupNotifications(companyData.company.id, false);
             }
         });
-        
+
 
     } else {
         console.log("Not updating CompanyData. Maybe no Company selected or its still a non expired CompanyData.")
@@ -175,11 +184,33 @@ if isExpired or not same date year
 */
 
 export const updateCompanyData2 = (companyData: CompanyData) => {
+    if (isValidCompany(companyData.company)) {
+        return;
+    }
+
     const nowMonth = todaysMonth();
     const nowDate = todaysDay();
     const tracker = companyData.tracker;
+    const sameMonthDate = isSameMonthDate(tracker.previousMonth, nowMonth, tracker.previousDate, nowDate);
 
-    if (isExpired(tracker.expirableVersion) || !isSameMonthDate(tracker.previousMonth, nowMonth, tracker.previousDate, nowDate)) {
+    if (isExpired(tracker.expirableVersion) || !sameMonthDate) {
+
+            // @ts-ignore
+        apiCompanyDataVersion(companyData.company.id).then(companyDataVersion => {
+
+            tracker.expirableVersion = createOrRefreshExpirableVersion();
+            if (!isCompanyVersionSame2(tracker.previousVersion, companyDataVersion) || sameMonthDate) {
+                START HERE
+                // refactor refreshCompanyData()
+                refreshCompanyData(companyData.company, companyDataVersion, nowMonth, nowDate);
+                // Setup notifications
+                // @ts-ignore
+                // setupNotifications(companyData.company.id, false);
+            }
+
+            tracker.previousVersion = companyDataVersion.version;
+
+        });
 
     }
 
