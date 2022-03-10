@@ -38,7 +38,7 @@ export const apiPrayersYear = (companyId: string, year?: number): Promise<Prayer
     });
 }
 
-// @Depricated
+// @Deprecated
 const loadCompanyPrayerYear = (companyId: string, year: number): Promise<PrayersYear> => {
 
     return new Promise((resolve, reject) => {
@@ -68,7 +68,7 @@ const loadCompanyPrayerYear = (companyId: string, year: number): Promise<Prayers
     });
 }
 
-// @Depricated
+// @Deprecated
 const resolveNewPrayerYear = (resolve: Function, companyData: CompanyData, year: number, prayersMonths: PrayersMonth[]) => {
     companyData.prayersYear = { year, prayersMonths };
     store.dispatch({

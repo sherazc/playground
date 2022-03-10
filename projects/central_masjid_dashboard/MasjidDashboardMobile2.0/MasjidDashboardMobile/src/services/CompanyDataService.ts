@@ -3,7 +3,7 @@ import { createOrRefreshExpirableVersion, isExpired } from "./ExpirableVersionSe
 import store from '../store/rootReducer';
 import { Constants } from './Constants';
 import setupNotifications from "./NotificationService";
-import { fixObjectDates } from "./DateService";
+import { fixObjectDates, isSameMonthDate, todaysDay, todaysMonth } from "./DateService";
 import { apiPrayersYear } from "./CalendarService";
 
 export const isValidCompanyData = (companyData?: CompanyData) => {
@@ -160,6 +160,33 @@ export const updateCompanyData = (companyData: CompanyData, month: string, day: 
         console.log("Not updating CompanyData. Maybe no Company selected or its still a non expired CompanyData.")
     }
 }
+
+
+/*
+
+if isExpired or not same date year
+    Call /version
+        if same version and same date year
+            update expire
+        else 
+            update prayer time
+            update notification
+
+*/
+
+export const updateCompanyData2 = (companyData: CompanyData) => {
+    const nowMonth = todaysMonth();
+    const nowDate = todaysDay();
+    const tracker = companyData.tracker;
+
+    if (isExpired(tracker.expirableVersion) || !isSameMonthDate(tracker.previousMonth, nowMonth, tracker.previousDate, nowDate)) {
+
+    }
+
+    tracker.previousDate = nowDate;
+    tracker.previousMonth = nowMonth;
+}
+
 
 export const getCompanyName = (company: (Company | undefined)): string => {
     return company && company.name ? company.name : "";

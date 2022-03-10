@@ -1,13 +1,13 @@
 import { Constants } from './Constants';
-import { numberTo2DigitsString, subStringToNumber } from './Utilities';
+import { isEqualStrings, numberTo2DigitsString, subStringToNumber } from './Utilities';
 import { PrayerTime } from '../types/types';
 
 export const TIME_24_REGX = /([01]?[0-9]|2[0-3]):[0-5][0-9].*/;
 const DATE_TIME_REGX = /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/;
 
 export const createExpirationDate = () => millisToUtcDate(nowUtcDate().getTime() + Constants.EXPIRATION_MILLIS);
-export const todaysDay = () => (nowUtcDate()).getDate();
-export const todaysMonth = () => (nowUtcDate()).getMonth() + 1;
+export const todaysDay = ():number => (nowUtcDate()).getDate();
+export const todaysMonth = ():number => (nowUtcDate()).getMonth() + 1;
 
 export const fixObjectDates = (obj: any) => {
     for (var i in obj) {
@@ -224,3 +224,12 @@ const createZeroTimeDate = (date:Date) => {
     d.setMilliseconds(0);
     return date;
 }
+
+
+export const isSameMonthDate = (d1Month?:number, d1Date?: number, d2Month?:number, d2Date?: number): boolean => {
+    return d1Month !== undefined && d2Month!== undefined 
+        && d1Date!== undefined && d2Date!== undefined 
+        && d1Month === d2Month 
+        && d1Date === d2Date;
+}
+

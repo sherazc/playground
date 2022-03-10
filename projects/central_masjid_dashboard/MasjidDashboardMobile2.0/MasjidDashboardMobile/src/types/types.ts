@@ -93,17 +93,26 @@ export interface CompanyData {
     company?: Company;
     prayer?: Prayer;
     configurations: Configuration[];
-    expirableVersion?: ExpirableVersion;
     prayersYear?: PrayersYear;
     companyNotification?: CompanyNotification;
+    tracker: Tracker;
 }
+
+export interface Tracker {
+    expirableVersion?: ExpirableVersion;
+    updateInterval?: NodeJS.Timeout;
+    previousVersion?: number;
+    previousMonth?: number;
+    previousDate?: number;
+}
+
 
 export const createEmptyCompanyData = (): CompanyData => {
     return {
         company: undefined,
         prayer: undefined,
         configurations: [],
-        expirableVersion: {},
+        tracker: {},
         prayersYear: undefined
     };
 }

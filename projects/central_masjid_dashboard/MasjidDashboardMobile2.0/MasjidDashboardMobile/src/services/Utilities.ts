@@ -1,8 +1,8 @@
 import { Configuration } from '../types/types';
 
-export const isEqualStrings = (s1?: string, s2?: string) => s1 && s2 && s1 === s2;
-export const isNotBlankString = (s: string) => s && s.length > 0;
-export const isBlankString = (s: string) => !isNotBlankString(s);
+export const isEqualStrings = (s1?: string, s2?: string): boolean => s1 !== undefined && s2 !== undefined && s1 === s2;
+export const isNotBlankString = (s: string): boolean => s !== undefined && s.length > 0;
+export const isBlankString = (s: string): boolean => !isNotBlankString(s);
 
 export const numberTo2DigitsString = (number: number) => {
     return number < 10 && number > -1 ? `0${number}` : number;
@@ -50,13 +50,13 @@ export const nameToInitials = (name: string) => {
     return ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
 }
 
-export const trimEllipsis = (str:string, maxLength: number) => {
+export const trimEllipsis = (str: string, maxLength: number) => {
     if (!str) {
         return "";
     }
     if (str.length > maxLength) {
-       return `${str.substring(0, maxLength)}...`;
+        return `${str.substring(0, maxLength)}...`;
     } else {
         return str;
     }
- };
+};

@@ -14,9 +14,9 @@ import {
 import { CompanyData, CompanyListData, SettingData } from '../types/types';
 import { isCompanyListDataVersionSame, updateCompanyListData } from './CompanyListDataService';
 import { Constants } from './Constants';
-import { isCompanyDataCompanySame, isCompanyDataVersionSame, isValidCompany, updateCompanyData } from './CompanyDataService';
+import { isCompanyDataCompanySame, isCompanyDataVersionSame, isValidCompany, updateCompanyData, updateCompanyData2 } from './CompanyDataService';
 import { isEqualStrings } from './Utilities';
-import { fixObjectDates, todaysDay, todaysMonth} from './DateService';
+import { fixObjectDates, isSameMonthDate, todaysDay, todaysMonth } from './DateService';
 import { isExpired } from './ExpirableVersionService';
 
 export const recoverAppFromStorage = () => {
@@ -100,10 +100,7 @@ export const destroyedCompanyListDataInterval = () => {
     }
 }
 
-let updateCompanyDataInterval: NodeJS.Timeout;
-let previousCompanyData: CompanyData;
-let previousCompanyDataPrayerMonth: string;
-let previousCompanyDataPrayerDay: string;
+
 
 // Interval to update API prayer, configurations and version
 export const beginCompanyDataInterval = (companyData: CompanyData, month: string, day: string) => {
@@ -115,27 +112,13 @@ export const beginCompanyDataInterval = (companyData: CompanyData, month: string
         || !isEqualStrings(previousCompanyDataPrayerDay, day)
         || isExpired(companyData.expirableVersion)) {
 
-        console.log("Restarting updateCompanyDataInterval ", updateCompanyDataInterval);
-        if (updateCompanyDataInterval) {
-            clearInterval(updateCompanyDataInterval);
-            // @ts-ignore
-            previousUpdateCompanyDataInterval = undefined;
-        }
+        destroyCompanyDataInterval()
 
         updateCompanyData(companyData, month, day);
-        
-        let previousUpdateCompanyDataInterval = updateCompanyDataInterval;
+
 
         updateCompanyDataInterval = setInterval(() => {
             updateCompanyData(companyData, todaysMonth().toString(), todaysDay().toString());
-
-/*
-            if (previousUpdateCompanyDataInterval) {
-                clearInterval(previousUpdateCompanyDataInterval);
-                // @ts-ignore
-                previousUpdateCompanyDataInterval = undefined;
-            }
-*/
 
         }, Constants.UPDATE_INTERVAL_MILLIS);
 
@@ -144,6 +127,28 @@ export const beginCompanyDataInterval = (companyData: CompanyData, month: string
         previousCompanyDataPrayerDay = day;
     }
 }
+
+
+
+// Interval to update API prayer, configurations and version
+export const beginCompanyDataInterval2 = (companyData: CompanyData) => {
+    if (!companyData || !isValidCompany(companyData.company)) return;
+
+    const tracker = companyData.tracker;
+
+    if (companyData.tracker.updateInterval) {
+        clearInterval(companyData.tracker.updateInterval);
+    }
+
+    updateCompanyData2(companyData);
+    tracker.updateInterval = setInterval(() => {
+        updateCompanyData2(companyData);
+
+    }, Constants.UPDATE_INTERVAL_MILLIS);
+}
+
+
+
 
 export const destroyCompanyDataInterval = () => {
     console.log("Destroying updateCompanyDataInterval", updateCompanyDataInterval);
