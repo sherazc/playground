@@ -95,27 +95,31 @@ const isValidServiceResponsePrayer = (serviceResponse: ServiceResponse<Prayer>) 
 }
 
 // Creates new CompanyData by calling APIs
-const refreshCompanyData = (companyData: CompanyData, companyDataVersion: CompanyDataVersion, month: string, day: string) => {
-    const companyData: CompanyData = {
+const refreshCompanyData = (companyData: CompanyData, companyDataVersion: CompanyDataVersion, month: number, date: number) => {
+
+    const freshCompanyData: CompanyData = {
         ...createEmptyCompanyData(),
-        expirableVersion: createOrRefreshExpirableVersion()
+        company: companyData.company,
+        tracker: {
+            ...companyData.tracker,
+            expirableVersion: {
+                ...createOrRefreshExpirableVersion(),
+                version: companyDataVersion.version
+            }
+        }
     };
 
-    companyData.company = company;
+    START FROM HERE
 
-    if (companyDataVersion && companyDataVersion.version != null && companyDataVersion.version != undefined) {
-        // @ts-ignore companyData.expirableVersion will be created in createCompanyData() call
-        companyData.expirableVersion.version = companyDataVersion.version;
+    const promises = [
+        apiPrayer(company.id, month, date),
+        apiConfiguration(company.id),
+        apiPrayersYear(company.id)];
 
-        const promises = [
-            apiPrayer(company.id, month, day),
-            apiConfiguration(company.id),
-            apiPrayersYear(company.id)];
+    // @ts-ignore
+    Promise.all(promises).then(apiResponses => processCompanyData(companyData, apiResponses))
+        .catch(e => console.log("Error calling company data APIs", e));
 
-        // @ts-ignore
-        Promise.all(promises).then(apiResponses => processCompanyData(companyData, apiResponses))
-            .catch(e => console.log("Error calling company data APIs", e));
-    }
 }
 
 const processCompanyData = (companyData: CompanyData, apiResponses: (ServiceResponse<Prayer> | Configuration[] | PrayersYear)[]) => {
@@ -192,30 +196,24 @@ export const updateCompanyData2 = (companyData: CompanyData) => {
     const nowDate = todaysDay();
     const tracker = companyData.tracker;
     const sameMonthDate = isSameMonthDate(tracker.previousMonth, nowMonth, tracker.previousDate, nowDate);
+    const expired = isExpired(tracker.expirableVersion);
 
-    if (isExpired(tracker.expirableVersion) || !sameMonthDate) {
+    // TODO test what would happened if tracker is update inside refresh
+    tracker.previousDate = nowDate;
+    tracker.previousMonth = nowMonth;
 
-            // @ts-ignore
+    if (expired || !sameMonthDate) {
+
+        // @ts-ignore
         apiCompanyDataVersion(companyData.company.id).then(companyDataVersion => {
-
-            tracker.expirableVersion = createOrRefreshExpirableVersion();
-            if (!isCompanyVersionSame2(tracker.previousVersion, companyDataVersion) || sameMonthDate) {
-                START HERE
-                // refactor refreshCompanyData()
-                refreshCompanyData(companyData.company, companyDataVersion, nowMonth, nowDate);
+            if (!isCompanyVersionSame2(tracker.expirableVersion?.version, companyDataVersion) || !sameMonthDate) {
+                refreshCompanyData(companyData, companyDataVersion, nowMonth, nowDate);
                 // Setup notifications
                 // @ts-ignore
                 // setupNotifications(companyData.company.id, false);
             }
-
-            tracker.previousVersion = companyDataVersion.version;
-
         });
-
     }
-
-    tracker.previousDate = nowDate;
-    tracker.previousMonth = nowMonth;
 }
 
 

@@ -101,7 +101,6 @@ export interface CompanyData {
 export interface Tracker {
     expirableVersion?: ExpirableVersion;
     updateInterval?: NodeJS.Timeout;
-    previousVersion?: number;
     previousMonth?: number;
     previousDate?: number;
 }
