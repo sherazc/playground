@@ -126,7 +126,7 @@ const refreshCompanyData = (companyData: CompanyData, companyDataVersion: Compan
         apiPrayersYear(company.id)];
 
     // @ts-ignore
-    Promise.all(promises).then(apiResponses => processCompanyData(companyData, apiResponses))
+    Promise.all(promises).then(apiResponses => processCompanyData(freshCompanyData, apiResponses))
         .catch(e => console.log("Error calling company data APIs", e));
 
 }
@@ -201,7 +201,7 @@ if isExpired or not same date year
 */
 
 export const updateCompanyData2 = (companyData: CompanyData) => {
-    if (isValidCompany(companyData.company)) {
+    if (!isValidCompany(companyData.company)) {
         return;
     }
 
@@ -237,3 +237,13 @@ export const getCompanyName = (company: (Company | undefined)): string => {
 export const getCompanyId = (company: (Company | undefined)): (string | undefined) => {
     return company && company.id ? company.id : undefined;
 }
+
+
+export const destroyCompanyDataInterval2 = (companyData?: CompanyData) => {
+    if (!companyData?.tracker.updateInterval) {
+        return;
+    }
+    console.log("Destroying updateCompanyDataInterval", companyData.tracker.updateInterval);
+    clearInterval(companyData.tracker.updateInterval);
+}
+

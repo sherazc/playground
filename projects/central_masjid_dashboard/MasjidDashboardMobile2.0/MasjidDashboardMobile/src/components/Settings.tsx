@@ -10,7 +10,7 @@ import Reset from "../images/Reset";
 import { Checkbox } from './Checkbox';
 import setupNotifications, { removeAllExistingNotifications } from "../services/NotificationService";
 import { createDefaultSettingData, SettingData } from '../types/types';
-import { getCompanyId } from '../services/CompanyDataService';
+import { destroyCompanyDataInterval2, getCompanyId } from '../services/CompanyDataService';
 interface Props {
     navigation: StackNavigationProp<MdParamList, "Settings">;
     route: RouteProp<MdParamList, "Settings">;
@@ -35,6 +35,7 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
         dispatch({ type: "COMPANY_DATA_DELETE" });
         navigation.navigate("CompanySelect");
         removeAllExistingNotifications();
+        destroyCompanyDataInterval2(companyData);
     }
 
     const onCheckAzan = () => {

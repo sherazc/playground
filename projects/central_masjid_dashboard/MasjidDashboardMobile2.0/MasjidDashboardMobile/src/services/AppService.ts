@@ -138,6 +138,7 @@ export const beginCompanyDataInterval = (companyData: CompanyData, month: string
 
 // Interval to update API prayer, configurations and version
 export const beginCompanyDataInterval2 = (companyData: CompanyData) => {
+    console.log("Beginning company data interval");
     if (!companyData || !isValidCompany(companyData.company)) return;
 
     const tracker = companyData.tracker;
@@ -153,14 +154,6 @@ export const beginCompanyDataInterval2 = (companyData: CompanyData) => {
     }, Constants.UPDATE_INTERVAL_MILLIS);
 }
 
-
-export const destroyCompanyDataInterval2 = (companyData?: CompanyData) => {
-    if (!companyData?.tracker.updateInterval) {
-        return;
-    }
-    console.log("Destroying updateCompanyDataInterval", companyData.tracker.updateInterval);
-    clearInterval(companyData.tracker.updateInterval);
-}
 
 /* 
 
