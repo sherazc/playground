@@ -154,6 +154,14 @@ export const beginCompanyDataInterval2 = (companyData: CompanyData) => {
 }
 
 
+export const destroyCompanyDataInterval2 = (companyData?: CompanyData) => {
+    if (!companyData?.tracker.updateInterval) {
+        return;
+    }
+    console.log("Destroying updateCompanyDataInterval", companyData.tracker.updateInterval);
+    clearInterval(companyData.tracker.updateInterval);
+}
+
 /* 
 
 export const destroyCompanyDataInterval = () => {

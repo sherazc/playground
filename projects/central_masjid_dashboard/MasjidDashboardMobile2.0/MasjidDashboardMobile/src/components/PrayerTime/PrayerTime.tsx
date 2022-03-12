@@ -7,8 +7,7 @@ import { useTypedDispatch, useTypedSelector } from "../../store/rootReducer";
 import { CompanyData, Prayer } from "../../types/types";
 import { Loading } from "../Loading";
 import { PrayerTimeGrid } from './PrayerTimeGrid';
-import { beginCompanyDataInterval, destroyCompanyDataInterval } from '../../services/AppService';
-import { todaysDay, todaysMonth } from '../../services/DateService';
+import { beginCompanyDataInterval2, } from '../../services/AppService';
 import { TodaysDetail } from "./TodaysDetail";
 import { createEmptyPrayerTimeSummaryMessage, PrayerTimeSummaryMessage } from "../../types/react-types";
 import { processPrayerTime } from "../../services/PrayerTimeProcessor";
@@ -85,7 +84,7 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
     // Starts CompanyData Interval and PrayerTimeMessage interval
     useEffect(() => {
         // Interval to update API prayer and version
-        beginCompanyDataInterval(companyData, todaysMonth().toString(), todaysDay().toString());
+        beginCompanyDataInterval2(companyData);
 
         const prayer = companyData.prayer;
 
@@ -98,18 +97,17 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
         startPrayerTimeMessageInterval(prayer, setPrayerTimeMessage);
         prayerTimeMessageInterval = setInterval(() => startPrayerTimeMessageInterval(prayer, setPrayerTimeMessage), 1000);
 
-        return destroyPrayerTimeMessageInterval;
+        return () => {
+            destroyPrayerTimeMessageInterval();
+        };
 
     }, []);
-
-    useEffect(() => destroyCompanyDataInterval, []);
 
 
     const destroyPrayerTimeMessageInterval = () => {
         if (prayerTimeMessageInterval) {
             clearInterval(prayerTimeMessageInterval);
         }
-        // destroyCompanyDataInterval()
     }
 
     // Interval to update Azan, Salah and Jammat time messages on screen
