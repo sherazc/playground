@@ -7,7 +7,9 @@ import { Settings } from './Settings';
 import { useTypedSelector } from '../store/rootReducer'
 import { Company, LoadingStatus } from '../types/types';
 import { RecoveringFromStorage } from './RecoveringFromStorage';
-import { recoverAppFromStorage, destroyedCompanyListDataInterval, beginCompanyListDataInterval } from '../services/AppService';
+import { recoverAppFromStorage, 
+    destroyedCompanyListDataInterval, 
+    beginCompanyListDataInterval } from '../services/AppService';
 import { RegisterInfo } from './RegisterInfo';
 
 const Stack = createStackNavigator<MdParamList>();

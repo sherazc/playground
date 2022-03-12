@@ -8,7 +8,7 @@ export const Constants = {
     END_POINT_COMPANIES_ACTIVE: `${BASE_URL}/api/auth/companies/active`,
     END_POINT_COMPANY_LIST_VERSION: `${BASE_URL}/api/version/company/list`,
     createCompanyDataVersionEndpoint: (companyId: string) => `${BASE_URL}/api/version/company/${companyId}/data`,
-    createPrayerEndpoint: (companyId: string, month: string, day: string) => `${BASE_URL}/api/prayer/companyId/${companyId}/month/${month}/day/${day}`,
+    createPrayerEndpoint: (companyId: string, month: number, day: number) => `${BASE_URL}/api/prayer/companyId/${companyId}/month/${month}/day/${day}`,
     createConfigurationEndpoint: (companyId: string) => `${BASE_URL}/api/auth/companies/${companyId}/configurations`,
     createYearCalendarEndpoint: (companyId: string, year: number) => `${BASE_URL}/api/calendar/companyId/${companyId}/type/gregorian/year/${year}`,
     EXPIRATION_MILLIS: 1 * 60 * 1000, // Loaded companyList and companyData expiration, and notification set.

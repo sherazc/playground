@@ -14,7 +14,11 @@ import {
 import { CompanyData, CompanyListData, SettingData } from '../types/types';
 import { isCompanyListDataVersionSame, updateCompanyListData } from './CompanyListDataService';
 import { Constants } from './Constants';
-import { isCompanyDataCompanySame, isCompanyDataVersionSame, isValidCompany, updateCompanyData, updateCompanyData2 } from './CompanyDataService';
+import { isCompanyDataCompanySame, 
+    // isCompanyDataVersionSame, 
+    isValidCompany, 
+    // updateCompanyData, 
+    updateCompanyData2 } from './CompanyDataService';
 import { isEqualStrings } from './Utilities';
 import { fixObjectDates, isSameMonthDate, todaysDay, todaysMonth } from './DateService';
 import { isExpired } from './ExpirableVersionService';
@@ -95,14 +99,16 @@ export const destroyedCompanyListDataInterval = () => {
     if (updateCompanyListDataInterval) {
         clearInterval(updateCompanyListDataInterval);
     }
+
+/* 
     if (updateCompanyDataInterval) {
         clearInterval(updateCompanyDataInterval);
     }
+     */
 }
 
-
-
 // Interval to update API prayer, configurations and version
+/* 
 export const beginCompanyDataInterval = (companyData: CompanyData, month: string, day: string) => {
     if (!companyData || !isValidCompany(companyData.company)) return;
 
@@ -128,7 +134,7 @@ export const beginCompanyDataInterval = (companyData: CompanyData, month: string
     }
 }
 
-
+ */
 
 // Interval to update API prayer, configurations and version
 export const beginCompanyDataInterval2 = (companyData: CompanyData) => {
@@ -148,7 +154,7 @@ export const beginCompanyDataInterval2 = (companyData: CompanyData) => {
 }
 
 
-
+/* 
 
 export const destroyCompanyDataInterval = () => {
     console.log("Destroying updateCompanyDataInterval", updateCompanyDataInterval);
@@ -156,3 +162,6 @@ export const destroyCompanyDataInterval = () => {
         clearInterval(updateCompanyDataInterval);
     }
 }
+
+
+ */

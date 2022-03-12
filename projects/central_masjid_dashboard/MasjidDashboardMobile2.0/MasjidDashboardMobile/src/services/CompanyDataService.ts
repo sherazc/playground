@@ -18,6 +18,9 @@ const isValidPrayer = (prayer?: Prayer) => {
     return prayer && prayer.date;
 }
 
+
+// @Deprecated
+/* 
 const getCompanyDataVersionNumber = (companyData?: CompanyData): (number | undefined) => {
     if (companyData
         && companyData.expirableVersion
@@ -27,8 +30,10 @@ const getCompanyDataVersionNumber = (companyData?: CompanyData): (number | undef
     }
 }
 
-
+ */
 // @Deprecated
+/* 
+
 const isCompanyVersionSame = (cd: CompanyData, cdv: CompanyDataVersion) => {
     const companyDataVersionNumber = getCompanyDataVersionNumber(cd);
     return companyDataVersionNumber
@@ -37,17 +42,20 @@ const isCompanyVersionSame = (cd: CompanyData, cdv: CompanyDataVersion) => {
         && companyDataVersionNumber === cdv.version;
 }
 
-
+ */
 const isCompanyVersionSame2 = (version?: number, cdv2?: CompanyDataVersion) => {
     return version !== undefined && cdv2 && version === cdv2?.version;
 }
 
 
+/* 
 export const isCompanyDataVersionSame = (c1?: CompanyData, c2?: CompanyData) => {
     let c1Version = getCompanyDataVersionNumber(c1);
     let c2Version = getCompanyDataVersionNumber(c2);
     return c1Version && c2Version && c1Version === c2Version;
 }
+
+ */
 
 export const isCompanyDataCompanySame = (c1?: CompanyData, c2?: CompanyData) => {
     return c1 && c2 && isCompanySame(c1.company, c2.company);
@@ -77,7 +85,7 @@ const apiCompanyDataVersion = (companyId: string): Promise<CompanyDataVersion> =
     return fetch(endpoint).then(response => response.json());
 }
 
-const apiPrayer = (companyId: string, month: string, day: string): Promise<ServiceResponse<Prayer>> => {
+const apiPrayer = (companyId: string, month: number, day: number): Promise<ServiceResponse<Prayer>> => {
     const endpoint = Constants.createPrayerEndpoint(companyId, month, day);
     console.log("Calling API ", endpoint);
     return fetch(endpoint).then(response => response.json());
@@ -97,6 +105,9 @@ const isValidServiceResponsePrayer = (serviceResponse: ServiceResponse<Prayer>) 
 // Creates new CompanyData by calling APIs
 const refreshCompanyData = (companyData: CompanyData, companyDataVersion: CompanyDataVersion, month: number, date: number) => {
 
+    // @ts-ignore
+    const company:Company = companyData.company;
+
     const freshCompanyData: CompanyData = {
         ...createEmptyCompanyData(),
         company: companyData.company,
@@ -108,8 +119,6 @@ const refreshCompanyData = (companyData: CompanyData, companyDataVersion: Compan
             }
         }
     };
-
-    START FROM HERE
 
     const promises = [
         apiPrayer(company.id, month, date),
@@ -140,6 +149,8 @@ const processCompanyData = (companyData: CompanyData, apiResponses: (ServiceResp
     }
 }
 
+// @Deprecated
+/*
 const shouldUpdateCompanyData = (companyData?: CompanyData) => {
     console.log("companyData", companyData);
     console.log("isValidCompany(companyData.company)", isValidCompany(companyData.company));
@@ -150,9 +161,11 @@ const shouldUpdateCompanyData = (companyData?: CompanyData) => {
         && isValidCompany(companyData.company)
         && (isExpired(companyData.expirableVersion) || !isValidPrayer(companyData.prayer));
 }
+*/
 
 // @Deprecated
 // Creates new CompanyData by calling APIs or updates expirationData if online version is the same
+/* 
 export const updateCompanyData = (companyData: CompanyData, month: string, day: string) => {
     console.log("Attempting update CompanyData ", companyData);
     if (shouldUpdateCompanyData(companyData)) {
@@ -174,7 +187,7 @@ export const updateCompanyData = (companyData: CompanyData, month: string, day: 
     }
 }
 
-
+ */
 /*
 
 if isExpired or not same date year
