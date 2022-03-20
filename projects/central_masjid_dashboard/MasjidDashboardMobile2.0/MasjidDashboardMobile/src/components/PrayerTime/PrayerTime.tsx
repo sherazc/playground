@@ -13,6 +13,7 @@ import { createEmptyPrayerTimeSummaryMessage, PrayerTimeSummaryMessage } from ".
 import { processPrayerTime } from "../../services/PrayerTimeProcessor";
 import { processPrayerTimeMessage } from "../../services-react/PrayerTimeMessageProcessor";
 import { ConstantsStyles } from "../../services/Constants";
+import { destroyCompanyDataInterval2 } from "../../services/CompanyDataService";
 
 interface Props {
     navigation: StackNavigationProp<MdParamList, "PrayerTime">;
@@ -23,7 +24,15 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
     const [prayerTimeMessage, setPrayerTimeMessage] = useState(createEmptyPrayerTimeSummaryMessage());
     const companyData = useTypedSelector(state => state.companyData);
     const dispatch = useTypedDispatch();
+
+    // TODO: make prayerTimeMessageInterval part of PrayerTimeSummaryMessage interface
     let prayerTimeMessageInterval: NodeJS.Timeout;
+    // TODO: make prayerTimeMessageInterval part of PrayerTimeSummaryMessage interface
+    const destroyPrayerTimeMessageInterval = () => {
+        if (prayerTimeMessageInterval) {
+            clearInterval(prayerTimeMessageInterval);
+        }
+    }
 
     // Inits
     useEffect(() => {
@@ -38,10 +47,39 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
 
         if (Platform.OS === 'android') {
             BackHandler.addEventListener('hardwareBackPress', handleBackButton);
-            return () => BackHandler.removeEventListener('hardwareBackPress', handleBackButton);    
+            return () => {
+                BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+            };
         }
-        
+
     }, []);
+
+
+    // Starts CompanyData Interval
+    useEffect(() => {
+        // Interval to update API prayer and version
+        beginCompanyDataInterval2(companyData);
+
+        return () => destroyCompanyDataInterval2(companyData);
+    }, []);
+
+
+
+    // Starts  PrayerTimeMessage interval
+    useEffect(() => {
+        const prayer = companyData.prayer;
+
+        if (!prayer || !prayer.date) {
+            return destroyPrayerTimeMessageInterval;
+        }
+
+        // Interval to update Azan, Salah and Jammat time messages on screen
+        destroyPrayerTimeMessageInterval();
+        startPrayerTimeMessage(prayer, setPrayerTimeMessage);
+        prayerTimeMessageInterval = setInterval(() => startPrayerTimeMessage(prayer, setPrayerTimeMessage), 1000);
+
+        return destroyPrayerTimeMessageInterval;
+    }, [companyData]);
 
     // const onButtonPress = () => {
     //     BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
@@ -81,37 +119,13 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
         return unsubscribe;
     }, [navigation, companyData]);
 
-    // Starts CompanyData Interval and PrayerTimeMessage interval
-    useEffect(() => {
-        // Interval to update API prayer and version
-        beginCompanyDataInterval2(companyData);
-
-        const prayer = companyData.prayer;
-
-        if (!prayer || !prayer.date) {
-            return;
-        }
-
-        // Interval to update Azan, Salah and Jammat time messages on screen
-        destroyPrayerTimeMessageInterval();
-        startPrayerTimeMessageInterval(prayer, setPrayerTimeMessage);
-        prayerTimeMessageInterval = setInterval(() => startPrayerTimeMessageInterval(prayer, setPrayerTimeMessage), 1000);
-
-        return () => {
-            destroyPrayerTimeMessageInterval();
-        };
-
-    }, []);
 
 
-    const destroyPrayerTimeMessageInterval = () => {
-        if (prayerTimeMessageInterval) {
-            clearInterval(prayerTimeMessageInterval);
-        }
-    }
+
+
 
     // Interval to update Azan, Salah and Jammat time messages on screen
-    const startPrayerTimeMessageInterval = (prayer: Prayer, setPrayerTimeMessage: React.Dispatch<React.SetStateAction<PrayerTimeSummaryMessage>>) => {
+    const startPrayerTimeMessage = (prayer: Prayer, setPrayerTimeMessage: React.Dispatch<React.SetStateAction<PrayerTimeSummaryMessage>>) => {
         const prayerTimeSummary = processPrayerTime(prayer);
         const prayerTimeMessage = processPrayerTimeMessage(prayerTimeSummary);
         setPrayerTimeMessage(prayerTimeMessage);

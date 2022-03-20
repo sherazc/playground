@@ -14,14 +14,9 @@ import {
 import { CompanyData, CompanyListData, SettingData } from '../types/types';
 import { isCompanyListDataVersionSame, updateCompanyListData } from './CompanyListDataService';
 import { Constants } from './Constants';
-import { isCompanyDataCompanySame, 
-    // isCompanyDataVersionSame, 
-    isValidCompany, 
-    // updateCompanyData, 
-    updateCompanyData2 } from './CompanyDataService';
-import { isEqualStrings } from './Utilities';
-import { fixObjectDates, isSameMonthDate, todaysDay, todaysMonth } from './DateService';
-import { isExpired } from './ExpirableVersionService';
+import { isValidCompany, updateCompanyData2 } from './CompanyDataService';
+
+import { fixObjectDates } from './DateService';
 
 export const recoverAppFromStorage = () => {
     console.log("Recovering App from storage");
@@ -95,7 +90,7 @@ export const beginCompanyListDataInterval = (companyListData: CompanyListData) =
 }
 
 export const destroyedCompanyListDataInterval = () => {
-    console.log("Destroying app");
+    console.log("Destroying CompanyListDataInterval");
     if (updateCompanyListDataInterval) {
         clearInterval(updateCompanyListDataInterval);
     }
