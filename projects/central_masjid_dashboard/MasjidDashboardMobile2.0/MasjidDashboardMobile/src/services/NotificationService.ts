@@ -28,6 +28,7 @@ const startNotificationsSetInterval = (companyId: string) => {
 
     const notificationPromise = new Promise<CompanyData>((resolve, reject) => {
         const resetNotificationInterval = setInterval(() => {
+            clearInterval(resetNotificationInterval);
             // Getting latest companyData from the store because
             // stale companyData prayer and prayerMonths state is not updated and
             // is ending up in endless loop.
@@ -40,7 +41,7 @@ const startNotificationsSetInterval = (companyId: string) => {
             resetNotifications(companyData);
 
             resolve(companyData);
-            clearInterval(resetNotificationInterval);
+            
         }, 2000);
     });
 

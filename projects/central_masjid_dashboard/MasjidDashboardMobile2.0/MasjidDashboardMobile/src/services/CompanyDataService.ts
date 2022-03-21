@@ -216,15 +216,29 @@ export const updateCompanyData2 = (companyData: CompanyData) => {
     tracker.previousMonth = nowMonth;
 
     if (expired || !sameMonthDate) {
-
         // @ts-ignore
         apiCompanyDataVersion(companyData.company.id).then(companyDataVersion => {
-            if (!isCompanyVersionSame2(tracker.expirableVersion?.version, companyDataVersion) || !sameMonthDate) {
+            const versionSame = isCompanyVersionSame2(tracker.expirableVersion?.version, companyDataVersion);
+            
+            
+            /*
+            TODO: If version is the same then do not update yearMonthPrayers or configurations. Pass version inside refreshCompanyData
+
+            TODO: Check why should we call setupNotifications here. It would be better if we call it once refresh is complete
+
+            TODO: Maybe Make updateCompanyListData2() work the same.
+            I think companyList do not need to be updated daily
+            I think companyList needs to be updated only when companyListVersion is updated.
+
+            */
+
+
+            // if (!isCompanyVersionSame2(tracker.expirableVersion?.version, companyDataVersion) || !sameMonthDate) {
                 refreshCompanyData(companyData, companyDataVersion, nowMonth, nowDate);
                 // Setup notifications
                 // @ts-ignore
-                // setupNotifications(companyData.company.id, false);
-            }
+                setupNotifications(companyData.company.id, false);
+            // }
         });
     }
 }

@@ -68,32 +68,14 @@ const processStorageFailed = () => {
     store.dispatch(RecoverInitFailedAction)
 }
 
-let updateCompanyListDataInterval: NodeJS.Timeout;
-let previousCompanyListData: CompanyListData;
-
-// Interval to update companyList and Version
-export const beginCompanyListDataInterval = (companyListData: CompanyListData) => {
-    if (isCompanyListDataVersionSame(previousCompanyListData, companyListData)) {
-        return;
-    }
-
-    console.log("Restarting updateCompanyListDataInterval");
-    updateCompanyListData(companyListData);
-    if (updateCompanyListDataInterval) {
-        clearInterval(updateCompanyListDataInterval);
-    }
-    updateCompanyListDataInterval = setInterval(() => {
-        updateCompanyListData(companyListData);
-    }, Constants.UPDATE_INTERVAL_MILLIS);
-    previousCompanyListData = companyListData;
-
-}
 
 export const destroyedCompanyListDataInterval = () => {
     console.log("Destroying CompanyListDataInterval");
+    /* 
     if (updateCompanyListDataInterval) {
         clearInterval(updateCompanyListDataInterval);
     }
+ */
 
 /* 
     if (updateCompanyDataInterval) {
@@ -133,13 +115,13 @@ export const beginCompanyDataInterval = (companyData: CompanyData, month: string
 
 // Interval to update API prayer, configurations and version
 export const beginCompanyDataInterval2 = (companyData: CompanyData) => {
-    console.log("Beginning company data interval");
+    console.log("beginCompanyDataInterval");
     if (!companyData || !isValidCompany(companyData.company)) return;
 
     const tracker = companyData.tracker;
 
-    if (companyData.tracker.updateInterval) {
-        clearInterval(companyData.tracker.updateInterval);
+    if (tracker.updateInterval) {
+        clearInterval(tracker.updateInterval);
     }
 
     updateCompanyData2(companyData);
@@ -150,14 +132,43 @@ export const beginCompanyDataInterval2 = (companyData: CompanyData) => {
 }
 
 
-/* 
 
-export const destroyCompanyDataInterval = () => {
-    console.log("Destroying updateCompanyDataInterval", updateCompanyDataInterval);
-    if (updateCompanyDataInterval) {
-        clearInterval(updateCompanyDataInterval);
+// Interval to update companyList and Version
+export const beginCompanyListDataInterval2 = (companyListData: CompanyListData) => {
+    console.log("beginCompanyListDataInterval");
+    const tracker = companyListData.tracker;
+
+    if (tracker.updateInterval) {
+        clearInterval(tracker.updateInterval);
     }
+    
+    updateCompanyListData2(companyListData);
+    
+    tracker.updateInterval = setInterval(() => {
+        updateCompanyListData2(companyListData);
+    }, Constants.UPDATE_INTERVAL_MILLIS);
 }
 
 
+
+// let updateCompanyListDataInterval: NodeJS.Timeout;
+// let previousCompanyListData: CompanyListData;
+
+/* // Interval to update companyList and Version
+export const beginCompanyListDataInterval = (companyListData: CompanyListData) => {
+    if (isCompanyListDataVersionSame(previousCompanyListData, companyListData)) {
+        return;
+    }
+
+    console.log("Restarting updateCompanyListDataInterval");
+    updateCompanyListData(companyListData);
+    if (updateCompanyListDataInterval) {
+        clearInterval(updateCompanyListDataInterval);
+    }
+    updateCompanyListDataInterval = setInterval(() => {
+        updateCompanyListData(companyListData);
+    }, Constants.UPDATE_INTERVAL_MILLIS);
+    previousCompanyListData = companyListData;
+
+}
  */

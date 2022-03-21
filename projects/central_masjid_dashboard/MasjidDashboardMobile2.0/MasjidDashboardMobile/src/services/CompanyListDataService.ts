@@ -79,6 +79,17 @@ const refreshCompanyListData = () => {
 }
 
 
+
+
+
+
+// Creates new CompanyList by calling APIs or updates expirationData if online version is the same
+export const updateCompanyListData2 = (companyListData: CompanyListData) => {
+    
+}
+
+
+
 // Creates new CompanyList by calling APIs or updates expirationData if online version is the same
 export const updateCompanyListData = (companyListData: CompanyListData) => {
     return;
