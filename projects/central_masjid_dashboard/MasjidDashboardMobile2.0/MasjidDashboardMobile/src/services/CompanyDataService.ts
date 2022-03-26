@@ -103,7 +103,7 @@ const isValidServiceResponsePrayer = (serviceResponse: ServiceResponse<Prayer>) 
 }
 
 // Creates new CompanyData by calling APIs
-const refreshCompanyData = (companyData: CompanyData, companyDataVersion: CompanyDataVersion, month: number, date: number) => {
+const refreshCompanyData = (companyData: CompanyData, companyDataVersion: CompanyDataVersion, versionSame: (boolean | undefined), month: number, date: number) => {
 
     // @ts-ignore
     const company:Company = companyData.company;
@@ -120,10 +120,16 @@ const refreshCompanyData = (companyData: CompanyData, companyDataVersion: Compan
         }
     };
 
-    const promises = [
-        apiPrayer(company.id, month, date),
-        apiConfiguration(company.id),
-        apiPrayersYear(company.id)];
+    const promises:(Promise<ServiceResponse<Prayer>> | Promise<Configuration[]> | Promise<PrayersYear>)[] = [
+        apiPrayer(company.id, month, date)];
+
+    if (versionSame) {
+        freshCompanyData.configurations = companyData.configurations;
+        freshCompanyData.prayersYear = companyData.prayersYear;
+    } else {
+        promises.push(apiConfiguration(company.id));
+        promises.push(apiPrayersYear(company.id));
+    }
 
     // @ts-ignore
     Promise.all(promises).then(apiResponses => processCompanyData(freshCompanyData, apiResponses))
@@ -132,19 +138,20 @@ const refreshCompanyData = (companyData: CompanyData, companyDataVersion: Compan
 }
 
 const processCompanyData = (companyData: CompanyData, apiResponses: (ServiceResponse<Prayer> | Configuration[] | PrayersYear)[]) => {
-    if (!apiResponses || apiResponses.length < 3) {
+    if (!apiResponses || apiResponses.length < 1) {
         return;
     }
 
     const prayerResponse = apiResponses[0] as ServiceResponse<Prayer>;
-    const configurations = apiResponses[1] as Configuration[];
-    const prayersYear = apiResponses[2] as PrayersYear;
-
+    
     if (isValidServiceResponsePrayer(prayerResponse)) {
         fixObjectDates(prayerResponse.target); // TODO: check if this can be done in API call function.
         companyData.prayer = prayerResponse.target;
-        companyData.configurations = configurations;
-        companyData.prayersYear = prayersYear;
+        if (apiResponses.length > 2) {
+            companyData.configurations = apiResponses[1] as Configuration[];
+            companyData.prayersYear = apiResponses[2] as PrayersYear;
+        }        
+
         updateCompanyDataState(companyData)
     }
 }
@@ -234,7 +241,7 @@ export const updateCompanyData2 = (companyData: CompanyData) => {
 
 
             // if (!isCompanyVersionSame2(tracker.expirableVersion?.version, companyDataVersion) || !sameMonthDate) {
-                refreshCompanyData(companyData, companyDataVersion, nowMonth, nowDate);
+                refreshCompanyData(companyData, companyDataVersion, versionSame, nowMonth, nowDate);
                 // Setup notifications
                 // @ts-ignore
                 setupNotifications(companyData.company.id, false);

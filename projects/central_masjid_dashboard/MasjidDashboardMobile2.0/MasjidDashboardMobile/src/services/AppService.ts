@@ -12,7 +12,7 @@ import {
 } from '../store/LoadingReducer';
 
 import { CompanyData, CompanyListData, SettingData } from '../types/types';
-import { isCompanyListDataVersionSame, updateCompanyListData } from './CompanyListDataService';
+import { updateCompanyListData2 } from './CompanyListDataService';
 import { Constants } from './Constants';
 import { isValidCompany, updateCompanyData2 } from './CompanyDataService';
 

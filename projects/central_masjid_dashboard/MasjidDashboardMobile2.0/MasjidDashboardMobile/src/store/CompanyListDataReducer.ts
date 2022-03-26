@@ -19,7 +19,7 @@ export type CompanyListActionTypes = CompanyListSet | CompanyListDelete;
 // Initial State
 const INITIAL_STATE: CompanyListData = {
     companies: [],
-    expirableVersion: {}
+    tracker: {}
 };
 
 // Reducer

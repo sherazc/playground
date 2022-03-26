@@ -8,8 +8,8 @@ import { useTypedSelector } from '../store/rootReducer'
 import { Company, LoadingStatus } from '../types/types';
 import { RecoveringFromStorage } from './RecoveringFromStorage';
 import { recoverAppFromStorage, 
-    destroyedCompanyListDataInterval, 
-    beginCompanyListDataInterval } from '../services/AppService';
+    destroyedCompanyListDataInterval,
+    beginCompanyListDataInterval2} from '../services/AppService';
 import { RegisterInfo } from './RegisterInfo';
 
 const Stack = createStackNavigator<MdParamList>();
@@ -59,7 +59,7 @@ TODO: set dimention and in redux store and use it to size components
         return <RecoveringFromStorage />
     } else {
         // TODO: Check if this call could be movedin CompanySelect. That will be more consistant with beginCompanyDataInterval in PrayerTime.
-        beginCompanyListDataInterval(companyListData);
+        beginCompanyListDataInterval2(companyListData);
         return (
             <NavigationContainer>
                 <Stack.Navigator initialRouteName="CompanySelect">
