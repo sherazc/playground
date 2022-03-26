@@ -106,7 +106,7 @@ const isValidServiceResponsePrayer = (serviceResponse: ServiceResponse<Prayer>) 
 const refreshCompanyData = (companyData: CompanyData, companyDataVersion: CompanyDataVersion, versionSame: (boolean | undefined), month: number, date: number) => {
 
     // @ts-ignore
-    const company:Company = companyData.company;
+    const company: Company = companyData.company;
 
     const freshCompanyData: CompanyData = {
         ...createEmptyCompanyData(),
@@ -120,7 +120,7 @@ const refreshCompanyData = (companyData: CompanyData, companyDataVersion: Compan
         }
     };
 
-    const promises:(Promise<ServiceResponse<Prayer>> | Promise<Configuration[]> | Promise<PrayersYear>)[] = [
+    const promises: (Promise<ServiceResponse<Prayer>> | Promise<Configuration[]> | Promise<PrayersYear>)[] = [
         apiPrayer(company.id, month, date)];
 
     if (versionSame) {
@@ -143,14 +143,14 @@ const processCompanyData = (companyData: CompanyData, apiResponses: (ServiceResp
     }
 
     const prayerResponse = apiResponses[0] as ServiceResponse<Prayer>;
-    
+
     if (isValidServiceResponsePrayer(prayerResponse)) {
         fixObjectDates(prayerResponse.target); // TODO: check if this can be done in API call function.
         companyData.prayer = prayerResponse.target;
         if (apiResponses.length > 2) {
             companyData.configurations = apiResponses[1] as Configuration[];
             companyData.prayersYear = apiResponses[2] as PrayersYear;
-        }        
+        }
 
         updateCompanyDataState(companyData)
     }
@@ -208,6 +208,7 @@ if isExpired or not same date year
 */
 
 export const updateCompanyData2 = (companyData: CompanyData) => {
+    console.log("Attempting update CompanyData", companyData);
     if (!isValidCompany(companyData.company)) {
         return;
     }
@@ -218,36 +219,39 @@ export const updateCompanyData2 = (companyData: CompanyData) => {
     const sameMonthDate = isSameMonthDate(tracker.previousMonth, nowMonth, tracker.previousDate, nowDate);
     const expired = isExpired(tracker.expirableVersion);
 
+    if (!expired && sameMonthDate) {
+        return;
+    }
+
+
     // TODO test what would happened if tracker is update inside refresh
     tracker.previousDate = nowDate;
     tracker.previousMonth = nowMonth;
 
-    if (expired || !sameMonthDate) {
+    // @ts-ignore
+    apiCompanyDataVersion(companyData.company.id).then(companyDataVersion => {
+        const versionSame = isCompanyVersionSame2(tracker.expirableVersion?.version, companyDataVersion);
+
+        /*
+        ✅ TODO: If version is the same then do not update yearMonthPrayers or configurations. Pass version inside refreshCompanyData
+
+        TODO: Check why should we call setupNotifications here. It would be better if we call it once refresh is complete
+
+        TODO: Maybe Make updateCompanyListData2() work the same.
+        I think companyList do not need to be updated daily
+        I think companyList needs to be updated only when companyListVersion is updated.
+
+        */
+
+
+        // if (!isCompanyVersionSame2(tracker.expirableVersion?.version, companyDataVersion) || !sameMonthDate) {
+        refreshCompanyData(companyData, companyDataVersion, versionSame, nowMonth, nowDate);
+        // Setup notifications
         // @ts-ignore
-        apiCompanyDataVersion(companyData.company.id).then(companyDataVersion => {
-            const versionSame = isCompanyVersionSame2(tracker.expirableVersion?.version, companyDataVersion);
-            
-            
-            /*
-            TODO: If version is the same then do not update yearMonthPrayers or configurations. Pass version inside refreshCompanyData
+        setupNotifications(companyData.company.id, false);
+        // }
+    });
 
-            TODO: Check why should we call setupNotifications here. It would be better if we call it once refresh is complete
-
-            TODO: Maybe Make updateCompanyListData2() work the same.
-            I think companyList do not need to be updated daily
-            I think companyList needs to be updated only when companyListVersion is updated.
-
-            */
-
-
-            // if (!isCompanyVersionSame2(tracker.expirableVersion?.version, companyDataVersion) || !sameMonthDate) {
-                refreshCompanyData(companyData, companyDataVersion, versionSame, nowMonth, nowDate);
-                // Setup notifications
-                // @ts-ignore
-                setupNotifications(companyData.company.id, false);
-            // }
-        });
-    }
 }
 
 

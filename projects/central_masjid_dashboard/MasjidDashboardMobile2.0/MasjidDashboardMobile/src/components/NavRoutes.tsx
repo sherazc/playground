@@ -58,7 +58,7 @@ TODO: set dimention and in redux store and use it to size components
         || loading.recoverInitState === LoadingStatus.INIT) {
         return <RecoveringFromStorage />
     } else {
-        // TODO: Check if this call could be movedin CompanySelect. That will be more consistant with beginCompanyDataInterval in PrayerTime.
+        // TODO: Check if this call could be moved in CompanySelect. That will be more consistant with beginCompanyDataInterval in PrayerTime.
         beginCompanyListDataInterval2(companyListData);
         return (
             <NavigationContainer>

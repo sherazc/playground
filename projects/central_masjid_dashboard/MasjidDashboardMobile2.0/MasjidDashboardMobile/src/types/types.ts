@@ -85,7 +85,6 @@ export interface ServiceResponse<T> {
 // Redux/Async store
 export interface CompanyListData {
     companies: Array<Company>;
-    // expirableVersion?: ExpirableVersion;
     tracker: Tracker;
 }
 

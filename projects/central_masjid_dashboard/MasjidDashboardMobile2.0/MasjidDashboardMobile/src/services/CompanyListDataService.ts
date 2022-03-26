@@ -10,10 +10,10 @@ const isValidCompanyListData = (companyListData?: CompanyListData) => {
 
 const getCompanyListVersionNumber = (companyListData?: CompanyListData): (number | undefined) => {
     if (companyListData
-        && companyListData.expirableVersion
-        && companyListData.expirableVersion.version) {
-
-        return companyListData.expirableVersion.version;
+        && companyListData.tracker
+        && companyListData.tracker.expirableVersion
+        && companyListData.tracker.expirableVersion.version) {
+        return companyListData.tracker.expirableVersion.version;
     }
 }
 
@@ -85,7 +85,24 @@ const refreshCompanyListData = () => {
 
 // Creates new CompanyList by calling APIs or updates expirationData if online version is the same
 export const updateCompanyListData2 = (companyListData: CompanyListData) => {
-    
+    console.log("Attempting update CompanyListData", companyListData);
+    const tracker = companyListData.tracker;
+    const expired = isExpired(tracker.expirableVersion);
+
+    if (!expired) {
+        return;
+    }
+
+    apiCompanyListVersion().then(companyListVersion => {
+        const versionSame = isCompanyListVersionSame(companyListData, companyListVersion);
+        const validData = isValidCompanyListData(companyListData);
+        if (versionSame && validData) {
+            // refreshCompanyListDataExpirableVersion(companyListData)
+            // updateCompanyListDataState(companyListData)
+        } else {
+            // refreshCompanyListData();
+        }
+    });
 }
 
 
