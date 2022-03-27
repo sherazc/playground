@@ -7,7 +7,7 @@ import { useTypedDispatch, useTypedSelector } from "../../store/rootReducer";
 import { CompanyData, Prayer } from "../../types/types";
 import { Loading } from "../Loading";
 import { PrayerTimeGrid } from './PrayerTimeGrid';
-import { beginCompanyDataInterval2, } from '../../services/AppService';
+import { beginCompanyDataInterval, } from '../../services/AppService';
 import { TodaysDetail } from "./TodaysDetail";
 import { createEmptyPrayerTimeSummaryMessage, PrayerTimeSummaryMessage } from "../../types/react-types";
 import { processPrayerTime } from "../../services/PrayerTimeProcessor";
@@ -58,7 +58,7 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
     // Starts CompanyData Interval
     useEffect(() => {
         // Interval to update API prayer and version
-        beginCompanyDataInterval2(companyData);
+        beginCompanyDataInterval(companyData);
 
         return () => destroyCompanyDataInterval2(companyData);
     }, []);

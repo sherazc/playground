@@ -6,71 +6,15 @@ import setupNotifications from "./NotificationService";
 import { fixObjectDates, isSameMonthDate, todaysDay, todaysMonth } from "./DateService";
 import { apiPrayersYear } from "./CalendarService";
 
-export const isValidCompanyData = (companyData?: CompanyData) => {
-    return companyData && isValidCompany(companyData.company) && isValidPrayer(companyData.prayer);
-}
 
 export const isValidCompany = (company?: Company) => {
     return company != undefined && company.id != undefined;
 }
 
-const isValidPrayer = (prayer?: Prayer) => {
-    return prayer && prayer.date;
-}
 
-
-// @Deprecated
-/* 
-const getCompanyDataVersionNumber = (companyData?: CompanyData): (number | undefined) => {
-    if (companyData
-        && companyData.expirableVersion
-        && companyData.expirableVersion.version) {
-
-        return companyData.expirableVersion.version;
-    }
-}
-
- */
-// @Deprecated
-/* 
-
-const isCompanyVersionSame = (cd: CompanyData, cdv: CompanyDataVersion) => {
-    const companyDataVersionNumber = getCompanyDataVersionNumber(cd);
-    return companyDataVersionNumber
-        && cdv
-        && cdv.version
-        && companyDataVersionNumber === cdv.version;
-}
-
- */
 const isCompanyVersionSame2 = (version?: number, cdv2?: CompanyDataVersion) => {
     return version !== undefined && cdv2 && version === cdv2?.version;
 }
-
-
-/* 
-export const isCompanyDataVersionSame = (c1?: CompanyData, c2?: CompanyData) => {
-    let c1Version = getCompanyDataVersionNumber(c1);
-    let c2Version = getCompanyDataVersionNumber(c2);
-    return c1Version && c2Version && c1Version === c2Version;
-}
-
- */
-
-export const isCompanyDataCompanySame = (c1?: CompanyData, c2?: CompanyData) => {
-    return c1 && c2 && isCompanySame(c1.company, c2.company);
-}
-
-export const isCompanySame = (c1?: Company, c2?: Company) => {
-    return c1 && c2 && c1.id && c2.id && c1.id === c2.id;
-}
-
-// const refreshCompanyDataExpirableVersion = (companyData: CompanyData) => {
-//     if (!companyData) {
-//         return;
-//     }
-//     companyData.expirableVersion = createOrRefreshExpirableVersion(companyData.expirableVersion);
-// }
 
 const updateCompanyDataState = (companyData: CompanyData) => {
     store.dispatch({
@@ -156,60 +100,11 @@ const processCompanyData = (companyData: CompanyData, apiResponses: (ServiceResp
     }
 }
 
-// @Deprecated
-/*
-const shouldUpdateCompanyData = (companyData?: CompanyData) => {
-    console.log("companyData", companyData);
-    console.log("isValidCompany(companyData.company)", isValidCompany(companyData.company));
-    console.log("isExpired(companyData.expirableVersion)", isExpired(companyData.expirableVersion));
-    console.log("isValidPrayer(companyData.prayer)", isValidPrayer(companyData.prayer));
 
-    return companyData
-        && isValidCompany(companyData.company)
-        && (isExpired(companyData.expirableVersion) || !isValidPrayer(companyData.prayer));
-}
-*/
-
-// @Deprecated
-// Creates new CompanyData by calling APIs or updates expirationData if online version is the same
-/* 
-export const updateCompanyData = (companyData: CompanyData, month: string, day: string) => {
-    console.log("Attempting update CompanyData ", companyData);
-    if (shouldUpdateCompanyData(companyData)) {
-        // @ts-ignore
-        apiCompanyDataVersion(companyData.company.id).then(companyDataVersion => {
-            if (!isCompanyVersionSame(companyData, companyDataVersion) || isExpired(companyData.expirableVersion)) {
-
-
-                refreshCompanyData(companyData.company, companyDataVersion, month, day);
-                // Setup notifications
-                // @ts-ignore
-                setupNotifications(companyData.company.id, false);
-            }
-        });
-
-
-    } else {
-        console.log("Not updating CompanyData. Maybe no Company selected or its still a non expired CompanyData.")
-    }
-}
-
- */
-/*
-
-if isExpired or not same date year
-    Call /version
-        if same version and same date year
-            update expire
-        else 
-            update prayer time
-            update notification
-
-*/
-
-export const updateCompanyData2 = (companyData: CompanyData) => {
+export const updateCompanyData = (companyData: CompanyData) => {
     console.log("Attempting update CompanyData", companyData);
     if (!isValidCompany(companyData.company)) {
+        console.log("Not updating CompanyData. CompanyData.company is not valid.");
         return;
     }
 
@@ -220,6 +115,7 @@ export const updateCompanyData2 = (companyData: CompanyData) => {
     const expired = isExpired(tracker.expirableVersion);
 
     if (!expired && sameMonthDate) {
+        console.log("Not updating CompanyData. Not expired and current date data is already loaded.");
         return;
     }
 
@@ -261,14 +157,5 @@ export const getCompanyName = (company: (Company | undefined)): string => {
 
 export const getCompanyId = (company: (Company | undefined)): (string | undefined) => {
     return company && company.id ? company.id : undefined;
-}
-
-
-export const destroyCompanyDataInterval2 = (companyData?: CompanyData) => {
-    if (!companyData?.tracker.updateInterval) {
-        return;
-    }
-    console.log("Destroying updateCompanyDataInterval", companyData.tracker.updateInterval);
-    clearInterval(companyData.tracker.updateInterval);
 }
 

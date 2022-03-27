@@ -116,6 +116,14 @@ export const createEmptyCompanyData = (): CompanyData => {
     };
 }
 
+
+export const createEmptyCompanyListData = (): CompanyListData => {
+    return {
+        companies: [],
+        tracker: {}
+    };
+}
+
 // Redux/Async store
 export interface SettingData {
     azanAlert: boolean;

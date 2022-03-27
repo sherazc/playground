@@ -1,12 +1,14 @@
-import { Company, CompanyListData, CompanyListVersion } from '../types/types';
+import { Company, CompanyListData, CompanyListVersion, createEmptyCompanyListData } from '../types/types';
 import { createOrRefreshExpirableVersion, isExpired } from './ExpirableVersionService';
 import store from '../store/rootReducer';
 import { Constants } from './Constants';
+
 
 const isValidCompanyListData = (companyListData?: CompanyListData) => {
     return companyListData && companyListData.companies
         && companyListData.companies.length > 0;
 }
+
 
 const getCompanyListVersionNumber = (companyListData?: CompanyListData): (number | undefined) => {
     if (companyListData
@@ -17,6 +19,7 @@ const getCompanyListVersionNumber = (companyListData?: CompanyListData): (number
     }
 }
 
+
 const isCompanyListVersionSame = (cld: CompanyListData, clv: CompanyListVersion) => {
     const companyListVersionNumber = getCompanyListVersionNumber(cld);
     return companyListVersionNumber
@@ -25,25 +28,17 @@ const isCompanyListVersionSame = (cld: CompanyListData, clv: CompanyListVersion)
         && companyListVersionNumber === clv.version;
 }
 
-export const isCompanyListDataVersionSame = (c1?: CompanyListData, c2?: CompanyListData) => {
-    let c1Version = getCompanyListVersionNumber(c1);
-    let c2Version = getCompanyListVersionNumber(c2);
-    return c1Version && c2Version && c1Version === c2Version;
-}
-
-const createCompanyListData = (): CompanyListData => {
-    return {
-        companies: [],
-        expirableVersion: createOrRefreshExpirableVersion()
-    };
-}
 
 const refreshCompanyListDataExpirableVersion = (companyListData: CompanyListData) => {
     if (!companyListData) {
         return;
     }
-    companyListData.expirableVersion = createOrRefreshExpirableVersion(companyListData.expirableVersion);
+    if (!companyListData.tracker) {
+        companyListData.tracker = {};
+    }
+    companyListData.tracker.expirableVersion = createOrRefreshExpirableVersion(companyListData.tracker.expirableVersion);
 }
+
 
 const updateCompanyListDataState = (companyListData: CompanyListData) => {
     store.dispatch({
@@ -51,6 +46,7 @@ const updateCompanyListDataState = (companyListData: CompanyListData) => {
         payload: companyListData
     });
 }
+
 
 const apiCompanyListVersion = (): Promise<CompanyListVersion> => {
     console.log("Calling API ", Constants.END_POINT_COMPANY_LIST_VERSION);
@@ -62,34 +58,36 @@ const apiCompaniesActive = (): Promise<Company[]> => {
     return fetch(Constants.END_POINT_COMPANIES_ACTIVE).then(response => response.json());
 }
 
-// Creates new CompanyList by calling APIs
-const refreshCompanyListData = () => {
-    const companyListData = createCompanyListData();
-    apiCompanyListVersion().then(companyListVersion => {
-        if (companyListVersion && companyListVersion.version != null && companyListVersion.version != undefined) {
-            // @ts-ignore companyData.expirableVersion will be created in createCompanyListData() call
-            companyListData.expirableVersion.version = companyListVersion.version;
 
-            apiCompaniesActive().then(companies => {
-                companyListData.companies = companies;
-                updateCompanyListDataState(companyListData)
-            }).catch(e => console.log("Error calling GET Active Company List API", e));
+// Creates new CompanyList by calling APIs
+const refreshCompanyListData = (companyListData: CompanyListData, companyListVersion: CompanyListVersion) => {
+    const freshCompanyListData: CompanyListData = {
+        ...createEmptyCompanyListData(),
+        tracker: {
+            ...companyListData.tracker,
+            expirableVersion: {
+                ...createOrRefreshExpirableVersion(),
+                version: companyListVersion.version
+            }
         }
-    }).catch(e => console.log("Error calling GET Company List version API", e));
+    };
+
+
+    apiCompaniesActive().then(companies => {
+        freshCompanyListData.companies = companies;
+        updateCompanyListDataState(freshCompanyListData)
+    }).catch(e => console.log("Error calling GET Active Company List API", e));
 }
 
 
-
-
-
-
 // Creates new CompanyList by calling APIs or updates expirationData if online version is the same
-export const updateCompanyListData2 = (companyListData: CompanyListData) => {
+export const updateCompanyListData = (companyListData: CompanyListData) => {
     console.log("Attempting update CompanyListData", companyListData);
     const tracker = companyListData.tracker;
     const expired = isExpired(tracker.expirableVersion);
 
     if (!expired) {
+        console.log("Not updating CompanyListData. CompanyListData is not expired.");
         return;
     }
 
@@ -97,30 +95,11 @@ export const updateCompanyListData2 = (companyListData: CompanyListData) => {
         const versionSame = isCompanyListVersionSame(companyListData, companyListVersion);
         const validData = isValidCompanyListData(companyListData);
         if (versionSame && validData) {
-            // refreshCompanyListDataExpirableVersion(companyListData)
-            // updateCompanyListDataState(companyListData)
+            refreshCompanyListDataExpirableVersion(companyListData)
+            updateCompanyListDataState(companyListData)
         } else {
-            // refreshCompanyListData();
+            refreshCompanyListData(companyListData, companyListVersion);
         }
     });
 }
 
-
-
-// Creates new CompanyList by calling APIs or updates expirationData if online version is the same
-export const updateCompanyListData = (companyListData: CompanyListData) => {
-    return;
-    console.log("Attempting update CompanyListData ", companyListData);
-    if (isValidCompanyListData(companyListData) && isExpired(companyListData.expirableVersion)) {
-        apiCompanyListVersion().then(companyListVersion => {
-            if (isCompanyListVersionSame(companyListData, companyListVersion)) {
-                refreshCompanyListDataExpirableVersion(companyListData)
-                updateCompanyListDataState(companyListData)
-            } else {
-                refreshCompanyListData();
-            }
-        });
-    } else {
-        refreshCompanyListData();
-    }
-}
