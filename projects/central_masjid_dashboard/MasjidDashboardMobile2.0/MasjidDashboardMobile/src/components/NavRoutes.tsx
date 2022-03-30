@@ -7,58 +7,48 @@ import { Settings } from './Settings';
 import { useTypedSelector } from '../store/rootReducer'
 import { Company, LoadingStatus } from '../types/types';
 import { RecoveringFromStorage } from './RecoveringFromStorage';
-import { recoverAppFromStorage, 
-    beginCompanyListDataInterval} from '../services/AppService';
+import { recoverAppFromStorage } from '../services/AppService';
 import { RegisterInfo } from './RegisterInfo';
 
 const Stack = createStackNavigator<MdParamList>();
 
-interface Props {
-}
-
 export type MdParamList = {
     CompanySelect: undefined;
     PrayerTime: { selectedCompany?: Company };
-    Settings: {backScreenName: string};
-    RegisterInfo: {backScreenName: string};
+    Settings: { backScreenName: string };
+    RegisterInfo: { backScreenName: string };
 }
 
 const noHeaderOptions = {
     header: () => null
 };
 
-export const NavRoutes: React.FC<Props> = () => {
+export const NavRoutes: React.FC = () => {
     const loading = useTypedSelector(state => state.loading);
-    const companyListData = useTypedSelector(state => state.companyListData);
 
     useEffect(() => {
         recoverAppFromStorage();
-        return () => {
-            destroyedCompanyListDataInterval();
-        }
     }, []);
 
-/*
-https://reactnative.dev/docs/dimensions
-TODO: set dimention and in redux store and use it to size components
-    const onChange = ({ window, screen }) => {
-        setDimensions({ window, screen });
-    };
-
-    useEffect(() => {
-        Dimensions.addEventListener("change", onChange);
-        return () => {
-            Dimensions.removeEventListener("change", onChange);
+    /*
+    https://reactnative.dev/docs/dimensions
+    TODO: set dimension and in redux store and use it to size components
+        const onChange = ({ window, screen }) => {
+            setDimensions({ window, screen });
         };
-    });
-*/
+    
+        useEffect(() => {
+            Dimensions.addEventListener("change", onChange);
+            return () => {
+                Dimensions.removeEventListener("change", onChange);
+            };
+        });
+    */
 
     if (loading.recoverInitState === LoadingStatus.LOADING
         || loading.recoverInitState === LoadingStatus.INIT) {
         return <RecoveringFromStorage />
     } else {
-        // TODO: Check if this call could be moved in CompanySelect. That will be more consistant with beginCompanyDataInterval in PrayerTime.
-        beginCompanyListDataInterval(companyListData);
         return (
             <NavigationContainer>
                 <Stack.Navigator initialRouteName="CompanySelect">
@@ -131,14 +121,14 @@ Creates new CompanyList by calling APIs or updates expirationData if online vers
     - if companyListData valid and expired
         - calls apiCompanyListVersion() API
             If isCompanyListVersionSame(companyListData, companyListVersion)
-                refresh version refeashCompanyListDataExpirableVersion(companyListData)
+                refresh version refetchCompanyListDataExpirableVersion(companyListData)
                 updateCompanyListDataState(companyListData)
             else
-                refeashCompanyListData()
+                refetchCompanyListData()
     - else
         - refeashCompanyListData()
 
-refeashCompanyListData()
+refreshCompanyListData()
 ------------------------
     - apiCompanyListVersion() API
     - apiCompaniesActive() API
@@ -197,25 +187,5 @@ Interval to update Azan, Salah and Jammat time messages on screen
     - processPrayerTimeMessage() Builds PrayerTimeSummaryMessage
     - set PrayerTimeSummaryMessage in PrayerTime state
 
-
-####################################
-
-Modern Programming language
-    - Fetch API call javascript
-    - Money is very important for business
-    - ESPN Soccer scimport { RegisterInfo } from './RegisterInfo';
-ore application
-    - Game, Graphics, Obj File, Number of animations
-
-Jim ameican programmer
-    - H1B Facebook sue
-    - Bill pay bigger company
-    -
-
-False God Money
-    - Mufti relationship elfy
-        - Pupi naraz - shadi dancing
-    - Quran people of hell fire. Sadaka
-    - Office politics
-
 */
+

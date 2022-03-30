@@ -9,6 +9,8 @@ import { Brand } from './Brand';
 import { CompanyList } from './CompanyList';
 import { ConstantsStyles } from "../../services/Constants";
 import { Info } from '../../images/Info';
+import { LoadingStatus } from "../../types/types";
+import { beginCompanyListDataInterval, destroyTrackerInterval } from "../../services/AppService";
 
 // TODO: Fix inline styles
 interface Props {
@@ -19,6 +21,7 @@ interface Props {
 export const CompanySelect: React.FC<Props> = ({ navigation }) => {
     const companyData = useTypedSelector(state => state.companyData);
     const companyListData = useTypedSelector(state => state.companyListData);
+    const loading = useTypedSelector(state => state.loading);
 
     // Navigate to PrayerTime because there is a selected company.
     useEffect(() => {
@@ -29,6 +32,18 @@ export const CompanySelect: React.FC<Props> = ({ navigation }) => {
         });
         return unsubscribe;
     }, [navigation, companyData]);
+
+
+    
+    useEffect(() => {
+        if (loading.recoverInitState === LoadingStatus.COMPLETE || loading.recoverInitState === LoadingStatus.FAILED) {
+            beginCompanyListDataInterval(companyListData);
+        }
+        
+        return () => {
+            destroyTrackerInterval("CompanyListDataInterval", companyListData.tracker);
+        }
+    }, [loading])
 
     return (
         <View style={styles.container}>

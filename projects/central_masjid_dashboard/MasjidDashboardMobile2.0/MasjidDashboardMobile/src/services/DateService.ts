@@ -1,5 +1,5 @@
 import { Constants } from './Constants';
-import { isEqualStrings, numberTo2DigitsString, subStringToNumber } from './Utilities';
+import { numberTo2DigitsString, subStringToNumber } from './Utilities';
 import { PrayerTime } from '../types/types';
 
 export const TIME_24_REGX = /([01]?[0-9]|2[0-3]):[0-5][0-9].*/;

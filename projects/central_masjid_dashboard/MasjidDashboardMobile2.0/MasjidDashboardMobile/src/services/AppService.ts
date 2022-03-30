@@ -79,9 +79,7 @@ export const beginCompanyDataInterval = (companyData: CompanyData) => {
 
     const tracker = companyData.tracker;
 
-    if (tracker.updateInterval) {
-        clearInterval(tracker.updateInterval);
-    }
+    destroyTrackerInterval("CompanyDataInterval", tracker);
 
     updateCompanyData(companyData);
     tracker.updateInterval = setInterval(() => {
@@ -96,9 +94,7 @@ export const beginCompanyListDataInterval = (companyListData: CompanyListData) =
     console.log("beginCompanyListDataInterval");
     const tracker = companyListData.tracker;
 
-    if (tracker.updateInterval) {
-        clearInterval(tracker.updateInterval);
-    }
+    destroyTrackerInterval("CompanyListDataInterval", tracker);
     
     updateCompanyListData(companyListData);
     
