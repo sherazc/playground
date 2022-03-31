@@ -99,7 +99,7 @@ http://viralpatel.net/blogs/create-qr-codes-java-servlet-qr-code-java/
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>3.0.6.RELEASE</version>
+			<version>5.3.18</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tiles</groupId>
