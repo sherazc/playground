@@ -6,8 +6,8 @@ export const TIME_24_REGX = /([01]?[0-9]|2[0-3]):[0-5][0-9].*/;
 const DATE_TIME_REGX = /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/;
 
 export const createExpirationDate = () => millisToUtcDate(nowUtcDate().getTime() + Constants.EXPIRATION_MILLIS);
-export const todaysDay = ():number => (nowUtcDate()).getDate();
-export const todaysMonth = ():number => (nowUtcDate()).getMonth() + 1;
+export const todaysDay = (): number => (nowUtcDate()).getDate();
+export const todaysMonth = (): number => (nowUtcDate()).getMonth() + 1;
 
 export const fixObjectDates = (obj: any) => {
     for (var i in obj) {
@@ -26,7 +26,7 @@ const millisToUtcDate = (millis: number): Date => {
 }
 
 const dateToUtcDate = (date: Date): Date => {
-    let utcDate = Date.UTC(
+    let utcDateMilliseconds = Date.UTC(
         date.getFullYear(),
         date.getMonth(),
         date.getDate(),
@@ -34,7 +34,8 @@ const dateToUtcDate = (date: Date): Date => {
         date.getMinutes(),
         date.getSeconds(),
         date.getMilliseconds());
-    return new Date(utcDate);
+
+    return new Date(utcDateMilliseconds);
 }
 
 export const nowUtcDate = (): Date => {
@@ -131,7 +132,7 @@ export const addMinutes = (date: (Date | undefined), minutes?: number) => {
     return calculatedDate;
 }
 
-export const addMinutesToTime = (time: string, minutes: number):(string | undefined) => {
+export const addMinutesToTime = (time: string, minutes: number): (string | undefined) => {
     if (!TIME_24_REGX.test(time)) {
         return;
     }
@@ -198,25 +199,12 @@ export const dayOfTheYear = (year: number, month: number, date: number): number 
 
 export const utcToLocalDate = (date: Date): Date => {
     return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
-    date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds(), date.getUTCMilliseconds());
+        date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds(), date.getUTCMilliseconds());
 }
 
 
-export const localToUtcDate = (date: Date): Date => {
-    const result = new Date();
-    result.setUTCFullYear(date.getFullYear());
-    result.setUTCMonth(date.getMonth());
-    result.setUTCDate(date.getUTCDate());
-    result.setUTCHours(date.getHours());
-    result.setUTCMinutes(date.getMinutes());
-    result.setUTCSeconds(date.getSeconds());
-    result.setUTCMilliseconds(date.getMilliseconds());
 
-    return result;
-}
-
-
-const createZeroTimeDate = (date:Date) => {
+const createZeroTimeDate = (date: Date) => {
     const d = new Date(date.getTime());
     d.setHours(0);
     d.setMinutes(0);
@@ -226,10 +214,44 @@ const createZeroTimeDate = (date:Date) => {
 }
 
 
-export const isSameMonthDate = (d1Month?:number, d1Date?: number, d2Month?:number, d2Date?: number): boolean => {
-    return d1Month !== undefined && d2Month!== undefined 
-        && d1Date!== undefined && d2Date!== undefined 
-        && d1Month === d2Month 
+export const isSameMonthDate = (d1Month?: number, d1Date?: number, d2Month?: number, d2Date?: number): boolean => {
+    return d1Month !== undefined && d2Month !== undefined
+        && d1Date !== undefined && d2Date !== undefined
+        && d1Month === d2Month
         && d1Date === d2Date;
 }
 
+// #########################
+
+
+const padZero = (num: number): string => {
+    return (num < 10 ? '0' : '') + num;
+}
+
+const systemTimeZone = () => {
+    const date = new Date();
+    const timezoneOffset = -date.getTimezoneOffset();
+    const plusMinus = timezoneOffset >= 0 ? '+' : '-';
+
+    return plusMinus
+        + padZero(Math.floor(Math.abs(timezoneOffset) / 60))
+        + ':' 
+        + padZero(Math.abs(timezoneOffset) % 60);
+}
+
+export const systemTimezoneIsoString = (date?: Date) => {
+    const dt = date ? date : new Date();
+
+    return dt.getFullYear() +
+        '-' + padZero(dt.getMonth() + 1) +
+        '-' + padZero(dt.getDate()) +
+        'T' + padZero(dt.getHours()) +
+        ':' + padZero(dt.getMinutes()) +
+        ':' + padZero(dt.getSeconds()) +
+        systemTimeZone();
+}
+
+export const systemTimezoneDate = (date?: Date) => {
+    const dateIsoString = systemTimezoneIsoString(date);
+    return new Date(dateIsoString);
+}
