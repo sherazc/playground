@@ -1,8 +1,7 @@
-import { isSameMonthDate, systemTimezoneDate, systemTimezoneIsoString } from "../src/services/DateService";
+import { isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX } from "../src/services/DateService";
 
 describe("Compare dates", () => {
     it("isSameMonthDate", () => {
-
         expect(isSameMonthDate()).toBe(false);
         expect(isSameMonthDate(1)).toBe(false);
         expect(isSameMonthDate(1, 1)).toBe(false);
@@ -11,45 +10,29 @@ describe("Compare dates", () => {
     });
 });
 
-describe("UTC Dates", () => {
 
-    it("localToUtcDate DLS Dates", () => {
+describe("Timezone", () => {
 
-        const date = new Date('2022-04-01T00:00:00-04:00');
+    it("getSystemTimezone()", () => {
+        const systemTimezone = getSystemTimezone();
+        const timeRegex = /^[+-]([0-1][0-9]|[2][0-3]):([0-5][0-9])$/;
+        expect(systemTimezone).toMatch(timeRegex);
+    });
 
-        // date.setMinutes(date.getMinutes() - date.getTimezoneOffset())
+    it("getSystemTimezoneIsoString() no date argument", () => {
+        const systemTimezoneDateIsoString = getSystemTimezoneDateIsoString();
+        const systemTimezone = getSystemTimezone();
+        expect(systemTimezoneDateIsoString).toMatch(DATE_TIME_REGX);
+        expect(systemTimezoneDateIsoString.endsWith(systemTimezone)).toBe(true);
+    });
 
-        // console.log(date)
-        // console.log(date.getTimezoneOffset());
-        // console.log(date.getHours());
-        const dateIsoString = systemTimezoneIsoString(date);
-        
-        console.log(dateIsoString);
-        console.log(systemTimezoneIsoString(date));
-        console.log(systemTimezoneDate(date).getHours());
-
-        /* 
-        function toIsoString(date: Date) {
-            var tzo = -date.getTimezoneOffset(),
-                dif = tzo >= 0 ? '+' : '-',
-                pad = function (num: number):string {
-                    return (num < 10 ? '0' : '') + num;
-                };
-
-            return date.getFullYear() +
-                '-' + pad(date.getMonth() + 1) +
-                '-' + pad(date.getDate()) +
-                'T' + pad(date.getHours()) +
-                ':' + pad(date.getMinutes()) +
-                ':' + pad(date.getSeconds()) +
-                dif + pad(Math.floor(Math.abs(tzo) / 60)) +
-                ':' + pad(Math.abs(tzo) % 60);
-        }
-
-        var dt = new Date();
-        console.log(toIsoString(dt));
- */
-
+    it("getSystemTimezoneIsoString() date passed", () => {
+        const dateString = '2022-04-01T00:00:00-04:00';
+        const date = new Date(dateString);
+        const systemTimezoneDateIsoString = getSystemTimezoneDateIsoString(date);
+        const systemTimezone = getSystemTimezone();
+        expect(systemTimezoneDateIsoString).toBe(dateString);
+        expect(systemTimezoneDateIsoString.endsWith(systemTimezone)).toBe(true);
     });
 
 });

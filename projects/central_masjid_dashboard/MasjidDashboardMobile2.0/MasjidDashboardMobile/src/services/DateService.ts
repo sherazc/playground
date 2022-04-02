@@ -3,7 +3,7 @@ import { numberTo2DigitsString, subStringToNumber } from './Utilities';
 import { PrayerTime } from '../types/types';
 
 export const TIME_24_REGX = /([01]?[0-9]|2[0-3]):[0-5][0-9].*/;
-const DATE_TIME_REGX = /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/;
+export const DATE_TIME_REGX = /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/;
 
 export const createExpirationDate = () => millisToUtcDate(nowUtcDate().getTime() + Constants.EXPIRATION_MILLIS);
 export const todaysDay = (): number => (nowUtcDate()).getDate();
@@ -228,7 +228,7 @@ const padZero = (num: number): string => {
     return (num < 10 ? '0' : '') + num;
 }
 
-const systemTimeZone = () => {
+export const getSystemTimezone = () => {
     const date = new Date();
     const timezoneOffset = -date.getTimezoneOffset();
     const plusMinus = timezoneOffset >= 0 ? '+' : '-';
@@ -239,7 +239,8 @@ const systemTimeZone = () => {
         + padZero(Math.abs(timezoneOffset) % 60);
 }
 
-export const systemTimezoneIsoString = (date?: Date) => {
+// https://stackoverflow.com/questions/17415579/how-to-iso-8601-format-a-date-with-timezone-offset-in-javascript
+export const getSystemTimezoneDateIsoString = (date?: Date) => {
     const dt = date ? date : new Date();
 
     return dt.getFullYear() +
@@ -248,10 +249,6 @@ export const systemTimezoneIsoString = (date?: Date) => {
         'T' + padZero(dt.getHours()) +
         ':' + padZero(dt.getMinutes()) +
         ':' + padZero(dt.getSeconds()) +
-        systemTimeZone();
+        getSystemTimezone();
 }
 
-export const systemTimezoneDate = (date?: Date) => {
-    const dateIsoString = systemTimezoneIsoString(date);
-    return new Date(dateIsoString);
-}
