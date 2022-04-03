@@ -1,5 +1,5 @@
 export interface ExpirableVersion {
-    expirationDate?: Date;
+    expirationDate?: string;
     version?: number;
 }
 

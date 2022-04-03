@@ -3,9 +3,22 @@ import { numberTo2DigitsString, subStringToNumber } from './Utilities';
 import { PrayerTime } from '../types/types';
 
 export const TIME_24_REGX = /([01]?[0-9]|2[0-3]):[0-5][0-9].*/;
-export const DATE_TIME_REGX = /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/;
 
+// https://stackoverflow.com/questions/3143070/javascript-regex-iso-datetime
+export const DATE_TIME_REGX = /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/;
+// export const DATE_TIME_REGX = /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/;
+
+// @Deprecated
 export const createExpirationDate = () => millisToUtcDate(nowUtcDate().getTime() + Constants.EXPIRATION_MILLIS);
+
+export const createExpirationDate2 = ():string => {
+    const nowDateString = getSystemTimezoneDateIsoString();
+    const date = new Date(nowDateString);
+    date.setTime(date.getTime() + Constants.EXPIRATION_MILLIS);
+    return getSystemTimezoneDateIsoString(date);
+};
+
+
 export const todaysDay = (): number => (nowUtcDate()).getDate();
 export const todaysMonth = (): number => (nowUtcDate()).getMonth() + 1;
 
@@ -249,6 +262,7 @@ export const getSystemTimezoneDateIsoString = (date?: Date) => {
         'T' + padZero(dt.getHours()) +
         ':' + padZero(dt.getMinutes()) +
         ':' + padZero(dt.getSeconds()) +
+        '.000'  +
         getSystemTimezone();
 }
 
