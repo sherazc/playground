@@ -11,7 +11,7 @@ export const DATE_TIME_REGX = /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d
 // @Deprecated
 export const createExpirationDate = () => millisToUtcDate(nowUtcDate().getTime() + Constants.EXPIRATION_MILLIS);
 
-export const createExpirationDate2 = ():string => {
+export const createExpirationDate2 = (): string => {
     const nowDateString = getSystemTimezoneDateIsoString();
     const date = new Date(nowDateString);
     date.setTime(date.getTime() + Constants.EXPIRATION_MILLIS);
@@ -236,9 +236,11 @@ export const isSameMonthDate = (d1Month?: number, d1Date?: number, d2Month?: num
 
 // #########################
 
-
-const padZero = (num: number): string => {
-    return (num < 10 ? '0' : '') + num;
+const padLeft = (input: (number | string), length: number, padString: string = '0') => {
+    if (length < 2) {
+        return input;
+    }
+    return `${padString.repeat(length - 1)}${input}`.slice(-length);
 }
 
 export const getSystemTimezone = () => {
@@ -247,22 +249,43 @@ export const getSystemTimezone = () => {
     const plusMinus = timezoneOffset >= 0 ? '+' : '-';
 
     return plusMinus
-        + padZero(Math.floor(Math.abs(timezoneOffset) / 60))
-        + ':' 
-        + padZero(Math.abs(timezoneOffset) % 60);
+        + padLeft(Math.floor(Math.abs(timezoneOffset) / 60), 2)
+        + ':'
+        + padLeft(Math.abs(timezoneOffset) % 60, 2);
 }
 
 // https://stackoverflow.com/questions/17415579/how-to-iso-8601-format-a-date-with-timezone-offset-in-javascript
 export const getSystemTimezoneDateIsoString = (date?: Date) => {
     const dt = date ? date : new Date();
 
-    return dt.getFullYear() +
-        '-' + padZero(dt.getMonth() + 1) +
-        '-' + padZero(dt.getDate()) +
-        'T' + padZero(dt.getHours()) +
-        ':' + padZero(dt.getMinutes()) +
-        ':' + padZero(dt.getSeconds()) +
-        '.000'  +
-        getSystemTimezone();
+    return dt.getFullYear()
+        + '-' + padLeft(dt.getMonth() + 1, 2)
+        + '-' + padLeft(dt.getDate(), 2)
+        + 'T' + padLeft(dt.getHours(), 2)
+        + ':' + padLeft(dt.getMinutes(), 2)
+        + ':' + padLeft(dt.getSeconds(), 2)
+        + '.' + padLeft(dt.getMilliseconds(), 3)
+        + getSystemTimezone();
 }
 
+export const isoDateFixToSystemTimezone = (isoDateString: string): (string | undefined) => {
+    if (!isoDateString || isoDateString.length < '0000-00-00'.length) {
+        return;
+    }
+
+    const isoDateStringArray = isoDateString
+        .replace(/([+-][0-2]\d:[0-5]\d|Z)$/, "") // remove timezone
+        .split(''); // convert to character array
+    const resultArray = ('0000-00-00T00:00:00.000' + getSystemTimezone()).split('');
+
+    for (let i = 0; i < isoDateStringArray.length && i < 23; i++) {
+        resultArray[i] = isoDateStringArray[i]
+    }
+    const result = resultArray.join("");
+
+    if (!DATE_TIME_REGX.test(result)) {
+        return;
+    } else {
+        return result;
+    }
+}
