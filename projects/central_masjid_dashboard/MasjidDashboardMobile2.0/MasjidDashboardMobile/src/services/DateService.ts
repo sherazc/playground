@@ -234,7 +234,58 @@ export const isSameMonthDate = (d1Month?: number, d1Date?: number, d2Month?: num
         && d1Date === d2Date;
 }
 
-// #########################
+
+
+/**
+ * #########################
+ *  New Date API
+ * #########################
+ * 
+ * ========================
+ * Rules for creating dates
+ * ========================
+ * 
+ * -- 
+ * To get current Date:
+ * const date = new Date();
+ * const currentSystemDate = getCurrentSystemDate();
+ * 
+ * --
+ * To get current date ISO String don't use 
+ * new Date().toISOString()
+ * 
+ * To get current date ISO String:
+ * const systemTimezoneDateIsoString = getSystemTimezoneDateIsoString();
+ * 
+ * 
+ * ========================
+ * Date in types
+ * ========================
+ * 
+ * --
+ * Prefer ISO String format instead of Date type
+ * const systemTimezoneDateIsoString = getSystemTimezoneDateIsoString(date)
+ * 
+ * In rare performance reasons use Date.time()/Epoch Milliseconds
+ * const timeMilliseconds = getCurrentSystemDate().time();
+ * 
+ * --
+ * 
+ * ========================
+ * Timezone
+ * ========================
+ * 
+ * Fix timezone of ISO String format when reveived date from 
+ * API or when in doubt
+ * 
+ * const isoDate = isoDateFixToSystemTimezone("2022-04-01T12:12:12.123+12:00");
+ * 
+ * --
+ * In all Types use SystemTimezoneIsoString instead of using Date type
+ * 
+ * --
+ * 
+ */
 
 const padLeft = (input: (number | string), length: number, padString: string = '0') => {
     if (length < 2) {
@@ -268,7 +319,11 @@ export const getSystemTimezoneDateIsoString = (date?: Date) => {
         + getSystemTimezone();
 }
 
-export const isoDateFixToSystemTimezone = (isoDateString: string): (string | undefined) => {
+export const getCurrentSystemDate = () => {
+    return new Date(getSystemTimezoneDateIsoString());
+}
+
+export const isoDateFixToSystemTimezone = (isoDateString?: (string| null)): (string | undefined) => {
     if (!isoDateString || isoDateString.length < '0000-00-00'.length) {
         return;
     }
