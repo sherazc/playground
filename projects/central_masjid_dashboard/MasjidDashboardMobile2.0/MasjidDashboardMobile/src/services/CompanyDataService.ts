@@ -3,7 +3,7 @@ import { createOrRefreshExpirableVersion, isExpired } from "./ExpirableVersionSe
 import store from '../store/rootReducer';
 import { Constants } from './Constants';
 import setupNotifications from "./NotificationService";
-import { fixObjectDates, isSameMonthDate, todaysDay, todaysMonth } from "./DateService";
+import { fixObjectDates, isSameMonthDate, getTodaysDate, getTodaysMonth } from "./DateService";
 import { apiPrayersYear } from "./CalendarService";
 
 
@@ -108,8 +108,8 @@ export const updateCompanyData = (companyData: CompanyData) => {
         return;
     }
 
-    const nowMonth = todaysMonth();
-    const nowDate = todaysDay();
+    const nowMonth = getTodaysMonth();
+    const nowDate = getTodaysDate();
     const tracker = companyData.tracker;
     const sameMonthDate = isSameMonthDate(tracker.previousMonth, nowMonth, tracker.previousDate, nowDate);
     const expired = isExpired(tracker.expirableVersion);

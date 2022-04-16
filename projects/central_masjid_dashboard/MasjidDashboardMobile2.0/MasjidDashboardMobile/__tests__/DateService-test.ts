@@ -1,4 +1,5 @@
-import { isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX, createExpirationDate2, isoDateFixToSystemTimezone, getCurrentSystemDate } from "../src/services/DateService";
+import { Constants } from "../src/services/Constants";
+import { isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX, createExpirationDateIso, isoDateFixToSystemTimezone, getCurrentSystemDate, createExpirationDate, getTodaysDate, getTodaysMonth, stringH24MinToDate } from "../src/services/DateService";
 
 describe("Compare dates", () => {
     it("isSameMonthDate", () => {
@@ -23,6 +24,12 @@ describe("Date", () => {
         expect(date.getMinutes()).toBe(currentSystemDate.getMinutes());
         expect(date.getSeconds()).toBe(currentSystemDate.getSeconds());
     });
+
+    it("todaysDate, todaysMonth", () => {
+        expect(getTodaysDate()).toBe(new Date().getDate());
+        expect(getTodaysMonth()).toBe(new Date().getMonth() + 1);
+    });
+
 });
 
 
@@ -99,9 +106,49 @@ describe("Timezone", () => {
 });
 
 
-describe.skip("Expiration", () => {
+describe("Expiration", () => {
+    it("createExpirationDateIso()", () => {
+        const expirationDateIso = createExpirationDateIso();
+        const expirationDateMilliseconds = new Date(expirationDateIso).getTime();
+        const tempExpireMilliseconds = new Date().getTime() + Constants.EXPIRATION_MILLIS;
+        const plusMinusErrorMilliseconds =  500;
+
+        expect(expirationDateMilliseconds).toBeGreaterThan(tempExpireMilliseconds - plusMinusErrorMilliseconds);
+        expect(expirationDateMilliseconds).toBeLessThan(tempExpireMilliseconds + plusMinusErrorMilliseconds);
+
+    });
+
     it("createExpirationDate()", () => {
-        const expirationDate = createExpirationDate2();
-        console.log(expirationDate)
-    }); 
+        const expirationDateMilliseconds = createExpirationDate().getTime();
+        const tempExpireMilliseconds = new Date().getTime() + Constants.EXPIRATION_MILLIS;
+        const plusMinusErrorMilliseconds =  500;
+
+        expect(expirationDateMilliseconds).toBeGreaterThan(tempExpireMilliseconds - plusMinusErrorMilliseconds);
+        expect(expirationDateMilliseconds).toBeLessThan(tempExpireMilliseconds + plusMinusErrorMilliseconds);
+    });
 });
+
+
+describe.skip("Time", () => {
+    it("stringH24MinToDate()", () => {
+        // @ts-ignore
+        const date1 = new Date(isoDateFixToSystemTimezone('2022-01-01'));
+        const time1 = '23:59';
+
+        console.log("aaa", date1.toString())
+
+
+
+        const date1Result = stringH24MinToDate(date1, time1);
+        console.log(date1Result?.toString());
+        expect(date1Result?.getFullYear()).toBe(2022);
+        expect(date1Result?.getMonth()).toBe(0);
+        expect(date1Result?.getDate()).toBe(1);
+        expect(date1Result?.getHours()).toBe(23);
+        expect(date1Result?.getMinutes()).toBe(59);
+        expect(date1Result?.getSeconds()).toBe(0);
+
+    });
+
+});
+

@@ -8,20 +8,8 @@ export const TIME_24_REGX = /([01]?[0-9]|2[0-3]):[0-5][0-9].*/;
 export const DATE_TIME_REGX = /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/;
 // export const DATE_TIME_REGX = /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/;
 
-// @Deprecated
-export const createExpirationDate = () => millisToUtcDate(nowUtcDate().getTime() + Constants.EXPIRATION_MILLIS);
 
-export const createExpirationDate2 = (): string => {
-    const nowDateString = getSystemTimezoneDateIsoString();
-    const date = new Date(nowDateString);
-    date.setTime(date.getTime() + Constants.EXPIRATION_MILLIS);
-    return getSystemTimezoneDateIsoString(date);
-};
-
-
-export const todaysDay = (): number => (nowUtcDate()).getDate();
-export const todaysMonth = (): number => (nowUtcDate()).getMonth() + 1;
-
+// Deprecated
 export const fixObjectDates = (obj: any) => {
     for (var i in obj) {
         if (typeof obj[i] === 'object') {
@@ -34,10 +22,7 @@ export const fixObjectDates = (obj: any) => {
     }
 };
 
-const millisToUtcDate = (millis: number): Date => {
-    return dateToUtcDate(dateToUtcDate(new Date(millis)))
-}
-
+// Deprecated
 const dateToUtcDate = (date: Date): Date => {
     let utcDateMilliseconds = Date.UTC(
         date.getFullYear(),
@@ -51,10 +36,12 @@ const dateToUtcDate = (date: Date): Date => {
     return new Date(utcDateMilliseconds);
 }
 
+// Deprecated
 export const nowUtcDate = (): Date => {
     return dateToUtcDate(new Date());
 };
 
+// Deprecated
 export const dateFromISO = (isoDateString?: string): (Date | undefined) => {
     if (!isoDateString || isoDateString.length < 4) {
         return;
@@ -80,14 +67,7 @@ export const dateFromISO = (isoDateString?: string): (Date | undefined) => {
     }
 };
 
-export const stringH24MinToDate = (date: (Date | undefined), time?: string): (Date | undefined) => {
-    if (!date || !time || !TIME_24_REGX.test(time)) {
-        return;
-    }
 
-    const isoDateString = `${date.toISOString().substring(0, 10)}T${time.substring(0, 5)}:00.000Z`;
-    return dateFromISO(isoDateString);
-}
 
 export const dateToDisplayDateShort = (date: Date) => {
     if (!date) {
@@ -187,6 +167,7 @@ export const isTimeBetweenAzans = (timeMillis: (number | undefined), prayerPerio
         && timeMillis < prayerPeriod[1].azan.getTime()
 }
 
+// Deprecated
 export const toISODateString = (date?: Date) => {
     if (!date) {
         return;
@@ -210,6 +191,7 @@ export const dayOfTheYear = (year: number, month: number, date: number): number 
     return Math.floor(diffMillis / oneDayMillis);
 }
 
+// Deprecated
 export const utcToLocalDate = (date: Date): Date => {
     return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
         date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds(), date.getUTCMilliseconds());
@@ -343,4 +325,31 @@ export const isoDateFixToSystemTimezone = (isoDateString?: (string| null)): (str
     } else {
         return result;
     }
+}
+
+export const createExpirationDate = () => new Date(createExpirationDateIso());
+
+export const createExpirationDateIso = (): string => {
+    const nowDateString = getSystemTimezoneDateIsoString();
+    const date = new Date(nowDateString);
+    date.setTime(date.getTime() + Constants.EXPIRATION_MILLIS);
+    return getSystemTimezoneDateIsoString(date);
+};
+
+
+export const getTodaysDate = (): number => getCurrentSystemDate().getDate();
+export const getTodaysMonth = (): number => getCurrentSystemDate().getMonth() + 1;
+
+export const stringH24MinToDate = (date: (Date | undefined), time?: string): (Date | undefined) => {
+    if (!date || !time || !TIME_24_REGX.test(time)) {
+        return;
+    }
+
+    const isoDateString = `${getSystemTimezoneDateIsoString(date).substring(0, 10)}T${time.substring(0, 5)}:00.000`;
+    
+    
+    console.log("TTTTTTT", getSystemTimezoneDateIsoString(date))
+    const isoDateStringTimezone = isoDateFixToSystemTimezone(isoDateString);
+
+    return new Date(isoDateStringTimezone);
 }
