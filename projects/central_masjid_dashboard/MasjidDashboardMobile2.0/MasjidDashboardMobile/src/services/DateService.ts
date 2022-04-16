@@ -8,6 +8,7 @@ export const TIME_24_REGX = /([01]?[0-9]|2[0-3]):[0-5][0-9].*/;
 export const DATE_TIME_REGX = /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/;
 // export const DATE_TIME_REGX = /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/;
 
+export const DATE_REGX = /\d{4}-([0]\d|1[0-2])-([0-2]\d|3[01]).*/;
 
 // Deprecated
 export const fixObjectDates = (obj: any) => {
@@ -276,7 +277,7 @@ const padLeft = (input: (number | string), length: number, padString: string = '
     return `${padString.repeat(length - 1)}${input}`.slice(-length);
 }
 
-export const getSystemTimezone = () => {
+export const getSystemTimezoneDep = () => {
     const date = new Date();
     const timezoneOffset = -date.getTimezoneOffset();
     const plusMinus = timezoneOffset >= 0 ? '+' : '-';
@@ -287,18 +288,43 @@ export const getSystemTimezone = () => {
         + padLeft(Math.abs(timezoneOffset) % 60, 2);
 }
 
+export const getSystemTimezone = (dateString?: string) => {
+    let date;
+    if (dateString && DATE_REGX.test(dateString)) {
+        const year = +dateString.substring(0, 4);
+        const month = +dateString.substring(5, 7) - 1;
+        const d = +dateString.substring(8, 10);
+        // 3am because DST applies at 2am
+        date = new Date(year, month, d, 3, 0);
+    } else {
+        date = new Date();
+    }
+    
+    const timezoneOffset = -date.getTimezoneOffset();
+    const plusMinus = timezoneOffset >= 0 ? '+' : '-';
+
+    return plusMinus
+        + padLeft(Math.floor(Math.abs(timezoneOffset) / 60), 2)
+        + ':'
+        + padLeft(Math.abs(timezoneOffset) % 60, 2);
+}
+
+
+
 // https://stackoverflow.com/questions/17415579/how-to-iso-8601-format-a-date-with-timezone-offset-in-javascript
 export const getSystemTimezoneDateIsoString = (date?: Date) => {
     const dt = date ? date : new Date();
 
-    return dt.getFullYear()
-        + '-' + padLeft(dt.getMonth() + 1, 2)
-        + '-' + padLeft(dt.getDate(), 2)
-        + 'T' + padLeft(dt.getHours(), 2)
-        + ':' + padLeft(dt.getMinutes(), 2)
-        + ':' + padLeft(dt.getSeconds(), 2)
-        + '.' + padLeft(dt.getMilliseconds(), 3)
-        + getSystemTimezone();
+
+    const isoStringWithoutTimezone = dt.getFullYear()
+    + '-' + padLeft(dt.getMonth() + 1, 2)
+    + '-' + padLeft(dt.getDate(), 2)
+    + 'T' + padLeft(dt.getHours(), 2)
+    + ':' + padLeft(dt.getMinutes(), 2)
+    + ':' + padLeft(dt.getSeconds(), 2)
+    + '.' + padLeft(dt.getMilliseconds(), 3);
+
+    return isoStringWithoutTimezone + getSystemTimezone(isoStringWithoutTimezone);
 }
 
 export const getCurrentSystemDate = () => {
@@ -313,7 +339,7 @@ export const isoDateFixToSystemTimezone = (isoDateString?: (string| null)): (str
     const isoDateStringArray = isoDateString
         .replace(/([+-][0-2]\d:[0-5]\d|Z)$/, "") // remove timezone
         .split(''); // convert to character array
-    const resultArray = ('0000-00-00T00:00:00.000' + getSystemTimezone()).split('');
+    const resultArray = ('0000-00-00T00:00:00.000' + getSystemTimezone(isoDateString)).split('');
 
     for (let i = 0; i < isoDateStringArray.length && i < 23; i++) {
         resultArray[i] = isoDateStringArray[i]

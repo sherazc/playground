@@ -1,5 +1,5 @@
 import { Constants } from "../src/services/Constants";
-import { isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX, createExpirationDateIso, isoDateFixToSystemTimezone, getCurrentSystemDate, createExpirationDate, getTodaysDate, getTodaysMonth, stringH24MinToDate } from "../src/services/DateService";
+import { isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX, createExpirationDateIso, isoDateFixToSystemTimezone, getCurrentSystemDate, createExpirationDate, getTodaysDate, getTodaysMonth, stringH24MinToDate, getSystemTimezone2 } from "../src/services/DateService";
 
 describe("Compare dates", () => {
     it("isSameMonthDate", () => {
@@ -36,20 +36,27 @@ describe("Date", () => {
 describe("Timezone", () => {
 
     it("getSystemTimezone()", () => {
-        const systemTimezone = getSystemTimezone();
+        const systemTimezone = getSystemTimezone('2022-11-06');
         const timeRegex = /^[+-]([0-1][0-9]|[2][0-3]):([0-5][0-9])$/;
         expect(systemTimezone).toMatch(timeRegex);
     });
 
+    it("getSystemTimezone() - Test will only work in Eastern Timezone", () => {
+        expect(getSystemTimezone('2022-03-12')).toBe('-05:00');
+        expect(getSystemTimezone('2022-03-13')).toBe('-04:00');
+        expect(getSystemTimezone('2022-11-05')).toBe('-04:00');
+        expect(getSystemTimezone('2022-11-06')).toBe('-05:00');
+    });
+
     it("getSystemTimezoneIsoString() no date argument", () => {
         const systemTimezoneDateIsoString = getSystemTimezoneDateIsoString();
-        const systemTimezone = getSystemTimezone();
+        const systemTimezone = getSystemTimezone(systemTimezoneDateIsoString);
         expect(systemTimezoneDateIsoString).toMatch(DATE_TIME_REGX);
         expect(systemTimezoneDateIsoString.endsWith(systemTimezone)).toBe(true);
     });
 
     it("getSystemTimezoneIsoString() date passed", () => {
-        const systemTimezone = getSystemTimezone();
+        const systemTimezone = getSystemTimezone('2022-04-01');
         const dateString = '2022-04-01T00:00:00.000' + systemTimezone;
         const date = new Date(dateString);
         const systemTimezoneDateIsoString = getSystemTimezoneDateIsoString(date);
@@ -58,7 +65,7 @@ describe("Timezone", () => {
     });
 
     it("getSystemTimezoneIsoString() No timezone", () => {
-        const systemTimezone = getSystemTimezone();
+        const systemTimezone = getSystemTimezone('2022-04-01');
         const dateString = '2022-04-01T00:00:00.000';
         const date = new Date(dateString);
         const systemTimezoneDateIsoString = getSystemTimezoneDateIsoString(date);
@@ -81,27 +88,27 @@ describe("Timezone", () => {
     it("isoDateFixToSystemTimezone()", () => {
         let isoDate = isoDateFixToSystemTimezone("2022-04-01");
         expect(isoDate?.startsWith("2022-04-01T00:00:00.000")).toBe(true)
-        expect(isoDate?.endsWith(getSystemTimezone())).toBe(true)
+        expect(isoDate?.endsWith(getSystemTimezone('2022-04-01'))).toBe(true)
 
         isoDate = isoDateFixToSystemTimezone("2022-04-01Z");
         expect(isoDate?.startsWith("2022-04-01T00:00:00.000")).toBe(true)
-        expect(isoDate?.endsWith(getSystemTimezone())).toBe(true)
+        expect(isoDate?.endsWith(getSystemTimezone('2022-04-01'))).toBe(true)
 
         isoDate = isoDateFixToSystemTimezone("2022-04-01T12");
         expect(isoDate?.startsWith("2022-04-01T12:00:00.000")).toBe(true)
-        expect(isoDate?.endsWith(getSystemTimezone())).toBe(true)
+        expect(isoDate?.endsWith(getSystemTimezone('2022-04-01'))).toBe(true)
 
         isoDate = isoDateFixToSystemTimezone("2022-04-01T12:12:12.123");
         expect(isoDate?.startsWith("2022-04-01T12:12:12.123")).toBe(true)
-        expect(isoDate?.endsWith(getSystemTimezone())).toBe(true)
+        expect(isoDate?.endsWith(getSystemTimezone('2022-04-01'))).toBe(true)
 
         isoDate = isoDateFixToSystemTimezone("2022-04-01T12:12:12.123Z");
         expect(isoDate?.startsWith("2022-04-01T12:12:12.123")).toBe(true)
-        expect(isoDate?.endsWith(getSystemTimezone())).toBe(true)
+        expect(isoDate?.endsWith(getSystemTimezone('2022-04-01'))).toBe(true)
 
         isoDate = isoDateFixToSystemTimezone("2022-04-01T12:12:12.123+12:00");
         expect(isoDate?.startsWith("2022-04-01T12:12:12.123")).toBe(true)
-        expect(isoDate?.endsWith(getSystemTimezone())).toBe(true)
+        expect(isoDate?.endsWith(getSystemTimezone('2022-04-01'))).toBe(true)
     });
 });
 
@@ -131,6 +138,11 @@ describe("Expiration", () => {
 
 describe.skip("Time", () => {
     it("stringH24MinToDate()", () => {
+
+        // new Date('2022-01-01')
+
+
+        /*
         // @ts-ignore
         const date1 = new Date(isoDateFixToSystemTimezone('2022-01-01'));
         const time1 = '23:59';
@@ -147,6 +159,7 @@ describe.skip("Time", () => {
         expect(date1Result?.getHours()).toBe(23);
         expect(date1Result?.getMinutes()).toBe(59);
         expect(date1Result?.getSeconds()).toBe(0);
+        */
 
     });
 
