@@ -10,7 +10,9 @@ export const DATE_TIME_REGX = /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d
 
 export const DATE_REGX = /\d{4}-([0]\d|1[0-2])-([0-2]\d|3[01]).*/;
 
-// Deprecated
+// Deprecated : use iso string dates in objects. Dont think its needed
+// use isoDateFixToSystemTimezone instead
+/*
 export const fixObjectDates = (obj: any) => {
     for (var i in obj) {
         if (typeof obj[i] === 'object') {
@@ -22,8 +24,11 @@ export const fixObjectDates = (obj: any) => {
         }
     }
 };
+*/
 
-// Deprecated
+
+// Deprecated - no utc methods
+/*
 const dateToUtcDate = (date: Date): Date => {
     let utcDateMilliseconds = Date.UTC(
         date.getFullYear(),
@@ -36,13 +41,19 @@ const dateToUtcDate = (date: Date): Date => {
 
     return new Date(utcDateMilliseconds);
 }
+*/
 
-// Deprecated
+
+// Deprecated - no utc methods
+/*
 export const nowUtcDate = (): Date => {
     return dateToUtcDate(new Date());
 };
+*/
+
 
 // Deprecated
+/*
 export const dateFromISO = (isoDateString?: string): (Date | undefined) => {
     if (!isoDateString || isoDateString.length < 4) {
         return;
@@ -67,7 +78,7 @@ export const dateFromISO = (isoDateString?: string): (Date | undefined) => {
         return new Date(Date.UTC(year, --month, date, hours, minutes, seconds, milliseconds));
     }
 };
-
+*/
 
 
 export const dateToDisplayDateShort = (date: Date) => {
@@ -372,10 +383,35 @@ export const stringH24MinToDate = (date: (Date | undefined), time?: string): (Da
     }
 
     const isoDateString = `${getSystemTimezoneDateIsoString(date).substring(0, 10)}T${time.substring(0, 5)}:00.000`;
-    
-    
-    console.log("TTTTTTT", getSystemTimezoneDateIsoString(date))
     const isoDateStringTimezone = isoDateFixToSystemTimezone(isoDateString);
 
+    // @ts-ignore
     return new Date(isoDateStringTimezone);
 }
+
+
+export class MdDate {
+    private _isoDate?:string = "";
+    private _date?: Date;
+
+    constructor(isoDate?:string) {
+        
+        this._isoDate = isoDateFixToSystemTimezone(isoDate);
+        if (this._isoDate) {
+            this._date = new Date(this._isoDate);
+        }
+    }
+
+    get isoDate() {
+        return this._isoDate;
+    }
+    
+    get date() {
+        return this._date;
+    }
+
+    toString() {
+        return this._isoDate;
+    }
+}
+

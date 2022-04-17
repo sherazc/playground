@@ -1,10 +1,12 @@
+import { MdDate } from "../services/DateService";
+
 export interface ExpirableVersion {
     expirationDate?: string;
     version?: number;
 }
 
 export interface Prayer {
-    date: Date;
+    date: MdDate;
     hijrahDate: string; // HijrahDate
     hijriString: string;
     fajr: string;

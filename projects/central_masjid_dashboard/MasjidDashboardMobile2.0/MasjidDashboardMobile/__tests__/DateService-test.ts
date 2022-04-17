@@ -1,5 +1,6 @@
 import { Constants } from "../src/services/Constants";
 import { isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX, createExpirationDateIso, isoDateFixToSystemTimezone, getCurrentSystemDate, createExpirationDate, getTodaysDate, getTodaysMonth, stringH24MinToDate, getSystemTimezone2 } from "../src/services/DateService";
+import { Prayer, ServiceResponse } from "../src/types/types";
 
 describe("Compare dates", () => {
     it("isSameMonthDate", () => {
@@ -136,20 +137,11 @@ describe("Expiration", () => {
 });
 
 
-describe.skip("Time", () => {
+describe("Display Date & Time", () => {
     it("stringH24MinToDate()", () => {
-
-        // new Date('2022-01-01')
-
-
-        /*
         // @ts-ignore
         const date1 = new Date(isoDateFixToSystemTimezone('2022-01-01'));
         const time1 = '23:59';
-
-        console.log("aaa", date1.toString())
-
-
 
         const date1Result = stringH24MinToDate(date1, time1);
         console.log(date1Result?.toString());
@@ -159,8 +151,29 @@ describe.skip("Time", () => {
         expect(date1Result?.getHours()).toBe(23);
         expect(date1Result?.getMinutes()).toBe(59);
         expect(date1Result?.getSeconds()).toBe(0);
-        */
 
+        // https://www.masjiddashboard.com/api/prayer/companyId/601178cedc813a7769981d34/month/4/day/16
+        
+
+
+
+        const apiPrayer2 = (companyId: string, month: number, day: number): Promise<ServiceResponse<Prayer>> => {
+            const endpoint = Constants.createPrayerEndpoint(companyId, month, day);
+            console.log("Calling API ", endpoint);
+            return fetch(endpoint).then(response => response.json());
+            // return null;
+        }
+
+
+        apiPrayer2('601178cedc813a7769981d34', 4, 16).then((sr) => {
+
+        });
+
+
+    
+        
+        
+        
     });
 
 });
