@@ -1,5 +1,5 @@
 import { Constants } from './Constants';
-import { numberTo2DigitsString, subStringToNumber } from './Utilities';
+import { isNotBlankString, numberTo2DigitsString, subStringToNumber } from './Utilities';
 import { PrayerTime } from '../types/types';
 
 export const TIME_24_REGX = /([01]?[0-9]|2[0-3]):[0-5][0-9].*/;
@@ -392,13 +392,13 @@ export const stringH24MinToDate = (date: (Date | undefined), time?: string): (Da
 
 export class MdDate {
     private _isoDate?:string = "";
-    private _date?: Date;
+    private _jsDate?: Date;
 
     constructor(isoDate?:string) {
         
         this._isoDate = isoDateFixToSystemTimezone(isoDate);
         if (this._isoDate) {
-            this._date = new Date(this._isoDate);
+            this._jsDate = new Date(this._isoDate);
         }
     }
 
@@ -406,8 +406,8 @@ export class MdDate {
         return this._isoDate;
     }
     
-    get date() {
-        return this._date;
+    get jsDate() {
+        return this._jsDate;
     }
 
     toString() {
@@ -415,3 +415,28 @@ export class MdDate {
     }
 }
 
+
+export const parseIsoDateToMdDate = (obj: any) => {
+    const isDateKey = (key: string) => {
+        return isNotBlankString(key)
+            && key.toLowerCase().endsWith("date");
+    }
+    
+    const isDateValue = (value: string) => {
+        return isNotBlankString(value)
+            && DATE_TIME_REGX.test(value);
+    }
+
+    for (var k in obj){
+        if (typeof obj[k] == "object" && obj[k] !== null)
+        parseIsoDateToMdDate(obj[k]);
+        else {
+            const dateKey = isDateKey(k);
+            const dateValue = isDateValue(obj[k]);
+            if (dateKey && dateValue) {
+                // Convert to MdDate
+                obj[k] = new MdDate(obj[k]);
+            }
+        }            
+    }
+}

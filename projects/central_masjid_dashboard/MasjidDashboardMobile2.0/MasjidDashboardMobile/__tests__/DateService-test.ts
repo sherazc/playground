@@ -152,26 +152,8 @@ describe("Display Date & Time", () => {
         expect(date1Result?.getMinutes()).toBe(59);
         expect(date1Result?.getSeconds()).toBe(0);
 
-        // https://www.masjiddashboard.com/api/prayer/companyId/601178cedc813a7769981d34/month/4/day/16
         
-
-
-
-        const apiPrayer2 = (companyId: string, month: number, day: number): Promise<ServiceResponse<Prayer>> => {
-            const endpoint = Constants.createPrayerEndpoint(companyId, month, day);
-            console.log("Calling API ", endpoint);
-            return fetch(endpoint).then(response => response.json());
-            // return null;
-        }
-
-
-        apiPrayer2('601178cedc813a7769981d34', 4, 16).then((sr) => {
-
-        });
-
-
     
-        
         
         
     });
