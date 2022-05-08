@@ -288,16 +288,6 @@ const padLeft = (input: (number | string), length: number, padString: string = '
     return `${padString.repeat(length - 1)}${input}`.slice(-length);
 }
 
-export const getSystemTimezoneDep = () => {
-    const date = new Date();
-    const timezoneOffset = -date.getTimezoneOffset();
-    const plusMinus = timezoneOffset >= 0 ? '+' : '-';
-
-    return plusMinus
-        + padLeft(Math.floor(Math.abs(timezoneOffset) / 60), 2)
-        + ':'
-        + padLeft(Math.abs(timezoneOffset) % 60, 2);
-}
 
 export const isoDateToJsDate = (dateString?: string): Date | undefined => {
     let date = undefined;
@@ -339,9 +329,9 @@ export const getSystemTimezone = (dateString?: string) => {
         date = new Date();
     }
 
-    // 3am because DST applies at 2am
-    if (date.getHours() < 3) {
-        date.setHours(3);
+    // 2am because DST applies at 2am
+    if (date.getHours() < 2) {
+        date.setHours(2);
     }
     
     const timezoneOffset = -date.getTimezoneOffset();
@@ -372,7 +362,8 @@ export const getSystemTimezoneDateIsoString = (date?: Date) => {
 }
 
 export const getCurrentSystemDate = () => {
-    return new Date(getSystemTimezoneDateIsoString());
+    // return new Date(getSystemTimezoneDateIsoString());
+    return new Date();
 }
 
 export const isoDateFixToSystemTimezone = (isoDateString?: (string| null)): (string | undefined) => {
@@ -383,7 +374,9 @@ export const isoDateFixToSystemTimezone = (isoDateString?: (string| null)): (str
     const isoDateStringArray = isoDateString
         .replace(/([+-][0-2]\d:[0-5]\d|Z)$/, "") // remove timezone
         .split(''); // convert to character array
-    const resultArray = ('0000-00-00T00:00:00.000' + getSystemTimezone(isoDateString)).split('');
+
+    const timezone = getSystemTimezone(isoDateString);
+    const resultArray = ('0000-00-00T00:00:00.000' + timezone).split('');
 
     for (let i = 0; i < isoDateStringArray.length && i < 23; i++) {
         resultArray[i] = isoDateStringArray[i]
@@ -400,8 +393,8 @@ export const isoDateFixToSystemTimezone = (isoDateString?: (string| null)): (str
 export const createExpirationDate = () => new Date(createExpirationDateIso());
 
 export const createExpirationDateIso = (): string => {
-    const nowDateString = getSystemTimezoneDateIsoString();
-    const date = new Date(nowDateString);
+    
+    const date = getCurrentSystemDate();
     date.setTime(date.getTime() + Constants.EXPIRATION_MILLIS);
     return getSystemTimezoneDateIsoString(date);
 };
@@ -410,6 +403,8 @@ export const createExpirationDateIso = (): string => {
 export const getTodaysDate = (): number => getCurrentSystemDate().getDate();
 export const getTodaysMonth = (): number => getCurrentSystemDate().getMonth() + 1;
 
+
+refactor it and test it using new Date(2022, 2, 13); constructor date
 export const stringH24MinToDate = (date: (Date | undefined), time?: string): (Date | undefined) => {
     if (!date || !time || !TIME_24_REGX.test(time)) {
         return;
@@ -449,7 +444,7 @@ export class MdDate {
 }
 
 
-export const parseIsoDateToMdDate = (obj: any) => {
+export const parseObjectsIsoDateToMdDate = (obj: any) => {
     const isDateKey = (key: string) => {
         return isNotBlankString(key)
             && key.toLowerCase().endsWith("date");
@@ -462,7 +457,7 @@ export const parseIsoDateToMdDate = (obj: any) => {
 
     for (var k in obj){
         if (typeof obj[k] == "object" && obj[k] !== null)
-        parseIsoDateToMdDate(obj[k]);
+        parseObjectsIsoDateToMdDate(obj[k]);
         else {
             const dateKey = isDateKey(k);
             const dateValue = isDateValue(obj[k]);

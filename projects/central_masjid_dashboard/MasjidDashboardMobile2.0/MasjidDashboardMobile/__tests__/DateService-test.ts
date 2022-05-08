@@ -1,6 +1,39 @@
+/**
+ * Debug jest code in VS Code
+ * https://jestjs.io/docs/troubleshooting
+ * 
+ * 
+ * Add this launch.json 
+ * This will work on MAC
+ * 
+ * 
+{
+
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Jest Tests",
+      "type": "node",
+      "request": "launch",
+      "runtimeArgs": [
+        "--inspect-brk",
+        "${workspaceRoot}/node_modules/.bin/jest",
+        "--runInBand"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9229
+    }
+  ]
+}
+ * 
+ * 
+ */
+
+
 import { Constants } from "../src/services/Constants";
-import { isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX, createExpirationDateIso, isoDateFixToSystemTimezone, getCurrentSystemDate, createExpirationDate, getTodaysDate, getTodaysMonth, stringH24MinToDate, getSystemTimezone2 } from "../src/services/DateService";
-import { Prayer, ServiceResponse } from "../src/types/types";
+import { isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX, createExpirationDateIso, isoDateFixToSystemTimezone, getCurrentSystemDate, createExpirationDate, getTodaysDate, getTodaysMonth, stringH24MinToDate } from "../src/services/DateService";
+
 
 describe("Compare dates", () => {
     it("isSameMonthDate", () => {
@@ -154,19 +187,23 @@ describe("Display Date & Time", () => {
 
 
     it("stringH24MinToDate() after DST Start", () => {
+
+        const isoDate = isoDateFixToSystemTimezone('2022-03-13');
         // @ts-ignore
-        const date1 = new Date(isoDateFixToSystemTimezone('2022-03-13'));
+        // const date1 = new Date(isoDate);
+        const date1 = new Date(2022, 2, 13);
         const time1 = '16:00';
 
         const date1Result = stringH24MinToDate(date1, time1);
 
 
 
-        console.log(getSystemTimezone('2022-11-05'));
+        console.log(date1Result?.toLocaleString());
+        // console.log(getSystemTimezone('2022-03-13'));
         // console.log(new Date("2022-03-13T20:00:00.000-04:00").toLocaleString());
         // console.log(date1Result?.toString());
-        // expect(date1Result?.getFullYear()).toBe(2022);
-        // expect(date1Result?.getMonth()).toBe(2);
+        expect(date1Result?.getFullYear()).toBe(2022);
+        expect(date1Result?.getMonth()).toBe(2);
         // expect(date1Result?.getDate()).toBe(13);
         // expect(date1Result?.getHours()).toBe(1);
         // expect(date1Result?.getMinutes()).toBe(59);
