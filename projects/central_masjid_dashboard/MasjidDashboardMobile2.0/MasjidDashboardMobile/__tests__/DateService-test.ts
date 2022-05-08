@@ -70,7 +70,7 @@ describe("Timezone", () => {
         const dateString = '2022-04-01T00:00:00.000';
         const date = new Date(dateString);
         const systemTimezoneDateIsoString = getSystemTimezoneDateIsoString(date);
-    
+
         expect(systemTimezoneDateIsoString.startsWith(dateString)).toBe(true);
         expect(systemTimezoneDateIsoString.endsWith(systemTimezone)).toBe(true);
     });
@@ -119,7 +119,7 @@ describe("Expiration", () => {
         const expirationDateIso = createExpirationDateIso();
         const expirationDateMilliseconds = new Date(expirationDateIso).getTime();
         const tempExpireMilliseconds = new Date().getTime() + Constants.EXPIRATION_MILLIS;
-        const plusMinusErrorMilliseconds =  500;
+        const plusMinusErrorMilliseconds = 500;
 
         expect(expirationDateMilliseconds).toBeGreaterThan(tempExpireMilliseconds - plusMinusErrorMilliseconds);
         expect(expirationDateMilliseconds).toBeLessThan(tempExpireMilliseconds + plusMinusErrorMilliseconds);
@@ -129,7 +129,7 @@ describe("Expiration", () => {
     it("createExpirationDate()", () => {
         const expirationDateMilliseconds = createExpirationDate().getTime();
         const tempExpireMilliseconds = new Date().getTime() + Constants.EXPIRATION_MILLIS;
-        const plusMinusErrorMilliseconds =  500;
+        const plusMinusErrorMilliseconds = 500;
 
         expect(expirationDateMilliseconds).toBeGreaterThan(tempExpireMilliseconds - plusMinusErrorMilliseconds);
         expect(expirationDateMilliseconds).toBeLessThan(tempExpireMilliseconds + plusMinusErrorMilliseconds);
@@ -138,25 +138,70 @@ describe("Expiration", () => {
 
 
 describe("Display Date & Time", () => {
-    it("stringH24MinToDate()", () => {
+    it("stringH24MinToDate() Year Start", () => {
         // @ts-ignore
         const date1 = new Date(isoDateFixToSystemTimezone('2022-01-01'));
         const time1 = '23:59';
 
         const date1Result = stringH24MinToDate(date1, time1);
-        console.log(date1Result?.toString());
         expect(date1Result?.getFullYear()).toBe(2022);
         expect(date1Result?.getMonth()).toBe(0);
         expect(date1Result?.getDate()).toBe(1);
         expect(date1Result?.getHours()).toBe(23);
         expect(date1Result?.getMinutes()).toBe(59);
         expect(date1Result?.getSeconds()).toBe(0);
-
-        
-    
-        
-        
     });
 
+
+    it("stringH24MinToDate() after DST Start", () => {
+        // @ts-ignore
+        const date1 = new Date(isoDateFixToSystemTimezone('2022-03-13'));
+        const time1 = '16:00';
+
+        const date1Result = stringH24MinToDate(date1, time1);
+
+
+
+        console.log(getSystemTimezone('2022-11-05'));
+        // console.log(new Date("2022-03-13T20:00:00.000-04:00").toLocaleString());
+        // console.log(date1Result?.toString());
+        // expect(date1Result?.getFullYear()).toBe(2022);
+        // expect(date1Result?.getMonth()).toBe(2);
+        // expect(date1Result?.getDate()).toBe(13);
+        // expect(date1Result?.getHours()).toBe(1);
+        // expect(date1Result?.getMinutes()).toBe(59);
+        // expect(date1Result?.getSeconds()).toBe(0);
+    });
+
+
+    /*
+    it("stringH24MinToDate() Before DST", () => {
+        // @ts-ignore
+        const date1 = new Date(isoDateFixToSystemTimezone('2022-12-31'));
+        const time1 = '23:59';
+
+        const date1Result = stringH24MinToDate(date1, time1);
+        expect(date1Result?.getFullYear()).toBe(2022);
+        expect(date1Result?.getMonth()).toBe(11);
+        expect(date1Result?.getDate()).toBe(31);
+        expect(date1Result?.getHours()).toBe(23);
+        expect(date1Result?.getMinutes()).toBe(59);
+        expect(date1Result?.getSeconds()).toBe(0);
+    });
+*/
+
+    it("stringH24MinToDate() Year End", () => {
+        // @ts-ignore
+        const date1 = new Date(isoDateFixToSystemTimezone('2022-12-31'));
+        const time1 = '23:59';
+
+        const date1Result = stringH24MinToDate(date1, time1);
+        expect(date1Result?.getFullYear()).toBe(2022);
+        expect(date1Result?.getMonth()).toBe(11);
+        expect(date1Result?.getDate()).toBe(31);
+        expect(date1Result?.getHours()).toBe(23);
+        expect(date1Result?.getMinutes()).toBe(59);
+        expect(date1Result?.getSeconds()).toBe(0);
+    });
 });
 

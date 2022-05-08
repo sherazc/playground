@@ -299,16 +299,49 @@ export const getSystemTimezoneDep = () => {
         + padLeft(Math.abs(timezoneOffset) % 60, 2);
 }
 
-export const getSystemTimezone = (dateString?: string) => {
-    let date;
+export const isoDateToJsDate = (dateString?: string): Date | undefined => {
+    let date = undefined;
     if (dateString && DATE_REGX.test(dateString)) {
         const year = +dateString.substring(0, 4);
         const month = +dateString.substring(5, 7) - 1;
         const d = +dateString.substring(8, 10);
-        // 3am because DST applies at 2am
-        date = new Date(year, month, d, 3, 0);
-    } else {
+
+        let hours = 0;
+        let minutes = 0;
+        let seconds = 0;
+        let milliseconds = 0;
+        if (dateString.length > 12) {
+            hours = +dateString.substring(11, 13);
+        }
+
+        if (dateString.length > 15) {
+            minutes = +dateString.substring(14, 16);
+        }
+
+        if (dateString.length > 18) {
+            seconds = +dateString.substring(17, 19);
+        }
+
+        if (dateString.length > 22) {
+            milliseconds = +dateString.substring(20, 23);
+        }
+        
+        date = new Date(year, month, d, hours, minutes, seconds, milliseconds);
+    }
+
+    return date;
+}
+
+
+export const getSystemTimezone = (dateString?: string) => {
+    let date = isoDateToJsDate(dateString);
+    if (!date) {
         date = new Date();
+    }
+
+    // 3am because DST applies at 2am
+    if (date.getHours() < 3) {
+        date.setHours(3);
     }
     
     const timezoneOffset = -date.getTimezoneOffset();
