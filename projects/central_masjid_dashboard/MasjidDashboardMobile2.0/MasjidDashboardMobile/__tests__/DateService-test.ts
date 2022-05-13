@@ -172,8 +172,7 @@ describe("Expiration", () => {
 
 describe("Display Date & Time", () => {
     it("stringH24MinToDate() Year Start", () => {
-        // @ts-ignore
-        const date1 = new Date(isoDateFixToSystemTimezone('2022-01-01'));
+        const date1 = new Date(2022, 0, 1);
         const time1 = '23:59';
 
         const date1Result = stringH24MinToDate(date1, time1);
@@ -183,62 +182,82 @@ describe("Display Date & Time", () => {
         expect(date1Result?.getHours()).toBe(23);
         expect(date1Result?.getMinutes()).toBe(59);
         expect(date1Result?.getSeconds()).toBe(0);
+        expect(date1Result?.getMilliseconds()).toBe(0);
+    });
+
+
+    it("stringH24MinToDate() before DST Start", () => {
+        const date1 = new Date(2022, 2, 13);
+        const time1 = '01:00';
+        const date1Result = stringH24MinToDate(date1, time1);
+
+        expect(date1Result?.getFullYear()).toBe(2022);
+        expect(date1Result?.getMonth()).toBe(2);
+        expect(date1Result?.getDate()).toBe(13);
+        expect(date1Result?.getHours()).toBe(1);
+        expect(date1Result?.getMinutes()).toBe(0);
+        expect(date1Result?.getSeconds()).toBe(0);
+        expect(date1Result?.getMilliseconds()).toBe(0);
     });
 
 
     it("stringH24MinToDate() after DST Start", () => {
-
-        const isoDate = isoDateFixToSystemTimezone('2022-03-13');
-        // @ts-ignore
-        // const date1 = new Date(isoDate);
         const date1 = new Date(2022, 2, 13);
-        const time1 = '16:00';
-
+        const time1 = '03:00';
         const date1Result = stringH24MinToDate(date1, time1);
 
-
-
-        console.log(date1Result?.toLocaleString());
-        // console.log(getSystemTimezone('2022-03-13'));
-        // console.log(new Date("2022-03-13T20:00:00.000-04:00").toLocaleString());
-        // console.log(date1Result?.toString());
         expect(date1Result?.getFullYear()).toBe(2022);
         expect(date1Result?.getMonth()).toBe(2);
-        // expect(date1Result?.getDate()).toBe(13);
-        // expect(date1Result?.getHours()).toBe(1);
-        // expect(date1Result?.getMinutes()).toBe(59);
-        // expect(date1Result?.getSeconds()).toBe(0);
-    });
-
-
-    /*
-    it("stringH24MinToDate() Before DST", () => {
-        // @ts-ignore
-        const date1 = new Date(isoDateFixToSystemTimezone('2022-12-31'));
-        const time1 = '23:59';
-
-        const date1Result = stringH24MinToDate(date1, time1);
-        expect(date1Result?.getFullYear()).toBe(2022);
-        expect(date1Result?.getMonth()).toBe(11);
-        expect(date1Result?.getDate()).toBe(31);
-        expect(date1Result?.getHours()).toBe(23);
-        expect(date1Result?.getMinutes()).toBe(59);
+        expect(date1Result?.getDate()).toBe(13);
+        expect(date1Result?.getHours()).toBe(3);
+        expect(date1Result?.getMinutes()).toBe(0);
         expect(date1Result?.getSeconds()).toBe(0);
+        expect(date1Result?.getMilliseconds()).toBe(0);
     });
-*/
+
+
+    it("stringH24MinToDate() before DST End", () => {
+        const date1 = new Date(2022, 10, 6);
+        const time1 = '01:00';
+        const date1Result = stringH24MinToDate(date1, time1);
+
+        expect(date1Result?.getFullYear()).toBe(2022);
+        expect(date1Result?.getMonth()).toBe(10);
+        expect(date1Result?.getDate()).toBe(6);
+        expect(date1Result?.getHours()).toBe(1);
+        expect(date1Result?.getMinutes()).toBe(0);
+        expect(date1Result?.getSeconds()).toBe(0);
+        expect(date1Result?.getMilliseconds()).toBe(0);
+    });
+
+
+    it("stringH24MinToDate() after DST End", () => {
+        const date1 = new Date(2022, 10, 6);
+        const time1 = '03:00';
+        const date1Result = stringH24MinToDate(date1, time1);
+
+        expect(date1Result?.getFullYear()).toBe(2022);
+        expect(date1Result?.getMonth()).toBe(10);
+        expect(date1Result?.getDate()).toBe(6);
+        expect(date1Result?.getHours()).toBe(3);
+        expect(date1Result?.getMinutes()).toBe(0);
+        expect(date1Result?.getSeconds()).toBe(0);
+        expect(date1Result?.getMilliseconds()).toBe(0);
+    });
+
 
     it("stringH24MinToDate() Year End", () => {
-        // @ts-ignore
-        const date1 = new Date(isoDateFixToSystemTimezone('2022-12-31'));
+        const date1 = new Date(2022, 11, 31);
         const time1 = '23:59';
-
         const date1Result = stringH24MinToDate(date1, time1);
+
         expect(date1Result?.getFullYear()).toBe(2022);
         expect(date1Result?.getMonth()).toBe(11);
         expect(date1Result?.getDate()).toBe(31);
         expect(date1Result?.getHours()).toBe(23);
         expect(date1Result?.getMinutes()).toBe(59);
         expect(date1Result?.getSeconds()).toBe(0);
+        expect(date1Result?.getMilliseconds()).toBe(0);
     });
 });
 

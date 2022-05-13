@@ -404,17 +404,17 @@ export const getTodaysDate = (): number => getCurrentSystemDate().getDate();
 export const getTodaysMonth = (): number => getCurrentSystemDate().getMonth() + 1;
 
 
-refactor it and test it using new Date(2022, 2, 13); constructor date
+// refactor it and test it using new Date(2022, 2, 13); constructor date
 export const stringH24MinToDate = (date: (Date | undefined), time?: string): (Date | undefined) => {
     if (!date || !time || !TIME_24_REGX.test(time)) {
         return;
     }
-
-    const isoDateString = `${getSystemTimezoneDateIsoString(date).substring(0, 10)}T${time.substring(0, 5)}:00.000`;
-    const isoDateStringTimezone = isoDateFixToSystemTimezone(isoDateString);
-
-    // @ts-ignore
-    return new Date(isoDateStringTimezone);
+    
+    const resultDate = new Date(date.getTime());
+    const timeSplit = time.split(':');
+    resultDate.setHours(+timeSplit[0])
+    resultDate.setMinutes(+timeSplit[1])
+    return resultDate;
 }
 
 
