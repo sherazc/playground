@@ -421,12 +421,15 @@ export const stringH24MinToDate = (date: (Date | undefined), time?: string): (Da
 export class MdDate {
     private _isoDate?:string = "";
     private _jsDate?: Date;
+    private _isValid = false;
 
-    constructor(isoDate?:string) {
-        
-        this._isoDate = isoDateFixToSystemTimezone(isoDate);
-        if (this._isoDate) {
-            this._jsDate = new Date(this._isoDate);
+    constructor(isoDate?:string | null) {
+        if (isoDate && isoDate != null) {
+            this._isValid = DATE_TIME_REGX.test(isoDate);
+            if (this._isValid) {
+                this._isoDate = isoDateFixToSystemTimezone(isoDate);
+                this._jsDate = isoDateToJsDate(isoDate)
+            }
         }
     }
 
@@ -436,6 +439,10 @@ export class MdDate {
     
     get jsDate() {
         return this._jsDate;
+    }
+
+    get isValid() {
+        return this._isValid;
     }
 
     toString() {
