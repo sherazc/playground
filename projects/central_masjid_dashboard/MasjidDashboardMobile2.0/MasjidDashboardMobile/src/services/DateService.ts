@@ -1,5 +1,5 @@
 import { Constants } from './Constants';
-import { isNotBlankString, numberTo2DigitsString, subStringToNumber } from './Utilities';
+import { isNotBlankString, numberNaNToZero, numberTo2DigitsString } from './Utilities';
 import { PrayerTime } from '../types/types';
 
 export const TIME_24_REGX = /([01]?[0-9]|2[0-3]):[0-5][0-9].*/;
@@ -289,31 +289,31 @@ const padLeft = (input: (number | string), length: number, padString: string = '
 }
 
 
-export const isoDateToJsDate = (dateString?: string): Date | undefined => {
+export const isoDateToJsDate = (dateString?: string | null): Date | undefined => {
     let date = undefined;
     if (dateString && DATE_REGX.test(dateString)) {
-        const year = +dateString.substring(0, 4);
-        const month = +dateString.substring(5, 7) - 1;
-        const d = +dateString.substring(8, 10);
+        const year = numberNaNToZero(+dateString.substring(0, 4));
+        const month = numberNaNToZero(+dateString.substring(5, 7) - 1);
+        const d = numberNaNToZero(+dateString.substring(8, 10));
 
         let hours = 0;
         let minutes = 0;
         let seconds = 0;
         let milliseconds = 0;
         if (dateString.length > 12) {
-            hours = +dateString.substring(11, 13);
+            hours = numberNaNToZero(+dateString.substring(11, 13));
         }
 
         if (dateString.length > 15) {
-            minutes = +dateString.substring(14, 16);
+            minutes = numberNaNToZero(+dateString.substring(14, 16));
         }
 
         if (dateString.length > 18) {
-            seconds = +dateString.substring(17, 19);
+            seconds = numberNaNToZero(+dateString.substring(17, 19));
         }
 
         if (dateString.length > 22) {
-            milliseconds = +dateString.substring(20, 23);
+            milliseconds = numberNaNToZero(+dateString.substring(20, 23));
         }
         
         date = new Date(year, month, d, hours, minutes, seconds, milliseconds);

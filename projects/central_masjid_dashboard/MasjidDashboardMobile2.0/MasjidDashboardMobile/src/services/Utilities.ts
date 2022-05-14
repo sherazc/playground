@@ -4,8 +4,18 @@ export const isEqualStrings = (s1?: string, s2?: string): boolean => s1 !== unde
 export const isNotBlankString = (s: string): boolean => s !== undefined && s.length > 0;
 export const isBlankString = (s: string): boolean => !isNotBlankString(s);
 
-export const numberTo2DigitsString = (number: number) => {
-    return number < 10 && number > -1 ? `0${number}` : number;
+export const numberNaNToZero = (num?: number | null) : number => {
+    return (num && num != null) ? num : 0;
+};
+
+
+export const numberTo2DigitsString = (num?: number | null): string => {
+    if (num && num != null) {
+        return num < 10 && num > -1 ? `0${num}` : num + "";
+    } else {
+        return "00";
+    }
+    
 };
 
 export const subStringToNumber = (stringInput: string, fromIndex: number, toIndex: number) => {

@@ -32,7 +32,7 @@
 
 
 import { Constants } from "../src/services/Constants";
-import { isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX, createExpirationDateIso, isoDateFixToSystemTimezone, getCurrentSystemDate, createExpirationDate, getTodaysDate, getTodaysMonth, stringH24MinToDate } from "../src/services/DateService";
+import { isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX, createExpirationDateIso, isoDateFixToSystemTimezone, getCurrentSystemDate, createExpirationDate, getTodaysDate, getTodaysMonth, stringH24MinToDate, isoDateToJsDate } from "../src/services/DateService";
 
 
 describe("Compare dates", () => {
@@ -64,6 +64,114 @@ describe("Date", () => {
         expect(getTodaysMonth()).toBe(new Date().getMonth() + 1);
     });
 
+    it("isoDateToJsDate() - bad iso", () => {
+        expect(isoDateToJsDate("")).toBeUndefined();
+        expect(isoDateToJsDate()).toBeUndefined();
+        expect(isoDateToJsDate(null)).toBeUndefined();
+        expect(isoDateToJsDate("bad")).toBeUndefined();
+        expect(isoDateToJsDate("2022-1-01T01:01")).toBeUndefined();
+        expect(isoDateToJsDate(new Date().toLocaleDateString())).toBeUndefined();
+    });
+
+    it("isoDateToJsDate() - iso date", () => {
+        let date = isoDateToJsDate("2022-01-01");
+        expect(date?.getFullYear()).toBe(2022);
+        expect(date?.getMonth()).toBe(0);
+        expect(date?.getDate()).toBe(1);
+        expect(date?.getHours()).toBe(0);
+        expect(date?.getMinutes()).toBe(0);
+        expect(date?.getSeconds()).toBe(0);
+        expect(date?.getMilliseconds()).toBe(0);
+        // will only work in EST env
+        // expect(date?.getTimezoneOffset()).toBe(300);
+    });
+
+    it("isoDateToJsDate() - iso date time", () => {
+        let date = isoDateToJsDate("2022-01-01T01:01");
+        expect(date?.getFullYear()).toBe(2022);
+        expect(date?.getMonth()).toBe(0);
+        expect(date?.getDate()).toBe(1);
+        expect(date?.getHours()).toBe(1);
+        expect(date?.getMinutes()).toBe(1);
+        expect(date?.getSeconds()).toBe(0);
+        expect(date?.getMilliseconds()).toBe(0);
+    });
+
+    it("isoDateToJsDate() - iso date time seconds", () => {
+        let date1 = isoDateToJsDate("2022-03-12T23:59:59");
+        expect(date1?.getFullYear()).toBe(2022);
+        expect(date1?.getMonth()).toBe(2);
+        expect(date1?.getDate()).toBe(12);
+        expect(date1?.getHours()).toBe(23);
+        expect(date1?.getMinutes()).toBe(59);
+        expect(date1?.getSeconds()).toBe(59);
+        expect(date1?.getMilliseconds()).toBe(0);
+
+        let date2 = isoDateToJsDate("2022-03-13T03:03:01");
+        expect(date2?.getFullYear()).toBe(2022);
+        expect(date2?.getMonth()).toBe(2);
+        expect(date2?.getDate()).toBe(13);
+        expect(date2?.getHours()).toBe(3);
+        expect(date2?.getMinutes()).toBe(3);
+        expect(date2?.getSeconds()).toBe(1);
+        expect(date2?.getMilliseconds()).toBe(0);
+
+        let date3 = isoDateToJsDate("2022-11-15T23:59:59");
+        expect(date3?.getFullYear()).toBe(2022);
+        expect(date3?.getMonth()).toBe(10);
+        expect(date3?.getDate()).toBe(15);
+        expect(date3?.getHours()).toBe(23);
+        expect(date3?.getMinutes()).toBe(59);
+        expect(date3?.getSeconds()).toBe(59);
+        expect(date3?.getMilliseconds()).toBe(0);
+
+        let date4 = isoDateToJsDate("2022-11-16T03:03:01");
+        expect(date4?.getFullYear()).toBe(2022);
+        expect(date4?.getMonth()).toBe(10);
+        expect(date4?.getDate()).toBe(16);
+        expect(date4?.getHours()).toBe(3);
+        expect(date4?.getMinutes()).toBe(3);
+        expect(date4?.getSeconds()).toBe(1);
+        expect(date4?.getMilliseconds()).toBe(0);
+    });
+
+    it("isoDateToJsDate() - iso date time seconds time zone", () => {
+        let date1 = isoDateToJsDate("2022-03-12T23:59:59Z");
+        expect(date1?.getFullYear()).toBe(2022);
+        expect(date1?.getMonth()).toBe(2);
+        expect(date1?.getDate()).toBe(12);
+        expect(date1?.getHours()).toBe(23);
+        expect(date1?.getMinutes()).toBe(59);
+        expect(date1?.getSeconds()).toBe(59);
+        expect(date1?.getMilliseconds()).toBe(0);
+
+        let date2 = isoDateToJsDate("2022-03-13T03:03:01-04:00");
+        expect(date2?.getFullYear()).toBe(2022);
+        expect(date2?.getMonth()).toBe(2);
+        expect(date2?.getDate()).toBe(13);
+        expect(date2?.getHours()).toBe(3);
+        expect(date2?.getMinutes()).toBe(3);
+        expect(date2?.getSeconds()).toBe(1);
+        expect(date2?.getMilliseconds()).toBe(0);
+
+        let date3 = isoDateToJsDate("2022-11-15T23:59:59.123+07:00");
+        expect(date3?.getFullYear()).toBe(2022);
+        expect(date3?.getMonth()).toBe(10);
+        expect(date3?.getDate()).toBe(15);
+        expect(date3?.getHours()).toBe(23);
+        expect(date3?.getMinutes()).toBe(59);
+        expect(date3?.getSeconds()).toBe(59);
+        expect(date3?.getMilliseconds()).toBe(123);
+
+        let date4 = isoDateToJsDate("2022-11-16T03:03:01");
+        expect(date4?.getFullYear()).toBe(2022);
+        expect(date4?.getMonth()).toBe(10);
+        expect(date4?.getDate()).toBe(16);
+        expect(date4?.getHours()).toBe(3);
+        expect(date4?.getMinutes()).toBe(3);
+        expect(date4?.getSeconds()).toBe(1);
+        expect(date4?.getMilliseconds()).toBe(0);
+    });
 });
 
 
