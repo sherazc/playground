@@ -451,10 +451,10 @@ export class MdDate {
 }
 
 
-export const parseObjectsIsoDateToMdDate = (obj: any) => {
+export const parseObjectsIsoDateToMdDate = (obj?: any ) => {
     const isDateKey = (key: string) => {
         return isNotBlankString(key)
-            && key.toLowerCase().endsWith("date");
+            && key.toLowerCase().includes("date");
     }
     
     const isDateValue = (value: string) => {

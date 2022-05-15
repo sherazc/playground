@@ -12,6 +12,7 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "runtimeExecutable": "/opt/homebrew/bin/node",
       "name": "Debug Jest Tests",
       "type": "node",
       "request": "launch",
@@ -32,7 +33,7 @@
 
 
 import { Constants } from "../src/services/Constants";
-import { isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX, createExpirationDateIso, isoDateFixToSystemTimezone, getCurrentSystemDate, createExpirationDate, getTodaysDate, getTodaysMonth, stringH24MinToDate, isoDateToJsDate, MdDate } from "../src/services/DateService";
+import { isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX, createExpirationDateIso, isoDateFixToSystemTimezone, getCurrentSystemDate, createExpirationDate, getTodaysDate, getTodaysMonth, stringH24MinToDate, isoDateToJsDate, MdDate, parseObjectsIsoDateToMdDate } from "../src/services/DateService";
 
 
 describe("MdDate", () => {
@@ -394,3 +395,64 @@ describe("Display Date & Time", () => {
     });
 });
 
+
+
+describe("parseObjectsIsoDateToMdDate", () => {
+    it("parseObjectsIsoDateToMdDate - Parse bad object", () => {
+        let a = undefined;
+        parseObjectsIsoDateToMdDate(a);
+        expect(a).toBeUndefined();
+
+        let b = "abc";
+        parseObjectsIsoDateToMdDate(b);
+        expect(b).toBe("abc");
+
+        let c = 100;
+        parseObjectsIsoDateToMdDate(c);
+        expect(c).toBe(100);
+
+        let d = {};
+        const dKeyCount = Object.keys(d).length
+        parseObjectsIsoDateToMdDate(d);
+        expect(dKeyCount).toBe(Object.keys(d).length);
+
+        let e = [0];
+        parseObjectsIsoDateToMdDate(e);
+        expect(dKeyCount).toBe(Object.keys(d).length);
+    });
+
+
+    it("parseObjectsIsoDateToMdDate - Parse object", () => {
+        const sampleIsoDate = "2012-12-12T12:12:12.120Z";
+        const employee = {
+            name: "Sheraz",
+            dob: sampleIsoDate,
+            hireDate: sampleIsoDate,
+            lastDateAccess: sampleIsoDate,
+            dateUpdate: sampleIsoDate,
+        };
+
+        parseObjectsIsoDateToMdDate(employee);
+        expect(employee.dob).toBe(sampleIsoDate);
+        expect(employee.hireDate).toBeInstanceOf(MdDate);
+        expect(employee.lastDateAccess).toBeInstanceOf(MdDate);
+        expect(employee.dateUpdate).toBeInstanceOf(MdDate);
+    });
+
+    it("parseObjectsIsoDateToMdDate - Parse array", () => {
+        const sampleIsoDate = "2012-12-12T12:12:12.120Z";
+        const employees = [{
+            name: "Sheraz",
+            dob: sampleIsoDate,
+            hireDate: sampleIsoDate,
+            lastDateAccess: sampleIsoDate,
+            dateUpdate: sampleIsoDate,
+        }];
+
+        parseObjectsIsoDateToMdDate(employees);
+        expect(employees[0].dob).toBe(sampleIsoDate);
+        expect(employees[0].hireDate).toBeInstanceOf(MdDate);
+        expect(employees[0].lastDateAccess).toBeInstanceOf(MdDate);
+        expect(employees[0].dateUpdate).toBeInstanceOf(MdDate);
+    });
+});
