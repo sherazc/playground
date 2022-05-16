@@ -81,36 +81,43 @@ export const dateFromISO = (isoDateString?: string): (Date | undefined) => {
 */
 
 
-export const dateToDisplayDateShort = (date: Date) => {
-    if (!date) {
+export const dateToDisplayDateShort = (date?: Date | null) => {
+    if (!date || isNaN(date.getTime())) {
         return "";
     }
-    const d = date instanceof Date ? date : new Date(date);
-    if (isNaN(d.getTime())) { // if not valid date
-        return date;
-    }
-    return `${d.getUTCMonth() + 1}/${d.getUTCDate()}`;
+    return `${date.getMonth() + 1}/${date.getDate()}`;
 };
 
-export const time24To12 = (time24?: string) => {
+
+export const time24To12 = (time24?: string | null) => {
     if (!time24) {
         return "";
     }
 
     if (!TIME_24_REGX.test(time24)) {
+        // incase of custom string
         return time24;
     }
 
     const hoursMinutes = time24.split(":");
     const hours24 = Number.parseInt(hoursMinutes[0]);
-    const hours12 = hours24 > 12 ? hours24 % 12 : hours24;
+    let hours12 = hours24 > 12 ? hours24 % 12 : hours24;
+    if (hours24  === 0) {
+        hours12 = 12;
+    } else if (hours24 > 12) {
+        hours12 = hours24 % 12;
+    } else {
+        hours12 = hours24;
+    }
+
     const minutes = Number.parseInt(hoursMinutes[1]);
     const amPm = hours24 > 11 ? "pm" : "am";
 
     return `${hours12}:${numberTo2DigitsString(minutes)}${amPm}`;
 };
 
-export const dateToTime12h = (d: Date | undefined) => {
+start here
+export const dateToTime12h = (d?: Date | null) => {
     if (!d) {
         return "";
     }

@@ -33,7 +33,7 @@
 
 
 import { Constants } from "../src/services/Constants";
-import { isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX, createExpirationDateIso, isoDateFixToSystemTimezone, getCurrentSystemDate, createExpirationDate, getTodaysDate, getTodaysMonth, stringH24MinToDate, isoDateToJsDate, MdDate, parseObjectsIsoDateToMdDate } from "../src/services/DateService";
+import { isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX, createExpirationDateIso, isoDateFixToSystemTimezone, getCurrentSystemDate, createExpirationDate, getTodaysDate, getTodaysMonth, stringH24MinToDate, isoDateToJsDate, MdDate, parseObjectsIsoDateToMdDate, dateToDisplayDateShort, time24To12 } from "../src/services/DateService";
 
 
 describe("MdDate", () => {
@@ -305,6 +305,47 @@ describe("Expiration", () => {
 
 
 describe("Display Date & Time", () => {
+    it("dateToDisplayDateShort()", () => {
+        expect(dateToDisplayDateShort()).toBe("");
+        expect(dateToDisplayDateShort(null)).toBe("");
+        expect(dateToDisplayDateShort(new Date("abc"))).toBe("");
+        expect(dateToDisplayDateShort(new Date(2022, 2, 12))).toBe("3/12");
+        expect(dateToDisplayDateShort(new Date(2022, 2, 13))).toBe("3/13");
+        expect(dateToDisplayDateShort(new Date(2022, 10, 15, 23, 59))).toBe("11/15");
+        expect(dateToDisplayDateShort(new Date(2022, 10, 16, 3, 0))).toBe("11/16");
+    });
+
+
+    it("time24To12()", () => {
+        expect(time24To12()).toBe("");
+        expect(time24To12(null)).toBe("");
+        expect(time24To12("")).toBe("");
+        expect(time24To12("abc")).toBe("abc");
+        expect(time24To12("23:59")).toBe("11:59pm");
+        expect(time24To12("00:00")).toBe("12:00am");
+        expect(time24To12("01:00")).toBe("1:00am");
+        expect(time24To12("11:00")).toBe("11:00am");
+        expect(time24To12("12:00")).toBe("12:00pm");
+        expect(time24To12("01:00")).toBe("1:00pm");
+        
+    });
+
+
+    it("dateToTime12h()", () => {
+        expect(time24To12()).toBe("");
+        expect(time24To12(null)).toBe("");
+        expect(time24To12("")).toBe("");
+        expect(time24To12("abc")).toBe("abc");
+        expect(time24To12("23:59")).toBe("11:59pm");
+        expect(time24To12("00:00")).toBe("12:00am");
+        expect(time24To12("01:00")).toBe("1:00am");
+        expect(time24To12("11:00")).toBe("11:00am");
+        expect(time24To12("12:00")).toBe("12:00pm");
+        expect(time24To12("01:00")).toBe("1:00pm");
+        
+    });
+
+
     it("stringH24MinToDate() Year Start", () => {
         const date1 = new Date(2022, 0, 1);
         const time1 = '23:59';
