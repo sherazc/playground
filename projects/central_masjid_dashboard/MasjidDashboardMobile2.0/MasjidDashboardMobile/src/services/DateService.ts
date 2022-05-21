@@ -471,10 +471,15 @@ export const addDays = (date?: (Date | undefined | null), days?: (number | undef
     return calculatedDate;
 }
 
-export const addMinutes = (date: (Date | undefined), minutes?: number) => {
-    if (!date || !minutes) {
+export const addMinutes = (date?: (Date | undefined | null), minutes?: (number | undefined | null)) => {
+    if (!date) {
         return;
     }
+
+    if(!minutes) {
+        return date;
+    }
+
     const calculatedDate = new Date(date.getTime());
     calculatedDate.setUTCMinutes(date.getUTCMinutes() + minutes);
     return calculatedDate;

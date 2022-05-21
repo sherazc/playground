@@ -33,7 +33,7 @@
 
 
 import { Constants } from "../src/services/Constants";
-import { isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX, createExpirationDateIso, isoDateFixToSystemTimezone, getCurrentSystemDate, createExpirationDate, getTodaysDate, getTodaysMonth, stringH24MinToDate, isoDateToJsDate, MdDate, parseObjectsIsoDateToMdDate, dateToDisplayDateShort, time24To12, dateToTime12h, addDays } from "../src/services/DateService";
+import { isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX, createExpirationDateIso, isoDateFixToSystemTimezone, getCurrentSystemDate, createExpirationDate, getTodaysDate, getTodaysMonth, stringH24MinToDate, isoDateToJsDate, MdDate, parseObjectsIsoDateToMdDate, dateToDisplayDateShort, time24To12, dateToTime12h, addDays, addMinutes } from "../src/services/DateService";
 
 
 describe("MdDate", () => {
@@ -509,5 +509,17 @@ describe("Date Calculation", () => {
         expect(addDays(new Date(2022, 0, 1), 0)?.getDate()).toBe(1);
         expect(addDays(new Date(2022, 0, 1), 1)?.getDate()).toBe(2);
         expect(addDays(new Date(2022, 0, 1), -1)?.getDate()).toBe(31);
+    });
+
+    it("addMinutes()", () => {
+        expect(addMinutes()?.getDate()).toBeUndefined();
+        expect(addMinutes(undefined)?.getDate()).toBeUndefined();
+        expect(addMinutes(undefined, undefined)?.getDate()).toBeUndefined();
+        expect(addMinutes(null)?.getDate()).toBeUndefined();
+        expect(addMinutes(null, null)?.getDate()).toBeUndefined();
+        expect(addMinutes(new Date(2022, 0, 1, 0, 0))?.getMinutes()).toBe(0);
+        expect(addMinutes(new Date(2022, 0, 1, 0, 0), 0)?.getMinutes()).toBe(0);
+        expect(addMinutes(new Date(2022, 0, 1, 0, 0), 1)?.getMinutes()).toBe(1);
+        expect(addMinutes(new Date(2022, 0, 1, 0, 0), -1)?.getMinutes()).toBe(59);
     });
 });
