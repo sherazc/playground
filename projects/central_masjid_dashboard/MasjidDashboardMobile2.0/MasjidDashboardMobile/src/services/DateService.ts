@@ -423,6 +423,8 @@ export const time24To12 = (time24?: string | null) => {
         return "";
     }
 
+    time24 = time24.trim();
+    
     if (!TIME_24_REGX.test(time24)) {
         // incase of custom string
         return time24;
@@ -471,6 +473,7 @@ export const addDays = (date?: (Date | undefined | null), days?: (number | undef
     return calculatedDate;
 }
 
+
 export const addMinutes = (date?: (Date | undefined | null), minutes?: (number | undefined | null)) => {
     if (!date) {
         return;
@@ -485,9 +488,19 @@ export const addMinutes = (date?: (Date | undefined | null), minutes?: (number |
     return calculatedDate;
 }
 
-export const addMinutesToTime = (time: string, minutes: number): (string | undefined) => {
+
+export const addMinutesTo24hTime = (time?: (string| undefined | null), minutes?: (number | undefined | null)): (string | undefined) => {
+    if (!time) {
+        return;
+    }
+    time = time.trim();
+
     if (!TIME_24_REGX.test(time)) {
         return;
+    }
+
+    if (!minutes) {
+        return time;
     }
 
     const timeSplit = time.split(':');

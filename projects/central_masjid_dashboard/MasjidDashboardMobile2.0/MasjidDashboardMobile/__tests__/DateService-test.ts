@@ -33,7 +33,7 @@
 
 
 import { Constants } from "../src/services/Constants";
-import { isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX, createExpirationDateIso, isoDateFixToSystemTimezone, getCurrentSystemDate, createExpirationDate, getTodaysDate, getTodaysMonth, stringH24MinToDate, isoDateToJsDate, MdDate, parseObjectsIsoDateToMdDate, dateToDisplayDateShort, time24To12, dateToTime12h, addDays, addMinutes } from "../src/services/DateService";
+import { isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX, createExpirationDateIso, isoDateFixToSystemTimezone, getCurrentSystemDate, createExpirationDate, getTodaysDate, getTodaysMonth, stringH24MinToDate, isoDateToJsDate, MdDate, parseObjectsIsoDateToMdDate, dateToDisplayDateShort, time24To12, dateToTime12h, addDays, addMinutes, addMinutesTo24hTime } from "../src/services/DateService";
 
 
 describe("MdDate", () => {
@@ -496,7 +496,6 @@ describe("parseObjectsIsoDateToMdDate", () => {
 });
 
 
-
 describe("Date Calculation", () => {
     it("addDays()", () => {
         expect(addDays()?.getDate()).toBeUndefined();
@@ -521,5 +520,17 @@ describe("Date Calculation", () => {
         expect(addMinutes(new Date(2022, 0, 1, 0, 0), 0)?.getMinutes()).toBe(0);
         expect(addMinutes(new Date(2022, 0, 1, 0, 0), 1)?.getMinutes()).toBe(1);
         expect(addMinutes(new Date(2022, 0, 1, 0, 0), -1)?.getMinutes()).toBe(59);
+    });
+
+    it("addMinutesToTime()", () => {
+        expect(addMinutesTo24hTime()).toBeUndefined();
+        expect(addMinutesTo24hTime(undefined)).toBeUndefined();
+        expect(addMinutesTo24hTime(undefined, undefined)).toBeUndefined();
+        expect(addMinutesTo24hTime(null)).toBeUndefined();
+        expect(addMinutesTo24hTime(null, null)).toBeUndefined();
+        expect(addMinutesTo24hTime("abc", 1)).toBeUndefined();
+        expect(addMinutesTo24hTime("\n\r 00:00 \n\r", 1)).toBe("00:01");
+        expect(addMinutesTo24hTime("00:00", 1)).toBe("00:01");
+        expect(addMinutesTo24hTime("00:00", -1)).toBe("23:59");
     });
 });
