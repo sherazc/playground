@@ -33,7 +33,7 @@
 
 
 import { Constants } from "../src/services/Constants";
-import { isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX, createExpirationDateIso, isoDateFixToSystemTimezone, getCurrentSystemDate, createExpirationDate, getTodaysDate, getTodaysMonth, stringH24MinToDate, isoDateToJsDate, MdDate, parseObjectsIsoDateToMdDate, dateToDisplayDateShort, time24To12 } from "../src/services/DateService";
+import { isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX, createExpirationDateIso, isoDateFixToSystemTimezone, getCurrentSystemDate, createExpirationDate, getTodaysDate, getTodaysMonth, stringH24MinToDate, isoDateToJsDate, MdDate, parseObjectsIsoDateToMdDate, dateToDisplayDateShort, time24To12, dateToTime12h } from "../src/services/DateService";
 
 
 describe("MdDate", () => {
@@ -326,23 +326,20 @@ describe("Display Date & Time", () => {
         expect(time24To12("01:00")).toBe("1:00am");
         expect(time24To12("11:00")).toBe("11:00am");
         expect(time24To12("12:00")).toBe("12:00pm");
-        expect(time24To12("01:00")).toBe("1:00pm");
+        expect(time24To12("01:00")).toBe("1:00am");
         
     });
 
 
     it("dateToTime12h()", () => {
-        expect(time24To12()).toBe("");
-        expect(time24To12(null)).toBe("");
-        expect(time24To12("")).toBe("");
-        expect(time24To12("abc")).toBe("abc");
-        expect(time24To12("23:59")).toBe("11:59pm");
-        expect(time24To12("00:00")).toBe("12:00am");
-        expect(time24To12("01:00")).toBe("1:00am");
-        expect(time24To12("11:00")).toBe("11:00am");
-        expect(time24To12("12:00")).toBe("12:00pm");
-        expect(time24To12("01:00")).toBe("1:00pm");
-        
+        expect(dateToTime12h()).toBe("");
+        expect(dateToTime12h(null)).toBe("");
+        expect(dateToTime12h(new Date(""))).toBe("");
+        expect(dateToTime12h(new Date(2022, 0, 1))).toBe("12:00am");
+        expect(dateToTime12h(new Date(2022, 0, 1, 23, 59))).toBe("11:59pm");
+        expect(dateToTime12h(new Date(2022, 0, 1, 0, 0))).toBe("12:00am");
+        expect(dateToTime12h(new Date(2022, 0, 1, 1, 0))).toBe("1:00am");
+        expect(dateToTime12h(new Date(2022, 0, 1, 12, 0))).toBe("12:00pm");
     });
 
 

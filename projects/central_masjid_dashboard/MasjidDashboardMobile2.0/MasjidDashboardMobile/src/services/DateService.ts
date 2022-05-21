@@ -80,52 +80,6 @@ export const dateFromISO = (isoDateString?: string): (Date | undefined) => {
 };
 */
 
-
-export const dateToDisplayDateShort = (date?: Date | null) => {
-    if (!date || isNaN(date.getTime())) {
-        return "";
-    }
-    return `${date.getMonth() + 1}/${date.getDate()}`;
-};
-
-
-export const time24To12 = (time24?: string | null) => {
-    if (!time24) {
-        return "";
-    }
-
-    if (!TIME_24_REGX.test(time24)) {
-        // incase of custom string
-        return time24;
-    }
-
-    const hoursMinutes = time24.split(":");
-    const hours24 = Number.parseInt(hoursMinutes[0]);
-    let hours12 = hours24 > 12 ? hours24 % 12 : hours24;
-    if (hours24  === 0) {
-        hours12 = 12;
-    } else if (hours24 > 12) {
-        hours12 = hours24 % 12;
-    } else {
-        hours12 = hours24;
-    }
-
-    const minutes = Number.parseInt(hoursMinutes[1]);
-    const amPm = hours24 > 11 ? "pm" : "am";
-
-    return `${hours12}:${numberTo2DigitsString(minutes)}${amPm}`;
-};
-
-start here
-export const dateToTime12h = (d?: Date | null) => {
-    if (!d) {
-        return "";
-    }
-    const dateIso = d.toISOString();
-    return time24To12(dateIso.substring(11, 16));
-}
-
-
 export const addDays = (date: (Date | undefined), days?: number) => {
     if (!date || !days) {
         return;
@@ -187,13 +141,13 @@ export const isTimeBetweenAzans = (timeMillis: (number | undefined), prayerPerio
 }
 
 // Deprecated
-export const toISODateString = (date?: Date) => {
-    if (!date) {
-        return;
-    }
-    const isoString = date.toISOString();
-    return isoString.substring(0, 10);
-};
+// export const toISODateString = (date?: Date) => {
+//     if (!date) {
+//         return;
+//     }
+//     const isoString = date.toISOString();
+//     return isoString.substring(0, 10);
+// };
 
 
 export const dayOfTheYear = (year: number, month: number, date: number): number => {
@@ -211,10 +165,10 @@ export const dayOfTheYear = (year: number, month: number, date: number): number 
 }
 
 // Deprecated
-export const utcToLocalDate = (date: Date): Date => {
-    return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
-        date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds(), date.getUTCMilliseconds());
-}
+// export const utcToLocalDate = (date: Date): Date => {
+//     return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
+//         date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds(), date.getUTCMilliseconds());
+// }
 
 
 
@@ -481,4 +435,51 @@ export const parseObjectsIsoDateToMdDate = (obj?: any ) => {
             }
         }            
     }
+}
+
+
+export const dateToDisplayDateShort = (date?: Date | null) => {
+    if (!date || isNaN(date.getTime())) {
+        return "";
+    }
+    return `${date.getMonth() + 1}/${date.getDate()}`;
+};
+
+
+
+export const time24To12 = (time24?: string | null) => {
+    if (!time24) {
+        return "";
+    }
+
+    if (!TIME_24_REGX.test(time24)) {
+        // incase of custom string
+        return time24;
+    }
+
+    const hoursMinutes = time24.split(":");
+    const hours24 = Number.parseInt(hoursMinutes[0]);
+    let hours12 = hours24 > 12 ? hours24 % 12 : hours24;
+    if (hours24  === 0) {
+        hours12 = 12;
+    } else if (hours24 > 12) {
+        hours12 = hours24 % 12;
+    } else {
+        hours12 = hours24;
+    }
+
+    const minutes = Number.parseInt(hoursMinutes[1]);
+    const amPm = hours24 > 11 ? "pm" : "am";
+
+    return `${hours12}:${numberTo2DigitsString(minutes)}${amPm}`;
+};
+
+
+export const dateToTime12h = (date?: Date | null) => {
+    if (!date || isNaN(date.getTime())) {
+        return "";
+    }
+    
+    const dateIso = getSystemTimezoneDateIsoString(date);
+    return time24To12(dateIso.substring(11, 16));
 }
