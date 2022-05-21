@@ -33,13 +33,14 @@
 
 
 import { Constants } from "../src/services/Constants";
-import { 
-    isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX, 
-    createExpirationDateIso, isoDateFixToSystemTimezone, getCurrentSystemDate, 
-    createExpirationDate, getTodaysDate, getTodaysMonth, stringH24MinToDate, 
-    isoDateToJsDate, MdDate, parseObjectsIsoDateToMdDate, dateToDisplayDateShort, 
-    time24To12, dateToTime12h, addDays, addMinutes, addMinutesTo24hTime, millisecondDurationToMinSecTime, 
-    dayOfTheYear 
+import {
+    isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX,
+    createExpirationDateIso, isoDateFixToSystemTimezone, getCurrentSystemDate,
+    createExpirationDate, getTodaysDate, getTodaysMonth, stringH24MinToDate,
+    isoDateToJsDate, MdDate, parseObjectsIsoDateToMdDate, dateToDisplayDateShort,
+    time24To12, dateToTime12h, addDays, addMinutes, addMinutesTo24hTime, millisecondDurationToMinSecTime,
+    dayOfTheYear,
+    isTimeBetweenAzans
 } from "../src/services/DateService";
 
 
@@ -68,12 +69,58 @@ describe("MdDate", () => {
 
 
 describe("Compare dates", () => {
-    it("isSameMonthDate", () => {
+    it("isSameMonthDate()", () => {
         expect(isSameMonthDate()).toBe(false);
         expect(isSameMonthDate(1)).toBe(false);
         expect(isSameMonthDate(1, 1)).toBe(false);
         expect(isSameMonthDate(1, 1, 1)).toBe(false);
         expect(isSameMonthDate(1, 1, 1, 1)).toBe(true);
+    });
+
+    // Move isTimeBetweenAzans() it out of this file
+    it("isTimeBetweenAzans()", () => {
+        expect(isTimeBetweenAzans()).toBe(false);
+        expect(isTimeBetweenAzans(null)).toBe(false);
+        expect(isTimeBetweenAzans(null, null)).toBe(false);
+        expect(isTimeBetweenAzans(undefined, null)).toBe(false);
+        expect(isTimeBetweenAzans(null, undefined)).toBe(false);
+        expect(isTimeBetweenAzans(1, undefined)).toBe(false);
+        expect(isTimeBetweenAzans(1, [])).toBe(false);
+
+
+        expect(isTimeBetweenAzans(
+            new Date(2).getTime(), // current time
+            [
+                {
+                    azan: new Date(1), // Azan Before
+                    iqamah: new Date(),
+                    name: ""
+                },
+                {
+                    azan: new Date(3), // Azan After
+                    iqamah: new Date(),
+                    name: ""
+                }
+
+            ])
+        ).toBe(true);
+
+        expect(isTimeBetweenAzans(
+            new Date(3).getTime(), // current time
+            [
+                {
+                    azan: new Date(1), // Azan Before
+                    iqamah: new Date(),
+                    name: ""
+                },
+                {
+                    azan: new Date(2), // Azan After
+                    iqamah: new Date(),
+                    name: ""
+                }
+
+            ])
+        ).toBe(false);
     });
 });
 

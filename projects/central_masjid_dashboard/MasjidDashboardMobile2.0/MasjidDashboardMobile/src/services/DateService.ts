@@ -81,15 +81,6 @@ export const dateFromISO = (isoDateString?: string): (Date | undefined) => {
 */
 
 
-export const isTimeBetweenAzans = (timeMillis: (number | undefined), prayerPeriod?: PrayerTime[]) => {
-    if (!timeMillis || !prayerPeriod || prayerPeriod.length != 2
-        || !prayerPeriod[0].azan || !prayerPeriod[1].azan) {
-        return false;
-    }
-
-    return timeMillis > prayerPeriod[0].azan.getTime()
-        && timeMillis < prayerPeriod[1].azan.getTime()
-}
 
 // Deprecated
 // export const toISODateString = (date?: Date) => {
@@ -106,17 +97,6 @@ export const isTimeBetweenAzans = (timeMillis: (number | undefined), prayerPerio
 //     return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
 //         date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds(), date.getUTCMilliseconds());
 // }
-
-
-
-
-
-export const isSameMonthDate = (d1Month?: number, d1Date?: number, d2Month?: number, d2Date?: number): boolean => {
-    return d1Month !== undefined && d2Month !== undefined
-        && d1Date !== undefined && d2Date !== undefined
-        && d1Month === d2Month
-        && d1Date === d2Date;
-}
 
 
 
@@ -499,4 +479,26 @@ export const dayOfTheYear = (year: number, month: number, date: number): number 
     const oneDayMilliseconds = 1000 * 60 * 60 * 24;
 
     return Math.floor(diffMilliseconds / oneDayMilliseconds);
+}
+
+
+export const isSameMonthDate = (d1Month?: number, d1Date?: number, d2Month?: number, d2Date?: number): boolean => {
+    return d1Month !== undefined && d2Month !== undefined
+        && d1Date !== undefined && d2Date !== undefined
+        && d1Month === d2Month
+        && d1Date === d2Date;
+}
+
+
+// Move isTimeBetweenAzans() it out of this file
+export const isTimeBetweenAzans = (timeMilliseconds?: (number | null), prayerPeriod?: (PrayerTime[] | null)): boolean => {
+    if (!timeMilliseconds || !prayerPeriod || prayerPeriod.length != 2
+        || !prayerPeriod[0].azan || !prayerPeriod[1].azan) {
+        return false;
+    }
+
+    return !isNaN(prayerPeriod[0].azan.getTime())
+        && !isNaN(prayerPeriod[1].azan.getTime())
+        && timeMilliseconds > prayerPeriod[0].azan.getTime()
+        && timeMilliseconds < prayerPeriod[1].azan.getTime()
 }
