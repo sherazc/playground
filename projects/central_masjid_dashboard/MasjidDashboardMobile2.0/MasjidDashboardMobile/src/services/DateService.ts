@@ -80,35 +80,6 @@ export const dateFromISO = (isoDateString?: string): (Date | undefined) => {
 };
 */
 
-export const addDays = (date: (Date | undefined), days?: number) => {
-    if (!date || !days) {
-        return;
-    }
-    const calculatedDate = new Date(date.getTime());
-    calculatedDate.setUTCDate(date.getUTCDate() + days);
-    return calculatedDate;
-}
-
-export const addMinutes = (date: (Date | undefined), minutes?: number) => {
-    if (!date || !minutes) {
-        return;
-    }
-    const calculatedDate = new Date(date.getTime());
-    calculatedDate.setUTCMinutes(date.getUTCMinutes() + minutes);
-    return calculatedDate;
-}
-
-export const addMinutesToTime = (time: string, minutes: number): (string | undefined) => {
-    if (!TIME_24_REGX.test(time)) {
-        return;
-    }
-
-    const timeSplit = time.split(':');
-    const date = new Date(2020, 0, 1, +timeSplit[0], +timeSplit[1], 0, 0);
-    const updatedDate = addMinutes(date, minutes);
-    return updatedDate?.toTimeString().substring(0, 5);
-}
-
 export const millisDurationToTimeString = (duration?: number) => {
     if (duration === null
         || duration === undefined || duration < 0) {
@@ -483,3 +454,40 @@ export const dateToTime12h = (date?: Date | null) => {
     const dateIso = getSystemTimezoneDateIsoString(date);
     return time24To12(dateIso.substring(11, 16));
 }
+
+
+export const addDays = (date?: (Date | undefined | null), days?: (number | undefined | null)) => {
+    if (!date) {
+        return;
+    }
+
+    if (!days) {
+        return date;
+    }
+
+
+    const calculatedDate = new Date(date.getTime());
+    calculatedDate.setUTCDate(date.getUTCDate() + days);
+    return calculatedDate;
+}
+
+export const addMinutes = (date: (Date | undefined), minutes?: number) => {
+    if (!date || !minutes) {
+        return;
+    }
+    const calculatedDate = new Date(date.getTime());
+    calculatedDate.setUTCMinutes(date.getUTCMinutes() + minutes);
+    return calculatedDate;
+}
+
+export const addMinutesToTime = (time: string, minutes: number): (string | undefined) => {
+    if (!TIME_24_REGX.test(time)) {
+        return;
+    }
+
+    const timeSplit = time.split(':');
+    const date = new Date(2020, 0, 1, +timeSplit[0], +timeSplit[1], 0, 0);
+    const updatedDate = addMinutes(date, minutes);
+    return updatedDate?.toTimeString().substring(0, 5);
+}
+

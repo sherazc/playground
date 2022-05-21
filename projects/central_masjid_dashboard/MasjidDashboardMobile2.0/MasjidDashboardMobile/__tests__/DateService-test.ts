@@ -33,7 +33,7 @@
 
 
 import { Constants } from "../src/services/Constants";
-import { isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX, createExpirationDateIso, isoDateFixToSystemTimezone, getCurrentSystemDate, createExpirationDate, getTodaysDate, getTodaysMonth, stringH24MinToDate, isoDateToJsDate, MdDate, parseObjectsIsoDateToMdDate, dateToDisplayDateShort, time24To12, dateToTime12h } from "../src/services/DateService";
+import { isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX, createExpirationDateIso, isoDateFixToSystemTimezone, getCurrentSystemDate, createExpirationDate, getTodaysDate, getTodaysMonth, stringH24MinToDate, isoDateToJsDate, MdDate, parseObjectsIsoDateToMdDate, dateToDisplayDateShort, time24To12, dateToTime12h, addDays } from "../src/services/DateService";
 
 
 describe("MdDate", () => {
@@ -492,5 +492,22 @@ describe("parseObjectsIsoDateToMdDate", () => {
         expect(employees[0].hireDate).toBeInstanceOf(MdDate);
         expect(employees[0].lastDateAccess).toBeInstanceOf(MdDate);
         expect(employees[0].dateUpdate).toBeInstanceOf(MdDate);
+    });
+});
+
+
+
+describe("Date Calculation", () => {
+    it("addDays()", () => {
+        expect(addDays()?.getDate()).toBeUndefined();
+        expect(addDays(undefined)?.getDate()).toBeUndefined();
+        expect(addDays(undefined, undefined)?.getDate()).toBeUndefined();
+        expect(addDays(null)?.getDate()).toBeUndefined();
+        expect(addDays(null, null)?.getDate()).toBeUndefined();
+        expect(addDays(new Date(2022, 0, 1))?.getDate()).toBe(1);
+
+        expect(addDays(new Date(2022, 0, 1), 0)?.getDate()).toBe(1);
+        expect(addDays(new Date(2022, 0, 1), 1)?.getDate()).toBe(2);
+        expect(addDays(new Date(2022, 0, 1), -1)?.getDate()).toBe(31);
     });
 });
