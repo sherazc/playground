@@ -101,20 +101,6 @@ export const isTimeBetweenAzans = (timeMillis: (number | undefined), prayerPerio
 // };
 
 
-export const dayOfTheYear = (year: number, month: number, date: number): number => {
-
-    const dateWithoutTime = createZeroTimeDate(new Date(year, month, date));
-    const yearStartDate = createZeroTimeDate(new Date(year, month, date));
-    yearStartDate.setMonth(0);
-    yearStartDate.setDate(0);
-
-    const diffMillis = dateWithoutTime.getTime() - yearStartDate.getTime();
-
-    const oneDayMillis = 1000 * 60 * 60 * 24;
-
-    return Math.floor(diffMillis / oneDayMillis);
-}
-
 // Deprecated
 // export const utcToLocalDate = (date: Date): Date => {
 //     return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
@@ -123,14 +109,6 @@ export const dayOfTheYear = (year: number, month: number, date: number): number 
 
 
 
-const createZeroTimeDate = (date: Date) => {
-    const d = new Date(date.getTime());
-    d.setHours(0);
-    d.setMinutes(0);
-    d.setSeconds(0);
-    d.setMilliseconds(0);
-    return date;
-}
 
 
 export const isSameMonthDate = (d1Month?: number, d1Date?: number, d2Month?: number, d2Date?: number): boolean => {
@@ -509,3 +487,16 @@ export const millisecondDurationToMinSecTime = (duration?: (number | null)) => {
     }
 }
 
+
+export const dayOfTheYear = (year: number, month: number, date: number): number => {
+    const dateWithoutTime = new Date(year, month, date);
+    const yearStartDate = new Date(year, month, date);
+    yearStartDate.setMonth(0);
+    yearStartDate.setDate(0);
+
+    const diffMilliseconds = dateWithoutTime.getTime() - yearStartDate.getTime();
+
+    const oneDayMilliseconds = 1000 * 60 * 60 * 24;
+
+    return Math.floor(diffMilliseconds / oneDayMilliseconds);
+}

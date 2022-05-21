@@ -33,7 +33,14 @@
 
 
 import { Constants } from "../src/services/Constants";
-import { isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX, createExpirationDateIso, isoDateFixToSystemTimezone, getCurrentSystemDate, createExpirationDate, getTodaysDate, getTodaysMonth, stringH24MinToDate, isoDateToJsDate, MdDate, parseObjectsIsoDateToMdDate, dateToDisplayDateShort, time24To12, dateToTime12h, addDays, addMinutes, addMinutesTo24hTime, millisecondDurationToMinSecTime } from "../src/services/DateService";
+import { 
+    isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX, 
+    createExpirationDateIso, isoDateFixToSystemTimezone, getCurrentSystemDate, 
+    createExpirationDate, getTodaysDate, getTodaysMonth, stringH24MinToDate, 
+    isoDateToJsDate, MdDate, parseObjectsIsoDateToMdDate, dateToDisplayDateShort, 
+    time24To12, dateToTime12h, addDays, addMinutes, addMinutesTo24hTime, millisecondDurationToMinSecTime, 
+    dayOfTheYear 
+} from "../src/services/DateService";
 
 
 describe("MdDate", () => {
@@ -444,6 +451,15 @@ describe("Display Date & Time", () => {
         expect(millisecondDurationToMinSecTime(1000 * 60)).toBe("01:00");
         expect(millisecondDurationToMinSecTime(1000 * 60 * 60)).toBe("1:00:00");
     });
+
+    it("dayOfTheYear()", () => {
+        expect(dayOfTheYear(2022, 0, 1)).toBe(1);
+        expect(dayOfTheYear(2022, 1, 0)).toBe(31);
+        expect(dayOfTheYear(2022, 1, 1)).toBe(32);
+        expect(dayOfTheYear(2022, 11, 31)).toBe(365);
+        expect(dayOfTheYear(2000, 11, 31)).toBe(366);
+    });
+
 });
 
 
