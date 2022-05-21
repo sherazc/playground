@@ -33,7 +33,7 @@
 
 
 import { Constants } from "../src/services/Constants";
-import { isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX, createExpirationDateIso, isoDateFixToSystemTimezone, getCurrentSystemDate, createExpirationDate, getTodaysDate, getTodaysMonth, stringH24MinToDate, isoDateToJsDate, MdDate, parseObjectsIsoDateToMdDate, dateToDisplayDateShort, time24To12, dateToTime12h, addDays, addMinutes, addMinutesTo24hTime } from "../src/services/DateService";
+import { isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX, createExpirationDateIso, isoDateFixToSystemTimezone, getCurrentSystemDate, createExpirationDate, getTodaysDate, getTodaysMonth, stringH24MinToDate, isoDateToJsDate, MdDate, parseObjectsIsoDateToMdDate, dateToDisplayDateShort, time24To12, dateToTime12h, addDays, addMinutes, addMinutesTo24hTime, millisecondDurationToMinSecTime } from "../src/services/DateService";
 
 
 describe("MdDate", () => {
@@ -327,7 +327,7 @@ describe("Display Date & Time", () => {
         expect(time24To12("11:00")).toBe("11:00am");
         expect(time24To12("12:00")).toBe("12:00pm");
         expect(time24To12("01:00")).toBe("1:00am");
-        
+
     });
 
 
@@ -431,8 +431,20 @@ describe("Display Date & Time", () => {
         expect(date1Result?.getSeconds()).toBe(0);
         expect(date1Result?.getMilliseconds()).toBe(0);
     });
-});
 
+
+    it("millisecondDurationToMinSecTime()", () => {
+        expect(millisecondDurationToMinSecTime()).toBe("00:00");
+        expect(millisecondDurationToMinSecTime(undefined)).toBe("00:00");
+        expect(millisecondDurationToMinSecTime(null)).toBe("00:00");
+        expect(millisecondDurationToMinSecTime(-1)).toBe("00:00");
+        expect(millisecondDurationToMinSecTime(999)).toBe("00:00");
+        expect(millisecondDurationToMinSecTime(1000)).toBe("00:01");
+        expect(millisecondDurationToMinSecTime(1000 * 60)).toBe("01:00");
+        expect(millisecondDurationToMinSecTime(1000 * 60)).toBe("01:00");
+        expect(millisecondDurationToMinSecTime(1000 * 60 * 60)).toBe("1:00:00");
+    });
+});
 
 
 describe("parseObjectsIsoDateToMdDate", () => {

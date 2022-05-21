@@ -80,26 +80,6 @@ export const dateFromISO = (isoDateString?: string): (Date | undefined) => {
 };
 */
 
-export const millisDurationToTimeString = (duration?: number) => {
-    if (duration === null
-        || duration === undefined || duration < 0) {
-        return;
-    }
-
-    let seconds: (number | string) = Math.floor((duration / 1000) % 60),
-        minutes: (number | string) = Math.floor((duration / (1000 * 60)) % 60),
-        hours: (number | string) = Math.floor(duration / (1000 * 60 * 60));
-
-    //hours = (hours < 10) ? "0" + hours : hours;
-    minutes = (minutes < 10) ? "0" + minutes : minutes;
-    seconds = (seconds < 10) ? "0" + seconds : seconds;
-    if (hours > 0) {
-        return hours + ":" + minutes + ":" + seconds;
-    } else {
-        return minutes + ":" + seconds;
-    }
-
-}
 
 export const isTimeBetweenAzans = (timeMillis: (number | undefined), prayerPeriod?: PrayerTime[]) => {
     if (!timeMillis || !prayerPeriod || prayerPeriod.length != 2
@@ -247,7 +227,7 @@ export const isoDateToJsDate = (dateString?: string | null): Date | undefined =>
         if (dateString.length > 22) {
             milliseconds = numberNaNToZero(+dateString.substring(20, 23));
         }
-        
+
         date = new Date(year, month, d, hours, minutes, seconds, milliseconds);
     }
 
@@ -265,7 +245,7 @@ export const getSystemTimezone = (dateString?: string) => {
     if (date.getHours() < 2) {
         date.setHours(2);
     }
-    
+
     const timezoneOffset = -date.getTimezoneOffset();
     const plusMinus = timezoneOffset >= 0 ? '+' : '-';
 
@@ -283,12 +263,12 @@ export const getSystemTimezoneDateIsoString = (date?: Date) => {
 
 
     const isoStringWithoutTimezone = dt.getFullYear()
-    + '-' + padLeft(dt.getMonth() + 1, 2)
-    + '-' + padLeft(dt.getDate(), 2)
-    + 'T' + padLeft(dt.getHours(), 2)
-    + ':' + padLeft(dt.getMinutes(), 2)
-    + ':' + padLeft(dt.getSeconds(), 2)
-    + '.' + padLeft(dt.getMilliseconds(), 3);
+        + '-' + padLeft(dt.getMonth() + 1, 2)
+        + '-' + padLeft(dt.getDate(), 2)
+        + 'T' + padLeft(dt.getHours(), 2)
+        + ':' + padLeft(dt.getMinutes(), 2)
+        + ':' + padLeft(dt.getSeconds(), 2)
+        + '.' + padLeft(dt.getMilliseconds(), 3);
 
     return isoStringWithoutTimezone + getSystemTimezone(isoStringWithoutTimezone);
 }
@@ -298,7 +278,7 @@ export const getCurrentSystemDate = () => {
     return new Date();
 }
 
-export const isoDateFixToSystemTimezone = (isoDateString?: (string| null)): (string | undefined) => {
+export const isoDateFixToSystemTimezone = (isoDateString?: (string | null)): (string | undefined) => {
     if (!isoDateString || isoDateString.length < '0000-00-00'.length) {
         return;
     }
@@ -325,7 +305,7 @@ export const isoDateFixToSystemTimezone = (isoDateString?: (string| null)): (str
 export const createExpirationDate = () => new Date(createExpirationDateIso());
 
 export const createExpirationDateIso = (): string => {
-    
+
     const date = getCurrentSystemDate();
     date.setTime(date.getTime() + Constants.EXPIRATION_MILLIS);
     return getSystemTimezoneDateIsoString(date);
@@ -341,7 +321,7 @@ export const stringH24MinToDate = (date: (Date | undefined), time?: string): (Da
     if (!date || !time || !TIME_24_REGX.test(time)) {
         return;
     }
-    
+
     const resultDate = new Date(date.getTime());
     const timeSplit = time.split(':');
     resultDate.setHours(+timeSplit[0])
@@ -351,11 +331,11 @@ export const stringH24MinToDate = (date: (Date | undefined), time?: string): (Da
 
 
 export class MdDate {
-    private _isoDate?:string = "";
+    private _isoDate?: string = "";
     private _jsDate?: Date;
     private _isValid = false;
 
-    constructor(isoDate?:string | null) {
+    constructor(isoDate?: string | null) {
         if (isoDate && isoDate != null) {
             this._isValid = DATE_TIME_REGX.test(isoDate);
             if (this._isValid) {
@@ -368,7 +348,7 @@ export class MdDate {
     get isoDate() {
         return this._isoDate;
     }
-    
+
     get jsDate() {
         return this._jsDate;
     }
@@ -383,20 +363,20 @@ export class MdDate {
 }
 
 
-export const parseObjectsIsoDateToMdDate = (obj?: any ) => {
+export const parseObjectsIsoDateToMdDate = (obj?: any) => {
     const isDateKey = (key: string) => {
         return isNotBlankString(key)
             && key.toLowerCase().includes("date");
     }
-    
+
     const isDateValue = (value: string) => {
         return isNotBlankString(value)
             && DATE_TIME_REGX.test(value);
     }
 
-    for (var k in obj){
+    for (var k in obj) {
         if (typeof obj[k] == "object" && obj[k] !== null)
-        parseObjectsIsoDateToMdDate(obj[k]);
+            parseObjectsIsoDateToMdDate(obj[k]);
         else {
             const dateKey = isDateKey(k);
             const dateValue = isDateValue(obj[k]);
@@ -404,7 +384,7 @@ export const parseObjectsIsoDateToMdDate = (obj?: any ) => {
                 // Convert to MdDate
                 obj[k] = new MdDate(obj[k]);
             }
-        }            
+        }
     }
 }
 
@@ -417,14 +397,13 @@ export const dateToDisplayDateShort = (date?: Date | null) => {
 };
 
 
-
 export const time24To12 = (time24?: string | null) => {
     if (!time24) {
         return "";
     }
 
     time24 = time24.trim();
-    
+
     if (!TIME_24_REGX.test(time24)) {
         // incase of custom string
         return time24;
@@ -433,7 +412,7 @@ export const time24To12 = (time24?: string | null) => {
     const hoursMinutes = time24.split(":");
     const hours24 = Number.parseInt(hoursMinutes[0]);
     let hours12 = hours24 > 12 ? hours24 % 12 : hours24;
-    if (hours24  === 0) {
+    if (hours24 === 0) {
         hours12 = 12;
     } else if (hours24 > 12) {
         hours12 = hours24 % 12;
@@ -452,7 +431,7 @@ export const dateToTime12h = (date?: Date | null) => {
     if (!date || isNaN(date.getTime())) {
         return "";
     }
-    
+
     const dateIso = getSystemTimezoneDateIsoString(date);
     return time24To12(dateIso.substring(11, 16));
 }
@@ -479,7 +458,7 @@ export const addMinutes = (date?: (Date | undefined | null), minutes?: (number |
         return;
     }
 
-    if(!minutes) {
+    if (!minutes) {
         return date;
     }
 
@@ -489,7 +468,7 @@ export const addMinutes = (date?: (Date | undefined | null), minutes?: (number |
 }
 
 
-export const addMinutesTo24hTime = (time?: (string| undefined | null), minutes?: (number | undefined | null)): (string | undefined) => {
+export const addMinutesTo24hTime = (time?: (string | undefined | null), minutes?: (number | undefined | null)): (string | undefined) => {
     if (!time) {
         return;
     }
@@ -507,5 +486,26 @@ export const addMinutesTo24hTime = (time?: (string| undefined | null), minutes?:
     const date = new Date(2020, 0, 1, +timeSplit[0], +timeSplit[1], 0, 0);
     const updatedDate = addMinutes(date, minutes);
     return updatedDate?.toTimeString().substring(0, 5);
+}
+
+
+export const millisecondDurationToMinSecTime = (duration?: (number | null)) => {
+    if (duration === null
+        || duration === undefined || duration < 0) {
+        return "00:00";
+    }
+
+    let seconds: (number | string) = Math.floor((duration / 1000) % 60),
+        minutes: (number | string) = Math.floor((duration / (1000 * 60)) % 60),
+        hours: (number | string) = Math.floor(duration / (1000 * 60 * 60));
+
+    //hours = (hours < 10) ? "0" + hours : hours;
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    seconds = (seconds < 10) ? "0" + seconds : seconds;
+    if (hours > 0) {
+        return hours + ":" + minutes + ":" + seconds;
+    } else {
+        return minutes + ":" + seconds;
+    }
 }
 
