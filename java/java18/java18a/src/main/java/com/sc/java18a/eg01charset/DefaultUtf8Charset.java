@@ -15,9 +15,9 @@ public class DefaultUtf8Charset {
 
     public static void main(String[] args) throws IOException {
         Files.deleteIfExists(Paths.get(TEMP_FILE));
-        System.out.println("Default charset : " + Charset.defaultCharset());
-        System.out.println("file.encoding   : " + System.getProperty("file.encoding"));
-        System.out.println("native.encoding : " + System.getProperty("native.encoding"));
+        System.out.println("Default charset Charset.defaultCharset(): " + Charset.defaultCharset());
+        System.out.println("file.encoding System.getProperty(\"file.encoding\"): " + System.getProperty("file.encoding"));
+        System.out.println("native.encoding System.getProperty(\"native.encoding\"): " + System.getProperty("native.encoding"));
 
         try (FileWriter fileWriter = new FileWriter(TEMP_FILE);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
