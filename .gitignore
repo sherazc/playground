@@ -39,3 +39,5 @@ yarn.lock
 node_installation
 
 venv
+
+.java-version
