@@ -1,4 +1,4 @@
-package com.sc.java18a.eg05InternetAddress;
+package com.sc.java18a.eg05InetAddress;
 
 import java.net.Inet4Address;
 import java.net.Inet6Address;
@@ -41,7 +41,7 @@ public class InetAddress17 {
 
         // IP to host name
         // Will not always work. Works for localhost or in host file configuration or DNS address
-        // This relience of host file changes in java 18 by the help of InetAddressResolver, and InetAddressResolverProvider
+        // This reliance of host file changes in java 18 by the help of InetAddressResolver, and InetAddressResolverProvider
         InetAddress address2 = InetAddress.getByName("8.8.8.8");
         System.out.println("Reverse - IP to host name - 8.8.8.8 - InetAddress.getHostName() = " + address2.getHostName());
         System.out.println("Reverse - IP to host name - 8.8.8.8 - InetAddress.getCanonicalHostName() = " + address2.getCanonicalHostName());
