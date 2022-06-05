@@ -5,7 +5,7 @@ import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.util.Arrays;
 
-public class InetAddressTutorial {
+public class InetAddress17 {
 
     public static void main(String[] args) throws Exception {
         // All InetAddress for the domain
@@ -41,8 +41,10 @@ public class InetAddressTutorial {
 
         // IP to host name
         // Will not always work. Works for localhost or in host file configuration or DNS address
+        // This relience of host file changes in java 18 by the help of InetAddressResolver, and InetAddressResolverProvider
         InetAddress address2 = InetAddress.getByName("8.8.8.8");
-        System.out.println("Reverse - IP to host name - 8.8.8.8 - address2.getHostName() = " + address2.getHostName());
+        System.out.println("Reverse - IP to host name - 8.8.8.8 - InetAddress.getHostName() = " + address2.getHostName());
+        System.out.println("Reverse - IP to host name - 8.8.8.8 - InetAddress.getCanonicalHostName() = " + address2.getCanonicalHostName());
 
         // Local host
         InetAddress address3 = InetAddress.getLocalHost();
