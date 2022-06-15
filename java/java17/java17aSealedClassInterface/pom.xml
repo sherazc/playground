@@ -5,9 +5,16 @@
     <groupId>com.sc.java17a</groupId>
     <artifactId>java17aSealedClassInterface</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>java18a</name>
+    <name>java17aSealedClassInterface</name>
+
+    <!-- Followed this article https://www.happycoders.eu/java/sealed-classes/ -->
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!--
+        Keeping source and target 18. Because to run preview features we need JDK 17.
+        I do not have JDK 17.
+        -->
         <maven.compiler.source>18</maven.compiler.source>
         <maven.compiler.target>18</maven.compiler.target>
     </properties>
