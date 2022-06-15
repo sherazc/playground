@@ -5,7 +5,7 @@ package com.sc.java17a.eg07_sealed_pattern_matching_switch;
  *
  * To run this example use this command
  *
- * $ java --enable-preview --source 18 SealedPatternMatchingSwitchNoDefault.java
+ * $ java --enable-preview --source 18 SealedPatternMatchingSwitchDefaultNotRequired.java
  *
  * I have JDK 18 installed that's why I used --source 18
  */
