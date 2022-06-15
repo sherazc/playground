@@ -1,8 +1,16 @@
 package com.sc.java17a.eg07_sealed_pattern_matching_switch;
 
-import java.util.Random;
+/**
+ * This feature only works in JDK 17 preview.
+ *
+ * To run this example use this command
+ *
+ * $ java --enable-preview --source 18 SealedPatternMatchingSwitchNoDefault.java
+ *
+ * I have JDK 18 installed that's why I used --source 18
+ */
 
-public class SealedPatternMatchingSwitchNoDefault {
+public class SealedPatternMatchingSwitchDefaultNotRequired {
 
     public static void main(String[] args) {
         Odd oddNumber = getOdd();
@@ -10,9 +18,8 @@ public class SealedPatternMatchingSwitchNoDefault {
         switch (oddNumber) {
             case One one -> System.out.println(1);
             case Three three -> System.out.println(3);
+            // default -> System.out.println("default"); // Default is not required because we covered all cases
         }
-
-
     }
 
     private static Odd getOdd() {
