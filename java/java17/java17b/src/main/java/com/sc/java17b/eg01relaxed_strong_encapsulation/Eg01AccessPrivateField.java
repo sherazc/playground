@@ -13,7 +13,7 @@ import java.util.Arrays;
  *
  * This example will not run on JDK17.
  *
- * But in JDK16 it can run by opening java.base/java.lang.
+ * But in JDK16 it can run by opening java.base/java.lang
  *
  *
  * $ java --add-opens java.base/java.lang=ALL-UNNAMED Eg01AccessPrivateField.java
