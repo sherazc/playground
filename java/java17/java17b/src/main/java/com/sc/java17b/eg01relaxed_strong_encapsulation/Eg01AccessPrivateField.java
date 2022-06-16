@@ -6,16 +6,16 @@ import java.util.Arrays;
 
 /**
  * "Relaxed Strong Encapsulation" has been removed in JDK17
+ * --illegal-access=permit is removed in JDK17
  *
  * This example tries to access String.value using reflection
  * - Which is a private field
  * - Is not part of current module
  *
- * This example will not run on JDK17.
+ * In JDK16 it was possible to run it using this command
+ * $ java --illegal-access=permit Eg01AccessPrivateField.java
  *
- * But in JDK16 it can run by opening java.base/java.lang
- *
- *
+ * To run in JDK17 we have to open java.base/java.lang
  * $ java --add-opens java.base/java.lang=ALL-UNNAMED Eg01AccessPrivateField.java
  */
 public class Eg01AccessPrivateField {
