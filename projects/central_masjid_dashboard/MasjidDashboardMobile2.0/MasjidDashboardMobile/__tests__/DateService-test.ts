@@ -46,6 +46,7 @@ import {
 
 describe("MdDate", () => {
     it("MdDate - invalid iso string", () => {
+        new MdDate()
         expect(new MdDate().isValid).toBeFalsy();
         expect(new MdDate(null).isValid).toBeFalsy();
         expect(new MdDate("").isValid).toBeFalsy();
@@ -64,6 +65,15 @@ describe("MdDate", () => {
         expect(mdDate.jsDate?.getMinutes()).toBe(1);
         expect(mdDate.jsDate?.getSeconds()).toBe(1);
         expect(mdDate.jsDate?.getMilliseconds()).toBe(1);
+    });
+
+
+    it("MdDate - valid JsDate", () => {
+        const date = new Date(2022, 0, 1);
+        const mdDate = new MdDate(date);
+        expect(mdDate.isValid).toBeTruthy();
+        expect(mdDate.jsDate).toBe(date);
+        expect(mdDate.isoDate).toBe("2022-01-01T00:00:00.000-05:00");
     });
 });
 

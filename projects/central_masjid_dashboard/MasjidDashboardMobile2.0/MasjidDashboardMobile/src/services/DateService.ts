@@ -299,11 +299,21 @@ export class MdDate {
     private _jsDate?: Date;
     private _isValid = false;
 
-    constructor(isoDate?: string | null) {
-        if (isoDate && isoDate != null) {
-            this.isoDate = isoDate;
-        } 
+    // constructor overload variations
+    constructor(isoDate?: string | null);
+    constructor(date?: Date | null);
+
+    // common constructor
+    constructor(dateIsoDate?: string | Date | null) {
+        if (dateIsoDate && dateIsoDate != null) {
+            if (typeof dateIsoDate === "string") {
+                this.isoDate = dateIsoDate;
+            } else if (dateIsoDate instanceof Date) {
+                this.jsDate = dateIsoDate;
+            }
+        }
     }
+
 
     get isoDate() {
         return this._isoDate ? this._isoDate : "";
@@ -327,7 +337,7 @@ export class MdDate {
     }
 
     set jsDate(date: Date) {
-        if (isValidJsDate()) {
+        if (isValidJsDate(date)) {
             this._jsDate = date;
             this._isoDate = jsDateToIsoDate(date);
             this._isValid = true;
