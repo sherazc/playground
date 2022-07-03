@@ -68,6 +68,14 @@ describe("MdDate", () => {
     });
 
 
+    it("MdDate - invalid JsDate", () => {
+        const date = new Date("");
+        const mdDate = new MdDate(date);
+        expect(mdDate.isValid).toBeFalsy();
+        expect(isNaN(mdDate.jsDate.getTime())).toBeTruthy();
+        expect(mdDate.isoDate).toBe("");
+    });
+
     it("MdDate - valid JsDate", () => {
         const date = new Date(2022, 0, 1);
         const mdDate = new MdDate(date);
