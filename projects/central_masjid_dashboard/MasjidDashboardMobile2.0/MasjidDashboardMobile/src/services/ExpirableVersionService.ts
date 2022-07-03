@@ -14,7 +14,8 @@ export const isExpired = (expirableVersion?: (ExpirableVersion | null)) => {
 
     return !expirableVersion
         || !expirableVersion.expirationDate
-        || expirableVersion.expirationDate.getTime() < nowUtcDate().getTime();
+        //|| expirableVersion.expirationDate.getTime() < nowUtcDate().getTime()
+        ;
 }
 
 export const createOrRefreshExpirableVersion = (e?: ExpirableVersion) => {

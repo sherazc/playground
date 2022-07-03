@@ -192,6 +192,8 @@ export const isoDateToJsDate = (dateString?: string | null): Date | undefined =>
     return date;
 }
 
+export const jsDateToIsoDate = (date?: Date) => getSystemTimezoneDateIsoString(date); 
+
 
 export const getSystemTimezone = (dateString?: string) => {
     let date = isoDateToJsDate(dateString);
@@ -231,10 +233,13 @@ export const getSystemTimezoneDateIsoString = (date?: Date) => {
     return isoStringWithoutTimezone + getSystemTimezone(isoStringWithoutTimezone);
 }
 
+
 export const getCurrentSystemDate = () => {
+    // Did not notice any difference if I use either one of these:
     // return new Date(getSystemTimezoneDateIsoString());
     return new Date();
 }
+
 
 export const isoDateFixToSystemTimezone = (isoDateString?: (string | null)): (string | undefined) => {
     if (!isoDateString || isoDateString.length < '0000-00-00'.length) {
@@ -260,7 +265,9 @@ export const isoDateFixToSystemTimezone = (isoDateString?: (string | null)): (st
     }
 }
 
+
 export const createExpirationDate = () => new Date(createExpirationDateIso());
+
 
 export const createExpirationDateIso = (): string => {
 
@@ -274,7 +281,6 @@ export const getTodaysDate = (): number => getCurrentSystemDate().getDate();
 export const getTodaysMonth = (): number => getCurrentSystemDate().getMonth() + 1;
 
 
-// refactor it and test it using new Date(2022, 2, 13); constructor date
 export const stringH24MinToDate = (date: (Date | undefined), time?: string): (Date | undefined) => {
     if (!date || !time || !TIME_24_REGX.test(time)) {
         return;
@@ -295,20 +301,41 @@ export class MdDate {
 
     constructor(isoDate?: string | null) {
         if (isoDate && isoDate != null) {
-            this._isValid = DATE_TIME_REGX.test(isoDate);
-            if (this._isValid) {
-                this._isoDate = isoDateFixToSystemTimezone(isoDate);
-                this._jsDate = isoDateToJsDate(isoDate)
-            }
-        }
+            this.isoDate = isoDate;
+        } 
     }
 
     get isoDate() {
-        return this._isoDate;
+        return this._isoDate ? this._isoDate : "";
+    }
+
+    set isoDate(isoDate: string ) {
+        this._isValid = DATE_TIME_REGX.test(isoDate);
+        if (this._isValid) {
+            this._isoDate = isoDateFixToSystemTimezone(isoDate);
+            this._jsDate = isoDateToJsDate(isoDate);
+        } else {
+            this._isoDate = undefined;
+            this._jsDate = undefined;
+        }
     }
 
     get jsDate() {
-        return this._jsDate;
+        // returning an invalid date if _jsDate is undefined. 
+        // TODO try to find if there is a way to return undefined on get
+        return this._jsDate ? this._jsDate : new Date(""); 
+    }
+
+    set jsDate(date: Date) {
+        if (isValidJsDate()) {
+            this._jsDate = date;
+            this._isoDate = jsDateToIsoDate(date);
+            this._isValid = true;
+        } else {
+            this._isoDate = undefined;
+            this._jsDate = undefined;
+            this._isValid = false;
+        }
     }
 
     get isValid() {
@@ -490,7 +517,7 @@ export const isSameMonthDate = (d1Month?: number, d1Date?: number, d2Month?: num
 }
 
 
-// Move isTimeBetweenAzans() it out of this file
+// TODO: Move isTimeBetweenAzans() it out of this file
 export const isTimeBetweenAzans = (timeMilliseconds?: (number | null), prayerPeriod?: (PrayerTime[] | null)): boolean => {
     if (!timeMilliseconds || !prayerPeriod || prayerPeriod.length != 2
         || !prayerPeriod[0].azan || !prayerPeriod[1].azan) {
@@ -501,4 +528,9 @@ export const isTimeBetweenAzans = (timeMilliseconds?: (number | null), prayerPer
         && !isNaN(prayerPeriod[1].azan.getTime())
         && timeMilliseconds > prayerPeriod[0].azan.getTime()
         && timeMilliseconds < prayerPeriod[1].azan.getTime()
+}
+
+
+export const isValidJsDate = (date?: Date | null) : boolean => {
+    return date instanceof Date && !isNaN(date.getTime());
 }
