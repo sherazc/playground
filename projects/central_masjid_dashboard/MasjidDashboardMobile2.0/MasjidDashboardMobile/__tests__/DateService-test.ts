@@ -173,6 +173,8 @@ describe("MdDate - deserialize - JSON.parse()", () => {
         const exampleDeserialize = JSON.parse(exampleSerialize, MdDate.mdDateJsonReviver)
         expect(exampleDeserialize.exampleDate.isValid).toBeTruthy();
     });
+
+    // TODO - write invalid test cases
 });
 
 

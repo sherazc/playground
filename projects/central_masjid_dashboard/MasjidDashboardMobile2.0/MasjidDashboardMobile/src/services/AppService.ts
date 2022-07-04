@@ -38,6 +38,7 @@ const processStorage = (data: (string | null)[]) => {
     console.log("Processing recovered storage data", data);
 
     if (data[0]) {
+        // TODO use reviver like this JSON.parse(exampleSerialize, MdDate.mdDateJsonReviver)
         const companyListData = JSON.parse(data[0])
         fixObjectDates(companyListData);
         store.dispatch({
@@ -47,6 +48,7 @@ const processStorage = (data: (string | null)[]) => {
     }
 
     if (data[1]) {
+        // TODO use reviver like this JSON.parse(exampleSerialize, MdDate.mdDateJsonReviver)
         const companyData = JSON.parse(data[1])
         fixObjectDates(companyData);
         store.dispatch({
@@ -56,6 +58,7 @@ const processStorage = (data: (string | null)[]) => {
     }
 
     if (data[2]) {
+        // TODO use reviver like this JSON.parse(exampleSerialize, MdDate.mdDateJsonReviver)
         const settingData = JSON.parse(data[2]) as SettingData;
         store.dispatch({
             type: "SETTING_SET",
