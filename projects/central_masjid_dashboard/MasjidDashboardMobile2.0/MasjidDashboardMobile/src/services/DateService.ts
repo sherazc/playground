@@ -355,9 +355,23 @@ export class MdDate {
     toString() {
         return this._isoDate;
     }
+
+    // https://javascript.info/json#custom-tojson
+    toJSON() {
+        return this.toString();
+    }
+
+    // https://javascript.info/json#using-reviver
+    static mdDateJsonReviver(key: string, value?: string): (MdDate | undefined) {
+        const keyContainsDate = isNotBlankString(key) && key.toLowerCase().includes("date");
+        
+        if (keyContainsDate && value && DATE_TIME_REGX.test(value)) {
+            return new MdDate(value);
+        }
+    }
 }
 
-
+// TODO: use either parseObjectsIsoDateToMdDate or JSON.parse(serializeObject, MdDate.mdDateJsonReviver)
 export const parseObjectsIsoDateToMdDate = (obj?: any) => {
     const isDateKey = (key: string) => {
         return isNotBlankString(key)

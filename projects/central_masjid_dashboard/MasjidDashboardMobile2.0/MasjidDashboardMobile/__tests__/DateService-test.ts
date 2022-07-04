@@ -86,6 +86,109 @@ describe("MdDate", () => {
 });
 
 
+
+
+describe("MdDate - deserialize - parseObjectsIsoDateToMdDate", () => {
+    it("parseObjectsIsoDateToMdDate - Parse bad object", () => {
+        let a = undefined;
+        parseObjectsIsoDateToMdDate(a);
+        expect(a).toBeUndefined();
+
+        let b = "abc";
+        parseObjectsIsoDateToMdDate(b);
+        expect(b).toBe("abc");
+
+        let c = 100;
+        parseObjectsIsoDateToMdDate(c);
+        expect(c).toBe(100);
+
+        let d = {};
+        const dKeyCount = Object.keys(d).length
+        parseObjectsIsoDateToMdDate(d);
+        expect(dKeyCount).toBe(Object.keys(d).length);
+
+        let e = [0];
+        parseObjectsIsoDateToMdDate(e);
+        expect(dKeyCount).toBe(Object.keys(d).length);
+    });
+
+
+    it("parseObjectsIsoDateToMdDate - Parse object", () => {
+        const sampleIsoDate = "2012-12-12T12:12:12.120Z";
+        const employee = {
+            name: "Sheraz",
+            dob: sampleIsoDate,
+            hireDate: sampleIsoDate,
+            lastDateAccess: sampleIsoDate,
+            dateUpdate: sampleIsoDate,
+        };
+
+        parseObjectsIsoDateToMdDate(employee);
+        expect(employee.dob).toBe(sampleIsoDate);
+        expect(employee.hireDate).toBeInstanceOf(MdDate);
+        expect(employee.lastDateAccess).toBeInstanceOf(MdDate);
+        expect(employee.dateUpdate).toBeInstanceOf(MdDate);
+    });
+
+    it("parseObjectsIsoDateToMdDate - Parse array", () => {
+        const sampleIsoDate = "2012-12-12T12:12:12.120Z";
+        const employees = [{
+            name: "Sheraz",
+            dob: sampleIsoDate,
+            hireDate: sampleIsoDate,
+            lastDateAccess: sampleIsoDate,
+            dateUpdate: sampleIsoDate,
+        }];
+
+        parseObjectsIsoDateToMdDate(employees);
+        expect(employees[0].dob).toBe(sampleIsoDate);
+        expect(employees[0].hireDate).toBeInstanceOf(MdDate);
+        expect(employees[0].lastDateAccess).toBeInstanceOf(MdDate);
+        expect(employees[0].dateUpdate).toBeInstanceOf(MdDate);
+    });
+});
+
+describe("MdDate - serialize - JSON.stringify()", () => {
+    it("Valid MdDate serialize - only MdDate", () => {
+        expect(JSON.stringify(new MdDate(new Date(2022, 0, 1)))).toBe('"2022-01-01T00:00:00.000-05:00"');
+        
+    });
+
+    it("Valid MdDate serialize - MdDate in Object", () => { 
+        const exampleObject = {
+            exampleDate: new MdDate(new Date(2022, 0, 1))
+        }
+
+        const exampleSerialize = JSON.stringify(exampleObject);
+        expect(exampleSerialize.includes("2022-01-01T00:00:00.000-05:00")).toBeTruthy();
+    });
+
+    // TODO - write invalid test cases
+});
+
+
+describe("MdDate - deserialize - JSON.parse()", () => {
+    it("Valid MdDate deserialize - MdDate in Object", () => { 
+
+        function mdDateJsonReviver(key: string, value: string) {
+            const keyContainsDate = key.toLowerCase().includes("date");
+            
+            if (keyContainsDate && value && DATE_TIME_REGX.test(value)) {
+                return new MdDate(value);
+            }
+        }
+        const exampleSerialize = '{"exampleDate": "2022-01-01T00:00:00.000-05:00"}';
+
+        const exampleDeserialize = JSON.parse(exampleSerialize, mdDateJsonReviver);
+        console.log(exampleDeserialize)
+        console.log(MdDate.mdDateJsonReviver)
+        // expect(exampleDeserialize.exampleDate.isValid).toBeTruthy();
+    });
+});
+
+
+
+
 describe("Compare dates", () => {
     it("isSameMonthDate()", () => {
         expect(isSameMonthDate()).toBe(false);
@@ -525,67 +628,6 @@ describe("Display Date & Time", () => {
         expect(dayOfTheYear(2000, 11, 31)).toBe(366);
     });
 
-});
-
-
-describe("parseObjectsIsoDateToMdDate", () => {
-    it("parseObjectsIsoDateToMdDate - Parse bad object", () => {
-        let a = undefined;
-        parseObjectsIsoDateToMdDate(a);
-        expect(a).toBeUndefined();
-
-        let b = "abc";
-        parseObjectsIsoDateToMdDate(b);
-        expect(b).toBe("abc");
-
-        let c = 100;
-        parseObjectsIsoDateToMdDate(c);
-        expect(c).toBe(100);
-
-        let d = {};
-        const dKeyCount = Object.keys(d).length
-        parseObjectsIsoDateToMdDate(d);
-        expect(dKeyCount).toBe(Object.keys(d).length);
-
-        let e = [0];
-        parseObjectsIsoDateToMdDate(e);
-        expect(dKeyCount).toBe(Object.keys(d).length);
-    });
-
-
-    it("parseObjectsIsoDateToMdDate - Parse object", () => {
-        const sampleIsoDate = "2012-12-12T12:12:12.120Z";
-        const employee = {
-            name: "Sheraz",
-            dob: sampleIsoDate,
-            hireDate: sampleIsoDate,
-            lastDateAccess: sampleIsoDate,
-            dateUpdate: sampleIsoDate,
-        };
-
-        parseObjectsIsoDateToMdDate(employee);
-        expect(employee.dob).toBe(sampleIsoDate);
-        expect(employee.hireDate).toBeInstanceOf(MdDate);
-        expect(employee.lastDateAccess).toBeInstanceOf(MdDate);
-        expect(employee.dateUpdate).toBeInstanceOf(MdDate);
-    });
-
-    it("parseObjectsIsoDateToMdDate - Parse array", () => {
-        const sampleIsoDate = "2012-12-12T12:12:12.120Z";
-        const employees = [{
-            name: "Sheraz",
-            dob: sampleIsoDate,
-            hireDate: sampleIsoDate,
-            lastDateAccess: sampleIsoDate,
-            dateUpdate: sampleIsoDate,
-        }];
-
-        parseObjectsIsoDateToMdDate(employees);
-        expect(employees[0].dob).toBe(sampleIsoDate);
-        expect(employees[0].hireDate).toBeInstanceOf(MdDate);
-        expect(employees[0].lastDateAccess).toBeInstanceOf(MdDate);
-        expect(employees[0].dateUpdate).toBeInstanceOf(MdDate);
-    });
 });
 
 
