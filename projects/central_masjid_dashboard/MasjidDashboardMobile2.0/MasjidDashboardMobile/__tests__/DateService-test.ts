@@ -151,10 +151,10 @@ describe("MdDate - deserialize - parseObjectsIsoDateToMdDate", () => {
 describe("MdDate - serialize - JSON.stringify()", () => {
     it("Valid MdDate serialize - only MdDate", () => {
         expect(JSON.stringify(new MdDate(new Date(2022, 0, 1)))).toBe('"2022-01-01T00:00:00.000-05:00"');
-        
+
     });
 
-    it("Valid MdDate serialize - MdDate in Object", () => { 
+    it("Valid MdDate serialize - MdDate in Object", () => {
         const exampleObject = {
             exampleDate: new MdDate(new Date(2022, 0, 1))
         }
@@ -168,21 +168,10 @@ describe("MdDate - serialize - JSON.stringify()", () => {
 
 
 describe("MdDate - deserialize - JSON.parse()", () => {
-    it("Valid MdDate deserialize - MdDate in Object", () => { 
-
-        function mdDateJsonReviver(key: string, value: string) {
-            const keyContainsDate = key.toLowerCase().includes("date");
-            
-            if (keyContainsDate && value && DATE_TIME_REGX.test(value)) {
-                return new MdDate(value);
-            }
-        }
+    it("Valid MdDate deserialize - MdDate in Object", () => {
         const exampleSerialize = '{"exampleDate": "2022-01-01T00:00:00.000-05:00"}';
-
-        const exampleDeserialize = JSON.parse(exampleSerialize, mdDateJsonReviver);
-        console.log(exampleDeserialize)
-        console.log(MdDate.mdDateJsonReviver)
-        // expect(exampleDeserialize.exampleDate.isValid).toBeTruthy();
+        const exampleDeserialize = JSON.parse(exampleSerialize, MdDate.mdDateJsonReviver)
+        expect(exampleDeserialize.exampleDate.isValid).toBeTruthy();
     });
 });
 

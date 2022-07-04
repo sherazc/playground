@@ -192,7 +192,7 @@ export const isoDateToJsDate = (dateString?: string | null): Date | undefined =>
     return date;
 }
 
-export const jsDateToIsoDate = (date?: Date) => getSystemTimezoneDateIsoString(date); 
+export const jsDateToIsoDate = (date?: Date) => getSystemTimezoneDateIsoString(date);
 
 
 export const getSystemTimezone = (dateString?: string) => {
@@ -319,7 +319,7 @@ export class MdDate {
         return this._isoDate ? this._isoDate : "";
     }
 
-    set isoDate(isoDate: string ) {
+    set isoDate(isoDate: string) {
         this._isValid = DATE_TIME_REGX.test(isoDate);
         if (this._isValid) {
             this._isoDate = isoDateFixToSystemTimezone(isoDate);
@@ -333,7 +333,7 @@ export class MdDate {
     get jsDate() {
         // returning an invalid date if _jsDate is undefined. 
         // TODO try to find if there is a way to return undefined on get
-        return this._jsDate ? this._jsDate : new Date(""); 
+        return this._jsDate ? this._jsDate : new Date("");
     }
 
     set jsDate(date: Date) {
@@ -362,11 +362,13 @@ export class MdDate {
     }
 
     // https://javascript.info/json#using-reviver
-    static mdDateJsonReviver(key: string, value?: string): (MdDate | undefined) {
+    static mdDateJsonReviver(key: string, value?: string): (MdDate | any) {
         const keyContainsDate = isNotBlankString(key) && key.toLowerCase().includes("date");
-        
+
         if (keyContainsDate && value && DATE_TIME_REGX.test(value)) {
             return new MdDate(value);
+        } else {
+            return value;
         }
     }
 }
@@ -555,6 +557,6 @@ export const isTimeBetweenAzans = (timeMilliseconds?: (number | null), prayerPer
 }
 
 
-export const isValidJsDate = (date?: Date | null) : boolean => {
+export const isValidJsDate = (date?: Date | null): boolean => {
     return date instanceof Date && !isNaN(date.getTime());
 }
