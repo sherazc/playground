@@ -40,27 +40,30 @@ describe("ExpirableVersionService", () => {
     it("isExpired() - Expired", () => {
         expect(isExpired()).toBeTruthy();
         expect(isExpired(null)).toBeTruthy();
-        const expVersion:ExpirableVersion = {
+
+        const date = new Date();
+        date.setSeconds(date.getSeconds() - 1);
+
+        const expVersion: ExpirableVersion = {
             version: 0,
-            expirationDate: MdDate.currentSystemMdDate()
+            expirationDate: new MdDate(date)
         }
+
+        expect(isExpired(expVersion)).toBeTruthy();
     });
 
 
-    /* 
-        it("isExpired()", () => {
-            // Setup
-            const date = new Date();
-            date.setSeconds(date.getSeconds() + 1);
-            const dateIso = getSystemTimezoneDateIsoString(date);
-            console.log(dateIso)
-            const expirableVersion: ExpirableVersion = {
-                expirationDate: dateIso
-            }
-    
-            expect(isExpired(expirableVersion)).toBeFalsy();
-    
-    
-            
-        }); */
+
+    it("isExpired() - Not expired", () => {
+        const date = new Date();
+        date.setSeconds(date.getSeconds() + 1);
+
+        const expVersion: ExpirableVersion = {
+            version: 0,
+            expirationDate: new MdDate(date)
+        }
+
+        expect(isExpired(expVersion)).toBeFalsy();
+
+    });
 });
