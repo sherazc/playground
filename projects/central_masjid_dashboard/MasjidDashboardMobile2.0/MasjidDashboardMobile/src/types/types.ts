@@ -1,7 +1,7 @@
 import { MdDate } from "../services/DateService";
 
 export interface ExpirableVersion {
-    expirationDate?: string;
+    expirationDate?: MdDate;
     version?: number;
 }
 

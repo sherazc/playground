@@ -265,18 +265,6 @@ export const isoDateFixToSystemTimezone = (isoDateString?: (string | null)): (st
     }
 }
 
-
-export const createExpirationDate = () => new Date(createExpirationDateIso());
-
-
-export const createExpirationDateIso = (): string => {
-
-    const date = getCurrentSystemDate();
-    date.setTime(date.getTime() + Constants.EXPIRATION_MILLIS);
-    return getSystemTimezoneDateIsoString(date);
-};
-
-
 export const getTodaysDate = (): number => getCurrentSystemDate().getDate();
 export const getTodaysMonth = (): number => getCurrentSystemDate().getMonth() + 1;
 
@@ -370,6 +358,10 @@ export class MdDate {
         } else {
             return value;
         }
+    }
+
+    static currentSystemMdDate() {
+        return new MdDate(new Date());
     }
 }
 

@@ -35,8 +35,8 @@
 import { Constants } from "../src/services/Constants";
 import {
     isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX,
-    createExpirationDateIso, isoDateFixToSystemTimezone, getCurrentSystemDate,
-    createExpirationDate, getTodaysDate, getTodaysMonth, stringH24MinToDate,
+    isoDateFixToSystemTimezone, getCurrentSystemDate,
+    getTodaysDate, getTodaysMonth, stringH24MinToDate,
     isoDateToJsDate, MdDate, parseObjectsIsoDateToMdDate, dateToDisplayDateShort,
     time24To12, dateToTime12h, addDays, addMinutes, addMinutesTo24hTime, millisecondDurationToMinSecTime,
     dayOfTheYear,
@@ -443,29 +443,6 @@ describe("Timezone", () => {
         isoDate = isoDateFixToSystemTimezone("2022-04-01T12:12:12.123+12:00");
         expect(isoDate?.startsWith("2022-04-01T12:12:12.123")).toBe(true)
         expect(isoDate?.endsWith(getSystemTimezone('2022-04-01'))).toBe(true)
-    });
-});
-
-
-describe("Expiration", () => {
-    it("createExpirationDateIso()", () => {
-        const expirationDateIso = createExpirationDateIso();
-        const expirationDateMilliseconds = new Date(expirationDateIso).getTime();
-        const tempExpireMilliseconds = new Date().getTime() + Constants.EXPIRATION_MILLIS;
-        const plusMinusErrorMilliseconds = 500;
-
-        expect(expirationDateMilliseconds).toBeGreaterThan(tempExpireMilliseconds - plusMinusErrorMilliseconds);
-        expect(expirationDateMilliseconds).toBeLessThan(tempExpireMilliseconds + plusMinusErrorMilliseconds);
-
-    });
-
-    it("createExpirationDate()", () => {
-        const expirationDateMilliseconds = createExpirationDate().getTime();
-        const tempExpireMilliseconds = new Date().getTime() + Constants.EXPIRATION_MILLIS;
-        const plusMinusErrorMilliseconds = 500;
-
-        expect(expirationDateMilliseconds).toBeGreaterThan(tempExpireMilliseconds - plusMinusErrorMilliseconds);
-        expect(expirationDateMilliseconds).toBeLessThan(tempExpireMilliseconds + plusMinusErrorMilliseconds);
     });
 });
 
