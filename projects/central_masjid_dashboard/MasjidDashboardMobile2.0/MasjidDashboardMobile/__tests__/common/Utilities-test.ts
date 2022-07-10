@@ -1,4 +1,4 @@
-import { isBlankString, isEqualStrings, isNotBlankString } from "../../src/services/common/Utilities";
+import { isBlankString, isEqualStrings, isNotBlankString, numberNaNToZero, numberTo2DigitsString, subStringToNumber } from "../../src/services/common/Utilities";
 
 describe("Utilities - String", () => {
     it("isEqualStrings()", () => {
@@ -31,5 +31,32 @@ describe("Utilities - String", () => {
 
 describe("Utilities - Number", () => {
     it("numberNaNToZero()", () => {
+        expect(numberNaNToZero()).toBe(0)
+        expect(numberNaNToZero(undefined)).toBe(0)
+        expect(numberNaNToZero(Number.NaN)).toBe(0)
+        expect(numberNaNToZero(1)).toBe(1)
+        expect(numberNaNToZero(0)).toBe(0)
+        expect(numberNaNToZero(-1)).toBe(-1)
+    });
+
+
+    it("numberTo2DigitsString()", () => {
+        expect(numberTo2DigitsString()).toBe("00")
+        expect(numberTo2DigitsString(undefined)).toBe("00")
+        expect(numberTo2DigitsString(Number.NaN)).toBe("00")
+        expect(numberTo2DigitsString(0)).toBe("00")
+        expect(numberTo2DigitsString(1)).toBe("01")
+        expect(numberTo2DigitsString(10)).toBe("10")
+        expect(numberTo2DigitsString(-1)).toBe("-1")
+    });
+
+
+    it("subStringToNumber()", () => {
+        expect(subStringToNumber("", 0, 0)).toBe(0)
+        expect(subStringToNumber("", -1, 10)).toBe(0)
+        expect(subStringToNumber("abc", -1, 10)).toBe(0)
+        expect(subStringToNumber("abc", 1, 2)).toBe(0)
+        expect(subStringToNumber("a1c", 1, 2)).toBe(1)
+        expect(subStringToNumber("a100c", 1, 4)).toBe(100)
     });
 });
