@@ -6,6 +6,16 @@ import { ExpirableVersion } from "../src/types/types";
 
 describe("ExpirableVersionService", () => {
 
+    it("createExpirationDate()", () => {
+        const expirationDateMilliseconds = createExpirationDate().getTime();
+        const tempExpireMilliseconds = new Date().getTime() + Constants.EXPIRATION_MILLIS;
+        const plusMinusErrorMilliseconds = 500;
+
+        expect(expirationDateMilliseconds).toBeGreaterThan(tempExpireMilliseconds - plusMinusErrorMilliseconds);
+        expect(expirationDateMilliseconds).toBeLessThan(tempExpireMilliseconds + plusMinusErrorMilliseconds);
+    });
+
+
     it("createExpirationDateIso()", () => {
         const expirationDateIso = createExpirationDateIso();
         const expirationDateMilliseconds = new Date(expirationDateIso).getTime();
@@ -17,16 +27,8 @@ describe("ExpirableVersionService", () => {
 
     });
 
-    it("createExpirationDate()", () => {
-        const expirationDateMilliseconds = createExpirationDate().getTime();
-        const tempExpireMilliseconds = new Date().getTime() + Constants.EXPIRATION_MILLIS;
-        const plusMinusErrorMilliseconds = 500;
 
-        expect(expirationDateMilliseconds).toBeGreaterThan(tempExpireMilliseconds - plusMinusErrorMilliseconds);
-        expect(expirationDateMilliseconds).toBeLessThan(tempExpireMilliseconds + plusMinusErrorMilliseconds);
-    });
-
-    it("Create", () => {
+    it("createOrRefreshExpirableVersion() - Create", () => {
         const expirableVersion = createOrRefreshExpirableVersion();
         expect(expirableVersion.version).toBe(0);
         expect(expirableVersion.expirationDate?.isValid).toBeTruthy();
@@ -51,7 +53,6 @@ describe("ExpirableVersionService", () => {
 
         expect(isExpired(expVersion)).toBeTruthy();
     });
-
 
 
     it("isExpired() - Not expired", () => {
