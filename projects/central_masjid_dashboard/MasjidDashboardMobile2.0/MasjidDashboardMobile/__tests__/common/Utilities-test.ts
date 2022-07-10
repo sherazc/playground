@@ -1,4 +1,4 @@
-import { isBlankString, isEqualStrings, isNotBlankString, numberNaNToZero, numberTo2DigitsString, subStringToNumber } from "../../src/services/common/Utilities";
+import { findConfigurationByName, isBlankString, isEqualStrings, isNotBlankString, numberNaNToZero, numberTo2DigitsString, subStringToNumber } from "../../src/services/common/Utilities";
 
 describe("Utilities - String", () => {
     it("isEqualStrings()", () => {
@@ -58,5 +58,22 @@ describe("Utilities - Number", () => {
         expect(subStringToNumber("abc", 1, 2)).toBe(0)
         expect(subStringToNumber("a1c", 1, 2)).toBe(1)
         expect(subStringToNumber("a100c", 1, 4)).toBe(100)
+    });
+});
+
+
+describe("Utilities - Business", () => {
+    it("findConfigurationByName()", () => {
+        expect(findConfigurationByName([], "")).toBe("")
+        expect(findConfigurationByName([], "badName")).toBe("")
+        expect(findConfigurationByName([{name: "k1", value: "v1"}], "badName")).toBe("")
+        expect(findConfigurationByName([{name: "k1", value: "v1"}], "k1")).toBe("v1")
+    });
+
+    it("findConfigurationByName() - default value", () => {
+        expect(findConfigurationByName([], "", "d1")).toBe("d1")
+        // expect(findConfigurationByName([], "badName", "d1")).toBe("d1")
+        // expect(findConfigurationByName([{name: "k1", value: "v1"}], "badName", "d1")).toBe("d1")
+        // expect(findConfigurationByName([{name: "k1", value: "v1"}], "k1", "d1")).toBe("v1")
     });
 });

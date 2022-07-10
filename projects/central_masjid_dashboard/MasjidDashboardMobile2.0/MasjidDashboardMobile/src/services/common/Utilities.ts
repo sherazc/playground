@@ -1,8 +1,13 @@
 import { Configuration } from '../../types/types';
 
+/* ############## String Utilities ############## */
+
 export const isEqualStrings = (s1?: string, s2?: string): boolean => s1 !== undefined && s2 !== undefined && s1 === s2;
 export const isNotBlankString = (s?: string): boolean => s !== undefined && typeof s === 'string' && s.trim().length > 0;
 export const isBlankString = (s?: string): boolean => !isNotBlankString(s);
+
+
+/* ############## Number Utilities ############## */
 
 export const numberNaNToZero = (num?: number | null): number => {
     return (num && num != null) ? num : 0;
@@ -29,7 +34,10 @@ export const subStringToNumber = (stringInput: string, fromIndex: number, toInde
     }
 };
 
-export const findConfigurationByName = (configurations: Configuration[], name: string) => {
+
+/* ############## Business Utilities ############## */
+
+export const findConfigurationByName = (configurations: Configuration[], name: string, defaultValue?: string) => {
     if (!configurations || configurations.length < 1 || !name) {
         return "";
     }
@@ -43,6 +51,9 @@ export const findConfigurationByName = (configurations: Configuration[], name: s
 
     return result;
 }
+
+
+/* ############## Display Utilities ############## */
 
 export const stringToHslColor = (str: string, saturation: number,
     lightness: number) => {
