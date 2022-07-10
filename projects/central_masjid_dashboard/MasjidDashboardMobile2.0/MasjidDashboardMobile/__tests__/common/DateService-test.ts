@@ -32,7 +32,7 @@
  */
 
 
-import { Constants } from "../src/services/Constants";
+import { Constants } from "../../src/services/Constants";
 import {
     isSameMonthDate, getSystemTimezone, getSystemTimezoneDateIsoString, DATE_TIME_REGX,
     isoDateFixToSystemTimezone, getCurrentSystemDate,
@@ -41,7 +41,7 @@ import {
     time24To12, dateToTime12h, addDays, addMinutes, addMinutesTo24hTime, millisecondDurationToMinSecTime,
     dayOfTheYear,
     isTimeBetweenAzans
-} from "../src/services/DateService";
+} from "../../src/services/common/DateService";
 
 
 describe("MdDate", () => {

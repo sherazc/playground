@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, FlatList } from "react-native";
 import { CompanyListData, Company } from '../../types/types';
-import { isNotBlankString, nameToInitials, stringToHslColor, trimEllipsis } from '../../services/Utilities';
+import { isNotBlankString, nameToInitials, stringToHslColor, trimEllipsis } from '../../services/common/Utilities';
 import ArrowRight from "../../images/ArrowRight";
 import { ConstantsStyles } from "../../services/Constants";
 import { StackNavigationProp } from "@react-navigation/stack";

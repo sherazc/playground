@@ -1,4 +1,4 @@
-import { MdDate } from "../services/DateService";
+import { MdDate } from "../services/common/DateService";
 
 export interface ExpirableVersion {
     expirationDate?: MdDate;

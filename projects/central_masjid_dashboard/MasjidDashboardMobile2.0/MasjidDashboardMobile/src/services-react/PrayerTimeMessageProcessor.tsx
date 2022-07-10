@@ -2,7 +2,7 @@ import React from 'react';
 import { createEmptyPrayerTimeSummaryMessage, PrayerTimeSummaryMessage } from "../types/react-types";
 import { PrayerTimeSummary } from "../types/types";
 import { StyleSheet, Text } from 'react-native';
-import { millisDurationToTimeString } from '../services/DateService';
+import { millisDurationToTimeString } from '../services/common/DateService';
 
 export const processPrayerTimeMessage = (prayerTimeSummary?: PrayerTimeSummary): PrayerTimeSummaryMessage => {
     const result = createEmptyPrayerTimeSummaryMessage();

@@ -1,7 +1,7 @@
 
 import { ExpirableVersion } from '../types/types';
 import { Constants } from './Constants';
-import { getCurrentSystemDate, getSystemTimezoneDateIsoString, MdDate } from './DateService';
+import { getCurrentSystemDate, getSystemTimezoneDateIsoString, MdDate } from './common/DateService';
 
 
 export const createExpirationDate = () => new Date(createExpirationDateIso());

@@ -3,7 +3,7 @@ import { createOrRefreshExpirableVersion, isExpired } from "./ExpirableVersionSe
 import store from '../store/rootReducer';
 import { Constants } from './Constants';
 import setupNotifications from "./NotificationService";
-import { fixObjectDates, isSameMonthDate, getTodaysDate, getTodaysMonth } from "./DateService";
+import { fixObjectDates, isSameMonthDate, getTodaysDate, getTodaysMonth } from "./common/DateService";
 import { apiPrayersYear } from "./CalendarService";
 
 

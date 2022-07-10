@@ -1,6 +1,6 @@
-import { Constants } from './Constants';
+import { Constants } from '../Constants';
 import { isNotBlankString, numberNaNToZero, numberTo2DigitsString } from './Utilities';
-import { PrayerTime } from '../types/types';
+import { PrayerTime } from '../../types/types';
 
 export const TIME_24_REGX = /([01]?[0-9]|2[0-3]):[0-5][0-9].*/;
 

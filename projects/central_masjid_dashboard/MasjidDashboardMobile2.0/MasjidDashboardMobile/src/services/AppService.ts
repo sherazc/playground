@@ -16,7 +16,7 @@ import { CompanyData, CompanyListData, SettingData, Tracker } from '../types/typ
 import { updateCompanyListData } from './CompanyListDataService';
 import { Constants } from './Constants';
 import { isValidCompany, updateCompanyData } from './CompanyDataService';
-import { fixObjectDates } from './DateService';
+import { fixObjectDates } from './common/DateService';
 
 
 export const recoverAppFromStorage = () => {

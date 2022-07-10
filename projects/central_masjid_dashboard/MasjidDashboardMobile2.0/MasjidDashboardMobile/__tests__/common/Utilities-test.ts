@@ -1,4 +1,4 @@
-import { isBlankString, isEqualStrings, isNotBlankString } from "../src/services/Utilities";
+import { isBlankString, isEqualStrings, isNotBlankString } from "../../src/services/common/Utilities";
 
 describe("Utilities - String", () => {
     it("isEqualStrings()", () => {
