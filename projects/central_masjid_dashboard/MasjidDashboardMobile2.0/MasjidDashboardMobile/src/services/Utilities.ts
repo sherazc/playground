@@ -1,8 +1,8 @@
 import { Configuration } from '../types/types';
 
 export const isEqualStrings = (s1?: string, s2?: string): boolean => s1 !== undefined && s2 !== undefined && s1 === s2;
-export const isNotBlankString = (s: string): boolean => s !== undefined && s.length > 0;
-export const isBlankString = (s: string): boolean => !isNotBlankString(s);
+export const isNotBlankString = (s?: string): boolean => s !== undefined && typeof s === 'string' && s.trim().length > 0;
+export const isBlankString = (s?: string): boolean => !isNotBlankString(s);
 
 export const numberNaNToZero = (num?: number | null) : number => {
     return (num && num != null) ? num : 0;
