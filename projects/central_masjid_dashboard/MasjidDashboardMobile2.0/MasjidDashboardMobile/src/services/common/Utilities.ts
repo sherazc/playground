@@ -39,14 +39,23 @@ export const subStringToNumber = (stringInput: string, fromIndex: number, toInde
 
 export const findConfigurationByName = (configurations: Configuration[], name: string, defaultValue?: string) => {
     if (!configurations || configurations.length < 1 || !name) {
-        return "";
+        if (defaultValue) {
+            return defaultValue
+        } else {
+            return "";
+        }
+    
     }
     const filteredConfigurations = configurations.filter(c => c.name === name);
 
     let result = "";
 
     if (filteredConfigurations && filteredConfigurations.length > 0 && filteredConfigurations[0].value) {
+        
         result = filteredConfigurations[0].value;
+    } else if (defaultValue) {
+        
+        result = defaultValue
     }
 
     return result;
