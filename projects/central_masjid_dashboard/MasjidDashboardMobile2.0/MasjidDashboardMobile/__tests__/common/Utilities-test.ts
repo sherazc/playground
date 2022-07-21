@@ -1,4 +1,4 @@
-import { findConfigurationByName, isBlankString, isEqualStrings, isNotBlankString, numberNaNToZero, numberTo2DigitsString, subStringToNumber } from "../../src/services/common/Utilities";
+import { findConfigurationByName, isBlankString, isEqualStrings, isNotBlankString, nameToInitials, numberNaNToZero, numberTo2DigitsString, stringToHslColor, subStringToNumber, trimEllipsis } from "../../src/services/common/Utilities";
 
 describe("Utilities - String", () => {
     it("isEqualStrings()", () => {
@@ -77,3 +77,26 @@ describe("Utilities - Business", () => {
         expect(findConfigurationByName([{name: "k1", value: "v1"}], "k1", "d1")).toBe("v1");
     });
 });
+
+
+describe("Utilities - Display", () => {
+    it("stringToHslColor()", () => {
+        expect(stringToHslColor("sheraz", 1, 2)).toBe("hsl(317, 1%, 2%)");
+    });
+
+    it("nameToInitials()", () => {
+        expect(nameToInitials("")).toBe("");
+        expect(nameToInitials("sheraz")).toBe("S");
+        expect(nameToInitials("sheraz chaudhry")).toBe("SC");
+        expect(nameToInitials("sheraz tariq chaudhry")).toBe("SC");
+        expect(nameToInitials("sheraz - tariq - chaudhry")).toBe("SC");
+        expect(nameToInitials("sheraz - abc tariq xyz - chaudhry")).toBe("SC");
+    });
+
+    it("trimEllipsis()", () => {
+        expect(trimEllipsis("", 1)).toBe("");
+        expect(trimEllipsis("a", 1)).toBe("a");
+        expect(trimEllipsis("abc", 1)).toBe("a...");
+    });
+});
+
