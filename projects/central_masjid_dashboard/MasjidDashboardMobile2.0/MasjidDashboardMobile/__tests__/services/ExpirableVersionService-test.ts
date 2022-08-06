@@ -1,7 +1,7 @@
-import { Constants } from "../src/services/Constants";
-import { getSystemTimezoneDateIsoString, MdDate } from "../src/services/common/DateService";
-import { createExpirationDate, createExpirationDateIso, createOrRefreshExpirableVersion, isExpired } from "../src/services/ExpirableVersionService";
-import { ExpirableVersion } from "../src/types/types";
+import { Constants } from "../../src/services/Constants";
+import { getSystemTimezoneDateIsoString, MdDate } from "../../src/services/common/DateService";
+import { createExpirationDate, createExpirationDateIso, createOrRefreshExpirableVersion, isExpired } from "../../src/services/ExpirableVersionService";
+import { ExpirableVersion } from "../../src/types/types";
 
 
 describe("ExpirableVersionService", () => {

@@ -1,4 +1,15 @@
-import { findConfigurationByName, isBlankString, isEqualStrings, isNotBlankString, nameToInitials, numberNaNToZero, numberTo2DigitsString, stringToHslColor, subStringToNumber, trimEllipsis } from "../../src/services/common/Utilities";
+import { 
+    findConfigurationByName, 
+    isBlankString, 
+    isEqualStrings, 
+    isNotBlankString, 
+    nameToInitials, 
+    numberNaNToZero, 
+    numberTo2DigitsString, 
+    stringToHslColor, 
+    subStringToNumber, 
+    trimEllipsis 
+} from "../../../src/services/common/Utilities";
 
 describe("Utilities - String", () => {
     it("isEqualStrings()", () => {
