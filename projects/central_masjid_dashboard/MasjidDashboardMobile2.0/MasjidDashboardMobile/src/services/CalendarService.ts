@@ -1,8 +1,14 @@
+
+
 import { CompanyData, PrayersMonth, PrayersYear, ServiceResponse } from '../types/types';
+import { getCurrentSystemDate } from './common/DateService';
+
 import { Constants } from './Constants';
+/*
 import store from '../store/rootReducer';
 import { isValidCompany } from './CompanyDataService';
 import { fixObjectDates, nowUtcDate } from './common/DateService';
+*/
 
 const apiYearCalendar = (companyId: string, year: number): Promise<ServiceResponse<PrayersMonth[]>> => {
 
@@ -13,15 +19,18 @@ const apiYearCalendar = (companyId: string, year: number): Promise<ServiceRespon
 }
 
 export const apiPrayersYear = (companyId: string, year?: number): Promise<PrayersYear> => {
-    let calendarYear = nowUtcDate().getFullYear();
+    let calendarYear = getCurrentSystemDate().getFullYear();
     if (year != undefined) {
         calendarYear = year;
     }
 
     return new Promise((resolve, reject) => {
         apiYearCalendar(companyId, calendarYear)
+            
             .then(
                 (response) => {
+                    console.log(response);               
+                    /*
                     if (response && response.successful && isValidPrayersMonths(response.target)) {
                         fixObjectDates(response.target);
                         const prayersYear: PrayersYear = {
@@ -32,10 +41,13 @@ export const apiPrayersYear = (companyId: string, year?: number): Promise<Prayer
                     } else {
                         rejectNewPrayerYear(reject, response);
                     }
+*/
                 },
                 (error) => rejectNewPrayerYear(reject, error))
             .catch((error) => rejectNewPrayerYear(reject, error));
+
     });
+    
 }
 
 // @Deprecated
