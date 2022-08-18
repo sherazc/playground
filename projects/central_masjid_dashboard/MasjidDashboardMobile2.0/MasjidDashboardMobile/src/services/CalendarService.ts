@@ -3,7 +3,7 @@ import { apiYearCalendar } from './ApiMdb';
 import { getCurrentSystemDate, parseObjectsIsoDateToMdDate } from './common/DateService';
 import { isValidCompany } from './CompanyDataService';
 
-export const apiPrayersYear = (companyId: string, year?: number): Promise<PrayersYear> => {
+export const getPrayersYear = (companyId: string, year?: number): Promise<PrayersYear> => {
     let calendarYear = getCurrentSystemDate().getFullYear();
     if (year != undefined) {
         calendarYear = year;
@@ -12,7 +12,6 @@ export const apiPrayersYear = (companyId: string, year?: number): Promise<Prayer
 
     return new Promise((resolve, reject) => {
         apiYearCalendar(companyId, calendarYear)
-            
             .then(
                 (response) => {
                     if (response && response.successful && isValidPrayersMonths(response.target)) {

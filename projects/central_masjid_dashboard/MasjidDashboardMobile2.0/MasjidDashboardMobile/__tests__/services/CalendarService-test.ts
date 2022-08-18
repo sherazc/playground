@@ -1,4 +1,4 @@
-import { apiPrayersYear } from "../../src/services/CalendarService";
+import { getPrayersYear } from "../../src/services/CalendarService";
 import { PrayersMonth, ServiceResponse } from "../../src/types/types";
 import { mockPrayersMonths } from "../../__mocks__/MockYearCalendar";
 
@@ -38,11 +38,18 @@ jest.mock("../../src/services/CompanyDataService", () => ({
 
 describe("CalendarService", () => {
 
-    it("isValidPrayersMonths()", async () => {
-        apiPrayersYear("a", 1).then(
+    it("getPrayersYear()", async () => {
+        await getPrayersYear("a", 1).then(
             (prayersYear) => {
-                expect(prayersYear.year).toBe(2000);
+                expect(prayersYear.year).toBe(1);
                 expect(prayersYear.prayersMonths.length).toBe(12);
+                prayersYear.prayersMonths.forEach((prayersMonth) => {
+                    expect(prayersMonth.month).toBeTruthy();
+                    expect(prayersMonth.prayers.length).toBeGreaterThan(28);
+                    prayersMonth.prayers.forEach(prayer => {
+                        expect(prayer.date).toBeTruthy();
+                    });
+                });
             }, (error) => {
                 fail("Failed to get prayer years");
             }
