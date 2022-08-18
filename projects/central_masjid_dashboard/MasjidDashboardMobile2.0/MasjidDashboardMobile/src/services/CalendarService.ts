@@ -1,7 +1,7 @@
-
-
-import { CompanyData, PrayersMonth, PrayersYear, ServiceResponse } from '../types/types';
+import { PrayersYear } from '../types/types';
+import { apiYearCalendar } from './ApiMdb';
 import { getCurrentSystemDate } from './common/DateService';
+
 
 import { Constants } from './Constants';
 /*
@@ -10,19 +10,13 @@ import { isValidCompany } from './CompanyDataService';
 import { fixObjectDates, nowUtcDate } from './common/DateService';
 */
 
-const apiYearCalendar = (companyId: string, year: number): Promise<ServiceResponse<PrayersMonth[]>> => {
-
-    // @ts-ignore
-    const endpoint = Constants.createYearCalendarEndpoint(companyId, year);
-    console.log("Calling year API ", endpoint);
-    return fetch(endpoint).then(response => response.json());
-}
 
 export const apiPrayersYear = (companyId: string, year?: number): Promise<PrayersYear> => {
     let calendarYear = getCurrentSystemDate().getFullYear();
     if (year != undefined) {
         calendarYear = year;
     }
+
 
     return new Promise((resolve, reject) => {
         apiYearCalendar(companyId, calendarYear)
@@ -51,6 +45,7 @@ export const apiPrayersYear = (companyId: string, year?: number): Promise<Prayer
 }
 
 // @Deprecated
+/*
 const loadCompanyPrayerYear = (companyId: string, year: number): Promise<PrayersYear> => {
 
     return new Promise((resolve, reject) => {
@@ -79,8 +74,9 @@ const loadCompanyPrayerYear = (companyId: string, year: number): Promise<Prayers
         }
     });
 }
-
+*/
 // @Deprecated
+/*
 const resolveNewPrayerYear = (resolve: Function, companyData: CompanyData, year: number, prayersMonths: PrayersMonth[]) => {
     companyData.prayersYear = { year, prayersMonths };
     store.dispatch({
@@ -89,12 +85,13 @@ const resolveNewPrayerYear = (resolve: Function, companyData: CompanyData, year:
     });
     resolve(companyData.prayersYear);
 }
+*/
 
 const rejectNewPrayerYear = (reject: Function, error: any) => {
     console.log("Can not load company. Failed to call apiYearCalendar().", error);
     reject(error);
 }
-
+/*
 const isCompanyDataContainsPrayersYear = (companyData: CompanyData): boolean => {
     return companyData != undefined
         && isValidCompany(companyData.company)
@@ -110,3 +107,5 @@ const isValidPrayersYear = (prayersYear?: PrayersYear): boolean => {
 const isValidPrayersMonths = (prayersMonths: PrayersMonth[]): boolean => {
     return prayersMonths != undefined && prayersMonths.length > 11;
 }
+
+*/

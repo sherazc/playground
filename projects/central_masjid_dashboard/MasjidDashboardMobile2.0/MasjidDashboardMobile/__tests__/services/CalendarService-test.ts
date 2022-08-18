@@ -20,11 +20,56 @@ const prayerMonthsResponse: ServiceResponse<PrayersMonth[]> = {
     target: []
 }
 
+
+jest.mock("../../src/services/ApiMdb", () => ({
+    apiYearCalendar: jest.fn(() => Promise.resolve(prayerMonthsResponse)),
+}));
+
+
+/*
+
+*/
+
+
+/*
+mock fetch()
+
 global.fetch = jest.fn(() =>
   Promise.resolve({
     json: () => Promise.resolve(prayerMonthsResponse),
   })
 );
+*/
+
+/*
+jest.mock('../../src/services/CalendarService', () => {
+    const originalModule = jest.requireActual('../../src/services/CalendarService');
+  
+    //Mock the default export and named export 'foo'
+    return {
+      __esModule: true,
+      ...originalModule,
+      myFunc: jest.fn(() => 'mocked baz'),
+      // foo: 'mocked foo',
+    };
+  });
+*/
+
+/*
+jest.mock("../../src/services/CalendarService", () => ({
+    const originalModule = jest.requireActual('../foo-bar-baz');
+    myFunc: jest.fn(() => {
+        return "chaudhry";
+    })
+}));
+*/
+
+/*
+global.myFunc = jest.fn(() => {
+        return "chaudhry";
+    }
+);
+*/
 
 beforeEach(() => {
     // fetch.mockClear();
@@ -35,6 +80,5 @@ describe("CalendarService", () => {
     
     it("isValidPrayersMonths()", async () => {
         apiPrayersYear("a", 1);
-        
     });
 });
