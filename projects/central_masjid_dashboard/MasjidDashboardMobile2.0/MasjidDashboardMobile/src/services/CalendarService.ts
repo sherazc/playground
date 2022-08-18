@@ -15,7 +15,6 @@ export const apiPrayersYear = (companyId: string, year?: number): Promise<Prayer
             
             .then(
                 (response) => {
-                    console.log(response);
                     if (response && response.successful && isValidPrayersMonths(response.target)) {
                         parseObjectsIsoDateToMdDate(response.target);
                         const prayersYear: PrayersYear = {
