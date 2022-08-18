@@ -7,7 +7,7 @@ export interface ExpirableVersion {
 
 export interface Prayer {
     date: MdDate;
-    hijrahDate: string; // HijrahDate
+    hijrahDate?: string; // HijrahDate
     hijriString: string;
     fajr: string;
     fajrIqama: string;
@@ -20,16 +20,16 @@ export interface Prayer {
     isha: string;
     ishaIqama: string;
     sunrise: string;
-    fajrChange: string;
-    fajrChangeDate: Date;
-    dhuhrChange: string;
-    dhuhrChangeDate: Date;
-    asrChange: string;
-    asrChangeDate: Date;
-    maghribChange: string;
-    maghribChangeDate: Date;
-    ishaChange: string;
-    ishaChangeDate: Date;
+    fajrChange?: string | null;
+    fajrChangeDate?: MdDate | null;
+    dhuhrChange?: string | null;
+    dhuhrChangeDate?: MdDate | null;
+    asrChange?: string | null;
+    asrChangeDate?: MdDate | null;
+    maghribChange?: string | null;
+    maghribChangeDate?: MdDate | null;
+    ishaChange?: string | null;
+    ishaChangeDate?: MdDate | null;
 }
 
 export interface Month {

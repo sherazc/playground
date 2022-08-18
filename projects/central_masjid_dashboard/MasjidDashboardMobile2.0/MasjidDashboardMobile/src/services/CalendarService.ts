@@ -1,15 +1,7 @@
-import { PrayersYear } from '../types/types';
+import { CompanyData, PrayersMonth, PrayersYear } from '../types/types';
 import { apiYearCalendar } from './ApiMdb';
-import { getCurrentSystemDate } from './common/DateService';
-
-
-import { Constants } from './Constants';
-/*
-import store from '../store/rootReducer';
+import { getCurrentSystemDate, parseObjectsIsoDateToMdDate } from './common/DateService';
 import { isValidCompany } from './CompanyDataService';
-import { fixObjectDates, nowUtcDate } from './common/DateService';
-*/
-
 
 export const apiPrayersYear = (companyId: string, year?: number): Promise<PrayersYear> => {
     let calendarYear = getCurrentSystemDate().getFullYear();
@@ -23,10 +15,9 @@ export const apiPrayersYear = (companyId: string, year?: number): Promise<Prayer
             
             .then(
                 (response) => {
-                    console.log(response);               
-                    /*
+                    console.log(response);
                     if (response && response.successful && isValidPrayersMonths(response.target)) {
-                        fixObjectDates(response.target);
+                        parseObjectsIsoDateToMdDate(response.target);
                         const prayersYear: PrayersYear = {
                             year: calendarYear,
                             prayersMonths: response.target
@@ -35,7 +26,6 @@ export const apiPrayersYear = (companyId: string, year?: number): Promise<Prayer
                     } else {
                         rejectNewPrayerYear(reject, response);
                     }
-*/
                 },
                 (error) => rejectNewPrayerYear(reject, error))
             .catch((error) => rejectNewPrayerYear(reject, error));
@@ -91,12 +81,14 @@ const rejectNewPrayerYear = (reject: Function, error: any) => {
     console.log("Can not load company. Failed to call apiYearCalendar().", error);
     reject(error);
 }
-/*
+
 const isCompanyDataContainsPrayersYear = (companyData: CompanyData): boolean => {
     return companyData != undefined
         && isValidCompany(companyData.company)
         && isValidPrayersYear(companyData.prayersYear);
 }
+
+
 
 const isValidPrayersYear = (prayersYear?: PrayersYear): boolean => {
     return prayersYear != undefined
@@ -104,8 +96,7 @@ const isValidPrayersYear = (prayersYear?: PrayersYear): boolean => {
         && isValidPrayersMonths(prayersYear.prayersMonths);
 }
 
+
 const isValidPrayersMonths = (prayersMonths: PrayersMonth[]): boolean => {
     return prayersMonths != undefined && prayersMonths.length > 11;
 }
-
-*/

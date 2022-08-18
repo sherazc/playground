@@ -3,6 +3,7 @@ import { PrayersMonth, ServiceResponse } from "../../src/types/types";
 
 jest.mock("../../src/services/common/DateService", () => ({
     getCurrentSystemDate: () => new Date(2000, 0, 1),
+    parseObjectsIsoDateToMdDate: jest.fn(),
 }));
 
 
@@ -20,9 +21,13 @@ const prayerMonthsResponse: ServiceResponse<PrayersMonth[]> = {
     target: []
 }
 
-
 jest.mock("../../src/services/ApiMdb", () => ({
     apiYearCalendar: jest.fn(() => Promise.resolve(prayerMonthsResponse)),
+}));
+
+
+jest.mock("../../src/services/CompanyDataService", () => ({
+    isValidCompany: jest.fn(() => true),
 }));
 
 
