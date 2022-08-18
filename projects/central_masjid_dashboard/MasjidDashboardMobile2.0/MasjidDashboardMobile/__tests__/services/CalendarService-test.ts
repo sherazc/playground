@@ -17,30 +17,27 @@ jest.mock("../../src/services/Constants", () => ({
 }));
 
 
-// const prayerMonthsResponse: ServiceResponse<PrayersMonth[]> = {
-//     successful: true,
-//     fieldErrors: {},
-//     message: "",
-//     target: mockPrayersMonths
-// }
-
 jest.mock("../../src/services/ApiMdb", () => ({
-    apiYearCalendar: jest.fn(() => Promise.resolve({
-        successful: true,
-        fieldErrors: {},
-        message: "",
-        target: mockPrayersMonths
-    } as ServiceResponse<PrayersMonth[]>)),
+    apiYearCalendar: jest.fn(() => {
+        const prayerMonthsResponse: ServiceResponse<PrayersMonth[]> = {
+            successful: true,
+            fieldErrors: {},
+            message: "",
+            target: mockPrayersMonths
+        };
+
+        return Promise.resolve(prayerMonthsResponse);
+    }),
 }));
 
 
 jest.mock("../../src/services/CompanyDataService", () => ({
     isValidCompany: jest.fn(() => true),
 }));
-  
+
 
 describe("CalendarService", () => {
-    
+
     it("isValidPrayersMonths()", async () => {
         apiPrayersYear("a", 1).then(
             (prayersYear) => {
