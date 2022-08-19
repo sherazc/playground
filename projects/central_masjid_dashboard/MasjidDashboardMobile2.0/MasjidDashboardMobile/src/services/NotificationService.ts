@@ -1,7 +1,7 @@
 import { Company, CompanyData, SettingData, PrayersMonth, Prayer, ScheduleNotification, CompanyNotification } from '../types/types';
 import { nowUtcDate, dayOfTheYear, TIME_24_REGX, utcToLocalDate, addMinutesToTime, createExpirationDate } from './common/DateService';
 import store from '../store/rootReducer';
-// import PushNotification from "react-native-push-notification";
+import PushNotification from "react-native-push-notification";
 import { Constants } from './Constants';
 import { isNotBlankString } from './common/Utilities';
 import { getCompanyName } from './CompanyDataService';
