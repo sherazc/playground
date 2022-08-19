@@ -1,10 +1,24 @@
-import { Company, CompanyData, CompanyDataVersion, Configuration, createEmptyCompanyData, Prayer, PrayersYear, ServiceResponse } from "../types/types";
+import { 
+    Company, 
+    CompanyData, 
+    CompanyDataVersion, 
+    Configuration, 
+    createEmptyCompanyData, 
+    Prayer, 
+    PrayersYear, 
+    ServiceResponse 
+} from "../types/types";
 import { createOrRefreshExpirableVersion, isExpired } from "./ExpirableVersionService";
 import store from '../store/rootReducer';
-import { Constants } from './Constants';
 import setupNotifications from "./NotificationService";
-import { fixObjectDates, isSameMonthDate, getTodaysDate, getTodaysMonth } from "./common/DateService";
-import { apiPrayersYear } from "./CalendarService";
+import { 
+    isSameMonthDate, 
+    getTodaysDate, 
+    getTodaysMonth, 
+    parseObjectsIsoDateToMdDate 
+} from "./common/DateService";
+import { apiConfiguration, apiPrayer } from "./ApiMdb";
+import { getPrayersYear } from "./CalendarService";
 
 
 export const isValidCompany = (company?: Company) => {
@@ -23,23 +37,6 @@ const updateCompanyDataState = (companyData: CompanyData) => {
     });
 }
 
-const apiCompanyDataVersion = (companyId: string): Promise<CompanyDataVersion> => {
-    const endpoint = Constants.createCompanyDataVersionEndpoint(companyId)
-    console.log("Calling API ", endpoint);
-    return fetch(endpoint).then(response => response.json());
-}
-
-const apiPrayer = (companyId: string, month: number, day: number): Promise<ServiceResponse<Prayer>> => {
-    const endpoint = Constants.createPrayerEndpoint(companyId, month, day);
-    console.log("Calling API ", endpoint);
-    return fetch(endpoint).then(response => response.json());
-}
-
-const apiConfiguration = (companyId: string): Promise<Configuration[]> => {
-    const endpoint = Constants.createConfigurationEndpoint(companyId);
-    console.log("Calling API ", endpoint);
-    return fetch(endpoint).then(response => response.json());
-}
 
 const isValidServiceResponsePrayer = (serviceResponse: ServiceResponse<Prayer>) => {
     return serviceResponse && serviceResponse.successful
@@ -72,7 +69,7 @@ const refreshCompanyData = (companyData: CompanyData, companyDataVersion: Compan
         freshCompanyData.prayersYear = companyData.prayersYear;
     } else {
         promises.push(apiConfiguration(company.id));
-        promises.push(apiPrayersYear(company.id));
+        promises.push(getPrayersYear(company.id));
     }
 
     // @ts-ignore
@@ -89,7 +86,7 @@ const processCompanyData = (companyData: CompanyData, apiResponses: (ServiceResp
     const prayerResponse = apiResponses[0] as ServiceResponse<Prayer>;
 
     if (isValidServiceResponsePrayer(prayerResponse)) {
-        fixObjectDates(prayerResponse.target); // TODO: check if this can be done in API call function.
+        parseObjectsIsoDateToMdDate(prayerResponse.target); // TODO: check if this can be done in API call function.
         companyData.prayer = prayerResponse.target;
         if (apiResponses.length > 2) {
             companyData.configurations = apiResponses[1] as Configuration[];
