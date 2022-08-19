@@ -75,25 +75,29 @@ const resolveNewPrayerYear = (resolve: Function, companyData: CompanyData, year:
 }
 */
 
+
 const rejectNewPrayerYear = (reject: Function, error: any) => {
     console.log("Can not load company. Failed to call apiYearCalendar().", error);
     reject(error);
 }
 
+// @Deprecated
+/*
 const isCompanyDataContainsPrayersYear = (companyData: CompanyData): boolean => {
     return companyData != undefined
         && isValidCompany(companyData.company)
         && isValidPrayersYear(companyData.prayersYear);
 }
+*/
 
-
-
+// @Deprecated
+/*
 const isValidPrayersYear = (prayersYear?: PrayersYear): boolean => {
     return prayersYear != undefined
         && prayersYear.year != undefined
         && isValidPrayersMonths(prayersYear.prayersMonths);
 }
-
+*/
 
 const isValidPrayersMonths = (prayersMonths: PrayersMonth[]): boolean => {
     return prayersMonths != undefined && prayersMonths.length > 11;

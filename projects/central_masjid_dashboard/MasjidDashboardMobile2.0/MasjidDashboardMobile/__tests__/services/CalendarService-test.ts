@@ -2,6 +2,7 @@ import { getPrayersYear } from "../../src/services/CalendarService";
 import { PrayersMonth, ServiceResponse } from "../../src/types/types";
 import { mockPrayersMonths } from "../../__mocks__/MockYearCalendar";
 
+
 jest.mock("../../src/services/common/DateService", () => ({
     __esModule: true,
     ...jest.requireActual('../../src/services/common/DateService'),
@@ -27,6 +28,15 @@ jest.mock("../../src/services/ApiMdb", () => ({
         };
 
         return Promise.resolve(prayerMonthsResponse);
+    }).mockImplementationOnce(() => {
+        const prayerMonthsResponse: ServiceResponse<PrayersMonth[]> = {
+            successful: false,
+            fieldErrors: {},
+            message: "",
+            target: []
+        };
+
+        return Promise.resolve(prayerMonthsResponse);
     }),
 }));
 
@@ -38,7 +48,19 @@ jest.mock("../../src/services/CompanyDataService", () => ({
 
 describe("CalendarService", () => {
 
-    it("getPrayersYear()", async () => {
+    it("getPrayersYear() - Fail", async () => {
+        await getPrayersYear("a", 1).then(
+            (prayersYear) => {
+                fail("getPrayersYear() should have failed");
+            }, (error) => {
+                const invalidResponse = error.successful === false || error.target === undefined || error.target.length !== 12;
+                expect(invalidResponse).toBeTruthy();
+                // fail("Failed to get prayer years");
+            }
+        );
+    });
+
+    it("getPrayersYear() - Successful", async () => {
         await getPrayersYear("a", 1).then(
             (prayersYear) => {
                 expect(prayersYear.year).toBe(1);
@@ -51,7 +73,7 @@ describe("CalendarService", () => {
                     });
                 });
             }, (error) => {
-                fail("Failed to get prayer years");
+                fail("getPrayersYear() should have been successful");
             }
         );
     });
