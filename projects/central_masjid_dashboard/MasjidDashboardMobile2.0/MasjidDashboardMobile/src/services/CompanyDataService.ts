@@ -17,7 +17,7 @@ import {
     getTodaysMonth, 
     parseObjectsIsoDateToMdDate 
 } from "./common/DateService";
-import { apiConfiguration, apiPrayer } from "./ApiMdb";
+import { apiCompanyDataVersion, apiConfiguration, apiPrayer } from "./ApiMdb";
 import { getPrayersYear } from "./CalendarService";
 
 
