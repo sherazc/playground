@@ -63,7 +63,7 @@ describe("CompanyDataService - API Service functions", () => {
         const companyDataVersion: CompanyDataVersion = {
             id: "1",
             companyId: companyId,
-            version: 100
+            version: 101
         }
 
         jest.spyOn(DateService, "getTodaysMonth").mockImplementation(() => 2);

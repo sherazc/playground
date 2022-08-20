@@ -138,10 +138,12 @@ export const updateCompanyData = (companyData: CompanyData) => {
 
 
         // if (!isCompanyVersionSame2(tracker.expirableVersion?.version, companyDataVersion) || !sameMonthDate) {
-        refreshCompanyData(companyData, companyDataVersion, versionSame, nowMonth, nowDate);
+        if (!versionSame) {
+            refreshCompanyData(companyData, companyDataVersion, versionSame, nowMonth, nowDate);
+        }
         // Setup notifications
         // @ts-ignore
-        setupNotifications(companyData.company.id, false);
+        // setupNotifications(companyData.company.id, false);
         // }
     });
 
