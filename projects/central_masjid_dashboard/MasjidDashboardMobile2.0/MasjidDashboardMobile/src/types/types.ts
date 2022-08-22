@@ -7,7 +7,6 @@ export interface ExpirableVersion {
 
 export interface Prayer {
     date: MdDate;
-    hijrahDate?: string; // HijrahDate
     hijriString: string;
     fajr: string;
     fajrIqama: string;
