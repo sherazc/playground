@@ -1,4 +1,4 @@
-import { CompanyData, PrayersMonth, PrayersYear } from '../types/types';
+import { PrayersMonth, PrayersYear } from '../types/types';
 import { apiYearCalendar } from './ApiMdb';
 import { getCurrentSystemDate, parseObjectsIsoDateToMdDate } from './common/DateService';
 import { isValidCompany } from './CompanyDataService';

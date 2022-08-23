@@ -9251,7 +9251,7 @@ export const mockPrayersMonths: PrayersMonth[] = [
 ];
 
 
-const mockPrayersYear: PrayersYear = {
+export const mockPrayersYear: PrayersYear = {
     year: 2000,
     prayersMonths: mockPrayersMonths
 }

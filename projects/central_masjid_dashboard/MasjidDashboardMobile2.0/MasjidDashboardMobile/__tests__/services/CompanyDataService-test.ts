@@ -1,10 +1,5 @@
-import * as DateService from "../../src/services/common/DateService";
-import * as ExpirableVersionService from "../../src/services/ExpirableVersionService";
-import * as ApiMdb from "../../src/services/ApiMdb";
 import { getCompanyId, getCompanyName, isValidCompany, updateCompanyData } from "../../src/services/CompanyDataService";
-import { Company, CompanyData, CompanyDataVersion, Prayer, ServiceResponse } from "../../src/types/types";
-import { mockCreateServiceResponse } from "../../__mocks__/MockServiceResponse";
-import { mockCreatePrayer } from "../../__mocks__/MockTypes";
+import { Company } from "../../src/types/types";
 
 // TODO: upgrade react-native-push-notification and check if this is still needed
 jest.mock("react-native-push-notification", () => ({}));
@@ -50,48 +45,4 @@ describe("CompanyDataService - Utility functions", () => {
 });
 
 
-describe("CompanyDataService - API Service functions", () => {
-
-    it("updateCompanyData()", () => {
-
-        const companyId = "a"
-        // @ts-ignore
-        const companyData: CompanyData = {
-            // @ts-ignore
-            company: { id: companyId },
-            tracker: {expirableVersion: {version: 100}}
-        };
-
-        const companyDataVersion: CompanyDataVersion = {
-            id: "1",
-            companyId: companyId,
-            version: 101
-        }
-
-        jest.spyOn(DateService, "getTodaysMonth").mockImplementation(() => 2);
-        jest.spyOn(DateService, "getTodaysDate").mockImplementation(() => 2);
-        jest.spyOn(DateService, "isSameMonthDate").mockImplementation(() => false);
-
-        const serviceResponsePrayer: ServiceResponse<Prayer> =  mockCreateServiceResponse(mockCreatePrayer(), true);
-        //jest.spyOn(ApiMdb, "apiPrayer").mockImplementation(() => Promise.resolve(serviceResponsePrayer));
-        // @ts-ignore
-        jest.spyOn(ApiMdb, "apiPrayer").mockImplementation(() => Promise.resolve({}));
-        jest.spyOn(ApiMdb, "apiCompanyDataVersion").mockImplementation(() => Promise.resolve(companyDataVersion));
-
-        
-        jest.spyOn(ExpirableVersionService, "createOrRefreshExpirableVersion").mockImplementation(() => ({}));
-        
-        // const updateCompanyData = require("../../src/services/common/DateService");
-
-        // jest.spyOn(updateCompanyData, "getTodaysMonth").mockImplementation(() => 2);
-
-        updateCompanyData(companyData);
-
-    });
-
-    afterEach(() => {
-        // restore the spy created with spyOn
-        jest.restoreAllMocks();
-    });
-});
 
