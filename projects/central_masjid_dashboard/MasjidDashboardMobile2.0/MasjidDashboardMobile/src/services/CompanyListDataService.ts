@@ -2,6 +2,7 @@ import { Company, CompanyListData, CompanyListVersion, createEmptyCompanyListDat
 import { createOrRefreshExpirableVersion, isExpired } from './ExpirableVersionService';
 import store from '../store/rootReducer';
 import { Constants } from './Constants';
+import { storeDispatchCompanyListData } from '../store/ReduxStoreService';
 
 
 const isValidCompanyListData = (companyListData?: CompanyListData) => {
@@ -41,10 +42,7 @@ const refreshCompanyListDataExpirableVersion = (companyListData: CompanyListData
 
 
 const updateCompanyListDataState = (companyListData: CompanyListData) => {
-    store.dispatch({
-        type: "COMPANY_LIST_SET",
-        payload: companyListData
-    });
+    storeDispatchCompanyListData(companyListData);
 }
 
 

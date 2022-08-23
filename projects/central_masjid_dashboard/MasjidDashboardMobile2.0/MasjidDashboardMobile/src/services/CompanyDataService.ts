@@ -19,6 +19,7 @@ import {
 } from "./common/DateService";
 import { apiCompanyDataVersion, apiConfiguration, apiPrayer } from "./ApiMdb";
 import { getPrayersYear } from "./CalendarService";
+import { storeDispatchCompanyData } from "../store/ReduxStoreService";
 
 
 export const isValidCompany = (company?: Company) => {
@@ -31,10 +32,7 @@ const isCompanyVersionSame2 = (version?: number, cdv2?: CompanyDataVersion) => {
 }
 
 const updateCompanyDataState = (companyData: CompanyData) => {
-    store.dispatch({
-        type: "COMPANY_DATA_SET",
-        payload: companyData
-    });
+    storeDispatchCompanyData(companyData);
 }
 
 

@@ -1,5 +1,4 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import store from '../store/rootReducer';
 
 import {
     STORAGE_COMPANY_LIST_DATA,
@@ -7,16 +6,12 @@ import {
     STORAGE_SETTING_DATA
 } from '../storage/Storage';
 
-import {
-    RecoverInitCompleteAction,
-    RecoverInitFailedAction
-} from '../store/LoadingReducer';
-
 import { CompanyData, CompanyListData, SettingData, Tracker } from '../types/types';
 import { updateCompanyListData } from './CompanyListDataService';
 import { Constants } from './Constants';
 import { isValidCompany, updateCompanyData } from './CompanyDataService';
 import { fixObjectDates } from './common/DateService';
+import { storeDispatchCompanyData, storeDispatchCompanyListData, storeDispatchRecoverInitComplete, storeDispatchRecoverInitFailed, storeDispatchSettingData } from '../store/ReduxStoreService';
 
 
 export const recoverAppFromStorage = () => {
@@ -41,37 +36,29 @@ const processStorage = (data: (string | null)[]) => {
         // TODO use reviver like this JSON.parse(exampleSerialize, MdDate.mdDateJsonReviver)
         const companyListData = JSON.parse(data[0])
         fixObjectDates(companyListData);
-        store.dispatch({
-            type: "COMPANY_LIST_SET",
-            payload: companyListData as CompanyListData
-        });
+        storeDispatchCompanyListData(companyListData);
     }
 
     if (data[1]) {
         // TODO use reviver like this JSON.parse(exampleSerialize, MdDate.mdDateJsonReviver)
         const companyData = JSON.parse(data[1])
         fixObjectDates(companyData);
-        store.dispatch({
-            type: "COMPANY_DATA_SET",
-            payload: companyData as CompanyData
-        });
+        storeDispatchCompanyData(companyData);
     }
 
     if (data[2]) {
         // TODO use reviver like this JSON.parse(exampleSerialize, MdDate.mdDateJsonReviver)
         const settingData = JSON.parse(data[2]) as SettingData;
-        store.dispatch({
-            type: "SETTING_SET",
-            payload: settingData
-        });
+        storeDispatchSettingData(settingData);
+        
     }
-    store.dispatch(RecoverInitCompleteAction)
+    storeDispatchRecoverInitComplete();
 }
 
 
 const processStorageFailed = () => {
     AsyncStorage.multiRemove([STORAGE_COMPANY_LIST_DATA, STORAGE_COMPANY_DATA, STORAGE_SETTING_DATA]);
-    store.dispatch(RecoverInitFailedAction)
+    storeDispatchRecoverInitFailed();
 }
 
 

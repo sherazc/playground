@@ -67,10 +67,7 @@ const loadCompanyPrayerYear = (companyId: string, year: number): Promise<Prayers
 /*
 const resolveNewPrayerYear = (resolve: Function, companyData: CompanyData, year: number, prayersMonths: PrayersMonth[]) => {
     companyData.prayersYear = { year, prayersMonths };
-    store.dispatch({
-        type: "COMPANY_DATA_SET",
-        payload: companyData
-    });
+    storeDispatchCompanyData(companyData);
     resolve(companyData.prayersYear);
 }
 */

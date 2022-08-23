@@ -5,6 +5,7 @@ import PushNotification from "react-native-push-notification";
 import { Constants } from './Constants';
 import { isNotBlankString } from './common/Utilities';
 import { getCompanyName } from './CompanyDataService';
+import { storeDispatchCompanyData } from '../store/ReduxStoreService';
 
 const NotificationConfig = {
     MAX_NOTIFICATION_SETUP_DAYS: 5,
@@ -57,8 +58,7 @@ const updateNotificationExpiration = (companyData: CompanyData) => {
     };
 
     companyData.companyNotification = companyNotification;
-
-    store.dispatch({ type: "COMPANY_DATA_SET", payload: companyData });
+    storeDispatchCompanyData(companyData)
 }
 
 const resetNotifications = (companyData: CompanyData) => {
