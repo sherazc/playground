@@ -50,9 +50,11 @@ describe("CompanyDataService - API Service functions", () => {
         jest.spyOn(DateService, "getTodaysMonth").mockImplementation(() => 2);
         jest.spyOn(DateService, "getTodaysDate").mockImplementation(() => 2);
         jest.spyOn(DateService, "isSameMonthDate").mockImplementation(() => false);
+        jest.spyOn(DateService, "parseObjectsIsoDateToMdDate").mockImplementation(jest.fn());
         jest.spyOn(ExpirableVersionService, "createOrRefreshExpirableVersion").mockImplementation(() => ({}));
         jest.spyOn(CalendarService, "getPrayersYear").mockImplementation(() => Promise.resolve(mockPrayersYear));
 
+        TODO: make all stores in a separate file
         await updateCompanyData(companyData);
 
     });
