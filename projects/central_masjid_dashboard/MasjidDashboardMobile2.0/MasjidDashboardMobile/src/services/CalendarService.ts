@@ -37,7 +37,7 @@ export const getPrayersYear = (companyId: string, year?: number): Promise<Prayer
 const loadCompanyPrayerYear = (companyId: string, year: number): Promise<PrayersYear> => {
 
     return new Promise((resolve, reject) => {
-        const companyDataInStore = store.getState().companyData;
+        const companyDataInStore = storeDispatchCompanyData();
         const prayersYearInStore = companyDataInStore.prayersYear;
 
         if (isCompanyDataContainsPrayersYear(companyDataInStore)) {

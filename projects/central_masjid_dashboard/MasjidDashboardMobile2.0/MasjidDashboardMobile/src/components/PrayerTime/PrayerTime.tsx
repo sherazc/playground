@@ -3,7 +3,7 @@ import { BackHandler, Image, Platform, SafeAreaView, StyleSheet, View } from "re
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MdParamList } from "../NavRoutes";
 import { RouteProp } from '@react-navigation/native';
-import { useTypedDispatch, useTypedSelector } from "../../store/rootReducer";
+import { useTypedSelector } from "../../store/rootReducer";
 import { CompanyData, Prayer } from "../../types/types";
 import { Loading } from "../Loading";
 import { PrayerTimeGrid } from './PrayerTimeGrid';
@@ -14,6 +14,7 @@ import { processPrayerTime } from "../../services/PrayerTimeProcessor";
 import { processPrayerTimeMessage } from "../../services-react/PrayerTimeMessageProcessor";
 import { ConstantsStyles } from "../../services/Constants";
 import { destroyCompanyDataInterval2 } from "../../services/CompanyDataService";
+import { storeDispatchCompanyData } from "../../store/ReduxStoreService";
 
 interface Props {
     navigation: StackNavigationProp<MdParamList, "PrayerTime">;
@@ -23,7 +24,7 @@ interface Props {
 export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
     const [prayerTimeMessage, setPrayerTimeMessage] = useState(createEmptyPrayerTimeSummaryMessage());
     const companyData = useTypedSelector(state => state.companyData);
-    const dispatch = useTypedDispatch();
+
 
     // TODO: make prayerTimeMessageInterval part of PrayerTimeSummaryMessage interface
     let prayerTimeMessageInterval: NodeJS.Timeout;
@@ -39,10 +40,12 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
         if (isSameCompanySelected(companyData, route)) return;
         if (route.params && route.params.selectedCompany) {
             companyData.company = route.params.selectedCompany;
-            dispatch({
-                type: "COMPANY_DATA_SET",
-                payload: companyData
-            });
+            storeDispatchCompanyData(companyData)
+            
+            // dispatch({
+            //     type: "COMPANY_DATA_SET",
+            //     payload: companyData
+            // });
         }
 
         if (Platform.OS === 'android') {

@@ -65,7 +65,7 @@ const resetNotifications = (companyData: CompanyData) => {
 
     const setting = storeGetSetting();
     if (!isAnyAlertOn(setting)) {
-        console.log(`Not setting up notification. No notification setting truned on.`);
+        console.log(`Not setting up notification. No notification settings are turned On.`);
         return;
     }
 

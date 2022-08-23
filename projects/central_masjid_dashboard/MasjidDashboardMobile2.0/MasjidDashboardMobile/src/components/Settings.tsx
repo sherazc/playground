@@ -3,7 +3,6 @@ import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity  } from "react-n
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MdParamList } from "./NavRoutes";
 import { RouteProp } from '@react-navigation/native';
-import { useTypedDispatch, useTypedSelector } from "../store/rootReducer";
 import { ConstantsStyles } from '../services/Constants';
 import { AppBar } from "./AppBar";
 import Reset from "../images/Reset";
@@ -11,6 +10,8 @@ import { Checkbox } from './Checkbox';
 import setupNotifications, { removeAllExistingNotifications } from "../services/NotificationService";
 import { createDefaultSettingData, SettingData } from '../types/types';
 import { destroyCompanyDataInterval2, getCompanyId } from '../services/CompanyDataService';
+import { storeDeleteCompanyData, storeDispatchSetting } from "../store/ReduxStoreService";
+import { useTypedSelector } from "../store/rootReducer";
 interface Props {
     navigation: StackNavigationProp<MdParamList, "Settings">;
     route: RouteProp<MdParamList, "Settings">;
@@ -22,7 +23,6 @@ let settingInterval: (NodeJS.Timeout | undefined);
 export const Settings: React.FC<Props> = ({ navigation, route }) => {
 
     const companyData = useTypedSelector(state => state.companyData);
-    const dispatch = useTypedDispatch();
     const settingStore = useTypedSelector(state => state.setting);
     const [setting, setSetting] = useState(createDefaultSettingData());
 
@@ -32,7 +32,7 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
     }, [settingStore]);
 
     const onResetMasjid = () => {
-        dispatch({ type: "COMPANY_DATA_DELETE" });
+        storeDeleteCompanyData();
         navigation.navigate("CompanySelect");
         removeAllExistingNotifications();
         destroyCompanyDataInterval2(companyData);
@@ -92,7 +92,8 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
     const settingIntervalMillis = 1000;
 
     const changeAlertWithDelay = (newSetting: SettingData) => {
-        dispatch({ type: "SETTING_SET", payload: newSetting });
+        storeDispatchSetting(newSetting);
+        // dispatch({ type: "SETTING_SET", payload: newSetting });
         lastSettingChangeTime = new Date().getTime();
 
         let companyId = getCompanyId(companyData.company);
