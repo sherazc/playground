@@ -2,6 +2,8 @@ import { CompanyData, CompanyListData, SettingData } from "../types/types";
 import { RecoverInitCompleteAction, RecoverInitFailedAction } from "./LoadingReducer";
 import store from "./rootReducer";
 
+
+export const storeGetCompanyData = ():CompanyData => store.getState().companyData;
 export const storeDispatchCompanyData = (companyData:CompanyData) => {
     store.dispatch({
         type: "COMPANY_DATA_SET",
@@ -9,7 +11,8 @@ export const storeDispatchCompanyData = (companyData:CompanyData) => {
     });
 }
 
-export const storeDispatchSettingData = (settingData:SettingData) => {
+export const storeGetSetting = ():SettingData => store.getState().setting;
+export const storeDispatchSetting = (settingData:SettingData) => {
     store.dispatch({
         type: "SETTING_SET",
         payload: settingData

@@ -1,11 +1,10 @@
 import { Company, CompanyData, SettingData, PrayersMonth, Prayer, ScheduleNotification, CompanyNotification } from '../types/types';
 import { nowUtcDate, dayOfTheYear, TIME_24_REGX, utcToLocalDate, addMinutesToTime, createExpirationDate } from './common/DateService';
-import store from '../store/rootReducer';
 import PushNotification from "react-native-push-notification";
 import { Constants } from './Constants';
 import { isNotBlankString } from './common/Utilities';
 import { getCompanyName } from './CompanyDataService';
-import { storeDispatchCompanyData } from '../store/ReduxStoreService';
+import { storeDispatchCompanyData, storeGetCompanyData, storeGetSetting } from '../store/ReduxStoreService';
 
 const NotificationConfig = {
     MAX_NOTIFICATION_SETUP_DAYS: 5,
@@ -33,7 +32,7 @@ const startNotificationsSetInterval = (companyId: string) => {
             // Getting latest companyData from the store because
             // stale companyData prayer and prayerMonths state is not updated and
             // is ending up in endless loop.
-            const companyData = store.getState().companyData;
+            const companyData = storeGetCompanyData();
             if (!isValidCompanyDataAvailable(companyId, companyData)) {
                 console.log(`Not setting up notification. Valid company data not available.`);
                 return
@@ -64,7 +63,7 @@ const updateNotificationExpiration = (companyData: CompanyData) => {
 const resetNotifications = (companyData: CompanyData) => {
     removeAllExistingNotifications();
 
-    const setting = store.getState().setting;
+    const setting = storeGetSetting();
     if (!isAnyAlertOn(setting)) {
         console.log(`Not setting up notification. No notification setting truned on.`);
         return;
@@ -334,7 +333,7 @@ const isNotificationAlreadySet = (companyId: string): boolean => {
     // Getting latest companyData from the store becasue
     // stale companyData notification state is not updated and
     // is ending up in endless loop.
-    const companyData = store.getState().companyData;
+    const companyData = storeGetCompanyData();
     const companyNotification = companyData.companyNotification;
     if (companyNotification === undefined) {
         return false;

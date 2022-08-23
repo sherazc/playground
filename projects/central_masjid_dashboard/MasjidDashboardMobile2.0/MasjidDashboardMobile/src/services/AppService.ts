@@ -11,7 +11,7 @@ import { updateCompanyListData } from './CompanyListDataService';
 import { Constants } from './Constants';
 import { isValidCompany, updateCompanyData } from './CompanyDataService';
 import { fixObjectDates } from './common/DateService';
-import { storeDispatchCompanyData, storeDispatchCompanyListData, storeDispatchRecoverInitComplete, storeDispatchRecoverInitFailed, storeDispatchSettingData } from '../store/ReduxStoreService';
+import { storeDispatchCompanyData, storeDispatchCompanyListData, storeDispatchRecoverInitComplete, storeDispatchRecoverInitFailed, storeDispatchSetting } from '../store/ReduxStoreService';
 
 
 export const recoverAppFromStorage = () => {
@@ -49,7 +49,7 @@ const processStorage = (data: (string | null)[]) => {
     if (data[2]) {
         // TODO use reviver like this JSON.parse(exampleSerialize, MdDate.mdDateJsonReviver)
         const settingData = JSON.parse(data[2]) as SettingData;
-        storeDispatchSettingData(settingData);
+        storeDispatchSetting(settingData);
         
     }
     storeDispatchRecoverInitComplete();
