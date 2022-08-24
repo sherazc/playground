@@ -1,6 +1,7 @@
 import * as DateService from "../../src/services/common/DateService";
 import * as ExpirableVersionService from "../../src/services/ExpirableVersionService";
 import * as CalendarService from "../../src/services/CalendarService";
+import * as ReduxStoreService from "../../src/store/ReduxStoreService";
 // import * as ApiMdb from "../../src/services/ApiMdb";
 import { updateCompanyData } from "../../src/services/CompanyDataService";
 import { CompanyData, CompanyDataVersion, Configuration, Prayer, ServiceResponse } from "../../src/types/types";
@@ -53,9 +54,12 @@ describe("CompanyDataService - API Service functions", () => {
         jest.spyOn(DateService, "parseObjectsIsoDateToMdDate").mockImplementation(jest.fn());
         jest.spyOn(ExpirableVersionService, "createOrRefreshExpirableVersion").mockImplementation(() => ({}));
         jest.spyOn(CalendarService, "getPrayersYear").mockImplementation(() => Promise.resolve(mockPrayersYear));
-
-        TODO: make all stores in a separate file
-        await updateCompanyData(companyData);
+        
+        const storeDispatchCompanyDataSpy = jest.spyOn(ReduxStoreService, "storeDispatchCompanyData").mockImplementation(() => {});;
+        // await updateCompanyData(companyData);
+        updateCompanyData(companyData);
+        
+        expect(storeDispatchCompanyDataSpy).toBeCalled();
 
     });
 

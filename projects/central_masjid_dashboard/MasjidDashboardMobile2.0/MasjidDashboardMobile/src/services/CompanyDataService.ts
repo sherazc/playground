@@ -9,8 +9,6 @@ import {
     ServiceResponse 
 } from "../types/types";
 import { createOrRefreshExpirableVersion, isExpired } from "./ExpirableVersionService";
-import store from '../store/rootReducer';
-import setupNotifications from "./NotificationService";
 import { 
     isSameMonthDate, 
     getTodaysDate, 
@@ -29,10 +27,6 @@ export const isValidCompany = (company?: Company) => {
 
 const isCompanyVersionSame2 = (version?: number, cdv2?: CompanyDataVersion) => {
     return version !== undefined && cdv2 && version === cdv2?.version;
-}
-
-const updateCompanyDataState = (companyData: CompanyData) => {
-    storeDispatchCompanyData(companyData);
 }
 
 
@@ -91,7 +85,7 @@ const processCompanyData = (companyData: CompanyData, apiResponses: (ServiceResp
             companyData.prayersYear = apiResponses[2] as PrayersYear;
         }
 
-        updateCompanyDataState(companyData)
+        storeDispatchCompanyData(companyData);
     }
 }
 
