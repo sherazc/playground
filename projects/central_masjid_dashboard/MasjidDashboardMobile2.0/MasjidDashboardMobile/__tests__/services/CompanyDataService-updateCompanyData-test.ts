@@ -40,7 +40,9 @@ jest.mock("../../src/services/ApiMdb", () => ({
 
 describe("CompanyDataService - API Service functions", () => {
 
-    it("updateCompanyData()", async () => {
+    // Read on done() and callbacks
+    // https://jestjs.io/docs/asynchronous
+    it("updateCompanyData()", (done) => {
         // @ts-ignore
         const companyData: CompanyData = {
             // @ts-ignore
@@ -54,12 +56,25 @@ describe("CompanyDataService - API Service functions", () => {
         jest.spyOn(DateService, "parseObjectsIsoDateToMdDate").mockImplementation(jest.fn());
         jest.spyOn(ExpirableVersionService, "createOrRefreshExpirableVersion").mockImplementation(() => ({}));
         jest.spyOn(CalendarService, "getPrayersYear").mockImplementation(() => Promise.resolve(mockPrayersYear));
-        
-        const storeDispatchCompanyDataSpy = jest.spyOn(ReduxStoreService, "storeDispatchCompanyData").mockImplementation(jest.fn());;
-        await updateCompanyData(companyData);
-        // https://geshan.com.np/blog/2022/07/jest-tohavebeencalledwith/
-        expect(storeDispatchCompanyDataSpy).toBeCalled();
 
+        const storeDispatchCompanyDataSpy = jest.spyOn(ReduxStoreService, "storeDispatchCompanyData");
+
+        updateCompanyData(companyData);
+
+        // This is good article that describes jest and async testing works. Covers done()
+        // https://betterprogramming.pub/test-and-mock-asynchronous-calls-with-the-jest-testing-framework-c0efbbbde2c3
+
+        // NOTE: This hack worked with combination of setTimeout() with no milliseconds and done()
+        // Without setTimeout() I was not able assert storeDispatchCompanyDataSpy's arguments
+        setTimeout(() => {
+
+            // This link shows how parameters of spyOn function are asserted with nested expects
+            // https://geshan.com.np/blog/2022/07/jest-tohavebeencalledwith/
+            // https://jestjs.io/docs/expect#tohavebeencalledwitharg1-arg2-
+
+            expect(storeDispatchCompanyDataSpy).toBeCalled();
+            done();
+        });
     });
 
     afterEach(() => {
