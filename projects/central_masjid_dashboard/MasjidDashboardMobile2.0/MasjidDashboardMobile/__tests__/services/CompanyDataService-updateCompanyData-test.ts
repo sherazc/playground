@@ -55,10 +55,9 @@ describe("CompanyDataService - API Service functions", () => {
         jest.spyOn(ExpirableVersionService, "createOrRefreshExpirableVersion").mockImplementation(() => ({}));
         jest.spyOn(CalendarService, "getPrayersYear").mockImplementation(() => Promise.resolve(mockPrayersYear));
         
-        const storeDispatchCompanyDataSpy = jest.spyOn(ReduxStoreService, "storeDispatchCompanyData").mockImplementation(() => {});;
-        // await updateCompanyData(companyData);
-        updateCompanyData(companyData);
-        
+        const storeDispatchCompanyDataSpy = jest.spyOn(ReduxStoreService, "storeDispatchCompanyData").mockImplementation(jest.fn());;
+        await updateCompanyData(companyData);
+        // https://geshan.com.np/blog/2022/07/jest-tohavebeencalledwith/
         expect(storeDispatchCompanyDataSpy).toBeCalled();
 
     });
