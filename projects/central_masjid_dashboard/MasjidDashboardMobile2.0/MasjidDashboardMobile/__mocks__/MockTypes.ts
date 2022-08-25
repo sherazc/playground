@@ -1,8 +1,26 @@
 import { MdDate } from "../src/services/common/DateService";
-import { Prayer } from "../src/types/types";
+import { Company, CompanyDataVersion, CompanyListVersion, Configuration, Prayer } from "../src/types/types";
 
-const mockCreatePrayer = (prayer?: Object): Prayer => ({
-    ...prayer,
+const companyId = "100";
+
+const mockCreateCompany = (): Company => ({
+    "id": companyId,
+    "name": "Hamzah Islamic Center",
+    "url": "hic",
+    "website": "https://www.masjidhamzah.com/",
+    "address": {
+        "street": "665 Tidwell Rd",
+        "city": "Alpharetta",
+        "state": "GA",
+        "zip": "30004",
+        "longitude": null,
+        "latitude": null
+    },
+    "active": true
+});
+
+
+const mockCreatePrayer = (): Prayer => ({
     "date": new MdDate("2016-01-01T00:00:00.000Z"),
     "hijriString": "",
     "fajr": "06:29",
@@ -28,4 +46,30 @@ const mockCreatePrayer = (prayer?: Object): Prayer => ({
     "ishaChangeDate": new MdDate("2022-01-15T00:00:00.000Z")
 });
 
-export { mockCreatePrayer }
+
+const mockCreateConfigurations = (): Configuration[] => ([{
+    "name": "jumah_prayer",
+    "value": "Only One Juma' 2:00pm"
+}]);
+
+
+const mockCreateCompanyDataVersion= (): CompanyDataVersion => ({
+    "id": "200",
+    "companyId": companyId,
+    "version": 821
+});
+
+
+const mockCreateCompanyListVersion= ():  CompanyListVersion => ({
+    "id": "5f70a08f4f16bc7f7632ee46",
+    "version": 42
+});
+
+
+export {
+    mockCreatePrayer,
+    mockCreateConfigurations,
+    mockCreateCompany,
+    mockCreateCompanyDataVersion,
+    mockCreateCompanyListVersion
+}

@@ -56,12 +56,15 @@ const refreshCompanyData = (companyData: CompanyData, companyDataVersion: Compan
     const promises: (Promise<ServiceResponse<Prayer>> | Promise<Configuration[]> | Promise<PrayersYear>)[] = [
         apiPrayer(company.id, month, date)];
 
-    if (versionSame) {
-        freshCompanyData.configurations = companyData.configurations;
-        freshCompanyData.prayersYear = companyData.prayersYear;
-    } else {
+    if (!versionSame 
+        || !companyData.configurations || companyData.configurations.length < 1 
+        || !companyData.prayersYear || !companyData.prayersYear.prayersMonths || companyData.prayersYear.prayersMonths.length != 12) {
+        
         promises.push(apiConfiguration(company.id));
         promises.push(getPrayersYear(company.id));
+    } else {
+        freshCompanyData.configurations = companyData.configurations;
+        freshCompanyData.prayersYear = companyData.prayersYear;
     }
 
     // @ts-ignore
@@ -128,11 +131,8 @@ export const updateCompanyData = (companyData: CompanyData) => {
 
         */
 
-
-        // if (!isCompanyVersionSame2(tracker.expirableVersion?.version, companyDataVersion) || !sameMonthDate) {
-        if (!versionSame) {
-            refreshCompanyData(companyData, companyDataVersion, versionSame, nowMonth, nowDate);
-        }
+        refreshCompanyData(companyData, companyDataVersion, versionSame, nowMonth, nowDate);
+        
         // Setup notifications
         // @ts-ignore
         // setupNotifications(companyData.company.id, false);

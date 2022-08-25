@@ -51,8 +51,8 @@ export interface Address {
     city: string;
     state: string;
     zip: string;
-    longitude?: string;
-    latitude?: string;
+    longitude?: string | null;
+    latitude?: string | null;
 }
 
 export interface Company {
@@ -62,7 +62,7 @@ export interface Company {
     website: string;
     address: Address;
     active: boolean;
-    expirationDate: Date;
+    expirationDate?: MdDate;
 }
 
 export interface CompanyNotification {
