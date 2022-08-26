@@ -56,7 +56,7 @@ const mockCreateConfigurations = (): Configuration[] => ([{
 const mockCreateCompanyDataVersion= (): CompanyDataVersion => ({
     "id": "200",
     "companyId": companyId,
-    "version": 821
+    "version": 500
 });
 
 

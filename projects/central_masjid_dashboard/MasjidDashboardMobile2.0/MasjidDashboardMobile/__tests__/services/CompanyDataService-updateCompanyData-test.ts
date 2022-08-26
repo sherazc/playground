@@ -127,7 +127,7 @@ describe("CompanyDataService - API Service functions", () => {
             tracker: { expirableVersion: { version: 100 } }
         };
 
-        jest.spyOn(DateService, "getTodaysMonth").mockImplementation(() => 2);
+        jest.spyOn(DateService, "getTodaysMonth").mockImplementation(() => 1);
         jest.spyOn(DateService, "getTodaysDate").mockImplementation(() => 2);
         jest.spyOn(DateService, "isSameMonthDate").mockImplementation(() => false);
         jest.spyOn(DateService, "parseObjectsIsoDateToMdDate").mockImplementation(jest.fn());
@@ -160,7 +160,11 @@ describe("CompanyDataService - API Service functions", () => {
                     company: expect.objectContaining({ "id": "a" }),
                     prayer: mockCreatePrayer(),
                     configurations: mockCreateConfigurations(),
-                    tracker: expect.anything(), // TODO Test this
+                    tracker: expect.objectContaining({ 
+                        previousDate: 2, 
+                        previousMonth: 1,
+                        expirableVersion: expect.objectContaining({ "version": 500 })
+                    }),
                     prayersYear: expect.objectContaining({
                         year: 2000,
                         prayersMonths: expect.arrayContaining(mockPrayersMonths)
@@ -169,6 +173,27 @@ describe("CompanyDataService - API Service functions", () => {
             );
             done();
         });
+    });
+
+    it("updateCompanyData() - Expired, different date and same version", () => {
+        // Setup
+        // @ts-ignore
+        const companyData: CompanyData = {
+            company: mockCompany,
+            tracker: { expirableVersion: { version: 100 } }
+        };
+
+        jest.spyOn(DateService, "getTodaysMonth").mockImplementation(() => 2);
+        jest.spyOn(DateService, "getTodaysDate").mockImplementation(() => 2);
+
+
+        const isSameMonthDateSpy = jest.spyOn(DateService, "isSameMonthDate").mockImplementation(() => false);
+        const isExpiredSpy = jest.spyOn(ExpirableVersionService, "isExpired").mockImplementation(() => true);
+        const storeDispatchCompanyDataSpy = jest.spyOn(ReduxStoreService, "storeDispatchCompanyData");
+
+
+        // Call
+        // updateCompanyData(companyData);
     });
 });
 
