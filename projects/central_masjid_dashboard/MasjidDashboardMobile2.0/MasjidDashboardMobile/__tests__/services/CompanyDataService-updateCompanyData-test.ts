@@ -33,9 +33,40 @@ jest.mock("../../src/services/ApiMdb", () => ({
 
 describe("CompanyDataService - API Service functions", () => {
 
+    afterEach(() => {
+        // restore spy and mock modules
+        jest.restoreAllMocks();
+    });
+
+
+    it("updateCompanyData() - Invalid company", () => {
+
+        // Setup
+        // @ts-ignore
+        const companyData: CompanyData = {
+            // @ts-ignore
+            company: undefined,
+        };
+
+        const isSameMonthDateSpy = jest.spyOn(DateService, "isSameMonthDate");
+        const isExpiredSpy = jest.spyOn(ExpirableVersionService, "isExpired");
+        const storeDispatchCompanyDataSpy = jest.spyOn(ReduxStoreService, "storeDispatchCompanyData");
+
+        // Call
+        updateCompanyData(companyData);
+
+        // Assert
+        expect(isSameMonthDateSpy).not.toBeCalled();
+        expect(isExpiredSpy).not.toBeCalled();
+        expect(storeDispatchCompanyDataSpy).not.toBeCalled();
+    });
+
+
     // Read on done() and callbacks
     // https://jestjs.io/docs/asynchronous
-    it("updateCompanyData()", (done) => {
+    it("updateCompanyData() - Expired, different date and different version", (done) => {
+
+        // Setup
         // @ts-ignore
         const companyData: CompanyData = {
             // @ts-ignore
@@ -47,13 +78,16 @@ describe("CompanyDataService - API Service functions", () => {
         jest.spyOn(DateService, "getTodaysDate").mockImplementation(() => 2);
         jest.spyOn(DateService, "isSameMonthDate").mockImplementation(() => false);
         jest.spyOn(DateService, "parseObjectsIsoDateToMdDate").mockImplementation(jest.fn());
+        jest.spyOn(ExpirableVersionService, "isExpired").mockImplementation(() => true);
         jest.spyOn(ExpirableVersionService, "createOrRefreshExpirableVersion").mockImplementation(() => ({}));
         jest.spyOn(CalendarService, "getPrayersYear").mockImplementation(() => Promise.resolve(mockPrayersYear));
 
         const storeDispatchCompanyDataSpy = jest.spyOn(ReduxStoreService, "storeDispatchCompanyData");
 
+        // Call
         updateCompanyData(companyData);
 
+        // Assert
         // This is good article that describes jest and async testing works. Covers done()
         // https://betterprogramming.pub/test-and-mock-asynchronous-calls-with-the-jest-testing-framework-c0efbbbde2c3
 
@@ -74,19 +108,14 @@ describe("CompanyDataService - API Service functions", () => {
                     prayer: mockCreatePrayer(),
                     configurations: mockCreateConfigurations(),
                     tracker: expect.anything(), // TODO Test this
-                    prayersYear: expect.objectContaining({ 
-                        year: 2000, 
-                        prayersMonths: expect.arrayContaining(mockPrayersMonths) 
+                    prayersYear: expect.objectContaining({
+                        year: 2000,
+                        prayersMonths: expect.arrayContaining(mockPrayersMonths)
                     }),
                 })
             );
             done();
         });
-    });
-
-    afterEach(() => {
-        // restore the spy created with spyOn
-        jest.restoreAllMocks();
     });
 });
 
