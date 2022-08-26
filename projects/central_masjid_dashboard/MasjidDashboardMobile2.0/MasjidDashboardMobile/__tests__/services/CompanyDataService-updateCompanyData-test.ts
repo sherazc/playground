@@ -62,6 +62,60 @@ describe("CompanyDataService - API Service functions", () => {
     });
 
 
+    it("updateCompanyData() - Invalid company", () => {
+
+
+
+        // Setup
+        // @ts-ignore
+        const companyData: CompanyData = {
+            // @ts-ignore
+            company: undefined,
+        };
+
+        const isSameMonthDateSpy = jest.spyOn(DateService, "isSameMonthDate");
+        const isExpiredSpy = jest.spyOn(ExpirableVersionService, "isExpired");
+        const storeDispatchCompanyDataSpy = jest.spyOn(ReduxStoreService, "storeDispatchCompanyData");
+
+        // Call
+        updateCompanyData(companyData);
+
+        // Assert
+        expect(isSameMonthDateSpy).not.toBeCalled();
+        expect(isExpiredSpy).not.toBeCalled();
+        expect(storeDispatchCompanyDataSpy).not.toBeCalled();
+    });
+
+
+    it("updateCompanyData() - Not Expired, Same date", () => {
+
+        // Setup
+        // @ts-ignore
+        const companyData: CompanyData = {
+            company: mockCompany,
+            tracker: { expirableVersion: { version: 100 } }
+        };
+
+        jest.spyOn(DateService, "getTodaysMonth").mockImplementation(() => 2);
+        jest.spyOn(DateService, "getTodaysDate").mockImplementation(() => 2);
+
+        const parseObjectsIsoDateToMdDateSpy = jest.spyOn(DateService, "parseObjectsIsoDateToMdDate");
+        const isSameMonthDateSpy = jest.spyOn(DateService, "isSameMonthDate").mockImplementation(() => true);
+        const isExpiredSpy = jest.spyOn(ExpirableVersionService, "isExpired").mockImplementation(() => false);
+        const storeDispatchCompanyDataSpy = jest.spyOn(ReduxStoreService, "storeDispatchCompanyData");
+
+        // Call
+        updateCompanyData(companyData);
+
+        // Assert
+        expect(isSameMonthDateSpy).toBeCalled();
+        expect(isExpiredSpy).toBeCalled();
+        expect(parseObjectsIsoDateToMdDateSpy).not.toBeCalled();
+        expect(storeDispatchCompanyDataSpy).not.toBeCalled();
+    });
+
+
+
     // Read on done() and callbacks
     // https://jestjs.io/docs/asynchronous
     it("updateCompanyData() - Expired, different date and different version", (done) => {
@@ -69,7 +123,6 @@ describe("CompanyDataService - API Service functions", () => {
         // Setup
         // @ts-ignore
         const companyData: CompanyData = {
-            // @ts-ignore
             company: mockCompany,
             tracker: { expirableVersion: { version: 100 } }
         };
