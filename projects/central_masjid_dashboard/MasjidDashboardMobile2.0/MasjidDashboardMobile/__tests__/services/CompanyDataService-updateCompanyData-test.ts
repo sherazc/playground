@@ -188,11 +188,13 @@ describe("CompanyDataService - API Service functions", () => {
         jest.spyOn(DateService, "getTodaysMonth").mockImplementation(() => 5);
         jest.spyOn(DateService, "getTodaysDate").mockImplementation(() => 6);
 
-        const parseObjectsIsoDateToMdDateSpy = jest.spyOn(DateService, "parseObjectsIsoDateToMdDate");
+        const parseObjectsIsoDateToMdDateSpy = jest.spyOn(DateService, "parseObjectsIsoDateToMdDate").mockImplementation(jest.fn());;
         const isSameMonthDateSpy = jest.spyOn(DateService, "isSameMonthDate").mockImplementation(() => false);
         const isExpiredSpy = jest.spyOn(ExpirableVersionService, "isExpired").mockImplementation(() => true);
         const storeDispatchCompanyDataSpy = jest.spyOn(ReduxStoreService, "storeDispatchCompanyData");
         const getPrayersYearSpy = jest.spyOn(CalendarService, "getPrayersYear");
+
+        const p =  mockCreatePrayer();
 
         // Call
         updateCompanyData(companyData);
@@ -203,14 +205,14 @@ describe("CompanyDataService - API Service functions", () => {
             expect(isSameMonthDateSpy).toBeCalled();
             expect(isExpiredSpy).toBeCalled();
             expect(getPrayersYearSpy).not.toBeCalled();
-            // expect(parseObjectsIsoDateToMdDateSpy).toBeCalled();
+            expect(parseObjectsIsoDateToMdDateSpy).toBeCalled();
 
             expect(storeDispatchCompanyDataSpy).toBeCalledWith(expect.anything());
             
             expect(storeDispatchCompanyDataSpy).toBeCalledWith(
                 expect.objectContaining({
                     company: expect.objectContaining({ "id": "a" }),
-                    // prayer: mockCreatePrayer(),
+                    prayer: mockCreatePrayer(),
                     configurations: mockCreateConfigurations(),
                     tracker: expect.objectContaining({ 
                         previousDate: 6, 
