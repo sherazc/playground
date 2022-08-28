@@ -1,5 +1,5 @@
 import { MdDate } from "../src/services/common/DateService";
-import { Company, CompanyDataVersion, CompanyListVersion, Configuration, Prayer } from "../src/types/types";
+import { Company, CompanyDataVersion, CompanyListData, CompanyListVersion, Configuration, ExpirableVersion, Prayer, Tracker } from "../src/types/types";
 
 const companyId = "100";
 
@@ -66,10 +66,31 @@ const mockCreateCompanyListVersion= ():  CompanyListVersion => ({
 });
 
 
+const mockCreateExpirableVersion = (): ExpirableVersion => ({
+    expirationDate: new MdDate(new Date(2020, 2, 2)),
+    version: 300
+});
+
+const mockCreateTracker = (): Tracker => ({
+    previousMonth: 1,
+    previousDate: 1,
+    updateInterval: {} as NodeJS.Timeout,
+    expirableVersion: mockCreateExpirableVersion()
+});
+
+
+const mockCreateCompanyListData = (): CompanyListData => ({
+    companies: [mockCreateCompany()],
+    tracker: mockCreateTracker()
+});
+
 export {
     mockCreatePrayer,
     mockCreateConfigurations,
     mockCreateCompany,
     mockCreateCompanyDataVersion,
-    mockCreateCompanyListVersion
+    mockCreateCompanyListVersion,
+    mockCreateTracker,
+    mockCreateCompanyListData,
+    mockCreateExpirableVersion
 }

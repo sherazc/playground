@@ -4,7 +4,7 @@ import * as CalendarService from "../../src/services/CalendarService";
 import * as ReduxStoreService from "../../src/store/ReduxStoreService";
 // import * as ApiMdb from "../../src/services/ApiMdb";
 import { updateCompanyData } from "../../src/services/CompanyDataService";
-import { Company, CompanyData, CompanyDataVersion, Configuration, Prayer, ServiceResponse } from "../../src/types/types";
+import { Company, CompanyData, CompanyDataVersion, Prayer, ServiceResponse } from "../../src/types/types";
 import { mockCreateServiceResponse } from "../../__mocks__/MockServiceResponse";
 import { mockCreateCompany, mockCreateCompanyDataVersion, mockCreateConfigurations, mockCreatePrayer } from "../../__mocks__/MockTypes";
 import { mockPrayersYear, mockPrayersMonths } from "../../__mocks__/MockYearCalendar";
@@ -193,8 +193,6 @@ describe("CompanyDataService - API Service functions", () => {
         const isExpiredSpy = jest.spyOn(ExpirableVersionService, "isExpired").mockImplementation(() => true);
         const storeDispatchCompanyDataSpy = jest.spyOn(ReduxStoreService, "storeDispatchCompanyData");
         const getPrayersYearSpy = jest.spyOn(CalendarService, "getPrayersYear");
-
-        const p =  mockCreatePrayer();
 
         // Call
         updateCompanyData(companyData);

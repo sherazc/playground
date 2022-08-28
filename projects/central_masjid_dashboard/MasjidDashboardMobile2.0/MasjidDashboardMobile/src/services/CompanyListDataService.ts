@@ -1,8 +1,8 @@
 import { Company, CompanyListData, CompanyListVersion, createEmptyCompanyListData } from '../types/types';
 import { createOrRefreshExpirableVersion, isExpired } from './ExpirableVersionService';
-import store from '../store/rootReducer';
 import { Constants } from './Constants';
 import { storeDispatchCompanyListData } from '../store/ReduxStoreService';
+import { apiCompaniesActive, apiCompanyListVersion } from './ApiMdb';
 
 
 const isValidCompanyListData = (companyListData?: CompanyListData) => {
@@ -43,17 +43,6 @@ const refreshCompanyListDataExpirableVersion = (companyListData: CompanyListData
 
 const updateCompanyListDataState = (companyListData: CompanyListData) => {
     storeDispatchCompanyListData(companyListData);
-}
-
-
-const apiCompanyListVersion = (): Promise<CompanyListVersion> => {
-    console.log("Calling API ", Constants.END_POINT_COMPANY_LIST_VERSION);
-    return fetch(Constants.END_POINT_COMPANY_LIST_VERSION).then(response => response.json());
-}
-
-const apiCompaniesActive = (): Promise<Company[]> => {
-    console.log("Calling API ", Constants.END_POINT_COMPANIES_ACTIVE);
-    return fetch(Constants.END_POINT_COMPANIES_ACTIVE).then(response => response.json());
 }
 
 
