@@ -1,20 +1,24 @@
 import { updateCompanyListData } from "../../src/services/CompanyListDataService";
 import { mockCreateCompanyListData } from "../../__mocks__/MockTypes";
-import * as ApiMdb from "../../src/services/ApiMdb";
-import * as ReduxStoreService from "../../src/store/ReduxStoreService";
 import * as ExpirableVersionService from "../../src/services/ExpirableVersionService";
+import * as ApiMdb from "../../src/services/ApiMdb";
 import { ExpirableVersion } from "../../src/types/types";
+import * as ReduxStoreService from "../../src/store/ReduxStoreService";
 
-/*
-jest.mock("../../src/services/ExpirableVersionService", () => ({
-    isExpired: () => true,
-    createOrRefreshExpirableVersion: () => ({
-        version: 300, // mockCreateExpirableVersion() creates version=300
-    })
-}));
-*/
 
 describe("CompanyListDataService", () => {
+
+    test("updateCompanyListData() - Not expired", () => {
+        // Setup
+        const mockCompanyListData = mockCreateCompanyListData();
+        const spyIsExpired = jest.spyOn(ExpirableVersionService, "isExpired").mockImplementation(() => false);
+
+        // Call
+        updateCompanyListData(mockCompanyListData);
+
+        // Assert
+        expect(spyIsExpired).toHaveBeenCalled();
+    });
 
     test("updateCompanyListData() - Expired, Same Version", async () => {
         // Setup
@@ -42,10 +46,7 @@ describe("CompanyListDataService", () => {
         expect(spyCreateOrRefreshExpirableVersion).toBeCalled();
     });
 
-    afterEach(() => {
-        // restore spy and mock modules
-        jest.restoreAllMocks();
-    });
 
+
+    afterEach(() => { jest.restoreAllMocks(); });
 });
-
