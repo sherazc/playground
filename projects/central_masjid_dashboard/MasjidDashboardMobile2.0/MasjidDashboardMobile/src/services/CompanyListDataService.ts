@@ -1,6 +1,5 @@
-import { Company, CompanyListData, CompanyListVersion, createEmptyCompanyListData } from '../types/types';
+import { CompanyListData, CompanyListVersion, createEmptyCompanyListData } from '../types/types';
 import { createOrRefreshExpirableVersion, isExpired } from './ExpirableVersionService';
-import { Constants } from './Constants';
 import { storeDispatchCompanyListData } from '../store/ReduxStoreService';
 import { apiCompaniesActive, apiCompanyListVersion } from './ApiMdb';
 

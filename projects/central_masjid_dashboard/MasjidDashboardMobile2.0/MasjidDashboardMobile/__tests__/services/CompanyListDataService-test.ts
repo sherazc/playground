@@ -32,8 +32,9 @@ describe("CompanyListDataService", () => {
 
 
         const spyIsExpired = jest.spyOn(ExpirableVersionService, "isExpired").mockImplementation(() => true);
-        const spyCreateOrRefreshExpirableVersion = jest.spyOn(ExpirableVersionService, "createOrRefreshExpirableVersion").mockImplementation((e?: ExpirableVersion) => ({}));
-        const spyStoreDispatchCompanyListData = jest.spyOn(ReduxStoreService, "storeDispatchCompanyListData").mockImplementation(() => {});
+        const spyCreateOrRefreshExpirableVersion = jest.spyOn(ExpirableVersionService, "createOrRefreshExpirableVersion")
+            .mockImplementation((e?: ExpirableVersion) => ({})); // TODO: Return a different object and check if that is passed down
+        const spyStoreDispatchCompanyListData = jest.spyOn(ReduxStoreService, "storeDispatchCompanyListData").mockImplementation(() => { });
 
 
         // Call
@@ -41,12 +42,15 @@ describe("CompanyListDataService", () => {
 
         // Assert
         expect(spyApiCompanyListVersion).toBeCalled();
-        expect(spyStoreDispatchCompanyListData).toBeCalled();
+        expect(spyStoreDispatchCompanyListData).toBeCalled(); // TODO: assert object passed to it
         expect(spyIsExpired).toBeCalled();
         expect(spyCreateOrRefreshExpirableVersion).toBeCalled();
     });
 
 
+    test("updateCompanyListData() - Expired, different Version", async () => {
+        // TODO: implement it
+    });
 
     afterEach(() => { jest.restoreAllMocks(); });
 });
