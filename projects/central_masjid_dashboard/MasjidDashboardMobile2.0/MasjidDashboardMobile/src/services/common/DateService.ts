@@ -276,8 +276,10 @@ export const stringH24MinToDate = (date: (Date | undefined), time?: string): (Da
 
     const resultDate = new Date(date.getTime());
     const timeSplit = time.split(':');
-    resultDate.setHours(+timeSplit[0])
-    resultDate.setMinutes(+timeSplit[1])
+    resultDate.setHours(+timeSplit[0]);
+    resultDate.setMinutes(+timeSplit[1]);
+    resultDate.setSeconds(0);
+    resultDate.setMilliseconds(0);
     return resultDate;
 }
 

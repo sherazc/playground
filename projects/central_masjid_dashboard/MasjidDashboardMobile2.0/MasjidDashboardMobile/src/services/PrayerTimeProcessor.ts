@@ -106,7 +106,7 @@ let getCurrentPrayerPeriod = (now: Date, prayerTimes: PrayerTime[]): (PrayerTime
             let tempCurrentSalah = prayerTimes[currentSalahIndex];
             let tempNextSalah = prayerTimes[nextSalahIndex];
 
-            if (nowTime > tempCurrentSalah.azan.getTime()
+            if (nowTime >= tempCurrentSalah.azan.getTime()
                 && nowTime < tempNextSalah.azan.getTime()) {
                 prayerPeriod.push(tempCurrentSalah);
                 prayerPeriod.push(tempNextSalah);

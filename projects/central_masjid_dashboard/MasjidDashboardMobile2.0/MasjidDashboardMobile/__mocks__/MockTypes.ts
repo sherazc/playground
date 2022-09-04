@@ -35,15 +35,15 @@ const mockCreatePrayer = (): Prayer => ({
     "ishaIqama": "19:30",
     "sunrise": "07:42",
     "fajrChange": "06:30",
-    "fajrChangeDate": new MdDate("2022-02-15T00:00:00.000Z"),
+    "fajrChangeDate": new MdDate("2020-02-15T00:00:00.000Z"),
     "dhuhrChange": null,
     "dhuhrChangeDate": null,
     "asrChange": "16:30",
-    "asrChangeDate": new MdDate("2022-02-01T00:00:00.000Z"),
+    "asrChangeDate": new MdDate("2020-02-01T00:00:00.000Z"),
     "maghribChange": null,
     "maghribChangeDate": null,
     "ishaChange": "19:45",
-    "ishaChangeDate": new MdDate("2022-01-15T00:00:00.000Z")
+    "ishaChangeDate": new MdDate("2020-01-15T00:00:00.000Z")
 });
 
 
