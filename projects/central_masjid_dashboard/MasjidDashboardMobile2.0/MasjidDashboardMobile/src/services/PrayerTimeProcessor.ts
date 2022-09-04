@@ -1,6 +1,6 @@
 import { Prayer, PrayerTime, PrayerTimeSummary } from "../types/types";
 import { Constants } from "./Constants";
-import { addDays, nowUtcDate, stringH24MinToDate } from "./common/DateService";
+import { addDays, getCurrentSystemDate, stringH24MinToDate } from "./common/DateService";
 
 export const processPrayerTime = (prayer: Prayer): PrayerTimeSummary => {
     const result: PrayerTimeSummary = {
@@ -20,7 +20,7 @@ export const processPrayerTime = (prayer: Prayer): PrayerTimeSummary => {
         return result;
     }
 
-    const now = nowUtcDate();
+    const now = getCurrentSystemDate();
 
     const prayerTimes: PrayerTime[] = [
         makePrayerTime(now, Constants.PRAYER_NAME[0], prayer.fajr, prayer.fajrIqama),
