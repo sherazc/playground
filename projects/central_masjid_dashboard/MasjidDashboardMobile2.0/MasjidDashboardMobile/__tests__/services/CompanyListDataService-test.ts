@@ -1,5 +1,5 @@
 import { updateCompanyListData } from "../../src/services/CompanyListDataService";
-import { mockCreateCompanyListData } from "../../__mocks__/MockTypes";
+import { mockCreateCompanyListData, mockCreateExpirableVersion } from "../../__mocks__/MockTypes";
 import * as ExpirableVersionService from "../../src/services/ExpirableVersionService";
 import * as ApiMdb from "../../src/services/ApiMdb";
 import { ExpirableVersion } from "../../src/types/types";
@@ -23,7 +23,6 @@ describe("CompanyListDataService", () => {
     test("updateCompanyListData() - Expired, Same Version", async () => {
         // Setup
         const mockCompanyListData = mockCreateCompanyListData();
-        let mockInitTime = mockCompanyListData.tracker?.expirableVersion?.expirationDate?.jsDate.getTime();
 
         const spyApiCompanyListVersion = jest.spyOn(ApiMdb, "apiCompanyListVersion").mockImplementation(() => Promise.resolve({
             id: "abc",
@@ -33,7 +32,7 @@ describe("CompanyListDataService", () => {
 
         const spyIsExpired = jest.spyOn(ExpirableVersionService, "isExpired").mockImplementation(() => true);
         const spyCreateOrRefreshExpirableVersion = jest.spyOn(ExpirableVersionService, "createOrRefreshExpirableVersion")
-            .mockImplementation((e?: ExpirableVersion) => ({})); // TODO: Return a different object and check if that is passed down
+            .mockImplementation((e?: ExpirableVersion) => (mockCreateExpirableVersion())); 
         const spyStoreDispatchCompanyListData = jest.spyOn(ReduxStoreService, "storeDispatchCompanyListData").mockImplementation(() => { });
 
 
@@ -42,16 +41,36 @@ describe("CompanyListDataService", () => {
 
         // Assert
         expect(spyApiCompanyListVersion).toBeCalled();
-        expect(spyStoreDispatchCompanyListData).toBeCalled(); // TODO: assert object passed to it
+        expect(spyStoreDispatchCompanyListData).toBeCalled();
         expect(spyIsExpired).toBeCalled();
         expect(spyCreateOrRefreshExpirableVersion).toBeCalled();
 
 
         expect(spyStoreDispatchCompanyListData).toBeCalledWith(expect.objectContaining({
-            companies: expect.objectContaining([]),
+            companies: expect.arrayContaining([expect.objectContaining({
+                "id": "100",
+                "name": "Hamzah Islamic Center",
+                "url": "hic",
+                "website": "https://www.masjidhamzah.com/",
+                "address": {
+                    "street": "665 Tidwell Rd",
+                    "city": "Alpharetta",
+                    "state": "GA",
+                    "zip": "30004",
+                    "longitude": null,
+                    "latitude": null
+                },
+                "active": true
+            })]),
             tracker: expect.objectContaining({
                 "previousMonth": 1,
                 "previousDate": 1,
+                expirableVersion: expect.objectContaining({
+                    "version": 300,
+                    "expirationDate": expect.objectContaining({
+                        isoDate: "2020-03-02T00:00:00.000-05:00"
+                    }),
+                }),
             })
         }))
     });
