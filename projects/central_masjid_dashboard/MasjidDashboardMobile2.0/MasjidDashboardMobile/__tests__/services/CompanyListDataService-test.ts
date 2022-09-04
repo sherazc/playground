@@ -45,6 +45,15 @@ describe("CompanyListDataService", () => {
         expect(spyStoreDispatchCompanyListData).toBeCalled(); // TODO: assert object passed to it
         expect(spyIsExpired).toBeCalled();
         expect(spyCreateOrRefreshExpirableVersion).toBeCalled();
+
+
+        expect(spyStoreDispatchCompanyListData).toBeCalledWith(expect.objectContaining({
+            companies: expect.objectContaining([]),
+            tracker: expect.objectContaining({
+                "previousMonth": 1,
+                "previousDate": 1,
+            })
+        }))
     });
 
 
