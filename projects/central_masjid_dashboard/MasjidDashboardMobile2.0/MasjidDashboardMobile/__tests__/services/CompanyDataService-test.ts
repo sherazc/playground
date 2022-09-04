@@ -1,4 +1,4 @@
-import { getCompanyId, getCompanyName, isValidCompany, updateCompanyData } from "../../src/services/CompanyDataService";
+import { getCompanyId, getCompanyName, isValidCompany } from "../../src/services/CompanyDataService";
 import { Company } from "../../src/types/types";
 
 // TODO: upgrade react-native-push-notification and check if this is still needed
