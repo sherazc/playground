@@ -21,7 +21,7 @@ const mockCreateCompany = (): Company => ({
 
 
 const mockCreatePrayer = (): Prayer => ({
-    "date": new MdDate("2016-01-01T00:00:00.000Z"),
+    "date": new MdDate("2016-02-29T00:00:00.000Z"),
     "hijriString": "",
     "fajr": "06:29",
     "fajrIqama": "06:45",
@@ -35,15 +35,15 @@ const mockCreatePrayer = (): Prayer => ({
     "ishaIqama": "19:30",
     "sunrise": "07:42",
     "fajrChange": "06:30",
-    "fajrChangeDate": new MdDate("2020-02-15T00:00:00.000Z"),
+    "fajrChangeDate": new MdDate("2020-04-15T00:00:00.000Z"),
     "dhuhrChange": null,
     "dhuhrChangeDate": null,
     "asrChange": "16:30",
-    "asrChangeDate": new MdDate("2020-02-01T00:00:00.000Z"),
+    "asrChangeDate": new MdDate("2020-05-01T00:00:00.000Z"),
     "maghribChange": null,
     "maghribChangeDate": null,
     "ishaChange": "19:45",
-    "ishaChangeDate": new MdDate("2020-01-15T00:00:00.000Z")
+    "ishaChangeDate": new MdDate("2020-03-15T00:00:00.000Z")
 });
 
 

@@ -73,8 +73,7 @@ const makePrayerTime = (date: Date, name: string, azanTimeString: string, iqamah
 }
 
 const makePrayerTimeFromDates = (name: (string | undefined), azan: (Date | undefined), iqamah?: Date): PrayerTime => {
-    // @ts-ignore
-    return { name, azan, iqamah };
+    return { name, azan, iqamah } as PrayerTime;
 }
 
 // VERY IMPORTANT: nowTime and prayerTimes arguments dates should have same date
