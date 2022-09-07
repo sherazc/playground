@@ -19,7 +19,7 @@ describe("PrayerTimeProcessor", () => {
     });
 
 
-    it("processPrayerTime() - Fajr Begin", () => {
+    it("processPrayerTime() - Current time Fajr Begin", () => {
         const prayer = mockCreatePrayer();
 
         const nowDate = new Date(2020, 1, 29, 6, 29, 0, 0);
@@ -47,7 +47,7 @@ describe("PrayerTimeProcessor", () => {
 
 
 
-    it("processPrayerTime() - Zuhar Begin", () => {
+    it("processPrayerTime() - Current time Zuhar Begin", () => {
         const prayer = mockCreatePrayer();
 
         const nowDate = new Date(2020, 1, 29, 12, 40, 0, 0);
@@ -74,7 +74,7 @@ describe("PrayerTimeProcessor", () => {
     });
 
 
-    it("processPrayerTime() - Asr Begin", () => {
+    it("processPrayerTime() - Current time Asr Begin", () => {
         const prayer = mockCreatePrayer();
 
         const nowDate = new Date(2020, 1, 29, 15, 20, 0, 0);
@@ -101,7 +101,7 @@ describe("PrayerTimeProcessor", () => {
     });
 
 
-    it("processPrayerTime() - Maghrib Begin", () => {
+    it("processPrayerTime() - Current time Maghrib Begin", () => {
         const prayer = mockCreatePrayer();
 
         const nowDate = new Date(2020, 1, 29, 17, 38, 0, 0);
@@ -128,14 +128,13 @@ describe("PrayerTimeProcessor", () => {
     });
 
 
-    it("processPrayerTime() - Isha Begin", () => {
+    it("processPrayerTime() - Current time Isha Begin", () => {
         const prayer = mockCreatePrayer();
 
         const nowDate = new Date(2020, 1, 29, 18, 52, 0, 0);
 
         jest.spyOn(DateService, "getCurrentSystemDate").mockImplementation(() => nowDate);
         const prayerTimeSummary = processPrayerTime(prayer);
-
 
         expect(prayerTimeSummary.currentPrayerName).toBe(Constants.PRAYER_NAME[4]);
         expect(prayerTimeSummary.currentPrayerNumber).toBe(5);
@@ -147,6 +146,30 @@ describe("PrayerTimeProcessor", () => {
         expect(prayerTimeSummary.currentPrayerPeriod[1].azan.getTime()).toBe(new Date(2020, 2, 1, 6, 29, 0, 0).getTime());
         expect(prayerTimeSummary.currentPrayerPeriod[1].iqamah.getTime()).toBe(new Date(2020, 2, 1, 6, 45, 0, 0).getTime());
 
+        expect(prayerTimeSummary.nextPrayerInMillis).toBe(prayerTimeSummary.currentPrayerPeriod[1].azan.getTime() - nowDate.getTime());
+
+        expect(prayerTimeSummary.prayerAboutToStartMillis).toBe(-1);
+        expect(prayerTimeSummary.prayerInProgressMillis).toBe(-1);
+    });
+
+
+    it("processPrayerTime() - Current time midnight", () => {
+        const prayer = mockCreatePrayer();
+
+        const nowDate = new Date(2020, 1, 29, 0, 0, 0, 0);
+
+        jest.spyOn(DateService, "getCurrentSystemDate").mockImplementation(() => nowDate);
+        const prayerTimeSummary = processPrayerTime(prayer);
+
+        expect(prayerTimeSummary.currentPrayerName).toBe(Constants.PRAYER_NAME[4]);
+        expect(prayerTimeSummary.currentPrayerNumber).toBe(5);
+        expect(prayerTimeSummary.currentPrayerPeriod[0].name).toBe(Constants.PRAYER_NAME[4]);
+        expect(prayerTimeSummary.currentPrayerPeriod[0].azan.getTime()).toBe(new Date(2020, 1, 28, 18, 52, 0, 0).getTime());
+        expect(prayerTimeSummary.currentPrayerPeriod[0].iqamah.getTime()).toBe(new Date(2020, 1, 28, 19, 30, 0, 0).getTime());
+
+        expect(prayerTimeSummary.currentPrayerPeriod[1].name).toBe(Constants.PRAYER_NAME[0]);
+        expect(prayerTimeSummary.currentPrayerPeriod[1].azan.getTime()).toBe(new Date(2020, 1, 29, 6, 29, 0, 0).getTime());
+        expect(prayerTimeSummary.currentPrayerPeriod[1].iqamah.getTime()).toBe(new Date(2020, 1, 29, 6, 45, 0, 0).getTime());
 
         expect(prayerTimeSummary.nextPrayerInMillis).toBe(prayerTimeSummary.currentPrayerPeriod[1].azan.getTime() - nowDate.getTime());
 

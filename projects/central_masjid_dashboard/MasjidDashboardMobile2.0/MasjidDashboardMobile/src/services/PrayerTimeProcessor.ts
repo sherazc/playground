@@ -86,16 +86,15 @@ let getCurrentPrayerPeriod = (now: Date, prayerTimes: PrayerTime[]): (PrayerTime
 
     let prayerPeriod = [];
 
-    /*
-    if (nowTime <= prayerTimes[0].azan.getTime()) {
-        // current time is before today's fajr azan
-        // yesterday isha
+    
+    if (nowTime < prayerTimes[0].azan.getTime()) {
+        // Different Date Scenario 1
+        // current time is after 12:00am before fajr azan
         prayerPeriod.push(makePrayerTimeFromDates(prayerTimes[4].name, addDays(prayerTimes[4].azan, -1), addDays(prayerTimes[4].iqamah, -1)));
         prayerPeriod.push(prayerTimes[0]);
-    } else 
-    */
-    if (nowTime >= prayerTimes[4].azan.getTime()) {
-        // current time is after today's isha azan
+    } else if (nowTime >= prayerTimes[4].azan.getTime()) {
+        // Different Date Scenario 2
+        // current time is after isha azan and before 12:00am
         prayerPeriod.push(prayerTimes[4]);
         prayerPeriod.push(makePrayerTimeFromDates(prayerTimes[0].name, addDays(prayerTimes[0].azan, 1), addDays(prayerTimes[0].iqamah, 1)));
     } else {
