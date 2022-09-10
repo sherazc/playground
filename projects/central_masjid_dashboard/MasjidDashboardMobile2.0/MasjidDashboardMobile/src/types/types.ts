@@ -167,8 +167,10 @@ export interface PrayerTimeSummary {
     prayerInProgressMillis: number;
     prayerAboutToStartMillis: number;
     nextPrayerInMillis: number;
+    iqamaInMillis: number;
     currentPrayerName: string;
     currentPrayerNumber: number;
+    azanCalled: boolean;
 }
 
 export interface PrayerTime {

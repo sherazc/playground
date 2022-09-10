@@ -2,6 +2,11 @@ import * as DateService from "../../src/services/common/DateService";
 import { Constants } from "../../src/services/Constants";
 import { processPrayerTime } from "../../src/services/PrayerTimeProcessor";
 import { mockCreatePrayer } from "../../__mocks__/MockTypes";
+/**
+ * TODO. Add azan called boolean
+ * 
+ * TODO. 
+ */
 
 describe("PrayerTimeProcessor", () => {
 

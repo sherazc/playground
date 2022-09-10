@@ -12,7 +12,9 @@ export const processPrayerTime = (prayer: Prayer): PrayerTimeSummary => {
         prayerAboutToStartMillis: -1,
         nextPrayerInMillis: -1,
         currentPrayerName: "",
-        currentPrayerNumber: -1
+        currentPrayerNumber: -1,
+        iqamaInMillis: -1, // new Field - If prayerPeriod[0].iqamah has not passed yet then calculate iqama in millis
+        azanCalled: false, // new Field - now is >= prayerPeriod[0].azan
     };
 
     // TODO: Write a validatePrayer method
@@ -39,6 +41,8 @@ export const processPrayerTime = (prayer: Prayer): PrayerTimeSummary => {
     const timeBetweenMaghribLimitAndIsha = isTimeBetweenMaghribLimitAndIsha(now, prayerTimes);
     const currentPrayerName = getCurrentPrayerName(currentPrayerPeriod, timeBetweenShrooqAndZuhar, timeBetweenMaghribLimitAndIsha);
     const currentPrayerNumber = getCurrentPrayerNumber(currentPrayerPeriod, timeBetweenShrooqAndZuhar);
+    const azanCalled = getAzanCalled(now, currentPrayerPeriod);
+    const iqamaInMillis = getIqamaInMillis();
 
     result.currentPrayerPeriod = currentPrayerPeriod;
     result.timeBetweenShrooqAndZuhar = timeBetweenShrooqAndZuhar;
@@ -49,6 +53,8 @@ export const processPrayerTime = (prayer: Prayer): PrayerTimeSummary => {
     result.currentPrayerName = currentPrayerName;
     result.currentPrayerNumber = currentPrayerNumber;
     result.sunriseTime = sunriseTime;
+    result.azanCalled = azanCalled;
+    result.iqamaInMillis = iqamaInMillis;
 
     // console.log("processPrayerTime result", result);
     return result;
@@ -86,7 +92,7 @@ let getCurrentPrayerPeriod = (now: Date, prayerTimes: PrayerTime[]): (PrayerTime
 
     let prayerPeriod = [];
 
-    
+
     if (nowTime < prayerTimes[0].azan.getTime()) {
         // Different Date Scenario 1
         // current time is after 12:00am before fajr azan
@@ -192,7 +198,7 @@ const getNextPrayerInMillis = (now: Date, prayerPeriod: (PrayerTime[] | undefine
 
 
 const getCurrentPrayerName = (prayerPeriod: (PrayerTime[] | undefined),
-        timeBetweenShrooqAndZuhar: boolean, timeBetweenMaghribLimitAndIsha: boolean): string => {
+    timeBetweenShrooqAndZuhar: boolean, timeBetweenMaghribLimitAndIsha: boolean): string => {
     if (timeBetweenShrooqAndZuhar || timeBetweenMaghribLimitAndIsha) {
         return "";
     }
@@ -247,4 +253,25 @@ const getCurrentPrayerNumber = (prayerPeriod: (PrayerTime[] | undefined), timeBe
     }
 
     return result;
+}
+
+
+const getAzanCalled = (now: Date, prayerPeriod: (PrayerTime[] | undefined)): boolean => {
+    if (!prayerPeriod || !prayerPeriod[0] || !prayerPeriod[0].azan) {
+        return false;
+    }
+    return now.getTime() >= prayerPeriod[0].azan.getTime();
+}
+
+// If prayerPeriod[0].iqamah has not passed yet then calculate iqama in millis
+const getIqamaInMillis = (now: Date, prayerPeriod: (PrayerTime[] | undefined)): number => {
+    if (!prayerPeriod || !prayerPeriod[0] || !prayerPeriod[0].iqamah) {
+        return -1;
+    }
+    
+    if (now.getTime() <= prayerPeriod[0].iqamah.getTime()) {
+        return prayerPeriod[0].iqamah.getTime() - now.getTime();
+    } else {
+        return -1
+    }
 }

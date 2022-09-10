@@ -233,7 +233,7 @@ export const getSystemTimezoneDateIsoString = (date?: Date) => {
     return isoStringWithoutTimezone + getSystemTimezone(isoStringWithoutTimezone);
 }
 
-
+// Very useful when writing unit tests. Because its implementation can be mocked.
 export const getCurrentSystemDate = () => {
     // Did not notice any difference if I use either one of these:
     // return new Date(getSystemTimezoneDateIsoString());
@@ -536,7 +536,7 @@ export const isSameMonthDate = (d1Month?: number, d1Date?: number, d2Month?: num
         && d1Date === d2Date;
 }
 
-
+// TODO: Find out if this can be deprecated.
 // TODO: Move isTimeBetweenAzans() it out of this file
 export const isTimeBetweenAzans = (timeMilliseconds?: (number | null), prayerPeriod?: (PrayerTime[] | null)): boolean => {
     if (!timeMilliseconds || !prayerPeriod || prayerPeriod.length != 2
