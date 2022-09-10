@@ -42,7 +42,7 @@ export const processPrayerTime = (prayer: Prayer): PrayerTimeSummary => {
     const currentPrayerName = getCurrentPrayerName(currentPrayerPeriod, timeBetweenShrooqAndZuhar, timeBetweenMaghribLimitAndIsha);
     const currentPrayerNumber = getCurrentPrayerNumber(currentPrayerPeriod, timeBetweenShrooqAndZuhar);
     const azanCalled = getAzanCalled(now, currentPrayerPeriod);
-    const iqamaInMillis = getIqamaInMillis();
+    const iqamaInMillis = getIqamaInMillis(now, currentPrayerPeriod);
 
     result.currentPrayerPeriod = currentPrayerPeriod;
     result.timeBetweenShrooqAndZuhar = timeBetweenShrooqAndZuhar;

@@ -48,6 +48,8 @@ describe("PrayerTimeProcessor", () => {
 
         expect(prayerTimeSummary.prayerAboutToStartMillis).toBe(-1);
         expect(prayerTimeSummary.prayerInProgressMillis).toBe(-1);
+        expect(prayerTimeSummary.azanCalled).toBeTruthy();
+        expect(DateService.millisecondDurationToMinSecTime(prayerTimeSummary.iqamaInMillis)).toBe("16:00");
     });
 
 
@@ -76,6 +78,8 @@ describe("PrayerTimeProcessor", () => {
 
         expect(prayerTimeSummary.prayerAboutToStartMillis).toBe(-1);
         expect(prayerTimeSummary.prayerInProgressMillis).toBe(-1);
+        expect(prayerTimeSummary.azanCalled).toBeTruthy();
+        expect(DateService.millisecondDurationToMinSecTime(prayerTimeSummary.iqamaInMillis)).toBe("1:20:00");
     });
 
 
@@ -103,6 +107,8 @@ describe("PrayerTimeProcessor", () => {
 
         expect(prayerTimeSummary.prayerAboutToStartMillis).toBe(-1);
         expect(prayerTimeSummary.prayerInProgressMillis).toBe(-1);
+        expect(prayerTimeSummary.azanCalled).toBeTruthy();
+        expect(DateService.millisecondDurationToMinSecTime(prayerTimeSummary.iqamaInMillis)).toBe("40:00");
     });
 
 
@@ -130,6 +136,8 @@ describe("PrayerTimeProcessor", () => {
 
         expect(prayerTimeSummary.prayerAboutToStartMillis).toBe(-1);
         expect(prayerTimeSummary.prayerInProgressMillis).toBe(-1);
+        expect(prayerTimeSummary.azanCalled).toBeTruthy();
+        expect(prayerTimeSummary.iqamaInMillis).toBe(-1);
     });
 
 
@@ -155,6 +163,8 @@ describe("PrayerTimeProcessor", () => {
 
         expect(prayerTimeSummary.prayerAboutToStartMillis).toBe(-1);
         expect(prayerTimeSummary.prayerInProgressMillis).toBe(-1);
+        expect(prayerTimeSummary.azanCalled).toBeTruthy();
+        expect(DateService.millisecondDurationToMinSecTime(prayerTimeSummary.iqamaInMillis)).toBe("38:00");
     });
 
 
@@ -180,6 +190,7 @@ describe("PrayerTimeProcessor", () => {
 
         expect(prayerTimeSummary.prayerAboutToStartMillis).toBe(-1);
         expect(prayerTimeSummary.prayerInProgressMillis).toBe(-1);
+        expect(prayerTimeSummary.iqamaInMillis).toBe(-1);
     });
 
 
