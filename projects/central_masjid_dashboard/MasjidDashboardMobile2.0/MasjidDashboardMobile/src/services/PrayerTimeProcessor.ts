@@ -2,6 +2,12 @@ import { Prayer, PrayerTime, PrayerTimeSummary } from "../types/types";
 import { Constants } from "./Constants";
 import { addDays, getCurrentSystemDate, stringH24MinToDate } from "./common/DateService";
 
+// TODO Calculate Maghrib iqama time.
+// TODO Create backend configuration for maghrib iqama time
+// TODO Beep at iqama time
+// TODO Create configuration datatype
+// TODO create configuration validation regex 
+
 export const processPrayerTime = (prayer: Prayer): PrayerTimeSummary => {
     const result: PrayerTimeSummary = {
         currentPrayerPeriod: [],

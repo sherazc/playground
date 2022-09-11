@@ -4,8 +4,6 @@ import { processPrayerTime } from "../../src/services/PrayerTimeProcessor";
 import { mockCreatePrayer } from "../../__mocks__/MockTypes";
 /**
  * TODO. Add azan called boolean
- * 
- * TODO. 
  */
 
 describe("PrayerTimeProcessor", () => {
@@ -283,6 +281,61 @@ describe("PrayerTimeProcessor", () => {
     });
 
 
+    it("processPrayerTime() - Current time Maghrib iqama", () => {
+        const prayer = mockCreatePrayer();
+
+        const nowDate = new Date(2020, 1, 29, 17, 43, 0, 0);
+
+        jest.spyOn(DateService, "getCurrentSystemDate").mockImplementation(() => nowDate);
+        const prayerTimeSummary = processPrayerTime(prayer);
+
+
+        expect(prayerTimeSummary.currentPrayerName).toBe(Constants.PRAYER_NAME[3]);
+        expect(prayerTimeSummary.currentPrayerNumber).toBe(4);
+        expect(prayerTimeSummary.currentPrayerPeriod[0].name).toBe(Constants.PRAYER_NAME[3]);
+        expect(prayerTimeSummary.currentPrayerPeriod[0].azan.getTime()).toBe(new Date(2020, 1, 29, 17, 38, 0, 0).getTime());
+        expect(prayerTimeSummary.currentPrayerPeriod[0].iqamah).toBeUndefined();
+
+
+        expect(prayerTimeSummary.currentPrayerPeriod[1].name).toBe(Constants.PRAYER_NAME[4]);
+        expect(prayerTimeSummary.currentPrayerPeriod[1].azan.getTime()).toBe(new Date(2020, 1, 29, 18, 52, 0, 0).getTime());
+        expect(prayerTimeSummary.currentPrayerPeriod[1].iqamah.getTime()).toBe(new Date(2020, 1, 29, 19, 30, 0, 0).getTime());
+
+        expect(prayerTimeSummary.nextPrayerInMillis).toBe(prayerTimeSummary.currentPrayerPeriod[1].azan.getTime() - nowDate.getTime());
+
+        expect(prayerTimeSummary.prayerAboutToStartMillis).toBe(-1);
+        expect(prayerTimeSummary.prayerInProgressMillis).toBe(-1);
+        expect(prayerTimeSummary.azanCalled).toBeTruthy();
+        expect(prayerTimeSummary.iqamaInMillis).toBe(-1);
+    });
+
+    it("processPrayerTime() - Current time Isha iqama", () => {
+        const prayer = mockCreatePrayer();
+
+        const nowDate = new Date(2020, 1, 29, 19, 30, 0, 0);
+
+        jest.spyOn(DateService, "getCurrentSystemDate").mockImplementation(() => nowDate);
+        const prayerTimeSummary = processPrayerTime(prayer);
+
+
+        expect(prayerTimeSummary.currentPrayerName).toBe(Constants.PRAYER_NAME[4]);
+        expect(prayerTimeSummary.currentPrayerNumber).toBe(5);
+        expect(prayerTimeSummary.currentPrayerPeriod[0].name).toBe(Constants.PRAYER_NAME[4]);
+        expect(prayerTimeSummary.currentPrayerPeriod[0].azan.getTime()).toBe(new Date(2020, 1, 29, 18, 52, 0, 0).getTime());
+        expect(prayerTimeSummary.currentPrayerPeriod[0].iqamah.getTime()).toBe(new Date(2020, 1, 29, 19, 30, 0, 0).getTime());
+
+
+        expect(prayerTimeSummary.currentPrayerPeriod[1].name).toBe(Constants.PRAYER_NAME[0]);
+        expect(prayerTimeSummary.currentPrayerPeriod[1].azan.getTime()).toBe(new Date(2020, 2, 1, 6, 29, 0, 0).getTime());
+        expect(prayerTimeSummary.currentPrayerPeriod[1].iqamah.getTime()).toBe(new Date(2020, 2, 1, 6, 45, 0, 0).getTime());
+
+        expect(prayerTimeSummary.nextPrayerInMillis).toBe(prayerTimeSummary.currentPrayerPeriod[1].azan.getTime() - nowDate.getTime());
+
+        expect(prayerTimeSummary.prayerAboutToStartMillis).toBe(-1);
+        expect(prayerTimeSummary.prayerInProgressMillis).toBe(-1);
+        expect(prayerTimeSummary.azanCalled).toBeTruthy();
+        expect(prayerTimeSummary.iqamaInMillis).toBe(0);
+    });
 
     afterEach(() => { jest.restoreAllMocks(); });
 });
