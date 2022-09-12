@@ -159,7 +159,7 @@ const getPrayerInProgressMillis = (now: Date, prayerPeriod: (PrayerTime[] | unde
     const prayerStartMillis = currentPrayerTime.iqamah.getTime();
     const prayerEndMillis = currentPrayerTime.iqamah.getTime() + Constants.PRAYER_DURATION_MILLIS;
 
-    const prayerInProgress = nowMillis > prayerStartMillis && nowMillis < prayerEndMillis;
+    const prayerInProgress = nowMillis >= prayerStartMillis && nowMillis <= prayerEndMillis;
     if (prayerInProgress) {
         return nowMillis - prayerStartMillis;
     } else {
