@@ -10,7 +10,7 @@ import { CompanyData, CompanyListData, SettingData, Tracker } from '../types/typ
 import { updateCompanyListData } from './CompanyListDataService';
 import { Constants } from './Constants';
 import { isValidCompany, updateCompanyData } from './CompanyDataService';
-import { fixObjectDates } from './common/DateService';
+import { parseObjectsIsoDateToMdDate } from './common/DateService';
 import { storeDispatchCompanyData, storeDispatchCompanyListData, storeDispatchRecoverInitComplete, storeDispatchRecoverInitFailed, storeDispatchSetting } from '../store/ReduxStoreService';
 
 
@@ -35,14 +35,14 @@ const processStorage = (data: (string | null)[]) => {
     if (data[0]) {
         // TODO use reviver like this JSON.parse(exampleSerialize, MdDate.mdDateJsonReviver)
         const companyListData = JSON.parse(data[0])
-        fixObjectDates(companyListData);
+        parseObjectsIsoDateToMdDate(companyListData);
         storeDispatchCompanyListData(companyListData);
     }
 
     if (data[1]) {
         // TODO use reviver like this JSON.parse(exampleSerialize, MdDate.mdDateJsonReviver)
         const companyData = JSON.parse(data[1])
-        fixObjectDates(companyData);
+        parseObjectsIsoDateToMdDate(companyData);
         storeDispatchCompanyData(companyData);
     }
 
