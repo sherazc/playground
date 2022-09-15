@@ -7,13 +7,12 @@ import { useTypedSelector } from "../../store/rootReducer";
 import { CompanyData, Prayer } from "../../types/types";
 import { Loading } from "../Loading";
 import { PrayerTimeGrid } from './PrayerTimeGrid';
-import { beginCompanyDataInterval, } from '../../services/AppService';
+import { beginCompanyDataInterval, destroyTrackerInterval, } from '../../services/AppService';
 import { TodaysDetail } from "./TodaysDetail";
 import { createEmptyPrayerTimeSummaryMessage, PrayerTimeSummaryMessage } from "../../types/react-types";
 import { processPrayerTime } from "../../services/PrayerTimeProcessor";
 import { processPrayerTimeMessage } from "../../services-react/PrayerTimeMessageProcessor";
 import { ConstantsStyles } from "../../services/Constants";
-import { destroyCompanyDataInterval2 } from "../../services/CompanyDataService";
 import { storeDispatchCompanyData } from "../../store/ReduxStoreService";
 
 interface Props {
@@ -63,7 +62,7 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
         // Interval to update API prayer and version
         beginCompanyDataInterval(companyData);
 
-        return () => destroyCompanyDataInterval2(companyData);
+        return () => destroyTrackerInterval("CompanyDataInterval", companyData.tracker);
     }, []);
 
 
