@@ -1,10 +1,11 @@
 import { Company, CompanyData, SettingData, PrayersMonth, Prayer, ScheduleNotification, CompanyNotification } from '../types/types';
-import { nowUtcDate, dayOfTheYear, TIME_24_REGX, utcToLocalDate, addMinutesToTime, createExpirationDate } from './common/DateService';
+import { getCurrentSystemDate, dayOfTheYear, TIME_24_REGX, addMinutesTo24hTime } from './common/DateService';
 import PushNotification from "react-native-push-notification";
 import { Constants } from './Constants';
 import { isNotBlankString } from './common/Utilities';
 import { getCompanyName } from './CompanyDataService';
 import { storeDispatchCompanyData, storeGetCompanyData, storeGetSetting } from '../store/ReduxStoreService';
+import { createExpirationDate } from './ExpirableVersionService';
 
 const NotificationConfig = {
     MAX_NOTIFICATION_SETUP_DAYS: 5,
@@ -69,7 +70,7 @@ const resetNotifications = (companyData: CompanyData) => {
         return;
     }
 
-    const now = nowUtcDate();
+    const now = getCurrentSystemDate();
 
     if (companyData.prayersYear && companyData.prayersYear.prayersMonths) {
         const days = calculatePossibleNotificationDays(setting, NotificationConfig.MAX_NOTIFICATION_SETUP_DAYS);
@@ -95,7 +96,7 @@ const calculatePossibleNotificationDays = (setting: SettingData, maxNotification
 }
 
 const setupPrayerNotification = (company: (Company | undefined), now: Date, setting: SettingData, prayer: Prayer) => {
-    if (!prayer || !prayer.date) {
+    if (!prayer || !prayer.date.jsDate) {
         console.log("Not setting up alerts. Prayer not found.")
         return;
     }
@@ -112,31 +113,31 @@ const setupPrayerNotification = (company: (Company | undefined), now: Date, sett
         // Fajr
         title = createAzanTitle(companyName, Constants.PRAYER_NAME[0]);
         message = createAzanMessage(companyName, Constants.PRAYER_NAME[0]);
-        notification = createNotification(title, message, now, prayer.date, prayer.fajr);
+        notification = createNotification(title, message, now, prayer.date.jsDate, prayer.fajr);
         if (notification) notifications.push(notification);
 
         // Duhar
         title = createAzanTitle(companyName, Constants.PRAYER_NAME[1]);
         message = createAzanMessage(companyName, Constants.PRAYER_NAME[1]);
-        notification = createNotification(title, message, now, prayer.date, prayer.dhuhr);
+        notification = createNotification(title, message, now, prayer.date.jsDate, prayer.dhuhr);
         if (notification) notifications.push(notification);
 
         // Asr
         title = createAzanTitle(companyName, Constants.PRAYER_NAME[2]);
         message = createAzanMessage(companyName, Constants.PRAYER_NAME[2]);
-        notification = createNotification(title, message, now, prayer.date, prayer.asr);
+        notification = createNotification(title, message, now, prayer.date.jsDate, prayer.asr);
         if (notification) notifications.push(notification);
 
         // Maghrib
         title = createAzanTitle(companyName, Constants.PRAYER_NAME[3]);
         message = createAzanMessage(companyName, Constants.PRAYER_NAME[3]);
-        notification = createNotification(title, message, now, prayer.date, prayer.maghrib);
+        notification = createNotification(title, message, now, prayer.date.jsDate, prayer.maghrib);
         if (notification) notifications.push(notification);
 
         // Isha
         title = createAzanTitle(companyName, Constants.PRAYER_NAME[4]);
         message = createAzanMessage(companyName, Constants.PRAYER_NAME[4]);
-        notification = createNotification(title, message, now, prayer.date, prayer.isha);
+        notification = createNotification(title, message, now, prayer.date.jsDate, prayer.isha);
         if (notification) notifications.push(notification);
     }
 
@@ -145,34 +146,34 @@ const setupPrayerNotification = (company: (Company | undefined), now: Date, sett
         // Fajr Iqama
         title = createIqamaTitle(companyName, Constants.PRAYER_NAME[0]);
         message = createIqamaMessage(companyName, Constants.PRAYER_NAME[0]);
-        notification = createNotification(title, message, now, prayer.date, prayer.fajrIqama);
+        notification = createNotification(title, message, now, prayer.date.jsDate, prayer.fajrIqama);
         if (notification) notifications.push(notification);
 
         // Duhar Iqama
         title = createIqamaTitle(companyName, Constants.PRAYER_NAME[1]);
         message = createIqamaMessage(companyName, Constants.PRAYER_NAME[1]);
-        notification = createNotification(title, message, now, prayer.date, prayer.dhuhrIqama);
+        notification = createNotification(title, message, now, prayer.date.jsDate, prayer.dhuhrIqama);
         if (notification) notifications.push(notification);
 
         // Asr Iqama
         title = createIqamaTitle(companyName, Constants.PRAYER_NAME[2]);
         message = createIqamaMessage(companyName, Constants.PRAYER_NAME[2]);
-        notification = createNotification(title, message, now, prayer.date, prayer.asrIqama);
+        notification = createNotification(title, message, now, prayer.date.jsDate, prayer.asrIqama);
         if (notification) notifications.push(notification);
 
         // Maghrib Iqama
         title = createIqamaTitle(companyName, Constants.PRAYER_NAME[3]);
         message = createIqamaMessage(companyName, Constants.PRAYER_NAME[3]);
-        time = addMinutesToTime(prayer.maghrib, 3);
+        time = addMinutesTo24hTime(prayer.maghrib, 3);
         if (time) {
-            notification = createNotification(title, message, now, prayer.date, time);
+            notification = createNotification(title, message, now, prayer.date.jsDate, time);
             if (notification) notifications.push(notification);
         }
 
         // Isha Iqama
         title = createIqamaTitle(companyName, Constants.PRAYER_NAME[4]);
         message = createIqamaMessage(companyName, Constants.PRAYER_NAME[4]);
-        notification = createNotification(title, message, now, prayer.date, prayer.ishaIqama);
+        notification = createNotification(title, message, now, prayer.date.jsDate, prayer.ishaIqama);
         if (notification) notifications.push(notification);
     }
 
@@ -181,36 +182,36 @@ const setupPrayerNotification = (company: (Company | undefined), now: Date, sett
         // Fajr Before Iqama
         title = createBeforeIqamaTitle(companyName, Constants.PRAYER_NAME[0]);
         message = createBeforeIqamaMessage(companyName, Constants.PRAYER_NAME[0]);
-        time = addMinutesToTime(prayer.fajrIqama, -Constants.PRAYER_ABOUT_TO_START_MIN)
-        notification = time ? createNotification(title, message, now, prayer.date, time) : undefined;
+        time = addMinutesTo24hTime(prayer.fajrIqama, -Constants.PRAYER_ABOUT_TO_START_MIN)
+        notification = time ? createNotification(title, message, now, prayer.date.jsDate, time) : undefined;
         if (notification) notifications.push(notification);
 
         // Duhar Before Iqama
         title = createBeforeIqamaTitle(companyName, Constants.PRAYER_NAME[1]);
         message = createBeforeIqamaMessage(companyName, Constants.PRAYER_NAME[1]);
-        time = addMinutesToTime(prayer.dhuhrIqama, -Constants.PRAYER_ABOUT_TO_START_MIN)
-        notification = time ? createNotification(title, message, now, prayer.date, time) : undefined;
+        time = addMinutesTo24hTime(prayer.dhuhrIqama, -Constants.PRAYER_ABOUT_TO_START_MIN)
+        notification = time ? createNotification(title, message, now, prayer.date.jsDate, time) : undefined;
         if (notification) notifications.push(notification);
 
         // Asr Before Iqama
         title = createBeforeIqamaTitle(companyName, Constants.PRAYER_NAME[2]);
         message = createBeforeIqamaMessage(companyName, Constants.PRAYER_NAME[2]);
-        time = addMinutesToTime(prayer.asrIqama, -Constants.PRAYER_ABOUT_TO_START_MIN)
-        notification = time ? createNotification(title, message, now, prayer.date, time) : undefined;
+        time = addMinutesTo24hTime(prayer.asrIqama, -Constants.PRAYER_ABOUT_TO_START_MIN)
+        notification = time ? createNotification(title, message, now, prayer.date.jsDate, time) : undefined;
         if (notification) notifications.push(notification);
 
         // Maghrib Before Iqama
         title = createBeforeIqamaTitle(companyName, Constants.PRAYER_NAME[3]);
         message = createBeforeIqamaMessage(companyName, Constants.PRAYER_NAME[3]);
-        time = addMinutesToTime(prayer.maghrib, -Constants.PRAYER_ABOUT_TO_START_MIN)
-        notification = time ? createNotification(title, message, now, prayer.date, time) : undefined;
+        time = addMinutesTo24hTime(prayer.maghrib, -Constants.PRAYER_ABOUT_TO_START_MIN)
+        notification = time ? createNotification(title, message, now, prayer.date.jsDate, time) : undefined;
         if (notification) notifications.push(notification);
 
         // Isha Before Iqama
         title = createBeforeIqamaTitle(companyName, Constants.PRAYER_NAME[4]);
         message = createBeforeIqamaMessage(companyName, Constants.PRAYER_NAME[4]);
-        time = addMinutesToTime(prayer.ishaIqama, -Constants.PRAYER_ABOUT_TO_START_MIN)
-        notification = time ? createNotification(title, message, now, prayer.date, time) : undefined;
+        time = addMinutesTo24hTime(prayer.ishaIqama, -Constants.PRAYER_ABOUT_TO_START_MIN)
+        notification = time ? createNotification(title, message, now, prayer.date.jsDate, time) : undefined;
         if (notification) notifications.push(notification);
     }
 
@@ -230,7 +231,7 @@ const createNotification = (title: string, message: string, now: Date, prayerDat
         +timeSplit[0], +timeSplit[1], 0, 0);
 
     let notification: (ScheduleNotification | undefined);
-    if (scheduleDate.getTime() > utcToLocalDate(now).getTime()) {
+    if (scheduleDate.getTime() > now.getTime()) {
         notification = { date: scheduleDate, title, message };
     }
 
@@ -339,7 +340,7 @@ const isNotificationAlreadySet = (companyId: string): boolean => {
         return false;
     }
 
-    const currentTimeMillis = nowUtcDate().getTime();
+    const currentTimeMillis = getCurrentSystemDate().getTime();
 
     return companyNotification.companyId === companyId
         && currentTimeMillis < companyNotification.expirationMillis;
