@@ -43,7 +43,7 @@ export const PrayerTimeGrid: React.FC<Props> = ({companyData, prayer, prayerTime
                     <Text style={{ ...styles.prayerIqama, }}>{time24To12(prayer.fajrIqama)}</Text>
                 </View>
                 <View style={{ ...styles.cell, ...styles.column4 }}>
-                    <Text style={{ ...styles.prayerNextChange, }}>{dateToDisplayDateShort(prayer.fajrChangeDate)}</Text>
+                    <Text style={{ ...styles.prayerNextChange, }}>{dateToDisplayDateShort(prayer.fajrChangeDate?.jsDate)}</Text>
                     <Text style={{ ...styles.prayerNextChange, }}>{time24To12(prayer.fajrChange)}</Text>
                 </View>
             </View>
@@ -62,7 +62,7 @@ export const PrayerTimeGrid: React.FC<Props> = ({companyData, prayer, prayerTime
                     <Text style={{ ...styles.prayerIqama, }}>{time24To12(prayer.dhuhrIqama)}</Text>
                 </View>
                 <View style={{ ...styles.cell, ...styles.column4 }}>
-                    <Text style={{ ...styles.prayerNextChange, }}>{dateToDisplayDateShort(prayer.dhuhrChangeDate)}</Text>
+                    <Text style={{ ...styles.prayerNextChange, }}>{dateToDisplayDateShort(prayer.dhuhrChangeDate?.jsDate)}</Text>
                     <Text style={{ ...styles.prayerNextChange, }}>{time24To12(prayer.dhuhrChange)}</Text>
                 </View>
             </View>
@@ -81,7 +81,7 @@ export const PrayerTimeGrid: React.FC<Props> = ({companyData, prayer, prayerTime
                     <Text style={{ ...styles.prayerIqama, }}>{time24To12(prayer.asrIqama)}</Text>
                 </View>
                 <View style={{ ...styles.cell, ...styles.column4 }}>
-                    <Text style={{ ...styles.prayerNextChange, }}>{dateToDisplayDateShort(prayer.asrChangeDate)}</Text>
+                    <Text style={{ ...styles.prayerNextChange, }}>{dateToDisplayDateShort(prayer.asrChangeDate?.jsDate)}</Text>
                     <Text style={{ ...styles.prayerNextChange, }}>{time24To12(prayer.asrChange)}</Text>
                 </View>
             </View>
@@ -118,7 +118,7 @@ export const PrayerTimeGrid: React.FC<Props> = ({companyData, prayer, prayerTime
                     <Text style={{ ...styles.prayerIqama, }}>{time24To12(prayer.ishaIqama)}</Text>
                 </View>
                 <View style={{ ...styles.cell, ...styles.column4 }}>
-                    <Text style={{ ...styles.prayerNextChange, }}>{dateToDisplayDateShort(prayer.ishaChangeDate)}</Text>
+                    <Text style={{ ...styles.prayerNextChange, }}>{dateToDisplayDateShort(prayer.ishaChangeDate?.jsDate)}</Text>
                     <Text style={{ ...styles.prayerNextChange, }}>{time24To12(prayer.ishaChange)}</Text>
                 </View>
             </View>
