@@ -2,7 +2,7 @@ import React from 'react';
 import { createEmptyPrayerTimeSummaryMessage, PrayerTimeSummaryMessage } from "../types/react-types";
 import { PrayerTimeSummary } from "../types/types";
 import { StyleSheet, Text } from 'react-native';
-import { millisDurationToTimeString } from '../services/common/DateService';
+import { millisecondDurationToMinSecTime } from '../services/common/DateService';
 
 export const processPrayerTimeMessage = (prayerTimeSummary?: PrayerTimeSummary): PrayerTimeSummaryMessage => {
     const result = createEmptyPrayerTimeSummaryMessage();
@@ -36,14 +36,14 @@ const createJamatStatus = (prayerTimeSummary: PrayerTimeSummary): JSX.Element =>
     if (prayerTimeSummary.prayerAboutToStartMillis && prayerTimeSummary.prayerAboutToStartMillis > 0) {
         result = (<>
             <Text style={styles.heading}>{prayerTimeSummary.currentPrayerName} jammat about to start in</Text>
-            <Text style={styles.durationText}>{millisDurationToTimeString(prayerTimeSummary.prayerAboutToStartMillis)}</Text>
+            <Text style={styles.durationText}>{millisecondDurationToMinSecTime(prayerTimeSummary.prayerAboutToStartMillis)}</Text>
         </>);
     }
 
     if (prayerTimeSummary.prayerInProgressMillis && prayerTimeSummary.prayerInProgressMillis > 0) {
         result = (<>
             <Text style={styles.heading}>{prayerTimeSummary.currentPrayerName} jammat is in progress for</Text>
-            <Text style={styles.durationText}>{millisDurationToTimeString(prayerTimeSummary.prayerInProgressMillis)}</Text>
+            <Text style={styles.durationText}>{millisecondDurationToMinSecTime(prayerTimeSummary.prayerInProgressMillis)}</Text>
         </>);
     }
     return result;
@@ -59,7 +59,7 @@ const createNextPrayerStatus = (prayerTimeSummary: PrayerTimeSummary): JSX.Eleme
     ) {
         result = (<>
             <Text style={styles.heading}>Next prayer {prayerTimeSummary.currentPrayerPeriod[1].name} in</Text>
-            <Text style={styles.durationText}>{millisDurationToTimeString(prayerTimeSummary.nextPrayerInMillis)}</Text>
+            <Text style={styles.durationText}>{millisecondDurationToMinSecTime(prayerTimeSummary.nextPrayerInMillis)}</Text>
         </>);
     }
 
