@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity  } from "react-native";
+import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MdParamList } from "./NavRoutes";
 import { RouteProp } from '@react-navigation/native';
@@ -9,9 +9,10 @@ import Reset from "../images/Reset";
 import { Checkbox } from './Checkbox';
 import setupNotifications, { removeAllExistingNotifications } from "../services/NotificationService";
 import { createDefaultSettingData, SettingData } from '../types/types';
-import { destroyCompanyDataInterval2, getCompanyId } from '../services/CompanyDataService';
+import { getCompanyId } from '../services/CompanyDataService';
 import { storeDeleteCompanyData, storeDispatchSetting } from "../store/ReduxStoreService";
 import { useTypedSelector } from "../store/rootReducer";
+import { destroyTrackerInterval } from "../services/AppService";
 interface Props {
     navigation: StackNavigationProp<MdParamList, "Settings">;
     route: RouteProp<MdParamList, "Settings">;
@@ -35,7 +36,7 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
         storeDeleteCompanyData();
         navigation.navigate("CompanySelect");
         removeAllExistingNotifications();
-        destroyCompanyDataInterval2(companyData);
+        destroyTrackerInterval("CompanyDataInterval", companyData.tracker);
     }
 
     const onCheckAzan = () => {
