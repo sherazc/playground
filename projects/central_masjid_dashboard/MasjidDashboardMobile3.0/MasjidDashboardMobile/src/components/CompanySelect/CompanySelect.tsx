@@ -5,7 +5,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { MdParamList } from "../NavRoutes";
 import { useTypedSelector } from '../../store/rootReducer';
 
-import { Brand } from './Brand';
+// import { Brand } from './Brand';
 import { CompanyList } from './CompanyList';
 import { ConstantsStyles } from "../../services/Constants";
 import { Info } from '../../images/Info';
@@ -52,7 +52,7 @@ export const CompanySelect: React.FC<Props> = ({ navigation }) => {
             </View>
             <View style={styles.content}>
                 <View style={styles.brand}>
-                    <Brand />
+                    {/* <Brand /> */}
                 </View>
                 <View style={styles.companyList}>
                     <CompanyList navigation={navigation} companyListData={companyListData} />

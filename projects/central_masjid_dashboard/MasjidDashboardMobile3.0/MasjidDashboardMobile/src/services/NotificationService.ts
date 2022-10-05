@@ -1,6 +1,6 @@
 import { Company, CompanyData, SettingData, PrayersMonth, Prayer, ScheduleNotification, CompanyNotification } from '../types/types';
 import { getCurrentSystemDate, dayOfTheYear, TIME_24_REGX, addMinutesTo24hTime } from './common/DateService';
-import PushNotification from "react-native-push-notification";
+// import PushNotification from "react-native-push-notification";
 import { Constants } from './Constants';
 import { isNotBlankString } from './common/Utilities';
 import { getCompanyName } from './CompanyDataService';
@@ -267,6 +267,7 @@ const scheduleNotification = (notifications: ScheduleNotification[]): void => {
         return;
     }
 
+    /*
     notifications
         .filter(n => n)
         .filter(n => n.date && isNotBlankString(n.message) && isNotBlankString(n.title))
@@ -279,6 +280,7 @@ const scheduleNotification = (notifications: ScheduleNotification[]): void => {
                 smallIcon: "status_bar_icon_small",
             })
         );
+        */
 }
 
 /*
@@ -319,6 +321,7 @@ const isAnyAlertOn = (setting: SettingData): boolean => {
 
 export const removeAllExistingNotifications = () => {
     console.log("Removing all previously set notifications.");
+/*
     PushNotification.removeAllDeliveredNotifications();
 
     PushNotification.getScheduledLocalNotifications((notifications) => {
@@ -328,6 +331,7 @@ export const removeAllExistingNotifications = () => {
             });
         }
     });
+*/
 }
 
 const isNotificationAlreadySet = (companyId: string): boolean => {

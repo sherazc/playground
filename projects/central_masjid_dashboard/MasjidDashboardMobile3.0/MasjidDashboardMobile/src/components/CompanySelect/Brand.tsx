@@ -3,8 +3,8 @@ import { Button, StyleSheet, Text, View } from 'react-native';
 import Logo from '../../images/Logo';
 import Underline from '../../images/Underline';
 import { ConstantsStyles } from '../../services/Constants';
-import PushNotification from 'react-native-push-notification';
-import { removeAllExistingNotifications } from '../../services/NotificationService';
+// import PushNotification from 'react-native-push-notification';
+// import { removeAllExistingNotifications } from '../../services/NotificationService';
 
 interface Props {
 }
@@ -13,8 +13,9 @@ export const Brand: React.FC<Props> = () => {
 
     const showNotification = () => {
         // longRunningTask();
-        console.log("Showing sample notification");
+        console.log("Showing sample notification - TODO: replace it with EXPO notification");
 
+        /*
         PushNotification.localNotificationSchedule({
             channelId: "MDB_NOTIFICATION",
 
@@ -23,12 +24,16 @@ export const Brand: React.FC<Props> = () => {
             largeIcon: "status_bar_icon_large",
             smallIcon: "status_bar_icon_small",
           });
+          */
+
     }
 
+    /*
     const removeNotifications = () => {
         console.log("Removed Notifications")
         removeAllExistingNotifications();
     }
+*/
 
     return (
         <View style={styles.container}>
@@ -38,7 +43,8 @@ export const Brand: React.FC<Props> = () => {
                 <Logo width="100" height="100" />
             </View>
 {/*
-            <Button onPress={removeNotifications} title="Remove Notificaitons"/>
+            <Text>These buttons are for testing only</Text>
+            <Button onPress={removeNotifications} title="Remove All Notifications"/>
             <Button onPress={showNotification} title="Notification"/>
              */}
         </View>
