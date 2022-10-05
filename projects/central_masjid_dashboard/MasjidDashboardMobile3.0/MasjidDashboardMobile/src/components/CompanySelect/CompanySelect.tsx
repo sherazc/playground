@@ -11,6 +11,7 @@ import { ConstantsStyles } from "../../services/Constants";
 import { Info } from '../../images/Info';
 import { LoadingStatus } from "../../types/types";
 import { beginCompanyListDataInterval, destroyTrackerInterval } from "../../services/AppService";
+import { Brand } from "./Brand";
 
 // TODO: Fix inline styles
 interface Props {
@@ -45,14 +46,6 @@ export const CompanySelect: React.FC<Props> = ({ navigation }) => {
         }
     }, [loading])
 
-    if (true) {
-        return (
-            <View>
-                <Text>Testing</Text>
-            </View>
-        );
-    }
-
     return (
         <View style={styles.container}>
             <View style={styles.background}>
@@ -60,7 +53,7 @@ export const CompanySelect: React.FC<Props> = ({ navigation }) => {
             </View>
             <View style={styles.content}>
                 <View style={styles.brand}>
-                    {/* <Brand /> */}
+                    <Brand />
                 </View>
                 <View style={styles.companyList}>
                     <CompanyList navigation={navigation} companyListData={companyListData} />
