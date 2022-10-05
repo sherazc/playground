@@ -37,13 +37,21 @@ export const CompanySelect: React.FC<Props> = ({ navigation }) => {
     
     useEffect(() => {
         if (loading.recoverInitState === LoadingStatus.COMPLETE || loading.recoverInitState === LoadingStatus.FAILED) {
-            beginCompanyListDataInterval(companyListData);
+            // beginCompanyListDataInterval(companyListData);
         }
         
         return () => {
             destroyTrackerInterval("CompanyListDataInterval", companyListData.tracker);
         }
     }, [loading])
+
+    if (true) {
+        return (
+            <View>
+                <Text>Testing</Text>
+            </View>
+        );
+    }
 
     return (
         <View style={styles.container}>

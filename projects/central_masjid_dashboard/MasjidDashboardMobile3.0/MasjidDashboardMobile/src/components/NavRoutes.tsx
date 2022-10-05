@@ -9,6 +9,7 @@ import { Company, LoadingStatus } from '../types/types';
 import { RecoveringFromStorage } from './RecoveringFromStorage';
 import { recoverAppFromStorage } from '../services/AppService';
 import { RegisterInfo } from './RegisterInfo';
+import { Text } from "react-native";
 
 const Stack = createStackNavigator<MdParamList>();
 
@@ -51,12 +52,14 @@ export const NavRoutes: React.FC = () => {
     } else {
         return (
             <NavigationContainer>
+                
                 <Stack.Navigator initialRouteName="CompanySelect">
                     <Stack.Screen name="CompanySelect" component={CompanySelect} options={noHeaderOptions} />
                     <Stack.Screen name="PrayerTime" component={PrayerTime} options={noHeaderOptions} />
                     <Stack.Screen name="Settings" component={Settings} options={noHeaderOptions} />
                     <Stack.Screen name="RegisterInfo" component={RegisterInfo} options={noHeaderOptions} />
                 </Stack.Navigator>
+                
             </NavigationContainer>
         );
     }
