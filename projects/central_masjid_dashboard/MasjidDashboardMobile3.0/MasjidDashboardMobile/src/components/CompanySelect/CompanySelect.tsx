@@ -38,7 +38,7 @@ export const CompanySelect: React.FC<Props> = ({ navigation }) => {
     
     useEffect(() => {
         if (loading.recoverInitState === LoadingStatus.COMPLETE || loading.recoverInitState === LoadingStatus.FAILED) {
-            // beginCompanyListDataInterval(companyListData);
+            beginCompanyListDataInterval(companyListData);
         }
         
         return () => {
