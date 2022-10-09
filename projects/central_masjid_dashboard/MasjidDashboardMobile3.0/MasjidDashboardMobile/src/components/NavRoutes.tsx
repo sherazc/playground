@@ -6,10 +6,9 @@ import { PrayerTime } from './PrayerTime/PrayerTime';
 import { Settings } from './Settings';
 import { useTypedSelector } from '../store/rootReducer'
 import { Company, LoadingStatus } from '../types/types';
-import { RecoveringFromStorage } from './RecoveringFromStorage';
 import { recoverAppFromStorage } from '../services/AppService';
 import { RegisterInfo } from './RegisterInfo';
-import { Text } from "react-native";
+import { RecoveringFromStorageImage } from "./RecoveringFromStorageImage";
 
 const Stack = createStackNavigator<MdParamList>();
 
@@ -48,7 +47,7 @@ export const NavRoutes: React.FC = () => {
 
     if (loading.recoverInitState === LoadingStatus.LOADING
         || loading.recoverInitState === LoadingStatus.INIT) {
-        return <RecoveringFromStorage />
+        return <RecoveringFromStorageImage />
     } else {
         return (
             <NavigationContainer>
