@@ -28,12 +28,10 @@ export const Brand: React.FC<Props> = () => {
 
     }
 
-    /*
     const removeNotifications = () => {
         console.log("Removed Notifications")
-        removeAllExistingNotifications();
+        // removeAllExistingNotifications();
     }
-*/
 
     return (
         <View style={styles.container}>
@@ -42,11 +40,11 @@ export const Brand: React.FC<Props> = () => {
             <View style={{ marginTop: 20 }}>
                 <Logo width="100" height="100" />
             </View>
-{/*
+
             <Text>These buttons are for testing only</Text>
             <Button onPress={removeNotifications} title="Remove All Notifications"/>
             <Button onPress={showNotification} title="Notification"/>
-             */}
+             
         </View>
     );
 }

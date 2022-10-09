@@ -19,16 +19,26 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "icon": "./assets/app_icon_ios.png"
+      "icon": "./assets/app_icon_ios.png",
+      "bundleIdentifier": "org.reactjs.native.example.MasjidDashboardMobile"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/app_icon_ios.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "foregroundImage": "./assets/app_icon_android.png",
+        "backgroundColor": "#0c274b"
+      },
+      "package": "com.masjiddashboardmobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "color": "#ffffff"
+        }
+      ]
+    ]
   }
 }
