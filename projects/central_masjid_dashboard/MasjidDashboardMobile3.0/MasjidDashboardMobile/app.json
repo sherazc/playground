@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "MasjidDashboardMobile",
+    "name": "Masjid Dashboard",
     "slug": "MasjidDashboardMobile",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/app_icon_ios.png",
     "userInterfaceStyle": "light",
@@ -20,14 +20,16 @@
     "ios": {
       "supportsTablet": true,
       "icon": "./assets/app_icon_ios.png",
-      "bundleIdentifier": "org.reactjs.native.example.MasjidDashboardMobile"
+      "bundleIdentifier": "org.reactjs.native.example.MasjidDashboardMobile",
+      "buildNumber": 3
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/app_icon_android.png",
         "backgroundColor": "#0c274b"
       },
-      "package": "com.masjiddashboardmobile"
+      "package": "com.masjiddashboardmobile",
+      "versionCode": 3
     },
     "web": {
       "favicon": "./assets/favicon.png"
