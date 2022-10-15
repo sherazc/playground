@@ -1,9 +1,9 @@
-import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import Logo from '../../images/Logo';
 import Underline from '../../images/Underline';
 import { ConstantsStyles } from '../../services/Constants';
-import { schedulePushNotification } from '../../services/TestNotification';
+import { removeAllNotifications, schedulePushNotification } from '../../services/TestNotification';
 // import PushNotification from 'react-native-push-notification';
 // import { removeAllExistingNotifications } from '../../services/NotificationService';
 
@@ -13,27 +13,16 @@ interface Props {
 
 export const Brand: React.FC<Props> = () => {
 
+    const [testNotificationDelaySeconds, setTestNotificationDelaySeconds] = useState<number>(0);
+
     const showNotification = () => {
-        // longRunningTask();
         console.log("Showing sample notification");
-
-        /*
-        PushNotification.localNotificationSchedule({
-            channelId: "MDB_NOTIFICATION",
-
-            message: "My Notification Message now", // (required)
-            date: new Date(Date.now() + 1000), // in 60 secs
-            largeIcon: "status_bar_icon_large",
-            smallIcon: "status_bar_icon_small",
-          });
-          */
-          schedulePushNotification()
-
+        schedulePushNotification(testNotificationDelaySeconds)
     }
 
     const removeNotifications = () => {
         console.log("Removed Notifications")
-        // removeAllExistingNotifications();
+        removeAllNotifications();
     }
 
     return (
@@ -45,9 +34,17 @@ export const Brand: React.FC<Props> = () => {
             </View>
 
             <Text>These buttons are for testing only</Text>
-            <Button onPress={removeNotifications} title="Remove All Notifications"/>
-            <Button onPress={showNotification} title="Notification"/>
-             
+            <TextInput
+                keyboardType='number-pad'
+                style={{ height: 40 }}
+                placeholder="Test notification delay seconds"
+                onChangeText={num => setTestNotificationDelaySeconds(+num)}
+            />
+            <Button onPress={showNotification} title="Notification" />
+
+            <Button onPress={removeNotifications} title="Remove All Notifications" />
+
+
         </View>
     );
 }

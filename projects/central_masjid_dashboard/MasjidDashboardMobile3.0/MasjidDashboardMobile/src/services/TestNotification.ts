@@ -1,5 +1,23 @@
 import * as Notifications from 'expo-notifications';
 
+// By default notification are only displayed if the app is not in the foreground.
+// Use this to set What type of notification to show when the app is running
+Notifications.setNotificationHandler({
+    // Runs only is app is in the forground
+    handleSuccess: notificationIdentifier => {
+        console.log("handleSuccess(), Id", notificationIdentifier);
+        // dismiss notification immediately after it is presented
+        Notifications.dismissNotificationAsync(notificationIdentifier);
+        
+    },
+    handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: true,
+        shouldSetBadge: true,
+    }),
+});
+
+
 async function allowsNotificationsAsync() {
     const settings = await Notifications.getPermissionsAsync();
     return (
@@ -7,34 +25,25 @@ async function allowsNotificationsAsync() {
     );
 }
 
-export async function schedulePushNotification() {
+export const removeAllNotifications = () => {
+    Notifications.dismissAllNotificationsAsync();
+    Notifications.cancelAllScheduledNotificationsAsync();
+}
 
-    console.log("schedulePushNotification()", new Date());
+export async function schedulePushNotification(delaySeconds: number) {
+
+    console.log("schedulePushNotification() seconds=" + delaySeconds, new Date());
     const hasPushNotificationPermissionGranted = await allowsNotificationsAsync();
 
     console.log("hasPushNotificationPermissionGranted", hasPushNotificationPermissionGranted);
-    Notifications.requestPermissionsAsync({
-        android: {},
-        ios: {
-            allowAlert: true,
-            allowBadge: true,
-            allowSound: true,
-            // allowDisplayInCarPlay: true,
-            // allowCriticalAlerts: true,
-            // provideAppNotificationSettings: true,
-            // allowProvisional?: true,
-            // allowAnnouncements?: true,
-        }
-    });
     if (hasPushNotificationPermissionGranted) {
-
         await Notifications.scheduleNotificationAsync({
             content: {
-                title: "You've got mail! 📬",
-                body: 'Here is the notification body',
-                data: { data: 'goes here' },
+                title: "Masjid Dashboard Title",
+                body: 'Masjid Dashboard Body ' + new Date(),
+                data: { data: 'Masjid Dashboard Data' },
             },
-            trigger: { seconds: 1 },
+            trigger: { seconds: delaySeconds },
         });
     } else {
         Notifications.requestPermissionsAsync({
