@@ -3,8 +3,10 @@ import { Button, StyleSheet, Text, View } from 'react-native';
 import Logo from '../../images/Logo';
 import Underline from '../../images/Underline';
 import { ConstantsStyles } from '../../services/Constants';
+import { schedulePushNotification } from '../../services/TestNotification';
 // import PushNotification from 'react-native-push-notification';
 // import { removeAllExistingNotifications } from '../../services/NotificationService';
+
 
 interface Props {
 }
@@ -13,7 +15,7 @@ export const Brand: React.FC<Props> = () => {
 
     const showNotification = () => {
         // longRunningTask();
-        console.log("Showing sample notification - TODO: replace it with EXPO notification");
+        console.log("Showing sample notification");
 
         /*
         PushNotification.localNotificationSchedule({
@@ -25,6 +27,7 @@ export const Brand: React.FC<Props> = () => {
             smallIcon: "status_bar_icon_small",
           });
           */
+          schedulePushNotification()
 
     }
 
