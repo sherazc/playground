@@ -7,7 +7,7 @@ Notifications.setNotificationHandler({
     handleSuccess: notificationIdentifier => {
         console.log("handleSuccess(), Id", notificationIdentifier);
         // dismiss notification immediately after it is presented
-        Notifications.dismissNotificationAsync(notificationIdentifier);
+        // Notifications.dismissNotificationAsync(notificationIdentifier);
         
     },
     handleNotification: async () => ({

@@ -29,7 +29,10 @@
         "backgroundColor": "#0c274b"
       },
       "package": "com.masjiddashboardmobile",
-      "versionCode": 3
+      "versionCode": 3,
+      "notification": {
+        "icon": "./local/assets/notification_icon_96x96.png"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -38,7 +41,8 @@
       [
         "expo-notifications",
         {
-          "color": "#ffffff"
+          "color": "#ffffff",
+          "icon": "./local/assets/notification_icon_96x96.png"
         }
       ]
     ]
