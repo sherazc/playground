@@ -4,9 +4,6 @@ import Logo from '../../images/Logo';
 import Underline from '../../images/Underline';
 import { ConstantsStyles } from '../../services/Constants';
 import { removeAllNotifications, schedulePushNotification } from '../../services/TestNotification';
-// import PushNotification from 'react-native-push-notification';
-// import { removeAllExistingNotifications } from '../../services/NotificationService';
-
 
 interface Props {
 }

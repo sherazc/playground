@@ -1,14 +1,13 @@
 import { PrayersMonth, PrayersYear } from '../types/types';
 import { apiYearCalendar } from './ApiMdb';
 import { getCurrentSystemDate, parseObjectsIsoDateToMdDate } from './common/DateService';
-import { isValidCompany } from './CompanyDataService';
+
 
 export const getPrayersYear = (companyId: string, year?: number): Promise<PrayersYear> => {
     let calendarYear = getCurrentSystemDate().getFullYear();
     if (year != undefined) {
         calendarYear = year;
     }
-
 
     return new Promise((resolve, reject) => {
         apiYearCalendar(companyId, calendarYear)
@@ -28,8 +27,7 @@ export const getPrayersYear = (companyId: string, year?: number): Promise<Prayer
                 (error) => rejectNewPrayerYear(reject, error))
             .catch((error) => rejectNewPrayerYear(reject, error));
 
-    });
-    
+    });    
 }
 
 // @Deprecated

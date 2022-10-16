@@ -2,7 +2,6 @@ import { Company, CompanyData, SettingData, PrayersMonth, Prayer, ScheduleNotifi
 import { getCurrentSystemDate, dayOfTheYear, TIME_24_REGX, addMinutesTo24hTime } from './common/DateService';
 // import PushNotification from "react-native-push-notification";
 import { Constants } from './Constants';
-import { isNotBlankString } from './common/Utilities';
 import { getCompanyName } from './CompanyDataService';
 import { storeDispatchCompanyData, storeGetCompanyData, storeGetSetting } from '../store/ReduxStoreService';
 import { createExpirationDate } from './ExpirableVersionService';

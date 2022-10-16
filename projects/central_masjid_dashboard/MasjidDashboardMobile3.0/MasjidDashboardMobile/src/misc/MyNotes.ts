@@ -1,5 +1,16 @@
 /*
 
+TODO: 10/16/2022
+###############
+
+-----
+NotificationService
+
+
+
+
+####################
+
 Save setting items in the store and strorage.
 See if they are recovered properly in store from storange on app start.
 
@@ -134,7 +145,8 @@ e.g.
 
 */
 
-
+// Documenting react-native-push-notification options available.
+// This is not Expo Notification.
 export const pushNotificationHelp = {
     /* Android Only Properties */
     channelId: "your-channel-id", // (required) channelId, if the channel doesn't exist, it will be created with options passed above (importance, vibration, sound). Once the channel is created, the channel will not be update. Make sure your channelId is different if you change these options. If you have created a custom channel, it will apply options of the channel.
