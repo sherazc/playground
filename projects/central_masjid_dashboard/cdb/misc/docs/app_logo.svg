@@ -186,19 +186,19 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.46875"
-     inkscape:cx="3624.5333"
-     inkscape:cy="598.4"
+     inkscape:cx="1406.9333"
+     inkscape:cy="-220.8"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="false"
      units="px"
      inkscape:showpageshadow="false"
-     inkscape:window-width="1643"
-     inkscape:window-height="953"
-     inkscape:window-x="85"
-     inkscape:window-y="38"
-     inkscape:window-maximized="0"
+     inkscape:window-width="3008"
+     inkscape:window-height="1639"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="1"
      inkscape:snap-bbox="true"
      inkscape:bbox-paths="true"
      inkscape:bbox-nodes="true"
@@ -415,9 +415,9 @@
     <g
        id="g971-3"
        transform="matrix(2,0,0,2,-256.14489,-2.133333)"
-       inkscape:export-filename="../../../MasjidDashboardMobile3.0/MasjidDashboardMobile/assets/app_icon_ios.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96">
+       inkscape:export-filename="../../../MasjidDashboardMobile3.0/MasjidDashboardMobile/assets/notification_icon_96x96.png"
+       inkscape:export-xdpi="8.999999"
+       inkscape:export-ydpi="8.999999">
       <rect
          style="fill:url(#linearGradient301);fill-opacity:1;stroke-width:0.825146"
          id="rect898-9"
@@ -431,5 +431,139 @@
          d="m 810.58064,205.09841 c -1.87337,2.23556 -1.87969,6.25071 -5.23141,6.7566 -5.2355,1.90287 -7.77263,9.16392 -3.61509,13.35854 1.79255,1.4736 -2.66527,2.29839 -3.12543,4.05328 -2.14805,2.61238 -3.03215,6.32662 -1.86529,9.55466 -17.20695,2.3179 -33.86484,8.60348 -48.18978,18.43487 -13.63537,9.31846 -25.20479,21.71386 -33.42288,36.04808 -6.52709,11.11176 -10.88267,23.41655 -13.30948,36.05445 0.88761,2.35356 4.66774,1.53472 6.72202,2.53108 51.31073,10.95924 104.37535,12.8459 156.51916,7.69319 18.35045,-1.90467 36.60985,-4.81032 54.57335,-9.03533 1.71953,-2.21928 -0.87992,-5.69335 -0.92354,-8.39331 -3.65229,-15.20054 -10.80643,-29.47891 -20.37268,-41.82063 -11.17741,-14.11324 -25.73273,-25.57186 -42.23278,-32.82641 -9.68563,-4.35501 -20.05683,-7.20706 -30.55967,-8.67732 1.77581,-4.99788 -1.29918,-10.51822 -5.80783,-12.8362 4.7139,-3.64231 3.23575,-11.38408 -2.00929,-13.72413 -2.50052,-0.6821 -3.92006,-2.21659 -4.688,-4.72593 -0.63241,-0.90991 -0.89209,-3.09684 -2.46138,-2.44549 z m 109.91844,133.0145 c -51.21219,11.70963 -104.34448,14.05997 -156.59715,9.70495 -20.88466,-1.84684 -41.68391,-4.9418 -62.10577,-9.69916 -2.56985,1.14014 -0.81527,5.41337 -1.57007,7.806 -0.12327,4.17234 -0.24907,8.58483 0.63552,12.60783 28.12458,6.71494 56.99267,10.30141 85.87574,11.60844 30.20476,1.49957 60.54301,0.20977 90.54018,-3.56931 14.68082,-1.89827 29.27041,-4.4851 43.69759,-7.80119 1.73987,-2.27176 0.58606,-5.96395 1.16404,-8.79613 -0.12727,-3.86718 0.0691,-7.95818 -0.80855,-11.67453 -0.28052,0.093 -0.5513,-0.26196 -0.83153,-0.1869 z M 721.98745,210.03423 c -0.0981,2.53433 -1.0694,6.27908 0.55724,8.22943 14.73632,0.1629 29.52717,0.0232 44.28433,0.0697 2.02341,-1.67202 0.71682,-5.63548 0.78225,-8.0999 -2.57841,-1.24882 -6.19701,-0.1841 -9.1684,-0.53753 -12.03844,0.1373 -24.19586,-0.27384 -36.16069,0.20418 z m 133.40867,0 c -0.0982,2.53433 -1.0695,6.27908 0.55724,8.22943 14.73603,0.1629 29.52687,0.0232 44.28413,0.0697 2.02361,-1.67202 0.71692,-5.63548 0.78245,-8.0999 -2.5786,-1.24882 -6.1972,-0.1841 -9.1684,-0.53753 -12.03844,0.1373 -24.19596,-0.27384 -36.16079,0.20418 z m -12.94027,-30.17755 c -0.098,2.53433 -1.06949,6.27909 0.55734,8.22943 19.04945,0.16292 38.15382,0.0233 57.2243,0.0697 2.02361,-1.67203 0.71692,-5.63548 0.78245,-8.09991 -2.5786,-1.24883 -6.1972,-0.18407 -9.1684,-0.53753 -16.21749,0 -32.43469,0 -48.65189,0 l -0.44906,0.20417 z m -120.4684,0 c -0.0981,2.53433 -1.0694,6.27909 0.55724,8.22943 19.04964,0.16292 38.15382,0.0233 57.22449,0.0697 2.02351,-1.67203 0.71673,-5.63548 0.78236,-8.09991 -2.57861,-1.24883 -6.19711,-0.18407 -9.16841,-0.53753 -16.21729,0 -32.43459,0 -48.65179,0 l -0.44916,0.20417 z m -18.82414,-26.60824 a 2.4667081,2.4667081 0 0 0 -2.46635,2.46646 v 142.26664 a 2.4667081,2.4667081 0 0 0 4.72189,0.99817 c 15.62412,-35.32207 50.17005,-62.31409 88.43799,-67.99244 0.59871,-2.00236 1.65175,-3.86795 3.08609,-5.38479 -38.08839,4.24614 -72.79575,28.67418 -91.31318,62.01802 V 158.18138 h 211.00984 v 129.64436 c -18.4925,-33.4099 -52.77067,-58.26486 -91.22263,-62.08549 1.19199,1.58902 2.35768,3.37683 3.02621,5.3212 38.57085,5.2268 72.67882,32.71678 88.40927,68.12057 a 2.4667081,2.4667081 0 0 0 4.71993,-1.00103 V 155.7149 a 2.4667081,2.4667081 0 0 0 -2.46634,-2.46646 z"
          transform="matrix(1.8018016,0,0,1.8018016,-104.63941,-216.07203)" />
     </g>
+    <g
+       id="g1176"
+       transform="translate(0,-66)"
+       inkscape:export-filename="../../../MasjidDashboardMobile3.0/MasjidDashboardMobile/assets/notification_icon_96x96.png"
+       inkscape:export-xdpi="8.999999"
+       inkscape:export-ydpi="8.999999">
+      <rect
+         style="fill:none;fill-opacity:1;stroke-width:1.65029"
+         id="rect371"
+         width="1024"
+         height="1024"
+         x="302.06708"
+         y="-1188.9282" />
+      <path
+         id="path373"
+         style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#f3f3f3;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:10.4473;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         d="m 811.70136,-917.9487 c -7.93512,9.46926 -7.96189,26.4764 -22.15892,28.61922 -22.17623,8.06007 -32.92286,38.816 -15.31259,56.58334 7.59278,6.24179 -11.28939,9.7354 -13.23852,17.16865 -9.09859,11.06537 -12.8434,26.79794 -7.90088,40.4711 -72.88422,9.81802 -143.44277,36.44212 -204.11954,78.08536 -57.75592,39.4706 -106.76101,91.97434 -141.57073,152.69041 -27.64708,47.06656 -46.0962,99.18649 -56.37554,152.71739 3.75968,9.96908 19.77134,6.50068 28.47275,10.72101 217.33907,46.42052 442.10718,54.41193 662.97491,32.58637 77.7279,-8.06768 155.07,-20.37527 231.1587,-38.27133 7.2836,-9.40031 -3.727,-24.11558 -3.9118,-35.55191 -15.4702,-64.38559 -45.7733,-124.86509 -86.2935,-177.14145 -47.3446,-59.78005 -108.9972,-108.31582 -178.8872,-139.04423 -41.02583,-18.44671 -84.95557,-30.52726 -129.44289,-36.7549 7.52187,-21.16974 -5.50299,-44.55248 -24.60048,-54.37085 19.96687,-15.42789 13.7058,-48.22004 -8.51083,-58.13189 -10.59157,-2.8892 -16.60437,-9.3889 -19.85717,-20.01783 -2.67873,-3.85414 -3.77866,-13.11742 -10.42577,-10.35846 z m 465.58624,563.41525 c -216.9217,49.59898 -441.97638,59.55443 -663.30527,41.10767 -88.46206,-7.82274 -176.56234,-20.93218 -263.06409,-41.08314 -10.88522,4.82934 -3.45327,22.92965 -6.65041,33.06421 -0.52215,17.67296 -1.055,36.36314 2.69189,53.40353 119.1285,28.44276 241.40632,43.63413 363.74758,49.17036 127.93961,6.3518 256.44465,0.88854 383.5049,-15.11867 62.1843,-8.04058 123.9821,-18.99773 185.0918,-33.04384 7.3697,-9.62259 2.4824,-25.26176 4.9306,-37.25815 -0.5391,-16.38038 0.2927,-33.7088 -3.4248,-49.4503 -1.1882,0.39391 -2.3351,-1.1096 -3.5222,-0.79167 z M 436.44336,-897.04184 c -0.41553,10.73477 -4.52971,26.59658 2.36033,34.85775 62.41926,0.69 125.0695,0.0983 187.57704,0.29523 8.57065,-7.08224 3.03627,-23.87044 3.31341,-34.30909 -10.92149,-5.28968 -26.24895,-0.7798 -38.83499,-2.27685 -50.99174,0.58158 -102.48745,-1.15991 -153.16739,0.86487 z m 565.08484,0 c -0.4159,10.73477 -4.53011,26.59658 2.3603,34.85775 62.4181,0.69 125.0683,0.0983 187.5763,0.29523 8.5715,-7.08224 3.0366,-23.87044 3.3142,-34.30909 -10.9223,-5.28968 -26.2497,-0.7798 -38.8349,-2.27685 -50.9918,0.58158 -102.488,-1.15991 -153.1679,0.86487 z m -54.81164,-127.82436 c -0.41511,10.7348 -4.53009,26.59658 2.36075,34.85778 80.68859,0.69008 161.60979,0.0987 242.38749,0.29526 8.5715,-7.08237 3.0366,-23.87054 3.3142,-34.30914 -10.9223,-5.2898 -26.2497,-0.7797 -38.8349,-2.2769 -68.6932,0 -137.3851,0 -206.07699,0 l -1.90211,0.8648 z m -510.2732,0 c -0.41553,10.7348 -4.52971,26.59658 2.36033,34.85778 80.68937,0.69008 161.60977,0.0987 242.38823,0.29526 8.57107,-7.08237 3.03588,-23.87054 3.31388,-34.30914 -10.92233,-5.2898 -26.24937,-0.7797 -38.83503,-2.2769 -68.69227,0 -137.3846,0 -206.07649,0 l -1.90252,0.8648 z m -79.73423,-112.7056 a 10.448342,10.448342 0 0 0 -10.44682,10.4472 v 602.60498 a 10.448342,10.448342 0 0 0 20.00072,4.22799 c 66.17975,-149.61521 212.50744,-263.94648 374.6006,-287.99851 2.53598,-8.48149 6.99639,-16.38364 13.07188,-22.80859 -161.33263,17.98555 -308.34409,121.45647 -386.77916,262.6924 v -548.27087 h 893.78355 v 549.14022 c -78.3296,-141.51575 -223.5231,-246.79499 -386.3957,-262.97819 5.04896,6.73067 9.98652,14.30338 12.81825,22.53923 163.37625,22.13938 307.84885,138.57988 374.47895,288.54124 a 10.448342,10.448342 0 0 0 19.9924,-4.2401 v -603.4498 a 10.448342,10.448342 0 0 0 -10.4468,-10.4472 z" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:29.3651px;fill:none;stroke-width:2.44709"
+       x="396.28137"
+       y="-1300.6204"
+       id="text1018"><tspan
+         sodipodi:role="line"
+         id="tspan1016"
+         x="396.28137"
+         y="-1300.6204"
+         style="fill:#2f1a1a;fill-opacity:1;stroke-width:2.44709">Android Notification Icon 96x96 - Transparent backgound</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:29.3651px;fill:none;stroke-width:2.44709"
+       x="574.81226"
+       y="-110.96893"
+       id="text1018-2"><tspan
+         sodipodi:role="line"
+         x="574.81226"
+         y="-110.96893"
+         style="fill:#2f1a1a;fill-opacity:1;stroke-width:2.44709"
+         id="tspan1247">Android </tspan><tspan
+         sodipodi:role="line"
+         x="574.81226"
+         y="-74.26255"
+         style="fill:#2f1a1a;fill-opacity:1;stroke-width:2.44709"
+         dx="3.016989 0 0 0 0 0 0 0 0 0 0 0 -4.5254836"
+         id="tspan1251">React Native </tspan><tspan
+         sodipodi:role="line"
+         x="574.81226"
+         y="-37.556171"
+         style="fill:#2f1a1a;fill-opacity:1;stroke-width:2.44709"
+         id="tspan1253">512x512 app icon</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:29.3651px;fill:none;stroke-width:2.44709"
+       x="3130.4336"
+       y="-161.26811"
+       id="text1018-2-4"><tspan
+         sodipodi:role="line"
+         x="3130.4336"
+         y="-161.26811"
+         style="fill:#2f1a1a;fill-opacity:1;stroke-width:2.44709"
+         id="tspan1247-9">Android </tspan><tspan
+         sodipodi:role="line"
+         x="3130.4336"
+         y="-124.56174"
+         style="fill:#2f1a1a;fill-opacity:1;stroke-width:2.44709"
+         id="tspan1251-7">expo</tspan><tspan
+         sodipodi:role="line"
+         x="3130.4336"
+         y="-87.855362"
+         style="fill:#2f1a1a;fill-opacity:1;stroke-width:2.44709"
+         id="tspan1253-3">1024x1024 app icon</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:29.3651px;fill:none;stroke-width:2.44709"
+       x="1145.0232"
+       y="-110.9689"
+       id="text1261"><tspan
+         sodipodi:role="line"
+         x="1145.0232"
+         y="-110.9689"
+         style="fill:#2f1a1a;fill-opacity:1;stroke-width:2.44709"
+         id="tspan1255">IOS </tspan><tspan
+         sodipodi:role="line"
+         x="1145.0232"
+         y="-74.262527"
+         style="fill:#2f1a1a;fill-opacity:1;stroke-width:2.44709"
+         dx="3.016989 0 0 0 0 0 0 0 0 0 0 0 -4.5254836"
+         id="tspan1257">React Native </tspan><tspan
+         sodipodi:role="line"
+         x="1145.0232"
+         y="-37.556152"
+         style="fill:#2f1a1a;fill-opacity:1;stroke-width:2.44709"
+         id="tspan1259">512x512 app icon</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:29.3651px;fill:none;stroke-width:2.44709"
+       x="29.490517"
+       y="-123.03686"
+       id="text1269"><tspan
+         sodipodi:role="line"
+         x="29.490517"
+         y="-123.03686"
+         style="fill:#2f1a1a;fill-opacity:1;stroke-width:2.44709"
+         id="tspan1267">Android app icon guide</tspan></text>
+    <text
+       xml:space="preserve"
+       style="fill:none;fill-opacity:1"
+       x="85.33329"
+       y="-665.24603"
+       id="text1278"><tspan
+         sodipodi:role="line"
+         id="tspan1276"></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:29.3651px;fill:none;stroke-width:2.44709"
+       x="2041.3005"
+       y="-161.26811"
+       id="text1379"><tspan
+         sodipodi:role="line"
+         x="2041.3005"
+         y="-161.26811"
+         style="fill:#2f1a1a;fill-opacity:1;stroke-width:2.44709"
+         id="tspan1373">IOS </tspan><tspan
+         sodipodi:role="line"
+         x="2041.3005"
+         y="-124.56174"
+         style="fill:#2f1a1a;fill-opacity:1;stroke-width:2.44709"
+         id="tspan1375">expo</tspan><tspan
+         sodipodi:role="line"
+         x="2041.3005"
+         y="-87.855362"
+         style="fill:#2f1a1a;fill-opacity:1;stroke-width:2.44709"
+         id="tspan1377">1024x1024 app icon</tspan></text>
   </g>
 </svg>
