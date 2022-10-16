@@ -3,7 +3,7 @@ import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import Logo from '../../images/Logo';
 import Underline from '../../images/Underline';
 import { ConstantsStyles } from '../../services/Constants';
-import { removeAllNotifications, schedulePushNotification } from '../../services/TestNotification';
+import { removeAllNotifications, schedulePushNotification } from '../../misc/TestNotification';
 
 interface Props {
 }
