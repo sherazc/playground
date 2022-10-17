@@ -1,4 +1,6 @@
 import * as Notifications from 'expo-notifications';
+import { expoHasNotificationPermission, expoRemoveAllExistingNotifications, expoRequestPermission, expoSchedulePushNotification as expoScheduleNotification, expoSetNotificationHandler } from '../services/notification/ExpoNotification';
+import { ScheduleNotification } from '../types/types';
 
 // By default notification are only displayed if the app is not in the foreground.
 // Use this to set What type of notification to show when the app is running
@@ -8,7 +10,7 @@ Notifications.setNotificationHandler({
         console.log("handleSuccess(), Id", notificationIdentifier);
         // dismiss notification immediately after it is presented
         // Notifications.dismissNotificationAsync(notificationIdentifier);
-        
+
     },
     handleNotification: async () => ({
         shouldShowAlert: true,
@@ -24,11 +26,6 @@ async function testIsNotificationAllowed() {
     return (
         settings.granted || settings.ios?.status === Notifications.IosAuthorizationStatus.PROVISIONAL
     );
-}
-
-export const testRemoveAllNotifications = () => {
-    Notifications.dismissAllNotificationsAsync();
-    Notifications.cancelAllScheduledNotificationsAsync();
 }
 
 
@@ -62,4 +59,35 @@ export async function testSchedulePushNotification(delaySeconds: number) {
             }
         });
     }
+}
+
+
+export async function testScheduleNotification(delaySeconds: number) {
+    const notificationDate = new Date();
+    notificationDate.setSeconds(notificationDate.getSeconds() + delaySeconds);
+
+    const notification: ScheduleNotification = {
+        date: notificationDate,
+        message: "MDB Message " + notificationDate,
+        title: "MDB Title"
+    }
+
+    // expoSetNotificationHandler() is optional. I think this should be called only once the app starts.
+    expoSetNotificationHandler();
+
+    const hasPermission = expoHasNotificationPermission();
+    console.log("Has notification permission.", hasPermission);
+
+    if (hasPermission) {
+        expoRequestPermission();
+    } else {
+        expoScheduleNotification(notification);
+    }
+}
+
+
+export const testRemoveAllNotifications = () => {
+    // Notifications.dismissAllNotificationsAsync();
+    // Notifications.cancelAllScheduledNotificationsAsync();
+    expoRemoveAllExistingNotifications();
 }

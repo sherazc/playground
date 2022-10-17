@@ -22,7 +22,7 @@ export const expoSetNotificationHandler = () => {
 }
 
 
-export async function expoIsNotificationAllowed() {
+export async function expoHasNotificationPermission() {
     const settings = await Notifications.getPermissionsAsync();
     return (
         settings.granted
@@ -70,6 +70,6 @@ export async function expoSchedulePushNotification(scheduleNotification: Schedul
             title: scheduleNotification.title,
             body: scheduleNotification.message,
         },
-        trigger: scheduleNotification.date,
+        trigger: 10,
     });
 }
