@@ -3,7 +3,7 @@ import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import Logo from '../../images/Logo';
 import Underline from '../../images/Underline';
 import { ConstantsStyles } from '../../services/Constants';
-import { removeAllNotifications, schedulePushNotification } from '../../misc/TestNotification';
+import { testRemoveAllNotifications, testSchedulePushNotification } from '../../misc/TestNotification';
 
 interface Props {
 }
@@ -14,12 +14,12 @@ export const Brand: React.FC<Props> = () => {
 
     const showNotification = () => {
         console.log("Showing sample notification");
-        schedulePushNotification(testNotificationDelaySeconds)
+        testSchedulePushNotification(testNotificationDelaySeconds)
     }
 
     const removeNotifications = () => {
         console.log("Removed Notifications")
-        removeAllNotifications();
+        testRemoveAllNotifications();
     }
 
     return (
