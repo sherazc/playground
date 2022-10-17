@@ -5,7 +5,7 @@ import { Constants } from '../Constants';
 import { getCompanyName } from '../CompanyDataService';
 import { storeDispatchCompanyData, storeGetCompanyData, storeGetSetting } from '../../store/ReduxStoreService';
 import { createExpirationDate } from '../ExpirableVersionService';
-import * as Notifications from 'expo-notifications';
+import { expoIsNotificationAllowed, expoRemoveAllExistingNotifications } from './ExpoNotification';
 
 
 const NotificationConfig = {
@@ -17,17 +17,12 @@ const NotificationConfig = {
 
 
 export async function isNotificationAllowed() {
-    const settings = await Notifications.getPermissionsAsync();
-    return (
-        settings.granted 
-        || settings.ios?.status === Notifications.IosAuthorizationStatus.PROVISIONAL
-    );
+    return expoIsNotificationAllowed();
 }
 
 
 // TODO: find proper way to call it. Once if not expired.
 export default function setupNotifications(companyId: string, forceUpdate: boolean) {
-
     if (!forceUpdate && isNotificationAlreadySet(companyId)) {
         console.log(`Not setting up notification. Notification already set for company ${companyId}.`);
         return
@@ -332,30 +327,7 @@ const isAnyAlertOn = (setting: SettingData): boolean => {
 }
 
 export const removeAllExistingNotifications = () => {
-    console.log("Dismissing notification from status bar");
-    Notifications.dismissAllNotificationsAsync();
-    console.log("Removing all notification. Notifications.cancelAllScheduledNotificationsAsync()");
-    Notifications.cancelAllScheduledNotificationsAsync();
-
-    console.log("Removing individual notifications");
-    Notifications.getAllScheduledNotificationsAsync()
-        .then(expoNotificationArray => expoNotificationArray.forEach(expoNotification => {
-            console.log("Removing and dismissing notification: ", expoNotification.identifier);
-            Notifications.cancelScheduledNotificationAsync(expoNotification.identifier);
-            Notifications.dismissNotificationAsync(expoNotification.identifier)
-        }));
-
-/*
-    PushNotification.removeAllDeliveredNotifications();
-
-    PushNotification.getScheduledLocalNotifications((notifications) => {
-        if (notifications && notifications.length > 0) {
-            notifications.forEach(n => {
-                PushNotification.cancelLocalNotifications({ id: `${n.id}` });
-            });
-        }
-    });
-*/
+    expoRemoveAllExistingNotifications();
 }
 
 const isNotificationAlreadySet = (companyId: string): boolean => {

@@ -31,6 +31,7 @@ export const testRemoveAllNotifications = () => {
     Notifications.cancelAllScheduledNotificationsAsync();
 }
 
+
 export async function testSchedulePushNotification(delaySeconds: number) {
 
     console.log("schedulePushNotification() seconds=" + delaySeconds, new Date());
