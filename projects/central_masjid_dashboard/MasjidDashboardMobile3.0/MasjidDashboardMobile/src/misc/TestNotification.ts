@@ -18,7 +18,8 @@ Notifications.setNotificationHandler({
 });
 
 
-async function allowsNotificationsAsync() {
+
+async function isNotificationAllowed() {
     const settings = await Notifications.getPermissionsAsync();
     return (
         settings.granted || settings.ios?.status === Notifications.IosAuthorizationStatus.PROVISIONAL
@@ -33,7 +34,7 @@ export const removeAllNotifications = () => {
 export async function schedulePushNotification(delaySeconds: number) {
 
     console.log("schedulePushNotification() seconds=" + delaySeconds, new Date());
-    const hasPushNotificationPermissionGranted = await allowsNotificationsAsync();
+    const hasPushNotificationPermissionGranted = await isNotificationAllowed();
 
     console.log("hasPushNotificationPermissionGranted", hasPushNotificationPermissionGranted);
     if (hasPushNotificationPermissionGranted) {

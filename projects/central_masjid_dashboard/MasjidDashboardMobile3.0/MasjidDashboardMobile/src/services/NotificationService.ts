@@ -5,6 +5,8 @@ import { Constants } from './Constants';
 import { getCompanyName } from './CompanyDataService';
 import { storeDispatchCompanyData, storeGetCompanyData, storeGetSetting } from '../store/ReduxStoreService';
 import { createExpirationDate } from './ExpirableVersionService';
+import * as Notifications from 'expo-notifications';
+
 
 const NotificationConfig = {
     MAX_NOTIFICATION_SETUP_DAYS: 5,
@@ -12,6 +14,16 @@ const NotificationConfig = {
     CHANNEL_NAME: "MDB_NOTIFICATION",
     CHANNEL_DESCRIPTION: "Masjid dashboard notification channel"
 }
+
+
+export async function isNotificationAllowed() {
+    const settings = await Notifications.getPermissionsAsync();
+    return (
+        settings.granted 
+        || settings.ios?.status === Notifications.IosAuthorizationStatus.PROVISIONAL
+    );
+}
+
 
 // TODO: find proper way to call it. Once if not expired.
 export default function setupNotifications(companyId: string, forceUpdate: boolean) {
@@ -266,6 +278,7 @@ const scheduleNotification = (notifications: ScheduleNotification[]): void => {
         return;
     }
 
+
     /*
     notifications
         .filter(n => n)
@@ -319,7 +332,19 @@ const isAnyAlertOn = (setting: SettingData): boolean => {
 }
 
 export const removeAllExistingNotifications = () => {
-    console.log("Removing all previously set notifications.");
+    console.log("Dismissing notification from status bar");
+    Notifications.dismissAllNotificationsAsync();
+    console.log("Removing all notification. Notifications.cancelAllScheduledNotificationsAsync()");
+    Notifications.cancelAllScheduledNotificationsAsync();
+
+    console.log("Removing individual notifications");
+    Notifications.getAllScheduledNotificationsAsync()
+        .then(expoNotificationArray => expoNotificationArray.forEach(expoNotification => {
+            console.log("Removing and dismissing notification: ", expoNotification.identifier);
+            Notifications.cancelScheduledNotificationAsync(expoNotification.identifier);
+            Notifications.dismissNotificationAsync(expoNotification.identifier)
+        }));
+
 /*
     PushNotification.removeAllDeliveredNotifications();
 
