@@ -7,7 +7,7 @@ import { ConstantsStyles } from '../services/Constants';
 import { AppBar } from "./AppBar";
 import Reset from "../images/Reset";
 import { Checkbox } from './Checkbox';
-import setupNotifications, { removeAllExistingNotifications } from "../services/NotificationService";
+import setupNotifications, { removeAllExistingNotifications } from "../services/notification/NotificationService";
 import { createDefaultSettingData, SettingData } from '../types/types';
 import { getCompanyId } from '../services/CompanyDataService';
 import { storeDeleteCompanyData, storeDispatchSetting } from "../store/ReduxStoreService";

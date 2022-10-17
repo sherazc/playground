@@ -1,10 +1,10 @@
-import { Company, CompanyData, SettingData, PrayersMonth, Prayer, ScheduleNotification, CompanyNotification } from '../types/types';
-import { getCurrentSystemDate, dayOfTheYear, TIME_24_REGX, addMinutesTo24hTime } from './common/DateService';
+import { Company, CompanyData, SettingData, PrayersMonth, Prayer, ScheduleNotification, CompanyNotification } from '../../types/types';
+import { getCurrentSystemDate, dayOfTheYear, TIME_24_REGX, addMinutesTo24hTime } from '../common/DateService';
 // import PushNotification from "react-native-push-notification";
-import { Constants } from './Constants';
-import { getCompanyName } from './CompanyDataService';
-import { storeDispatchCompanyData, storeGetCompanyData, storeGetSetting } from '../store/ReduxStoreService';
-import { createExpirationDate } from './ExpirableVersionService';
+import { Constants } from '../Constants';
+import { getCompanyName } from '../CompanyDataService';
+import { storeDispatchCompanyData, storeGetCompanyData, storeGetSetting } from '../../store/ReduxStoreService';
+import { createExpirationDate } from '../ExpirableVersionService';
 import * as Notifications from 'expo-notifications';
 
 
