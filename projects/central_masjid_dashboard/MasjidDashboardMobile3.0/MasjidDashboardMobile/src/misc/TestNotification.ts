@@ -1,5 +1,5 @@
 import * as Notifications from 'expo-notifications';
-import { expoHasNotificationPermission, expoRemoveAllExistingNotifications, expoRequestPermission, expoSchedulePushNotification as expoScheduleNotification, expoSetNotificationHandler } from '../services/notification/ExpoNotification';
+import { expoHasNotificationPermission, expoRemoveAllExistingNotifications, expoRequestPermission, expoScheduleNotification, expoSetNotificationHandler } from '../services/notification/ExpoNotification';
 import { ScheduleNotification } from '../types/types';
 
 // By default notification are only displayed if the app is not in the foreground.
@@ -73,15 +73,16 @@ export async function testScheduleNotification(delaySeconds: number) {
     }
 
     // expoSetNotificationHandler() is optional. I think this should be called only once the app starts.
-    expoSetNotificationHandler();
+    // expoSetNotificationHandler();
 
     const hasPermission = expoHasNotificationPermission();
     console.log("Has notification permission.", hasPermission);
 
+    
     if (hasPermission) {
-        expoRequestPermission();
+        expoScheduleNotification(notification);    
     } else {
-        expoScheduleNotification(notification);
+        expoRequestPermission();
     }
 }
 

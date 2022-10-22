@@ -14,8 +14,8 @@ export const Brand: React.FC<Props> = () => {
 
     const showNotification = () => {
         console.log("Showing sample notification");
-        // testScheduleNotification(testNotificationDelaySeconds)
-        testSchedulePushNotification(testNotificationDelaySeconds)
+        testScheduleNotification(testNotificationDelaySeconds);
+        // testSchedulePushNotification(testNotificationDelaySeconds);
     }
 
     const removeNotifications = () => {

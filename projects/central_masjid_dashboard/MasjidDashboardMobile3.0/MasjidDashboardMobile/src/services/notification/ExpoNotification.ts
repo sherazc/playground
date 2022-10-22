@@ -64,12 +64,13 @@ export const expoRemoveAllExistingNotifications = () => {
 }
 
 
-export async function expoSchedulePushNotification(scheduleNotification: ScheduleNotification) {
+export async function expoScheduleNotification(scheduleNotification: ScheduleNotification) {
     await Notifications.scheduleNotificationAsync({
         content: {
             title: scheduleNotification.title,
-            body: scheduleNotification.message,
+            body: scheduleNotification.message
         },
-        trigger: 10,
+        // trigger: { seconds: 10 },
+        trigger: scheduleNotification.date
     });
 }
