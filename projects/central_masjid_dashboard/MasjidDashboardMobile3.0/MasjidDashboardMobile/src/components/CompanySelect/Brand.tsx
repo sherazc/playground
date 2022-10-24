@@ -4,6 +4,7 @@ import Logo from '../../images/Logo';
 import Underline from '../../images/Underline';
 import { ConstantsStyles } from '../../services/Constants';
 import { testRemoveAllNotifications, testScheduleNotification, testSchedulePushNotification } from '../../misc/TestNotification';
+import { registerForPushNotificationsAsync } from '../../services/notification/ExpoNotification';
 
 interface Props {
 }
@@ -14,8 +15,9 @@ export const Brand: React.FC<Props> = () => {
 
     const showNotification = () => {
         console.log("Showing sample notification");
-        testScheduleNotification(testNotificationDelaySeconds);
+        // testScheduleNotification(testNotificationDelaySeconds);
         // testSchedulePushNotification(testNotificationDelaySeconds);
+        registerForPushNotificationsAsync()
     }
 
     const removeNotifications = () => {
