@@ -1,7 +1,7 @@
 import * as Notifications from 'expo-notifications';
 import { ScheduleNotification } from '../../types/types';
 import * as Device from 'expo-device';
-import { Platform } from 'react-native';
+import { Platform, Alert } from 'react-native';
 
 
 export const expoSetNotificationHandler = () => {
@@ -79,33 +79,42 @@ export async function expoScheduleNotification(scheduleNotification: ScheduleNot
 
 
 // https://docs.expo.dev/push-notifications/push-notifications-setup/
-export const registerForPushNotificationsAsync = async () => {
+export const registerForNotificationsAsync = async (): Promise<boolean> => {
+    let result = false;
+
     if (Device.isDevice) {
-      const { status: existingStatus } = await Notifications.getPermissionsAsync();
-      let finalStatus = existingStatus;
-      if (existingStatus !== 'granted') {
-        const { status } = await Notifications.requestPermissionsAsync();
-        finalStatus = status;
-      }
-      if (finalStatus !== 'granted') {
-        alert('Failed to get push token for push notification!');
-        return;
-      } else {
-        alert('Registered');
-      }
-      // const token = (await Notifications.getExpoPushTokenAsync()).data;
-      // console.log(token);
-      // this.setState({ expoPushToken: token });
+
+        const { status: existingStatus } = await Notifications.getPermissionsAsync();
+        let finalStatus = existingStatus;
+
+        if (existingStatus !== 'granted') {
+            const { status } = await Notifications.requestPermissionsAsync();
+            finalStatus = status;
+        }
+
+        if (finalStatus !== 'granted') {
+            Alert.alert('Notification permission', "Unable to set notification. Masjid notification will be disabled.");
+        } else {
+            //alert('Registered');
+            result = true;
+        }
+
+        // const token = (await Notifications.getExpoPushTokenAsync()).data;
+        // console.log(token);
+        // this.setState({ expoPushToken: token });
+
+        if (Platform.OS === 'android') {
+            Notifications.setNotificationChannelAsync('default', {
+                name: 'default',
+                importance: Notifications.AndroidImportance.MAX,
+                vibrationPattern: [0, 250, 250, 250],
+                lightColor: '#FF231F7C',
+            });
+        }
+        
     } else {
-      alert('Must use physical device for Push Notifications');
+        Alert.alert('No device', "Must use physical device for Notifications.");
     }
-  
-    if (Platform.OS === 'android') {
-      Notifications.setNotificationChannelAsync('default', {
-        name: 'default',
-        importance: Notifications.AndroidImportance.MAX,
-        vibrationPattern: [0, 250, 250, 250],
-        lightColor: '#FF231F7C',
-      });
-    }
-  };
+
+    return result;
+};

@@ -4,7 +4,7 @@ import Logo from '../../images/Logo';
 import Underline from '../../images/Underline';
 import { ConstantsStyles } from '../../services/Constants';
 import { testRemoveAllNotifications, testScheduleNotification, testSchedulePushNotification } from '../../misc/TestNotification';
-import { registerForPushNotificationsAsync } from '../../services/notification/ExpoNotification';
+import { registerForNotificationsAsync } from '../../services/notification/ExpoNotification';
 
 interface Props {
 }
@@ -17,7 +17,7 @@ export const Brand: React.FC<Props> = () => {
         console.log("Showing sample notification");
         // testScheduleNotification(testNotificationDelaySeconds);
         // testSchedulePushNotification(testNotificationDelaySeconds);
-        registerForPushNotificationsAsync()
+        registerForNotificationsAsync()
     }
 
     const removeNotifications = () => {
@@ -33,10 +33,10 @@ export const Brand: React.FC<Props> = () => {
                 <Logo width="100" height="100" />
             </View>
 
-            <Text>These buttons are for testing only</Text>
+            
             <TextInput
                 keyboardType='number-pad'
-                style={{ height: 40 }}
+                style={{ height: 40, backgroundColor: "#fff"}}
                 placeholder="Test notification delay seconds"
                 onChangeText={num => setTestNotificationDelaySeconds(+num)}
             />
