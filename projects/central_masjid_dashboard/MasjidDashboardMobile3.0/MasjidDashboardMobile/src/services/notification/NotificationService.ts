@@ -5,7 +5,7 @@ import { Constants } from '../Constants';
 import { getCompanyName } from '../CompanyDataService';
 import { storeDispatchCompanyData, storeGetCompanyData, storeGetSetting } from '../../store/ReduxStoreService';
 import { createExpirationDate } from '../ExpirableVersionService';
-import { expoHasNotificationPermission, expoRemoveAllExistingNotifications } from './ExpoNotification';
+import { expoHasNotificationPermissionAsync, expoRemoveAllExistingNotifications } from './ExpoNotification';
 
 
 const NotificationConfig = {
@@ -17,7 +17,7 @@ const NotificationConfig = {
 
 
 export async function isNotificationAllowed() {
-    return expoHasNotificationPermission();
+    return expoHasNotificationPermissionAsync();
 }
 
 

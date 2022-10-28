@@ -1,5 +1,6 @@
 import * as Notifications from 'expo-notifications';
-import { expoHasNotificationPermission, expoRemoveAllExistingNotifications, expoRequestPermission, expoScheduleNotification, expoSetNotificationHandler } from '../services/notification/ExpoNotification';
+import { Alert } from 'react-native';
+import { expoHasNotificationPermissionAsync, expoRemoveAllExistingNotifications, expoRequestPermission, expoScheduleNotificationAsync, expoSetNotificationHandler, expoRegisterForNotificationsAsync } from '../services/notification/ExpoNotification';
 import { ScheduleNotification } from '../types/types';
 
 // By default notification are only displayed if the app is not in the foreground.
@@ -75,12 +76,12 @@ export async function testScheduleNotification(delaySeconds: number) {
     // expoSetNotificationHandler() is optional. I think this should be called only once the app starts.
     // expoSetNotificationHandler();
 
-    const hasPermission = expoHasNotificationPermission();
+    const hasPermission = expoHasNotificationPermissionAsync();
     console.log("Has notification permission.", hasPermission);
 
     
     if (hasPermission) {
-        expoScheduleNotification(notification);    
+        expoScheduleNotificationAsync(notification);    
     } else {
         expoRequestPermission();
     }
@@ -91,4 +92,30 @@ export const testRemoveAllNotifications = () => {
     // Notifications.dismissAllNotificationsAsync();
     // Notifications.cancelAllScheduledNotificationsAsync();
     expoRemoveAllExistingNotifications();
+}
+
+
+
+let testNotificationCount = 0;
+export const testScheduleNotification2 = (delaySeconds: number) => {
+
+    const notificationDate = new Date();
+    notificationDate.setSeconds(notificationDate.getSeconds() + delaySeconds);
+
+    const notification: ScheduleNotification = {
+        date: notificationDate,
+        message: `MDB Notification (${++testNotificationCount}). ${notificationDate}`,
+        title: "MDB Title"
+    }
+
+
+    expoRegisterForNotificationsAsync().then((registerSuccessful) => {
+        if (registerSuccessful) {
+
+        } else {
+            Alert.prompt("")
+        }
+    })
+
+    
 }

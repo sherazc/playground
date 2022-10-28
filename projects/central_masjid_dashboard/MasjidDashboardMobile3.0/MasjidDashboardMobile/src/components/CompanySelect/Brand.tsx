@@ -4,20 +4,28 @@ import Logo from '../../images/Logo';
 import Underline from '../../images/Underline';
 import { ConstantsStyles } from '../../services/Constants';
 import { testRemoveAllNotifications, testScheduleNotification, testSchedulePushNotification } from '../../misc/TestNotification';
-import { registerForNotificationsAsync } from '../../services/notification/ExpoNotification';
+import { expoRegisterForNotificationsAsync } from '../../services/notification/ExpoNotification';
+
 
 interface Props {
 }
 
 export const Brand: React.FC<Props> = () => {
-
+    
     const [testNotificationDelaySeconds, setTestNotificationDelaySeconds] = useState<number>(0);
 
     const showNotification = () => {
         console.log("Showing sample notification");
         // testScheduleNotification(testNotificationDelaySeconds);
         // testSchedulePushNotification(testNotificationDelaySeconds);
-        registerForNotificationsAsync()
+        
+      
+        // registerForNotificationsAsync();
+
+
+
+
+
     }
 
     const removeNotifications = () => {

@@ -3,7 +3,6 @@ import { ScheduleNotification } from '../../types/types';
 import * as Device from 'expo-device';
 import { Platform, Alert } from 'react-native';
 
-
 export const expoSetNotificationHandler = () => {
     // By default notification are only displayed if the app is not in the foreground.
     // Use this to set What type of notification to show when the app is running
@@ -24,7 +23,7 @@ export const expoSetNotificationHandler = () => {
 }
 
 
-export async function expoHasNotificationPermission() {
+export async function expoHasNotificationPermissionAsync() {
     const settings = await Notifications.getPermissionsAsync();
     return (
         settings.granted
@@ -66,8 +65,11 @@ export const expoRemoveAllExistingNotifications = () => {
 }
 
 
-export async function expoScheduleNotification(scheduleNotification: ScheduleNotification) {
-    await Notifications.scheduleNotificationAsync({
+// Returns notification identifier 
+export const expoScheduleNotificationAsync = async (scheduleNotification: ScheduleNotification): Promise<string> => {
+
+    // TODO try what what happens if same id is passed for multiple schedule notification
+    return await Notifications.scheduleNotificationAsync({
         content: {
             title: scheduleNotification.title,
             body: scheduleNotification.message
@@ -79,7 +81,8 @@ export async function expoScheduleNotification(scheduleNotification: ScheduleNot
 
 
 // https://docs.expo.dev/push-notifications/push-notifications-setup/
-export const registerForNotificationsAsync = async (): Promise<boolean> => {
+// returns boolean if registration was successful
+export const expoRegisterForNotificationsAsync = async (): Promise<boolean> => {
     let result = false;
 
     if (Device.isDevice) {
@@ -95,7 +98,7 @@ export const registerForNotificationsAsync = async (): Promise<boolean> => {
         if (finalStatus !== 'granted') {
             Alert.alert('Notification permission', "Unable to set notification. Masjid notification will be disabled.");
         } else {
-            //alert('Registered');
+            alert('Registered');
             result = true;
         }
 
@@ -103,18 +106,17 @@ export const registerForNotificationsAsync = async (): Promise<boolean> => {
         // console.log(token);
         // this.setState({ expoPushToken: token });
 
-        if (Platform.OS === 'android') {
-            Notifications.setNotificationChannelAsync('default', {
-                name: 'default',
-                importance: Notifications.AndroidImportance.MAX,
-                vibrationPattern: [0, 250, 250, 250],
-                lightColor: '#FF231F7C',
-            });
-        }
         
+
     } else {
         Alert.alert('No device', "Must use physical device for Notifications.");
     }
 
     return result;
 };
+
+
+// TODO: Could be a convenience method responsible for keeping all the logic 
+// But if failed to get permission then I need to show alert unschedule and remove setting checks. 
+// I don't want all of that here
+export const registerDeviceAndScheduleNotifications = () => {}
