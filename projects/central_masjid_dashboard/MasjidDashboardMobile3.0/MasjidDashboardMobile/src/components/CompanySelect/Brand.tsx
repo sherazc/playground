@@ -3,7 +3,7 @@ import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import Logo from '../../images/Logo';
 import Underline from '../../images/Underline';
 import { ConstantsStyles } from '../../services/Constants';
-import { testRemoveAllNotifications, testScheduleNotification, testSchedulePushNotification } from '../../misc/TestNotification';
+import { testRemoveAllNotifications, testScheduleNotification, testScheduleNotification2, testSchedulePushNotification } from '../../misc/TestNotification';
 import { expoRegisterForNotificationsAsync } from '../../services/notification/ExpoNotification';
 
 
@@ -24,7 +24,7 @@ export const Brand: React.FC<Props> = () => {
 
 
 
-
+        testScheduleNotification2(testNotificationDelaySeconds);
 
     }
 

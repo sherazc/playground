@@ -1,8 +1,9 @@
 import * as Notifications from 'expo-notifications';
 import { ScheduleNotification } from '../../types/types';
 import * as Device from 'expo-device';
-import { Platform, Alert } from 'react-native';
+import { Alert } from 'react-native';
 
+// Deprecated
 export const expoSetNotificationHandler = () => {
     // By default notification are only displayed if the app is not in the foreground.
     // Use this to set What type of notification to show when the app is running
@@ -22,7 +23,7 @@ export const expoSetNotificationHandler = () => {
     });
 }
 
-
+// Deprecated
 export async function expoHasNotificationPermissionAsync() {
     const settings = await Notifications.getPermissionsAsync();
     return (
@@ -31,7 +32,7 @@ export async function expoHasNotificationPermissionAsync() {
     );
 }
 
-
+// Deprecated
 export const expoRequestPermission = () => {
     Notifications.requestPermissionsAsync({
         android: {},
@@ -98,25 +99,14 @@ export const expoRegisterForNotificationsAsync = async (): Promise<boolean> => {
         if (finalStatus !== 'granted') {
             Alert.alert('Notification permission', "Unable to set notification. Masjid notification will be disabled.");
         } else {
-            alert('Registered');
             result = true;
         }
 
         // const token = (await Notifications.getExpoPushTokenAsync()).data;
         // console.log(token);
-        // this.setState({ expoPushToken: token });
-
-        
-
     } else {
         Alert.alert('No device', "Must use physical device for Notifications.");
     }
 
     return result;
 };
-
-
-// TODO: Could be a convenience method responsible for keeping all the logic 
-// But if failed to get permission then I need to show alert unschedule and remove setting checks. 
-// I don't want all of that here
-export const registerDeviceAndScheduleNotifications = () => {}

@@ -109,13 +109,15 @@ export const testScheduleNotification2 = (delaySeconds: number) => {
     }
 
 
-    expoRegisterForNotificationsAsync().then((registerSuccessful) => {
+    expoRegisterForNotificationsAsync().then((registerSuccessful: boolean) => {
         if (registerSuccessful) {
-
+            expoScheduleNotificationAsync(notification).then((notificationId: string) => {
+                console.log(`Notification scheduled. id=${notificationId} notification=${JSON.stringify(notification)}`);
+            });
         } else {
-            Alert.prompt("")
+            console.log("Failed to schedule notification. Notification permission not granted.");
+            Alert.alert("Notification Permission", 
+                "Failed to schedule notification. Notification permission not granted.");
         }
-    })
-
-    
+    });
 }
