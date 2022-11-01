@@ -5,7 +5,7 @@ import { Constants } from '../Constants';
 import { getCompanyName } from '../CompanyDataService';
 import { storeDispatchCompanyData, storeGetCompanyData, storeGetSetting } from '../../store/ReduxStoreService';
 import { createExpirationDate } from '../ExpirableVersionService';
-import { expoHasNotificationPermissionAsync, expoRemoveAllExistingNotifications } from './ExpoNotification';
+import { expoHasNotificationPermissionAsync, expoRemoveAllExistingNotificationsAsync } from './ExpoNotification';
 
 
 const NotificationConfig = {
@@ -327,7 +327,7 @@ const isAnyAlertOn = (setting: SettingData): boolean => {
 }
 
 export const removeAllExistingNotifications = () => {
-    expoRemoveAllExistingNotifications();
+    expoRemoveAllExistingNotificationsAsync();
 }
 
 const isNotificationAlreadySet = (companyId: string): boolean => {

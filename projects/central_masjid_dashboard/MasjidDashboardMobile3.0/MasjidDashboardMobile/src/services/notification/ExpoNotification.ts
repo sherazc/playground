@@ -3,12 +3,12 @@ import { ScheduleNotification } from '../../types/types';
 import * as Device from 'expo-device';
 import { Alert } from 'react-native';
 
-// Deprecated
+// Deprecated - Not sure
 export const expoSetNotificationHandler = () => {
     // By default notification are only displayed if the app is not in the foreground.
     // Use this to set What type of notification to show when the app is running
     Notifications.setNotificationHandler({
-        // Runs only is app is in the forground
+        // Runs only is app is in the foreground
         handleSuccess: notificationIdentifier => {
             console.log("handleSuccess(), Id", notificationIdentifier);
             // dismiss notification immediately after it is presented
@@ -23,6 +23,7 @@ export const expoSetNotificationHandler = () => {
     });
 }
 
+/*
 // Deprecated
 export async function expoHasNotificationPermissionAsync() {
     const settings = await Notifications.getPermissionsAsync();
@@ -48,21 +49,31 @@ export const expoRequestPermission = () => {
         }
     });
 }
+*/
 
-
-export const expoRemoveAllExistingNotifications = () => {
+export const expoRemoveAllExistingNotificationsAsync = () => {
+    const promises:Array<Promise<any>> = [];
+    
     console.log("Dismissing notification from status bar");
-    Notifications.dismissAllNotificationsAsync();
+    const dismissAllPromise: Promise<void> = Notifications.dismissAllNotificationsAsync();
+    promises.push(dismissAllPromise);
     console.log("Removing all notification. Notifications.cancelAllScheduledNotificationsAsync()");
-    Notifications.cancelAllScheduledNotificationsAsync();
-
+    const cancelAllPromise: Promise<void> = Notifications.cancelAllScheduledNotificationsAsync();
+    promises.push(cancelAllPromise);
     console.log("Removing individual notifications");
+    
+
     Notifications.getAllScheduledNotificationsAsync()
         .then(expoNotificationArray => expoNotificationArray.forEach(expoNotification => {
             console.log("Removing and dismissing notification: ", expoNotification.identifier);
-            Notifications.cancelScheduledNotificationAsync(expoNotification.identifier);
-            Notifications.dismissNotificationAsync(expoNotification.identifier)
+            const dismissPromise = Notifications.dismissNotificationAsync(expoNotification.identifier);
+            promises.push(dismissPromise);
+
+            const cancelPromise = Notifications.cancelScheduledNotificationAsync(expoNotification.identifier);
+            promises.push(cancelPromise);
         }));
+
+    return Promise.all(promises);
 }
 
 
@@ -97,7 +108,7 @@ export const expoRegisterForNotificationsAsync = async (): Promise<boolean> => {
         }
 
         if (finalStatus !== 'granted') {
-            Alert.alert('Notification permission', "Unable to set notification. Masjid notification will be disabled.");
+            Alert.alert('Notification permission', "Unable to set notification.");
         } else {
             result = true;
         }
@@ -105,7 +116,7 @@ export const expoRegisterForNotificationsAsync = async (): Promise<boolean> => {
         // const token = (await Notifications.getExpoPushTokenAsync()).data;
         // console.log(token);
     } else {
-        Alert.alert('No device', "Must use physical device for Notifications.");
+        Alert.alert('No device!', "Must use physical device for Notifications.");
     }
 
     return result;

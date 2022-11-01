@@ -1,8 +1,8 @@
-import * as Notifications from 'expo-notifications';
 import { Alert } from 'react-native';
-import { expoHasNotificationPermissionAsync, expoRemoveAllExistingNotifications, expoRequestPermission, expoScheduleNotificationAsync, expoSetNotificationHandler, expoRegisterForNotificationsAsync } from '../services/notification/ExpoNotification';
+import { expoRemoveAllExistingNotificationsAsync as expoRemoveAllExistingNotificationsAsync, expoScheduleNotificationAsync, expoRegisterForNotificationsAsync } from '../services/notification/ExpoNotification';
 import { ScheduleNotification } from '../types/types';
 
+/*
 // By default notification are only displayed if the app is not in the foreground.
 // Use this to set What type of notification to show when the app is running
 Notifications.setNotificationHandler({
@@ -19,8 +19,8 @@ Notifications.setNotificationHandler({
         shouldSetBadge: true,
     }),
 });
-
-
+*/
+/*
 
 async function testIsNotificationAllowed() {
     const settings = await Notifications.getPermissionsAsync();
@@ -28,7 +28,8 @@ async function testIsNotificationAllowed() {
         settings.granted || settings.ios?.status === Notifications.IosAuthorizationStatus.PROVISIONAL
     );
 }
-
+*/
+/*
 
 export async function testSchedulePushNotification(delaySeconds: number) {
 
@@ -86,18 +87,15 @@ export async function testScheduleNotification(delaySeconds: number) {
         expoRequestPermission();
     }
 }
-
+*/
 
 export const testRemoveAllNotifications = () => {
-    // Notifications.dismissAllNotificationsAsync();
-    // Notifications.cancelAllScheduledNotificationsAsync();
-    expoRemoveAllExistingNotifications();
+    expoRemoveAllExistingNotificationsAsync().then(() => console.log("All Notifications Removed!"));
 }
 
 
-
 let testNotificationCount = 0;
-export const testScheduleNotification2 = (delaySeconds: number) => {
+export const testScheduleNotification = (delaySeconds: number) => {
 
     const notificationDate = new Date();
     notificationDate.setSeconds(notificationDate.getSeconds() + delaySeconds);
@@ -108,7 +106,6 @@ export const testScheduleNotification2 = (delaySeconds: number) => {
         title: "MDB Title"
     }
 
-
     expoRegisterForNotificationsAsync().then((registerSuccessful: boolean) => {
         if (registerSuccessful) {
             expoScheduleNotificationAsync(notification).then((notificationId: string) => {
@@ -116,8 +113,6 @@ export const testScheduleNotification2 = (delaySeconds: number) => {
             });
         } else {
             console.log("Failed to schedule notification. Notification permission not granted.");
-            Alert.alert("Notification Permission", 
-                "Failed to schedule notification. Notification permission not granted.");
         }
     });
 }
