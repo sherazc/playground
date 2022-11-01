@@ -4,7 +4,7 @@ import * as Device from 'expo-device';
 import { Alert } from 'react-native';
 
 // Deprecated - Not sure
-export const expoSetNotificationHandler = () => {
+const expoSetNotificationHandler = () => {
     // By default notification are only displayed if the app is not in the foreground.
     // Use this to set What type of notification to show when the app is running
     Notifications.setNotificationHandler({
@@ -23,33 +23,6 @@ export const expoSetNotificationHandler = () => {
     });
 }
 
-/*
-// Deprecated
-export async function expoHasNotificationPermissionAsync() {
-    const settings = await Notifications.getPermissionsAsync();
-    return (
-        settings.granted
-        || settings.ios?.status === Notifications.IosAuthorizationStatus.PROVISIONAL
-    );
-}
-
-// Deprecated
-export const expoRequestPermission = () => {
-    Notifications.requestPermissionsAsync({
-        android: {},
-        ios: {
-            allowAlert: true,
-            allowBadge: true,
-            allowSound: true,
-            // allowDisplayInCarPlay: true,
-            // allowCriticalAlerts: true,
-            // provideAppNotificationSettings: true,
-            // allowProvisional?: true,
-            // allowAnnouncements?: true,
-        }
-    });
-}
-*/
 
 export const expoRemoveAllExistingNotificationsAsync = () => {
     const promises:Array<Promise<any>> = [];

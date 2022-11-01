@@ -29,7 +29,6 @@ export const Brand: React.FC<Props> = () => {
             <View style={{ marginTop: 20 }}>
                 <Logo width="100" height="100" />
             </View>
-
             
             <TextInput
                 keyboardType='number-pad'
@@ -38,9 +37,7 @@ export const Brand: React.FC<Props> = () => {
                 onChangeText={num => setTestNotificationDelaySeconds(+num)}
             />
             <Button onPress={showNotification} title="Notification" />
-
             <Button onPress={removeNotifications} title="Remove All Notifications" />
-
 
         </View>
     );
