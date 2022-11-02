@@ -7,7 +7,7 @@ import { ConstantsStyles } from '../services/Constants';
 import { AppBar } from "./AppBar";
 import Reset from "../images/Reset";
 import { Checkbox } from './Checkbox';
-import setupNotifications, { removeAllExistingNotifications } from "../services/notification/NotificationService";
+import setupNotifications, { removeAllExistingNotificationsAsync } from "../services/notification/NotificationService";
 import { createDefaultSettingData, SettingData } from '../types/types';
 import { getCompanyId } from '../services/CompanyDataService';
 import { storeDeleteCompanyData, storeDispatchSetting } from "../store/ReduxStoreService";
@@ -35,7 +35,7 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
     const onResetMasjid = () => {
         storeDeleteCompanyData();
         navigation.navigate("CompanySelect");
-        removeAllExistingNotifications();
+        removeAllExistingNotificationsAsync();
         destroyTrackerInterval("CompanyDataInterval", companyData.tracker);
     }
 
@@ -112,18 +112,20 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
                 return;
             }
 
-            removeAllExistingNotifications();
-            if (companyId) {
-                setupNotifications(companyId, true);
-            }
-
-
-            console.log(`Clearing interval ${settingInterval}`)
-            if (settingInterval) {
-                clearInterval(settingInterval);
-            }
-
-            lastSettingChangeTime = settingInterval = undefined;
+            removeAllExistingNotificationsAsync().then(() => {
+                if (companyId) {
+                    setupNotifications(companyId, true);
+                }
+    
+    
+                console.log(`Clearing interval ${settingInterval}`)
+                if (settingInterval) {
+                    clearInterval(settingInterval);
+                }
+    
+                lastSettingChangeTime = settingInterval = undefined;
+            });
+            
         }, settingIntervalMillis);
 
         console.log(`Setting interval 2 ${settingInterval}`)

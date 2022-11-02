@@ -5,7 +5,7 @@ import { Constants } from '../Constants';
 import { getCompanyName } from '../CompanyDataService';
 import { storeDispatchCompanyData, storeGetCompanyData, storeGetSetting } from '../../store/ReduxStoreService';
 import { createExpirationDate } from '../ExpirableVersionService';
-import { expoHasNotificationPermissionAsync, expoRemoveAllExistingNotificationsAsync } from './ExpoNotification';
+import { expoRemoveAllExistingNotificationsAsync } from './ExpoNotification';
 
 
 const NotificationConfig = {
@@ -15,10 +15,6 @@ const NotificationConfig = {
     CHANNEL_DESCRIPTION: "Masjid dashboard notification channel"
 }
 
-
-export async function isNotificationAllowed() {
-    return expoHasNotificationPermissionAsync();
-}
 
 
 // TODO: find proper way to call it. Once if not expired.
@@ -68,7 +64,7 @@ const updateNotificationExpiration = (companyData: CompanyData) => {
 }
 
 const resetNotifications = (companyData: CompanyData) => {
-    removeAllExistingNotifications();
+    removeAllExistingNotificationsAsync();
 
     const setting = storeGetSetting();
     if (!isAnyAlertOn(setting)) {
@@ -326,12 +322,12 @@ const isAnyAlertOn = (setting: SettingData): boolean => {
     return setting.azanAlert || setting.beforeIqamaAlert || setting.iqamaAlert;
 }
 
-export const removeAllExistingNotifications = () => {
-    expoRemoveAllExistingNotificationsAsync();
+export const removeAllExistingNotificationsAsync = ():Promise<any> => {
+    return expoRemoveAllExistingNotificationsAsync();
 }
 
 const isNotificationAlreadySet = (companyId: string): boolean => {
-    // Getting latest companyData from the store becasue
+    // Getting latest companyData from the store because
     // stale companyData notification state is not updated and
     // is ending up in endless loop.
     const companyData = storeGetCompanyData();
@@ -343,6 +339,7 @@ const isNotificationAlreadySet = (companyId: string): boolean => {
     const currentTimeMillis = getCurrentSystemDate().getTime();
 
     return companyNotification.companyId === companyId
+        && companyNotification.expirationMillis !== undefined
         && currentTimeMillis < companyNotification.expirationMillis;
 }
 
