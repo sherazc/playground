@@ -4,6 +4,12 @@ import com.amazonaws.services.lambda.runtime.Context;
 
 public class LambdaFunction {
 
+    public static void main(String[] args) {
+        System.out.println("Hi");
+        var lambdaFunction = new LambdaFunction();
+        var user = lambdaFunction.lambdaReturnUser(null);
+        System.out.println(user);
+    }
 
     public User lambdaReturnUser(Context context) {
         User user = null;
