@@ -1,0 +1,3 @@
+micronaut:
+  application:
+    name: micronaut02_app_aws_lambda
