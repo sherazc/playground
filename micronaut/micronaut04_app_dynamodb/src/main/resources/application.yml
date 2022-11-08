@@ -1,0 +1,7 @@
+micronaut:
+  application:
+    name: micronaut04_app_dynamodb
+netty:
+  default:
+    allocator:
+      max-order: 3
