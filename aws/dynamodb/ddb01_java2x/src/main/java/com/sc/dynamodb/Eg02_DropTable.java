@@ -2,6 +2,7 @@ package com.sc.dynamodb;
 
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DeleteTableRequest;
+import software.amazon.awssdk.services.dynamodb.model.DeleteTableResponse;
 
 // https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/examples-dynamodb-tables.html
 public class Eg02_DropTable {
@@ -17,13 +18,12 @@ public class Eg02_DropTable {
 
         // Step 3 - Delete table
         deleteTable(dynamoDbClient, deleteTableRequest);
-
-        System.out.println("Done!");
     }
 
     private static void deleteTable(DynamoDbClient dynamoDbClient, DeleteTableRequest deleteTableRequest) {
         System.out.println("Deleting table...");
-        dynamoDbClient.deleteTable(deleteTableRequest);
+        DeleteTableResponse deleteTableResponse = dynamoDbClient.deleteTable(deleteTableRequest);
+        System.out.println("Done! " + deleteTableResponse.toString());
     }
 
     private static DeleteTableRequest getDeleteTableRequest(String tableName) {
