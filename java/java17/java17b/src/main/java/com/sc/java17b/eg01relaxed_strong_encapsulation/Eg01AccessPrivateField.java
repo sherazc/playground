@@ -26,7 +26,8 @@ public class Eg01AccessPrivateField {
 
 
     private static byte[] getStringPrivateValue(String string) throws ReflectiveOperationException {
-        Field VALUE = String.class.getDeclaredField("value"); // Access to private filed in JDK17 is not allowed
+        // Access to private filed in JDK17 is not allowed
+        Field VALUE = String.class.getDeclaredField("value");
         VALUE.setAccessible(true);
         return (byte[]) VALUE.get(string);
     }
