@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // https://dillionmegida.com/p/debouncing-in-javascript/
+
+        const DELAY = 3000;
+
+        const myFn = (a, b, c, d) => {
+            console.log("activate ", a + b + c + d, new Date());
+        }
+
+        function debounce(func, delay = 1000) {
+            let timeoutId;
+            return function (...arguments) {
+                clearTimeout(timeoutId)
+
+                timeoutId = setTimeout(() => {
+                    func(...arguments)
+                }, delay)
+            }
+        }
+
+        const debounced = debounce(myFn, DELAY)
+
+        const activate = () => {
+            debounced(1, 2, 3, 4);
+        }
+    </script>
+    <button onclick="activate()">Click Me</button>
+</body>
+
+</html>
