@@ -65,8 +65,8 @@
             const dc = { lastCallTime: 0 };
 
             dc.event = (fn, argsArray) => {
+                const nowTime = (new Date()).getTime();
                 setTimeout(() => {
-                    const nowTime = (new Date()).getTime();
                     if (nowTime < dc.lastCallTime + delay) {
                         dc.lastCallTime = nowTime;
                         return;
