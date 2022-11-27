@@ -8,7 +8,7 @@ module.exports = {
             {
                 test: /\.tsx?$/,
                 use: 'ts-loader',
-                exclude: [/node_modules/, /__tests__/],
+                exclude: [/node_modules/],
             },
         ],
     },
@@ -16,8 +16,9 @@ module.exports = {
         extensions: ['.tsx', '.ts', '.js'],
     },
     output: {
-        filename: 'bundle.js',
+        filename: 'app.min.js',
         path: path.resolve(__dirname, 'dist'),
+        publicPath: "/dist"
     },
     mode: 'development'
 };
