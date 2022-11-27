@@ -80,20 +80,45 @@
             return dc;
         }
 
-        const delayCall3 = createDelayCall3(DELAY, {});
-
-        const activate3 = () => {
-            const myFn = (a, b, c, d) => {
+        const myFn = (a, b, c, d) => {
                 console.log("activate ", a + b + c + d, new Date());
             }
 
+        const delayCall3 = createDelayCall3(DELAY, {});
+
+        const activate3 = () => {
+            
+
             delayCall3.event(myFn, [1, 2, 3, 4]);
         }
+
+
+        function debounce(func, delay = 1000) {
+            let timeoutId;
+
+            return function (...arguments) {
+                // console.log("function called")
+                clearTimeout(timeoutId)
+
+                timeoutId = setTimeout(() => {
+                    func(...arguments)
+                }, delay)
+            }
+        }
+
+        const debounced = debounce(myFn, DELAY)
+
+    
+        const activate4 = () => {
+            debounced(1,2,3, 4);
+        }
+
 
     </script>
     <button onclick="activate1()">Click Me 1</button>
     <button onclick="activate2()">Click Me 2</button>
     <button onclick="activate3()">Click Me 3</button>
+    <button onclick="activate4()">Click Me 4</button>
 
 </body>
 
