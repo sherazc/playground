@@ -1,9 +1,9 @@
-import { debounceFunction } from "../src/Debounce";
+import { debounce } from "../src/Debounce";
 
 describe("d1", () => {
 
     test("debounce", () => {
-        debounceFunction(() => {
+        debounce(() => {
             console.log("Hi")
         })
     });

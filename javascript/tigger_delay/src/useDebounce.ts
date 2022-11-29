@@ -1,4 +1,4 @@
-import { debounceFunction } from "./Debounce";
+import { debounce } from "./Debounce";
 
 // Business logic function
 const myBusinessLogicFunction = (a: number, b: number) => {
@@ -6,7 +6,7 @@ const myBusinessLogicFunction = (a: number, b: number) => {
 }
 
 // Convert business logic function into debounce function
-const myBusinessLogicFunctionDebounce = debounceFunction(myBusinessLogicFunction, 3000);
+const myBusinessLogicFunctionDebounce = debounce(myBusinessLogicFunction, 3000);
 
 // Add onclick Event function
 export const useDebounce = () => {
