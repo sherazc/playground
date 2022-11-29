@@ -9,38 +9,7 @@
 </head>
 
 <body>
-    <button onclick="activate()">Click Me</button>
-    <button id="buttonActivate">Click Me 2</button>
-
-    <script>
-        // https://dillionmegida.com/p/debouncing-in-javascript/
-
-        const DELAY = 3000;
-
-        const myFn = (a, b, c, d) => {
-            console.log("activate ", a + b + c + d, new Date());
-        }
-
-        // function debounce(func, delay = 1000) {
-        //     let timeoutId;
-        //     return function (...arguments) {
-        //         clearTimeout(timeoutId)
-
-        //         timeoutId = setTimeout(() => {
-        //             func(...arguments)
-        //         }, delay)
-        //     }
-        // }
-
-        const debounced = debounce(myFn, DELAY)
-
-        const activate = () => {
-            debounced(1, 2, 3, 4);
-        }
-    </script>
-
+    <button id="useDebounceButton">Use Debounce Button</button>
     <script src="../dist/app.min.js"></script>
-
 </body>
-
 </html>
