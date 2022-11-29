@@ -1,3 +1,5 @@
+// Cons: Can not return value
+
 export const debounceFunction = (func: Function, delay = 1000) => {
     let timeoutId: NodeJS.Timeout;
     return function (...args: any[]) {
