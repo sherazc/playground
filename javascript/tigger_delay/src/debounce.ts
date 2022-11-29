@@ -23,10 +23,12 @@ export const debouncePromise = (inner: Function, ms: number = 1000) => {
             // Get the result of the inner function, then apply it to the resolve function of
             // each promise that has been created since the last time the inner function was run
             let result = inner(...args);
+            console.log("inner called", result);
             resolves.forEach((r: (arg0: any) => {}) => r(result));
             resolves = [];
         }, ms);
 
+        // TODO: Handle this. inner function is called only once but it creates several promises.
         return new Promise(r => resolves.push(r));
     };
 }
