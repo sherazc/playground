@@ -1,6 +1,6 @@
 package com.sc.j16;
 
-// Creates immutable class
+// Creates immutable final class
 record Eg01_Record_Point(int x, int y) {}
 
 public class Eg01_Record {
