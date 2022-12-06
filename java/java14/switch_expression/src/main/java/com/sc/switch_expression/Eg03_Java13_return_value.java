@@ -1,31 +1,32 @@
 package com.sc.switch_expression;
 
-public class Eg01_Java13_switch {
+public class Eg03_Java13_return_value {
     public static void main(String[] args) {
+
+        int numCharacters;
         var day = WeekDay.FRIDAY;
 
-        // Print day char length
-        // "fall-through"
         switch (day) {
             case MONDAY:
             case FRIDAY:
             case SUNDAY:
-                System.out.println(6);
+                numCharacters = 6;
                 break;
             case TUESDAY:
-                System.out.println(7);
+                numCharacters = 7;
                 break;
             case THURSDAY:
             case SATURDAY:
-                System.out.println((int) Math.pow(2, 3));
+                numCharacters = (int) Math.pow(2, 3);
                 break;
             case WEDNESDAY:
                 int three = 1 + 2;
-                System.out.println(three * three);
+                numCharacters = three * three;
                 break;
             default:
                 throw new IllegalStateException("Unknown day: " + day);
                 // break;
         }
+        System.out.println(numCharacters);
     }
 }
