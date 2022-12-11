@@ -15,6 +15,8 @@ public class Eg01_instanceof_pattern_matching {
 
         // In Java 16
         if (object instanceof String string) {
+            // Note: instanceof variables are not final
+            string = "|" + string + "|";
             System.out.println("Got String: " + string.toUpperCase());
         } else if (object instanceof Integer integer) {
             System.out.println("Got Integer: " + integer * integer);
