@@ -38,6 +38,7 @@ const startNotificationsSetInterval = (companyId: string) => {
             const companyData = storeGetCompanyData();
             if (!isValidCompanyDataAvailable(companyId, companyData)) {
                 console.log(`Not setting up notification. Valid company data not available.`);
+                reject();
                 return
             }
 
@@ -325,7 +326,19 @@ const isAnyAlertOn = (setting: SettingData): boolean => {
 export const removeAllExistingNotificationsAsync = ():Promise<any> => {
     return expoRemoveAllExistingNotificationsAsync();
 }
+Move tests
 
+Draw notificaiton flow
+
+fix notificaiton flow
+
+/**
+ * Checks if notification is already set and not expired
+ * 
+ * @param companyId 
+ * 
+ * @returns 
+ */
 const isNotificationAlreadySet = (companyId: string): boolean => {
     // Getting latest companyData from the store because
     // stale companyData notification state is not updated and

@@ -13,6 +13,7 @@ import { getCompanyId } from '../services/CompanyDataService';
 import { storeDeleteCompanyData, storeDispatchSetting } from "../store/ReduxStoreService";
 import { useTypedSelector } from "../store/rootReducer";
 import { destroyTrackerInterval } from "../services/AppService";
+import { debounce } from "../services/Debounce";
 interface Props {
     navigation: StackNavigationProp<MdParamList, "Settings">;
     route: RouteProp<MdParamList, "Settings">;
@@ -89,9 +90,10 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
 
     */
 
+
+    // TODO: Deprecate changeAlertWithDelay() use changeAlertDebounce() instead
     const settingDelay = 5 * 1000;
     const settingIntervalMillis = 1000;
-
     const changeAlertWithDelay = (newSetting: SettingData) => {
         storeDispatchSetting(newSetting);
         // dispatch({ type: "SETTING_SET", payload: newSetting });
@@ -130,6 +132,25 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
 
         console.log(`Setting interval 2 ${settingInterval}`)
     }
+
+
+
+    const changeAlert = (newSetting: SettingData) => {
+        
+        storeDispatchSetting(newSetting);
+        let companyId = getCompanyId(companyData.company);
+
+        removeAllExistingNotificationsAsync().then(() => {
+            if (companyId) {
+                setupNotifications(companyId, true);
+            }
+        });
+    }
+
+    const changeAlertDebounce = debounce(changeAlert, 3000);
+
+
+
 
     return (
         <>
