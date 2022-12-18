@@ -1,5 +1,6 @@
 import { Company, PrayersDay, ScheduleNotification, SettingData } from "../../types/types";
 import { addMinutesTo24hTime, TIME_24_REGX } from "../common/DateService";
+import { isNotBlankString } from "../common/Utilities";
 import { getCompanyName } from "../CompanyDataService";
 import { Constants } from "../Constants";
 
@@ -189,11 +190,14 @@ const scheduleNotification = (notifications: ScheduleNotification[]): void => {
     }
 
 
-    /*
+    console.log("\n\n\n\n############# Start Expo Set Notification #############");
     notifications
         .filter(n => n)
         .filter(n => n.date && isNotBlankString(n.message) && isNotBlankString(n.title))
         .forEach(n =>
+            console.log("Expo Set notification.", n)
+
+            /*
             PushNotification.localNotificationSchedule({
                 title: n.title,
                 message: n.message,
@@ -201,6 +205,7 @@ const scheduleNotification = (notifications: ScheduleNotification[]): void => {
                 largeIcon: "status_bar_icon_large",
                 smallIcon: "status_bar_icon_small",
             })
+            */
         );
-        */
+    console.log("############# End Expo Set Notification #############\n\n\n\n", new Date());
 }

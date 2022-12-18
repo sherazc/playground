@@ -67,11 +67,11 @@ const setupNotificationV2 = (settingState: SettingData, companyId: string) => {
             if (!settingState.companyNotification) { 
                 settingState.companyNotification = {
                     companyId,
-                    expirationMillis: 0 
+                    expirationMilliseconds: 0 
                 }
             }
 
-            settingState.companyNotification.expirationMillis = createExpirationDate().getTime();
+            settingState.companyNotification.expirationMilliseconds = createExpirationDate().getTime();
             storeDispatchSetting(settingState);
         }
         
@@ -114,8 +114,8 @@ const isSameCompany = (companyId: string, companyData: CompanyData): boolean => 
 
 const isNotificationExpired = (nowMilliseconds: number, companyNotification?: CompanyNotification): boolean => {
     return companyNotification === undefined
-        || companyNotification.expirationMillis === undefined
-        || companyNotification.expirationMillis < nowMilliseconds;
+        || companyNotification.expirationMilliseconds === undefined
+        || companyNotification.expirationMilliseconds < nowMilliseconds;
 }
 
 

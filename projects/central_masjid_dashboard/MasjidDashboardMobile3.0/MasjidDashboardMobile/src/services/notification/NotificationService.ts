@@ -56,7 +56,7 @@ const updateNotificationExpiration = (companyData: CompanyData) => {
 
     const companyNotification:CompanyNotification = {
         companyId: companyData.company ? companyData.company.id : "",
-        expirationMillis: createExpirationDate().getTime()
+        expirationMilliseconds: createExpirationDate().getTime()
     };
 
     companyData.companyNotification = companyNotification;

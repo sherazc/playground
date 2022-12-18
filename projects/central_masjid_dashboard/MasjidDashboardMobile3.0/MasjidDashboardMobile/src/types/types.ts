@@ -67,7 +67,7 @@ export interface Company {
 
 export interface CompanyNotification {
     companyId: string;
-    expirationMillis: number;
+    expirationMilliseconds: number;
 }
 
 export interface ScheduleNotification {
