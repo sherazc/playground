@@ -1,4 +1,4 @@
-import { Company, Prayer, ScheduleNotification, SettingData } from "../../types/types";
+import { Company, PrayersDay, ScheduleNotification, SettingData } from "../../types/types";
 import { addMinutesTo24hTime, TIME_24_REGX } from "../common/DateService";
 import { getCompanyName } from "../CompanyDataService";
 import { Constants } from "../Constants";
@@ -13,7 +13,7 @@ import { Constants } from "../Constants";
  * @returns 
  */
 
-export const setupPrayerNotification = (company: (Company | undefined), now: Date, setting: SettingData, prayer: Prayer) => {
+export const setupPrayerNotification = (company: (Company | undefined), now: Date, setting: SettingData, prayer: PrayersDay) => {
     if (!prayer || !prayer.date.jsDate) {
         console.log("Not setting up alerts. Prayer not found.")
         return;

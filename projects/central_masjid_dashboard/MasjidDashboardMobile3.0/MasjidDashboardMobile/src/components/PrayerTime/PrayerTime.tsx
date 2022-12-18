@@ -4,7 +4,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { MdParamList } from "../NavRoutes";
 import { RouteProp } from '@react-navigation/native';
 import { useTypedSelector } from "../../store/rootReducer";
-import { CompanyData, Prayer } from "../../types/types";
+import { CompanyData, PrayersDay } from "../../types/types";
 import { Loading } from "../Loading";
 import { PrayerTimeGrid } from './PrayerTimeGrid';
 import { beginCompanyDataInterval, destroyTrackerInterval, } from '../../services/AppService';
@@ -127,7 +127,7 @@ export const PrayerTime: React.FC<Props> = ({ navigation, route }) => {
 
 
     // Interval to update Azan, Salah and Jammat time messages on screen
-    const startPrayerTimeMessage = (prayer: Prayer, setPrayerTimeMessage: React.Dispatch<React.SetStateAction<PrayerTimeSummaryMessage>>) => {
+    const startPrayerTimeMessage = (prayer: PrayersDay, setPrayerTimeMessage: React.Dispatch<React.SetStateAction<PrayerTimeSummaryMessage>>) => {
         const prayerTimeSummary = processPrayerTime(prayer);
         const prayerTimeMessage = processPrayerTimeMessage(prayerTimeSummary);
         setPrayerTimeMessage(prayerTimeMessage);

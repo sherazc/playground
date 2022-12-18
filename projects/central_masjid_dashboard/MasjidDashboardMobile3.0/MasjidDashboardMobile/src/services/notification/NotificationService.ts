@@ -1,4 +1,4 @@
-import {  CompanyData, SettingData, PrayersMonth, Prayer, CompanyNotification } from '../../types/types';
+import {  CompanyData, SettingData, PrayersMonth, PrayersDay, CompanyNotification } from '../../types/types';
 import { getCurrentSystemDate, dayOfTheYear } from '../common/DateService';
 // import PushNotification from "react-native-push-notification";
 import { storeDispatchCompanyData, storeGetCompanyData, storeGetSetting } from '../../store/ReduxStoreService';
@@ -118,8 +118,8 @@ getUpcomingPrayers(new Date('2020-12-31T00:00:00.000Z'), companyData.prayersYear
 getUpcomingPrayers(new Date('2020-12-31T23:59:00.000Z'), companyData.prayersYear?.prayersMonths, 10);
 
 */
-const getUpcomingPrayers = (now: Date, pryerMonths: PrayersMonth[], daysCount: number): Prayer[] => {
-    const allPrayers: Prayer[] = [];
+const getUpcomingPrayers = (now: Date, pryerMonths: PrayersMonth[], daysCount: number): PrayersDay[] => {
+    const allPrayers: PrayersDay[] = [];
     pryerMonths
         .map(pm => pm.prayers)
         .forEach(prayers => prayers.map(p => allPrayers.push(p)));

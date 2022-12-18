@@ -4,7 +4,7 @@ import {
     CompanyDataVersion, 
     Configuration, 
     createEmptyCompanyData, 
-    Prayer, 
+    PrayersDay, 
     PrayersYear, 
     ServiceResponse 
 } from "../types/types";
@@ -30,7 +30,7 @@ const isCompanyVersionSame2 = (version?: number, cdv2?: CompanyDataVersion) => {
 }
 
 
-const isValidServiceResponsePrayer = (serviceResponse: ServiceResponse<Prayer>) => {
+const isValidServiceResponsePrayer = (serviceResponse: ServiceResponse<PrayersDay>) => {
     return serviceResponse && serviceResponse.successful
         && serviceResponse.target && serviceResponse.target.date;
 }
@@ -53,7 +53,7 @@ const refreshCompanyData = (companyData: CompanyData, companyDataVersion: Compan
         }
     };
 
-    const promises: (Promise<ServiceResponse<Prayer>> | Promise<Configuration[]> | Promise<PrayersYear>)[] = [
+    const promises: (Promise<ServiceResponse<PrayersDay>> | Promise<Configuration[]> | Promise<PrayersYear>)[] = [
         apiPrayer(company.id, month, date)];
 
     if (!versionSame 
@@ -73,12 +73,12 @@ const refreshCompanyData = (companyData: CompanyData, companyDataVersion: Compan
 
 }
 
-const processCompanyData = (companyData: CompanyData, apiResponses: (ServiceResponse<Prayer> | Configuration[] | PrayersYear)[]) => {
+const processCompanyData = (companyData: CompanyData, apiResponses: (ServiceResponse<PrayersDay> | Configuration[] | PrayersYear)[]) => {
     if (!apiResponses || apiResponses.length < 1) {
         return;
     }
 
-    const prayerResponse = apiResponses[0] as ServiceResponse<Prayer>;
+    const prayerResponse = apiResponses[0] as ServiceResponse<PrayersDay>;
 
     if (isValidServiceResponsePrayer(prayerResponse)) {
         parseObjectsIsoDateToMdDate(prayerResponse.target); // TODO: check if this can be done in API call function.

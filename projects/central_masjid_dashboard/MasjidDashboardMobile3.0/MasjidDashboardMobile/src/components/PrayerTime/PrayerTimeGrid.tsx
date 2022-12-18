@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { dateToDisplayDateShort, time24To12 } from '../../services/common/DateService';
-import { Prayer, PrayerTimeSummary, CompanyData } from '../../types/types';
+import { PrayersDay, PrayerTimeSummary, CompanyData } from '../../types/types';
 import { PrayerTimeSummaryMessage } from '../../types/react-types';
 import { findConfigurationByName } from '../../services/common/Utilities';
 import { ConfigurationKey, ConstantsStyles } from '../../services/Constants';
 
 interface Props {
-    prayer: Prayer;
+    prayer: PrayersDay;
     prayerTimeMessage: PrayerTimeSummaryMessage;
     companyData: CompanyData;
 }

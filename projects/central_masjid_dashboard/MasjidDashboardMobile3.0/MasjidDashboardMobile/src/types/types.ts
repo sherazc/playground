@@ -5,7 +5,7 @@ export interface ExpirableVersion {
     version?: number;
 }
 
-export interface Prayer {
+export interface PrayersDay {
     date: MdDate;
     hijriString: string;
     fajr: string;
@@ -38,7 +38,7 @@ export interface Month {
 
 export interface PrayersMonth {
     month: Month;
-    prayers: Prayer[];
+    prayers: PrayersDay[];
 }
 
 export interface PrayersYear {
@@ -92,7 +92,7 @@ export interface CompanyListData {
 // Redux/Async store
 export interface CompanyData {
     company?: Company;
-    prayer?: Prayer;
+    prayer?: PrayersDay;
     configurations: Configuration[];
     prayersYear?: PrayersYear;
     companyNotification?: CompanyNotification;

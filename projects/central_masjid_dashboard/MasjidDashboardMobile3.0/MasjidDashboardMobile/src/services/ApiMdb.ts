@@ -1,4 +1,4 @@
-import { Company, CompanyDataVersion, CompanyListVersion, Configuration, Prayer, PrayersMonth, ServiceResponse } from "../types/types";
+import { Company, CompanyDataVersion, CompanyListVersion, Configuration, PrayersDay, PrayersMonth, ServiceResponse } from "../types/types";
 import { Constants } from "./Constants";
 
 export const apiYearCalendar = (companyId: string, year: number): Promise<ServiceResponse<PrayersMonth[]>> => {
@@ -13,7 +13,7 @@ export const apiCompanyDataVersion = (companyId: string): Promise<CompanyDataVer
     return fetch(endpoint).then(response => response.json());
 }
 
-export const apiPrayer = (companyId: string, month: number, day: number): Promise<ServiceResponse<Prayer>> => {
+export const apiPrayer = (companyId: string, month: number, day: number): Promise<ServiceResponse<PrayersDay>> => {
     const endpoint = Constants.createPrayerEndpoint(companyId, month, day);
     console.log("Calling API ", endpoint);
     return fetch(endpoint).then(response => response.json());

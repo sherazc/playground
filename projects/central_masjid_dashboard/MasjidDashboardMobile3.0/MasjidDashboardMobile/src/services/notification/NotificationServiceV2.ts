@@ -1,5 +1,5 @@
 import { storeGetCompanyData, storeGetSetting } from "../../store/ReduxStoreService";
-import { CompanyData, CompanyNotification, Prayer, PrayersMonth, SettingData } from "../../types/types";
+import { CompanyData, CompanyNotification, PrayersDay, PrayersMonth, SettingData } from "../../types/types";
 import { debounce } from "../Debounce";
 import { getCurrentSystemDate, dayOfTheYear, TIME_24_REGX, addMinutesTo24hTime } from '../common/DateService';
 import { expoRemoveAllExistingNotificationsAsync } from "./ExpoNotification";
@@ -116,8 +116,8 @@ const calculatePossibleNotificationDays = (setting: SettingData, maxNotification
 }
 
 
-const getUpcomingPrayers = (now: Date, pryerMonths: PrayersMonth[], daysCount: number): Prayer[] => {
-    const allPrayers: Prayer[] = [];
+const getUpcomingPrayers = (now: Date, pryerMonths: PrayersMonth[], daysCount: number): PrayersDay[] => {
+    const allPrayers: PrayersDay[] = [];
     pryerMonths
         .map(pm => pm.prayers)
         .forEach(prayers => prayers.map(p => allPrayers.push(p)));

@@ -1,4 +1,4 @@
-import { Prayer, PrayerTime, PrayerTimeSummary } from "../types/types";
+import { PrayersDay, PrayerTime, PrayerTimeSummary } from "../types/types";
 import { Constants } from "./Constants";
 import { addDays, getCurrentSystemDate, stringH24MinToDate } from "./common/DateService";
 
@@ -8,7 +8,7 @@ import { addDays, getCurrentSystemDate, stringH24MinToDate } from "./common/Date
 // TODO Create configuration datatype
 // TODO create configuration validation regex 
 
-export const processPrayerTime = (prayer: Prayer): PrayerTimeSummary => {
+export const processPrayerTime = (prayer: PrayersDay): PrayerTimeSummary => {
     const result: PrayerTimeSummary = {
         currentPrayerPeriod: [],
         sunriseTime: undefined,
