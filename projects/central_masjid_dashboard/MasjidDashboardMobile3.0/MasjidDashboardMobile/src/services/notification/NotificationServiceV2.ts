@@ -1,10 +1,15 @@
 import { storeGetCompanyData, storeGetSetting } from "../../store/ReduxStoreService";
-import { CompanyData, CompanyNotification, SettingData } from "../../types/types";
+import { CompanyData, CompanyNotification, Prayer, PrayersMonth, SettingData } from "../../types/types";
 import { debounce } from "../Debounce";
 import { getCurrentSystemDate, dayOfTheYear, TIME_24_REGX, addMinutesTo24hTime } from '../common/DateService';
 import { expoRemoveAllExistingNotificationsAsync } from "./ExpoNotification";
 
-
+const NotificationConfig = {
+    MAX_NOTIFICATION_SETUP_DAYS: 5,
+    MAX_NOTIFICATIONS: 60, // iOS allows 64 maximum local schedule notifications
+    CHANNEL_NAME: "MDB_NOTIFICATION",
+    CHANNEL_DESCRIPTION: "Masjid dashboard notification channel"
+}
 
 
 const setupNotificationV2 = (settingState: SettingData, companyId: string) => {
@@ -41,10 +46,13 @@ const setupNotificationV2 = (settingState: SettingData, companyId: string) => {
             return;
         }
         
-
-
-
-
+        removeAllExistingNotificationsAsyncV2().then(() => { // Successfully removed
+            const days = calculatePossibleNotificationDays(settingState, NotificationConfig.MAX_NOTIFICATION_SETUP_DAYS);
+            const prayers = getUpcomingPrayers(now, companyData.prayersYear?.prayersMonths, days);
+            prayers.forEach(p => setupPrayerNotification(companyData.company, now, settingState, p));
+        }, (reason: any) => { // Failed to remove notification
+            reject(reason);
+        });
     });
 
 
@@ -89,3 +97,36 @@ const isNotificationExpired = (nowMilliseconds: number, companyNotification?: Co
         || companyNotification.expirationMillis === undefined
         || companyNotification.expirationMillis < nowMilliseconds;
 }
+
+
+const calculatePossibleNotificationDays = (setting: SettingData, maxNotificationDays: number) => {
+    let multiplier = 0;
+    multiplier = setting.azanAlert ? multiplier + 1 : multiplier;
+    multiplier = setting.beforeIqamaAlert ? multiplier + 1 : multiplier;
+    multiplier = setting.iqamaAlert ? multiplier + 1 : multiplier;
+    const notificationCount = maxNotificationDays * 5 * multiplier;
+
+    let days:number;
+    if (notificationCount > NotificationConfig.MAX_NOTIFICATIONS) {
+        days = NotificationConfig.MAX_NOTIFICATIONS / 5 / multiplier;
+    } else {
+        days = notificationCount / 5 / multiplier;
+    }
+    return Math.floor(days);
+}
+
+
+const getUpcomingPrayers = (now: Date, pryerMonths: PrayersMonth[], daysCount: number): Prayer[] => {
+    const allPrayers: Prayer[] = [];
+    pryerMonths
+        .map(pm => pm.prayers)
+        .forEach(prayers => prayers.map(p => allPrayers.push(p)));
+
+    const dayOfYear = dayOfTheYear(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+    return Array(daysCount)
+        .fill(0)
+        .map((_, i) => Math.abs((i + dayOfYear - 1) % 366))
+        .map(i => allPrayers[i]);
+}
+
+
