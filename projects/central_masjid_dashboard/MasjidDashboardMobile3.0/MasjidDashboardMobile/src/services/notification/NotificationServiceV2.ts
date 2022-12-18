@@ -1,8 +1,10 @@
-import { storeGetCompanyData, storeGetSetting } from "../../store/ReduxStoreService";
-import { CompanyData, CompanyNotification, PrayersDay, PrayersMonth, SettingData } from "../../types/types";
+import { storeDispatchSetting, storeGetCompanyData, storeGetSetting } from "../../store/ReduxStoreService";
+import { CompanyData, CompanyNotification, createDefaultSettingData, PrayersDay, PrayersMonth, SettingData } from "../../types/types";
 import { debounce } from "../Debounce";
 import { getCurrentSystemDate, dayOfTheYear, TIME_24_REGX, addMinutesTo24hTime } from '../common/DateService';
 import { expoRemoveAllExistingNotificationsAsync } from "./ExpoNotification";
+import { setupPrayerNotification } from "./SetupPrayerNotification";
+import { createExpirationDate } from "../ExpirableVersionService";
 
 const NotificationConfig = {
     MAX_NOTIFICATION_SETUP_DAYS: 5,
@@ -14,7 +16,7 @@ const NotificationConfig = {
 
 const setupNotificationV2 = (settingState: SettingData, companyId: string) => {
 
-    const notificationPromise = new Promise<boolean>((resolve, reject) => {
+    const notificationPromise = new Promise<SettingData | undefined>((resolve, reject) => {
         const now = getCurrentSystemDate();
         
         const settingStore = storeGetSetting();
@@ -23,7 +25,7 @@ const setupNotificationV2 = (settingState: SettingData, companyId: string) => {
         const sameSettingAlert = isSameSettingAlert(settingState, settingStore);
         const anyAlertOn = isAnyAlertOn(settingState);
         const validCompanyDataAvailable = isValidCompanyDataAvailable(companyId, companyData);
-        const notificationExpired = isNotificationExpired(now.getTime(), companyData.companyNotification);
+        const notificationExpired = isNotificationExpired(now.getTime(), settingState.companyNotification);
 
 
         // Invalid company Data
@@ -36,13 +38,13 @@ const setupNotificationV2 = (settingState: SettingData, companyId: string) => {
         // No alerts setting
         if (!anyAlertOn) {
             removeAllExistingNotificationsAsyncV2();
-            resolve(false);
+            resolve(undefined);
             return;
         }
 
         // Alerts not expired and same as previous alert settings
         if (!notificationExpired && sameSettingAlert) {
-            resolve(false);
+            resolve(undefined);
             return;
         }
         
@@ -50,16 +52,34 @@ const setupNotificationV2 = (settingState: SettingData, companyId: string) => {
             const days = calculatePossibleNotificationDays(settingState, NotificationConfig.MAX_NOTIFICATION_SETUP_DAYS);
             const prayers = getUpcomingPrayers(now, companyData.prayersYear?.prayersMonths, days);
             prayers.forEach(p => setupPrayerNotification(companyData.company, now, settingState, p));
+            resolve(settingState);
         }, (reason: any) => { // Failed to remove notification
             reject(reason);
         });
     });
 
 
-    notificationPromise.then((updateExpiration: boolean) => {
-        // On accept
-    }, (rejectReason: any) => {
-        // On reject
+    notificationPromise.then((settingState: (SettingData | undefined)) => { // On accept
+        if (settingState) {
+            // I don't like this check. 
+            // Should only proceed if companyNotification is present
+            // TODO: Find how settingState.companyNotification will be created.
+            if (!settingState.companyNotification) { 
+                settingState.companyNotification = {
+                    companyId,
+                    expirationMillis: 0 
+                }
+            }
+
+            settingState.companyNotification.expirationMillis = createExpirationDate().getTime();
+            storeDispatchSetting(settingState);
+        }
+        
+    }, (rejectReason: any) => { // On reject
+        removeAllExistingNotificationsAsyncV2();
+        const defaultSettingData = createDefaultSettingData();
+        storeDispatchSetting(defaultSettingData);
+        
     });
 }
 export const setupNotificationV2Debounce = debounce(setupNotificationV2, 3000);
@@ -128,5 +148,4 @@ const getUpcomingPrayers = (now: Date, pryerMonths: PrayersMonth[], daysCount: n
         .map((_, i) => Math.abs((i + dayOfYear - 1) % 366))
         .map(i => allPrayers[i]);
 }
-
 

@@ -95,7 +95,6 @@ export interface CompanyData {
     prayer?: PrayersDay;
     configurations: Configuration[];
     prayersYear?: PrayersYear;
-    companyNotification?: CompanyNotification;
     tracker: Tracker;
 }
 
@@ -130,6 +129,7 @@ export interface SettingData {
     azanAlert: boolean;
     iqamaAlert: boolean;
     beforeIqamaAlert: boolean;
+    companyNotification?: CompanyNotification;
 }
 
 export const createDefaultSettingData = (): SettingData => {
