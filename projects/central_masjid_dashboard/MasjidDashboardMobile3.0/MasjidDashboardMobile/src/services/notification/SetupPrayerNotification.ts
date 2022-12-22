@@ -5,7 +5,7 @@ import { getCompanyName } from "../CompanyDataService";
 import { Constants } from "../Constants";
 
 /**
- * Sets up 
+ * Sets up notification for a single PrayerDay.
  * 
  * @param company 
  * @param now 
