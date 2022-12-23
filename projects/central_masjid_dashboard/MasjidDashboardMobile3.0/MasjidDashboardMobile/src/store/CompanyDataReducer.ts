@@ -1,4 +1,4 @@
-import { saveStorage, STORAGE_COMPANY_DATA } from '../storage/Storage';
+import {removeStorage, saveStorage, STORAGE_COMPANY_DATA} from '../storage/Storage';
 import { CompanyData, createEmptyCompanyData } from '../types/types';
 
 // Types
@@ -30,7 +30,7 @@ export default function companyDataReducer(
             return {...state, ...action.payload};
         case "COMPANY_DATA_DELETE":
             console.log("Removing CompanyData from store and storage.");
-            // removeStorage(STORAGE_COMPANY_DATA);
+            removeStorage(STORAGE_COMPANY_DATA);
             return { ...state, ...INITIAL_STATE, company: undefined };
         default:
             return state;

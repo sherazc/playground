@@ -7,20 +7,22 @@ import { ConstantsStyles } from '../services/Constants';
 import { AppBar } from "./AppBar";
 import Reset from "../images/Reset";
 import { Checkbox } from './Checkbox';
-import setupNotifications, { removeAllExistingNotificationsAsync } from "../services/notification/NotificationService";
-import { createDefaultSettingData, SettingData } from '../types/types';
-// import { getCompanyId } from '../services/CompanyDataService';
-import { storeDeleteCompanyData, storeDispatchSetting } from "../store/ReduxStoreService";
+import { createDefaultSettingData, } from '../types/types';
+import { storeDeleteCompanyData, } from "../store/ReduxStoreService";
 import { useTypedSelector } from "../store/rootReducer";
 import { destroyTrackerInterval } from "../services/AppService";
-// import { debounce } from "../services/Debounce";
+import {
+    removeAllExistingNotificationsAsyncV2,
+    setupNotificationV2Debounce
+} from "../services/notification/NotificationServiceV2";
+
 interface Props {
     navigation: StackNavigationProp<MdParamList, "Settings">;
     route: RouteProp<MdParamList, "Settings">;
 }
 
-let lastSettingChangeTime: (number | undefined);
-let settingInterval: (NodeJS.Timeout | undefined);
+// let lastSettingChangeTime: (number | undefined);
+// let settingInterval: (NodeJS.Timeout | undefined);
 
 export const Settings: React.FC<Props> = ({ navigation, route }) => {
 
@@ -36,27 +38,27 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
     const onResetMasjid = () => {
         storeDeleteCompanyData();
         navigation.navigate("CompanySelect");
-        removeAllExistingNotificationsAsync();
+        removeAllExistingNotificationsAsyncV2().then(result =>
+            console.log("On reset masjid. Removed notifications.", result));
         destroyTrackerInterval("CompanyDataInterval", companyData.tracker);
     }
 
     const onCheckAzan = () => {
         const newSetting = { ...setting, azanAlert: !setting.azanAlert };
         setSetting(newSetting);
-        changeAlertWithDelay(newSetting);
-
+        setupNotificationV2Debounce(newSetting, companyData.company.id);
     }
 
     const onCheckIqama = () => {
         const newSetting = { ...setting, iqamaAlert: !setting.iqamaAlert };
         setSetting(newSetting);
-        changeAlertWithDelay(newSetting);
+        setupNotificationV2Debounce(newSetting, companyData.company.id);
     }
 
     const onCheckBeforeIqama = () => {
         const newSetting = { ...setting, beforeIqamaAlert: !setting.beforeIqamaAlert };
         setSetting(newSetting);
-        changeAlertWithDelay(newSetting);
+        setupNotificationV2Debounce(newSetting, companyData.company.id);
     }
 
     const getBackScreenName = (route: RouteProp<MdParamList, "Settings">) => {
