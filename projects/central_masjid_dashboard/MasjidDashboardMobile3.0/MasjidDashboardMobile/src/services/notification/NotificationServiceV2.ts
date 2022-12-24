@@ -14,41 +14,35 @@ const NotificationConfig = {
 }
 
 
-const setupNotificationV2 = (settingState: SettingData, companyId: string) => {
+const setupNotificationV2 = (settingState: SettingData, companyData: CompanyData) => {
+    const now = getCurrentSystemDate();
+    const anyAlertOn = isAnyAlertOn(settingState);
+    const validCompanyDataAvailable = isValidCompanyDataAvailable(companyData);
+    const notificationExpired = isNotificationExpired(now.getTime(), settingState.companyNotification);
+
+    // Invalid company Data
+    if (!validCompanyDataAvailable) {
+        removeAllExistingNotificationsAsyncV2().then(
+            () => console.log("Removed all notifications. CompanyData is invalid."));
+        return;
+    }
+
+    // No alerts setting
+    if (!anyAlertOn) {
+        removeAllExistingNotificationsAsyncV2().then(
+            () => console.log("Removed all notifications. No alerts are on."));
+        return;
+    }
+
+    // Alerts not expired and same as previous alert settings
+    if (!notificationExpired) {
+        console.log("Not setting up notifications. They are not expired yet.");
+        return;
+    }
 
     const notificationPromise = new Promise<SettingData | undefined>((resolve, reject) => {
-        const now = getCurrentSystemDate();
-        
-        const settingStore = storeGetSetting();
-        const companyData = storeGetCompanyData();
-
-        const sameSettingAlert = isSameSettingAlert(settingState, settingStore);
-        const anyAlertOn = isAnyAlertOn(settingState);
-        const validCompanyDataAvailable = isValidCompanyDataAvailable(companyId, companyData);
-        const notificationExpired = isNotificationExpired(now.getTime(), settingState.companyNotification);
-
-
-        // Invalid company Data
-        if (!validCompanyDataAvailable) {
-            removeAllExistingNotificationsAsyncV2();
-            reject();
-            return;
-        }
-
-        // No alerts setting
-        if (!anyAlertOn) {
-            removeAllExistingNotificationsAsyncV2();
-            resolve(undefined);
-            return;
-        }
-
-        // Alerts not expired and same as previous alert settings
-        if (!notificationExpired && sameSettingAlert) {
-            resolve(undefined);
-            return;
-        }
-        
         removeAllExistingNotificationsAsyncV2().then(() => { // Successfully removed
+            console.log("Setting up notifications.");
             const days = calculatePossibleNotificationDays(settingState, NotificationConfig.MAX_NOTIFICATION_SETUP_DAYS);
             const prayers = getUpcomingPrayers(now, companyData.prayersYear?.prayersMonths, days);
             prayers.forEach(p => setupPrayerNotification(companyData.company, now, settingState, p));
@@ -61,16 +55,6 @@ const setupNotificationV2 = (settingState: SettingData, companyId: string) => {
 
     notificationPromise.then((settingState: (SettingData | undefined)) => { // On accept
         if (settingState) {
-            // I don't like this check. 
-            // Should only proceed if companyNotification is present
-            // TODO: Find how settingState.companyNotification will be created.
-            if (!settingState.companyNotification) { 
-                settingState.companyNotification = {
-                    companyId,
-                    expirationMilliseconds: 0 
-                }
-            }
-
             settingState.companyNotification.expirationMilliseconds = createExpirationDate().getTime();
             storeDispatchSetting(settingState);
         }
@@ -100,16 +84,10 @@ const isAnyAlertOn = (setting: SettingData): boolean => {
 }
 
 // Checks companyId matches and valid prayerYear
-const isValidCompanyDataAvailable = (companyId: string, companyData: CompanyData): boolean => {
-    return isSameCompany(companyId, companyData)
-        && companyData.prayersYear != undefined && companyData.prayersYear.year != undefined
+const isValidCompanyDataAvailable = (companyData: CompanyData): boolean => {
+    return companyData.prayersYear != undefined && companyData.prayersYear.year != undefined
         && companyData.prayersYear.prayersMonths != undefined
         && companyData.prayersYear.prayersMonths.length > 11;
-}
-
-const isSameCompany = (companyId: string, companyData: CompanyData): boolean => {
-    return companyData != undefined && companyData.company != undefined
-        && companyData.company.id != undefined && companyData.company.id === companyId;
 }
 
 const isNotificationExpired = (nowMilliseconds: number, companyNotification?: CompanyNotification): boolean => {

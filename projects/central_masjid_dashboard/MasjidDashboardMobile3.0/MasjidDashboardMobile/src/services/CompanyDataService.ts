@@ -35,8 +35,19 @@ const isValidServiceResponsePrayer = (serviceResponse: ServiceResponse<PrayersDa
         && serviceResponse.target && serviceResponse.target.date;
 }
 
-// Creates new CompanyData by calling APIs
-const refreshCompanyData = (companyData: CompanyData, companyDataVersion: CompanyDataVersion, versionSame: (boolean | undefined), month: number, date: number) => {
+//
+/**
+ * Creates new CompanyData by calling APIs
+ *
+ * TODO: Make this function return a promise. Resolve and reject promise in
+ *
+ * @param companyData
+ * @param companyDataVersion
+ * @param versionSame
+ * @param month
+ * @param date
+ */
+const refreshCompanyData = (companyData: CompanyData, companyDataVersion: CompanyDataVersion, versionSame: (boolean | undefined), month: number, date: number): Promise<any> => {
 
     // @ts-ignore
     const company: Company = companyData.company;
@@ -53,23 +64,29 @@ const refreshCompanyData = (companyData: CompanyData, companyDataVersion: Compan
         }
     };
 
-    const promises: (Promise<ServiceResponse<PrayersDay>> | Promise<Configuration[]> | Promise<PrayersYear>)[] = [
-        apiPrayer(company.id, month, date)];
+    return new Promise((resolve, reject) => {
+        const promises: (Promise<ServiceResponse<PrayersDay>> | Promise<Configuration[]> | Promise<PrayersYear>)[] = [
+            apiPrayer(company.id, month, date)];
 
-    if (!versionSame 
-        || !companyData.configurations || companyData.configurations.length < 1 
-        || !companyData.prayersYear || !companyData.prayersYear.prayersMonths || companyData.prayersYear.prayersMonths.length != 12) {
-        
-        promises.push(apiConfiguration(company.id));
-        promises.push(getPrayersYear(company.id));
-    } else {
-        freshCompanyData.configurations = companyData.configurations;
-        freshCompanyData.prayersYear = companyData.prayersYear;
-    }
+        if (!versionSame
+            || !companyData.configurations || companyData.configurations.length < 1
+            || !companyData.prayersYear || !companyData.prayersYear.prayersMonths || companyData.prayersYear.prayersMonths.length != 12) {
 
-    // @ts-ignore
-    Promise.all(promises).then(apiResponses => processCompanyData(freshCompanyData, apiResponses))
-        .catch(e => console.log("Error calling company data APIs", e));
+            promises.push(apiConfiguration(company.id));
+            promises.push(getPrayersYear(company.id));
+        } else {
+            freshCompanyData.configurations = companyData.configurations;
+            freshCompanyData.prayersYear = companyData.prayersYear;
+        }
+
+        // @ts-ignore
+        Promise.all(promises).then(apiResponses => {
+            processCompanyData(freshCompanyData, apiResponses);
+
+        })
+            .catch(e => console.log("Error calling company data APIs", e));
+    })
+
 
 }
 

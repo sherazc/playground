@@ -129,14 +129,18 @@ export interface SettingData {
     azanAlert: boolean;
     iqamaAlert: boolean;
     beforeIqamaAlert: boolean;
-    companyNotification?: CompanyNotification;
+    companyNotification: CompanyNotification;
 }
 
 export const createDefaultSettingData = (): SettingData => {
     return {
         azanAlert: false,
         iqamaAlert: false,
-        beforeIqamaAlert: false
+        beforeIqamaAlert: false,
+        companyNotification: {
+            companyId: "",
+            expirationMilliseconds: -1
+        }
     }
 }
 

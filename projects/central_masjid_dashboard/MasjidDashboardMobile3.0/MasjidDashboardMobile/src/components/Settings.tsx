@@ -46,19 +46,19 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
     const onCheckAzan = () => {
         const newSetting = { ...setting, azanAlert: !setting.azanAlert };
         setSetting(newSetting);
-        setupNotificationV2Debounce(newSetting, companyData.company.id);
+        setupNotificationV2Debounce(true, newSetting, companyData.company.id);
     }
 
     const onCheckIqama = () => {
         const newSetting = { ...setting, iqamaAlert: !setting.iqamaAlert };
         setSetting(newSetting);
-        setupNotificationV2Debounce(newSetting, companyData.company.id);
+        setupNotificationV2Debounce(true, newSetting, companyData.company.id);
     }
 
     const onCheckBeforeIqama = () => {
         const newSetting = { ...setting, beforeIqamaAlert: !setting.beforeIqamaAlert };
         setSetting(newSetting);
-        setupNotificationV2Debounce(newSetting, companyData.company.id);
+        setupNotificationV2Debounce(true, newSetting, companyData.company.id);
     }
 
     const getBackScreenName = (route: RouteProp<MdParamList, "Settings">) => {
