@@ -1,10 +1,17 @@
-import { storeDispatchSetting, storeGetCompanyData, storeGetSetting } from "../../store/ReduxStoreService";
-import { CompanyData, CompanyNotification, createDefaultSettingData, PrayersDay, PrayersMonth, SettingData } from "../../types/types";
-import { debounce } from "../Debounce";
-import { getCurrentSystemDate, dayOfTheYear, TIME_24_REGX, addMinutesTo24hTime } from '../common/DateService';
-import { expoRemoveAllExistingNotificationsAsync } from "./ExpoNotification";
-import { setupPrayerNotification } from "./SetupPrayerNotification";
-import { createExpirationDate } from "../ExpirableVersionService";
+import {storeDispatchSetting, storeGetCompanyData, storeGetSetting} from "../../store/ReduxStoreService";
+import {
+    CompanyData,
+    CompanyNotification,
+    createDefaultSettingData,
+    PrayersDay,
+    PrayersMonth,
+    SettingData
+} from "../../types/types";
+import {debounce} from "../Debounce";
+import {getCurrentSystemDate, dayOfTheYear, TIME_24_REGX, addMinutesTo24hTime} from '../common/DateService';
+import {expoRemoveAllExistingNotificationsAsync} from "./ExpoNotification";
+import {setupPrayerNotification} from "./SetupPrayerNotification";
+import {createExpirationDate} from "../ExpirableVersionService";
 
 const NotificationConfig = {
     MAX_NOTIFICATION_SETUP_DAYS: 5,
@@ -14,11 +21,14 @@ const NotificationConfig = {
 }
 
 
-const setupNotificationV2 = (settingState: SettingData, companyData: CompanyData) => {
+const setupNotificationV2 = (settingChanged: boolean, setting: SettingData,
+                             companyDataChanged: boolean, companyData: CompanyData) => {
+
     const now = getCurrentSystemDate();
-    const anyAlertOn = isAnyAlertOn(settingState);
+    const anyAlertOn = isAnyAlertOn(setting);
     const validCompanyDataAvailable = isValidCompanyDataAvailable(companyData);
-    const notificationExpired = isNotificationExpired(now.getTime(), settingState.companyNotification);
+    const notificationExpired = isNotificationExpired(now.getTime(), setting.companyNotification);
+    const sameCompany = isSameCompany(setting, companyData);
 
     // Invalid company Data
     if (!validCompanyDataAvailable) {
@@ -34,19 +44,23 @@ const setupNotificationV2 = (settingState: SettingData, companyData: CompanyData
         return;
     }
 
+    if (!sameCompany) {
+        setting.companyNotification.companyId = companyData.company.id;
+    }
+
     // Alerts not expired and same as previous alert settings
-    if (!notificationExpired) {
-        console.log("Not setting up notifications. They are not expired yet.");
+    if (!companyDataChanged && !settingChanged && !notificationExpired) {
+        console.log("Not setting up notifications. CompanyData and SettingData has not changed. Previously set notification has not expired.");
         return;
     }
 
     const notificationPromise = new Promise<SettingData | undefined>((resolve, reject) => {
         removeAllExistingNotificationsAsyncV2().then(() => { // Successfully removed
             console.log("Setting up notifications.");
-            const days = calculatePossibleNotificationDays(settingState, NotificationConfig.MAX_NOTIFICATION_SETUP_DAYS);
+            const days = calculatePossibleNotificationDays(setting, NotificationConfig.MAX_NOTIFICATION_SETUP_DAYS);
             const prayers = getUpcomingPrayers(now, companyData.prayersYear?.prayersMonths, days);
-            prayers.forEach(p => setupPrayerNotification(companyData.company, now, settingState, p));
-            resolve(settingState);
+            prayers.forEach(p => setupPrayerNotification(companyData.company, now, setting, p));
+            resolve(setting);
         }, (reason: any) => { // Failed to remove notification
             reject(reason);
         });
@@ -58,17 +72,17 @@ const setupNotificationV2 = (settingState: SettingData, companyData: CompanyData
             settingState.companyNotification.expirationMilliseconds = createExpirationDate().getTime();
             storeDispatchSetting(settingState);
         }
-        
+
     }, (rejectReason: any) => { // On reject
         removeAllExistingNotificationsAsyncV2();
         const defaultSettingData = createDefaultSettingData();
         storeDispatchSetting(defaultSettingData);
-        
+
     });
 }
 export const setupNotificationV2Debounce = debounce(setupNotificationV2, 3000);
 
-export const removeAllExistingNotificationsAsyncV2 = ():Promise<any> => {
+export const removeAllExistingNotificationsAsyncV2 = (): Promise<any> => {
     return expoRemoveAllExistingNotificationsAsync();
 }
 
@@ -77,6 +91,12 @@ const isSameSettingAlert = (setting1: SettingData, setting2: SettingData) => {
         && setting1.azanAlert === setting2.azanAlert
         && setting1.beforeIqamaAlert === setting2.beforeIqamaAlert
         && setting1.iqamaAlert === setting2.iqamaAlert;
+}
+
+const isSameCompany = (setting: SettingData, companyData: CompanyData): boolean => {
+    return setting && setting.companyNotification && setting.companyNotification.companyId
+        && companyData.company && companyData.company.id
+        && setting.companyNotification.companyId === companyData.company.id;
 }
 
 const isAnyAlertOn = (setting: SettingData): boolean => {
@@ -104,7 +124,7 @@ const calculatePossibleNotificationDays = (setting: SettingData, maxNotification
     multiplier = setting.iqamaAlert ? multiplier + 1 : multiplier;
     const notificationCount = maxNotificationDays * 5 * multiplier;
 
-    let days:number;
+    let days: number;
     if (notificationCount > NotificationConfig.MAX_NOTIFICATIONS) {
         days = NotificationConfig.MAX_NOTIFICATIONS / 5 / multiplier;
     } else {
