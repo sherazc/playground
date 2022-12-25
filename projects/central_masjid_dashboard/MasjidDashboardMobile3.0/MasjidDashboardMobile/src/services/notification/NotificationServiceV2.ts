@@ -56,35 +56,40 @@ const setupNotificationV2 = (settingChanged: boolean, setting: SettingData,
 
     const notificationPromise = new Promise<SettingData | undefined>((resolve, reject) => {
         removeAllExistingNotificationsAsyncV2().then(() => { // Successfully removed
-            console.log("Setting up notifications.");
-            const days = calculatePossibleNotificationDays(setting, NotificationConfig.MAX_NOTIFICATION_SETUP_DAYS);
-            const prayers = getUpcomingPrayers(now, companyData.prayersYear?.prayersMonths, days);
-            prayers.forEach(p => setupPrayerNotification(companyData.company, now, setting, p));
-            resolve(setting);
-        }, (reason: any) => { // Failed to remove notification
-            reject(reason);
-        });
+            try {
+                console.log("Setting up notifications.");
+                const days = calculatePossibleNotificationDays(setting, NotificationConfig.MAX_NOTIFICATION_SETUP_DAYS);
+                const prayers = getUpcomingPrayers(now, companyData.prayersYear?.prayersMonths, days);
+                prayers.forEach(p => setupPrayerNotification(companyData.company, now, setting, p));
+                resolve(setting);
+            } catch (error) {
+                reject(error);
+            }
+        }, (reason: any) => reject(reason)); // Failed to remove notification
     });
-
 
     notificationPromise.then((settingState: (SettingData | undefined)) => { // On accept
         if (settingState) {
             settingState.companyNotification.expirationMilliseconds = createExpirationDate().getTime();
             storeDispatchSetting(settingState);
         }
-
-    }, (rejectReason: any) => { // On reject
-        removeAllExistingNotificationsAsyncV2();
-        const defaultSettingData = createDefaultSettingData();
-        storeDispatchSetting(defaultSettingData);
-
-    });
+    }, notificationPromiseRejectCallback).catch(notificationPromiseRejectCallback);
 }
 export const setupNotificationV2Debounce = debounce(setupNotificationV2, 3000);
 
 export const removeAllExistingNotificationsAsyncV2 = (): Promise<any> => {
     return expoRemoveAllExistingNotificationsAsync();
 }
+
+
+const notificationPromiseRejectCallback = (reason: any) => {
+    console.log("Failed to setup notification.", reason);
+    removeAllExistingNotificationsAsyncV2().then(
+        () => console.log("Attempted to remove notifications again after failed to setup notification."));
+    const defaultSettingData = createDefaultSettingData();
+    storeDispatchSetting(defaultSettingData);
+}
+
 
 const isSameSettingAlert = (setting1: SettingData, setting2: SettingData) => {
     return setting1 && setting2
