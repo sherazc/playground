@@ -24,7 +24,7 @@ const expoSetNotificationHandler = () => {
 }
 
 
-export const expoRemoveAllExistingNotificationsAsync = () => {
+export const expoRemoveNotificationsAsync = () => {
     const promises:Array<Promise<any>> = [];
     
     console.log("Dismissing notification from status bar");

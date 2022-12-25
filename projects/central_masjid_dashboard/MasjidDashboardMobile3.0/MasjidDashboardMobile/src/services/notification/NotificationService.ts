@@ -3,7 +3,7 @@ import { getCurrentSystemDate, dayOfTheYear } from '../common/DateService';
 // import PushNotification from "react-native-push-notification";
 import { storeDispatchCompanyData, storeGetCompanyData, storeGetSetting } from '../../store/ReduxStoreService';
 import { createExpirationDate } from '../ExpirableVersionService';
-import { expoRemoveAllExistingNotificationsAsync } from './ExpoNotification';
+import { expoRemoveNotificationsAsync } from './ExpoNotification';
 import { setupPrayerNotification } from './SetupPrayerNotification';
 
 
@@ -136,7 +136,7 @@ const isAnyAlertOn = (setting: SettingData): boolean => {
 }
 
 export const removeAllExistingNotificationsAsync = ():Promise<any> => {
-    return expoRemoveAllExistingNotificationsAsync();
+    return expoRemoveNotificationsAsync();
 }
 
 

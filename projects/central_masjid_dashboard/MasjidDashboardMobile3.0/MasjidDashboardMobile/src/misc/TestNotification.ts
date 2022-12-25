@@ -1,12 +1,12 @@
 import { 
-    expoRemoveAllExistingNotificationsAsync, 
+    expoRemoveNotificationsAsync,
     expoScheduleNotificationAsync, 
     expoRegisterForNotificationsAsync 
 } from '../services/notification/ExpoNotification';
 import { ScheduleNotification } from '../types/types';
 
 export const testRemoveAllNotifications = () => {
-    expoRemoveAllExistingNotificationsAsync().then(() => console.log("All Notifications Removed!"));
+    expoRemoveNotificationsAsync().then(() => console.log("All Notifications Removed!"));
 }
 
 

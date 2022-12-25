@@ -9,7 +9,7 @@ import {
 } from "../../types/types";
 import {debounce} from "../Debounce";
 import {getCurrentSystemDate, dayOfTheYear, TIME_24_REGX, addMinutesTo24hTime} from '../common/DateService';
-import {expoRemoveAllExistingNotificationsAsync} from "./ExpoNotification";
+import {expoRemoveNotificationsAsync} from "./ExpoNotification";
 import {setupPrayerNotification} from "./SetupPrayerNotification";
 import {createExpirationDate} from "../ExpirableVersionService";
 
@@ -89,7 +89,7 @@ const setupNotification = (settingChanged: boolean, setting: SettingData,
 const setupNotificationV2Debounce = debounce(setupNotification, 3000);
 
 export const removeNotificationsAsyncV2 = (): Promise<any> => {
-    return expoRemoveAllExistingNotificationsAsync();
+    return expoRemoveNotificationsAsync();
 }
 
 
