@@ -12,7 +12,7 @@ import { storeDeleteCompanyData, } from "../store/ReduxStoreService";
 import { useTypedSelector } from "../store/rootReducer";
 import { destroyTrackerInterval } from "../services/AppService";
 import {
-    removeAllExistingNotificationsAsyncV2,
+    removeNotificationsAsyncV2,
     setupNotificationOnSettingChangedHandler,
 } from "../services/notification/NotificationServiceV2";
 
@@ -38,7 +38,7 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
     const onResetMasjid = () => {
         storeDeleteCompanyData();
         navigation.navigate("CompanySelect");
-        removeAllExistingNotificationsAsyncV2().then(result =>
+        removeNotificationsAsyncV2().then(result =>
             console.log("On reset masjid. Removed notifications.", result));
         destroyTrackerInterval("CompanyDataInterval", companyData.tracker);
     }
