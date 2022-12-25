@@ -25,7 +25,7 @@ export const isValidCompany = (company?: Company) => {
 }
 
 
-const isCompanyVersionSame2 = (version?: number, cdv2?: CompanyDataVersion) => {
+const isCompanyVersionSame = (version?: number, cdv2?: CompanyDataVersion) => {
     return version !== undefined && cdv2 && version === cdv2?.version;
 }
 
@@ -135,7 +135,7 @@ export const updateCompanyData = (companyData: CompanyData) => {
 
     // @ts-ignore
     apiCompanyDataVersion(companyData.company.id).then(companyDataVersion => {
-        const versionSame = isCompanyVersionSame2(tracker.expirableVersion?.version, companyDataVersion);
+        const versionSame = isCompanyVersionSame(tracker.expirableVersion?.version, companyDataVersion);
 
         /*
         ✅ TODO: If version is the same then do not update yearMonthPrayers or configurations. Pass version inside refreshCompanyData

@@ -1,5 +1,6 @@
 import {removeStorage, saveStorage, STORAGE_COMPANY_DATA} from '../storage/Storage';
 import { CompanyData, createEmptyCompanyData } from '../types/types';
+import {setupNotificationOnCompanyDataChangedHandler} from "../services/notification/NotificationServiceV2";
 
 // Types
 export const COMPANY_DATA_SET = "COMPANY_DATA_SET";
@@ -27,7 +28,9 @@ export default function companyDataReducer(
         case "COMPANY_DATA_SET":
             console.log("Updating CompanyData in store and storage.", action.payload);
             saveStorage(STORAGE_COMPANY_DATA, action.payload);
-            return {...state, ...action.payload};
+            const newCompanyData = {...state, ...action.payload};
+            setupNotificationOnCompanyDataChangedHandler(state, newCompanyData);
+            return newCompanyData;
         case "COMPANY_DATA_DELETE":
             console.log("Removing CompanyData from store and storage.");
             removeStorage(STORAGE_COMPANY_DATA);

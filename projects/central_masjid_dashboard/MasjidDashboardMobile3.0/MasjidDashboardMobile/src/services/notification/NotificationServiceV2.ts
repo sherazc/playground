@@ -21,7 +21,18 @@ const NotificationConfig = {
 }
 
 
-const setupNotificationV2 = (settingChanged: boolean, setting: SettingData,
+export const setupNotificationOnSettingChangedHandler = (setting: SettingData) => {
+    const companyData = storeGetCompanyData();
+    setupNotification(true, setting, false, companyData);
+}
+
+export const setupNotificationOnCompanyDataChangedHandler = (companyDataPrevious: CompanyData, companyDataNext: CompanyData) => {
+    const setting = storeGetSetting();
+    const sameCompanyDataVersion = isSameCompanyDataVersion(companyDataPrevious, companyDataNext);
+    setupNotification(true, setting, !sameCompanyDataVersion, companyDataNext);
+}
+
+const setupNotification = (settingChanged: boolean, setting: SettingData,
                              companyDataChanged: boolean, companyData: CompanyData) => {
 
     const now = getCurrentSystemDate();
@@ -75,7 +86,7 @@ const setupNotificationV2 = (settingChanged: boolean, setting: SettingData,
         }
     }, notificationPromiseRejectCallback).catch(notificationPromiseRejectCallback);
 }
-export const setupNotificationV2Debounce = debounce(setupNotificationV2, 3000);
+const setupNotificationV2Debounce = debounce(setupNotification, 3000);
 
 export const removeAllExistingNotificationsAsyncV2 = (): Promise<any> => {
     return expoRemoveAllExistingNotificationsAsync();
@@ -152,3 +163,18 @@ const getUpcomingPrayers = (now: Date, pryerMonths: PrayersMonth[], daysCount: n
         .map(i => allPrayers[i]);
 }
 
+
+const isSameCompanyDataVersion = (companyData1: CompanyData, companyData2: CompanyData): boolean => {
+    let version1 = getCompanyDataVersion(companyData1);
+    let version2 = getCompanyDataVersion(companyData2);
+    return version1 && version2 && version1 === version2;
+}
+
+const getCompanyDataVersion = (companyData: CompanyData): number | undefined => {
+    let version = undefined;
+    if (companyData && companyData.tracker && companyData.tracker.expirableVersion
+        && companyData.tracker.expirableVersion.version) {
+        version = companyData.tracker.expirableVersion.version;
+    }
+    return version;
+}

@@ -13,7 +13,7 @@ import { useTypedSelector } from "../store/rootReducer";
 import { destroyTrackerInterval } from "../services/AppService";
 import {
     removeAllExistingNotificationsAsyncV2,
-    setupNotificationV2Debounce
+    setupNotificationOnSettingChangedHandler,
 } from "../services/notification/NotificationServiceV2";
 
 interface Props {
@@ -46,19 +46,19 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
     const onCheckAzan = () => {
         const newSetting = { ...setting, azanAlert: !setting.azanAlert };
         setSetting(newSetting);
-        setupNotificationV2Debounce(true, newSetting, false, companyData);
+        setupNotificationOnSettingChangedHandler(newSetting);
     }
 
     const onCheckIqama = () => {
         const newSetting = { ...setting, iqamaAlert: !setting.iqamaAlert };
         setSetting(newSetting);
-        setupNotificationV2Debounce(true, newSetting, false, companyData);
+        setupNotificationOnSettingChangedHandler(newSetting);
     }
 
     const onCheckBeforeIqama = () => {
         const newSetting = { ...setting, beforeIqamaAlert: !setting.beforeIqamaAlert };
         setSetting(newSetting);
-        setupNotificationV2Debounce(true, newSetting, false, companyData);
+        setupNotificationOnSettingChangedHandler(newSetting);
     }
 
     const getBackScreenName = (route: RouteProp<MdParamList, "Settings">) => {
