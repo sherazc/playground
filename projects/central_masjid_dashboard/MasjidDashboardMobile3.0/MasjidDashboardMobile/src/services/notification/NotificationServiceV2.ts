@@ -23,13 +23,13 @@ const NotificationConfig = {
 
 export const setupNotificationOnSettingChangedHandler = (setting: SettingData) => {
     const companyData = storeGetCompanyData();
-    setupNotification(true, setting, false, companyData);
+    setupNotificationV2Debounce(true, setting, false, companyData);
 }
 
 export const setupNotificationOnCompanyDataChangedHandler = (companyDataPrevious: CompanyData, companyDataNext: CompanyData) => {
     const setting = storeGetSetting();
     const sameCompanyDataVersion = isSameCompanyDataVersion(companyDataPrevious, companyDataNext);
-    setupNotification(true, setting, !sameCompanyDataVersion, companyDataNext);
+    setupNotificationV2Debounce(true, setting, !sameCompanyDataVersion, companyDataNext);
 }
 
 const setupNotification = (settingChanged: boolean, setting: SettingData,
