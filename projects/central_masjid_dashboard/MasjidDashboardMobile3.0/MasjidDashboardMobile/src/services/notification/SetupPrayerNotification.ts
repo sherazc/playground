@@ -1,7 +1,6 @@
 import { Company, PrayersDay, ScheduleNotification, SettingData } from "../../types/types";
 import { addMinutesTo24hTime, TIME_24_REGX } from "../common/DateService";
 import { isNotBlankString } from "../common/Utilities";
-import { getCompanyName } from "../CompanyDataService";
 import { Constants } from "../Constants";
 
 /**
@@ -208,4 +207,8 @@ const scheduleNotification = (notifications: ScheduleNotification[]): void => {
             */
         );
     console.log("############# End Expo Set Notification #############\n\n\n\n", new Date());
+}
+
+const getCompanyName = (company: (Company | undefined)): string => {
+    return company && company.name ? company.name : "";
 }

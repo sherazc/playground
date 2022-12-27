@@ -150,13 +150,3 @@ export const updateCompanyData = (companyData: CompanyData) => {
             .catch(logPromiseReason);
     });
 }
-
-
-export const getCompanyName = (company: (Company | undefined)): string => {
-    return company && company.name ? company.name : "";
-}
-
-export const getCompanyId = (company: (Company | undefined)): (string | undefined) => {
-    return company && company.id ? company.id : undefined;
-}
-
