@@ -18,6 +18,8 @@ import {
 import { apiCompanyDataVersion, apiConfiguration, apiPrayer } from "./ApiMdb";
 import { getPrayersYear } from "./CalendarService";
 import { storeDispatchCompanyData } from "../store/ReduxStoreService";
+import {logPromiseReason, logPromiseReject} from "./common/Utilities";
+import {setupNotificationOnCompanyDataChangedHandler} from "./notification/NotificationServiceV2";
 
 
 export const isValidCompany = (company?: Company) => {
@@ -64,7 +66,7 @@ const refreshCompanyData = (companyData: CompanyData, companyDataVersion: Compan
         }
     };
 
-    return new Promise((resolve, reject) => {
+    return new Promise<CompanyData>((resolve, reject) => {
         const promises: (Promise<ServiceResponse<PrayersDay>> | Promise<Configuration[]> | Promise<PrayersYear>)[] = [
             apiPrayer(company.id, month, date)];
 
@@ -82,13 +84,11 @@ const refreshCompanyData = (companyData: CompanyData, companyDataVersion: Compan
         // @ts-ignore
         Promise.all(promises).then(apiResponses => {
             processCompanyData(freshCompanyData, apiResponses);
-
-        })
-            .catch(e => console.log("Error calling company data APIs", e));
-    })
-
-
+            resolve(freshCompanyData);
+        }).catch(e => logPromiseReject("Error calling company data APIs", e, reject));
+    });
 }
+
 
 const processCompanyData = (companyData: CompanyData, apiResponses: (ServiceResponse<PrayersDay> | Configuration[] | PrayersYear)[]) => {
     if (!apiResponses || apiResponses.length < 1) {
@@ -136,26 +136,19 @@ export const updateCompanyData = (companyData: CompanyData) => {
     // @ts-ignore
     apiCompanyDataVersion(companyData.company.id).then(companyDataVersion => {
         const versionSame = isCompanyVersionSame(tracker.expirableVersion?.version, companyDataVersion);
-
         /*
         ✅ TODO: If version is the same then do not update yearMonthPrayers or configurations. Pass version inside refreshCompanyData
 
-        TODO: Check why should we call setupNotifications here. It would be better if we call it once refresh is complete
+        ✅ TODO: Check why should we call setupNotifications here. It would be better if we call it once refresh is complete
 
         TODO: Maybe Make updateCompanyListData2() work the same.
         I think companyList do not need to be updated daily
         I think companyList needs to be updated only when companyListVersion is updated.
-
         */
-
-        refreshCompanyData(companyData, companyDataVersion, versionSame, nowMonth, nowDate);
-        
-        // Setup notifications
-        // @ts-ignore
-        // setupNotifications(companyData.company.id, false);
-        // }
+        refreshCompanyData(companyData, companyDataVersion, versionSame, nowMonth, nowDate)
+            .then(freshCompanyData => setupNotificationOnCompanyDataChangedHandler(freshCompanyData), logPromiseReason)
+            .catch(logPromiseReason);
     });
-
 }
 
 

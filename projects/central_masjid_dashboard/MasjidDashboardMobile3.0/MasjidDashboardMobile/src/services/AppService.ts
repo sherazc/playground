@@ -74,7 +74,6 @@ export const beginCompanyDataInterval = (companyData: CompanyData) => {
     updateCompanyData(companyData);
     tracker.updateInterval = setInterval(() => {
         updateCompanyData(companyData);
-
     }, Constants.UPDATE_INTERVAL_MILLIS);
 }
 

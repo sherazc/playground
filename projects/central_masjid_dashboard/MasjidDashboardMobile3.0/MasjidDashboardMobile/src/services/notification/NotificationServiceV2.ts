@@ -26,12 +26,24 @@ export const setupNotificationOnSettingChangedHandler = (setting: SettingData) =
     setupNotificationV2Debounce(true, setting, false, companyData);
 }
 
-export const setupNotificationOnCompanyDataChangedHandler = (companyDataPrevious: CompanyData, companyDataNext: CompanyData) => {
+export const setupNotificationOnCompanyDataChangedHandler = (companyData: CompanyData) => {
     const setting = storeGetSetting();
-    const sameCompanyDataVersion = isSameCompanyDataVersion(companyDataPrevious, companyDataNext);
-    setupNotificationV2Debounce(true, setting, !sameCompanyDataVersion, companyDataNext);
+    setupNotificationV2Debounce(false, setting, true, companyData);
 }
 
+
+/**
+ * This method should be called on
+ *  - SettingData changed
+ *      - Called in Setting.tsx
+ *  - After CompanyData is refreshed and App startup. CompanyData is refreshed when it expires and App startup.
+ *      - Called inside CompanyDataService.ts updateCompanyData()
+ *
+ * @param settingChanged
+ * @param setting
+ * @param companyDataChanged
+ * @param companyData
+ */
 const setupNotification = (settingChanged: boolean, setting: SettingData,
                              companyDataChanged: boolean, companyData: CompanyData) => {
 
@@ -57,6 +69,13 @@ const setupNotification = (settingChanged: boolean, setting: SettingData,
 
     if (!sameCompany) {
         setting.companyNotification.companyId = companyData.company.id;
+    }
+
+    if (!settingChanged) { // Check other condition only when settings has not changed
+        if (companyDataChanged && !notificationExpired) { // Expired only applied when company data
+            console.log("Not setting up notifications. CompanyData and SettingData has not changed. Previously set notification has not expired.");
+            return;
+        }
     }
 
     // Alerts not expired and same as previous alert settings

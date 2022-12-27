@@ -91,3 +91,14 @@ export const trimEllipsis = (str: string, maxLength: number) => {
         return str;
     }
 };
+
+
+// TODO Unit test it
+export const logPromiseReject = (message: string, reason: any, reject: (reason?: any) => void) => {
+    console.log("Rejecting Promise. " + message, reason);
+    reject(reason);
+}
+
+
+// TODO: Unit test it
+export const logPromiseReason = (reason: any) => console.log("Promise error. ", reason);
