@@ -72,7 +72,7 @@ const setupNotification = (settingChanged: boolean, setting: SettingData,
         setting.companyNotification.companyId = companyData.company.id;
     }
 
-    if (!settingChanged) { // If settings has changes then ignore notificationExpired check.
+    if (sameCompany && !settingChanged) { // If settings has changes then ignore notificationExpired check.
         if (companyDataChanged && !notificationExpired) { // Expired only applied when company data
             console.log("Not setting up notifications. SettingData has not changed. Previously set notification has not expired.");
             return;
@@ -157,9 +157,9 @@ const calculatePossibleNotificationDays = (setting: SettingData, maxNotification
 }
 
 
-const getUpcomingPrayers = (now: Date, pryerMonths: PrayersMonth[], daysCount: number): PrayersDay[] => {
+const getUpcomingPrayers = (now: Date, prayerMonths: PrayersMonth[], daysCount: number): PrayersDay[] => {
     const allPrayers: PrayersDay[] = [];
-    pryerMonths
+    prayerMonths
         .map(pm => pm.prayers)
         .forEach(prayers => prayers.map(p => allPrayers.push(p)));
 
