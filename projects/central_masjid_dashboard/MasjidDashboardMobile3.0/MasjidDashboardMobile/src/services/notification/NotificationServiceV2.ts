@@ -8,7 +8,7 @@ import {
     SettingData
 } from "../../types/types";
 import {debounce} from "../Debounce";
-import {getCurrentSystemDate, dayOfTheYear} from '../common/DateService';
+import {getCurrentSystemDate, dayOfTheYear, MdDate, addYears} from '../common/DateService';
 import {expoRemoveNotificationsAsync} from "./ExpoNotification";
 import {setupPrayerNotification} from "./SetupPrayerNotification";
 import {createExpirationDate} from "../ExpirableVersionService";
@@ -159,14 +159,25 @@ const calculatePossibleNotificationDays = (setting: SettingData, maxNotification
 
 const getUpcomingPrayers = (now: Date, prayerMonths: PrayersMonth[], daysCount: number): PrayersDay[] => {
     const allPrayers: PrayersDay[] = [];
+    // Current year prayer
     prayerMonths
         .map(pm => pm.prayers)
         .forEach(prayers => prayers.map(p => allPrayers.push(p)));
 
-    const dayOfYear = dayOfTheYear(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+    // Next year prayers
+    prayerMonths
+        .map(pm => pm.prayers)
+        .forEach(prayers => prayers.map(p => allPrayers.push({
+            ...p,
+            date: new MdDate(addYears(p.date.jsDate, 1))
+        })));
+
+
+    const dayOfYear = dayOfTheYear(now.getFullYear(), now.getMonth(), now.getDate());
+
     return Array(daysCount)
         .fill(0)
-        .map((_, i) => Math.abs((i + dayOfYear - 1) % 366))
+        .map((_, i) => i + dayOfYear - 1) // -1 because dayOfYear start from 1
         .map(i => allPrayers[i]);
 }
 

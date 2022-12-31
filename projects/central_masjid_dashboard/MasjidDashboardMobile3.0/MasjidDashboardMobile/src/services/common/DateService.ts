@@ -442,6 +442,22 @@ export const dateToTime12h = (date?: Date | null) => {
 }
 
 
+export const addYears = (date?: (Date | undefined | null), year?: (number | undefined | null)) => {
+    if (!date) {
+        return;
+    }
+
+    if (!year) {
+        return date;
+    }
+
+
+    const calculatedDate = new Date(date.getTime());
+    calculatedDate.setUTCFullYear(date.getUTCFullYear() + year);
+    return calculatedDate;
+}
+
+
 export const addDays = (date?: (Date | undefined | null), days?: (number | undefined | null)) => {
     if (!date) {
         return;
@@ -514,7 +530,15 @@ export const millisecondDurationToMinSecTime = (duration?: (number | null)) => {
     }
 }
 
-
+/**
+ * Starts from 1
+ * Jan 1 will return 1
+ * Dec 31 will return 365 or 366 depending on the leap year
+ *
+ * @param year
+ * @param month
+ * @param date
+ */
 export const dayOfTheYear = (year: number, month: number, date: number): number => {
     const dateWithoutTime = new Date(year, month, date);
     const yearStartDate = new Date(year, month, date);
