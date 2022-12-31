@@ -8,7 +8,7 @@ import {
     SettingData
 } from "../../types/types";
 import {debounce} from "../Debounce";
-import {getCurrentSystemDate, dayOfTheYear, TIME_24_REGX, addMinutesTo24hTime} from '../common/DateService';
+import {getCurrentSystemDate, dayOfTheYear} from '../common/DateService';
 import {expoRemoveNotificationsAsync} from "./ExpoNotification";
 import {setupPrayerNotification} from "./SetupPrayerNotification";
 import {createExpirationDate} from "../ExpirableVersionService";
@@ -45,8 +45,9 @@ export const setupNotificationOnCompanyDataChangedHandler = (companyData: Compan
  * @param companyData
  */
 const setupNotification = (settingChanged: boolean, setting: SettingData,
-                             companyDataChanged: boolean, companyData: CompanyData) => {
+                           companyDataChanged: boolean, companyData: CompanyData) => {
 
+    console.log("Attempting to set notifications.");
     const now = getCurrentSystemDate();
     const anyAlertOn = isAnyAlertOn(setting);
     const validCompanyDataAvailable = isValidCompanyDataAvailable(companyData);
@@ -71,17 +72,11 @@ const setupNotification = (settingChanged: boolean, setting: SettingData,
         setting.companyNotification.companyId = companyData.company.id;
     }
 
-    if (!settingChanged) { // Check other condition only when settings has not changed
+    if (!settingChanged) { // If settings has changes then ignore notificationExpired check.
         if (companyDataChanged && !notificationExpired) { // Expired only applied when company data
-            console.log("Not setting up notifications. CompanyData and SettingData has not changed. Previously set notification has not expired.");
+            console.log("Not setting up notifications. SettingData has not changed. Previously set notification has not expired.");
             return;
         }
-    }
-
-    // Alerts not expired and same as previous alert settings
-    if (!companyDataChanged && !settingChanged && !notificationExpired) {
-        console.log("Not setting up notifications. CompanyData and SettingData has not changed. Previously set notification has not expired.");
-        return;
     }
 
     const notificationPromise = new Promise<SettingData | undefined>((resolve, reject) => {
@@ -120,13 +115,6 @@ const notificationPromiseRejectCallback = (reason: any) => {
     storeDispatchSetting(defaultSettingData);
 }
 
-
-const isSameSettingAlert = (setting1: SettingData, setting2: SettingData) => {
-    return setting1 && setting2
-        && setting1.azanAlert === setting2.azanAlert
-        && setting1.beforeIqamaAlert === setting2.beforeIqamaAlert
-        && setting1.iqamaAlert === setting2.iqamaAlert;
-}
 
 const isSameCompany = (setting: SettingData, companyData: CompanyData): boolean => {
     return setting && setting.companyNotification && setting.companyNotification.companyId
@@ -182,18 +170,3 @@ const getUpcomingPrayers = (now: Date, pryerMonths: PrayersMonth[], daysCount: n
         .map(i => allPrayers[i]);
 }
 
-
-const isSameCompanyDataVersion = (companyData1: CompanyData, companyData2: CompanyData): boolean => {
-    let version1 = getCompanyDataVersion(companyData1);
-    let version2 = getCompanyDataVersion(companyData2);
-    return version1 && version2 && version1 === version2;
-}
-
-const getCompanyDataVersion = (companyData: CompanyData): number | undefined => {
-    let version = undefined;
-    if (companyData && companyData.tracker && companyData.tracker.expirableVersion
-        && companyData.tracker.expirableVersion.version) {
-        version = companyData.tracker.expirableVersion.version;
-    }
-    return version;
-}

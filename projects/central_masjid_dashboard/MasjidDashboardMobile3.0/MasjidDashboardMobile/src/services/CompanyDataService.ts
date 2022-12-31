@@ -111,7 +111,7 @@ const processCompanyData = (companyData: CompanyData, apiResponses: (ServiceResp
 
 
 export const updateCompanyData = (companyData: CompanyData) => {
-    console.log("Attempting update CompanyData", companyData);
+    console.log("Attempting to update CompanyData", companyData);
     if (!isValidCompany(companyData.company)) {
         console.log("Not updating CompanyData. CompanyData.company is not valid.");
         return;
@@ -120,7 +120,7 @@ export const updateCompanyData = (companyData: CompanyData) => {
     const nowMonth = getTodaysMonth();
     const nowDate = getTodaysDate();
     const tracker = companyData.tracker;
-    const sameMonthDate = isSameMonthDate(tracker.previousMonth, nowMonth, tracker.previousDate, nowDate);
+    const sameMonthDate = isSameMonthDate(tracker.previousMonth, tracker.previousDate, nowMonth, nowDate);
     const expired = isExpired(tracker.expirableVersion);
 
     if (!expired && sameMonthDate) {
