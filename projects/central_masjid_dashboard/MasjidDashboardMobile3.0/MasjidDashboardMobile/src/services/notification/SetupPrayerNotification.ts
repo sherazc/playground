@@ -1,16 +1,17 @@
-import { Company, PrayersDay, ScheduleNotification, SettingData } from "../../types/types";
-import { addMinutesTo24hTime, TIME_24_REGX } from "../common/DateService";
-import { isNotBlankString } from "../common/Utilities";
-import { Constants } from "../Constants";
+import {Company, PrayersDay, ScheduleNotification, SettingData} from "../../types/types";
+import {addMinutesTo24hTime, TIME_24_REGX} from "../common/DateService";
+import {isNotBlankString} from "../common/Utilities";
+import {Constants} from "../Constants";
+import {expoRegisterForNotificationsAsync, expoScheduleNotificationAsync} from "./ExpoNotification";
 
 /**
  * Sets up notification for a single PrayerDay.
- * 
- * @param company 
- * @param now 
- * @param setting 
- * @param prayer 
- * @returns 
+ *
+ * @param company
+ * @param now
+ * @param setting
+ * @param prayer
+ * @returns
  */
 
 export const setupPrayerNotification = (company: (Company | undefined), now: Date, setting: SettingData, prayer: PrayersDay) => {
@@ -133,11 +134,8 @@ export const setupPrayerNotification = (company: (Company | undefined), now: Dat
         if (notification) notifications.push(notification);
     }
 
-    scheduleNotification(notifications);
+    scheduleNotifications(notifications);
 }
-
-
-
 
 
 const createNotification = (title: string, message: string, now: Date, prayerDate: Date, time: string): (ScheduleNotification | undefined) => {
@@ -153,61 +151,93 @@ const createNotification = (title: string, message: string, now: Date, prayerDat
 
     let notification: (ScheduleNotification | undefined);
     if (scheduleDate.getTime() > now.getTime()) {
-        notification = { date: scheduleDate, title, message };
+        notification = {date: scheduleDate, title, message};
     }
 
     return notification;
 }
 
+
 const createAzanTitle = (companyName: string, prayerName: string) => {
     return `${prayerName} at ${companyName}`;
 }
+
 
 const createAzanMessage = (companyName: string, prayerName: string) => {
     return `It's ${prayerName} azan time at your ${companyName}. Get ready for salah.`;
 }
 
+
 const createIqamaTitle = (companyName: string, prayerName: string) => {
     return `${prayerName} iqama at ${companyName}`;
 }
+
 
 const createIqamaMessage = (companyName: string, prayerName: string) => {
     return `${prayerName} jamah is starting at ${companyName}.`;
 }
 
+
 const createBeforeIqamaTitle = (companyName: string, prayerName: string) => {
     return `${Constants.PRAYER_ABOUT_TO_START_MIN} mins - ${prayerName} iqama at ${companyName}`;
 }
+
 
 const createBeforeIqamaMessage = (companyName: string, prayerName: string) => {
     return `${prayerName} jamah is about to stand in ${Constants.PRAYER_ABOUT_TO_START_MIN} minutes at ${companyName}.`;
 }
 
-const scheduleNotification = (notifications: ScheduleNotification[]): void => {
+
+const scheduleNotifications = (notifications: ScheduleNotification[]): void => {
     if (!notifications || notifications.length < 1) {
         return;
     }
-
 
     console.log("\n\n\n\n############# Start Expo Set Notification #############");
     notifications
         .filter(n => n)
         .filter(n => n.date && isNotBlankString(n.message) && isNotBlankString(n.title))
-        .forEach(n =>
-            console.log("Expo Set notification.", n)
-
-            /*
-            PushNotification.localNotificationSchedule({
-                title: n.title,
-                message: n.message,
-                date: n.date,
-                largeIcon: "status_bar_icon_large",
-                smallIcon: "status_bar_icon_small",
-            })
-            */
-        );
+        .forEach(n => registerAndScheduleSingleNotification(n));
     console.log("############# End Expo Set Notification #############\n\n\n\n", new Date());
 }
+
+/*
+Before expo notification setup.
+
+PushNotification.localNotificationSchedule({
+    title: n.title,
+    message: n.message,
+    date: n.date,
+    largeIcon: "status_bar_icon_large",
+    smallIcon: "status_bar_icon_small",
+})
+*/
+
+let deviceRegistered = false;
+let scheduleNotificationRetryCount = 0;
+let scheduleNotificationRetryTotal = 3;
+const registerAndScheduleSingleNotification = async (notification: ScheduleNotification) => {
+    console.log("Scheduling notification.", JSON.stringify(notification));
+    if (!deviceRegistered && scheduleNotificationRetryCount < scheduleNotificationRetryTotal) {
+        try {
+            deviceRegistered = await expoRegisterForNotificationsAsync();
+            if (!deviceRegistered) {
+                scheduleNotificationRetryCount++;
+                console.log("Failed to register device for local notification.");
+                return;
+            } else {
+                const notificationId = await expoScheduleNotificationAsync(notification);
+                console.log(`Notification scheduled. id=${notificationId}`);
+            }
+        } catch (e: any) {
+            scheduleNotificationRetryCount++
+            console.log("Failed to schedule notification.", e);
+        }
+    } else {
+        console.log("Not scheduling notification.");
+    }
+}
+
 
 const getCompanyName = (company: (Company | undefined)): string => {
     return company && company.name ? company.name : "";
