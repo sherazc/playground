@@ -197,7 +197,8 @@ const scheduleNotifications = (notifications: ScheduleNotification[]): void => {
     notifications
         .filter(n => n)
         .filter(n => n.date && isNotBlankString(n.message) && isNotBlankString(n.title))
-        .forEach(n => registerAndScheduleSingleNotification(n));
+        // .forEach(n => registerAndScheduleSingleNotification(n));
+        .forEach(n => registerAndScheduleSingleNotification2(n));
     console.log("############# End Expo Set Notification #############\n\n\n\n", new Date());
 }
 
@@ -216,6 +217,31 @@ PushNotification.localNotificationSchedule({
 let deviceRegistered = false;
 let scheduleNotificationRetryCount = 0;
 let scheduleNotificationRetryTotal = 3;
+
+const registerAndScheduleSingleNotification2 = (notification: ScheduleNotification) => {
+    console.log("Scheduling notification.", JSON.stringify(notification));
+    if (!deviceRegistered && scheduleNotificationRetryCount < scheduleNotificationRetryTotal) {
+        // register and schedule
+        expoRegisterForNotificationsAsync().then(registered => {
+            deviceRegistered = registered
+            if (registered) {
+                console.log("&&&&&&&&&&&&&& Successfully registered " + scheduleNotificationRetryCount);
+                expoScheduleNotificationAsync(notification).then(id =>
+                    console.log("Registered notification id=" + id));
+
+            } else {
+                scheduleNotificationRetryCount++
+                console.log("@@@@@@@@@@@@@@ Failed to register " + scheduleNotificationRetryCount);
+            }
+        })
+    } else if (deviceRegistered) {
+        // schedule only
+        console.log("************** Already registered ");
+        expoScheduleNotificationAsync(notification).then(id =>
+            console.log("Registered notification id=" + id));
+    }
+}
+
 const registerAndScheduleSingleNotification = async (notification: ScheduleNotification) => {
     console.log("Scheduling notification.", JSON.stringify(notification));
     if (!deviceRegistered && scheduleNotificationRetryCount < scheduleNotificationRetryTotal) {
