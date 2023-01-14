@@ -3,8 +3,10 @@ package com.sc.rxjava;
 import io.reactivex.rxjava3.core.Observable;
 
 import java.util.List;
+import java.util.stream.Stream;
 
-public class RxJava01_createObservable {
+public class Rx01_createObservable {
+
 
     public static void main(String[] args) {
         createObserverWithJust();
