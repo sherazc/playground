@@ -14,7 +14,7 @@ public class Rx03_create_emitter {
         Observable<String> observable = Observable.create(emitter -> {
             try {
                 emitter.onNext("Alpha"); // onNext() could be called infinite time.
-                emitter.onNext("Beta");
+                emitter.onNext("Beta"); // onNext() must be called in the same thread.
                 emitter.onNext("Gamma");
                 emitter.onComplete(); // Marks complete
             } catch (Exception e) {
@@ -26,9 +26,9 @@ public class Rx03_create_emitter {
                 .map(String::length)
                 .filter(i -> i > 4)
                 .subscribe( // Observer consumes Observable
-                        System.out::println, // On Next
-                        System.out::println, // On Complete
-                        System.out::println  // On Error
+                        System.out::println, // On Next Consumer
+                        System.out::println, // On Complete Consumer
+                        System.out::println  // On Error Consumer
                 );
 
         streamAlternativesToObservableEmmitter();
