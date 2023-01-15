@@ -28,18 +28,17 @@ public class Rx02_stream_vs_rx {
         /*
         Differences:
 
-        Java Streams work on pull items
-        RxJava Observable work on push items
+        Java Streams work on pull-base logic.
+        RxJava Observable work on push-base logic.
 
-        Java Streams has static data
-        RxJava Observable items could generate infinitely
+        Java Streams start to pull items from the source on the terminal operator.
+
+        RxJava Observable push items from the source on subscribe.
          */
-
 
         Observable.interval(1, TimeUnit.SECONDS)
                 .subscribe(System.out::println);
 
         MyUtils.sleep(10);
-
     }
 }
