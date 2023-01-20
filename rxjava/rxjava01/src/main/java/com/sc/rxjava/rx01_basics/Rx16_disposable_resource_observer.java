@@ -1,5 +1,6 @@
-package com.sc.rxjava;
+package com.sc.rxjava.rx01_basics;
 
+import com.sc.rxjava.MyUtils;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.observers.ResourceObserver;

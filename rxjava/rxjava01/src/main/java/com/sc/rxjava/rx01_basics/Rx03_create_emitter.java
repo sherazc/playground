@@ -1,4 +1,4 @@
-package com.sc.rxjava;
+package com.sc.rxjava.rx01_basics;
 
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.functions.Action;
