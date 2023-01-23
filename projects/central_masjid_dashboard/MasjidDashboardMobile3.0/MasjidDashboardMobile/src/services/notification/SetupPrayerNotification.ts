@@ -221,8 +221,9 @@ let scheduleNotificationRetryTotal = 3;
 const registerAndScheduleSingleNotification2 = (notification: ScheduleNotification) => {
     console.log("Scheduling notification.", JSON.stringify(notification));
     if (!deviceRegistered && scheduleNotificationRetryCount < scheduleNotificationRetryTotal) {
+        const getRetryCount = () => scheduleNotificationRetryCount;
         // register and schedule
-        expoRegisterForNotificationsAsync().then(registered => {
+        expoRegisterForNotificationsAsync(getRetryCount).then(registered => {
             deviceRegistered = registered
             if (registered) {
                 console.log("&&&&&&&&&&&&&& Successfully registered " + scheduleNotificationRetryCount);
@@ -246,7 +247,7 @@ const registerAndScheduleSingleNotification = async (notification: ScheduleNotif
     console.log("Scheduling notification.", JSON.stringify(notification));
     if (!deviceRegistered && scheduleNotificationRetryCount < scheduleNotificationRetryTotal) {
         try {
-            deviceRegistered = await expoRegisterForNotificationsAsync();
+            deviceRegistered = await expoRegisterForNotificationsAsync(() => 1);
             if (!deviceRegistered) {
                 scheduleNotificationRetryCount++;
                 console.log("Failed to register device for local notification.");

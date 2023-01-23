@@ -67,9 +67,10 @@ export const expoScheduleNotificationAsync = async (scheduleNotification: Schedu
 
 // https://docs.expo.dev/push-notifications/push-notifications-setup/
 // returns boolean if registration was successful
-export const expoRegisterForNotificationsAsync = async (): Promise<boolean> => {
+export const expoRegisterForNotificationsAsync = async (getRetryCount: ()=> number): Promise<boolean> => {
     let result = false;
-
+    const retryCount = getRetryCount();
+    console.log(retryCount)
     if (Device.isDevice) {
 
         const { status: existingStatus } = await Notifications.getPermissionsAsync();

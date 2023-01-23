@@ -1,0 +1,47 @@
+version: "3.3"
+
+networks:
+  sheraz_network:
+    driver: bridge
+services:
+  sheraz_db:
+    image: mariadb
+    container_name: sheraz_db
+    ports: 
+      - "3306:3306"
+    expose:
+      - "3306"
+    volumes:
+      - type: bind
+        # Fix source before using it
+        source: ~/dev/wp-calendar-test/mysql-data
+        target: /var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: somewordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+      MYSQL_ROOT_HOST: "%"
+    networks:
+      - sheraz_network
+  wordpress:
+    container_name: wordpress
+    depends_on:
+      - sheraz_db
+    image: wordpress:latest
+    ports:
+      - "8000:80"
+    restart: always
+    volumes:
+      - type: bind
+        # Fix source before using it
+        source: ~/dev/wp-calendar-test/wordpress-wp-content
+        target: /var/www/html/wp-content
+    environment:
+      WORDPRESS_DB_HOST: sheraz_db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    networks:
+      - sheraz_network
