@@ -188,83 +188,30 @@ const createBeforeIqamaMessage = (companyName: string, prayerName: string) => {
 }
 
 
-const scheduleNotifications = (notifications: ScheduleNotification[]): void => {
-    if (!notifications || notifications.length < 1) {
-        return;
-    }
-
-    console.log("\n\n\n\n############# Start Expo Set Notification #############");
-    notifications
-        .filter(n => n)
-        .filter(n => n.date && isNotBlankString(n.message) && isNotBlankString(n.title))
-        // .forEach(n => registerAndScheduleSingleNotification(n));
-        .forEach(n => registerAndScheduleSingleNotification2(n));
-    console.log("############# End Expo Set Notification #############\n\n\n\n", new Date());
-}
-
-/*
-Before expo notification setup.
-
-PushNotification.localNotificationSchedule({
-    title: n.title,
-    message: n.message,
-    date: n.date,
-    largeIcon: "status_bar_icon_large",
-    smallIcon: "status_bar_icon_small",
-})
-*/
-
-let deviceRegistered = false;
-let scheduleNotificationRetryCount = 0;
-let scheduleNotificationRetryTotal = 3;
-
-const registerAndScheduleSingleNotification2 = (notification: ScheduleNotification) => {
-    console.log("Scheduling notification.", JSON.stringify(notification));
-    if (!deviceRegistered && scheduleNotificationRetryCount < scheduleNotificationRetryTotal) {
-        const getRetryCount = () => scheduleNotificationRetryCount;
-        // register and schedule
-        expoRegisterForNotificationsAsync(getRetryCount).then(registered => {
-            deviceRegistered = registered
-            if (registered) {
-                console.log("&&&&&&&&&&&&&& Successfully registered " + scheduleNotificationRetryCount);
-                expoScheduleNotificationAsync(notification).then(id =>
-                    console.log("Registered notification id=" + id));
-
-            } else {
-                scheduleNotificationRetryCount++
-                console.log("@@@@@@@@@@@@@@ Failed to register " + scheduleNotificationRetryCount);
-            }
-        })
-    } else if (deviceRegistered) {
-        // schedule only
-        console.log("************** Already registered ");
-        expoScheduleNotificationAsync(notification).then(id =>
-            console.log("Registered notification id=" + id));
-    }
-}
-
-const registerAndScheduleSingleNotification = async (notification: ScheduleNotification) => {
-    console.log("Scheduling notification.", JSON.stringify(notification));
-    if (!deviceRegistered && scheduleNotificationRetryCount < scheduleNotificationRetryTotal) {
-        try {
-            deviceRegistered = await expoRegisterForNotificationsAsync(() => 1);
-            if (!deviceRegistered) {
-                scheduleNotificationRetryCount++;
-                console.log("Failed to register device for local notification.");
-                return;
-            } else {
-                const notificationId = await expoScheduleNotificationAsync(notification);
-                console.log(`Notification scheduled. id=${notificationId}`);
-            }
-        } catch (e: any) {
-            scheduleNotificationRetryCount++
-            console.log("Failed to schedule notification.", e);
+const maxFailureCount = 3;
+let failureCount = 0;
+let successfullyRegistered = false;
+const scheduleNotifications = async (notifications: ScheduleNotification[]) => {
+    for(const notification of notifications) {
+        if (failureCount >= maxFailureCount) {
+            return
         }
-    } else {
-        console.log("Not scheduling notification.");
+        try {
+            if (successfullyRegistered) {
+                await expoScheduleNotificationAsync(notification);
+            } else {
+                successfullyRegistered = await expoRegisterForNotificationsAsync();
+                if (successfullyRegistered) {
+                    await expoScheduleNotificationAsync(notification);
+                } else {
+                    failureCount++;
+                }
+            }
+        } catch (e) {
+            failureCount++
+        }
     }
 }
-
 
 const getCompanyName = (company: (Company | undefined)): string => {
     return company && company.name ? company.name : "";
