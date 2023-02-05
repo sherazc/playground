@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "example01": "ts-node src/example01.ts"
+    "example01": "ts-node src/example01.ts",
+    "example01-node": "tsc && node dist/example01.js",
+    "example02": "ts-node src/example02.ts"
   },
   "author": "",
   "license": "ISC",

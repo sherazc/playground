@@ -10,7 +10,7 @@ export const registerDevice = (name: string) => {
                 console.log(`Can not register device ${name}`)
                 reject(`Failed to register ${name}...`);
             } else {
-                console.log(`Successfully register device ${name}`)
+                console.log(`Successfully registered device ${name}`)
                 resolve(name);
             }
         }, 1000);
@@ -20,6 +20,7 @@ export const registerDevice = (name: string) => {
 export const setupNotification = (notification: string) => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
+            console.log(`Successfully setup notification ${notification}`)
             resolve(notification);
         }, 500);
     });

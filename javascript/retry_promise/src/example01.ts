@@ -1,4 +1,4 @@
-import {registerDevice, setupNotification} from "./NotificaitonService";
+import {registerDevice, setupNotification} from "./NotificationService";
 
 const deviceName = "A"
 const maxFailureCount = 3;
@@ -9,7 +9,9 @@ const notifications = Array(10)
     .fill(1)
     .map((x, y) => x + y)
     .map(i => "N" + i);
-
+/**
+ * This example do not work
+ */
 (() => {
     notifications.every((notification) => {
         if (successfullyRegistered) {
