@@ -19,7 +19,7 @@ import { apiCompanyDataVersion, apiConfiguration, apiPrayer } from "./ApiMdb";
 import { getPrayersYear } from "./CalendarService";
 import { storeDispatchCompanyData } from "../store/ReduxStoreService";
 import {logPromiseReason, logPromiseReject} from "./common/Utilities";
-import {setupNotificationOnCompanyDataChangedHandler} from "./notification/NotificationServiceV2";
+import {setupNotificationOnCompanyDataChangedHandler} from "./notification/NotificationService";
 
 
 export const isValidCompany = (company?: Company) => {

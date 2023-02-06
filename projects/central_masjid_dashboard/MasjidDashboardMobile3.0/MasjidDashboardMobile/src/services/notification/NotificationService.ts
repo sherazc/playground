@@ -56,14 +56,14 @@ const setupNotification = (settingChanged: boolean, setting: SettingData,
 
     // Invalid company Data
     if (!validCompanyDataAvailable) {
-        removeNotificationsAsyncV2().then(
+        removeNotificationsAsync().then(
             () => console.log("Removed all notifications. CompanyData is invalid."));
         return;
     }
 
     // No alerts setting
     if (!anyAlertOn) {
-        removeNotificationsAsyncV2().then(
+        removeNotificationsAsync().then(
             () => console.log("Removed all notifications. No alerts are on."));
         return;
     }
@@ -80,7 +80,7 @@ const setupNotification = (settingChanged: boolean, setting: SettingData,
     }
 
     const notificationPromise = new Promise<SettingData | undefined>((resolve, reject) => {
-        removeNotificationsAsyncV2().then(() => { // Successfully removed
+        removeNotificationsAsync().then(() => { // Successfully removed
             try {
                 console.log("Setting up notifications.");
                 const days = calculatePossibleNotificationDays(setting, NotificationConfig.MAX_NOTIFICATION_SETUP_DAYS);
@@ -102,14 +102,14 @@ const setupNotification = (settingChanged: boolean, setting: SettingData,
 }
 const setupNotificationV2Debounce = debounce(setupNotification, 3000);
 
-export const removeNotificationsAsyncV2 = (): Promise<any> => {
+export const removeNotificationsAsync = (): Promise<any> => {
     return expoRemoveNotificationsAsync();
 }
 
 
 const notificationPromiseRejectCallback = (reason: any) => {
     console.log("Failed to setup notification.", reason);
-    removeNotificationsAsyncV2().then(
+    removeNotificationsAsync().then(
         () => console.log("Attempted to remove notifications again after failed to setup notification."));
     const defaultSettingData = createDefaultSettingData();
     storeDispatchSetting(defaultSettingData);
