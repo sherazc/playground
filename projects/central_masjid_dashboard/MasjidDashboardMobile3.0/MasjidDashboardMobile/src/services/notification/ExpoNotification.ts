@@ -1,7 +1,7 @@
 import * as Notifications from 'expo-notifications';
-import { ScheduleNotification } from '../../types/types';
+import {ScheduleNotification} from '../../types/types';
 import * as Device from 'expo-device';
-import { Alert } from 'react-native';
+import {Alert} from 'react-native';
 
 // Deprecated - Not sure
 const expoSetNotificationHandler = () => {
@@ -25,8 +25,8 @@ const expoSetNotificationHandler = () => {
 
 
 export const expoRemoveNotificationsAsync = () => {
-    const promises:Array<Promise<any>> = [];
-    
+    const promises: Array<Promise<any>> = [];
+
     console.log("Dismissing notification from status bar");
     const dismissAllPromise: Promise<void> = Notifications.dismissAllNotificationsAsync();
     promises.push(dismissAllPromise);
@@ -34,7 +34,7 @@ export const expoRemoveNotificationsAsync = () => {
     const cancelAllPromise: Promise<void> = Notifications.cancelAllScheduledNotificationsAsync();
     promises.push(cancelAllPromise);
     console.log("Removing individual notifications");
-    
+
 
     Notifications.getAllScheduledNotificationsAsync()
         .then(expoNotificationArray => expoNotificationArray.forEach(expoNotification => {
@@ -69,27 +69,25 @@ export const expoScheduleNotificationAsync = async (scheduleNotification: Schedu
 // returns boolean if registration was successful
 export const expoRegisterForNotificationsAsync = async (): Promise<boolean> => {
     let result = false;
-    if (Device.isDevice) {
+    const {status: existingStatus} = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
 
-        const { status: existingStatus } = await Notifications.getPermissionsAsync();
-        let finalStatus = existingStatus;
-
-        if (existingStatus !== 'granted') {
-            const { status } = await Notifications.requestPermissionsAsync();
-            finalStatus = status;
-        }
-
-        if (finalStatus !== 'granted') {
-            Alert.alert('Notification permission', "Unable to set notification.");
-        } else {
-            result = true;
-        }
-
-        // const token = (await Notifications.getExpoPushTokenAsync()).data;
-        // console.log(token);
-    } else {
-        Alert.alert('No device!', "Must use physical device for Notifications.");
+    if (existingStatus !== 'granted') {
+        const {status} = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
     }
 
+    if (finalStatus !== 'granted') {
+        Alert.alert('Notification permission', "Unable to set notification.");
+    } else {
+        result = true;
+    }
     return result;
+};
+
+export const isNotificationPossible = (): boolean => {
+    if (!Device.isDevice) {
+        Alert.alert('No device!', "Must use physical device for Notifications.");
+    }
+    return Device.isDevice;
 };

@@ -9,7 +9,7 @@ import {
 } from "../../types/types";
 import {debounce} from "../Debounce";
 import {getCurrentSystemDate, dayOfTheYear, MdDate, addYears} from '../common/DateService';
-import {expoRemoveNotificationsAsync} from "./ExpoNotification";
+import {expoRemoveNotificationsAsync, isNotificationPossible} from "./ExpoNotification";
 import {setupPrayerNotification} from "./SetupPrayerNotification";
 import {createExpirationDate} from "../ExpirableVersionService";
 
@@ -46,6 +46,10 @@ export const setupNotificationOnCompanyDataChangedHandler = (companyData: Compan
  */
 const setupNotification = (settingChanged: boolean, setting: SettingData,
                            companyDataChanged: boolean, companyData: CompanyData) => {
+    if (!isNotificationPossible()) {
+        console.log("Notification are not possible")
+        return;
+    }
 
     console.log("Attempting to set notifications.");
     const now = getCurrentSystemDate();

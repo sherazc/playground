@@ -15,6 +15,10 @@ import {expoRegisterForNotificationsAsync, expoScheduleNotificationAsync} from "
  */
 
 export const setupPrayerNotification = (company: (Company | undefined), now: Date, setting: SettingData, prayer: PrayersDay) => {
+    if (isFailureCountMaxedOut()) {
+        console.log("Not setting up notifications. Failure count maxed out.");
+        return
+    }
     if (!prayer || !prayer.date.jsDate) {
         console.log("Not setting up alerts. Prayer not found.")
         return;
@@ -134,7 +138,8 @@ export const setupPrayerNotification = (company: (Company | undefined), now: Dat
         if (notification) notifications.push(notification);
     }
 
-    scheduleNotifications(notifications);
+    scheduleNotifications(notifications).then(() =>
+        console.log(`Done processing single Prayer Day notifications. size ${notifications.length}`));
 }
 
 
@@ -191,9 +196,12 @@ const createBeforeIqamaMessage = (companyName: string, prayerName: string) => {
 const maxFailureCount = 3;
 let failureCount = 0;
 let successfullyRegistered = false;
+
+const isFailureCountMaxedOut = () => failureCount >= maxFailureCount;
 const scheduleNotifications = async (notifications: ScheduleNotification[]) => {
-    for(const notification of notifications) {
-        if (failureCount >= maxFailureCount) {
+    for (const notification of notifications) {
+        if (isFailureCountMaxedOut()) {
+            console.log("Not setting up notifications. Failure count maxed out.");
             return
         }
         try {
