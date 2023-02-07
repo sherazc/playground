@@ -77,12 +77,16 @@ const setupNotification = (settingChanged: boolean, setting: SettingData,
     }
 
     if (sameCompany && !settingChanged) { // If settings has changes then ignore notificationExpired check.
-        if (companyDataChanged && !notificationExpired) { // Expired only applied when company data
+        if (companyDataChanged && !notificationExpired) { // Expired only applied when company data is changed
             console.log("Not setting up notifications. SettingData has not changed. Previously set notification has not expired.");
             return;
         }
     }
-
+ ;asdkj f;lskjd f;laksj df;lksj df
+    // TODO
+    // replace this promise with expoRegisterForNotificationsAsync()
+    // Remove expoRegisterForNotificationsAsync() scheduleNotifications
+    // Rethink isFailureCountMaxedOut
     const notificationPromise = new Promise<SettingData | undefined>((resolve, reject) => {
         removeNotificationsAsync().then(() => { // Successfully removed
             try {
@@ -121,8 +125,8 @@ const notificationPromiseRejectCallback = (reason: any) => {
 
 
 const isSameCompany = (setting: SettingData, companyData: CompanyData): boolean => {
-    return setting && setting.companyNotification && setting.companyNotification.companyId
-        && companyData.company && companyData.company.id
+    return setting && setting.companyNotification && !!setting.companyNotification.companyId
+        && companyData.company && !!companyData.company.id
         && setting.companyNotification.companyId === companyData.company.id;
 }
 
