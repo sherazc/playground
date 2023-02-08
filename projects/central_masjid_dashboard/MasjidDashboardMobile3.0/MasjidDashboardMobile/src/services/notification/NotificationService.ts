@@ -10,7 +10,7 @@ import {
 import {debounce} from "../Debounce";
 import {getCurrentSystemDate, dayOfTheYear, MdDate, addYears} from '../common/DateService';
 import {expoRemoveNotificationsAsync, isNotificationPossible} from "./ExpoNotification";
-import {setupPrayerNotification} from "./SetupPrayerNotification";
+import {setupPrayerNotificationAsync} from "./SetupPrayerNotificationAsync";
 import {createExpirationDate} from "../ExpirableVersionService";
 
 const NotificationConfig = {
@@ -93,7 +93,7 @@ const setupNotification = (settingChanged: boolean, setting: SettingData,
                 console.log("Setting up notifications.");
                 const days = calculatePossibleNotificationDays(setting, NotificationConfig.MAX_NOTIFICATION_SETUP_DAYS);
                 const prayers = getUpcomingPrayers(now, companyData.prayersYear?.prayersMonths, days);
-                prayers.forEach(p => setupPrayerNotification(companyData.company, now, setting, p));
+                prayers.forEach(p => setupPrayerNotificationAsync(companyData.company, now, setting, p));
                 resolve(setting);
             } catch (error) {
                 reject(error);

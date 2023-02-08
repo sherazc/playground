@@ -53,7 +53,7 @@ export const expoRemoveNotificationsAsync = () => {
 // Returns notification identifier 
 export const expoScheduleNotificationAsync = async (scheduleNotification: ScheduleNotification): Promise<string> => {
 
-    // TODO try what what happens if same id is passed for multiple schedule notification
+    // TODO try to find what happens if same id is passed for multiple schedule notification
     return await Notifications.scheduleNotificationAsync({
         content: {
             title: scheduleNotification.title,

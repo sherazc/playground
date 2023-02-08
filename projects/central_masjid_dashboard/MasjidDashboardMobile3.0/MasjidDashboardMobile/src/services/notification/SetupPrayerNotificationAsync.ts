@@ -14,7 +14,7 @@ import {expoRegisterForNotificationsAsync, expoScheduleNotificationAsync} from "
  * @returns
  */
 
-export const setupPrayerNotification = (company: (Company | undefined), now: Date, setting: SettingData, prayer: PrayersDay) => {
+export const setupPrayerNotificationAsync = async (company: (Company | undefined), now: Date, setting: SettingData, prayer: PrayersDay) => {
     if (isFailureCountMaxedOut()) {
         console.log("Not setting up notifications. Failure count maxed out.");
         return
@@ -138,8 +138,12 @@ export const setupPrayerNotification = (company: (Company | undefined), now: Dat
         if (notification) notifications.push(notification);
     }
 
+    /*
     scheduleNotifications(notifications).then(() =>
         console.log(`Done processing single Prayer Day notifications. size ${notifications.length}`));
+     */
+
+    await scheduleNotificationsNoRegister(notifications);
 }
 
 
@@ -220,6 +224,21 @@ const scheduleNotifications = async (notifications: ScheduleNotification[]) => {
         }
     }
 }
+
+const scheduleNotificationsNoRegister = async (notifications: ScheduleNotification[]) => {
+    for (const notification of notifications) {
+        if (isFailureCountMaxedOut()) {
+            console.log("Not setting up notifications. Failure count maxed out.");
+            return;
+        }
+        try {
+            await expoScheduleNotificationAsync(notification);
+        } catch (e) {
+            failureCount++
+        }
+    }
+}
+
 
 const getCompanyName = (company: (Company | undefined)): string => {
     return company && company.name ? company.name : "";
