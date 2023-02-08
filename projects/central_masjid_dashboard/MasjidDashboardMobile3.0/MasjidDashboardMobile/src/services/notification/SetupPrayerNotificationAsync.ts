@@ -143,7 +143,7 @@ export const setupPrayerNotificationAsync = async (company: (Company | undefined
         console.log(`Done processing single Prayer Day notifications. size ${notifications.length}`));
      */
 
-    await scheduleNotificationsNoRegister(notifications);
+    await scheduleNotifications(notifications);
 }
 
 
@@ -202,7 +202,7 @@ let failureCount = 0;
 let successfullyRegistered = false;
 
 const isFailureCountMaxedOut = () => failureCount >= maxFailureCount;
-const scheduleNotifications = async (notifications: ScheduleNotification[]) => {
+const registerAndScheduleNotifications = async (notifications: ScheduleNotification[]) => {
     for (const notification of notifications) {
         if (isFailureCountMaxedOut()) {
             console.log("Not setting up notifications. Failure count maxed out.");
@@ -225,7 +225,7 @@ const scheduleNotifications = async (notifications: ScheduleNotification[]) => {
     }
 }
 
-const scheduleNotificationsNoRegister = async (notifications: ScheduleNotification[]) => {
+const scheduleNotifications = async (notifications: ScheduleNotification[]) => {
     for (const notification of notifications) {
         if (isFailureCountMaxedOut()) {
             console.log("Not setting up notifications. Failure count maxed out.");

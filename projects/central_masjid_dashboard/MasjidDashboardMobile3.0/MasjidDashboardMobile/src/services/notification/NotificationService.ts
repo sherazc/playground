@@ -9,7 +9,11 @@ import {
 } from "../../types/types";
 import {debounce} from "../Debounce";
 import {getCurrentSystemDate, dayOfTheYear, MdDate, addYears} from '../common/DateService';
-import {expoRemoveNotificationsAsync, isNotificationPossible} from "./ExpoNotification";
+import {
+    expoRegisterForNotificationsAsync,
+    expoRemoveNotificationsAsync,
+    isNotificationPossible
+} from "./ExpoNotification";
 import {setupPrayerNotificationAsync} from "./SetupPrayerNotificationAsync";
 import {createExpirationDate} from "../ExpirableVersionService";
 
@@ -82,22 +86,30 @@ const setupNotification = (settingChanged: boolean, setting: SettingData,
             return;
         }
     }
- ;asdkj f;lskjd f;laksj df;lksj df
-    // TODO
-    // replace this promise with expoRegisterForNotificationsAsync()
-    // Remove expoRegisterForNotificationsAsync() scheduleNotifications
-    // Rethink isFailureCountMaxedOut
+
+    /*
+    TODO:
+
+     */
     const notificationPromise = new Promise<SettingData | undefined>((resolve, reject) => {
         removeNotificationsAsync().then(() => { // Successfully removed
-            try {
-                console.log("Setting up notifications.");
-                const days = calculatePossibleNotificationDays(setting, NotificationConfig.MAX_NOTIFICATION_SETUP_DAYS);
-                const prayers = getUpcomingPrayers(now, companyData.prayersYear?.prayersMonths, days);
-                prayers.forEach(p => setupPrayerNotificationAsync(companyData.company, now, setting, p));
-                resolve(setting);
-            } catch (error) {
-                reject(error);
-            }
+            expoRegisterForNotificationsAsync().then(registered => {
+                if (registered) {
+                    try {
+                        console.log("Setting up notifications.");
+                        const days = calculatePossibleNotificationDays(setting, NotificationConfig.MAX_NOTIFICATION_SETUP_DAYS);
+                        const prayers = getUpcomingPrayers(now, companyData.prayersYear?.prayersMonths, days);
+                        prayers.forEach(p => setupPrayerNotificationAsync(companyData.company, now, setting, p));
+                        resolve(setting);
+                    } catch (error) {
+                        reject(error);
+                    }
+                } else {
+                    reject("Failed to registered for notification");
+                }
+            });
+
+
         }, (reason: any) => reject(reason)); // Failed to remove notification
     });
 
