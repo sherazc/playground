@@ -105,35 +105,35 @@ export const setupPrayerNotificationAsync = async (company: (Company | undefined
         // Fajr Before Iqama
         title = createBeforeIqamaTitle(companyName, Constants.PRAYER_NAME[0]);
         message = createBeforeIqamaMessage(companyName, Constants.PRAYER_NAME[0]);
-        time = addMinutesTo24hTime(prayer.fajrIqama, -Constants.PRAYER_ABOUT_TO_START_MIN)
+        time = addMinutesTo24hTime(prayer.fajrIqama, -Constants.PRAYER_ABOUT_TO_START_MIN);
         notification = time ? createNotification(title, message, now, prayer.date.jsDate, time) : undefined;
         if (notification) notifications.push(notification);
 
         // Duhar Before Iqama
         title = createBeforeIqamaTitle(companyName, Constants.PRAYER_NAME[1]);
         message = createBeforeIqamaMessage(companyName, Constants.PRAYER_NAME[1]);
-        time = addMinutesTo24hTime(prayer.dhuhrIqama, -Constants.PRAYER_ABOUT_TO_START_MIN)
+        time = addMinutesTo24hTime(prayer.dhuhrIqama, -Constants.PRAYER_ABOUT_TO_START_MIN);
         notification = time ? createNotification(title, message, now, prayer.date.jsDate, time) : undefined;
         if (notification) notifications.push(notification);
 
         // Asr Before Iqama
         title = createBeforeIqamaTitle(companyName, Constants.PRAYER_NAME[2]);
         message = createBeforeIqamaMessage(companyName, Constants.PRAYER_NAME[2]);
-        time = addMinutesTo24hTime(prayer.asrIqama, -Constants.PRAYER_ABOUT_TO_START_MIN)
+        time = addMinutesTo24hTime(prayer.asrIqama, -Constants.PRAYER_ABOUT_TO_START_MIN);
         notification = time ? createNotification(title, message, now, prayer.date.jsDate, time) : undefined;
         if (notification) notifications.push(notification);
 
         // Maghrib Before Iqama
         title = createBeforeIqamaTitle(companyName, Constants.PRAYER_NAME[3]);
         message = createBeforeIqamaMessage(companyName, Constants.PRAYER_NAME[3]);
-        time = addMinutesTo24hTime(prayer.maghrib, -Constants.PRAYER_ABOUT_TO_START_MIN)
+        time = addMinutesTo24hTime(prayer.maghrib, -Constants.PRAYER_ABOUT_TO_START_MIN);
         notification = time ? createNotification(title, message, now, prayer.date.jsDate, time) : undefined;
         if (notification) notifications.push(notification);
 
         // Isha Before Iqama
         title = createBeforeIqamaTitle(companyName, Constants.PRAYER_NAME[4]);
         message = createBeforeIqamaMessage(companyName, Constants.PRAYER_NAME[4]);
-        time = addMinutesTo24hTime(prayer.ishaIqama, -Constants.PRAYER_ABOUT_TO_START_MIN)
+        time = addMinutesTo24hTime(prayer.ishaIqama, -Constants.PRAYER_ABOUT_TO_START_MIN);
         notification = time ? createNotification(title, message, now, prayer.date.jsDate, time) : undefined;
         if (notification) notifications.push(notification);
     }
