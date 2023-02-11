@@ -95,8 +95,11 @@ const setupNotification = (settingChanged: boolean, setting: SettingData,
                         console.log("Setting up notifications.");
                         const days = calculatePossibleNotificationDays(setting, NotificationConfig.MAX_NOTIFICATION_SETUP_DAYS);
                         const prayers = getUpcomingPrayers(now, companyData.prayersYear?.prayersMonths, days);
-                        prayers.forEach(p => setupPrayerNotificationAsync(companyData.company, now, setting, p));
-                        resolve(setting);
+                        const setupPrayerPromises: Promise<any>[] = prayers.map(p => setupPrayerNotificationAsync(companyData.company, now, setting, p));
+
+                        Promise.all(setupPrayerPromises)
+                            .then(() => resolve(setting))
+                            .catch(e => reject(e));
                     } catch (error) {
                         reject(error);
                     }
@@ -155,7 +158,7 @@ const isNotificationExpired = (nowMilliseconds: number, companyNotification?: Co
         || companyNotification.expirationMilliseconds < nowMilliseconds;
 }
 
-
+// TODO: Fix it. The max day it returns is 5 even if single alert is set
 const calculatePossibleNotificationDays = (setting: SettingData, maxNotificationDays: number) => {
     let multiplier = 0;
     multiplier = setting.azanAlert ? multiplier + 1 : multiplier;

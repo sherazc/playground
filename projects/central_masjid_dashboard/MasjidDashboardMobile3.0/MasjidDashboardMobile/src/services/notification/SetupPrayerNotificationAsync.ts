@@ -15,8 +15,9 @@ import {expoScheduleNotificationAsync} from "./ExpoNotification";
 
 export const setupPrayerNotificationAsync = async (company: (Company | undefined), now: Date, setting: SettingData, prayer: PrayersDay) => {
     if (isFailureCountMaxedOut()) {
-        console.log("Not setting up notifications. Failure count maxed out.");
-        return
+        const errorMessage = "Not setting up notifications. Failure count maxed out."
+        console.log(errorMessage);
+        throw new Error(errorMessage);
     }
     if (!prayer || !prayer.date.jsDate) {
         console.log("Not setting up alerts. Prayer not found.")
@@ -199,11 +200,13 @@ const isFailureCountMaxedOut = () => failureCount >= maxFailureCount;
 const scheduleNotifications = async (notifications: ScheduleNotification[]) => {
     for (const notification of notifications) {
         if (isFailureCountMaxedOut()) {
-            console.log("Not setting up notifications. Failure count maxed out.");
-            return;
+            const errorMessage = "Not setting up notifications. Failure count maxed out."
+            console.log(errorMessage);
+            throw new Error(errorMessage);
         }
         try {
             await expoScheduleNotificationAsync(notification);
+            console.log('Notification set.', notification)
         } catch (e) {
             failureCount++
         }
