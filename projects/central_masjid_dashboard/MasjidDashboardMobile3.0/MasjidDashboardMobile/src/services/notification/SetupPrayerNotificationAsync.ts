@@ -28,7 +28,7 @@ export const setupPrayerNotificationAsync = async (company: (Company | undefined
     let title: string;
     let message: string;
     let notification: (ScheduleNotification | undefined);
-    let time;
+    let time: string;
 
     // AZAN
     if (setting.azanAlert) {
