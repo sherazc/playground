@@ -87,10 +87,6 @@ const setupNotification = (settingChanged: boolean, setting: SettingData,
         }
     }
 
-    /*
-    TODO:
-
-     */
     const notificationPromise = new Promise<SettingData | undefined>((resolve, reject) => {
         removeNotificationsAsync().then(() => { // Successfully removed
             expoRegisterForNotificationsAsync().then(registered => {

@@ -8,7 +8,7 @@ import { AppBar } from "./AppBar";
 import Reset from "../images/Reset";
 import { Checkbox } from './Checkbox';
 import { createDefaultSettingData, } from '../types/types';
-import { storeDeleteCompanyData, } from "../store/ReduxStoreService";
+import {storeDeleteCompanyData, storeDispatchSetting,} from "../store/ReduxStoreService";
 import { useTypedSelector } from "../store/rootReducer";
 import { destroyTrackerInterval } from "../services/AppService";
 import {
@@ -20,9 +20,6 @@ interface Props {
     navigation: StackNavigationProp<MdParamList, "Settings">;
     route: RouteProp<MdParamList, "Settings">;
 }
-
-// let lastSettingChangeTime: (number | undefined);
-// let settingInterval: (NodeJS.Timeout | undefined);
 
 export const Settings: React.FC<Props> = ({ navigation, route }) => {
 
@@ -37,6 +34,13 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
 
     const onResetMasjid = () => {
         storeDeleteCompanyData();
+
+        // Keeping the existing setting flags. But removing company ID.
+        const resetSettingData = {
+            ...settingStore,
+            companyNotification: createDefaultSettingData().companyNotification
+        };
+        storeDispatchSetting(resetSettingData);
         navigation.navigate("CompanySelect");
         removeNotificationsAsync().then(result =>
             console.log("On reset masjid. Removed notifications.", result));
@@ -68,73 +72,6 @@ export const Settings: React.FC<Props> = ({ navigation, route }) => {
         }
         return result;
     }
-
-
-    /*
-    Timmed alert setting change design
-    ----------------------------------
-
-    DELAY = 5 seconds
-
-    On setting change
-        - set lastSettingChange Time
-        - call changeAlertWithDelay()
-
-    changeAlertWithDelay()
-        - ✅ if setting interval is already set then do not proceed further
-        - ✅ if timed settingInterval is not set then set it
-        ✅ settingInterval
-            - ✅ if current time > lastSettingChange + DELAY
-                - ✅ set setting in redux
-                - ✅ clear settingInterval
-                - ✅ make settingInterval, lastSettingChange undefined
-                - ✅ execute alerts reset method
-
-    */
-
-/*
-    // TODO: Deprecate changeAlertWithDelay() use changeAlertDebounce() instead
-    const settingDelay = 5 * 1000;
-    const settingIntervalMillis = 1000;
-    const changeAlertWithDelay = (newSetting: SettingData) => {
-        storeDispatchSetting(newSetting);
-        // dispatch({ type: "SETTING_SET", payload: newSetting });
-        lastSettingChangeTime = new Date().getTime();
-
-        let companyId = getCompanyId(companyData.company);
-
-        console.log(`Setting interval ${settingInterval}`)
-        if (settingInterval || !companyId) {
-            console.log(`Returning Setting interval ${settingInterval}`)
-            return;
-        }
-
-        settingInterval = setInterval(() => {
-
-            const nowTime = new Date().getTime();
-            if (!lastSettingChangeTime || nowTime < lastSettingChangeTime + settingDelay) {
-                return;
-            }
-
-            removeAllExistingNotificationsAsync().then(() => {
-                if (companyId) {
-                    setupNotifications(companyId, true);
-                }
-    
-    
-                console.log(`Clearing interval ${settingInterval}`)
-                if (settingInterval) {
-                    clearInterval(settingInterval);
-                }
-    
-                lastSettingChangeTime = settingInterval = undefined;
-            });
-            
-        }, settingIntervalMillis);
-
-        console.log(`Setting interval 2 ${settingInterval}`)
-    }
-*/
 
     return (
         <>
@@ -232,11 +169,9 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingLeft: 20,
         justifyContent: "center",
-        // backgroundColor: "#ffffff44"
     },
     iconView: {
         flexBasis: 100,
-        // backgroundColor: "#ffffff22",
         alignItems: "center",
         justifyContent: "center"
     },

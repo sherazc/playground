@@ -3,27 +3,6 @@ import {ScheduleNotification} from '../../types/types';
 import * as Device from 'expo-device';
 import {Alert} from 'react-native';
 
-// Deprecated - Not sure
-const expoSetNotificationHandler = () => {
-    // By default notification are only displayed if the app is not in the foreground.
-    // Use this to set What type of notification to show when the app is running
-    Notifications.setNotificationHandler({
-        // Runs only is app is in the foreground
-        handleSuccess: notificationIdentifier => {
-            console.log("handleSuccess(), Id", notificationIdentifier);
-            // dismiss notification immediately after it is presented
-            // Notifications.dismissNotificationAsync(notificationIdentifier);
-
-        },
-        handleNotification: async () => ({
-            shouldShowAlert: true,
-            shouldPlaySound: true,
-            shouldSetBadge: true,
-        }),
-    });
-}
-
-
 export const expoRemoveNotificationsAsync = () => {
     const promises: Array<Promise<any>> = [];
 

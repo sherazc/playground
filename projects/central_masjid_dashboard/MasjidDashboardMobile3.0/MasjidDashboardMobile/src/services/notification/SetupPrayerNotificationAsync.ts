@@ -1,8 +1,7 @@
 import {Company, PrayersDay, ScheduleNotification, SettingData} from "../../types/types";
 import {addMinutesTo24hTime, TIME_24_REGX} from "../common/DateService";
-import {isNotBlankString} from "../common/Utilities";
 import {Constants} from "../Constants";
-import {expoRegisterForNotificationsAsync, expoScheduleNotificationAsync} from "./ExpoNotification";
+import {expoScheduleNotificationAsync} from "./ExpoNotification";
 
 /**
  * Sets up notification for a single PrayerDay.
@@ -138,11 +137,6 @@ export const setupPrayerNotificationAsync = async (company: (Company | undefined
         if (notification) notifications.push(notification);
     }
 
-    /*
-    scheduleNotifications(notifications).then(() =>
-        console.log(`Done processing single Prayer Day notifications. size ${notifications.length}`));
-     */
-
     await scheduleNotifications(notifications);
 }
 
@@ -199,31 +193,8 @@ const createBeforeIqamaMessage = (companyName: string, prayerName: string) => {
 
 const maxFailureCount = 3;
 let failureCount = 0;
-let successfullyRegistered = false;
-
 const isFailureCountMaxedOut = () => failureCount >= maxFailureCount;
-const registerAndScheduleNotifications = async (notifications: ScheduleNotification[]) => {
-    for (const notification of notifications) {
-        if (isFailureCountMaxedOut()) {
-            console.log("Not setting up notifications. Failure count maxed out.");
-            return
-        }
-        try {
-            if (successfullyRegistered) {
-                await expoScheduleNotificationAsync(notification);
-            } else {
-                successfullyRegistered = await expoRegisterForNotificationsAsync();
-                if (successfullyRegistered) {
-                    await expoScheduleNotificationAsync(notification);
-                } else {
-                    failureCount++;
-                }
-            }
-        } catch (e) {
-            failureCount++
-        }
-    }
-}
+
 
 const scheduleNotifications = async (notifications: ScheduleNotification[]) => {
     for (const notification of notifications) {
