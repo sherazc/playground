@@ -2,7 +2,6 @@ import * as DateService from "../../src/services/common/DateService";
 import * as ExpirableVersionService from "../../src/services/ExpirableVersionService";
 import * as CalendarService from "../../src/services/CalendarService";
 import * as ReduxStoreService from "../../src/store/ReduxStoreService";
-// import * as ApiMdb from "../../src/services/ApiMdb";
 import { updateCompanyData } from "../../src/services/CompanyDataService";
 import { Company, CompanyData, CompanyDataVersion, PrayersDay, ServiceResponse } from "../../src/types/types";
 import { mockCreateServiceResponse } from "../../__mocks__/MockServiceResponse";
