@@ -4,7 +4,7 @@ import * as CalendarService from "../../src/services/CalendarService";
 import * as ReduxStoreService from "../../src/store/ReduxStoreService";
 // import * as ApiMdb from "../../src/services/ApiMdb";
 import { updateCompanyData } from "../../src/services/CompanyDataService";
-import { Company, CompanyData, CompanyDataVersion, Prayer, ServiceResponse } from "../../src/types/types";
+import { Company, CompanyData, CompanyDataVersion, PrayersDay, ServiceResponse } from "../../src/types/types";
 import { mockCreateServiceResponse } from "../../__mocks__/MockServiceResponse";
 import { mockCreateCompany, mockCreateCompanyDataVersion, mockCreateConfigurations, mockCreatePrayer } from "../../__mocks__/MockTypes";
 import { mockPrayersYear, mockPrayersMonths } from "../../__mocks__/MockYearCalendar";
@@ -22,7 +22,7 @@ jest.mock("../../src/services/ApiMdb", () => ({
         return Promise.resolve(mockDataCompanyVersion);
     },
     apiPrayer: () => { // TODO: This method do not work with jest.spyOn()
-        const serviceResponsePrayer: ServiceResponse<Prayer> = mockCreateServiceResponse(mockCreatePrayer(), true);
+        const serviceResponsePrayer: ServiceResponse<PrayersDay> = mockCreateServiceResponse(mockCreatePrayer(), true);
         return Promise.resolve(serviceResponsePrayer);
     },
     apiConfiguration: () => { // TODO: This method do not work with jest.spyOn()

@@ -1,5 +1,5 @@
-import { getCompanyId, getCompanyName, isValidCompany } from "../../src/services/CompanyDataService";
-import { Company } from "../../src/types/types";
+import {isValidCompany} from "../../src/services/CompanyDataService";
+import {Company} from "../../src/types/types";
 
 // TODO: upgrade react-native-push-notification and check if this is still needed
 // jest.mock("react-native-push-notification", () => ({}));
@@ -12,7 +12,7 @@ describe("CompanyDataService - Utility functions", () => {
         // @ts-ignore
         expect(isValidCompany({})).toBeFalsy();
         // @ts-ignore
-        expect(isValidCompany({ id: "abc" })).toBeTruthy();
+        expect(isValidCompany({id: "abc"})).toBeTruthy();
     });
 
 

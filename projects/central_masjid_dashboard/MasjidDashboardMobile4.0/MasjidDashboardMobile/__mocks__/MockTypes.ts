@@ -1,5 +1,5 @@
 import { MdDate } from "../src/services/common/DateService";
-import { Company, CompanyDataVersion, CompanyListData, CompanyListVersion, Configuration, ExpirableVersion, Prayer, Tracker } from "../src/types/types";
+import { Company, CompanyDataVersion, CompanyListData, CompanyListVersion, Configuration, ExpirableVersion, PrayersDay, Tracker } from "../src/types/types";
 
 const companyId = "100";
 
@@ -20,7 +20,7 @@ const mockCreateCompany = (): Company => ({
 });
 
 
-const mockCreatePrayer = (): Prayer => ({
+const mockCreatePrayer = (): PrayersDay => ({
     "date": new MdDate("2016-02-29T00:00:00.000Z"),
     "hijriString": "",
     "fajr": "06:29",
