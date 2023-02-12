@@ -14,34 +14,6 @@ describe("CompanyDataService - Utility functions", () => {
         // @ts-ignore
         expect(isValidCompany({id: "abc"})).toBeTruthy();
     });
-
-
-    it.skip("getCompanyName()", () => {
-        // @ts-ignore
-        const company: Company = {}
-
-        expect(getCompanyName(company)).toBe("");
-
-        company.name = ""
-        expect(getCompanyName(company)).toBe("");
-
-        company.name = "a"
-        expect(getCompanyName(company)).toBe("a");
-    });
-
-    it.skip("getCompanyId()", () => {
-        // @ts-ignore
-        const company: Company = {}
-
-        expect(getCompanyId(company)).toBeUndefined();
-
-        company.id = ""
-        expect(getCompanyId(company)).toBeUndefined();
-
-        company.id = "a"
-        expect(getCompanyId(company)).toBe("a");
-
-    });
 });
 
 
