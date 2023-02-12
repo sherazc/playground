@@ -1,0 +1,55 @@
+{
+  "expo": {
+    "name": "Masjid Dashboard",
+    "slug": "MasjidDashboardMobile",
+    "version": "2.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/app_icon_ios.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash-screens.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0c274b"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "icon": "./assets/app_icon_ios.png",
+      "bundleIdentifier": "org.reactjs.native.example.MasjidDashboardMobile",
+      "buildNumber": "3"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/app_icon_android.png",
+        "backgroundColor": "#0c274b"
+      },
+      "package": "com.masjiddashboardmobile",
+      "versionCode": 3,
+      "notification": {
+        "icon": "./assets/notification_icon_96x96.png"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "color": "#ffffff",
+          "icon": "./assets/notification_icon_96x96.png"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "8512d270-67a1-4fb7-ade1-49f1d7646604"
+      }
+    }
+  }
+}
