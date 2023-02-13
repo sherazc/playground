@@ -77,6 +77,15 @@ export const beginCompanyDataInterval = (companyData: CompanyData) => {
     }, Constants.UPDATE_INTERVAL_MILLIS);
 }
 
+export const restartCompanyDataInterval = (companyData: CompanyData) => {
+    console.log("restartCompanyDataInterval");
+    const companyDataResetTracker:CompanyData = {...companyData};
+    companyDataResetTracker.tracker.expirableVersion.version = -1
+    companyDataResetTracker.tracker.expirableVersion.expirationDate = undefined;
+    storeDispatchCompanyData(companyDataResetTracker);
+    beginCompanyDataInterval(companyDataResetTracker);
+}
+
 
 // Interval to update companyList and Version
 export const beginCompanyListDataInterval = (companyListData: CompanyListData) => {

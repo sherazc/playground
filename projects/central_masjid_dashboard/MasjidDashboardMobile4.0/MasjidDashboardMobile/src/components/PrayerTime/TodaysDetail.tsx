@@ -11,6 +11,8 @@ import { findConfigurationByName, trimEllipsis } from "../../services/common/Uti
 import { PrayerTimeSummaryMessage } from "../../types/react-types";
 import { CompanyData } from '../../types/types';
 import { MdParamList } from "../NavRoutes";
+import Refresh from "../../images/Refresh";
+import {restartCompanyDataInterval} from "../../services/AppService";
 
 interface Props {
     prayerTimeMessage: PrayerTimeSummaryMessage;
@@ -28,6 +30,11 @@ export const TodaysDetail: React.FC<Props> = ({ prayerTimeMessage, companyData, 
                         {getCompanyName(companyData)}
                     </Text>
                     <Underline fill={ConstantsStyles.color.lines} width={220} />
+                </View>
+                <View style={styles.settingView}>
+                    <TouchableOpacity onPress={() => restartCompanyDataInterval(companyData)}>
+                        <Refresh fill={ConstantsStyles.color.lines} />
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.settingView}>
                     <TouchableOpacity onPress={() => { navigation.navigate("Settings", {backScreenName: "Salah"}) }}>
@@ -59,7 +66,7 @@ export const TodaysDetail: React.FC<Props> = ({ prayerTimeMessage, companyData, 
 const getCompanyName = (companyData: CompanyData) => {
     let result = "";
     if (companyData && companyData.company && companyData.company.name) {
-        result = trimEllipsis(companyData.company.name, 25);
+        result = trimEllipsis(companyData.company.name, 18);
     }
     return result;
 }
