@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Clean test-container app
+rm -rf test-container/app
+
 # Clean Logs
 rm rf misc/logs/*.log
 rm -rf misc/logs/archived
