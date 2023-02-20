@@ -1,0 +1,32 @@
+#!/bin/bash
+
+### BEGIN INIT INFO
+# Provides:          BitSegment
+# Description:       Central Masjid Dashboard
+### END INIT INFO
+appPath=/app
+# Carry out specific functions when asked to by the system
+case "$1" in
+  start)
+    echo "Starting Central Masjid Dashboard..."
+    # sudo -u foo-user bash -c 'cd /path/to/scripts/ && ./start-foo.sh'
+    # java -jar $appPath/cdb.jar & echo $! > $appPath/pid.file &
+    cd $appPath
+    ./cdb-dev.sh
+    ;;
+  stop)
+    echo "Stopping Central Masjid Dashboard..."
+    # sudo -u foo-user bash -c 'cd /path/to/scripts/ && ./stop-foo.sh'
+    cd $appPath
+    kill $(cat ./pid.file)
+    rm ./pid.file
+    sleep 2
+    ;;
+  *)
+    echo "Usage: /etc/init.d/cdbservice {start|stop}"
+    echo "Or Usage: service cdbservice {start|stop}"
+    exit 1
+    ;;
+esac
+
+exit 0
