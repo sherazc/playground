@@ -8,3 +8,4 @@ RUN apt install nginx -y
 COPY app /app
 COPY cdbservice /etc/init.d/
 COPY init-start-cdb.sh /app
+COPY default /etc/nginx/sites-available
