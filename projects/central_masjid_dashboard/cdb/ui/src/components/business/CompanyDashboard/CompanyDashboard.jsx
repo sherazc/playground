@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {getConfigValue, getReactRouterPathParamFromUrl} from "../../../services/utilities";
-import {Grid, Icon} from '@material-ui/core';
+import {Grid} from '@material-ui/core';
 import {connect} from "react-redux";
 import axios from "axios";
 import SalahTime from "./SalahTime/SalahTime";
@@ -9,7 +9,6 @@ import Updates from "./Updates/Updates";
 import AnalogClock from "./AnalogClock/AnalogClock";
 import DigitalClock from "./DigitalClock/DigitalClock";
 import styles from "./CompanyDashboard.module.scss";
-import {Link} from "react-router-dom";
 import {
     apiGetCompanyConfigurations
 } from "../../../store/common/configurations/configurationsAction"
@@ -25,7 +24,7 @@ class CompanyDashboard extends Component {
     };
 
     componentDidMount() {
-        // I am able to do this because react router props are set before
+        // I am able to do this because react router props are set
         // before component mount.
         const companyDashboardUrl = getReactRouterPathParamFromUrl(this.props, "companyDashboardUrl");
         if (!this.state.centralControl.id && companyDashboardUrl) {

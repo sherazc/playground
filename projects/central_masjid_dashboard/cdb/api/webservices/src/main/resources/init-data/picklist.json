@@ -59,6 +59,13 @@
         "label": "Isha Iqama",
         "defaultValue": "",
         "description": "Overrides Isha iqama time.\nIqama and next change time in calendar will be ignored.\nEnter time in 24 hours format 00:00 or a short message."
+      },
+      {
+        "name": "dashboard_type",
+        "type": "number",
+        "label": "Dashboard Type",
+        "defaultValue": "1",
+        "description": "Dashboard Type."
       }
     ]
   }
