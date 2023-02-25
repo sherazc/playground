@@ -1,4 +1,3 @@
-import { Constants } from '../Constants';
 import { isNotBlankString, numberNaNToZero, numberTo2DigitsString } from './Utilities';
 import { PrayerTime } from '../../types/types';
 
