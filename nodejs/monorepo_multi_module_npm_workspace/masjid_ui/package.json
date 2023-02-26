@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "masjid_lib": "file:../masjid_lib"
+    "masjid_lib": "1.0.0"
   },
   "devDependencies": {
     "typescript": "^4.9.5"
