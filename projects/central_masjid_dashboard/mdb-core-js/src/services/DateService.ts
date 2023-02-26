@@ -1,4 +1,9 @@
-import { isNotBlankString, numberNaNToZero, numberTo2DigitsString } from '../common/Utilities';
+import {
+    isNotBlankString,
+    numberNaNToZero,
+    numberTo2DigitsString,
+    padLeft
+} from '../common/Utilities';
 import { PrayerTime } from '../types/types';
 
 export const TIME_24_REGX = /([01]?[0-9]|2[0-3]):[0-5][0-9].*/;
@@ -149,14 +154,6 @@ export const dateFromISO = (isoDateString?: string): (Date | undefined) => {
  * --
  * 
  */
-
-const padLeft = (input: (number | string), length: number, padString: string = '0') => {
-    if (length < 2) {
-        return input;
-    }
-    return `${padString.repeat(length - 1)}${input}`.slice(-length);
-}
-
 
 export const isoDateToJsDate = (dateString?: string | null): Date | undefined => {
     let date = undefined;

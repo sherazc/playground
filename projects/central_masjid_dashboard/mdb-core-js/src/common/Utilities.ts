@@ -102,3 +102,10 @@ export const logPromiseReject = (message: string, reason: any, reject: (reason?:
 
 // TODO: Unit test it
 export const logPromiseReason = (reason: any) => console.log("Promise error. ", reason);
+
+export const padLeft = (input: (number | string), length: number, padString: string = '0') => {
+    if (length < 2) {
+        return input;
+    }
+    return `${padString.repeat(length - 1)}${input}`.slice(-length);
+}
