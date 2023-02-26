@@ -1,4 +1,4 @@
-import { PrayersMonth, PrayersYear } from '../types/types';
+import { PrayersMonth, PrayersYear } from 'mdb-core-js';
 import { apiYearCalendar } from './ApiMdb';
 import { getCurrentSystemDate, parseObjectsIsoDateToMdDate } from './common/DateService';
 
