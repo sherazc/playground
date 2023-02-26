@@ -13,7 +13,7 @@ import {
 } from "../../src/common/Utilities";
 
 test("Utilities - String", () => {});
-/*
+
 describe("Utilities - String", () => {
     it("isEqualStrings()", () => {
         expect(isEqualStrings()).toBeFalsy();
@@ -113,4 +113,3 @@ describe("Utilities - Display", () => {
         expect(trimEllipsis("abc", 1)).toBe("a...");
     });
 });
-*/
