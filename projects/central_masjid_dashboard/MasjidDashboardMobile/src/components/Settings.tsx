@@ -7,7 +7,7 @@ import { ConstantsStyles } from '../services/Constants';
 import { AppBar } from "./AppBar";
 import Reset from "../images/Reset";
 import { Checkbox } from './Checkbox';
-import { createDefaultSettingData, } from '../types/types';
+import { createDefaultSettingData, } from "mdb-core-js";
 import {storeDeleteCompanyData, storeDispatchSetting,} from "../store/ReduxStoreService";
 import { useTypedSelector } from "../store/rootReducer";
 import { destroyTrackerInterval } from "../services/AppService";

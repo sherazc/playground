@@ -1,11 +1,11 @@
 import { getPrayersYear } from "../../src/services/CalendarService";
-import { PrayersMonth, ServiceResponse } from "../../src/types/types";
+import { PrayersMonth, ServiceResponse } from "mdb-core-js";
 import { mockPrayersMonths } from "../../__mocks__/MockYearCalendar";
 
 
-jest.mock("../../src/services/common/DateService", () => ({
+jest.mock("mdb-core-js", () => ({
     __esModule: true,
-    ...jest.requireActual('../../src/services/common/DateService'),
+    ...jest.requireActual("mdb-core-js"),
     getCurrentSystemDate: () => new Date(2000, 0, 1),
     parseObjectsIsoDateToMdDate: jest.fn(),
 }));

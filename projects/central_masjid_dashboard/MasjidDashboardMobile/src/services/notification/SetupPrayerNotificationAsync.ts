@@ -1,5 +1,5 @@
-import {Company, PrayersDay, ScheduleNotification, SettingData} from "../../types/types";
-import {addMinutesTo24hTime, TIME_24_REGX} from "../common/DateService";
+import {Company, PrayersDay, ScheduleNotification, SettingData} from "mdb-core-js";
+import {addMinutesTo24hTime, TIME_24_REGX} from "mdb-core-js";
 import {Constants} from "../Constants";
 import {expoScheduleNotificationAsync} from "./ExpoNotification";
 

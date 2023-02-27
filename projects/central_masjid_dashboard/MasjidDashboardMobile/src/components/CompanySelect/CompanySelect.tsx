@@ -9,7 +9,7 @@ import { useTypedSelector } from '../../store/rootReducer';
 import { CompanyList } from './CompanyList';
 import { ConstantsStyles } from "../../services/Constants";
 import { Info } from '../../images/Info';
-import { LoadingStatus } from "../../types/types";
+import { LoadingStatus } from "mdb-core-js";
 import { beginCompanyListDataInterval, destroyTrackerInterval } from "../../services/AppService";
 import { Brand } from "./Brand";
 

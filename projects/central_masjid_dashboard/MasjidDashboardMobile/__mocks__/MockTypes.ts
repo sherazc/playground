@@ -1,5 +1,14 @@
-import { MdDate } from "../src/services/common/DateService";
-import { Company, CompanyDataVersion, CompanyListData, CompanyListVersion, Configuration, ExpirableVersion, PrayersDay, Tracker } from "../src/types/types";
+import {
+    MdDate,
+    Company,
+    CompanyDataVersion,
+    CompanyListData,
+    CompanyListVersion,
+    Configuration,
+    ExpirableVersion,
+    PrayersDay,
+    Tracker
+} from "mdb-core-js";
 
 const companyId = "100";
 

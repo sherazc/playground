@@ -1,5 +1,5 @@
 import * as Notifications from 'expo-notifications';
-import {ScheduleNotification} from '../../types/types';
+import {ScheduleNotification} from "mdb-core-js";
 import * as Device from 'expo-device';
 import {Alert} from 'react-native';
 

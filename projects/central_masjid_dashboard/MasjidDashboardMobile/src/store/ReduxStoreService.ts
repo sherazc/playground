@@ -1,4 +1,4 @@
-import { CompanyData, CompanyListData, SettingData } from "../types/types";
+import { CompanyData, CompanyListData, SettingData } from "mdb-core-js";
 import { RecoverInitCompleteAction, RecoverInitFailedAction } from "./LoadingReducer";
 import store from "./rootReducer";
 

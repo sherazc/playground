@@ -2,7 +2,6 @@ import { updateCompanyListData } from "../../src/services/CompanyListDataService
 import { mockCreateCompanyListData, mockCreateExpirableVersion, mockCreateCompany } from "../../__mocks__/MockTypes";
 import * as ExpirableVersionService from "../../src/services/ExpirableVersionService";
 import * as ApiMdb from "../../src/services/ApiMdb";
-import { ExpirableVersion } from "../../src/types/types";
 import * as ReduxStoreService from "../../src/store/ReduxStoreService";
 
 

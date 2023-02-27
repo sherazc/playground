@@ -2,9 +2,11 @@ import * as React from "react"
 import Svg, { Path, SvgProps } from "react-native-svg"
 
 export const Logo: React.FC<SvgProps> = (props) => {
-  return (
+
+    return (
     <Svg width={500} height={500} viewBox="0 0 500 500" {...props}>
       <Path fill="#fff"
+        // @ts-ignore
         style={{
           lineHeight: "normal",
           fontVariantLigatures: "normal",

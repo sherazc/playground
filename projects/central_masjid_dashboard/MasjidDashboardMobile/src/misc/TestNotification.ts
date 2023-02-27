@@ -3,7 +3,7 @@ import {
     expoScheduleNotificationAsync, 
     expoRegisterForNotificationsAsync 
 } from '../services/notification/ExpoNotification';
-import { ScheduleNotification } from '../types/types';
+import { ScheduleNotification } from "mdb-core-js";
 
 export const testRemoveAllNotifications = () => {
     expoRemoveNotificationsAsync().then(() => console.log("All Notifications Removed!"));

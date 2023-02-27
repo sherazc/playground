@@ -6,9 +6,9 @@ import {
     PrayersDay,
     PrayersMonth,
     SettingData
-} from "../../types/types";
+} from "mdb-core-js";
 import {debounce} from "../Debounce";
-import {getCurrentSystemDate, dayOfTheYear, MdDate, addYears} from '../common/DateService';
+import {getCurrentSystemDate, dayOfTheYear, MdDate, addYears} from "mdb-core-js";
 import {
     expoRegisterForNotificationsAsync,
     expoRemoveNotificationsAsync,

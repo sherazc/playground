@@ -1,4 +1,4 @@
-import { ServiceResponse } from "../src/types/types";
+import { ServiceResponse } from "mdb-core-js";
 
 function mockCreateServiceResponse<T>(target: T, successful: boolean):ServiceResponse<T> {
     return {

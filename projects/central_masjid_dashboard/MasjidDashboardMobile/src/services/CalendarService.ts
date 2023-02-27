@@ -1,6 +1,6 @@
 import { PrayersMonth, PrayersYear } from 'mdb-core-js';
 import { apiYearCalendar } from './ApiMdb';
-import { getCurrentSystemDate, parseObjectsIsoDateToMdDate } from './common/DateService';
+import { getCurrentSystemDate, parseObjectsIsoDateToMdDate } from "mdb-core-js";
 
 
 export const getPrayersYear = (companyId: string, year?: number): Promise<PrayersYear> => {

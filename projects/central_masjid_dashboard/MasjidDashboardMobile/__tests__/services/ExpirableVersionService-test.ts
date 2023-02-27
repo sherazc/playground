@@ -1,7 +1,7 @@
 import { Constants } from "../../src/services/Constants";
-import { MdDate } from "../../src/services/common/DateService";
+import { MdDate } from "mdb-core-js";
 import { createExpirationDate, createExpirationDateIso, createOrRefreshExpirableVersion, isExpired } from "../../src/services/ExpirableVersionService";
-import { ExpirableVersion } from "../../src/types/types";
+import { ExpirableVersion } from "mdb-core-js";
 
 
 describe("ExpirableVersionService", () => {

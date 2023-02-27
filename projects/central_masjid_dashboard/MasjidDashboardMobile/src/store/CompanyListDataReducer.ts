@@ -1,5 +1,5 @@
 import { removeStorage, saveStorage, STORAGE_COMPANY_LIST_DATA } from '../storage/Storage';
-import {CompanyListData} from '../types/types';
+import {CompanyListData} from "mdb-core-js";
 
 // Types
 export const COMPANY_LIST_SET = "COMPANY_LIST_SET";

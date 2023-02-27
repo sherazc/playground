@@ -1,5 +1,5 @@
 import { saveStorage, STORAGE_SETTING_DATA } from '../storage/Storage';
-import { createDefaultSettingData, SettingData } from '../types/types';
+import { createDefaultSettingData, SettingData } from "mdb-core-js";
 
 // Types
 export const SETTING_SET = "SETTING_SET";

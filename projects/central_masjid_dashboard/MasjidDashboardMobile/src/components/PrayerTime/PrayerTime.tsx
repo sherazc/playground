@@ -4,7 +4,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { MdParamList } from "../NavRoutes";
 import { RouteProp } from '@react-navigation/native';
 import { useTypedSelector } from "../../store/rootReducer";
-import { CompanyData, PrayersDay } from "../../types/types";
+import { CompanyData, PrayersDay } from "mdb-core-js";
 import { Loading } from "../Loading";
 import { PrayerTimeGrid } from './PrayerTimeGrid';
 import { beginCompanyDataInterval, destroyTrackerInterval, } from '../../services/AppService';

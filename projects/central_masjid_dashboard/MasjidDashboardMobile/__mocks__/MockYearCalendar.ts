@@ -1,5 +1,4 @@
-import { MdDate } from "../src/services/common/DateService";
-import { PrayersMonth, PrayersYear } from "../src/types/types";
+import { PrayersMonth, PrayersYear, MdDate } from "mdb-core-js";
 
 export const mockPrayersMonths: PrayersMonth[] = [
     {

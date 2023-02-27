@@ -1,4 +1,4 @@
-import { Loading, LoadingStatus } from "../types/types";
+import { Loading, LoadingStatus } from "mdb-core-js";
 
 // Types
 export const RECOVER_INIT_STATE_SET = "RECOVER_INIT_STATE_SET";

@@ -1,5 +1,4 @@
 import {isValidCompany} from "../../src/services/CompanyDataService";
-import {Company} from "../../src/types/types";
 
 // TODO: upgrade react-native-push-notification and check if this is still needed
 // jest.mock("react-native-push-notification", () => ({}));

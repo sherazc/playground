@@ -1,6 +1,6 @@
-import { PrayersDay, PrayerTime, PrayerTimeSummary } from "../types/types";
+import { PrayersDay, PrayerTime, PrayerTimeSummary } from "mdb-core-js";
 import { Constants } from "./Constants";
-import { addDays, getCurrentSystemDate, stringH24MinToDate } from "./common/DateService";
+import { addDays, getCurrentSystemDate, stringH24MinToDate } from "mdb-core-js";
 
 // TODO Calculate Maghrib iqama time.
 // TODO Create backend configuration for maghrib iqama time

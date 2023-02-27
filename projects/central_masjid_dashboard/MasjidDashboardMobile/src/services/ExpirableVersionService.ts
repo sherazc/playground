@@ -1,7 +1,7 @@
 
-import { ExpirableVersion } from '../types/types';
+import { ExpirableVersion } from "mdb-core-js";
 import { Constants } from './Constants';
-import { getCurrentSystemDate, getSystemTimezoneDateIsoString, MdDate } from './common/DateService';
+import { getCurrentSystemDate, getSystemTimezoneDateIsoString, MdDate } from "mdb-core-js";
 
 
 export const createExpirationDate = () => new Date(createExpirationDateIso());

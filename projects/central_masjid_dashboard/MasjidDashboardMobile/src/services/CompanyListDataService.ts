@@ -1,4 +1,4 @@
-import { CompanyListData, CompanyListVersion, createEmptyCompanyListData } from '../types/types';
+import { CompanyListData, CompanyListVersion, createEmptyCompanyListData } from "mdb-core-js";
 import { createOrRefreshExpirableVersion, isExpired } from './ExpirableVersionService';
 import { storeDispatchCompanyListData } from '../store/ReduxStoreService';
 import { apiCompaniesActive, apiCompanyListVersion } from './ApiMdb';

@@ -5,7 +5,7 @@ import { CompanySelect } from './CompanySelect/CompanySelect';
 import { PrayerTime } from './PrayerTime/PrayerTime';
 import { Settings } from './Settings';
 import { useTypedSelector } from '../store/rootReducer'
-import { Company, LoadingStatus } from '../types/types';
+import { Company, LoadingStatus } from "mdb-core-js";
 import { recoverAppFromStorage } from '../services/AppService';
 import { RegisterInfo } from './RegisterInfo';
 import { RecoveringFromStorageImage } from "./RecoveringFromStorageImage";

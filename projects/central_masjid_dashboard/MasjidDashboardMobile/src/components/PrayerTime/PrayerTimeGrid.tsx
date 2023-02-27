@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { dateToDisplayDateShort, time24To12 } from '../../services/common/DateService';
-import { PrayersDay, PrayerTimeSummary, CompanyData } from '../../types/types';
+import { dateToDisplayDateShort, time24To12 } from "mdb-core-js";
+import { PrayersDay, PrayerTimeSummary, CompanyData } from "mdb-core-js";
 import { PrayerTimeSummaryMessage } from '../../types/react-types';
-import { findConfigurationByName } from '../../services/common/Utilities';
+import { findConfigurationByName } from "mdb-core-js";
 import { ConfigurationKey, ConstantsStyles } from '../../services/Constants';
 
 interface Props {

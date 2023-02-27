@@ -1,9 +1,9 @@
-import * as DateService from "../../src/services/common/DateService";
+import * as DateService from "mdb-core-js";
 import * as ExpirableVersionService from "../../src/services/ExpirableVersionService";
 import * as CalendarService from "../../src/services/CalendarService";
 import * as ReduxStoreService from "../../src/store/ReduxStoreService";
 import { updateCompanyData } from "../../src/services/CompanyDataService";
-import { Company, CompanyData, CompanyDataVersion, PrayersDay, ServiceResponse } from "../../src/types/types";
+import { Company, CompanyData, CompanyDataVersion, PrayersDay, ServiceResponse } from "mdb-core-js";
 import { mockCreateServiceResponse } from "../../__mocks__/MockServiceResponse";
 import { mockCreateCompany, mockCreateCompanyDataVersion, mockCreateConfigurations, mockCreatePrayer } from "../../__mocks__/MockTypes";
 import { mockPrayersYear, mockPrayersMonths } from "../../__mocks__/MockYearCalendar";

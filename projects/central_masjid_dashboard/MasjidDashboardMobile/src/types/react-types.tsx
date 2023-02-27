@@ -1,5 +1,5 @@
 import React from "react";
-import { PrayerTimeSummary } from "./types";
+import { PrayerTimeSummary } from "mdb-core-js";
 
 export interface PrayerTimeSummaryMessage {
     prayerTimeSummary?: PrayerTimeSummary;

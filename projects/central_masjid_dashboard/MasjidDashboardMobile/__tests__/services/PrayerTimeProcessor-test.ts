@@ -1,4 +1,4 @@
-import * as DateService from "../../src/services/common/DateService";
+import * as DateService from "mdb-core-js";
 import { Constants } from "../../src/services/Constants";
 import { processPrayerTime } from "../../src/services/PrayerTimeProcessor";
 import { mockCreatePrayer } from "../../__mocks__/MockTypes";

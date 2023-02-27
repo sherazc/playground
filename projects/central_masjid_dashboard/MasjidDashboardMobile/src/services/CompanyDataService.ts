@@ -7,18 +7,18 @@ import {
     PrayersDay, 
     PrayersYear, 
     ServiceResponse 
-} from "../types/types";
+} from "mdb-core-js";
 import { createOrRefreshExpirableVersion, isExpired } from "./ExpirableVersionService";
 import { 
     isSameMonthDate, 
     getTodaysDate, 
     getTodaysMonth, 
     parseObjectsIsoDateToMdDate 
-} from "./common/DateService";
+} from "mdb-core-js";
 import { apiCompanyDataVersion, apiConfiguration, apiPrayer } from "./ApiMdb";
 import { getPrayersYear } from "./CalendarService";
 import { storeDispatchCompanyData } from "../store/ReduxStoreService";
-import {logPromiseReason, logPromiseReject} from "./common/Utilities";
+import {logPromiseReason, logPromiseReject} from "mdb-core-js";
 import {setupNotificationOnCompanyDataChangedHandler} from "./notification/NotificationService";
 
 

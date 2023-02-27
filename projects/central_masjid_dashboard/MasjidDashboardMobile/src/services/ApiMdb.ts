@@ -1,4 +1,12 @@
-import { Company, CompanyDataVersion, CompanyListVersion, Configuration, PrayersDay, PrayersMonth, ServiceResponse } from "../types/types";
+import {
+    Company,
+    CompanyDataVersion,
+    CompanyListVersion,
+    Configuration,
+    PrayersDay,
+    PrayersMonth,
+    ServiceResponse
+} from "mdb-core-js";
 import { Constants } from "./Constants";
 
 export const apiYearCalendar = (companyId: string, year: number): Promise<ServiceResponse<PrayersMonth[]>> => {
