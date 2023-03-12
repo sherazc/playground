@@ -18,7 +18,7 @@ public class DefaultDataLoader {
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultDataLoader.class);
 
     private final MongoTemplate mongoTemplate;
-    private StartupProfile startupProfile;
+    private final StartupProfile startupProfile;
 
     public DefaultDataLoader(MongoTemplate mongoTemplate,
                              StartupProfile startupProfile) {

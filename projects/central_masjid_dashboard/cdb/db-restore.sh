@@ -3,6 +3,16 @@
 #     ubuntu@3.215.75.115:/home/ubuntu/cdb/data_export/db-backup-2023-02-17-03-49.tar.gz \
 #     misc/data_export/db-backup-2023-02-17-03-49.tar.gz
 
+# To restore data in local data container
+#
+# Copy below files in the container
+# docker cp db-backup-2023-02-17-03-49.tar.gz cdbdb:/
+# docker cp db-restore.sh cdbdb:/
+#
+# After copying run this script inside the container
+#
+
+
 backupDir="db-backup-2023-02-17-03-49"
 backupFile="$backupDir.tar.gz"
 tar -zxvf "$backupFile"
