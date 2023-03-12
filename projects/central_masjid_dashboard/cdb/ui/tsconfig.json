@@ -105,7 +105,7 @@
     "skipLibCheck": true,
     /* Skip type checking all .d.ts files. */
     // Migration to TSX
-    "noImplicitAny": true,
+    "noImplicitAny": false, // If true requires all typescript files or .d.ts files
     "strictNullChecks": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
