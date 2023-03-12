@@ -26,7 +26,7 @@ class CompanyDashboard extends Component {
     componentDidMount() {
         // I am able to do this because react router props are set
         // before component mount.
-        const companyDashboardUrl = getReactRouterPathParamFromUrl(this.props, "companyDashboardUrl");
+        const companyDashboardUrl = this.props.companyUrl;
         if (!this.state.centralControl.id && companyDashboardUrl) {
             this.refreshDashboard(companyDashboardUrl);
 
