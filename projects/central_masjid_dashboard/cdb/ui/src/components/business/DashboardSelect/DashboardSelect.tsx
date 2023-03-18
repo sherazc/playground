@@ -12,6 +12,7 @@ export const DashboardSelect: React.FC<Props> = (props) => {
 
     const [companyUrl, setCompanyUrl] = useState<String>("");
 
+
     useEffect(() => {
         console.log(props)
         const companyDashboardUrl = getReactRouterPathParamFromUrl(props, "companyDashboardUrl");

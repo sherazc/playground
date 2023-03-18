@@ -4,7 +4,7 @@ import {
     CompanyDataVersion,
     CompanyListData,
     CompanyListVersion,
-    Configuration,
+    CustomConfiguration,
     ExpirableVersion,
     PrayersDay,
     Tracker
@@ -56,7 +56,7 @@ const mockCreatePrayer = (): PrayersDay => ({
 });
 
 
-const mockCreateConfigurations = (): Configuration[] => ([{
+const mockCreateConfigurations = (): CustomConfiguration[] => ([{
     "name": "jumah_prayer",
     "value": "Only One Juma' 2:00pm"
 }]);

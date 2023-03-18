@@ -68,5 +68,5 @@ export {
     Loading,
     PrayerTimeSummary,
     PrayerTime,
-    Configuration
+    CustomConfiguration
 } from "./types/types";

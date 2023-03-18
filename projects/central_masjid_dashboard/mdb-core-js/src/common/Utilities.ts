@@ -1,4 +1,4 @@
-import { Configuration } from '../types/types';
+import {CustomConfiguration} from '../types/types';
 
 /* ############## String Utilities ############## */
 
@@ -37,7 +37,7 @@ export const subStringToNumber = (stringInput: string, fromIndex: number, toInde
 
 /* ############## Business Utilities ############## */
 
-export const findConfigurationByName = (configurations: Configuration[], name: string, defaultValue?: string) => {
+export const findConfigurationByName = (configurations: CustomConfiguration[], name: string, defaultValue?: string) => {
     if (!configurations || configurations.length < 1 || !name) {
         if (defaultValue) {
             return defaultValue

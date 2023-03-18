@@ -2,7 +2,7 @@ import {
     Company,
     CompanyDataVersion,
     CompanyListVersion,
-    Configuration,
+    CustomConfiguration,
     PrayersDay,
     PrayersMonth,
     ServiceResponse
@@ -27,7 +27,7 @@ export const apiPrayer = (companyId: string, month: number, day: number): Promis
     return fetch(endpoint).then(response => response.json());
 }
 
-export const apiConfiguration = (companyId: string): Promise<Configuration[]> => {
+export const apiConfiguration = (companyId: string): Promise<CustomConfiguration[]> => {
     const endpoint = Constants.createConfigurationEndpoint(companyId);
     console.log("Calling API ", endpoint);
     return fetch(endpoint).then(response => response.json());

@@ -1,8 +1,8 @@
 import { 
     Company, 
     CompanyData, 
-    CompanyDataVersion, 
-    Configuration, 
+    CompanyDataVersion,
+    CustomConfiguration,
     createEmptyCompanyData, 
     PrayersDay, 
     PrayersYear, 
@@ -67,7 +67,7 @@ const refreshCompanyData = (companyData: CompanyData, companyDataVersion: Compan
     };
 
     return new Promise<CompanyData>((resolve, reject) => {
-        const promises: (Promise<ServiceResponse<PrayersDay>> | Promise<Configuration[]> | Promise<PrayersYear>)[] = [
+        const promises: (Promise<ServiceResponse<PrayersDay>> | Promise<CustomConfiguration[]> | Promise<PrayersYear>)[] = [
             apiPrayer(company.id, month, date)];
 
         if (!versionSame
@@ -90,7 +90,7 @@ const refreshCompanyData = (companyData: CompanyData, companyDataVersion: Compan
 }
 
 
-const processCompanyData = (companyData: CompanyData, apiResponses: (ServiceResponse<PrayersDay> | Configuration[] | PrayersYear)[]) => {
+const processCompanyData = (companyData: CompanyData, apiResponses: (ServiceResponse<PrayersDay> | CustomConfiguration[] | PrayersYear)[]) => {
     if (!apiResponses || apiResponses.length < 1) {
         return;
     }
@@ -101,7 +101,7 @@ const processCompanyData = (companyData: CompanyData, apiResponses: (ServiceResp
         parseObjectsIsoDateToMdDate(prayerResponse.target); // TODO: check if this can be done in API call function.
         companyData.prayer = prayerResponse.target;
         if (apiResponses.length > 2) {
-            companyData.configurations = apiResponses[1] as Configuration[];
+            companyData.configurations = apiResponses[1] as CustomConfiguration[];
             companyData.prayersYear = apiResponses[2] as PrayersYear;
         }
 

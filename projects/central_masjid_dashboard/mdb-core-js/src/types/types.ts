@@ -93,7 +93,7 @@ export interface CompanyListData {
 export interface CompanyData {
     company?: Company;
     prayer?: PrayersDay;
-    configurations: Configuration[];
+    configurations: CustomConfiguration[];
     prayersYear?: PrayersYear;
     tracker: Tracker;
 }
@@ -183,7 +183,54 @@ export interface PrayerTime {
     iqamah: Date;
 }
 
-export interface Configuration {
+
+// Renamed from
+export interface CustomConfiguration {
     name: string;
     value: string;
+}
+
+
+export interface CentralControl {
+    id: string;
+    companyId: string;
+    announcements: Announcement[];
+    customConfigurations: CustomConfiguration[];
+    events: MhEvent[];
+    expenses: Expense[];
+    funds: Fund[];
+    jummahs: Jummah[];
+}
+
+export interface Announcement {
+    detail: string
+}
+
+// Created MhEvent and not Event because there is a dom type Event
+export interface MhEvent {
+    date: MdDate;
+    title: string;
+    time: string;
+    description: string;
+}
+
+export interface Expense {
+    lineItem: string;
+    amount: number;
+    enabled: boolean;
+}
+
+export interface Fund {
+    name: string;
+    goal: number;
+    current: number;
+    pledge: number;
+    endDate: MdDate;
+    enabled: boolean;
+}
+
+export interface Jummah {
+    date: MdDate;
+    khateeb: string;
+    enabled: boolean;
 }
