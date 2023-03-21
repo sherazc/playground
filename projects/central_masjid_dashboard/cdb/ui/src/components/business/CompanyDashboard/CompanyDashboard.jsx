@@ -24,7 +24,7 @@ class CompanyDashboard extends Component {
     };
 
     componentDidMount() {
-        const companyDashboardUrl = "hic";
+        const companyDashboardUrl = getReactRouterPathParamFromUrl(this.props, "companyDashboardUrl");
         if (!this.state.centralControl.id && companyDashboardUrl) {
             this.refreshDashboard(companyDashboardUrl);
 
