@@ -3,7 +3,6 @@ import {CompanyDashboardV2} from "../CompanyDashboardV2/CompanyDashboardV2";
 import CompanyDashboard from "../CompanyDashboard/CompanyDashboard";
 import {getReactRouterPathParamFromUrl} from "../../../services/utilities";
 
-
 interface Props {
     // figure out react router types
 }
@@ -24,8 +23,8 @@ export const DashboardSelect: React.FC<Props> = (props) => {
         <div>
 
             Dashboard Select
-            <CompanyDashboard companyUrl={companyUrl} />
-            <CompanyDashboardV2 companyUrl={companyUrl} />
+            <CompanyDashboard companyUrl={companyUrl}/>
+            <CompanyDashboardV2 companyUrl={companyUrl}/>
         </div>
     );
 }

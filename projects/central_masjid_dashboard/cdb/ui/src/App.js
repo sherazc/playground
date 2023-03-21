@@ -112,14 +112,20 @@ class App extends Component {
                                 path={`${process.env.PUBLIC_URL}/calendar/:companyUrl`}
                                 component={Calendar}/>
 
-
+{/*
                             <Route
                                 path={`${process.env.PUBLIC_URL}/:companyDashboardUrl`}
                                 component={DashboardSelect}/>
+*/}
+
+
+                            <Route
+                                path={`${process.env.PUBLIC_URL}/:companyDashboardUrl`}
+                                component={CompanyDashboard}/>
 
 
 
-{/*
+                            {/*
 
                             <Route
                                 path={`${process.env.PUBLIC_URL}/:companyDashboardUrl`}

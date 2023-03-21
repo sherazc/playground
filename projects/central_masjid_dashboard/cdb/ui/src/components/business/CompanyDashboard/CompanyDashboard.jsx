@@ -24,7 +24,7 @@ class CompanyDashboard extends Component {
     };
 
     componentDidMount() {
-        const companyDashboardUrl = this.props.companyUrl;
+        const companyDashboardUrl = "hic";
         if (!this.state.centralControl.id && companyDashboardUrl) {
             this.refreshDashboard(companyDashboardUrl);
 
