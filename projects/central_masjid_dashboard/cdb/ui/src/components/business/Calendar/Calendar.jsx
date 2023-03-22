@@ -142,7 +142,7 @@ export default (props) => {
                     <th>Shurooq</th>
                     <th colSpan="2">Zuhr</th>
                     <th colSpan="2">Asr</th>
-                    <th>Maghrib</th>
+                    <th colSpan="2">Maghrib</th>
                     <th colSpan="2">Isha</th>
                 </tr>
                 <tr>
@@ -156,6 +156,7 @@ export default (props) => {
                     <td>Azan</td>
                     <td>Iqmah</td>
                     <td>Azan</td>
+                    <td>Iqmah</td>
                     <td>Azan</td>
                     <td>Iqmah</td>
                 </tr>

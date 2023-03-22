@@ -13,10 +13,10 @@ const buildWidgetHTML = (serverResponse) => {
         return `
         <div class="jsContainer">
             <div class="jsHeader">
-                Jummah Schedule
+                Jum'ah Schedule
             </div>
-            <div class="jsTableContainer">
-                Jummah Schedule not found.
+            <div class="jsTableContainer" style="padding: 10px">
+                Jum'ah Schedule not found.
             </div>
         <div>
         `;
@@ -42,7 +42,7 @@ const buildWidgetHTML = (serverResponse) => {
     // Valid result
     let resultHtml = `
     <div class="jsContainer">
-        <div class="jsHeader">Jummah Schedule</div>
+        <div class="jsHeader">Jum'ah Schedule</div>
         <div class="jsTableContainer">
             <table class='jsTable' border='0'>
             <thead>

@@ -15,6 +15,7 @@ export default (props) => {
             <td>{time24To12(prayer.asr)}</td>
             <td>{time24To12(prayer.asrIqama)}</td>
             <td>{time24To12(prayer.maghrib)}</td>
+            <td>{time24To12(prayer.maghribIqama)}</td>
             <td>{time24To12(prayer.isha)}</td>
             <td>{time24To12(prayer.ishaIqama)}</td>
         </tr>
