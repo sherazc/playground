@@ -138,27 +138,37 @@ export default (props) => {
                 <tr>
                     <th>Date</th>
                     <th>Hijri</th>
-                    <th colSpan="2">Fajr</th>
+                    <th>Fajr</th>
                     <th>Shurooq</th>
-                    <th colSpan="2">Zuhr</th>
-                    <th colSpan="2">Asr</th>
-                    <th colSpan="2">Maghrib</th>
-                    <th colSpan="2">Isha</th>
+                    <th>Zuhr</th>
+                    <th>Asr</th>
+                    <th>Maghrib</th>
+                    <th>Isha</th>
                 </tr>
                 <tr>
                     <td></td>
                     <td></td>
-                    <td>Azan</td>
-                    <td>Iqmah</td>
+                    <td>
+                        <div>Azan</div>
+                        <div>Iqmah</div>
+                    </td>
                     <td></td>
-                    <td>Azan</td>
-                    <td>Iqmah</td>
-                    <td>Azan</td>
-                    <td>Iqmah</td>
-                    <td>Azan</td>
-                    <td>Iqmah</td>
-                    <td>Azan</td>
-                    <td>Iqmah</td>
+                    <td>
+                        <div>Azan</div>
+                        <div>Iqmah</div>
+                    </td>
+                    <td>
+                        <div>Azan</div>
+                        <div>Iqmah</div>
+                    </td>
+                    <td>
+                        <div>Azan</div>
+                        <div>Iqmah</div>
+                    </td>
+                    <td>
+                        <div>Azan</div>
+                        <div>Iqmah</div>
+                    </td>
                 </tr>
                 </thead>
                 <tbody>

@@ -46,6 +46,9 @@
   height: 100%;
   overflow: hidden;
   padding-left: 20px;
+  @media screen and (max-width: $screen-break) {
+    padding-left: 10px;
+  }
 }
 
 // https://stackoverflow.com/questions/16670931/hide-scroll-bar-but-while-still-being-able-to-scroll
@@ -60,7 +63,10 @@
 
 
 .monthContainer {
-  padding: 3vw 0;
+  padding: 3vw 2vw 3vw 0;
+  @media screen and (max-width: $screen-break) {
+    padding: 3vw 3vw 3vw 0;
+  }
 }
 
 .monthTable {
@@ -74,7 +80,7 @@
   font-size: 1vw;
   @media screen and (max-width: $screen-break) {
     font-size: 2vw;
-    padding: 1vw;
+    padding: 2vw;
   }
 }
 
@@ -92,6 +98,8 @@
   }
 }
 
+
+
 .monthTable thead tr:nth-child(2) {
   background-color: $color3BackgroundLight;
   color: $colorTextDark;
@@ -101,13 +109,21 @@
   text-align: left;
 }
 
+.monthTable thead tr:nth-child(2) th:nth-child(1) {
+  width: 6vw;
+}
+
+.monthTable thead tr:nth-child(2) th:nth-child(2) {
+  width: 6vw;
+}
+
 .monthTable thead tr:nth-child(3) {
   background-color: $color4BackgroundLight;
   color: $colorTextDark;
 }
 
 .monthTable tbody tr:nth-child(odd) {
-  background-color: #fefefe;
+  background-color: #eaeaea;
   color: $colorTextDark;
 }
 
@@ -120,6 +136,7 @@
 .monthTable tbody tr td {
   padding: .5vw;
   font-size: 1vw;
+  white-space: nowrap;
   @media screen and (max-width: $screen-break) {
     font-size: 2vw;
     padding: 1vw;
