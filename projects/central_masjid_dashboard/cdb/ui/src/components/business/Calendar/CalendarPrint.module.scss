@@ -1,11 +1,19 @@
 @import "./Calendar.module";
 
-.searchFieldContainer, .searchButtonContainer, .printLink{
+.searchFieldContainer, .searchButtonContainer, .printLink {
   display: none;
 }
 
 .monthTable thead tr th, .monthTable thead tr td, .monthTable tbody tr td {
-  // border: 1px solid #ccc;
-  // background-color: white;
-  // color: black;
+  border: 1px solid #ccc;
+}
+
+.monthTable thead tr:nth-child(1), .monthTable thead tr:nth-child(3) {
+  background-color: white;
+  color: black;
+}
+
+.monthTable thead tr:nth-child(2) {
+  background-color: lightgray;
+  color: black;
 }
