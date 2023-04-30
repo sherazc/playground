@@ -1,10 +1,4 @@
-
-
-// API Request/Response Types
-interface CustomConfiguration {
-    name: string;
-    value: string;
-}
+// ############# API core types
 
 // API Setup
 type ApiMethod = "GET" | "PUT" | "POST" | "DELETE";
@@ -24,27 +18,21 @@ type InterceptorCallBacks = {
 }
 
 
-/**
- * This method creates all the available endpoints.
- * @param baseUrl
- */
-const makeEndpoints = (baseUrl: string) => {
-    return {
-        createConfigurationEndpoint: (companyId: string) => `${baseUrl}/api/auth/companies/${companyId}/configurations`
-    }
-}
+// ############## API Core service
 
-// This function is only for reference
-const apiCentralConfiguration = (companyUrl: string): Promise<CustomConfiguration[]> => {
-    const endpoint = `api/companies/${companyUrl}/mh/central-control`;
-    console.log("Calling API ", endpoint);
-    return fetch(endpoint).then(response => response.json());
+
+const addHeadersInRequest = (request: ApiRequest, headers?: ApiHeaders): ApiRequest => {
+    if (headers) {
+        if (!request.headers) {
+            request.headers = [];
+        }
+        headers.forEach(h => request.headers?.push(h));
+    }
+    return request;
 }
 
 /**
  * This is low level function that will call the javascript HTTP fetch() API.
- *
- * TODO: Change parameters to ApiRequest
  *
  */
 const callApi = (request: ApiRequest): Promise<any> => {
@@ -65,74 +53,94 @@ const callApi = (request: ApiRequest): Promise<any> => {
             requestInit.body = JSON.stringify(request.payload);
         }
     }
-    return fetch(request.endpoint, requestInit).then(response => response.json());
+    return fetch(request.endpoint, requestInit).then(
+        response => response.json()
+    );
 }
 
 
-/**
- * Setup all CDB endpoints
- *
- *
- */
-const cdbApiUnAuth = (baseUrl: string, commonHeaders?: ApiHeaders, globalCbs?: InterceptorCallBacks) => {
-
-    const endpoints = makeEndpoints(baseUrl);
-
-    // const common:ApiHeaders;
-    // if (commonHeaders) {
-    //     authTokenHeader.push(["Authorization", `Bearer ${authToken}`])
-    // }
-
-
-    const api = {
-
-        apiCentralConfiguration: (companyId: string): Promise<CustomConfiguration> => {
-            // Step 1 Create Endpoint
-            const endpoint = endpoints.createConfigurationEndpoint(companyId);
-
-            // Step 2: Create Request
-            const request: ApiRequest = {
-                endpoint
-            }
-
-            // Step 3: Create Promise to call API and decorate it with callbacks
-            return createRequestPromise(request, globalCbs);
-        }
-    }
-
-
-    return api;
-}
-
-const createRequestPromise = (request: ApiRequest, globalCbs?: InterceptorCallBacks): Promise<any> => {
-    if (globalCbs && globalCbs.before) {
-        globalCbs.before();
+const createResponsePromise = (request: ApiRequest, interceptorCbs?: InterceptorCallBacks): Promise<any> => {
+    if (interceptorCbs && interceptorCbs.before) {
+        interceptorCbs.before();
     }
     return new Promise((resolve, reject) => {
         let responsePromise = callApi(request);
         responsePromise.then(response => {
             resolve(response);
-            if (globalCbs && globalCbs.afterSuccess) {
-                globalCbs.afterSuccess(response);
+            if (interceptorCbs && interceptorCbs.afterSuccess) {
+                interceptorCbs.afterSuccess(response);
             }
         }, error => {
             reject(error);
-            if (globalCbs && globalCbs.afterError) {
-                globalCbs.afterError(error);
+            if (interceptorCbs && interceptorCbs.afterError) {
+                interceptorCbs.afterError(error);
             }
         })
     });
 }
 
 
-const globalCbs: InterceptorCallBacks = {
+
+
+
+
+// ############# API CDB types
+// API Request/Response Types
+interface CustomConfiguration {
+    name: string;
+    value: string;
+}
+
+
+
+// ############# API CDB Service
+
+/**
+ * This method creates all the available endpoints.
+ * @param baseUrl
+ */
+const cdbEndpoints = (baseUrl: string) => {
+    return {
+        createConfigurationEndpoint: (companyId: string) => `${baseUrl}/api/auth/companies/${companyId}/configurations`
+    }
+}
+
+
+
+/**
+ * Setup all CDB endpoints
+ *
+ */
+const cdbApis = (baseUrl: string, commonHeaders?: ApiHeaders, interceptorCbs?: InterceptorCallBacks) => {
+
+    const endpoints = cdbEndpoints(baseUrl);
+
+    const api = {
+
+        apiCentralConfiguration: (companyId: string): Promise<CustomConfiguration> => {
+            const endpoint = endpoints.createConfigurationEndpoint(companyId);
+            const request: ApiRequest = {endpoint};
+            addHeadersInRequest(request, commonHeaders);
+            return createResponsePromise(request, interceptorCbs);
+        }
+    }
+    return api;
+}
+
+// ############# Sample Call in application
+
+const interceptorCbs: InterceptorCallBacks = {
     before: () => console.log("Before"),
     afterSuccess: (response) => console.log("After Success ", response),
     afterError: (error) => console.log("After Error", error),
 }
 
+const headers: ApiHeaders = [
+    ["Authorization", "Bearer abc"]
+];
 
-let api = cdbApiUnAuth("http://localhost:8085", [], globalCbs);
+
+let api = cdbApis("http://localhost:8085", headers, interceptorCbs);
 
 api.apiCentralConfiguration("5da2632ef2a2337a5fd916d3").then(r => console.log(r));
-// api.apiCentralConfiguration("hic").then(r => console.log(r));
+
