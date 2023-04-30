@@ -81,8 +81,15 @@ class CompanyDashboard extends Component {
     getCompanyName(centralControl) {
         let companyName = "Masjid Dashboard";
         // TODO - 2022-02-03. Make these changes. centralControl now contains Array of single company.
-        if(centralControl && centralControl.company && centralControl.company.name) {
-            companyName = centralControl.company.name;
+        //   I think this happened when mongodb lib was upgraded for unknown reason.
+        //   That's why doing extra Array checks.
+        if(centralControl && centralControl.company
+        && centralControl.company instanceof Array
+        &&  centralControl.company.length > 0
+            &&  centralControl.company[0]
+            &&  centralControl.company[0].name
+        ) {
+            companyName = centralControl.company[0].name;
         }
         return companyName;
     }
