@@ -80,18 +80,24 @@ class CompanyDashboard extends Component {
 
     getCompanyName(centralControl) {
         let companyName = "Masjid Dashboard";
+        const company = this.getCompany(centralControl);
+        if(company && company.name) {
+            companyName = company.name;
+        }
+        return companyName;
+    }
+
+
+    getCompany = (centralControl) =>{
         // TODO - 2022-02-03. Make these changes. centralControl now contains Array of single company.
         //   I think this happened when mongodb lib was upgraded for unknown reason.
         //   That's why doing extra Array checks.
-        if(centralControl && centralControl.company
-        && centralControl.company instanceof Array
-        &&  centralControl.company.length > 0
-            &&  centralControl.company[0]
-            &&  centralControl.company[0].name
-        ) {
-            companyName = centralControl.company[0].name;
+        let company = undefined;
+        if(centralControl && centralControl.company && centralControl.company instanceof Array
+            &&  centralControl.company.length > 0) {
+            company = centralControl.company[0];
         }
-        return companyName;
+        return company;
     }
 
     isShowMiddleSection(centralControl) {
@@ -107,7 +113,7 @@ class CompanyDashboard extends Component {
         const xsBreakPoint = 12;
         const smBreakPoint = 12;
         const mdBreakPoint = showMiddleSection ? 4 : 6;
-        const company = this.state.centralControl.company;
+        const company = this.getCompany(this.state.centralControl);
         const website = company && company.website ? company.website : "";
         let clockType = getConfigValue("clock_type", this.state.companyConfigurations, "1");
         return (

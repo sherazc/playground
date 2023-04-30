@@ -123,13 +123,80 @@ class SalahTime extends Component {
                 <tr>
                     <th>Jum'ah</th>
                     <td colSpan="3">
-                        {getConfigValue("jumah_prayer", this.props.companyConfigurations)}
+                        <div style={{whiteSpace: "normal", margin: "0 auto"}}>
+                            {getConfigValue("jumah_prayer", this.props.companyConfigurations)}
+                            {this.getJummahKhateeb(this.props.centralControl)}
+                        </div>
                     </td>
                 </tr>
                 </tbody>
             </table>
         );
     }
+
+    getJummahKhateeb(centralControl) {
+        if (!centralControl || !centralControl.jummahs || centralControl.jummahs.length < 1) {
+            return;
+        }
+
+        function toDate(dateString) {
+
+            const dateSplit = dateString.split("-");
+            if (!dateSplit || dateSplit.length < 3) {
+                return;
+            }
+            const year = +dateSplit[0];
+            const month = +dateSplit[1] - 1;
+            const date = +dateSplit[2];
+            if (Number.isNaN(year) || Number.isNaN(month) || Number.isNaN(date)) {
+                return;
+            }
+
+            return new Date(year, month, date);
+        }
+        
+        function sortJummah(j1, j2) {
+            if (j1.date.getTime() > j2.date.getTime()) {
+                return 1;
+            }
+            if (j1.date.getTime() < j2.date.getTime()) {
+                return -1;
+            }
+            return 0;
+        }
+
+        const today = new Date();
+
+        const jummahs = centralControl.jummahs
+            .filter(j => j.enabled && j.date && j.khateeb) // jummah is enabled and all values are available
+            .map(j => {  // Convert date string to date object
+                return {
+                    date: toDate(j.date),
+                    khateeb: j.khateeb
+                }
+            })
+            .filter(j => j.date) // Filter where date is missing
+            .filter(j => j.date.getTime() > today.getTime()) // Filter future jummahs
+            .sort(sortJummah); // Sort by Date
+
+        let jummahDetails = undefined;
+        if (jummahs && jummahs.length > 0) {
+            const jummah = jummahs[0];
+            jummahDetails = `${jummah.date.getMonth() + 1}/${jummah.date.getDate()} - Khateeb: ${jummah.khateeb}`
+        }
+
+        if (jummahDetails) {
+            return (<>
+                <hr style={{border: "1px solid #B8B72F", margin: "2px auto", width: "30%"}}/>
+                {jummahDetails}
+            </>);
+        }
+
+
+        return undefined
+    }
+
+
 
     blinkClassIfRequired(changeDate) {
         if (!changeDate) return "";

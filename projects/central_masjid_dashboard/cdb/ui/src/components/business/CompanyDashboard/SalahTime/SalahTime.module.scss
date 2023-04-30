@@ -4,6 +4,7 @@
     margin: 0 auto;
     font-size: 1.2vw;
     border-collapse: collapse;
+    max-width: 88%;
     @media screen and (max-width: $screen-break) {
         font-size: 3.5vw;
     }
