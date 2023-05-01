@@ -50,7 +50,7 @@
 
 .sideBoxLeft {
     @extend .sideBox;
-    margin-top: 2.6vw;
+    margin-top: 1vw;
     @media screen and (max-width: $screen-break) {
         margin-top: 6vw;
     }
@@ -78,6 +78,15 @@
     @media screen and (max-width: $screen-break) {
         font-size: 5vw;
         margin-top: 5vw;
+    }
+}
+
+.companyAddress {
+    color: $colorTextLight;
+    text-align: center;
+    font-size: 1.2vw;
+    @media screen and (max-width: $screen-break) {
+        font-size: 2vw;
     }
 }
 

@@ -87,6 +87,15 @@ class CompanyDashboard extends Component {
         return companyName;
     }
 
+    getCompanyAddress(centralControl) {
+        let address = "-"
+        const company = this.getCompany(centralControl);
+        if (company && company.address) {
+            address = `${company.address.street}, ${company.address.city} ${company.address.state} ${company.address.zip} `
+        }
+        return address;
+    }
+
 
     getCompany = (centralControl) =>{
         // TODO - 2022-02-03. Make these changes. centralControl now contains Array of single company.
@@ -138,6 +147,9 @@ class CompanyDashboard extends Component {
                         <a href={website}>
                         {this.getCompanyName(this.state.centralControl)}
                         </a>
+                    </div>
+                    <div className={styles.companyAddress}>
+                        {this.getCompanyAddress(this.state.centralControl)}
                     </div>
 
                     <div className={styles.sideBoxLeft}
