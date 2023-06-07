@@ -13,7 +13,7 @@
 #
 
 
-backupDir="db-backup-2023-02-17-03-49"
+backupDir="db-backup-2023-06-07-00-10"
 backupFile="$backupDir.tar.gz"
 tar -zxvf "$backupFile"
 cd "$backupDir"
