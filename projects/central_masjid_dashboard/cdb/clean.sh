@@ -47,5 +47,5 @@ rm -rf ui/public/static/jummah-schedule-widget/app.min.*
 # Clean API
 rm -rf api/webservices/src/main/resources/static
 cd api
-mvn clean
+./mvnw clean
 cd ..

@@ -15,8 +15,8 @@ class Updates extends Component {
         return (
             <div>
                 <div className={[styles.heading1, styles.vMargin8].join(' ')}>Reminders</div>
-                <div className={[styles.heading3, styles.vMargin6].join(' ')}>Quran</div>
-                <div className={styles.reminderContainer}><Rod/></div>
+                {/*<div className={[styles.heading3, styles.vMargin6].join(' ')}>Quran</div>*/}
+                {/*<div className={styles.reminderContainer}><Rod/></div>*/}
                 <div className={[styles.heading3, styles.vMargin3].join(' ')}>Hadees</div>
                 <div className={styles.reminderContainer}><Hod/></div>
             </div>

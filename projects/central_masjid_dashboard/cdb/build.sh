@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+export NODE_OPTIONS=--openssl-legacy-provider
 
 # Install/Update npm and yarn
 npm install npm -g
