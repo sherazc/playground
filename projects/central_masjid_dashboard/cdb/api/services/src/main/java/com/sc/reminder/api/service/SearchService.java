@@ -22,13 +22,18 @@ public abstract class SearchService {
     public static final int MINIMUM_AYA_LENGTH = 150;
     private String translationDisplayName;
 
-    private final SearchFileLine2 searchFileLine;
+    private final SearchFileLine searchFileLine;
 
     public SearchService() {
-        searchFileLine = new SearchFileLine2();
+        searchFileLine = new SearchFileLine();
     }
 
+
     public List<AyaDetail> search(int limitHistory) {
+        return this.search(limitHistory, RandomAyaNumber.getInstance().daysSinceEpoch());
+    }
+
+    public List<AyaDetail> search(int limitHistory, int seed) {
         LOG.debug("Searching for AyaDetail. limitHistory = {}", limitHistory);
         List<AyaDetail> result = new ArrayList<AyaDetail>();
         if(CommonUtils.isBlank(getTranslationDisplayName())) {
@@ -39,16 +44,14 @@ public abstract class SearchService {
             totalReminders += limitHistory;
         }
 
-        int daysSinceEpoch = RandomAyaNumber.getInstance().daysSinceEpoch();
-
         Calendar calendar = Calendar.getInstance();
 
         for (int i = 0; i < totalReminders; i++) {
             BufferedReader quranBufferedReader = CommonUtils.streamToBufferedReader(openQuranStream());
             BufferedReader translationBufferedReader = CommonUtils.streamToBufferedReader(openTranslationStream());
 
-            int randomQuranLineNumber = RandomAyaNumber.getInstance().generateRandomAyaNumber(daysSinceEpoch);
-            LOG.debug("daysSinceEpoch = {}", daysSinceEpoch);
+            int randomQuranLineNumber = RandomAyaNumber.getInstance().generateRandomAyaNumber(seed);
+            LOG.debug("seed = {}", seed);
             LOG.debug("randomQuranLineNumber = {}", randomQuranLineNumber);
             List<Line> ayaLines = new ArrayList<Line>();
             List<Line> translationLines = new ArrayList<Line>();
@@ -89,10 +92,10 @@ public abstract class SearchService {
                 ayasLength += rawAyaLine.length();
             }
 
-            result.add(new AyaDetail(daysSinceEpoch, randomQuranLineNumber, ayaLines, translationLines, calendar.getTime()));
+            result.add(new AyaDetail(seed, randomQuranLineNumber, ayaLines, translationLines, calendar.getTime()));
 
             calendar.add(Calendar.DATE, -1);
-            daysSinceEpoch--;
+            seed--;
             CommonUtils.closeReader(quranBufferedReader);
             CommonUtils.closeReader(translationBufferedReader);
         }

@@ -1,6 +1,6 @@
 package com.sc.reminder.api.utils;
 
-import com.sc.reminder.api.service.SearchFileLine2;
+import com.sc.reminder.api.service.SearchFileLine;
 import com.sc.reminder.api.service.SearchService;
 
 import java.io.*;
@@ -18,7 +18,7 @@ public class CommonUtils {
         String[] result = null;
 
         if (line != null) {
-            result = line.split(SearchFileLine2.LINE_DELIMITER);
+            result = line.split(SearchFileLine.LINE_DELIMITER);
         }
 
         return result;

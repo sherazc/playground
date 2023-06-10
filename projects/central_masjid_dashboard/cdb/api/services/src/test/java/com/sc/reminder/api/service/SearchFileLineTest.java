@@ -14,12 +14,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class SearchFileLineTest {
 
     private BufferedReader quranReader;
-    private SearchFileLine2 searchFileLine;
+    private SearchFileLine searchFileLine;
 
     @BeforeEach
     void setUp() throws IOException {
         quranReader = Files.newBufferedReader(Paths.get("../webservices/src/main/resources/quran/quran-uthmani.txt"));
-        searchFileLine = new SearchFileLine2();
+        searchFileLine = new SearchFileLine();
     }
 
     @Test
