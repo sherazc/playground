@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+@Deprecated
 public abstract class SearchService {
     private static final Logger LOG = LoggerFactory.getLogger(SearchService.class);
 
