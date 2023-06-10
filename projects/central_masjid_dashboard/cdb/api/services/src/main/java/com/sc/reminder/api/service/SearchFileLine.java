@@ -4,10 +4,11 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
+@Deprecated
 public class SearchFileLine {
 
-    public static final String INDEX_DELIMITER = "@";
-    public static final String LINE_DELIMITER = "\\|";
+    private static final String INDEX_DELIMITER = "@";
+    private static final String LINE_DELIMITER = "\\|";
 
     public static final String DEFAULT_QURAN_INDEX_NAME = "quran-uthmani";
 

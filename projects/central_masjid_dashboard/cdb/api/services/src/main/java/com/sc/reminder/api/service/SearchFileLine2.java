@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SearchFileLine2 {
+    public static final String LINE_DELIMITER = "\\|";
 
     public String readLine(BufferedReader reader, int lineNumber) {
         if (lineNumber < 0 || reader == null) {

@@ -13,11 +13,9 @@ import com.sc.reminder.api.service.SearchService;
 public class ResourceSearchService extends SearchService {
 
     public static final String RESOURCE_QURAN_DIRECTORY = "/quran";
-    public static final String DATA_INDEX_FILE_NAME = RESOURCE_QURAN_DIRECTORY + "/data_index.txt";
     public static final String QURAN_FILE_NAME = RESOURCE_QURAN_DIRECTORY + "/quran-uthmani.txt";
 
     public ResourceSearchService() {
-        super(ResourceSearchService.openResourceInputStream(DATA_INDEX_FILE_NAME));
     }
 
     @Override

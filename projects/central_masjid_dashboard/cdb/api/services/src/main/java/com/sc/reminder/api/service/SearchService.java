@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-@Deprecated
+
 public abstract class SearchService {
     private static final Logger LOG = LoggerFactory.getLogger(SearchService.class);
 
@@ -22,10 +22,10 @@ public abstract class SearchService {
     public static final int MINIMUM_AYA_LENGTH = 150;
     private String translationDisplayName;
 
-    private SearchFileLine searchFileLine;
+    private final SearchFileLine2 searchFileLine;
 
-    public SearchService(InputStream indexInputStream) {
-        searchFileLine = new SearchFileLine(indexInputStream);
+    public SearchService() {
+        searchFileLine = new SearchFileLine2();
     }
 
     public List<AyaDetail> search(int limitHistory) {
@@ -53,10 +53,8 @@ public abstract class SearchService {
             List<Line> ayaLines = new ArrayList<Line>();
             List<Line> translationLines = new ArrayList<Line>();
 
-            String rawAyaLine = searchFileLine.readLine(quranBufferedReader, randomQuranLineNumber,
-                    SearchFileLine.DEFAULT_QURAN_INDEX_NAME);
-            String rawTranslationLine = searchFileLine.readLine(translationBufferedReader, randomQuranLineNumber,
-                    CommonUtils.displayNameToIndexName(getTranslationDisplayName()));
+            String rawAyaLine = searchFileLine.readLine(quranBufferedReader, randomQuranLineNumber);
+            String rawTranslationLine = searchFileLine.readLine(translationBufferedReader, randomQuranLineNumber);
 
             LOG.debug("rawAyaLine = {}", rawAyaLine);
             LOG.debug("rawTranslationLine = {}", rawTranslationLine);
@@ -102,6 +100,8 @@ public abstract class SearchService {
         return result;
     }
 
+
+    // I think this method was used in Android's Reminder of the day app.
     public List<AyaDetail> updateTranslation(List<AyaDetail> activityAyaDetails) {
         if (activityAyaDetails == null || activityAyaDetails.size() < 1) {
             return this.search(SearchService.HISTORY_DAYS);
@@ -113,8 +113,7 @@ public abstract class SearchService {
 
             if (ayas != null && translations != null && ayas.size() > 0 && ayas.size() == translations.size()) {
 
-                String rawTranslationLine = searchFileLine.readLine(translationBufferedReader, ayaDetail.getQuranLineNumber(),
-                        CommonUtils.displayNameToIndexName(getTranslationDisplayName()));
+                String rawTranslationLine = searchFileLine.readLine(translationBufferedReader, ayaDetail.getQuranLineNumber());
 
                 updateLine(translations.get(0), rawTranslationLine);
 
