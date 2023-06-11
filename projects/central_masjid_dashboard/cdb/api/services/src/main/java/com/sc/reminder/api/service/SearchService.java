@@ -35,7 +35,7 @@ public abstract class SearchService {
 
     public List<AyaDetail> search(int limitHistory, int seed) {
         LOG.debug("Searching for AyaDetail. limitHistory = {}", limitHistory);
-        List<AyaDetail> result = new ArrayList<AyaDetail>();
+        List<AyaDetail> result = new ArrayList<>();
         if(CommonUtils.isBlank(getTranslationDisplayName())) {
             return result;
         }
@@ -66,11 +66,17 @@ public abstract class SearchService {
             }
 
             Line ayaLine = new Line(rawAyaLine);
+            /*
+            // This is to remove first aya's because there is Bismillah in it.
+            // TODO: maybe I can remove Bismillah from first aya of all surahs
             if (ayaLine.getAyaNumber() == 1) {
                 rawAyaLine = CommonUtils.readLine(quranBufferedReader);
+                ayaLine = new Line(rawAyaLine);
                 rawTranslationLine = CommonUtils.readLine(translationBufferedReader);
                 randomQuranLineNumber++;
             }
+            */
+
             ayaLines.add(ayaLine);
             translationLines.add(new Line(rawTranslationLine));
 
