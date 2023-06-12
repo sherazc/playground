@@ -32,26 +32,30 @@ class SearchServiceTest {
                 System.out.println();
             }
             List<AyaDetail> ayaDetails = searchService.search(0, seed);
-            System.out.println(ayaDetails);
-
-
             assertFalse(ayaDetails.isEmpty());
-
             ayaDetails.forEach(this::assertAya);
         }
-
     }
 
     private void assertAya(AyaDetail ayaDetail) {
         assertNotNull(ayaDetail);
         assertEquals(ayaDetail.getAyas().size(), ayaDetail.getTranslations().size());
+        int expectedSurahNumber = ayaDetail.getAyas().get(0).getSuraNumber();
         for (int i = 0; i < ayaDetail.getAyas().size(); i++) {
             Line aya = ayaDetail.getAyas().get(i);
             Line translation = ayaDetail.getTranslations().get(i);
+            assertEquals(expectedSurahNumber, aya.getSuraNumber());
+            assertEquals(expectedSurahNumber, translation.getSuraNumber());
             assertEquals(aya.getAyaNumber(), translation.getAyaNumber());
             assertEquals(aya.getSuraNumber(), translation.getSuraNumber());
             assertTrue(StringUtils.isNotBlank(aya.getLineString()));
             assertTrue(StringUtils.isNotBlank(translation.getLineString()));
+            if(i > 0) {
+                Line ayaPrevious = ayaDetail.getAyas().get(i - 1);
+                Line translationPrevious = ayaDetail.getTranslations().get(i - 1);
+                assertEquals(aya.getAyaNumber(), ayaPrevious.getAyaNumber() + 1);
+                assertEquals(translation.getAyaNumber(), translationPrevious.getAyaNumber() + 1);
+            }
         }
     }
 }
