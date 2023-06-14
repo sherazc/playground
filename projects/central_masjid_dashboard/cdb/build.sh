@@ -3,48 +3,47 @@ export NODE_OPTIONS=--openssl-legacy-provider
 
 # Install/Update npm and yarn
 npm install npm -g
-npm install yarn -g
 
 # Install UI dependencies
 cd ./ui
 rm -rf build
-yarn install
+npm install
 cd ..
 
 # Build calendar-widget
 cd ./widgets/calendar-widget
-yarn install
-yarn build
+npm install
+npm run build
 cd ..
 
 # Build rod-widget
 cd ./rod-widget
-yarn install
-yarn build
+npm install
+npm run build
 cd ..
 
 # Build prayer-time-widget
 cd ./prayer-time-widget
-yarn install
-yarn build
+npm install
+npm run build
 cd ..
 
 # Build dashboard-widget
 cd ./dashboard-widget
-yarn install
-yarn build
+npm install
+npm run build
 cd ..
 
 # Build jummah-schedule-widget
 cd ./jummah-schedule-widget
-yarn install
-yarn build
+npm install
+npm run build
 cd ..
 
 # Build UI
 cd ../ui
 # UI is already been cleaned up
-yarn build
+npm run build
 
 # Clean static files
 cd ..
