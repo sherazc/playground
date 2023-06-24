@@ -36,6 +36,7 @@ const addHeadersInRequest = (request: ApiRequest, headers?: ApiHeaders): ApiRequ
  *
  */
 const callApi = (request: ApiRequest): Promise<any> => {
+    todo check for 200 status
     const requestInit: RequestInit = {
         method: request.method ? request.method : "GET"
     }
@@ -53,13 +54,26 @@ const callApi = (request: ApiRequest): Promise<any> => {
             requestInit.body = JSON.stringify(request.payload);
         }
     }
-    return fetch(request.endpoint, requestInit).then(
-        response => response.json()
-    );
+    // return fetch(request.endpoint, requestInit).then(
+    //     response => response.json()
+    // );
+    const responsePromise:Promise<Response> = fetch(request.endpoint, requestInit);
+    return new Promise((resolve, reject) => {
+        responsePromise.then(response => {
+            response.json().then(responseJson => {
+                resolve(responseJson);
+            }, (error) => reject(error));
+        }, (error) => reject(error));
+    });
 }
 
 
-const createResponsePromise = (request: ApiRequest, interceptorCbs?: InterceptorCallBacks): Promise<any> => {
+/**
+ * This is low level function that will call the javascript HTTP fetch() API.
+ * And surround fetch with intercept methods
+ *
+ */
+const callApiIntercept = (request: ApiRequest, interceptorCbs?: InterceptorCallBacks): Promise<any> => {
     if (interceptorCbs && interceptorCbs.before) {
         interceptorCbs.before();
     }
@@ -121,7 +135,7 @@ const cdbApis = (baseUrl: string, commonHeaders?: ApiHeaders, interceptorCbs?: I
             const endpoint = endpoints.createConfigurationEndpoint(companyId);
             const request: ApiRequest = {endpoint};
             addHeadersInRequest(request, commonHeaders);
-            return createResponsePromise(request, interceptorCbs);
+            return callApiIntercept(request, interceptorCbs);
         }
     }
     return api;
@@ -140,7 +154,8 @@ const headers: ApiHeaders = [
 ];
 
 
-let api = cdbApis("http://localhost:8085", headers, interceptorCbs);
+// let api = cdbApis("http://localhost:8085", headers, interceptorCbs);
+let api = cdbApis("http://localhost:8085", undefined, interceptorCbs);
 
 api.apiCentralConfiguration("5da2632ef2a2337a5fd916d3").then(r => console.log(r));
 
