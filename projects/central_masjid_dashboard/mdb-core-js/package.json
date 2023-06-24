@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "rm -rf ./dist && npx tsc",
+    "build": "rm -rf ./dist && npx jest && npx tsc",
     "test": "npx jest"
   },
   "keywords": [],
