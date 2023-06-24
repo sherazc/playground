@@ -36,7 +36,6 @@ const addHeadersInRequest = (request: ApiRequest, headers?: ApiHeaders): ApiRequ
  *
  */
 const callApi = (request: ApiRequest): Promise<any> => {
-    todo check for 200 status
     const requestInit: RequestInit = {
         method: request.method ? request.method : "GET"
     }
@@ -48,21 +47,25 @@ const callApi = (request: ApiRequest): Promise<any> => {
     if (request.payload) {
         if (typeof request.payload === "string") {
             requestInit.body = request.payload
-        } else if(request.payload instanceof String) {
+        } else if (request.payload instanceof String) {
             requestInit.body = request.payload.toString();
         } else {
             requestInit.body = JSON.stringify(request.payload);
         }
     }
-    // return fetch(request.endpoint, requestInit).then(
-    //     response => response.json()
-    // );
-    const responsePromise:Promise<Response> = fetch(request.endpoint, requestInit);
+
+    const responsePromise: Promise<Response> = fetch(request.endpoint, requestInit);
     return new Promise((resolve, reject) => {
         responsePromise.then(response => {
-            response.json().then(responseJson => {
-                resolve(responseJson);
-            }, (error) => reject(error));
+            if (response.status === 200) {
+                response.json().then(responseJson => {
+                    resolve(responseJson);
+                }, (error) => reject(error));
+            } else {
+                response.text().then(responseText => {
+                    reject(responseText)
+                }, (error) => reject(error));
+            }
         }, (error) => reject(error));
     });
 }
@@ -94,17 +97,12 @@ const callApiIntercept = (request: ApiRequest, interceptorCbs?: InterceptorCallB
 }
 
 
-
-
-
-
 // ############# API CDB types
 // API Request/Response Types
 interface CustomConfiguration {
     name: string;
     value: string;
 }
-
 
 
 // ############# API CDB Service
@@ -120,7 +118,6 @@ const cdbEndpoints = (baseUrl: string) => {
 }
 
 
-
 /**
  * Setup all CDB endpoints
  *
@@ -130,7 +127,6 @@ const cdbApis = (baseUrl: string, commonHeaders?: ApiHeaders, interceptorCbs?: I
     const endpoints = cdbEndpoints(baseUrl);
 
     const api = {
-
         apiCentralConfiguration: (companyId: string): Promise<CustomConfiguration> => {
             const endpoint = endpoints.createConfigurationEndpoint(companyId);
             const request: ApiRequest = {endpoint};
@@ -157,5 +153,8 @@ const headers: ApiHeaders = [
 // let api = cdbApis("http://localhost:8085", headers, interceptorCbs);
 let api = cdbApis("http://localhost:8085", undefined, interceptorCbs);
 
-api.apiCentralConfiguration("5da2632ef2a2337a5fd916d3").then(r => console.log(r));
+api.apiCentralConfiguration("5da2632ef2a2337a5fd916d3").then(
+    r => console.log("API Success", r),
+    e => console.log("API Error", e)
+);
 
