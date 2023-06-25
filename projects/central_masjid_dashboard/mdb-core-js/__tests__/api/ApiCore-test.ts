@@ -7,13 +7,13 @@ import {fetchWrapper} from "../../src/api/ApiFetchWrapper";
 
 describe("ApiCore - addHeadersInRequest", () => {
 
-    it("undefined headers", () => {
+    test("undefined headers", () => {
         let request: ApiRequest = {endpoint: ""};
         addHeadersInRequest(request, undefined);
         expect(request.headers).toBeFalsy();
     });
 
-    it("Empty headers", () => {
+    test("Empty headers", () => {
         let request: ApiRequest = {endpoint: ""};
         addHeadersInRequest(request, []);
         expect(request.headers).toBeTruthy();
@@ -21,7 +21,7 @@ describe("ApiCore - addHeadersInRequest", () => {
         expect(request.headers.length).toBe(0);
     });
 
-    it("Add headers", () => {
+    test("Add headers", () => {
         let request: ApiRequest = {endpoint: ""};
         const headerName = "Authorization";
         const headerValue = "Bearer a.b.c";
@@ -39,10 +39,23 @@ describe("ApiCore - addHeadersInRequest", () => {
 
 
 describe("ApiCore - callApi", () => {
-    it("callApi", () => {
-        jest.spyOn(ApiFetchWrapper, "fetchWrapper").mockImplementation(() => undefined);
+    test("callApi", (done) => {
 
+        const key = "key";
+        const value = "value";
+        // @ts-ignore
+        const fetchResponse: Response = {
+            status: 200,
+            json: () => Promise.resolve({key: value})
+        };
 
+        jest.spyOn(ApiFetchWrapper, "fetchWrapper").mockImplementation(() => Promise.resolve(fetchResponse));
+
+        let request: ApiRequest = {endpoint: ""};
+        callApi(request).then((response) => {
+            expect(response[key]).toBe(value);
+            done()
+        });
     });
 });
 
