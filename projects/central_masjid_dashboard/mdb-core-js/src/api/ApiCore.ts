@@ -1,4 +1,4 @@
-import {fetchWrapper} from "./ApiFetchWraper";
+import {fetchWrapper} from "./ApiFetchWrapper";
 
 export type ApiMethod = "GET" | "PUT" | "POST" | "DELETE";
 export type ApiHeaders = [string, string][];

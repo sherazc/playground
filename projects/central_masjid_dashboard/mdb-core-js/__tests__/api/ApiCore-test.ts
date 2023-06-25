@@ -1,4 +1,9 @@
-import {addHeadersInRequest, ApiRequest} from "../../src";
+// NOTE: Do not shortened this import as recomended by IntelliJ.
+// If we do that then it runs sample code in ApiCdb.ts and we have not imported that file.
+import {addHeadersInRequest, ApiRequest, callApi} from "../../src/api/ApiCore";
+import * as ApiFetchWrapper from "../../src/api/ApiFetchWrapper";
+import {fetchWrapper} from "../../src/api/ApiFetchWrapper";
+
 
 describe("ApiCore - addHeadersInRequest", () => {
 
@@ -31,3 +36,14 @@ describe("ApiCore - addHeadersInRequest", () => {
 
     });
 });
+
+
+describe("ApiCore - callApi", () => {
+    it("callApi", () => {
+        jest.spyOn(ApiFetchWrapper, "fetchWrapper").mockImplementation(() => undefined);
+
+
+    });
+});
+
+
