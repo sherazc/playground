@@ -31,6 +31,9 @@ export const cdbApis = (baseUrl: string, commonHeaders?: ApiHeaders, interceptor
     return api;
 }
 
+
+/*
+
 // ############# Reference: Sample Call in application
 // Do not use it. This is just for reference and testing
 const interceptorCbs: InterceptorCallBacks = {
@@ -51,3 +54,5 @@ api.apiCentralConfiguration("5da2632ef2a2337a5fd916d3").then(
     r => console.log("API Success", r),
     e => console.log("API Error", e)
 );
+
+*/
