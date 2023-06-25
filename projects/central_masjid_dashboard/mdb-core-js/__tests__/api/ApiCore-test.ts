@@ -54,7 +54,7 @@ describe("ApiCore - callApi", () => {
         let request: ApiRequest = {endpoint: ""};
         callApi(request).then((response) => {
             expect(response[key]).toBe(value);
-            done()
+            done();
         });
     });
 });
