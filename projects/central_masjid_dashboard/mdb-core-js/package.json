@@ -6,7 +6,8 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "rm -rf ./dist && npx jest && npx tsc",
-    "test": "npx jest"
+    "test": "npx jest",
+    "ApiCall": "npx ts-node src/api/ApiCdb.ts"
   },
   "keywords": [],
   "author": "",

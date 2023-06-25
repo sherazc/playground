@@ -30,8 +30,7 @@
     "start": "cp ./environment/local.properties ./.env && npx react-scripts start",
     "build": "cp ./environment/production.properties ./.env && npx react-scripts build",
     "test": "cp ./environment/local.properties ./.env && npx react-scripts test",
-    "eject": "react-scripts eject",
-    "ApiCall": "npx ts-node src/components/business/DashboardSelect/ApiCall.ts"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"

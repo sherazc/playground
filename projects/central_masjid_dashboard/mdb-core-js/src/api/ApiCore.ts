@@ -1,3 +1,5 @@
+import {fetchWrapper} from "./ApiFetchWraper";
+
 export type ApiMethod = "GET" | "PUT" | "POST" | "DELETE";
 export type ApiHeaders = [string, string][];
 
@@ -51,7 +53,7 @@ export const callApi = (request: ApiRequest): Promise<any> => {
         }
     }
 
-    const responsePromise: Promise<Response> = fetch(request.endpoint, requestInit);
+    const responsePromise: Promise<Response> = fetchWrapper(request.endpoint, requestInit);
     return new Promise((resolve, reject) => {
         responsePromise.then(response => {
             if (response.status === 200) {
