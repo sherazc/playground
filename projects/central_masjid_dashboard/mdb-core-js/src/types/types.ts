@@ -1,4 +1,4 @@
-import { MdDate } from "../services/DateService";
+import {MdDate} from "../services/DateService";
 
 export interface ExpirableVersion {
     expirationDate?: MdDate;
@@ -233,4 +233,38 @@ export interface Jummah {
     date: MdDate;
     khateeb: string;
     enabled: boolean;
+}
+
+
+export interface ReminderDetail {
+    suraNumber: number;
+    suraNameArabic: string;
+    suraDescription: string;
+    suraNameEnglish: string;
+    ayaDetail: AyaDetail;
+    translationName: string;
+}
+
+
+export interface AyaDetail {
+    sequenceNumberSeed: number;
+    quranLineNumber: number;
+    date: MdDate
+    firstAyaSuraName: string;
+    displayDate: string;
+    ayas: Line[];
+    translations: Line[];
+}
+
+export interface Line {
+    suraNumber: number;
+    ayaNumber: number;
+    lineString: string;
+}
+
+
+export interface Hadith {
+    id: string;
+    text: string;
+    reference: string;
 }

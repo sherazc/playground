@@ -68,7 +68,11 @@ export {
     Loading,
     PrayerTimeSummary,
     PrayerTime,
-    CustomConfiguration
+    CustomConfiguration,
+    ReminderDetail,
+    AyaDetail,
+    Line,
+    Hadith
 } from "./types/types";
 
 

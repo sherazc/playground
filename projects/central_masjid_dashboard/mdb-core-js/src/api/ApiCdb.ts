@@ -26,7 +26,14 @@ export const cdbApis = (baseUrl: string, commonHeaders?: ApiHeaders, interceptor
             const request: ApiRequest = {endpoint};
             addHeadersInRequest(request, commonHeaders);
             return callApiIntercept(request, interceptorCbs);
+        },
+        apiRod: (companyId: string): Promise<CustomConfiguration> => {
+            const endpoint = endpoints.createConfigurationEndpoint(companyId);
+            const request: ApiRequest = {endpoint};
+            addHeadersInRequest(request, commonHeaders);
+            return callApiIntercept(request, interceptorCbs);
         }
+
     }
     return api;
 }
