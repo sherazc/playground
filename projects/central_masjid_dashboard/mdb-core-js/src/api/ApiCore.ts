@@ -65,7 +65,17 @@ export const callApi = (request: ApiRequest): Promise<any> => {
                     reject(responseText)
                 }, (error) => reject(error));
             }
-        }, (error) => reject(error));
+        }, (error) => {
+            if (error instanceof String || typeof error === "string") {
+                reject(error);
+            } else {
+                if (error) {
+                    reject(JSON.stringify(error));
+                } else {
+                    reject();
+                }
+            }
+        });
     });
 }
 
