@@ -7,7 +7,9 @@ import {addHeadersInRequest, ApiHeaders, ApiRequest, callApiIntercept, Intercept
  */
 export const cdbEndpoints = (baseUrl: string) => {
     return {
-        createConfigurationEndpoint: (companyId: string) => `${baseUrl}/api/auth/companies/${companyId}/configurations`
+        epConfigurations: (companyId: string) => `${baseUrl}/api/auth/companies/${companyId}/configurations`,
+        epRod: () => `${baseUrl}/api/rod`,
+        epHod: () => `${baseUrl}/api/hod`,
     }
 }
 
@@ -21,19 +23,14 @@ export const cdbApis = (baseUrl: string, commonHeaders?: ApiHeaders, interceptor
     const endpoints = cdbEndpoints(baseUrl);
 
     const api = {
-        apiCentralConfiguration: (companyId: string): Promise<CustomConfiguration> => {
-            const endpoint = endpoints.createConfigurationEndpoint(companyId);
+        apiConfigurations: (companyId: string): Promise<CustomConfiguration> => {
+            const endpoint = endpoints.epConfigurations(companyId);
             const request: ApiRequest = {endpoint};
             addHeadersInRequest(request, commonHeaders);
             return callApiIntercept(request, interceptorCbs);
         },
-        apiRod: (companyId: string): Promise<CustomConfiguration> => {
-            const endpoint = endpoints.createConfigurationEndpoint(companyId);
-            const request: ApiRequest = {endpoint};
-            addHeadersInRequest(request, commonHeaders);
-            return callApiIntercept(request, interceptorCbs);
-        }
-
+        apiRod: (): Promise<CustomConfiguration> => callApiIntercept({endpoint: endpoints.epRod()}, interceptorCbs),
+        apiHod: (): Promise<CustomConfiguration> => callApiIntercept({endpoint: endpoints.epHod()}, interceptorCbs),
     }
     return api;
 }
@@ -55,7 +52,7 @@ const headers: ApiHeaders = [
 // let api = cdbApis("http://localhost:8085", headers, interceptorCbs);
 let api = cdbApis("http://localhost:8085", undefined, interceptorCbs);
 
-api.apiCentralConfiguration("5da2632ef2a2337a5fd916d3").then(
+api.apiConfigurations("5da2632ef2a2337a5fd916d3").then(
     r => console.log("API Success", r),
     e => console.log("API Error", e)
 );
