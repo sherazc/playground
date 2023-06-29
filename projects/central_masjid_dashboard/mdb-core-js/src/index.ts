@@ -29,6 +29,7 @@ export {
     stringH24MinToDate,
     MdDate,
     parseObjectsIsoDateToMdDate,
+    promiseParseObjectsIsoDateToMdDate,
     dateToDisplayDateShort,
     time24To12,
     dateToTime12h,

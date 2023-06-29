@@ -4,7 +4,7 @@ import {
     numberTo2DigitsString,
     padLeft
 } from '../common/Utilities';
-import { PrayerTime } from '../types/types';
+import {PrayerTime} from '../types/types';
 
 export const TIME_24_REGX = /([01]?[0-9]|2[0-3]):[0-5][0-9].*/;
 
@@ -85,7 +85,6 @@ export const dateFromISO = (isoDateString?: string): (Date | undefined) => {
 */
 
 
-
 // Deprecated
 // export const toISODateString = (date?: Date) => {
 //     if (!date) {
@@ -103,56 +102,55 @@ export const dateFromISO = (isoDateString?: string): (Date | undefined) => {
 // }
 
 
-
 /**
  * #########################
  *  New Date API
  * #########################
- * 
+ *
  * ========================
  * Rules for creating dates
  * ========================
- * 
- * -- 
+ *
+ * --
  * To get current Date:
  * const date = new Date();
  * const currentSystemDate = getCurrentSystemDate();
- * 
+ *
  * --
- * To get current date ISO String don't use 
+ * To get current date ISO String don't use
  * new Date().toISOString()
- * 
+ *
  * To get current date ISO String:
  * const systemTimezoneDateIsoString = getSystemTimezoneDateIsoString();
- * 
- * 
+ *
+ *
  * ========================
  * Date in types
  * ========================
- * 
+ *
  * --
  * Prefer ISO String format instead of Date type
  * const systemTimezoneDateIsoString = getSystemTimezoneDateIsoString(date)
- * 
+ *
  * In rare performance reasons use Date.time()/Epoch Milliseconds
  * const timeMilliseconds = getCurrentSystemDate().time();
- * 
+ *
  * --
- * 
+ *
  * ========================
  * Timezone
  * ========================
- * 
- * Fix timezone of ISO String format when reveived date from 
+ *
+ * Fix timezone of ISO String format when reveived date from
  * API or when in doubt
- * 
+ *
  * const isoDate = isoDateFixToSystemTimezone("2022-04-01T12:12:12.123+12:00");
- * 
+ *
  * --
  * In all Types use SystemTimezoneIsoString instead of using Date type
- * 
+ *
  * --
- * 
+ *
  */
 
 export const isoDateToJsDate = (dateString?: string | null): Date | undefined => {
@@ -210,7 +208,6 @@ export const getSystemTimezone = (dateString?: string) => {
         + ':'
         + padLeft(Math.abs(timezoneOffset) % 60, 2);
 }
-
 
 
 // https://stackoverflow.com/questions/17415579/how-to-iso-8601-format-a-date-with-timezone-offset-in-javascript
@@ -387,6 +384,21 @@ export const parseObjectsIsoDateToMdDate = (obj?: any) => {
             }
         }
     }
+}
+
+
+export const promiseParseObjectsIsoDateToMdDate = (promise?: Promise<any>): Promise<any> => {
+    if (!promise) {
+        return Promise.reject();
+    }
+    return new Promise((resolve, reject) => {
+        promise
+            .then((json?: any) => {
+                parseObjectsIsoDateToMdDate(json);
+                resolve(json);
+            }, error => reject(error))
+            .catch(error => reject(error));
+    });
 }
 
 

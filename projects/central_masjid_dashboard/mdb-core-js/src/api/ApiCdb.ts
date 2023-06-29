@@ -1,5 +1,6 @@
-import {CustomConfiguration} from "../types/types";
+import {CustomConfiguration, Hadith, ReminderDetail} from "../types/types";
 import {addHeadersInRequest, ApiHeaders, ApiRequest, callApiIntercept, InterceptorCallBacks} from "./ApiCore";
+import {promiseParseObjectsIsoDateToMdDate} from "../services/DateService";
 
 /**
  * This method creates all the available endpoints.
@@ -29,8 +30,9 @@ export const cdbApis = (baseUrl: string, commonHeaders?: ApiHeaders, interceptor
             addHeadersInRequest(request, commonHeaders);
             return callApiIntercept(request, interceptorCbs);
         },
-        apiRod: (): Promise<CustomConfiguration> => callApiIntercept({endpoint: endpoints.epRod()}, interceptorCbs),
-        apiHod: (): Promise<CustomConfiguration> => callApiIntercept({endpoint: endpoints.epHod()}, interceptorCbs),
+        apiRod: (): Promise<ReminderDetail> => promiseParseObjectsIsoDateToMdDate(
+            callApiIntercept({endpoint: endpoints.epRod()}, interceptorCbs)),
+        apiHod: (): Promise<Hadith> => callApiIntercept({endpoint: endpoints.epHod()}, interceptorCbs),
     }
     return api;
 }
@@ -53,7 +55,18 @@ const headers: ApiHeaders = [
 let api = cdbApis("http://localhost:8085", undefined, interceptorCbs);
 
 api.apiConfigurations("5da2632ef2a2337a5fd916d3").then(
-    r => console.log("API Success", r),
+    (r: CustomConfiguration) => console.log("apiConfigurations", r),
     e => console.log("API Error", e)
 );
 
+
+api.apiRod().then(
+    (r: ReminderDetail) => {
+        console.log("apiRod", r)
+        console.log("JS Date", r.ayaDetail.date.jsDate);
+        console.log("ISO Date", r.ayaDetail.date.isoDate);
+    },
+    e => console.log("API Error", e)
+);
+
+api.apiHod().then((r: Hadith) => console.log("apiHod", r));
