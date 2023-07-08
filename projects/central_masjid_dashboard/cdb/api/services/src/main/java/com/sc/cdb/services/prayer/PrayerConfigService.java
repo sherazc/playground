@@ -15,6 +15,8 @@ public interface PrayerConfigService {
 
     ServiceResponse<Prayer> getPrayerByCompanyIdMonthAndDay(String companyId, int month, int day);
 
+    ServiceResponse<List<Prayer>> getPrayersPageByCompanyIdMonthAndDay(String companyId, int month, int day, int length);
+
     ServiceResponse<String> saveDst(String companyId, Dst dst);
 
     void overrideIqamas(String companyId, List<Prayer> prayers);

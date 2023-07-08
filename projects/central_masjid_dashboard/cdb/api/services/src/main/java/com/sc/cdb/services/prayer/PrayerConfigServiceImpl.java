@@ -46,17 +46,40 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
     @Override
     public ServiceResponse<Prayer> getPrayerByCompanyIdMonthAndDay(String companyId, int month, int day) {
         ServiceResponse.ServiceResponseBuilder<Prayer> serviceResponseBuilder = ServiceResponse.builder();
-        if (month > 12 || month < 1) {
-            serviceResponseBuilder.successful(false).message("Invalid Month");
-        } else if (day > 31 || day < 1) {
-            serviceResponseBuilder.successful(false).message("Invalid Day");
-        } else if (StringUtils.isBlank(companyId)) {
-            serviceResponseBuilder.successful(false).message("Invalid CompanyId");
-        } else {
+        boolean valid = validatePrayerDayArguments(serviceResponseBuilder, companyId, month, day);
+        if (valid) {
             populateSinglePrayerDayResponse(serviceResponseBuilder, companyId, month, day);
         }
-
         return serviceResponseBuilder.build();
+    }
+
+    public ServiceResponse<List<Prayer>> getPrayersPageByCompanyIdMonthAndDay(String companyId, int month, int day, int length) {
+        ServiceResponse.ServiceResponseBuilder<List<Prayer>> serviceResponseBuilder = ServiceResponse.builder();
+        boolean valid = validatePrayerDayArguments(serviceResponseBuilder, companyId, month, day);
+        if (valid && length < 1 || length > 366) {
+            serviceResponseBuilder.successful(false).message("Invalid length");
+        }
+        if (valid) {
+
+        }
+        return serviceResponseBuilder.build();
+    }
+
+
+    private boolean validatePrayerDayArguments(ServiceResponse.ServiceResponseBuilder<?> serviceResponseBuilder,
+                                            String companyId, int month, int day) {
+        boolean valid = true;
+        if (month > 12 || month < 1) {
+            serviceResponseBuilder.successful(false).message("Invalid Month");
+            valid = false;
+        } else if (day > 31 || day < 1) {
+            serviceResponseBuilder.successful(false).message("Invalid Day");
+            valid = false;
+        } else if (StringUtils.isBlank(companyId)) {
+            serviceResponseBuilder.successful(false).message("Invalid CompanyId");
+            valid = false;
+        }
+        return valid;
     }
 
     private void populateSinglePrayerDayResponse(
@@ -71,7 +94,11 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
             if (prayers == null || prayers.isEmpty()) {
                 serviceResponseBuilder.successful(false).message("Prayer not found.");
             } else {
-                Prayer prayer = findDatePrayerAndNextChange(prayers, month, day);
+
+                // Duplicated prayers in its self to find next year change
+                List<Prayer> twoYearPrayers = doublePrayers(prayers);
+
+                Prayer prayer = findDatePrayerAndNextChange(twoYearPrayers, month, day);
                 overrideIqamas(companyId, Collections.singletonList(prayer));
                 serviceResponseBuilder
                         .target(prayer)
@@ -175,23 +202,27 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
     }
 
 
-    private Prayer findDatePrayerAndNextChange(List<Prayer> yearPrayers, int month, int date) {
-        List<Prayer> yearPrayersMutable = new ArrayList<>(yearPrayers);
-        yearPrayersMutable.sort(prayerComparator);
+    private List<Prayer> doublePrayers(List<Prayer> prayers) {
+        List<Prayer> prayersMutable = new ArrayList<>(prayers);
+        prayersMutable.sort(prayerComparator);
         // Duplicated prayers in its self to find next year change
-        //noinspection CollectionAddedToSelf
-        yearPrayersMutable.addAll(yearPrayersMutable);
+        // noinspection CollectionAddedToSelf
+        prayersMutable.addAll(prayersMutable);
+        return prayersMutable;
+    }
+
+    private Prayer findDatePrayerAndNextChange(List<Prayer> twoYearPrayers, int month, int date) {
 
         Prayer foundPrayer = null;
         int foundIndex = -1;
 
-        for (int i = 0; i < yearPrayersMutable.size(); i++) {
+        for (int i = 0; i < twoYearPrayers.size(); i++) {
             // Because of below condition it was unable to find next year change
             // comparePrayerMonthDate() args month and date for the next year was not
             // considered to be greater value.
             // if (comparePrayerMonthDate(yearPrayersMutable.get(i), month, date) < 0)
             //  continue;
-            Prayer loopPrayer = yearPrayersMutable.get(i);
+            Prayer loopPrayer = twoYearPrayers.get(i);
             if (foundPrayer == null && prayerComparator.comparePrayerMonthDate(loopPrayer, month, date) == 0) {
                 foundPrayer = loopPrayer;
                 foundIndex = i;
