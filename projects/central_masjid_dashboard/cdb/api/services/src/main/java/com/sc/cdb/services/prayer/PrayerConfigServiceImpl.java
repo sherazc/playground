@@ -82,29 +82,36 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         return valid;
     }
 
+    private boolean validatePrayers(ServiceResponse.ServiceResponseBuilder<?> response, PrayerConfig prayerConfig) {
+        boolean valid = true;
+        if (prayerConfig == null) {
+            response.successful(false).message("PrayerConfig not found.");
+            valid = false;
+        } else if (valid && prayerConfig.getPrayers() == null || prayerConfig.getPrayers().size() < 366) {
+            response.successful(false).message("Prayer not found or prayer days are not of less than 366.");
+            valid = false;
+        }
+        return valid;
+    }
+
+
     private void populateSinglePrayerDayResponse(
             ServiceResponse.ServiceResponseBuilder<Prayer> serviceResponseBuilder,
             String companyId, int month, int day) {
         Optional<PrayerConfig> prayerConfigOptional = getPrayerConfig(companyId);
 
-        if (prayerConfigOptional.isEmpty()) {
-            serviceResponseBuilder.successful(false).message("PrayerConfig not found.");
-        } else {
-            List<Prayer> prayers = prayerConfigOptional.get().getPrayers();
-            if (prayers == null || prayers.isEmpty()) {
-                serviceResponseBuilder.successful(false).message("Prayer not found.");
-            } else {
+        boolean valid = prayerConfigOptional
+                .map(pc -> validatePrayers(serviceResponseBuilder, pc))
+                .orElse(false);
 
-                // Duplicated prayers in its self to find next year change
-                List<Prayer> twoYearPrayers = doublePrayers(prayers);
-
-                Prayer prayer = findDatePrayerAndNextChange(twoYearPrayers, month, day);
-                overrideIqamas(companyId, Collections.singletonList(prayer));
-                serviceResponseBuilder
-                        .target(prayer)
-                        .successful(true)
-                        .message("Prayer found.");
-            }
+        if (valid) {
+            List<Prayer> twoYearPrayers = doublePrayers(prayerConfigOptional.get().getPrayers());
+            Prayer prayer = findDatePrayerAndNextChange(twoYearPrayers, month, day);
+            overrideIqamas(companyId, Collections.singletonList(prayer));
+            serviceResponseBuilder
+                    .target(prayer)
+                    .successful(true)
+                    .message("Prayer found.");
         }
     }
 
