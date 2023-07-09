@@ -56,7 +56,7 @@ class PrayerConfigServiceTest {
 
     @Test
     void getPrayersPageByCompanyIdMonthAndDay() {
-        ServiceResponse<List<Prayer>> response = prayerConfigService.getPrayersPageByCompanyIdMonthAndDay("companyId", 1, 1, 1);
+        ServiceResponse<List<Prayer>> response = prayerConfigService.getPrayersPageByCompanyIdMonthAndDay("5da27307f54ab6c94a693ee2", 1, 1, 1);
         assertNotNull(response.getTarget());
         assertEquals(1, response.getTarget().size());
     }

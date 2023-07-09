@@ -60,10 +60,66 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
             serviceResponseBuilder.successful(false).message("Invalid length");
         }
         if (valid) {
-
+            populatePrayerPageResponse(serviceResponseBuilder, companyId, month, day, length);
         }
         return serviceResponseBuilder.build();
     }
+
+    private void populateSinglePrayerDayResponse(
+            ServiceResponse.ServiceResponseBuilder<Prayer> serviceResponseBuilder,
+            String companyId, int month, int day) {
+        Optional<PrayerConfig> prayerConfigOptional = getPrayerConfig(companyId);
+
+        boolean valid = prayerConfigOptional
+                .map(pc -> validatePrayers(serviceResponseBuilder, pc))
+                .orElse(false);
+
+        if (valid) {
+            List<Prayer> twoYearPrayers = doublePrayers(prayerConfigOptional.get().getPrayers());
+            Prayer prayer = findDatePrayerAndNextChange(twoYearPrayers, month, day);
+            overrideIqamas(companyId, Collections.singletonList(prayer));
+            serviceResponseBuilder
+                    .target(prayer)
+                    .successful(true)
+                    .message("Prayer found.");
+        }
+    }
+
+
+
+    private void populatePrayerPageResponse(
+            ServiceResponse.ServiceResponseBuilder<List<Prayer>> serviceResponseBuilder,
+            String companyId, int month, int day, int length) {
+        Optional<PrayerConfig> prayerConfigOptional = getPrayerConfig(companyId);
+        List<Prayer> prayersResult = new ArrayList<>();
+        serviceResponseBuilder.target(prayersResult);
+
+        boolean valid = prayerConfigOptional
+                .map(pc -> validatePrayers(serviceResponseBuilder, pc))
+                .orElse(false);
+
+
+
+        if (valid) {
+            List<Prayer> twoYearPrayers = doublePrayers(prayerConfigOptional.get().getPrayers());
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(calendar.get(Calendar.YEAR), month - 1, day, 0, 0);
+            for (int i = 0; i < length; i++) {
+                Prayer prayer = findDatePrayerAndNextChange(twoYearPrayers, month, day);
+                overrideIqamas(companyId, Collections.singletonList(prayer));
+                prayersResult.add(prayer);
+            }
+
+
+
+            serviceResponseBuilder
+                    .successful(true)
+                    .message("Prayers found.");
+        }
+    }
+
+
+
 
 
     private boolean validatePrayerDayArguments(ServiceResponse.ServiceResponseBuilder<?> serviceResponseBuilder,
@@ -94,26 +150,6 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         return valid;
     }
 
-
-    private void populateSinglePrayerDayResponse(
-            ServiceResponse.ServiceResponseBuilder<Prayer> serviceResponseBuilder,
-            String companyId, int month, int day) {
-        Optional<PrayerConfig> prayerConfigOptional = getPrayerConfig(companyId);
-
-        boolean valid = prayerConfigOptional
-                .map(pc -> validatePrayers(serviceResponseBuilder, pc))
-                .orElse(false);
-
-        if (valid) {
-            List<Prayer> twoYearPrayers = doublePrayers(prayerConfigOptional.get().getPrayers());
-            Prayer prayer = findDatePrayerAndNextChange(twoYearPrayers, month, day);
-            overrideIqamas(companyId, Collections.singletonList(prayer));
-            serviceResponseBuilder
-                    .target(prayer)
-                    .successful(true)
-                    .message("Prayer found.");
-        }
-    }
 
     public void overrideIqamas(String companyId, List<Prayer> prayers) {
         List<CustomConfiguration> configs = customConfigurationsService.getAllConfig(companyId);
