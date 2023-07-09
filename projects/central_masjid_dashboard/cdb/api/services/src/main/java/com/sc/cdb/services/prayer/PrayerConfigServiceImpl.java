@@ -110,8 +110,6 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
                 prayersResult.add(prayer);
             }
 
-
-
             serviceResponseBuilder
                     .successful(true)
                     .message("Prayers found.");
