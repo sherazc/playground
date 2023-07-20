@@ -1,6 +1,7 @@
 package com.sc.cdb.webservices.prayer;
 
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Optional;
 
 import com.sc.cdb.data.model.cc.GeoCode;
@@ -91,6 +92,25 @@ public class PrayerController {
 
         ServiceResponse<Prayer> responseObject = prayerConfigService
                 .getPrayerByCompanyIdMonthAndDay(companyId, month, day);
+
+        if (jsonpService.validCallback(cb)) {
+            return ResponseEntity
+                    .ok()
+                    .contentType(new MediaType("application", "javascript", StandardCharsets.UTF_8))
+                    .body(jsonpService.makeJsonpScript(cb, responseObject));
+        } else {
+            return ResponseEntity.ok(responseObject);
+
+        }
+    }
+
+    @GetMapping("companyId/{companyId}/month/{month}/day/{day}/length/{length}")
+    public ResponseEntity<?> getPrayersPageByCompanyIdMonthAndDay(
+            @PathVariable String companyId, @PathVariable int month, @PathVariable int day,
+            @PathVariable int length, @RequestParam(value = "cb", required = false) String cb) {
+
+        ServiceResponse<List<Prayer>> responseObject = prayerConfigService
+                .getPrayersPageByCompanyIdMonthAndDay(companyId, month, day, length);
 
         if (jsonpService.validCallback(cb)) {
             return ResponseEntity

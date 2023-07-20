@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class TestUtils {
@@ -21,6 +23,7 @@ public class TestUtils {
         return jsonObject;
     }
 
+
     public static <T> List<T> readJsonList(String fileName, Class<T> klass) {
         List<T> jsonList;
         try {
@@ -32,5 +35,12 @@ public class TestUtils {
             throw new RuntimeException(e);
         }
         return jsonList;
+    }
+
+
+    public static int extractDateField(Date date, int field) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(field);
     }
 }

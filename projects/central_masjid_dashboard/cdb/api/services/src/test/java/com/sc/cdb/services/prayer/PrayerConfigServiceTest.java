@@ -19,6 +19,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,5 +72,31 @@ class PrayerConfigServiceTest {
 
         assertNotNull(response.getTarget());
         assertEquals(1, response.getTarget().size());
+    }
+
+
+    @Test
+    void getPrayersPageByCompanyIdMonthAndDay_5days() {
+        // Setup
+        when(prayerConfigRepository.findByCompanyId(any(ObjectId.class)))
+                .thenReturn(Optional
+                        .of(TestUtils.readJsonObject("PrayerConfig.json", PrayerConfig.class)));
+
+        ServiceResponse<List<Prayer>> response = prayerConfigService
+                .getPrayersPageByCompanyIdMonthAndDay("5da27307f54ab6c94a693ee2", 1, 1, 5);
+
+        assertNotNull(response.getTarget());
+        assertEquals(5, response.getTarget().size());
+
+        Calendar today = Calendar.getInstance();
+
+
+        response.getTarget().forEach(p -> {
+            Date prayerDate = p.getDate();
+            assertEquals(today.get(Calendar.YEAR), TestUtils.extractDateField(prayerDate, Calendar.YEAR));
+            assertEquals(today.get(Calendar.MONTH), TestUtils.extractDateField(prayerDate, Calendar.MONTH));
+            assertEquals(today.get(Calendar.DATE), TestUtils.extractDateField(prayerDate, Calendar.DATE));
+            today.add(Calendar.DATE, 1);
+        });
     }
 }
