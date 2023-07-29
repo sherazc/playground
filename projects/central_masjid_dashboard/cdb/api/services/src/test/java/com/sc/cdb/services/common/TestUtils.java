@@ -36,11 +36,4 @@ public class TestUtils {
         }
         return jsonList;
     }
-
-
-    public static int extractDateField(Date date, int field) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        return calendar.get(field);
-    }
 }

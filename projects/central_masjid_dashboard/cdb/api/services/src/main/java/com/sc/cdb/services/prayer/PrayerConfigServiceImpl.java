@@ -20,12 +20,14 @@ import com.sc.cdb.data.repository.PrayerConfigRepository;
 import com.sc.cdb.services.auth.CompanyService;
 import com.sc.cdb.services.bulk.PrayerValidator;
 import com.sc.cdb.services.common.CustomConfigurationsService;
+import com.sc.cdb.services.common.DateTimeCalculator;
 import com.sc.cdb.services.dst.PrayerConfigDstApplier;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.services.version.DbVersionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +44,8 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
     private final PrayerValidator prayerValidator;
     private final CustomConfigurationsService customConfigurationsService;
     private final DbVersionService dbVersionService;
+    private final DateTimeCalculator dateTimeCalculator;
+
 
     @Override
     public ServiceResponse<Prayer> getPrayerByCompanyIdMonthAndDay(String companyId, int month, int day) {
@@ -102,12 +106,21 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
 
         if (valid) {
             List<Prayer> twoYearPrayers = doublePrayers(prayerConfigOptional.get().getPrayers());
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(calendar.get(Calendar.YEAR), month - 1, day, 0, 0);
+            Calendar today = Calendar.getInstance();
+
             for (int i = 0; i < length; i++) {
                 Prayer prayer = findDatePrayerAndNextChange(twoYearPrayers, month, day);
+
+                fixPrayerYear(prayer, today, month, day);
+
                 overrideIqamas(companyId, Collections.singletonList(prayer));
                 prayersResult.add(prayer);
+                Date prayerDate = prayer.getDate();
+
+                Date incrimentPrayerDate = dateTimeCalculator.addDateField(prayerDate, Calendar.DATE, 1);
+                prayer.setDate(incrimentPrayerDate);
+                month = dateTimeCalculator.extractDateField(incrimentPrayerDate, Calendar.MONTH) + 1;
+                day = dateTimeCalculator.extractDateField(incrimentPrayerDate, Calendar.DATE);
             }
 
             serviceResponseBuilder
@@ -117,6 +130,46 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
     }
 
 
+    private void fixPrayerYear(Prayer prayer, Calendar today, int month, int day) {
+        Date prayerDate = prayer.getDate();
+        prayerDate = dateTimeCalculator.setDateField(prayerDate, Calendar.YEAR, today.get(Calendar.YEAR));
+        prayer.setDate(prayerDate);
+
+        int searchNumber = mergeNumbers(month, day);
+        int todayNumber = mergeNumbers(today.get(Calendar.MONTH) + 1, today.get(Calendar.DATE));
+
+        if (todayNumber > searchNumber) {
+            // prayer.setDate();
+            // set
+        } else {
+
+        }
+
+        /*
+        FIX YEAR MONTH
+        for prayer date set currect year
+        ----
+                for next change
+                if prayer's month&date is greater than query month&date
+                    then set current year
+                else
+                    then set next year
+
+                Run above method in populatePrayerSingleResponse
+         */
+
+
+    }
+
+    private int mergeNumbers(int num1, int num2) {
+        String num1String = leftPad(num1);
+        String num2String = leftPad(num2);
+        return Integer.parseInt(num1String + num2String);
+    }
+
+    private String leftPad(int number) {
+        return StringUtils.leftPad(String.valueOf(number), 2, "0");
+    }
 
 
 

@@ -27,6 +27,8 @@ public interface DateTimeCalculator {
 
     Calendar createCalendarFromTime(int hour24, int minute);
 
+    String intToString(int i);
+
     Calendar createCalendar(int year, int month, int date, int hour24, int minute);
 
     Optional<Calendar> createCalendar(int year, int month, int date);
@@ -34,4 +36,12 @@ public interface DateTimeCalculator {
     Optional<Calendar> monthDateStringToCalendar(int year, String monthDateString);
 
     Optional<Calendar> dateToCalendar(Date date);
+
+    Date dateToCurrentYearData(Date date);
+
+    int extractDateField(Date date, int calendarField);
+
+    Date setDateField(Date date, int calendarField, int value);
+
+    Date addDateField(Date date, int calendarField, int value);
 }

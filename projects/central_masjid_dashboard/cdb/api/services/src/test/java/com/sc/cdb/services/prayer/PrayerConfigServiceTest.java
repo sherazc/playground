@@ -7,6 +7,8 @@ import com.sc.cdb.data.repository.PrayerConfigRepository;
 import com.sc.cdb.services.auth.CompanyService;
 import com.sc.cdb.services.bulk.PrayerValidator;
 import com.sc.cdb.services.common.CustomConfigurationsService;
+import com.sc.cdb.services.common.DateTimeCalculator;
+import com.sc.cdb.services.common.DateTimeCalculatorImpl;
 import com.sc.cdb.services.common.TestUtils;
 import com.sc.cdb.services.dst.PrayerConfigDstApplier;
 import com.sc.cdb.services.model.ServiceResponse;
@@ -30,7 +32,7 @@ import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {PrayerConfigServiceImpl.class, PrayerComparator.class})
+@SpringBootTest(classes = {PrayerConfigServiceImpl.class, PrayerComparator.class, DateTimeCalculatorImpl.class})
 class PrayerConfigServiceTest {
 
     @Autowired
@@ -60,6 +62,9 @@ class PrayerConfigServiceTest {
     @MockBean
     private DbVersionService dbVersionService;
 
+    @Autowired
+    private DateTimeCalculator dateTimeCalculator;
+
     @Test
     void getPrayersPageByCompanyIdMonthAndDay() {
         // Setup
@@ -77,26 +82,31 @@ class PrayerConfigServiceTest {
 
     @Test
     void getPrayersPageByCompanyIdMonthAndDay_5days() {
+
         // Setup
         when(prayerConfigRepository.findByCompanyId(any(ObjectId.class)))
                 .thenReturn(Optional
                         .of(TestUtils.readJsonObject("PrayerConfig.json", PrayerConfig.class)));
 
+        // Call
         ServiceResponse<List<Prayer>> response = prayerConfigService
                 .getPrayersPageByCompanyIdMonthAndDay("5da27307f54ab6c94a693ee2", 1, 1, 5);
 
+        // Verify
         assertNotNull(response.getTarget());
         assertEquals(5, response.getTarget().size());
 
         Calendar today = Calendar.getInstance();
-
+        Calendar testPrayerDate = dateTimeCalculator.createCalendar(today.get(Calendar.YEAR), 1, 1).get();
 
         response.getTarget().forEach(p -> {
             Date prayerDate = p.getDate();
-            assertEquals(today.get(Calendar.YEAR), TestUtils.extractDateField(prayerDate, Calendar.YEAR));
-            assertEquals(today.get(Calendar.MONTH), TestUtils.extractDateField(prayerDate, Calendar.MONTH));
-            assertEquals(today.get(Calendar.DATE), TestUtils.extractDateField(prayerDate, Calendar.DATE));
-            today.add(Calendar.DATE, 1);
+            assertEquals(testPrayerDate.get(Calendar.YEAR), dateTimeCalculator.extractDateField(prayerDate, Calendar.YEAR));
+            assertEquals(testPrayerDate.get(Calendar.MONTH), dateTimeCalculator.extractDateField(prayerDate, Calendar.MONTH));
+            assertEquals(testPrayerDate.get(Calendar.DATE), dateTimeCalculator.extractDateField(prayerDate, Calendar.DATE));
+            testPrayerDate.add(Calendar.DATE, 1);
         });
     }
+
+    // check if prayer month date is equal to prayer month date
 }

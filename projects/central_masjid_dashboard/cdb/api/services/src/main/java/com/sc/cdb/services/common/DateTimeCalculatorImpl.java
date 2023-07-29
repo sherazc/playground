@@ -47,7 +47,7 @@ public class DateTimeCalculatorImpl implements DateTimeCalculator {
         }
     }
 
-    private String intToString(int i) {
+    public String intToString(int i) {
         StringBuilder stringBuilder = new StringBuilder();
         if (i < 0 || i > 59) {
             return null;
@@ -107,5 +107,36 @@ public class DateTimeCalculatorImpl implements DateTimeCalculator {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return Optional.of(calendar);
+    }
+
+
+
+    public Date dateToCurrentYearData(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        int currentYear = calendar.get(Calendar.YEAR);
+        calendar.setTime(date);
+        calendar.set(Calendar.YEAR, currentYear);
+        return calendar.getTime();
+    }
+
+
+    public int extractDateField(Date date, int calendarField) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(calendarField);
+    }
+
+    public Date setDateField(Date date, int calendarField, int value) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(calendarField, value);
+        return calendar.getTime();
+    }
+
+    public Date addDateField(Date date, int calendarField, int value) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(calendarField, value);
+        return calendar.getTime();
     }
 }
