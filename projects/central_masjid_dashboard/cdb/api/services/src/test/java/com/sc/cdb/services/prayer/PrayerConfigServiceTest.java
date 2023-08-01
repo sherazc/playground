@@ -13,6 +13,7 @@ import com.sc.cdb.services.common.TestUtils;
 import com.sc.cdb.services.dst.PrayerConfigDstApplier;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.services.version.DbVersionService;
+import com.sc.cdb.utils.CommonUtils;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -21,10 +22,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -96,7 +94,7 @@ class PrayerConfigServiceTest {
         assertNotNull(response.getTarget());
         assertEquals(5, response.getTarget().size());
 
-        Calendar today = Calendar.getInstance();
+        Calendar today = CommonUtils.todayUtc();
         Calendar testPrayerDate = dateTimeCalculator.createCalendar(today.get(Calendar.YEAR), 1, 1).get();
 
         response.getTarget().forEach(p -> {
@@ -105,8 +103,12 @@ class PrayerConfigServiceTest {
             assertEquals(testPrayerDate.get(Calendar.MONTH), dateTimeCalculator.extractDateField(prayerDate, Calendar.MONTH));
             assertEquals(testPrayerDate.get(Calendar.DATE), dateTimeCalculator.extractDateField(prayerDate, Calendar.DATE));
             testPrayerDate.add(Calendar.DATE, 1);
+            // check if prayer month date is equal to search month date
+            // Check if next change is greater than prayer date
+            // Calendar instance to  to UTC
+
         });
     }
 
-    // check if prayer month date is equal to prayer month date
+
 }

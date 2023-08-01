@@ -2,6 +2,7 @@ package com.sc.cdb.utils;
 
 import java.util.Calendar;
 import java.util.Optional;
+import java.util.TimeZone;
 
 import com.sc.cdb.services.common.DateTimeCalculator;
 import org.apache.commons.lang3.StringUtils;
@@ -9,6 +10,10 @@ import org.apache.commons.lang3.math.NumberUtils;
 
 public class CommonUtils {
     private CommonUtils() {}
+
+    public static Calendar todayUtc() {
+        return Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+    }
 
     public static Calendar createCalendarDate(int year, int month, int date) {
         Calendar calendar = Calendar.getInstance();

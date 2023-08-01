@@ -118,7 +118,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
                 Date prayerDate = prayer.getDate();
 
                 Date incrimentPrayerDate = dateTimeCalculator.addDateField(prayerDate, Calendar.DATE, 1);
-                prayer.setDate(incrimentPrayerDate);
+                // prayer.setDate(incrimentPrayerDate);
                 month = dateTimeCalculator.extractDateField(incrimentPrayerDate, Calendar.MONTH) + 1;
                 day = dateTimeCalculator.extractDateField(incrimentPrayerDate, Calendar.DATE);
             }
