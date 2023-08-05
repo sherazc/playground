@@ -25,7 +25,6 @@ import com.sc.cdb.data.repository.CompanyRepository;
 import com.sc.cdb.data.repository.PrayerConfigRepository;
 import com.sc.cdb.services.bulk.PrayerValidator;
 import com.sc.cdb.services.common.CustomConfigurationsService;
-import com.sc.cdb.services.common.DateTimeCalculator;
 import com.sc.cdb.services.common.GregorianDate;
 import com.sc.cdb.services.common.GregorianHijriConverter;
 import com.sc.cdb.services.dst.PrayerConfigDstApplier;
@@ -137,7 +136,7 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
         prayerConfigService.overrideIqamas(companyId, prayersInDb);
         // CREATE DATA - CREATE 3 PRAYERS LIST CLONE. BEFORE, CURRENT, AFTER
         List<Prayer> sortedPrayers = prayersInDb.stream()
-                .map(p -> this.updatePrayerYear(p, DateTimeCalculator.DEFAULT_YEAR)) // update all years to default 2016
+                .map(p -> this.updatePrayerYear(p, DateUtils.DEFAULT_YEAR)) // update all years to default 2016
                 .sorted(prayerComparator) // sort
                 .collect(Collectors.toList());
 

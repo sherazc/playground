@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Optional;
 
 import com.sc.cdb.data.model.prayer.Dst;
-import com.sc.cdb.services.common.DateTimeCalculatorImpl;
+import com.sc.cdb.utils.DateUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +20,7 @@ public class DstCalculatorTest {
     public void setUp() throws Exception {
         // MockitoAnnotations.initMocks(this);
         // TODO: Use mocks instead of new DateTimeCalculatorImpl()
-        dstCalculator = new DstCalculatorImpl(new DateTimeCalculatorImpl());
+        dstCalculator = new DstCalculatorImpl();
     }
 
     @Test

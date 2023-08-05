@@ -2,30 +2,24 @@ package com.sc.cdb.services.prayer;
 
 import java.util.Calendar;
 
-import com.sc.cdb.services.common.DateTimeCalculator;
+import com.sc.cdb.utils.DateUtils;
 import org.springframework.stereotype.Service;
 
 @Service
 public class IqamahCalculator {
-
-    private DateTimeCalculator dateTimeCalculator;
-
-    public IqamahCalculator(DateTimeCalculator dateTimeCalculator) {
-        this.dateTimeCalculator = dateTimeCalculator;
-    }
 
     public enum MinutesRound {
         roundTo15, roundTo30, noRound
     }
 
     public String calculate(String azanTime, int minimumDelayMinutes, MinutesRound roundTo) {
-        if (!this.dateTimeCalculator.isValid24Time(azanTime)) {
+        if (!DateUtils.isValid24Time(azanTime)) {
             return null;
         }
 
-        int[] azanTimeInt = dateTimeCalculator.hourMinuteStringToInt(azanTime);
+        int[] azanTimeInt = DateUtils.hourMinuteStringToInt(azanTime);
 
-        Calendar azanTimeCalendar = dateTimeCalculator
+        Calendar azanTimeCalendar = DateUtils
                 .createCalendarFromTime(azanTimeInt[0], azanTimeInt[1]);
 
         azanTimeCalendar.add(Calendar.MINUTE, minimumDelayMinutes);
@@ -36,7 +30,7 @@ public class IqamahCalculator {
 
         azanTimeCalendar.add(Calendar.MINUTE, minutesToAddToRound);
 
-        return dateTimeCalculator.hourMinuteIntToString(new int[]{
+        return DateUtils.hourMinuteIntToString(new int[]{
                 azanTimeCalendar.get(Calendar.HOUR_OF_DAY),
                 azanTimeCalendar.get(Calendar.MINUTE)});
     }

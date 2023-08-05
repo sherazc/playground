@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import com.sc.cdb.data.model.prayer.Prayer;
-import com.sc.cdb.services.common.DateTimeCalculator;
 import com.sc.cdb.services.prayer.PrayerComparator;
 import com.sc.cdb.utils.DateUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -32,7 +31,7 @@ public class PrayerValidatorImpl implements PrayerValidator {
         }
 
         String[] lineParts = line.split(",", -1);
-        if (StringUtils.isBlank(lineParts[0]) || !lineParts[0].trim().matches(DateTimeCalculator.MONTH_DATE_REGEX)) {
+        if (StringUtils.isBlank(lineParts[0]) || !lineParts[0].trim().matches(DateUtils.MONTH_DATE_REGEX)) {
             errors.put("Line " + lineNumber + " date format",
                     "Invalid date. It should be in MM/DD format. It is " + lineParts[0].trim());
         }
@@ -61,7 +60,7 @@ public class PrayerValidatorImpl implements PrayerValidator {
         if (!required && StringUtils.isBlank(cellValue)) {
             return errors;
         }
-        if (StringUtils.isBlank(cellValue) || !cellValue.matches(DateTimeCalculator.TIME_24_REGEX)) {
+        if (StringUtils.isBlank(cellValue) || !cellValue.matches(DateUtils.TIME_24_REGEX)) {
             errors.put(
                     String.format("Line %d %s format", lineNumber, fieldName),
                     "Invalid time. It should be 24h time, in HH:MM format. It is " + cellValue);
@@ -73,7 +72,7 @@ public class PrayerValidatorImpl implements PrayerValidator {
     public Map<String, String> validatePrayer(Prayer prayer) {
         Map<String, String> errors = new HashMap<>();
 
-        String prayerDateString = DateTimeCalculator.DATE_FORMAT.format(prayer.getDate());
+        String prayerDateString = DateUtils.DATE_FORMAT.format(prayer.getDate());
 
         Optional<Calendar> fajrOptional = DateUtils.parseTimeString(prayer.getFajr());
         Optional<Calendar> fajrIqamaOptional = DateUtils.parseTimeString(prayer.getFajrIqama());
@@ -151,8 +150,8 @@ public class PrayerValidatorImpl implements PrayerValidator {
             errors.put(
                     String.format("Invalid prayer %s, %s and %s range", prayerDateString, field1, field2),
                     String.format("%s should be before %s. %s=%s and %s=%s", field1, field2,
-                            field1, DateTimeCalculator.TIME_FORMAT.format(calendar1.getTime()),
-                            field2, DateTimeCalculator.TIME_FORMAT.format(calendar2.getTime())));
+                            field1, DateUtils.TIME_FORMAT.format(calendar1.getTime()),
+                            field2, DateUtils.TIME_FORMAT.format(calendar2.getTime())));
         }
     }
 
@@ -178,7 +177,7 @@ public class PrayerValidatorImpl implements PrayerValidator {
     private Map<? extends String, ? extends String> findAllPrayersExist(List<Prayer> prayers) {
         Map<String, String> errors = new HashMap<>();
         prayers.sort(prayerComparator);
-        Calendar calendar = DateUtils.createCalendarDate(DateTimeCalculator.DEFAULT_YEAR, 0, 1);
+        Calendar calendar = DateUtils.createCalendarDate(DateUtils.DEFAULT_YEAR, 0, 1);
         for (int i = 0; i < 366; i++) {
             int loopDate = calendar.get(Calendar.DATE);
             int loopMonth = calendar.get(Calendar.MONTH);

@@ -3,11 +3,9 @@ package com.sc.cdb.services.prayer;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.TimeZone;
 
 import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.data.model.prayer.Prayer;
-import com.sc.cdb.services.common.DateTimeCalculator;
 import com.sc.cdb.utils.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

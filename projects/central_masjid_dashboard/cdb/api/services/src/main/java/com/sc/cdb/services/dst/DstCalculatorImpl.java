@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Optional;
 
 import com.sc.cdb.data.model.prayer.Dst;
-import com.sc.cdb.services.common.DateTimeCalculator;
+import com.sc.cdb.utils.DateUtils;
 import org.springframework.stereotype.Service;
 
 
@@ -19,16 +19,10 @@ https://www.nist.gov/pml/time-and-frequency-division/popular-links/daylight-savi
 @Service
 public class DstCalculatorImpl implements DstCalculator {
 
-    private DateTimeCalculator dateTimeCalculator;
-
-    public DstCalculatorImpl(DateTimeCalculator dateTimeCalculator) {
-        this.dateTimeCalculator = dateTimeCalculator;
-    }
-
     @Override
     public Optional<Date[]> dstPeriod(int year) {
-        Optional<Calendar> beginOptional = dateTimeCalculator.createCalendar(year, 3, 1);
-        Optional<Calendar> endOptional = dateTimeCalculator.createCalendar(year, 11, 1);
+        Optional<Calendar> beginOptional = DateUtils.createCalendar(year, 3, 1);
+        Optional<Calendar> endOptional = DateUtils.createCalendar(year, 11, 1);
 
         if (beginOptional.isEmpty() || endOptional.isEmpty()) {
             return Optional.empty();
@@ -52,8 +46,8 @@ public class DstCalculatorImpl implements DstCalculator {
         Optional<Date[]> dstRange;
 
         if (dst.getAutomaticCalculate() != null && !dst.getAutomaticCalculate()) {
-            Optional<Calendar> beginOptional = dateTimeCalculator.monthDateStringToCalendar(year, dst.getBeginMonthDate());
-            Optional<Calendar> endOptional = dateTimeCalculator.monthDateStringToCalendar(year, dst.getEndMonthDate());
+            Optional<Calendar> beginOptional = DateUtils.monthDateStringToCalendar(year, dst.getBeginMonthDate());
+            Optional<Calendar> endOptional = DateUtils.monthDateStringToCalendar(year, dst.getEndMonthDate());
             if (beginOptional.isEmpty() || endOptional.isEmpty() || beginOptional.get().after(endOptional.get())) {
                 dstRange = dstPeriod(year);
             } else {

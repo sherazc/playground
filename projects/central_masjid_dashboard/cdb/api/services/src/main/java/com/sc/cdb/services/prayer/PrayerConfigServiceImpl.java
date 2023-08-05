@@ -20,11 +20,11 @@ import com.sc.cdb.data.repository.PrayerConfigRepository;
 import com.sc.cdb.services.auth.CompanyService;
 import com.sc.cdb.services.bulk.PrayerValidator;
 import com.sc.cdb.services.common.CustomConfigurationsService;
-import com.sc.cdb.services.common.DateTimeCalculator;
 import com.sc.cdb.services.dst.PrayerConfigDstApplier;
 import com.sc.cdb.services.mapper.DomainMapper;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.services.version.DbVersionService;
+import com.sc.cdb.utils.DateUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -45,7 +45,6 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
     private final PrayerValidator prayerValidator;
     private final CustomConfigurationsService customConfigurationsService;
     private final DbVersionService dbVersionService;
-    private final DateTimeCalculator dateTimeCalculator;
     private final DomainMapper mapper;
 
 
@@ -119,10 +118,10 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
                 prayersResult.add(prayer);
                 Date prayerDate = prayer.getDate();
 
-                Date incrimentPrayerDate = dateTimeCalculator.addDateField(prayerDate, Calendar.DATE, 1);
+                Date incrimentPrayerDate = DateUtils.addDateField(prayerDate, Calendar.DATE, 1);
                 // prayer.setDate(incrimentPrayerDate);
-                month = dateTimeCalculator.extractDateField(incrimentPrayerDate, Calendar.MONTH) + 1;
-                day = dateTimeCalculator.extractDateField(incrimentPrayerDate, Calendar.DATE);
+                month = DateUtils.extractDateField(incrimentPrayerDate, Calendar.MONTH) + 1;
+                day = DateUtils.extractDateField(incrimentPrayerDate, Calendar.DATE);
             }
 
             serviceResponseBuilder
@@ -134,7 +133,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
 
     private void fixPrayerYear(Prayer prayer, Calendar today, int month, int day) {
         Date prayerDate = prayer.getDate();
-        prayerDate = dateTimeCalculator.setDateField(prayerDate, Calendar.YEAR, today.get(Calendar.YEAR));
+        prayerDate = DateUtils.setDateField(prayerDate, Calendar.YEAR, today.get(Calendar.YEAR));
         prayer.setDate(prayerDate);
 
         int searchNumber = mergeNumbers(month, day);
