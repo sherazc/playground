@@ -9,8 +9,6 @@ import java.util.Calendar;
 
 public class CommonUtils {
 
-    public static final int STARTING_YEAR = 2000;
-
     private CommonUtils() {
     }
 
@@ -113,5 +111,4 @@ public class CommonUtils {
 
         return result;
     }
-
 }

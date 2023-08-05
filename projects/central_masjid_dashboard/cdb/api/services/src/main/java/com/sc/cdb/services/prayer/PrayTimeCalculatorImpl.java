@@ -8,6 +8,7 @@ import java.util.TimeZone;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.services.common.DateTimeCalculator;
+import com.sc.cdb.utils.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -35,7 +36,7 @@ public class PrayTimeCalculatorImpl implements PrayTimeCalculator {
     }
 
     private Prayer generatePrayerDay(PrayTime prayTime, int yearDateIndex, PrayerConfig prayerConfig) {
-        Calendar calendar = createPrayerCalendar(yearDateIndex);
+        Calendar calendar = DateUtils.createPrayerCalendar(yearDateIndex);
 
         List<String> prayerTimes = prayTime.getPrayerTimes(
                 calendar,
@@ -62,14 +63,5 @@ public class PrayTimeCalculatorImpl implements PrayTimeCalculator {
         prayer.setMaghrib(prayerTimes.get(5));
         prayer.setIsha(prayerTimes.get(6));
         return prayer;
-    }
-
-    private Calendar createPrayerCalendar(int yearDateIndex) {
-        Calendar calendar = Calendar.getInstance(PrayTimeCalculatorImpl.UTC_TIMEZONE);
-        calendar.set(DateTimeCalculator.DEFAULT_YEAR,
-                0, 1, 0, 0, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        calendar.add(Calendar.DATE, yearDateIndex);
-        return calendar;
     }
 }

@@ -9,6 +9,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
 public class DateUtils {
+
+    public static final TimeZone TIMEZONE_UTC = TimeZone.getTimeZone("UTC");
+    public static final TimeZone TIMEZONE_DEFAULT = TIMEZONE_UTC;
+
     private DateUtils() {}
 
     public static Calendar todayUtc() {
@@ -70,5 +74,14 @@ public class DateUtils {
         }
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
+    }
+
+    public static Calendar createPrayerCalendar(int yearDateIndex) {
+        Calendar calendar = DateUtils.todayUtc();
+        calendar.set(DateTimeCalculator.DEFAULT_YEAR,
+                0, 1, 0, 0, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.add(Calendar.DATE, yearDateIndex);
+        return calendar;
     }
 }
