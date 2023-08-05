@@ -114,21 +114,4 @@ public class CommonUtils {
         return result;
     }
 
-    public static Calendar makeTimeCalendar(int hour, int minute) {
-        Calendar calendar = Calendar.getInstance();
-        //calendar.setTimeInMillis(0);
-        calendar.set(Calendar.HOUR_OF_DAY, hour);
-        calendar.set(Calendar.MINUTE, minute);
-        CommonUtils.removeSecondsFromCalendar(calendar);
-        //calendar.set(Calendar.YEAR, STARTING_YEAR);
-        return calendar;
-    }
-
-    public static void removeSecondsFromCalendar(Calendar calendar) {
-        if (calendar == null) {
-            return;
-        }
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-    }
 }

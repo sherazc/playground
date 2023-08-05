@@ -10,7 +10,7 @@ import java.util.Optional;
 import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.services.common.DateTimeCalculator;
 import com.sc.cdb.services.prayer.PrayerComparator;
-import com.sc.cdb.utils.CommonUtils;
+import com.sc.cdb.utils.DateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
@@ -75,17 +75,17 @@ public class PrayerValidatorImpl implements PrayerValidator {
 
         String prayerDateString = DateTimeCalculator.DATE_FORMAT.format(prayer.getDate());
 
-        Optional<Calendar> fajrOptional = CommonUtils.parseTimeString(prayer.getFajr());
-        Optional<Calendar> fajrIqamaOptional = CommonUtils.parseTimeString(prayer.getFajrIqama());
-        Optional<Calendar> dhuhrOptional = CommonUtils.parseTimeString(prayer.getDhuhr());
-        Optional<Calendar> dhuhrIqamaOptional = CommonUtils.parseTimeString(prayer.getDhuhrIqama());
-        Optional<Calendar> asrOptional = CommonUtils.parseTimeString(prayer.getAsr());
-        Optional<Calendar> asrIqamaOptional = CommonUtils.parseTimeString(prayer.getAsrIqama());
-        Optional<Calendar> maghribOptional = CommonUtils.parseTimeString(prayer.getMaghrib());
+        Optional<Calendar> fajrOptional = DateUtils.parseTimeString(prayer.getFajr());
+        Optional<Calendar> fajrIqamaOptional = DateUtils.parseTimeString(prayer.getFajrIqama());
+        Optional<Calendar> dhuhrOptional = DateUtils.parseTimeString(prayer.getDhuhr());
+        Optional<Calendar> dhuhrIqamaOptional = DateUtils.parseTimeString(prayer.getDhuhrIqama());
+        Optional<Calendar> asrOptional = DateUtils.parseTimeString(prayer.getAsr());
+        Optional<Calendar> asrIqamaOptional = DateUtils.parseTimeString(prayer.getAsrIqama());
+        Optional<Calendar> maghribOptional = DateUtils.parseTimeString(prayer.getMaghrib());
         // Optional<Calendar> maghribIqamaOptional = CommonUtils.parseTimeString(prayer.getMaghribIqama());
-        Optional<Calendar> ishaOptional = CommonUtils.parseTimeString(prayer.getIsha());
-        Optional<Calendar> ishaIqamaOptional = CommonUtils.parseTimeString(prayer.getIshaIqama());
-        Optional<Calendar> sunriseOptional = CommonUtils.parseTimeString(prayer.getSunrise());
+        Optional<Calendar> ishaOptional = DateUtils.parseTimeString(prayer.getIsha());
+        Optional<Calendar> ishaIqamaOptional = DateUtils.parseTimeString(prayer.getIshaIqama());
+        Optional<Calendar> sunriseOptional = DateUtils.parseTimeString(prayer.getSunrise());
 
         validateRange(fajrOptional.get(), fajrIqamaOptional, prayerDateString, errors, "Fajr", "Fajr Iqama");
         validateRange(fajrOptional.get(), sunriseOptional, prayerDateString, errors, "Fajr", "Sunrise");
@@ -178,7 +178,7 @@ public class PrayerValidatorImpl implements PrayerValidator {
     private Map<? extends String, ? extends String> findAllPrayersExist(List<Prayer> prayers) {
         Map<String, String> errors = new HashMap<>();
         prayers.sort(prayerComparator);
-        Calendar calendar = CommonUtils.createCalendarDate(DateTimeCalculator.DEFAULT_YEAR, 0, 1);
+        Calendar calendar = DateUtils.createCalendarDate(DateTimeCalculator.DEFAULT_YEAR, 0, 1);
         for (int i = 0; i < 366; i++) {
             int loopDate = calendar.get(Calendar.DATE);
             int loopMonth = calendar.get(Calendar.MONTH);

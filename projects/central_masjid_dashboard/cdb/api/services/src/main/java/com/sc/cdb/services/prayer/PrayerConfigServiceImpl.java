@@ -22,6 +22,7 @@ import com.sc.cdb.services.bulk.PrayerValidator;
 import com.sc.cdb.services.common.CustomConfigurationsService;
 import com.sc.cdb.services.common.DateTimeCalculator;
 import com.sc.cdb.services.dst.PrayerConfigDstApplier;
+import com.sc.cdb.services.mapper.DomainMapper;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.services.version.DbVersionService;
 import lombok.RequiredArgsConstructor;
@@ -45,6 +46,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
     private final CustomConfigurationsService customConfigurationsService;
     private final DbVersionService dbVersionService;
     private final DateTimeCalculator dateTimeCalculator;
+    private final DomainMapper mapper;
 
 
     @Override
@@ -109,8 +111,8 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
             Calendar today = Calendar.getInstance();
 
             for (int i = 0; i < length; i++) {
-                Prayer prayer = findDatePrayerAndNextChange(twoYearPrayers, month, day);
-
+                Prayer originalPrayer = findDatePrayerAndNextChange(twoYearPrayers, month, day);
+                Prayer prayer = mapper.clonePrayer(originalPrayer);
                 fixPrayerYear(prayer, today, month, day);
 
                 overrideIqamas(companyId, Collections.singletonList(prayer));
@@ -141,8 +143,9 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         if (todayNumber > searchNumber) {
             // prayer.setDate();
             // set
+            System.out.println("today Greater");
         } else {
-
+            System.out.println("Today less");
         }
 
         /*

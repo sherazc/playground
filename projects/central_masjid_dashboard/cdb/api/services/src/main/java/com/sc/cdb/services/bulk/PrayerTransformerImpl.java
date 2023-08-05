@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.services.common.DateTimeCalculator;
-import com.sc.cdb.utils.CommonUtils;
+import com.sc.cdb.utils.DateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Component;
@@ -63,7 +63,7 @@ public class PrayerTransformerImpl implements PrayerTransformer {
         if (dateParts == null || dateParts.length < 2) {
             return null;
         }
-        return CommonUtils.createCalendarDate(
+        return DateUtils.createCalendarDate(
                 DateTimeCalculator.DEFAULT_YEAR,
                 NumberUtils.toInt(dateParts[0]) - 1,
                 NumberUtils.toInt(dateParts[1]))

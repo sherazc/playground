@@ -8,8 +8,8 @@ import com.sc.cdb.services.common.DateTimeCalculator;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
-public class CommonUtils {
-    private CommonUtils() {}
+public class DateUtils {
+    private DateUtils() {}
 
     public static Calendar todayUtc() {
         return Calendar.getInstance(TimeZone.getTimeZone("UTC"));
@@ -51,5 +51,24 @@ public class CommonUtils {
         int hourOfDay = NumberUtils.toInt(hourMinuteParts[0]);
         int minute = NumberUtils.toInt(hourMinuteParts[1]);
         return Optional.of(createCalendarTime(hourOfDay, minute));
+    }
+
+
+    public static Calendar makeTimeCalendar(int hour, int minute) {
+        Calendar calendar = Calendar.getInstance();
+        //calendar.setTimeInMillis(0);
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        DateUtils.removeSecondsFromCalendar(calendar);
+        //calendar.set(Calendar.YEAR, STARTING_YEAR);
+        return calendar;
+    }
+
+    public static void removeSecondsFromCalendar(Calendar calendar) {
+        if (calendar == null) {
+            return;
+        }
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
     }
 }

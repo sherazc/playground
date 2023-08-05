@@ -32,7 +32,7 @@ import com.sc.cdb.services.dst.PrayerConfigDstApplier;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.services.prayer.PrayerComparator;
 import com.sc.cdb.services.prayer.PrayerConfigService;
-import com.sc.cdb.utils.CommonUtils;
+import com.sc.cdb.utils.DateUtils;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
@@ -300,7 +300,7 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(prayer.getDate());
             calendar.set(Calendar.YEAR, year);
-            CommonUtils.makeCalendarTimeZero(calendar);
+            DateUtils.makeCalendarTimeZero(calendar);
             prayer.setDate(calendar.getTime());
         }
         return prayer;
