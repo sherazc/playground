@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Optional;
 
 import com.sc.cdb.data.model.prayer.Dst;
-import com.sc.cdb.utils.DateUtils;
+import com.sc.cdb.utils.CdbDateUtils;
 import org.springframework.stereotype.Service;
 
 
@@ -21,8 +21,8 @@ public class DstCalculatorImpl implements DstCalculator {
 
     @Override
     public Optional<Date[]> dstPeriod(int year) {
-        Optional<Calendar> beginOptional = DateUtils.createCalendar(year, 3, 1);
-        Optional<Calendar> endOptional = DateUtils.createCalendar(year, 11, 1);
+        Optional<Calendar> beginOptional = CdbDateUtils.createCalendar(year, 3, 1);
+        Optional<Calendar> endOptional = CdbDateUtils.createCalendar(year, 11, 1);
 
         if (beginOptional.isEmpty() || endOptional.isEmpty()) {
             return Optional.empty();
@@ -46,8 +46,8 @@ public class DstCalculatorImpl implements DstCalculator {
         Optional<Date[]> dstRange;
 
         if (dst.getAutomaticCalculate() != null && !dst.getAutomaticCalculate()) {
-            Optional<Calendar> beginOptional = DateUtils.monthDateStringToCalendar(year, dst.getBeginMonthDate());
-            Optional<Calendar> endOptional = DateUtils.monthDateStringToCalendar(year, dst.getEndMonthDate());
+            Optional<Calendar> beginOptional = CdbDateUtils.monthDateStringToCalendar(year, dst.getBeginMonthDate());
+            Optional<Calendar> endOptional = CdbDateUtils.monthDateStringToCalendar(year, dst.getEndMonthDate());
             if (beginOptional.isEmpty() || endOptional.isEmpty() || beginOptional.get().after(endOptional.get())) {
                 dstRange = dstPeriod(year);
             } else {

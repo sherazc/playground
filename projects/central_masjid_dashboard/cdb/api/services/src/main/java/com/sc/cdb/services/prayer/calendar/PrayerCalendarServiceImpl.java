@@ -31,7 +31,7 @@ import com.sc.cdb.services.dst.PrayerConfigDstApplier;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.services.prayer.PrayerComparator;
 import com.sc.cdb.services.prayer.PrayerConfigService;
-import com.sc.cdb.utils.DateUtils;
+import com.sc.cdb.utils.CdbDateUtils;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
@@ -136,7 +136,7 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
         prayerConfigService.overrideIqamas(companyId, prayersInDb);
         // CREATE DATA - CREATE 3 PRAYERS LIST CLONE. BEFORE, CURRENT, AFTER
         List<Prayer> sortedPrayers = prayersInDb.stream()
-                .map(p -> this.updatePrayerYear(p, DateUtils.DEFAULT_YEAR)) // update all years to default 2016
+                .map(p -> this.updatePrayerYear(p, CdbDateUtils.DEFAULT_YEAR)) // update all years to default 2016
                 .sorted(prayerComparator) // sort
                 .collect(Collectors.toList());
 
@@ -299,7 +299,7 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(prayer.getDate());
             calendar.set(Calendar.YEAR, year);
-            DateUtils.makeCalendarTimeZero(calendar);
+            CdbDateUtils.makeCalendarTimeZero(calendar);
             prayer.setDate(calendar.getTime());
         }
         return prayer;

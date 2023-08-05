@@ -9,7 +9,7 @@ import java.util.Optional;
 
 import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.services.prayer.PrayerComparator;
-import com.sc.cdb.utils.DateUtils;
+import com.sc.cdb.utils.CdbDateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
@@ -31,7 +31,7 @@ public class PrayerValidatorImpl implements PrayerValidator {
         }
 
         String[] lineParts = line.split(",", -1);
-        if (StringUtils.isBlank(lineParts[0]) || !lineParts[0].trim().matches(DateUtils.MONTH_DATE_REGEX)) {
+        if (StringUtils.isBlank(lineParts[0]) || !lineParts[0].trim().matches(CdbDateUtils.MONTH_DATE_REGEX)) {
             errors.put("Line " + lineNumber + " date format",
                     "Invalid date. It should be in MM/DD format. It is " + lineParts[0].trim());
         }
@@ -60,7 +60,7 @@ public class PrayerValidatorImpl implements PrayerValidator {
         if (!required && StringUtils.isBlank(cellValue)) {
             return errors;
         }
-        if (StringUtils.isBlank(cellValue) || !cellValue.matches(DateUtils.TIME_24_REGEX)) {
+        if (StringUtils.isBlank(cellValue) || !cellValue.matches(CdbDateUtils.TIME_24_REGEX)) {
             errors.put(
                     String.format("Line %d %s format", lineNumber, fieldName),
                     "Invalid time. It should be 24h time, in HH:MM format. It is " + cellValue);
@@ -72,19 +72,19 @@ public class PrayerValidatorImpl implements PrayerValidator {
     public Map<String, String> validatePrayer(Prayer prayer) {
         Map<String, String> errors = new HashMap<>();
 
-        String prayerDateString = DateUtils.DATE_FORMAT.format(prayer.getDate());
+        String prayerDateString = CdbDateUtils.DATE_FORMAT.format(prayer.getDate());
 
-        Optional<Calendar> fajrOptional = DateUtils.parseTimeString(prayer.getFajr());
-        Optional<Calendar> fajrIqamaOptional = DateUtils.parseTimeString(prayer.getFajrIqama());
-        Optional<Calendar> dhuhrOptional = DateUtils.parseTimeString(prayer.getDhuhr());
-        Optional<Calendar> dhuhrIqamaOptional = DateUtils.parseTimeString(prayer.getDhuhrIqama());
-        Optional<Calendar> asrOptional = DateUtils.parseTimeString(prayer.getAsr());
-        Optional<Calendar> asrIqamaOptional = DateUtils.parseTimeString(prayer.getAsrIqama());
-        Optional<Calendar> maghribOptional = DateUtils.parseTimeString(prayer.getMaghrib());
+        Optional<Calendar> fajrOptional = CdbDateUtils.parseTimeString(prayer.getFajr());
+        Optional<Calendar> fajrIqamaOptional = CdbDateUtils.parseTimeString(prayer.getFajrIqama());
+        Optional<Calendar> dhuhrOptional = CdbDateUtils.parseTimeString(prayer.getDhuhr());
+        Optional<Calendar> dhuhrIqamaOptional = CdbDateUtils.parseTimeString(prayer.getDhuhrIqama());
+        Optional<Calendar> asrOptional = CdbDateUtils.parseTimeString(prayer.getAsr());
+        Optional<Calendar> asrIqamaOptional = CdbDateUtils.parseTimeString(prayer.getAsrIqama());
+        Optional<Calendar> maghribOptional = CdbDateUtils.parseTimeString(prayer.getMaghrib());
         // Optional<Calendar> maghribIqamaOptional = CommonUtils.parseTimeString(prayer.getMaghribIqama());
-        Optional<Calendar> ishaOptional = DateUtils.parseTimeString(prayer.getIsha());
-        Optional<Calendar> ishaIqamaOptional = DateUtils.parseTimeString(prayer.getIshaIqama());
-        Optional<Calendar> sunriseOptional = DateUtils.parseTimeString(prayer.getSunrise());
+        Optional<Calendar> ishaOptional = CdbDateUtils.parseTimeString(prayer.getIsha());
+        Optional<Calendar> ishaIqamaOptional = CdbDateUtils.parseTimeString(prayer.getIshaIqama());
+        Optional<Calendar> sunriseOptional = CdbDateUtils.parseTimeString(prayer.getSunrise());
 
         validateRange(fajrOptional.get(), fajrIqamaOptional, prayerDateString, errors, "Fajr", "Fajr Iqama");
         validateRange(fajrOptional.get(), sunriseOptional, prayerDateString, errors, "Fajr", "Sunrise");
@@ -150,8 +150,8 @@ public class PrayerValidatorImpl implements PrayerValidator {
             errors.put(
                     String.format("Invalid prayer %s, %s and %s range", prayerDateString, field1, field2),
                     String.format("%s should be before %s. %s=%s and %s=%s", field1, field2,
-                            field1, DateUtils.TIME_FORMAT.format(calendar1.getTime()),
-                            field2, DateUtils.TIME_FORMAT.format(calendar2.getTime())));
+                            field1, CdbDateUtils.TIME_FORMAT.format(calendar1.getTime()),
+                            field2, CdbDateUtils.TIME_FORMAT.format(calendar2.getTime())));
         }
     }
 
@@ -177,7 +177,7 @@ public class PrayerValidatorImpl implements PrayerValidator {
     private Map<? extends String, ? extends String> findAllPrayersExist(List<Prayer> prayers) {
         Map<String, String> errors = new HashMap<>();
         prayers.sort(prayerComparator);
-        Calendar calendar = DateUtils.createCalendarDate(DateUtils.DEFAULT_YEAR, 0, 1);
+        Calendar calendar = CdbDateUtils.createCalendarDate(CdbDateUtils.DEFAULT_YEAR, 0, 1);
         for (int i = 0; i < 366; i++) {
             int loopDate = calendar.get(Calendar.DATE);
             int loopMonth = calendar.get(Calendar.MONTH);

@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
-import com.sc.cdb.utils.DateUtils;
+import com.sc.cdb.utils.CdbDateUtils;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -73,9 +73,9 @@ public class PrayerConfigDstApplierImpl implements PrayerConfigDstApplier {
                 || dstPeriod[0] == null || dstPeriod[1] == null) {
             return false;
         }
-        Optional<Calendar> dstBeginOptional = DateUtils.dateToCalendar(dstPeriod[0]);
-        Optional<Calendar> dstEndOptional = DateUtils.dateToCalendar(dstPeriod[1]);
-        Optional<Calendar> prayerDateOptional = DateUtils.dateToCalendar(date);
+        Optional<Calendar> dstBeginOptional = CdbDateUtils.dateToCalendar(dstPeriod[0]);
+        Optional<Calendar> dstEndOptional = CdbDateUtils.dateToCalendar(dstPeriod[1]);
+        Optional<Calendar> prayerDateOptional = CdbDateUtils.dateToCalendar(date);
 
         if (dstBeginOptional.isEmpty() && dstEndOptional.isEmpty() && prayerDateOptional.isEmpty()) {
             return false;
@@ -92,16 +92,16 @@ public class PrayerConfigDstApplierImpl implements PrayerConfigDstApplier {
     }
 
     private String addHourToStringDate(String time24Hour, int hoursCount) {
-        int[] hoursMinutes = DateUtils.hourMinuteStringToInt(time24Hour);
+        int[] hoursMinutes = CdbDateUtils.hourMinuteStringToInt(time24Hour);
         if (hoursMinutes == null || hoursMinutes.length < 2) {
             return "";
         }
 
-        Calendar calendar = DateUtils.createCalendarFromTime(hoursMinutes[0], hoursMinutes[1]);
+        Calendar calendar = CdbDateUtils.createCalendarFromTime(hoursMinutes[0], hoursMinutes[1]);
         calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY) + hoursCount);
         int[] time24hour = {calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)};
 
-        return DateUtils.hourMinuteIntToString(time24hour);
+        return CdbDateUtils.hourMinuteIntToString(time24hour);
     }
 
     private boolean shouldApplyDst(PrayerConfig prayerConfig) {

@@ -2,8 +2,8 @@ package com.sc.reminder.api.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sc.cdb.data.common.util.Constants;
+import com.sc.cdb.utils.CdbStringUtils;
 import com.sc.reminder.api.domain.enums.SuraName;
-import com.sc.reminder.api.utils.CommonUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -43,7 +43,7 @@ public class AyaDetail {
 
         if (lines != null && lines.size() > 0) {
             for (Line line : lines) {
-                if (CommonUtils.isBlank(line.getLineString())) {
+                if (CdbStringUtils.isBlank(line.getLineString())) {
                     continue;
                 }
 

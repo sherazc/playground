@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.Optional;
 
 import com.sc.cdb.data.model.prayer.Dst;
-import com.sc.cdb.utils.DateUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

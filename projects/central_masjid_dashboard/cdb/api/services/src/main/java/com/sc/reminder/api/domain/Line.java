@@ -1,6 +1,7 @@
 package com.sc.reminder.api.domain;
 
-import com.sc.reminder.api.utils.CommonUtils;
+
+import com.sc.cdb.utils.CdbStringUtils;
 
 public class Line {
     private int suraNumber;
@@ -8,7 +9,7 @@ public class Line {
     private String lineString;
 
     public Line(String rawLineString) {
-        String[] lineItems = CommonUtils.splitLine(rawLineString);
+        String[] lineItems = CdbStringUtils.splitLine(rawLineString);
         if (lineItems != null && lineItems.length > 2) {
             setSuraNumber(Integer.parseInt(lineItems[0].trim()));
             setAyaNumber(Integer.parseInt(lineItems[1].trim()));

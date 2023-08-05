@@ -1,25 +1,12 @@
-package com.sc.reminder.api.utils;
+package com.sc.cdb.utils;
 
-import com.sc.reminder.api.service.SearchFileLine;
 import com.sc.reminder.api.service.SearchService;
 
 import java.io.*;
 import java.nio.charset.Charset;
-import java.util.Calendar;
 
-public class CommonUtils {
-
-    private CommonUtils() {
-    }
-
-    public static String[] splitLine(String line) {
-        String[] result = null;
-
-        if (line != null) {
-            result = line.split(SearchFileLine.LINE_DELIMITER);
-        }
-
-        return result;
+public class CdbFileUtils {
+    private CdbFileUtils() {
     }
 
     public static void closeStream(InputStream inputStream) {
@@ -46,6 +33,7 @@ public class CommonUtils {
         }
     }
 
+
     public static BufferedReader streamToBufferedReader(InputStream inputStream) {
         if (inputStream == null) {
             return null;
@@ -63,22 +51,6 @@ public class CommonUtils {
         return result;
     }
 
-    public static boolean isNotBlank(String string) {
-        return string != null && string.trim().length() > 0;
-    }
-
-    public static boolean isBlank(String string) {
-        return string == null || string.trim().length() < 1;
-    }
-
-    public static String displayNameToIndexName(String string) {
-        String result = null;
-        if (string != null) {
-            result = string.replaceAll(" ", "_");
-        }
-        return result;
-    }
-
     public static String indexNameToFileName(String string) {
         String result = null;
         if (string != null) {
@@ -91,24 +63,11 @@ public class CommonUtils {
         return indexNameToFileName(displayNameToIndexName(string));
     }
 
-    public static String truncate(String string, int length) {
-        String result = string;
-        if (string != null && string.length() > length) {
-            result = string.substring(0, length);
+    public static String displayNameToIndexName(String string) {
+        String result = null;
+        if (string != null) {
+            result = string.replaceAll(" ", "_");
         }
-        if (result == null) {
-            result = "";
-        }
-        return result;
-    }
-
-    public static String truncateEllipsis(String string, int length) {
-        String result = truncate(string, length);
-        if (string != null && string.length() > length) {
-            result += "...";
-        }
-
-
         return result;
     }
 }

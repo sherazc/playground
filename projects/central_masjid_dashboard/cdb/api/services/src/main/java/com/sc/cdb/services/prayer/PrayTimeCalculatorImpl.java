@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.data.model.prayer.Prayer;
-import com.sc.cdb.utils.DateUtils;
+import com.sc.cdb.utils.CdbDateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -34,7 +34,7 @@ public class PrayTimeCalculatorImpl implements PrayTimeCalculator {
     }
 
     private Prayer generatePrayerDay(PrayTime prayTime, int yearDateIndex, PrayerConfig prayerConfig) {
-        Calendar calendar = DateUtils.createPrayerCalendar(yearDateIndex);
+        Calendar calendar = CdbDateUtils.createPrayerCalendar(yearDateIndex);
 
         List<String> prayerTimes = prayTime.getPrayerTimes(
                 calendar,

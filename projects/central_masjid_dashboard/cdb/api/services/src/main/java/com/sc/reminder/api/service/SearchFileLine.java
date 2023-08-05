@@ -1,6 +1,6 @@
 package com.sc.reminder.api.service;
 
-import com.sc.reminder.api.utils.CommonUtils;
+import com.sc.cdb.utils.CdbFileUtils;
 
 import java.io.BufferedReader;
 
@@ -14,12 +14,12 @@ public class SearchFileLine {
         String result = "";
         for (int i = 0; i < lineNumber; i++) {
             if (i < lineNumber-1) {
-                String temp = CommonUtils.readLine(reader);
+                String temp = CdbFileUtils.readLine(reader);
                 if (temp == null) {
                     break;
                 }
             } else {
-                result = CommonUtils.readLine(reader);
+                result = CdbFileUtils.readLine(reader);
             }
         }
         return result;

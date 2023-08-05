@@ -24,11 +24,10 @@ import com.sc.cdb.services.dst.PrayerConfigDstApplier;
 import com.sc.cdb.services.mapper.DomainMapper;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.services.version.DbVersionService;
-import com.sc.cdb.utils.DateUtils;
+import com.sc.cdb.utils.CdbDateUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
@@ -118,10 +117,10 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
                 prayersResult.add(prayer);
                 Date prayerDate = prayer.getDate();
 
-                Date incrimentPrayerDate = DateUtils.addDateField(prayerDate, Calendar.DATE, 1);
+                Date incrimentPrayerDate = CdbDateUtils.addDateField(prayerDate, Calendar.DATE, 1);
                 // prayer.setDate(incrimentPrayerDate);
-                month = DateUtils.extractDateField(incrimentPrayerDate, Calendar.MONTH) + 1;
-                day = DateUtils.extractDateField(incrimentPrayerDate, Calendar.DATE);
+                month = CdbDateUtils.extractDateField(incrimentPrayerDate, Calendar.MONTH) + 1;
+                day = CdbDateUtils.extractDateField(incrimentPrayerDate, Calendar.DATE);
             }
 
             serviceResponseBuilder
@@ -133,7 +132,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
 
     private void fixPrayerYear(Prayer prayer, Calendar today, int month, int day) {
         Date prayerDate = prayer.getDate();
-        prayerDate = DateUtils.setDateField(prayerDate, Calendar.YEAR, today.get(Calendar.YEAR));
+        prayerDate = CdbDateUtils.setDateField(prayerDate, Calendar.YEAR, today.get(Calendar.YEAR));
         prayer.setDate(prayerDate);
 
         int searchNumber = mergeNumbers(month, day);

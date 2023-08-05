@@ -1,9 +1,10 @@
 package com.sc.reminder.api.service;
 
+import com.sc.cdb.utils.CdbFileUtils;
+import com.sc.cdb.utils.CdbStringUtils;
 import com.sc.reminder.api.domain.AyaDetail;
 import com.sc.reminder.api.domain.Line;
 import com.sc.reminder.api.service.random.RandomAyaNumber;
-import com.sc.reminder.api.utils.CommonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +37,7 @@ public abstract class SearchService {
     public List<AyaDetail> search(int limitHistory, int seed) {
         LOG.debug("Searching for AyaDetail. limitHistory = {}", limitHistory);
         List<AyaDetail> result = new ArrayList<>();
-        if(CommonUtils.isBlank(getTranslationDisplayName())) {
+        if(CdbStringUtils.isBlank(getTranslationDisplayName())) {
             return result;
         }
         int totalReminders = 1;
@@ -47,8 +48,8 @@ public abstract class SearchService {
         Calendar calendar = Calendar.getInstance();
 
         for (int i = 0; i < totalReminders; i++) {
-            BufferedReader quranBufferedReader = CommonUtils.streamToBufferedReader(openQuranStream());
-            BufferedReader translationBufferedReader = CommonUtils.streamToBufferedReader(openTranslationStream());
+            BufferedReader quranBufferedReader = CdbFileUtils.streamToBufferedReader(openQuranStream());
+            BufferedReader translationBufferedReader = CdbFileUtils.streamToBufferedReader(openTranslationStream());
 
             int randomQuranLineNumber = RandomAyaNumber.getInstance().generateRandomAyaNumber(seed);
             LOG.debug("seed = {}", seed);
@@ -84,8 +85,8 @@ public abstract class SearchService {
 
             while (ayasLength < MINIMUM_AYA_LENGTH) {
 
-                rawAyaLine = CommonUtils.readLine(quranBufferedReader);
-                rawTranslationLine = CommonUtils.readLine(translationBufferedReader);
+                rawAyaLine = CdbFileUtils.readLine(quranBufferedReader);
+                rawTranslationLine = CdbFileUtils.readLine(translationBufferedReader);
 
                 ayaLine = new Line(rawAyaLine);
 
@@ -102,8 +103,8 @@ public abstract class SearchService {
 
             calendar.add(Calendar.DATE, -1);
             seed--;
-            CommonUtils.closeReader(quranBufferedReader);
-            CommonUtils.closeReader(translationBufferedReader);
+            CdbFileUtils.closeReader(quranBufferedReader);
+            CdbFileUtils.closeReader(translationBufferedReader);
         }
 
         return result;
@@ -116,7 +117,7 @@ public abstract class SearchService {
             return this.search(SearchService.HISTORY_DAYS);
         }
         for (AyaDetail ayaDetail : activityAyaDetails) {
-            BufferedReader translationBufferedReader = CommonUtils.streamToBufferedReader(openTranslationStream());
+            BufferedReader translationBufferedReader = CdbFileUtils.streamToBufferedReader(openTranslationStream());
             List<Line> ayas = ayaDetail.getAyas();
             List<Line> translations = ayaDetail.getTranslations();
 
@@ -127,11 +128,11 @@ public abstract class SearchService {
                 updateLine(translations.get(0), rawTranslationLine);
 
                 for (int i = 1; i < ayas.size(); i++){
-                    rawTranslationLine = CommonUtils.readLine(translationBufferedReader);
+                    rawTranslationLine = CdbFileUtils.readLine(translationBufferedReader);
                     updateLine(translations.get(i), rawTranslationLine);
                 }
             }
-            CommonUtils.closeReader(translationBufferedReader);
+            CdbFileUtils.closeReader(translationBufferedReader);
         }
         return activityAyaDetails;
     }

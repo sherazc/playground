@@ -3,7 +3,7 @@ package com.sc.cdb.services.bulk;
 import java.util.Date;
 
 import com.sc.cdb.data.model.prayer.Prayer;
-import com.sc.cdb.utils.DateUtils;
+import com.sc.cdb.utils.CdbDateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Component;
@@ -62,8 +62,8 @@ public class PrayerTransformerImpl implements PrayerTransformer {
         if (dateParts == null || dateParts.length < 2) {
             return null;
         }
-        return DateUtils.createCalendarDate(
-                        DateUtils.DEFAULT_YEAR,
+        return CdbDateUtils.createCalendarDate(
+                        CdbDateUtils.DEFAULT_YEAR,
                         NumberUtils.toInt(dateParts[0]) - 1,
                         NumberUtils.toInt(dateParts[1]))
                 .getTime();

@@ -2,7 +2,7 @@ package com.sc.cdb.services.prayer;
 
 import java.util.Calendar;
 
-import com.sc.cdb.utils.DateUtils;
+import com.sc.cdb.utils.CdbDateUtils;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,13 +13,13 @@ public class IqamahCalculator {
     }
 
     public String calculate(String azanTime, int minimumDelayMinutes, MinutesRound roundTo) {
-        if (!DateUtils.isValid24Time(azanTime)) {
+        if (!CdbDateUtils.isValid24Time(azanTime)) {
             return null;
         }
 
-        int[] azanTimeInt = DateUtils.hourMinuteStringToInt(azanTime);
+        int[] azanTimeInt = CdbDateUtils.hourMinuteStringToInt(azanTime);
 
-        Calendar azanTimeCalendar = DateUtils
+        Calendar azanTimeCalendar = CdbDateUtils
                 .createCalendarFromTime(azanTimeInt[0], azanTimeInt[1]);
 
         azanTimeCalendar.add(Calendar.MINUTE, minimumDelayMinutes);
@@ -30,7 +30,7 @@ public class IqamahCalculator {
 
         azanTimeCalendar.add(Calendar.MINUTE, minutesToAddToRound);
 
-        return DateUtils.hourMinuteIntToString(new int[]{
+        return CdbDateUtils.hourMinuteIntToString(new int[]{
                 azanTimeCalendar.get(Calendar.HOUR_OF_DAY),
                 azanTimeCalendar.get(Calendar.MINUTE)});
     }

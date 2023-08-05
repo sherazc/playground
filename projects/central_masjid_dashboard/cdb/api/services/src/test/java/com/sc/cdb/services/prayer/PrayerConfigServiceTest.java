@@ -11,9 +11,8 @@ import com.sc.cdb.services.common.TestUtils;
 import com.sc.cdb.services.dst.PrayerConfigDstApplier;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.services.version.DbVersionService;
-import com.sc.cdb.utils.DateUtils;
+import com.sc.cdb.utils.CdbDateUtils;
 import org.bson.types.ObjectId;
-import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -91,14 +90,14 @@ class PrayerConfigServiceTest {
         assertNotNull(response.getTarget());
         assertEquals(5, response.getTarget().size());
 
-        Calendar today = DateUtils.todayUtc();
-        Calendar testPrayerDate = DateUtils.createCalendar(today.get(Calendar.YEAR), 1, 1).get();
+        Calendar today = CdbDateUtils.todayUtc();
+        Calendar testPrayerDate = CdbDateUtils.createCalendar(today.get(Calendar.YEAR), 1, 1).get();
 
         response.getTarget().forEach(p -> {
             Date prayerDate = p.getDate();
-            assertEquals(testPrayerDate.get(Calendar.YEAR), DateUtils.extractDateField(prayerDate, Calendar.YEAR));
-            assertEquals(testPrayerDate.get(Calendar.MONTH), DateUtils.extractDateField(prayerDate, Calendar.MONTH));
-            assertEquals(testPrayerDate.get(Calendar.DATE), DateUtils.extractDateField(prayerDate, Calendar.DATE));
+            assertEquals(testPrayerDate.get(Calendar.YEAR), CdbDateUtils.extractDateField(prayerDate, Calendar.YEAR));
+            assertEquals(testPrayerDate.get(Calendar.MONTH), CdbDateUtils.extractDateField(prayerDate, Calendar.MONTH));
+            assertEquals(testPrayerDate.get(Calendar.DATE), CdbDateUtils.extractDateField(prayerDate, Calendar.DATE));
             testPrayerDate.add(Calendar.DATE, 1);
             // check if prayer month date is equal to search month date
             // Check if next change is greater than prayer date

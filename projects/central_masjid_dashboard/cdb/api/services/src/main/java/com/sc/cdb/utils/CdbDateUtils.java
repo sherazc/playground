@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
-public class DateUtils {
+public class CdbDateUtils {
 
     public static final TimeZone TIMEZONE_UTC = TimeZone.getTimeZone("UTC");
     public static final TimeZone TIMEZONE_DEFAULT = TIMEZONE_UTC;
@@ -26,7 +26,7 @@ public class DateUtils {
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd");
     public static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
 
-    private DateUtils() {}
+    private CdbDateUtils() {}
 
     public static Calendar todayUtc() {
         return Calendar.getInstance(TimeZone.getTimeZone("UTC"));
@@ -50,7 +50,7 @@ public class DateUtils {
 
     public static Calendar createCalendarTime(int hour24OfDay, int minute) {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, DateUtils.DEFAULT_YEAR);
+        calendar.set(Calendar.YEAR, CdbDateUtils.DEFAULT_YEAR);
         calendar.set(Calendar.MONTH, 0);
         calendar.set(Calendar.DATE, 1);
         calendar.set(Calendar.HOUR_OF_DAY, hour24OfDay);
@@ -61,7 +61,7 @@ public class DateUtils {
     }
 
     public static Optional<Calendar> parseTimeString(String time) {
-        if (StringUtils.isBlank(time) || !time.matches(DateUtils.TIME_24_REGEX)) {
+        if (StringUtils.isBlank(time) || !time.matches(CdbDateUtils.TIME_24_REGEX)) {
             return Optional.empty();
         }
         String[] hourMinuteParts = time.split(":");
@@ -76,7 +76,7 @@ public class DateUtils {
         //calendar.setTimeInMillis(0);
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
-        DateUtils.removeSecondsFromCalendar(calendar);
+        CdbDateUtils.removeSecondsFromCalendar(calendar);
         //calendar.set(Calendar.YEAR, STARTING_YEAR);
         return calendar;
     }
@@ -90,8 +90,8 @@ public class DateUtils {
     }
 
     public static Calendar createPrayerCalendar(int yearDateIndex) {
-        Calendar calendar = DateUtils.todayUtc();
-        calendar.set(DateUtils.DEFAULT_YEAR,
+        Calendar calendar = CdbDateUtils.todayUtc();
+        calendar.set(CdbDateUtils.DEFAULT_YEAR,
                 0, 1, 0, 0, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         calendar.add(Calendar.DATE, yearDateIndex);
