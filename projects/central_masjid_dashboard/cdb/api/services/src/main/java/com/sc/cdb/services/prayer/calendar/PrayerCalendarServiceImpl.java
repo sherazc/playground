@@ -274,7 +274,7 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
         if (leapYear) {
             return true;
         }
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = CdbDateUtils.todayUtc();
         calendar.setTime(prayer.getDate());
         int month = calendar.get(Calendar.MONTH);
         int date = calendar.get(Calendar.DATE);
@@ -296,7 +296,7 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
 
     private Prayer updatePrayerYear(Prayer prayer, int year) {
         if (prayer != null && prayer.getDate() != null) {
-            Calendar calendar = Calendar.getInstance();
+            Calendar calendar = CdbDateUtils.todayUtc();
             calendar.setTime(prayer.getDate());
             calendar.set(Calendar.YEAR, year);
             CdbDateUtils.makeCalendarTimeZero(calendar);

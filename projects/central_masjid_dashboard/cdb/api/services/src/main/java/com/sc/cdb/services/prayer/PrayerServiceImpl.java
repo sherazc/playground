@@ -10,6 +10,7 @@ import com.sc.cdb.data.model.prayer.Prayer;
 import com.sc.cdb.data.model.prayer.PrayerConfig;
 import com.sc.cdb.services.dst.PrayerConfigDstApplier;
 import com.sc.cdb.services.model.ServiceResponse;
+import com.sc.cdb.utils.CdbDateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,7 +66,7 @@ public class PrayerServiceImpl implements PrayerService {
             if (generateIqamah == null || !generateIqamah) {
                 mergeExistingIqamahTimes(prayerConfig);
             }
-            int todayYear = Calendar.getInstance().get(Calendar.YEAR);
+            int todayYear = CdbDateUtils.todayUtc().get(Calendar.YEAR);
             prayerConfigDstApplier.addHour(prayerConfig, todayYear, 1);
 
             serviceResponseBuilder.successful(true);

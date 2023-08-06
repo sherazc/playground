@@ -106,7 +106,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
 
         if (valid) {
             List<Prayer> twoYearPrayers = doublePrayers(prayerConfigOptional.get().getPrayers());
-            Calendar today = Calendar.getInstance();
+            Calendar today = CdbDateUtils.todayUtc();
 
             for (int i = 0; i < length; i++) {
                 Prayer originalPrayer = findDatePrayerAndNextChange(twoYearPrayers, month, day);
@@ -369,7 +369,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
     }
 
     private Date dateToCurrentYearData(Date date) {
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = CdbDateUtils.todayUtc();
         int currentYear = calendar.get(Calendar.YEAR);
         calendar.setTime(date);
         calendar.set(Calendar.YEAR, currentYear);
@@ -380,7 +380,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
     public ServiceResponse<String> savePrayerConfig(PrayerConfig prayerConfig) {
         ServiceResponse.ServiceResponseBuilder<String> serviceResponseBuilder = ServiceResponse.builder();
 
-        int todayYear = Calendar.getInstance().get(Calendar.YEAR);
+        int todayYear = CdbDateUtils.todayUtc().get(Calendar.YEAR);
 
         prayerConfigDstApplier.addHour(prayerConfig, todayYear, -1);
 
@@ -430,7 +430,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
             prayerConfigOptional = createDefaultPrayerConfigIfCompanyExists(companyId);
         }
 
-        int todayYear = Calendar.getInstance().get(Calendar.YEAR);
+        int todayYear = CdbDateUtils.todayUtc().get(Calendar.YEAR);
 
         prayerConfigOptional.ifPresent(prayerConfig
                 -> prayerConfigDstApplier.addHour(prayerConfig, todayYear, 1));

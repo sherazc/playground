@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Optional;
 
 import com.sc.cdb.data.model.prayer.Dst;
+import com.sc.cdb.utils.CdbDateUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -84,7 +85,7 @@ public class DstCalculatorTest {
     @SuppressWarnings("Duplicates")
     @Test
     public void testDateFormatIssue() {
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = CdbDateUtils.todayUtc();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);

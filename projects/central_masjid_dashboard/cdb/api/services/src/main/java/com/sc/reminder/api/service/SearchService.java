@@ -1,5 +1,6 @@
 package com.sc.reminder.api.service;
 
+import com.sc.cdb.utils.CdbDateUtils;
 import com.sc.cdb.utils.CdbFileUtils;
 import com.sc.cdb.utils.CdbStringUtils;
 import com.sc.reminder.api.domain.AyaDetail;
@@ -45,7 +46,7 @@ public abstract class SearchService {
             totalReminders += limitHistory;
         }
 
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = CdbDateUtils.todayUtc();
 
         for (int i = 0; i < totalReminders; i++) {
             BufferedReader quranBufferedReader = CdbFileUtils.streamToBufferedReader(openQuranStream());

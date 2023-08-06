@@ -26,6 +26,8 @@ PLEASE DO NOT REMOVE THIS COPYRIGHT BLOCK.
 
 
 
+import com.sc.cdb.utils.CdbDateUtils;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -719,7 +721,7 @@ public class PrayTime {
     prayers.tune(offsets);
 
     Date now = new Date();
-    Calendar cal = Calendar.getInstance();
+    Calendar cal = CdbDateUtils.todayUtc();
     cal.setTime(now);
 
     ArrayList<String> prayerTimes = prayers.getPrayerTimes(cal,
@@ -751,7 +753,7 @@ public class PrayTime {
     prayers.tune(offsets);
 
     Date now = new Date();
-    Calendar cal = Calendar.getInstance();
+    Calendar cal = CdbDateUtils.todayUtc();
     cal.setTime(now);
 
     ArrayList<String> prayerTimes = prayers.getPrayerTimes(cal,

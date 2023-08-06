@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.sc.cdb.data.model.prayer.CalenderType;
+import com.sc.cdb.utils.CdbDateUtils;
 
 public class GregorianDate {
     private CalenderType calenderType;
@@ -58,7 +59,7 @@ public class GregorianDate {
 
             result = java.sql.Date.valueOf(localDate);
         } else {
-            Calendar calendar = Calendar.getInstance();
+            Calendar calendar = CdbDateUtils.todayUtc();
             calendar.set(Calendar.YEAR, this.year);
             calendar.set(Calendar.MONTH, this.month - 1);
             calendar.set(Calendar.DAY_OF_MONTH, this.date);

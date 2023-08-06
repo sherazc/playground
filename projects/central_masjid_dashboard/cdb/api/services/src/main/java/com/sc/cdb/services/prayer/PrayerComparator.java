@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Comparator;
 
 import com.sc.cdb.data.model.prayer.Prayer;
+import com.sc.cdb.utils.CdbDateUtils;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,7 +20,7 @@ public class PrayerComparator implements Comparator<Prayer> {
             return -1;
         }
 
-        Calendar prayerCalendar2 = Calendar.getInstance();
+        Calendar prayerCalendar2 = CdbDateUtils.todayUtc();
         prayerCalendar2.setTime(prayer2.getDate());
 
         int prayerDate = prayerCalendar2.get(Calendar.DATE);
@@ -32,7 +33,7 @@ public class PrayerComparator implements Comparator<Prayer> {
         if (prayer.getDate() == null) {
             return -1;
         }
-        Calendar prayerCalendar = Calendar.getInstance();
+        Calendar prayerCalendar = CdbDateUtils.todayUtc();
         prayerCalendar.setTime(prayer.getDate());
 
         int prayerMonth = prayerCalendar.get(Calendar.MONTH) + 1;

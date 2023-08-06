@@ -29,11 +29,14 @@ public class CdbDateUtils {
     private CdbDateUtils() {}
 
     public static Calendar todayUtc() {
-        return Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        return Calendar.getInstance(TIMEZONE_UTC);
+    }
+    public static Calendar today() {
+        return Calendar.getInstance(TIMEZONE_DEFAULT);
     }
 
     public static Calendar createCalendarDate(int year, int month, int date) {
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = CdbDateUtils.todayUtc();
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DATE, date);
@@ -49,7 +52,7 @@ public class CdbDateUtils {
     }
 
     public static Calendar createCalendarTime(int hour24OfDay, int minute) {
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = CdbDateUtils.todayUtc();
         calendar.set(Calendar.YEAR, CdbDateUtils.DEFAULT_YEAR);
         calendar.set(Calendar.MONTH, 0);
         calendar.set(Calendar.DATE, 1);
@@ -72,7 +75,7 @@ public class CdbDateUtils {
 
 
     public static Calendar makeTimeCalendar(int hour, int minute) {
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = CdbDateUtils.todayUtc();
         //calendar.setTimeInMillis(0);
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
@@ -151,7 +154,7 @@ public class CdbDateUtils {
     }
 
     public static Calendar createCalendar(int year, int month, int date, int hour24, int minute) {
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = CdbDateUtils.todayUtc();
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DATE, date);
@@ -167,7 +170,7 @@ public class CdbDateUtils {
         if (year < 0 || month < 1 || date < 0) {
             return Optional.empty();
         }
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = CdbDateUtils.todayUtc();
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, month - 1);
         calendar.set(Calendar.DATE, date);
@@ -192,7 +195,7 @@ public class CdbDateUtils {
         if(date == null) {
             return Optional.empty();
         }
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = CdbDateUtils.todayUtc();
         calendar.setTime(date);
         return Optional.of(calendar);
     }
@@ -200,7 +203,7 @@ public class CdbDateUtils {
 
 
     public static Date dateToCurrentYearData(Date date) {
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = CdbDateUtils.todayUtc();
         int currentYear = calendar.get(Calendar.YEAR);
         calendar.setTime(date);
         calendar.set(Calendar.YEAR, currentYear);
@@ -209,20 +212,20 @@ public class CdbDateUtils {
 
 
     public static int extractDateField(Date date, int calendarField) {
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = CdbDateUtils.todayUtc();
         calendar.setTime(date);
         return calendar.get(calendarField);
     }
 
     public static Date setDateField(Date date, int calendarField, int value) {
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = CdbDateUtils.todayUtc();
         calendar.setTime(date);
         calendar.set(calendarField, value);
         return calendar.getTime();
     }
 
     public static Date addDateField(Date date, int calendarField, int value) {
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = CdbDateUtils.todayUtc();
         calendar.setTime(date);
         calendar.add(calendarField, value);
         return calendar.getTime();

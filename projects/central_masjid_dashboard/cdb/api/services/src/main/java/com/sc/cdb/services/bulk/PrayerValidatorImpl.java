@@ -183,7 +183,7 @@ public class PrayerValidatorImpl implements PrayerValidator {
             int loopMonth = calendar.get(Calendar.MONTH);
             Date prayerDate = prayers.get(i).getDate();
             if (prayerDate != null) {
-                Calendar prayerCalendar = Calendar.getInstance();
+                Calendar prayerCalendar = CdbDateUtils.todayUtc();
                 prayerCalendar.setTime(prayerDate);
                 int date = prayerCalendar.get(Calendar.DATE);
                 int month = prayerCalendar.get(Calendar.MONTH);

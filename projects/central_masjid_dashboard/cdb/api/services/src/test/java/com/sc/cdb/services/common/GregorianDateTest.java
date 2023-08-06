@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.sc.cdb.data.model.prayer.CalenderType;
+import com.sc.cdb.utils.CdbDateUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -54,7 +55,7 @@ public class GregorianDateTest {
     }
 
     private void validateDate(Date date, int expectedYear, int expectedMonth, int expectedDayOfMonth) {
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = CdbDateUtils.todayUtc();
         calendar.setTime(date);
         Assert.assertEquals(expectedYear, calendar.get(Calendar.YEAR));
         Assert.assertEquals(expectedMonth, calendar.get(Calendar.MONTH) + 1);

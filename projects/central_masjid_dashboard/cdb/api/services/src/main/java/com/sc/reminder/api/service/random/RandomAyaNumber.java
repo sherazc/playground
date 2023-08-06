@@ -1,5 +1,6 @@
 package com.sc.reminder.api.service.random;
 
+import com.sc.cdb.utils.CdbDateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +28,7 @@ public class RandomAyaNumber {
         Calendar epochCalendar = createEpochCalendar();
 
         long millisSinceEpoch =
-            Calendar.getInstance().getTimeInMillis() - epochCalendar.getTimeInMillis();
+                CdbDateUtils.todayUtc().getTimeInMillis() - epochCalendar.getTimeInMillis();
 
         long secondsSinceEpoch = millisSinceEpoch / 1000;
         long minutesSinceEpoch = secondsSinceEpoch / 60;
@@ -39,7 +40,7 @@ public class RandomAyaNumber {
     }
 
     private Calendar createEpochCalendar() {
-        Calendar epochCalendar = Calendar.getInstance();
+        Calendar epochCalendar = CdbDateUtils.todayUtc();
         epochCalendar.set(Calendar.MILLISECOND, 0);
         epochCalendar.set(Calendar.SECOND, 0);
         epochCalendar.set(Calendar.HOUR, 0);

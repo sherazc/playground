@@ -7,6 +7,7 @@ import java.time.chrono.IsoChronology;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.sc.cdb.utils.CdbDateUtils;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,7 +18,7 @@ public class GregorianHijriConverterImpl implements GregorianHijriConverter {
         if (date == null) {
             return null;
         }
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = CdbDateUtils.todayUtc();
         calendar.setTime(date);
         LocalDate gregorianDate = LocalDate.of(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
 
