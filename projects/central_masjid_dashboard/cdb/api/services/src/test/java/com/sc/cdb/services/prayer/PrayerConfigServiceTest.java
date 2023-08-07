@@ -9,10 +9,14 @@ import com.sc.cdb.services.bulk.PrayerValidator;
 import com.sc.cdb.services.common.CustomConfigurationsService;
 import com.sc.cdb.services.common.TestUtils;
 import com.sc.cdb.services.dst.PrayerConfigDstApplier;
+import com.sc.cdb.services.mapper.DomainMapper;
+import com.sc.cdb.services.mapper.DomainMapperImpl;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.services.version.DbVersionService;
 import com.sc.cdb.utils.CdbDateUtils;
 import org.bson.types.ObjectId;
+
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,17 +25,19 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {PrayerConfigServiceImpl.class, PrayerComparator.class})
+@SpringBootTest(classes = {PrayerConfigServiceImpl.class, PrayerComparator.class, DomainMapperImpl.class})
 class PrayerConfigServiceTest {
 
     @Autowired
     private PrayerConfigService prayerConfigService;
+
+    @Autowired
+    private DomainMapper domainMapper;
 
     @MockBean
     private PrayerConfigRepository prayerConfigRepository;
@@ -58,7 +64,7 @@ class PrayerConfigServiceTest {
     private DbVersionService dbVersionService;
 
 
-    //@Test
+    @Test
     void getPrayersPageByCompanyIdMonthAndDay() {
         // Setup
         when(prayerConfigRepository.findByCompanyId(any(ObjectId.class)))
@@ -73,8 +79,7 @@ class PrayerConfigServiceTest {
     }
 
 
-    // @Test
-
+    @Test
     void getPrayersPageByCompanyIdMonthAndDay_5days() {
 
         // Setup
@@ -94,17 +99,24 @@ class PrayerConfigServiceTest {
         Calendar testPrayerDate = CdbDateUtils.createCalendar(today.get(Calendar.YEAR), 1, 1).get();
 
         response.getTarget().forEach(p -> {
-            Date prayerDate = p.getDate();
-            assertEquals(testPrayerDate.get(Calendar.YEAR), CdbDateUtils.extractDateField(prayerDate, Calendar.YEAR));
-            assertEquals(testPrayerDate.get(Calendar.MONTH), CdbDateUtils.extractDateField(prayerDate, Calendar.MONTH));
-            assertEquals(testPrayerDate.get(Calendar.DATE), CdbDateUtils.extractDateField(prayerDate, Calendar.DATE));
+            assertPrayer(testPrayerDate, p);
             testPrayerDate.add(Calendar.DATE, 1);
-            // check if prayer month date is equal to search month date
-            // Check if next change is greater than prayer date
-            // Calendar instance to  to UTC
-
         });
     }
 
+    private void assertPrayer(Calendar today, Prayer prayer) {
+        Date prayerDate = prayer.getDate();
+        assertEquals(today.get(Calendar.YEAR), CdbDateUtils.extractDateField(prayerDate, Calendar.YEAR));
+        assertEquals(today.get(Calendar.MONTH), CdbDateUtils.extractDateField(prayerDate, Calendar.MONTH));
+        assertEquals(today.get(Calendar.DATE), CdbDateUtils.extractDateField(prayerDate, Calendar.DATE));
+        assertPrayerTime(today, prayer.getDate(), prayer.getFajr(), prayer.getFajrIqama(),
+                prayer.getFajrChangeDate(), prayer.getFajrChange());
+    }
 
+    private void assertPrayerTime(Calendar today, Date prayerDate, String azan, String iqama, Date changeDate, String change) {
+        assertEquals(today.getTime(), prayerDate);
+        if (changeDate != null) {
+            assertTrue(prayerDate.before(changeDate));
+        }
+    }
 }

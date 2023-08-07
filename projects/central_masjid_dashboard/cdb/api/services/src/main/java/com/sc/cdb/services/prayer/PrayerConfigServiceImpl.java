@@ -142,8 +142,10 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
             // prayer.setDate();
             // set
             System.out.println("today Greater");
+            // add year to prayer date and next changes
         } else {
             System.out.println("Today less");
+
         }
 
         /*
