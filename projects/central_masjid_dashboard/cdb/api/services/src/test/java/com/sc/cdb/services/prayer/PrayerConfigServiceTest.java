@@ -76,6 +76,10 @@ class PrayerConfigServiceTest {
 
         assertNotNull(response.getTarget());
         assertEquals(1, response.getTarget().size());
+
+        Calendar today = CdbDateUtils.todayUtc();
+        Calendar testPrayerDate = CdbDateUtils.createCalendar(today.get(Calendar.YEAR), 1, 1).get();
+        assertPrayer(testPrayerDate, response.getTarget().get(0));
     }
 
 
@@ -118,5 +122,16 @@ class PrayerConfigServiceTest {
         if (changeDate != null) {
             assertTrue(prayerDate.before(changeDate));
         }
+
+        Optional<Calendar> azanCalendar = CdbDateUtils.parseTimeString(azan);
+        Optional<Calendar> iqamaCalendar = CdbDateUtils.parseTimeString(iqama);
+        Optional<Calendar> changeCalendar = CdbDateUtils.parseTimeString(change);
+
+        assertTrue(azanCalendar.isPresent());
+
+        iqamaCalendar.ifPresent(i -> {
+            assertTrue(i.after(azanCalendar.get()));
+            changeCalendar.ifPresent(c -> assertNotEquals(c, i));
+        });
     }
 }
