@@ -143,6 +143,39 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
             // set
             System.out.println("today Greater");
             // add year to prayer date and next changes
+
+            // I think next change will have different merge numbers to compare.
+            // Compare  prayer date and next chnage date's month and day instead of today
+            // Condition we are in will only work for adding prayer date year
+            if (prayer.getFajrChangeDate() != null) {
+                Date date = prayer.getFajrChangeDate();
+                date = CdbDateUtils.addDateField(date, Calendar.YEAR, 1);
+                prayer.setFajrChangeDate(date);
+            }
+
+            if (prayer.getDhuhrChangeDate() != null) {
+                Date date = prayer.getDhuhrChangeDate();
+                date = CdbDateUtils.addDateField(date, Calendar.YEAR, 1);
+                prayer.setDhuhrChangeDate(date);
+            }
+
+            if (prayer.getAsrChangeDate() != null) {
+                Date date = prayer.getAsrChangeDate();
+                date = CdbDateUtils.addDateField(date, Calendar.YEAR, 1);
+                prayer.setAsrChangeDate(date);
+            }
+
+            if (prayer.getMaghribChangeDate() != null) {
+                Date date = prayer.getMaghribChangeDate();
+                date = CdbDateUtils.addDateField(date, Calendar.YEAR, 1);
+                prayer.setMaghribChangeDate(date);
+            }
+
+            if (prayer.getIshaChangeDate() != null) {
+                Date date = prayer.getIshaChangeDate();
+                date = CdbDateUtils.addDateField(date, Calendar.YEAR, 1);
+                prayer.setIshaChangeDate(date);
+            }
         } else {
             System.out.println("Today less");
 
@@ -163,6 +196,10 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
 
 
     }
+
+
+
+
 
     private int mergeNumbers(int num1, int num2) {
         String num1String = leftPad(num1);

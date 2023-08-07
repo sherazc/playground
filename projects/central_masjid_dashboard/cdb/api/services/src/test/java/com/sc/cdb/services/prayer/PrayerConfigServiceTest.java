@@ -84,8 +84,17 @@ class PrayerConfigServiceTest {
 
 
     @Test
-    void getPrayersPageByCompanyIdMonthAndDay_5days() {
+    void getPrayersPageByCompanyIdMonthAndDay_5days_yearStart() {
+        assertPrayersPage(1, 1, 5);
+    }
 
+    @Test
+    void getPrayersPageByCompanyIdMonthAndDay_5days_yearEnd() {
+        assertPrayersPage(12, 29, 5);
+    }
+
+
+    private void assertPrayersPage(int month, int day, int pageSize) {
         // Setup
         when(prayerConfigRepository.findByCompanyId(any(ObjectId.class)))
                 .thenReturn(Optional
@@ -93,14 +102,14 @@ class PrayerConfigServiceTest {
 
         // Call
         ServiceResponse<List<Prayer>> response = prayerConfigService
-                .getPrayersPageByCompanyIdMonthAndDay("5da27307f54ab6c94a693ee2", 1, 1, 5);
+                .getPrayersPageByCompanyIdMonthAndDay("5da27307f54ab6c94a693ee2", month, day, pageSize);
 
         // Verify
         assertNotNull(response.getTarget());
-        assertEquals(5, response.getTarget().size());
+        assertEquals(pageSize, response.getTarget().size());
 
         Calendar today = CdbDateUtils.todayUtc();
-        Calendar testPrayerDate = CdbDateUtils.createCalendar(today.get(Calendar.YEAR), 1, 1).get();
+        Calendar testPrayerDate = CdbDateUtils.createCalendar(today.get(Calendar.YEAR), month, day).get();
 
         response.getTarget().forEach(p -> {
             assertPrayer(testPrayerDate, p);
@@ -108,13 +117,23 @@ class PrayerConfigServiceTest {
         });
     }
 
+
     private void assertPrayer(Calendar today, Prayer prayer) {
         Date prayerDate = prayer.getDate();
         assertEquals(today.get(Calendar.YEAR), CdbDateUtils.extractDateField(prayerDate, Calendar.YEAR));
         assertEquals(today.get(Calendar.MONTH), CdbDateUtils.extractDateField(prayerDate, Calendar.MONTH));
         assertEquals(today.get(Calendar.DATE), CdbDateUtils.extractDateField(prayerDate, Calendar.DATE));
+
         assertPrayerTime(today, prayer.getDate(), prayer.getFajr(), prayer.getFajrIqama(),
                 prayer.getFajrChangeDate(), prayer.getFajrChange());
+        assertPrayerTime(today, prayer.getDate(), prayer.getDhuhr(), prayer.getDhuhrIqama(),
+                prayer.getDhuhrChangeDate(), prayer.getDhuhrChange());
+        assertPrayerTime(today, prayer.getDate(), prayer.getAsr(), prayer.getAsrIqama(),
+                prayer.getAsrChangeDate(), prayer.getAsrChange());
+        assertPrayerTime(today, prayer.getDate(), prayer.getMaghrib(), prayer.getMaghribIqama(),
+                prayer.getMaghribChangeDate(), prayer.getMaghribChange());
+        assertPrayerTime(today, prayer.getDate(), prayer.getIsha(), prayer.getIshaIqama(),
+                prayer.getIshaChangeDate(), prayer.getIshaChange());
     }
 
     private void assertPrayerTime(Calendar today, Date prayerDate, String azan, String iqama, Date changeDate, String change) {
