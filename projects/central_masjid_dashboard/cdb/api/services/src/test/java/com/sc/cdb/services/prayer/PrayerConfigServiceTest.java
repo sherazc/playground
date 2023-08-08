@@ -16,6 +16,7 @@ import com.sc.cdb.services.version.DbVersionService;
 import com.sc.cdb.utils.CdbDateUtils;
 import org.bson.types.ObjectId;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,17 +64,21 @@ class PrayerConfigServiceTest {
     @MockBean
     private DbVersionService dbVersionService;
 
-
-    @Test
-    void getPrayersPageByCompanyIdMonthAndDay() {
-        // Setup
+    @BeforeEach
+    void init() {
         when(prayerConfigRepository.findByCompanyId(any(ObjectId.class)))
                 .thenReturn(Optional
                         .of(TestUtils.readJsonObject("PrayerConfig.json", PrayerConfig.class)));
+    }
 
+
+    @Test
+    void getPrayersPageByCompanyIdMonthAndDay() {
+        // Call
         ServiceResponse<List<Prayer>> response = prayerConfigService
                 .getPrayersPageByCompanyIdMonthAndDay("5da27307f54ab6c94a693ee2", 1, 1, 1);
 
+        // Verify
         assertNotNull(response.getTarget());
         assertEquals(1, response.getTarget().size());
 
@@ -95,10 +100,6 @@ class PrayerConfigServiceTest {
 
 
     private void assertPrayersPage(int month, int day, int pageSize) {
-        // Setup
-        when(prayerConfigRepository.findByCompanyId(any(ObjectId.class)))
-                .thenReturn(Optional
-                        .of(TestUtils.readJsonObject("PrayerConfig.json", PrayerConfig.class)));
 
         // Call
         ServiceResponse<List<Prayer>> response = prayerConfigService
