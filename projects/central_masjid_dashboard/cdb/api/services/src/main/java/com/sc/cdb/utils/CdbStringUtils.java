@@ -1,6 +1,7 @@
 package com.sc.cdb.utils;
 
 import com.sc.reminder.api.service.SearchFileLine;
+import org.apache.commons.lang3.StringUtils;
 
 public class CdbStringUtils {
 
@@ -48,4 +49,9 @@ public class CdbStringUtils {
 
         return result;
     }
+
+    public static String leftPadNum(int number, int zeros) {
+        return StringUtils.leftPad(String.valueOf(number), zeros, "0");
+    }
+
 }

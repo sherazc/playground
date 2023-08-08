@@ -90,7 +90,6 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
     }
 
 
-
     private void populatePrayerPageResponse(
             ServiceResponse.ServiceResponseBuilder<List<Prayer>> serviceResponseBuilder,
             String companyId, int month, int day, int length) {
@@ -101,7 +100,6 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         boolean valid = prayerConfigOptional
                 .map(pc -> validatePrayers(serviceResponseBuilder, pc))
                 .orElse(false);
-
 
 
         if (valid) {
@@ -117,10 +115,10 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
                 prayersResult.add(prayer);
                 Date prayerDate = prayer.getDate();
 
-                Date incrimentPrayerDate = CdbDateUtils.addDateField(prayerDate, Calendar.DATE, 1);
-                // prayer.setDate(incrimentPrayerDate);
-                month = CdbDateUtils.extractDateField(incrimentPrayerDate, Calendar.MONTH) + 1;
-                day = CdbDateUtils.extractDateField(incrimentPrayerDate, Calendar.DATE);
+                Date incrementPrayerDate = CdbDateUtils.addDateField(prayerDate, Calendar.DATE, 1);
+                // prayer.setDate(incrementPrayerDate);
+                month = CdbDateUtils.extractDateField(incrementPrayerDate, Calendar.MONTH) + 1;
+                day = CdbDateUtils.extractDateField(incrementPrayerDate, Calendar.DATE);
             }
 
             serviceResponseBuilder
@@ -135,86 +133,53 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         prayerDate = CdbDateUtils.setDateField(prayerDate, Calendar.YEAR, today.get(Calendar.YEAR));
         prayer.setDate(prayerDate);
 
-        int searchNumber = mergeNumbers(month, day);
-        int todayNumber = mergeNumbers(today.get(Calendar.MONTH) + 1, today.get(Calendar.DATE));
+        int searchNumber = CdbDateUtils.mergeNumbers(month, day);
+        int todayNumber = CdbDateUtils.mergeNumbers(today.get(Calendar.MONTH) + 1, today.get(Calendar.DATE));
 
         if (todayNumber > searchNumber) {
-            // prayer.setDate();
-            // set
-            System.out.println("today Greater");
-            // add year to prayer date and next changes
-
-            // I think next change will have different merge numbers to compare.
-            // Compare  prayer date and next chnage date's month and day instead of today
-            // Condition we are in will only work for adding prayer date year
-            if (prayer.getFajrChangeDate() != null) {
-                Date date = prayer.getFajrChangeDate();
-                date = CdbDateUtils.addDateField(date, Calendar.YEAR, 1);
-                prayer.setFajrChangeDate(date);
-            }
-
-            if (prayer.getDhuhrChangeDate() != null) {
-                Date date = prayer.getDhuhrChangeDate();
-                date = CdbDateUtils.addDateField(date, Calendar.YEAR, 1);
-                prayer.setDhuhrChangeDate(date);
-            }
-
-            if (prayer.getAsrChangeDate() != null) {
-                Date date = prayer.getAsrChangeDate();
-                date = CdbDateUtils.addDateField(date, Calendar.YEAR, 1);
-                prayer.setAsrChangeDate(date);
-            }
-
-            if (prayer.getMaghribChangeDate() != null) {
-                Date date = prayer.getMaghribChangeDate();
-                date = CdbDateUtils.addDateField(date, Calendar.YEAR, 1);
-                prayer.setMaghribChangeDate(date);
-            }
-
-            if (prayer.getIshaChangeDate() != null) {
-                Date date = prayer.getIshaChangeDate();
-                date = CdbDateUtils.addDateField(date, Calendar.YEAR, 1);
-                prayer.setIshaChangeDate(date);
-            }
-        } else {
-            System.out.println("Today less");
-
+            Date prayerNextYearDate = CdbDateUtils.addDateField(prayer.getDate(), Calendar.YEAR, 1);
+            prayer.setDate(prayerNextYearDate);
         }
 
-        /*
-        FIX YEAR MONTH
-        for prayer date set currect year
-        ----
-                for next change
-                if prayer's month&date is greater than query month&date
-                    then set current year
-                else
-                    then set next year
-
-                Run above method in populatePrayerSingleResponse
-         */
-
+        fixNextYearNextChangeDates(prayer);
 
     }
 
+    private void fixNextYearNextChangeDates(Prayer prayer) {
+        int prayerDateNum = CdbDateUtils.mergeNumbersDate(prayer.getDate());
+        int prayerYear = CdbDateUtils.extractDateField(prayer.getDate(), Calendar.YEAR);
 
+        Date fajrChangeDate = fixNextChangeDate(prayer.getFajrChangeDate(), prayerDateNum, prayerYear);
+        prayer.setFajrChangeDate(fajrChangeDate);
 
+        Date dhuhrChangeDate = fixNextChangeDate(prayer.getDhuhrChangeDate(), prayerDateNum, prayerYear);
+        prayer.setDhuhrChangeDate(dhuhrChangeDate);
 
+        Date asrChangeDate = fixNextChangeDate(prayer.getAsrChangeDate(), prayerDateNum, prayerYear);
+        prayer.setAsrChangeDate(asrChangeDate);
 
-    private int mergeNumbers(int num1, int num2) {
-        String num1String = leftPad(num1);
-        String num2String = leftPad(num2);
-        return Integer.parseInt(num1String + num2String);
+        Date maghribChangeDate = fixNextChangeDate(prayer.getMaghribChangeDate(), prayerDateNum, prayerYear);
+        prayer.setMaghribChangeDate(maghribChangeDate);
+
+        Date ishaChangeDate = fixNextChangeDate(prayer.getIshaChangeDate(), prayerDateNum, prayerYear);
+        prayer.setIshaChangeDate(ishaChangeDate);
     }
 
-    private String leftPad(int number) {
-        return StringUtils.leftPad(String.valueOf(number), 2, "0");
+    private Date fixNextChangeDate(Date nextChnageDate, int prayerDateNum, int prayerYear) {
+        if (nextChnageDate == null) {
+            return null;
+        }
+        if (prayerDateNum > CdbDateUtils.mergeNumbersDate(nextChnageDate)) {
+            nextChnageDate = CdbDateUtils.setDateField(nextChnageDate, Calendar.YEAR, prayerYear + 1);
+        } else {
+            nextChnageDate = CdbDateUtils.setDateField(nextChnageDate, Calendar.YEAR, prayerYear);
+        }
+        return nextChnageDate;
     }
-
 
 
     private boolean validatePrayerDayArguments(ServiceResponse.ServiceResponseBuilder<?> serviceResponseBuilder,
-                                            String companyId, int month, int day) {
+                                               String companyId, int month, int day) {
         boolean valid = true;
         if (month > 12 || month < 1) {
             serviceResponseBuilder.successful(false).message("Invalid Month");
@@ -249,43 +214,43 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         }
 
         overrideIqama(configs, "fajr_iqama", s ->
-            prayers.forEach(p -> {
-                p.setFajrIqama(s);
-                p.setFajrChange(null);
-                p.setFajrChangeDate(null);
-            })
+                prayers.forEach(p -> {
+                    p.setFajrIqama(s);
+                    p.setFajrChange(null);
+                    p.setFajrChangeDate(null);
+                })
         );
 
         overrideIqama(configs, "zuhar_iqama", s ->
-            prayers.forEach(p -> {
-                p.setDhuhrIqama(s);
-                p.setDhuhrChange(null);
-                p.setDhuhrChangeDate(null);
-            })
+                prayers.forEach(p -> {
+                    p.setDhuhrIqama(s);
+                    p.setDhuhrChange(null);
+                    p.setDhuhrChangeDate(null);
+                })
         );
 
         overrideIqama(configs, "asr_iqama", s ->
-            prayers.forEach(p -> {
-                p.setAsrIqama(s);
-                p.setAsrChange(null);
-                p.setAsrChangeDate(null);
-            })
+                prayers.forEach(p -> {
+                    p.setAsrIqama(s);
+                    p.setAsrChange(null);
+                    p.setAsrChangeDate(null);
+                })
         );
 
         overrideIqama(configs, "maghrib_iqama", s ->
-            prayers.forEach(p -> {
-                p.setMaghribIqama(s);
-                p.setMaghribChange(null);
-                p.setMaghribChangeDate(null);
-            })
+                prayers.forEach(p -> {
+                    p.setMaghribIqama(s);
+                    p.setMaghribChange(null);
+                    p.setMaghribChangeDate(null);
+                })
         );
 
         overrideIqama(configs, "isha_iqama", s ->
-            prayers.forEach(p -> {
-                p.setIshaIqama(s);
-                p.setIshaChange(null);
-                p.setIshaChangeDate(null);
-            })
+                prayers.forEach(p -> {
+                    p.setIshaIqama(s);
+                    p.setIshaChange(null);
+                    p.setIshaChangeDate(null);
+                })
         );
     }
 

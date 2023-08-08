@@ -139,6 +139,10 @@ class PrayerConfigServiceTest {
     private void assertPrayerTime(Calendar today, Date prayerDate, String azan, String iqama, Date changeDate, String change) {
         assertEquals(today.getTime(), prayerDate);
         if (changeDate != null) {
+            boolean a = prayerDate.before(changeDate);
+            if (!a) {
+                System.out.println("fail");
+            }
             assertTrue(prayerDate.before(changeDate));
         }
 

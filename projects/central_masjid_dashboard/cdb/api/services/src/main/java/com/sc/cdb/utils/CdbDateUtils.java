@@ -218,6 +218,9 @@ public class CdbDateUtils {
     }
 
     public static Date setDateField(Date date, int calendarField, int value) {
+        if (date == null) {
+            return null;
+        }
         Calendar calendar = CdbDateUtils.todayUtc();
         calendar.setTime(date);
         calendar.set(calendarField, value);
@@ -225,9 +228,36 @@ public class CdbDateUtils {
     }
 
     public static Date addDateField(Date date, int calendarField, int value) {
+        if (date == null) {
+            return null;
+        }
         Calendar calendar = CdbDateUtils.todayUtc();
         calendar.setTime(date);
         calendar.add(calendarField, value);
         return calendar.getTime();
+    }
+
+    public static int mergeNumbers(int num1, int num2) {
+        String num1String = CdbStringUtils.leftPadNum(num1, 2);
+        String num2String = CdbStringUtils.leftPadNum(num2, 2);
+        return Integer.parseInt(num1String + num2String);
+    }
+
+    public static int mergeNumbersDate(Date date) {
+        if (date == null) {
+            return 0;
+        }
+        int num1 = extractDateField(date, Calendar.MONTH);
+        int num2 = extractDateField(date, Calendar.DATE);
+        return mergeNumbers(num1, num2);
+    }
+
+    public static int mergeNumbersCalendar(Calendar calendar) {
+        if (calendar == null) {
+            return 0;
+        }
+        int num1 = calendar.get(Calendar.MONTH);
+        int num2 = calendar.get(Calendar.DATE);
+        return mergeNumbers(num1, num2);
     }
 }
