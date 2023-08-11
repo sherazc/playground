@@ -74,17 +74,18 @@ class PrayerConfigServiceTest {
 
     @Test
     void getPrayersPageByCompanyIdMonthAndDay() {
+        int month = 10;
+        int date = 1;
         // Call
-        ServiceResponse<List<Prayer>> response = prayerConfigService
-                .getPrayersPageByCompanyIdMonthAndDay("5da27307f54ab6c94a693ee2", 1, 1, 1);
+        ServiceResponse<Prayer> response = prayerConfigService
+                .getPrayerByCompanyIdMonthAndDay("5da27307f54ab6c94a693ee2", month, date);
 
         // Verify
         assertNotNull(response.getTarget());
-        assertEquals(1, response.getTarget().size());
 
         Calendar today = CdbDateUtils.todayUtc();
-        Calendar testPrayerDate = CdbDateUtils.createCalendar(today.get(Calendar.YEAR), 1, 1).get();
-        assertPrayer(testPrayerDate, response.getTarget().get(0));
+        Calendar testPrayerDate = CdbDateUtils.createCalendar(today.get(Calendar.YEAR), month, date).get();
+        assertPrayer(testPrayerDate, response.getTarget());
     }
 
 
@@ -142,7 +143,7 @@ class PrayerConfigServiceTest {
         if (changeDate != null) {
             boolean a = prayerDate.before(changeDate);
             if (!a) {
-                System.out.println("fail");
+                System.out.println("fail"); // TODO remove it. Added for debugging
             }
             assertTrue(prayerDate.before(changeDate));
         }

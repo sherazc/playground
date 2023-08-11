@@ -81,6 +81,9 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         if (valid) {
             List<Prayer> twoYearPrayers = doublePrayers(prayerConfigOptional.get().getPrayers());
             Prayer prayer = findDatePrayerAndNextChange(twoYearPrayers, month, day);
+            Calendar today = CdbDateUtils.todayUtc();
+            setTodayYearInPrayer(prayer, today);
+            fixNextYearNextChangeDates(prayer);
             overrideIqamas(companyId, Collections.singletonList(prayer));
             serviceResponseBuilder
                     .target(prayer)
@@ -103,19 +106,43 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
 
 
         if (valid) {
+
             List<Prayer> twoYearPrayers = doublePrayers(prayerConfigOptional.get().getPrayers());
             Calendar today = CdbDateUtils.todayUtc();
+            int numberToday = CdbDateUtils.mergeNumbersDate(today.getTime());
 
             for (int i = 0; i < length; i++) {
                 Prayer originalPrayer = findDatePrayerAndNextChange(twoYearPrayers, month, day);
                 Prayer prayer = mapper.clonePrayer(originalPrayer);
-                fixPrayerYear(prayer, today, month, day);
+                int numberPrayer = CdbDateUtils.mergeNumbersDate(prayer.getDate());
+                int numberSearch = CdbDateUtils.mergeNumbers(month, day);
+
+                if (i < 1) {
+                    setTodayYearInPrayer(prayer, today);
+                } else {
+                    Date previousPrayerDate = prayersResult.get(i - 1).getDate();
+                    Date prayerNewDate = CdbDateUtils.addDateField(previousPrayerDate, Calendar.DATE, 1);
+                    prayer.setDate(prayerNewDate);
+                }
+
+
+//                Date prayerDate = prayer.getDate();
+//                prayerDate = CdbDateUtils.setDateField(prayerDate, Calendar.YEAR, today.get(Calendar.YEAR));
+//                prayer.setDate(prayerDate);
+
+//                if (i > 0 && numberToday > numberPrayer) {
+//                    Date prayerNewDate = CdbDateUtils.setDateField(prayer.getDate(), Calendar.YEAR, today.get(Calendar.YEAR) + 1);
+//                    prayer.setDate(prayerNewDate);
+//                }
+
+                // fixPrayerYear(prayer, today, month, day);
+                fixNextYearNextChangeDates(prayer);
 
                 overrideIqamas(companyId, Collections.singletonList(prayer));
                 prayersResult.add(prayer);
-                Date prayerDate = prayer.getDate();
 
-                Date incrementPrayerDate = CdbDateUtils.addDateField(prayerDate, Calendar.DATE, 1);
+                Date incrementPrayerDate = CdbDateUtils.addDateField(prayer.getDate(), Calendar.DATE, 1);
+                int numberIncrement = CdbDateUtils.mergeNumbersDate(incrementPrayerDate);
                 // prayer.setDate(incrementPrayerDate);
                 month = CdbDateUtils.extractDateField(incrementPrayerDate, Calendar.MONTH) + 1;
                 day = CdbDateUtils.extractDateField(incrementPrayerDate, Calendar.DATE);
@@ -127,22 +154,24 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         }
     }
 
-
-    private void fixPrayerYear(Prayer prayer, Calendar today, int month, int day) {
+    private void setTodayYearInPrayer(Prayer prayer, Calendar today) {
         Date prayerDate = prayer.getDate();
         prayerDate = CdbDateUtils.setDateField(prayerDate, Calendar.YEAR, today.get(Calendar.YEAR));
         prayer.setDate(prayerDate);
+    }
 
+
+    private static void fixNextYearPrayerDate(Prayer prayer, Calendar today, int month, int day) {
         int searchNumber = CdbDateUtils.mergeNumbers(month, day);
         int todayNumber = CdbDateUtils.mergeNumbers(today.get(Calendar.MONTH) + 1, today.get(Calendar.DATE));
+        int prayerNumber = CdbDateUtils.mergeNumbers(CdbDateUtils.extractDateField(prayer.getDate(), Calendar.MONTH) + 1, CdbDateUtils.extractDateField(prayer.getDate(), Calendar.DATE));
+
 
         if (todayNumber > searchNumber) {
-            Date prayerNextYearDate = CdbDateUtils.addDateField(prayer.getDate(), Calendar.YEAR, 1);
+            // Date prayerNextYearDate = CdbDateUtils.addDateField(prayer.getDate(), Calendar.YEAR, 1);
+            Date prayerNextYearDate = CdbDateUtils.addDateField(today.getTime(), Calendar.YEAR, 1);
             prayer.setDate(prayerNextYearDate);
         }
-
-        fixNextYearNextChangeDates(prayer);
-
     }
 
     private void fixNextYearNextChangeDates(Prayer prayer) {

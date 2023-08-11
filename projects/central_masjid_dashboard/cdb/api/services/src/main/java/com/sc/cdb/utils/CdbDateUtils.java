@@ -247,7 +247,7 @@ public class CdbDateUtils {
         if (date == null) {
             return 0;
         }
-        int num1 = extractDateField(date, Calendar.MONTH);
+        int num1 = extractDateField(date, Calendar.MONTH) + 1;
         int num2 = extractDateField(date, Calendar.DATE);
         return mergeNumbers(num1, num2);
     }
@@ -256,7 +256,7 @@ public class CdbDateUtils {
         if (calendar == null) {
             return 0;
         }
-        int num1 = calendar.get(Calendar.MONTH);
+        int num1 = calendar.get(Calendar.MONTH) + 1;
         int num2 = calendar.get(Calendar.DATE);
         return mergeNumbers(num1, num2);
     }
