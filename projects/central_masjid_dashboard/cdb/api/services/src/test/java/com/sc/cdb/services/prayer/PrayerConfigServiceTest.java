@@ -74,24 +74,24 @@ class PrayerConfigServiceTest {
 
 
     @Test
-    void getPrayersPageByCompanyIdMonthAndDay() {
+    void getPrayerByCompanyIdMonthAndDay() {
         assertPrayerSingle(10, 1);
     }
 
 
     @Test
-    void getPrayersPageByCompanyIdMonthAndDay_first_day() {
+    void getPrayerByCompanyIdMonthAndDay_first_day() {
         assertPrayerSingle(1, 1);
     }
 
 
     @Test
-    void getPrayersPageByCompanyIdMonthAndDay_leap_year() {
+    void getPrayerByCompanyIdMonthAndDay_leap_year() {
         assertPrayerSingle(2, 28);
     }
 
     @Test
-    void getPrayersPageByCompanyIdMonthAndDay_last_day() {
+    void getPrayerByCompanyIdMonthAndDay_last_day() {
         assertPrayerSingle(12, 31);
     }
 
@@ -112,17 +112,36 @@ class PrayerConfigServiceTest {
     }
 
     @Test
-    void getPrayersPageByCompanyIdMonthAndDay_empty_fail_response() {
-        assertEmptyFailResponse(null, 1, 1, 10);
-        assertEmptyFailResponse(COMPANY_ID, 0, 1, 10);
-        assertEmptyFailResponse(COMPANY_ID, 13, 1, 10);
-        assertEmptyFailResponse(COMPANY_ID, 1, 0, 10);
-        assertEmptyFailResponse(COMPANY_ID, 1, 32, 10);
-        assertEmptyFailResponse(COMPANY_ID, 1, 1, 0);
-        assertEmptyFailResponse(COMPANY_ID, 1, 1, 101);
+    void getPrayerByCompanyIdMonthAndDay_empty_fail_response() {
+        assertSingleEmptyFailResponse(null, 1, 1);
+        assertSingleEmptyFailResponse(COMPANY_ID, 0, 1);
+        assertSingleEmptyFailResponse(COMPANY_ID, 13, 1);
+        assertSingleEmptyFailResponse(COMPANY_ID, 1, 0);
+        assertSingleEmptyFailResponse(COMPANY_ID, 1, 32);
     }
 
-    private void assertEmptyFailResponse(String companyId, int month, int date, int length) {
+    @Test
+    void getPrayersPageByCompanyIdMonthAndDay_empty_fail_response() {
+        assertPageEmptyFailResponse(null, 1, 1, 10);
+        assertPageEmptyFailResponse(COMPANY_ID, 0, 1, 10);
+        assertPageEmptyFailResponse(COMPANY_ID, 13, 1, 10);
+        assertPageEmptyFailResponse(COMPANY_ID, 1, 0, 10);
+        assertPageEmptyFailResponse(COMPANY_ID, 1, 32, 10);
+        assertPageEmptyFailResponse(COMPANY_ID, 1, 1, 0);
+        assertPageEmptyFailResponse(COMPANY_ID, 1, 1, 101);
+    }
+
+    private void assertSingleEmptyFailResponse(String companyId, int month, int date) {
+        // Call
+        ServiceResponse<Prayer> response = prayerConfigService
+                .getPrayerByCompanyIdMonthAndDay(companyId, month, date);
+
+        // Verify
+        assertNull(response.getTarget());
+        assertFalse(response.isSuccessful());
+    }
+
+    private void assertPageEmptyFailResponse(String companyId, int month, int date, int length) {
         // Call
         ServiceResponse<List<Prayer>> response = prayerConfigService
                 .getPrayersPageByCompanyIdMonthAndDay(companyId, month, date, length);
