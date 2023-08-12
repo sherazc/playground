@@ -60,8 +60,9 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
     public ServiceResponse<List<Prayer>> getPrayersPageByCompanyIdMonthAndDay(String companyId, int month, int day, int length) {
         ServiceResponse.ServiceResponseBuilder<List<Prayer>> serviceResponseBuilder = ServiceResponse.builder();
         boolean valid = validatePrayerDayArguments(serviceResponseBuilder, companyId, month, day);
-        if (valid && length < 1 || length > 366) {
+        if (valid && (length < 1 || length > 100)) {
             serviceResponseBuilder.successful(false).message("Invalid length");
+            return serviceResponseBuilder.build();
         }
         if (valid) {
             populatePrayerPageResponse(serviceResponseBuilder, companyId, month, day, length);
@@ -109,13 +110,10 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
 
             List<Prayer> twoYearPrayers = doublePrayers(prayerConfigOptional.get().getPrayers());
             Calendar today = CdbDateUtils.todayUtc();
-            int numberToday = CdbDateUtils.mergeNumbersDate(today.getTime());
 
             for (int i = 0; i < length; i++) {
                 Prayer originalPrayer = findDatePrayerAndNextChange(twoYearPrayers, month, day);
                 Prayer prayer = mapper.clonePrayer(originalPrayer);
-                int numberPrayer = CdbDateUtils.mergeNumbersDate(prayer.getDate());
-                int numberSearch = CdbDateUtils.mergeNumbers(month, day);
 
                 if (i < 1) {
                     setTodayYearInPrayer(prayer, today);
@@ -125,25 +123,12 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
                     prayer.setDate(prayerNewDate);
                 }
 
-
-//                Date prayerDate = prayer.getDate();
-//                prayerDate = CdbDateUtils.setDateField(prayerDate, Calendar.YEAR, today.get(Calendar.YEAR));
-//                prayer.setDate(prayerDate);
-
-//                if (i > 0 && numberToday > numberPrayer) {
-//                    Date prayerNewDate = CdbDateUtils.setDateField(prayer.getDate(), Calendar.YEAR, today.get(Calendar.YEAR) + 1);
-//                    prayer.setDate(prayerNewDate);
-//                }
-
-                // fixPrayerYear(prayer, today, month, day);
                 fixNextYearNextChangeDates(prayer);
 
                 overrideIqamas(companyId, Collections.singletonList(prayer));
                 prayersResult.add(prayer);
 
                 Date incrementPrayerDate = CdbDateUtils.addDateField(prayer.getDate(), Calendar.DATE, 1);
-                int numberIncrement = CdbDateUtils.mergeNumbersDate(incrementPrayerDate);
-                // prayer.setDate(incrementPrayerDate);
                 month = CdbDateUtils.extractDateField(incrementPrayerDate, Calendar.MONTH) + 1;
                 day = CdbDateUtils.extractDateField(incrementPrayerDate, Calendar.DATE);
             }
@@ -158,20 +143,6 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         Date prayerDate = prayer.getDate();
         prayerDate = CdbDateUtils.setDateField(prayerDate, Calendar.YEAR, today.get(Calendar.YEAR));
         prayer.setDate(prayerDate);
-    }
-
-
-    private static void fixNextYearPrayerDate(Prayer prayer, Calendar today, int month, int day) {
-        int searchNumber = CdbDateUtils.mergeNumbers(month, day);
-        int todayNumber = CdbDateUtils.mergeNumbers(today.get(Calendar.MONTH) + 1, today.get(Calendar.DATE));
-        int prayerNumber = CdbDateUtils.mergeNumbers(CdbDateUtils.extractDateField(prayer.getDate(), Calendar.MONTH) + 1, CdbDateUtils.extractDateField(prayer.getDate(), Calendar.DATE));
-
-
-        if (todayNumber > searchNumber) {
-            // Date prayerNextYearDate = CdbDateUtils.addDateField(prayer.getDate(), Calendar.YEAR, 1);
-            Date prayerNextYearDate = CdbDateUtils.addDateField(today.getTime(), Calendar.YEAR, 1);
-            prayer.setDate(prayerNextYearDate);
-        }
     }
 
     private void fixNextYearNextChangeDates(Prayer prayer) {
@@ -289,16 +260,6 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
                 .findFirst()
                 .filter(c -> StringUtils.isNotBlank(c.getValue()))
                 .ifPresent(c -> consumer.accept(c.getValue()));
-    }
-
-
-    private Optional<CustomConfiguration> getConfigByName(List<CustomConfiguration> configs, String name) {
-        if (configs == null || configs.isEmpty()) {
-            return Optional.empty();
-        }
-        return configs.stream()
-                .filter(c -> StringUtils.equals(c.getName(), name))
-                .findFirst();
     }
 
     @Override
@@ -419,7 +380,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
 
         Map<String, String> fieldErrors = prayerValidator.validatePrayers(prayerConfig.getPrayers());
 
-        if (fieldErrors.size() > 0) {
+        if (!fieldErrors.isEmpty()) {
             serviceResponseBuilder
                     .successful(false)
                     .message("Failed to save PrayerConfig")

@@ -34,6 +34,7 @@ import static org.mockito.Mockito.when;
 @SpringBootTest(classes = {PrayerConfigServiceImpl.class, PrayerComparator.class, DomainMapperImpl.class})
 class PrayerConfigServiceTest {
 
+    public static final String COMPANY_ID = "5da27307f54ab6c94a693ee2";
     @Autowired
     private PrayerConfigService prayerConfigService;
 
@@ -74,18 +75,24 @@ class PrayerConfigServiceTest {
 
     @Test
     void getPrayersPageByCompanyIdMonthAndDay() {
-        int month = 10;
-        int date = 1;
-        // Call
-        ServiceResponse<Prayer> response = prayerConfigService
-                .getPrayerByCompanyIdMonthAndDay("5da27307f54ab6c94a693ee2", month, date);
+        assertPrayerSingle(10, 1);
+    }
 
-        // Verify
-        assertNotNull(response.getTarget());
 
-        Calendar today = CdbDateUtils.todayUtc();
-        Calendar testPrayerDate = CdbDateUtils.createCalendar(today.get(Calendar.YEAR), month, date).get();
-        assertPrayer(testPrayerDate, response.getTarget());
+    @Test
+    void getPrayersPageByCompanyIdMonthAndDay_first_day() {
+        assertPrayerSingle(1, 1);
+    }
+
+
+    @Test
+    void getPrayersPageByCompanyIdMonthAndDay_leap_year() {
+        assertPrayerSingle(2, 28);
+    }
+
+    @Test
+    void getPrayersPageByCompanyIdMonthAndDay_last_day() {
+        assertPrayerSingle(12, 31);
     }
 
 
@@ -95,16 +102,55 @@ class PrayerConfigServiceTest {
     }
 
     @Test
-    void getPrayersPageByCompanyIdMonthAndDay_5days_yearEnd() {
-        assertPrayersPage(12, 29, 5);
+    void getPrayersPageByCompanyIdMonthAndDay_10days_leapYear() {
+        assertPrayersPage(2, 26, 10);
     }
 
+    @Test
+    void getPrayersPageByCompanyIdMonthAndDay_5days_yearEnd() {
+        assertPrayersPage(12, 29, 10);
+    }
+
+    @Test
+    void getPrayersPageByCompanyIdMonthAndDay_empty_fail_response() {
+        assertEmptyFailResponse(null, 1, 1, 10);
+        assertEmptyFailResponse(COMPANY_ID, 0, 1, 10);
+        assertEmptyFailResponse(COMPANY_ID, 13, 1, 10);
+        assertEmptyFailResponse(COMPANY_ID, 1, 0, 10);
+        assertEmptyFailResponse(COMPANY_ID, 1, 32, 10);
+        assertEmptyFailResponse(COMPANY_ID, 1, 1, 0);
+        assertEmptyFailResponse(COMPANY_ID, 1, 1, 101);
+    }
+
+    private void assertEmptyFailResponse(String companyId, int month, int date, int length) {
+        // Call
+        ServiceResponse<List<Prayer>> response = prayerConfigService
+                .getPrayersPageByCompanyIdMonthAndDay(companyId, month, date, length);
+
+        // Verify
+        assertNull(response.getTarget());
+        assertFalse(response.isSuccessful());
+    }
+
+
+    private void assertPrayerSingle(int month, int date) {
+        // Call
+        ServiceResponse<Prayer> response = prayerConfigService
+                .getPrayerByCompanyIdMonthAndDay(COMPANY_ID, month, date);
+
+        // Verify
+        assertNotNull(response.getTarget());
+
+        Calendar today = CdbDateUtils.todayUtc();
+        Calendar testPrayerDate = CdbDateUtils.createCalendar(today.get(Calendar.YEAR), month, date).get();
+        assertPrayer(testPrayerDate, response.getTarget());
+    }
 
     private void assertPrayersPage(int month, int day, int pageSize) {
 
         // Call
         ServiceResponse<List<Prayer>> response = prayerConfigService
-                .getPrayersPageByCompanyIdMonthAndDay("5da27307f54ab6c94a693ee2", month, day, pageSize);
+                .getPrayersPageByCompanyIdMonthAndDay(COMPANY_ID, month, day, pageSize);
 
         // Verify
         assertNotNull(response.getTarget());
