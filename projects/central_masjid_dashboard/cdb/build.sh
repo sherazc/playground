@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 export NODE_OPTIONS=--openssl-legacy-provider
 
+# MDB Core JS
+cd ../mdb-core-js/
+./build.sh
+cd ../cdb/
+
 # Install/Update npm and yarn
 npm install npm -g
 
