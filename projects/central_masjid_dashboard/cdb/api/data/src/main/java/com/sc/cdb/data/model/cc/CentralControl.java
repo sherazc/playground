@@ -32,6 +32,7 @@ public class CentralControl {
     private List<Expense> expenses;
     private List<Fund> funds;
     private List<Jummah> jummahs;
+    private List<Grid> grids;
 
     public String getId() {
         return BaseModel.objectIdToHexString(this.id);
