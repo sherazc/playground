@@ -9,7 +9,6 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import java.util.List;
@@ -32,7 +31,7 @@ public class CentralControl {
     private List<Expense> expenses;
     private List<Fund> funds;
     private List<Jummah> jummahs;
-    private List<Grid> grids;
+    private List<Sheet> expenseSheets;
 
     public String getId() {
         return BaseModel.objectIdToHexString(this.id);

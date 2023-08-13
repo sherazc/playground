@@ -200,6 +200,20 @@ export interface CentralControl {
     expenses: Expense[];
     funds: Fund[];
     jummahs: Jummah[];
+    expenseSheets: Sheet[];
+}
+
+export interface Sheet {
+    name: string;
+    description: string;
+    enabled: boolean;
+    rows: SheetRow[];
+}
+
+export interface SheetRow {
+    order: number;
+    label: string;
+    value: string;
 }
 
 export interface Announcement {

@@ -3,13 +3,13 @@ import Funds from "./Funds/Funds";
 import Expenses from "./Expenses/Expenses";
 import styles from "./Accounts.module.scss"
 import {equalObjects, filterEnabledItems} from "../../../../services/utilities";
-import {AccountGrid} from "./AccountGrid/AccountGrid";
+import {ExpenseSheet} from "./ExpenseSheet/ExpenseSheet";
 
 class Accounts extends Component {
 
     constructor(props) {
         super(props);
-        this.animationSeconds = 1;
+        this.animationSeconds = .7;
         this.animationStaySeconds = 5;
         this.currentSlide = 0;
         this.slides = [];
@@ -32,6 +32,7 @@ class Accounts extends Component {
         // 2. Update State
         let enabledExpenses = filterEnabledItems(this.props.centralControl.expenses);
         let enabledFunds = filterEnabledItems(this.props.centralControl.funds);
+        let expenseSheets = filterEnabledItems(this.props.centralControl.expenseSheets);
 
         this.setState({expenses: enabledExpenses, funds: enabledFunds});
 
@@ -50,9 +51,10 @@ class Accounts extends Component {
                 {funds: enabledFunds, ...defaultProps});
         }
 
-        this.createSlideObject(this.slides, AccountGrid, "AccountGrid",
-            {name: "Changed", ...defaultProps});
-
+        expenseSheets.forEach((es) => {
+            this.createSlideObject(this.slides, ExpenseSheet, "AccountGrid",
+                {expenseSheet: es, ...defaultProps});
+        });
 
         // 4. Set initial classes
         this.addShowHideInitialStyles(this.slides.length, this.state.slidesClasses);
@@ -134,6 +136,14 @@ class Accounts extends Component {
         }
         slidesClassesClone[this.currentSlide] = styles.slideDown;
         this.setState({slidesClasses: slidesClassesClone});
+
+        setTimeout(() => {
+            this.cleanup();
+            if (this.slides.length > 1) {
+                this.animationInterval = setInterval(this.startSlideShow, this.animationStaySeconds * 1000);
+            }
+        }, this.animationStaySeconds * 1000);
+
         // this.startSlideShow();
     }
 
@@ -169,7 +179,6 @@ class Accounts extends Component {
                 slidesClasses[i] = styles.slideDown;
             } else {
                 slidesClasses[i] = styles.slideUp;
-
             }
         }
     }
@@ -187,20 +196,17 @@ class Accounts extends Component {
     render() {
         return (
             <>
-
                 <div className={`${styles.heading1} ${styles.vMargin8}`}>
                     Expenses
                 </div>
                 <button onClick={this.onNextButton}>Next</button>
                 <div className={styles.vMargin6}>
-
                     {this.slides.map((s, i) => {
                         const SlideComponent = s.type;
                         return <SlideComponent
                             {...s.props}
                             className={this.state.slidesClasses[i]} />;
                     })}
-
                 </div>
             </>
         );
