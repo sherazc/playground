@@ -1,0 +1,68 @@
+@import "../../CompanyDashboardTheme";
+
+.container {
+  margin: 0vw 2.5vw 1.5vw 2.5vw;
+
+  border-radius: 2px;
+  -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.40);
+  -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.40);
+  box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.40);
+  @media screen and (max-width: $screen-break) {
+    margin: 0vw 12vw 3vw 12vw;
+  }
+}
+
+.header {
+  padding: .5vw;
+  background-color: $color2;
+  @media screen and (max-width: $screen-break) {
+    padding: 1vw;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  @media screen and (max-width: $screen-break) {
+  }
+}
+
+.containerLeft {
+  width: 60%;
+  padding: 0.75vw;
+  @media screen and (max-width: $screen-break) {
+    padding: 2vw;
+  }
+}
+
+.containerRight {
+  width: 40%;
+  // background-color: purple;
+  @media screen and (max-width: $screen-break) {
+  }
+}
+
+
+table.fundGrid {
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+table.fundGrid th, table.fundGrid td {
+  border: 1px solid $color1;
+  padding: .4vw;
+  @media screen and (max-width: $screen-break) {
+    padding: 2vw;
+  }
+}
+
+table.fundGrid td {
+  @extend .textLarge;
+}
+
+table.fundGrid th {
+  @extend .textLarge, .textBold;
+  text-align: left;
+}

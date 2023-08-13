@@ -41,6 +41,7 @@ class Accounts extends Component {
             style: {animationDuration: `${this.animationSeconds}s`}
         };
 
+        /*
         if (enabledExpenses && enabledExpenses.length > 0) {
             this.createSlideObject(this.slides, Expenses, "Expenses",
                 {expenses: enabledExpenses, ...defaultProps});
@@ -50,6 +51,7 @@ class Accounts extends Component {
             this.createSlideObject(this.slides, Funds, "Funds",
                 {funds: enabledFunds, ...defaultProps});
         }
+*/
 
         expenseSheets.forEach((es) => {
             this.createSlideObject(this.slides, ExpenseSheet, "AccountGrid",
