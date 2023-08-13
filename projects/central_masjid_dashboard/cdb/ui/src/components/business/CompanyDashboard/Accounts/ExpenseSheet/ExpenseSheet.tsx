@@ -1,70 +1,89 @@
-import React from 'react';
+import React, {ReactElement} from 'react';
 import {Sheet} from 'mdb-core-js';
 import styles from "./ExpenseSheet.module.scss";
-
+import {SheetRow} from "mdb-core-js/dist/types/types";
 
 interface Props {
     expenseSheet: Sheet;
 }
 
 export const ExpenseSheet: React.FC<Props> = ({expenseSheet}) => {
-
+    const sortedRows = expenseSheet.rows.sort((s1, s2) => {
+        if (s1.order > s2.order) {
+            return 1
+        } else if (s1.order < s2.order) {
+            return -1
+        } else {
+            return 0;
+        }
+    })
 
     return (
         <div>
             <table className={styles.grid} style={{margin: "0 auto"}}>
-                <thead>
-                {makeExpenseHeader()}
-                </thead>
-                <tbody>
-                {makeExpenseRow()}
-                </tbody>
-                <tfoot>
-                {makeExpenseFooter()}
-                </tfoot>
+                {makeExpenseHeader(sortedRows)}
+                {makeExpenseRow(sortedRows)}
+                {makeExpenseFooter(sortedRows)}
             </table>
-
         </div>
     );
 }
 
-
-const makeExpenseHeader = () => {
+const makeExpenseHeader = (rows: SheetRow[]) => {
+    if (rows.length < 1) {
+        return;
+    }
     return (
+        <thead>
         <tr>
             <th>
-                Header column 1
+                {rows[0].label}
             </th>
             <th>
-                Header column 2
+                {rows[0].value}
             </th>
         </tr>
+        </thead>
     );
 }
 
-const makeExpenseRow = () => {
+const makeExpenseRow = (rows: SheetRow[]) => {
+    if (rows.length < 2) {
+        return;
+    }
+    const rowElements: ReactElement[] = [];
+    for (let i = 1; i < rows.length - 1; i++) {
+        rowElements.push((
+            <tr key={i}>
+                <td>
+                    {rows[i].label}
+                </td>
+                <td>
+                    {rows[i].value}
+                </td>
+            </tr>
+        ));
+    }
+
     return (
+        <tbody>{rowElements}</tbody>
+    );
+}
+
+const makeExpenseFooter = (rows: SheetRow[]) => {
+    if (rows.length < 2) {
+        return;
+    }
+    return (
+        <tfoot>
         <tr>
             <td>
-                Lable 1
+                {rows[rows.length - 1].label}
             </td>
             <td>
-                100
+                {rows[rows.length - 1].value}
             </td>
         </tr>
+        </tfoot>
     );
 }
-
-const makeExpenseFooter = () => {
-    return (
-        <tr>
-            <th>
-                footer col 1
-            </th>
-            <th>
-                footer col 2
-            </th>
-        </tr>
-    );
-}
-
