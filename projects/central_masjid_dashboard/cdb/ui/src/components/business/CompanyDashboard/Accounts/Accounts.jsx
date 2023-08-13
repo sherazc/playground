@@ -3,13 +3,14 @@ import Funds from "./Funds/Funds";
 import Expenses from "./Expenses/Expenses";
 import styles from "./Accounts.module.scss"
 import {equalObjects, filterEnabledItems} from "../../../../services/utilities";
+import {AccountGrid} from "./AccountGrid/AccountGrid";
 
 class Accounts extends Component {
 
     constructor(props) {
         super(props);
         this.animationSeconds = 1;
-        this.animationStaySeconds = 30;
+        this.animationStaySeconds = 5;
         this.currentSlide = 0;
         this.slides = [];
 
@@ -22,6 +23,47 @@ class Accounts extends Component {
         this.startSlideShow = this.startSlideShow.bind(this);
     }
 
+    componentDidMount() {
+
+        // 1. Clean up if needed
+        this.cleanup();
+
+        // 2. Update State
+        let enabledExpenses = filterEnabledItems(this.props.centralControl.expenses);
+        let enabledFunds = filterEnabledItems(this.props.centralControl.funds);
+
+        this.setState({expenses: enabledExpenses, funds: enabledFunds});
+
+        // 3. Create slide objects
+        const defaultProps = {
+            style: {animationDuration: `${this.animationSeconds}s`}
+        };
+
+        if (enabledExpenses && enabledExpenses.length > 0) {
+            this.createSlideObject(this.slides, Expenses, "Expenses",
+                {expenses: enabledExpenses, ...defaultProps});
+        }
+
+        if (enabledFunds && enabledFunds.length > 0) {
+            this.createSlideObject(this.slides, Funds, "Funds",
+                {funds: enabledFunds, ...defaultProps});
+        }
+
+        this.createSlideObject(this.slides, AccountGrid, "AccountGrid",
+            {name: "Changed", ...defaultProps});
+
+
+        // 4. Set initial classes
+        this.addShowHideInitialStyles(this.slides.length, this.state.slidesClasses);
+
+        // 5. Start Animation
+        if (this.slides.length > 1) {
+            this.animationInterval = setInterval(this.startSlideShow, this.animationStaySeconds * 1000);
+        }
+    }
+
+    /*
+    // Not sure why I implemented in componentDidUpdate() instead of  componentDidMount()
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.shouldUpdateStateFromProps(this.props, prevProps, this.state)) {
             // 1. Clean up if needed
@@ -57,7 +99,7 @@ class Accounts extends Component {
             }
         }
     }
-
+*/
 
     startSlideShow() {
         const totalSlides = this.slides.length;
@@ -128,17 +170,27 @@ class Accounts extends Component {
     render() {
         return (
             <>
+
                 <div className={`${styles.heading1} ${styles.vMargin8}`}>
                     Expenses
                 </div>
+                <button>Up</button>
                 <div className={styles.vMargin6}>
+
                     {this.slides.map((s, i) => {
                         const SlideComponent = s.type;
                         return <SlideComponent
                             {...s.props}
                             className={this.state.slidesClasses[i]} />;
                     })}
+
                 </div>
+
+                <button style={{
+                    position:"absolute",
+                    top: 400,
+                    margin: "0, auto"
+                }}>Down</button>
             </>
         );
     }
