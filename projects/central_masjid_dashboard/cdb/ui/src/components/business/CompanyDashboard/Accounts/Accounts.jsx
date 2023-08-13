@@ -21,6 +21,7 @@ class Accounts extends Component {
         };
 
         this.startSlideShow = this.startSlideShow.bind(this);
+        this.onNextButton = this.onNextButton.bind(this)
     }
 
     componentDidMount() {
@@ -120,6 +121,22 @@ class Accounts extends Component {
         }
     }
 
+
+    onNextButton() {
+        this.cleanup();
+        const slidesClassesClone = this.state.slidesClasses.map(c => c);
+        slidesClassesClone[this.currentSlide] = styles.slideUp;
+        this.setState({slidesClasses: slidesClassesClone});
+        this.currentSlide++;
+        const totalSlides = this.slides.length;
+        if (this.currentSlide >= totalSlides) {
+            this.currentSlide = 0;
+        }
+        slidesClassesClone[this.currentSlide] = styles.slideDown;
+        this.setState({slidesClasses: slidesClassesClone});
+        // this.startSlideShow();
+    }
+
     /*
     Update state only if enabled currentProps, previousProps and state are not equal
     this goes for both expenses and funds.
@@ -174,7 +191,7 @@ class Accounts extends Component {
                 <div className={`${styles.heading1} ${styles.vMargin8}`}>
                     Expenses
                 </div>
-                <button>Up</button>
+                <button onClick={this.onNextButton}>Next</button>
                 <div className={styles.vMargin6}>
 
                     {this.slides.map((s, i) => {
@@ -185,12 +202,6 @@ class Accounts extends Component {
                     })}
 
                 </div>
-
-                <button style={{
-                    position:"absolute",
-                    top: 400,
-                    margin: "0, auto"
-                }}>Down</button>
             </>
         );
     }
