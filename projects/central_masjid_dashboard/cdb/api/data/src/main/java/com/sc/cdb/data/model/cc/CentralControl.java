@@ -48,4 +48,22 @@ public class CentralControl {
     public void setCompanyId(String companyId) {
         this.companyId = BaseModel.hexStringToObjectId(companyId);
     }
+
+    public List<Sheet> getExpenseSheets() {
+        return List.of(
+                new Sheet(
+                        "Sheet 1",
+                        "Description 1",
+                        true,
+                        List.of(
+                                new SheetRow(0, "Title", "Value"),
+                                new SheetRow(2, "Item 1", "100"),
+                                new SheetRow(3, "Item 2", "200"),
+                                new SheetRow(4, "Item 3", "300"),
+                                new SheetRow(500, "Total", "600")
+                        )
+                )
+        );
+    }
+
 }
