@@ -1,13 +1,15 @@
-import React, {ReactElement} from 'react';
+import React, {CSSProperties, ReactElement} from 'react';
 import {Sheet} from 'mdb-core-js';
 import styles from "./ExpenseSheet.module.scss";
 import {SheetRow} from "mdb-core-js/dist/types/types";
 
 interface Props {
     expenseSheet: Sheet;
+    style: CSSProperties | undefined;
+    className?: string | undefined;
 }
 
-export const ExpenseSheet: React.FC<Props> = ({expenseSheet}) => {
+export const ExpenseSheet: React.FC<Props> = ({expenseSheet, className, style}) => {
     const sortedRows = expenseSheet.rows.sort((s1, s2) => {
         if (s1.order > s2.order) {
             return 1
@@ -19,12 +21,22 @@ export const ExpenseSheet: React.FC<Props> = ({expenseSheet}) => {
     })
 
     return (
-        <div>
-            <table className={styles.grid} style={{margin: "0 auto"}}>
-                {makeExpenseHeader(sortedRows)}
-                {makeExpenseRow(sortedRows)}
-                {makeExpenseFooter(sortedRows)}
-            </table>
+        <div className={className} style={style}>
+            <div className={styles.container}>
+                <div className={`${styles.heading5} ${styles.header}`}>
+                    {expenseSheet.name}
+                </div>
+                <div className={styles.content}>
+                    <table className={styles.grid} style={{margin: "0 auto"}}>
+                        {makeExpenseHeader(sortedRows)}
+                        {makeExpenseRow(sortedRows)}
+                        {makeExpenseFooter(sortedRows)}
+                    </table>
+                </div>
+                <div className={styles.footer}>
+                    {expenseSheet.description}
+                </div>
+            </div>
         </div>
     );
 }
