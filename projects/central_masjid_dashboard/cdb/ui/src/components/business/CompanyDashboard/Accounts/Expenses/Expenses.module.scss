@@ -33,6 +33,8 @@
 table.grid {
   border-collapse: collapse;
   margin: 0 auto;
+  text-align: center;
+  width: 99%;
 }
 
 table.grid th, table.grid td {
@@ -49,5 +51,4 @@ table.grid td {
 
 table.grid th {
   @extend .textLarge, .textBold;
-  text-align: left;
 }
