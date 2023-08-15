@@ -8,6 +8,7 @@ import {
 } from "../../../../store/admin/adminActions";
 import Expenses from "./Expenses/Expenses";
 import Jummah from "./Jummah/Jummah";
+import {AdminExpenseSheet} from "./AdminExpenseSheet/AdminExpenseSheet";
 
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
@@ -86,11 +87,19 @@ class TabConfiguration extends Component {
                     onCancel={this.onCancel.bind(this)}
                     onSave={this.onSave.bind(this)}/>
 
+                <AdminExpenseSheet
+                    defaultExpanded
+                    expenseSheets={this.state.centralControl.expenseSheets}
+                    onCancel={this.onCancel.bind(this)}
+                    onSave={this.onSave.bind(this)}
+                />
+
                 <Jummah
                     defaultExpanded
                     jummahs={this.state.centralControl.jummahs}
                     onCancel={this.onCancel.bind(this)}
                     onSave={this.onSave.bind(this)}/>
+
             </div>
         );
     }
