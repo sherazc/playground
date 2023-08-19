@@ -26,8 +26,10 @@ export const AdminExpenseSheet: React.FC<Props> = ({expenseSheets, onCancel, onS
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const nameIndex = event.target.name.split("_")
+        const fieldName = nameIndex[0];
+        const sheetIndex = +nameIndex[1];
         const newExpSheets = expSheets.slice(0); // clone array
-        newExpSheets[nameIndex[1]][nameIndex[0]] = event.target.value;
+        newExpSheets[sheetIndex][fieldName] = event.target.value;
         setExpSheets(newExpSheets);
     }
 
