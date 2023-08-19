@@ -2,6 +2,7 @@ import React, {CSSProperties, ReactElement, useEffect, useState} from 'react';
 import CloseablePanel from "../../../../common/CloseablePanel/CloseablePanel";
 import {Sheet} from "mdb-core-js";
 import styles from "./AdminExpenseSheet.module.scss";
+import {SheetRow} from "mdb-core-js/dist/types/types";
 
 interface Props {
     expenseSheets: Sheet[],
@@ -54,7 +55,7 @@ export const AdminExpenseSheet: React.FC<Props> = ({expenseSheets, onCancel, onS
 
 const createExpenseSheet = (sheet: Sheet, index: number, onChange: (event: React.ChangeEvent<HTMLInputElement>) => void) => {
     return (
-        <div>
+        <div key={index}>
             <div>
                 <h3>Expense sheet 1</h3>
             </div>
@@ -65,33 +66,53 @@ const createExpenseSheet = (sheet: Sheet, index: number, onChange: (event: React
                 Description: <input name={"description_" + index} value={sheet.description} onChange={onChange}/>
             </div>
             <div>
-                Enable: <input name={"enabled_" + index} type="checkbox" checked={sheet.enabled} />
+                Enable: <input name={"enabled_" + index} type="checkbox" checked={sheet.enabled}/>
             </div>
             <div>
                 <table>
                     <tbody>
                     <tr>
-                        <td>Header</td>
-                        <td><input/></td>
-                        <td><input/></td>
-                        <td><input/></td>
-                        <td><input type="checkbox"/></td>
+                        <td>Order</td>
+                        <td>Item</td>
+                        <td>Value</td>
                         <td>
-                            <span
-                                style={{cursor: "pointer"}}
-                                onClick={() => {
-                                }}
-                                role="img"
-                                aria-label="Delete"
-                                aria-hidden={true}>
-                                ❌
-                            </span>
+                        <span
+                            style={{cursor: "pointer"}}
+                            onClick={() => {
+                            }}
+                            role="img"
+                            aria-label="Add"
+                            aria-hidden={true}>
+                            ➕
+                        </span>
                         </td>
                     </tr>
+                    {sheet.rows && sheet.rows.map((sheet, index) => createRows(sheet, index))}
                     </tbody>
                 </table>
             </div>
             <hr/>
         </div>
+    );
+}
+
+const createRows = (row: SheetRow, index: number) => {
+    return (
+        <tr key={index}>
+            <td><input value={row.order} type="number"/></td>
+            <td><input value={row.label}/></td>
+            <td><input value={row.value}/></td>
+            <td>
+                <span
+                    style={{cursor: "pointer"}}
+                    onClick={() => {
+                    }}
+                    role="img"
+                    aria-label="Delete"
+                    aria-hidden={true}>
+                ❌
+                </span>
+            </td>
+        </tr>
     );
 }
