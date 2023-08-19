@@ -32,10 +32,19 @@ export const AdminExpenseSheet: React.FC<Props> = ({expenseSheets, onCancel, onS
     }
 
 
+    const onChangeRowValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const nameSheetRowIndex = event.target.name.split("_")
+        const fieldName = nameSheetRowIndex[0];
+        const sheetIndex = +nameSheetRowIndex[1];
+        const rowIndex = +nameSheetRowIndex[2];
+        const newExpSheets = expSheets.slice(0); // clone array
+        newExpSheets[sheetIndex].rows[rowIndex][fieldName] = event.target.value;
+        setExpSheets(newExpSheets);
+    }
+
+
     return (
         <div>
-
-
             <CloseablePanel
                 title="Expense Sheets"
                 editMode={true}
@@ -43,30 +52,31 @@ export const AdminExpenseSheet: React.FC<Props> = ({expenseSheets, onCancel, onS
                 onSave={onSave}
                 onCancel={onCancel}>
 
-                {expSheets.map((es, index) => createExpenseSheet(es, index, onChange))}
-
+                {expSheets.map((es, sheetIndex) => createExpenseSheet(es, sheetIndex, onChange, onChangeRowValue))}
 
             </CloseablePanel>
-
         </div>
     );
 }
 
 
-const createExpenseSheet = (sheet: Sheet, index: number, onChange: (event: React.ChangeEvent<HTMLInputElement>) => void) => {
+const createExpenseSheet = (sheet: Sheet,
+                            sheetIndex: number,
+                            onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
+                            onChangeRowValue: (event: React.ChangeEvent<HTMLInputElement>) => void) => {
     return (
-        <div key={index}>
+        <div key={sheetIndex}>
             <div>
                 <h3>Expense sheet 1</h3>
             </div>
             <div>
-                Title: <input name={"name_" + index} value={sheet.name} onChange={onChange}/>
+                Title: <input name={"name_" + sheetIndex} value={sheet.name} onChange={onChange}/>
             </div>
             <div>
-                Description: <input name={"description_" + index} value={sheet.description} onChange={onChange}/>
+                Description: <input name={"description_" + sheetIndex} value={sheet.description} onChange={onChange}/>
             </div>
             <div>
-                Enable: <input name={"enabled_" + index} type="checkbox" checked={sheet.enabled}/>
+                Enable: <input name={"enabled_" + sheetIndex} type="checkbox" checked={sheet.enabled}/>
             </div>
             <div>
                 <table>
@@ -87,7 +97,8 @@ const createExpenseSheet = (sheet: Sheet, index: number, onChange: (event: React
                         </span>
                         </td>
                     </tr>
-                    {sheet.rows && sheet.rows.map((sheet, index) => createRows(sheet, index))}
+                    {sheet.rows && sheet.rows.map((sheet, rowIndex) => createRows(
+                        sheet, sheetIndex, rowIndex, onChangeRowValue))}
                     </tbody>
                 </table>
             </div>
@@ -96,12 +107,15 @@ const createExpenseSheet = (sheet: Sheet, index: number, onChange: (event: React
     );
 }
 
-const createRows = (row: SheetRow, index: number) => {
+const createRows = (row: SheetRow,
+                    sheetIndex: number,
+                    rowIndex: number,
+                    onChangeRowValue: (event: React.ChangeEvent<HTMLInputElement>) => void) => {
     return (
-        <tr key={index}>
-            <td><input value={row.order} type="number"/></td>
-            <td><input value={row.label}/></td>
-            <td><input value={row.value}/></td>
+        <tr key={rowIndex}>
+            <td><input name={"order_" + sheetIndex + "_" + rowIndex} value={row.order} onChange={onChangeRowValue} type="number" /></td>
+            <td><input name={"label_" + sheetIndex + "_" + rowIndex} value={row.label} onChange={onChangeRowValue} /></td>
+            <td><input name={"value_" + sheetIndex + "_" + rowIndex} value={row.value} onChange={onChangeRowValue} /></td>
             <td>
                 <span
                     style={{cursor: "pointer"}}
