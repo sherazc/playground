@@ -61,6 +61,13 @@ class TabConfiguration extends Component {
             });
     }
 
+    onSaveCentralControl(objectName, object) {
+        const centralControl = {...this.state.centralControl};
+        centralControl[objectName] = object;
+        this.setCentralControlInState(centralControl);
+        this.onSave()
+    }
+
 
     setCentralControlInState(centralControl) {
         this.setState({centralControl: centralControl});
@@ -91,7 +98,7 @@ class TabConfiguration extends Component {
                     defaultExpanded
                     expenseSheets={this.state.centralControl.expenseSheets}
                     onCancel={this.onCancel.bind(this)}
-                    onSave={this.onSave.bind(this)}
+                    onSaveCentralControl={this.onSaveCentralControl.bind(this)}
                 />
 
                 <Jummah

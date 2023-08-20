@@ -10,13 +10,13 @@ import ConfirmDialog, {createBlankConfirmDialogState, createConfirmDialogState}
 interface Props {
     expenseSheets: Sheet[],
     onCancel: Function,
-    onSave: Function,
+    onSaveCentralControl: (objectName:string, object:any) => void,
     defaultExpanded: boolean
 }
 
 // AdminExpenseSheet
 
-export const AdminExpenseSheet: React.FC<Props> = ({expenseSheets, onCancel, onSave, defaultExpanded}) => {
+export const AdminExpenseSheet: React.FC<Props> = ({expenseSheets, onCancel, onSaveCentralControl, defaultExpanded}) => {
     const [expSheets, setExpSheets]
         = useState<Sheet[]>([]);
     const [confirmDialog, setConfirmDialog]
@@ -77,7 +77,6 @@ export const AdminExpenseSheet: React.FC<Props> = ({expenseSheets, onCancel, onS
     const onDeleteExpenseSheet = (sheetIndex: number) => {
         const selectedSheet = expSheets[sheetIndex];
         const newConfirmDialog: ConfirmDialogType = {
-            ...confirmDialog,
             open: true,
             onCancel: resetConfirmDialog,
             onConfirm: () => onDeleteExpenseSheetConfirm(sheetIndex),
@@ -113,6 +112,7 @@ export const AdminExpenseSheet: React.FC<Props> = ({expenseSheets, onCancel, onS
     const resetConfirmDialog = () => {
         setConfirmDialog(createBlankConfirmDialogState());
     }
+
 
     const createExpenseSheet = (sheet: Sheet, sheetIndex: number) => {
         return (
@@ -191,7 +191,7 @@ export const AdminExpenseSheet: React.FC<Props> = ({expenseSheets, onCancel, onS
                 title="Expense Sheets"
                 editMode={true}
                 defaultExpanded
-                onSave={onSave}
+                onSave={() => onSaveCentralControl("expenseSheets", expSheets)}
                 onCancel={onCancel}>
                 <div>
                     <div>
