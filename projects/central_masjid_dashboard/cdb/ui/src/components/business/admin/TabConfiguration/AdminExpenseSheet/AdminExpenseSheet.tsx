@@ -38,6 +38,15 @@ export const AdminExpenseSheet: React.FC<Props> = ({expenseSheets, onCancel, onS
         setExpSheets(newExpSheets);
     }
 
+    const onChangeTextArea = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const nameIndex = event.target.name.split("_")
+        const fieldName = nameIndex[0];
+        const sheetIndex = +nameIndex[1];
+        const newExpSheets = expSheets.slice(0); // clone array
+        newExpSheets[sheetIndex][fieldName] = event.target.value;
+        setExpSheets(newExpSheets);
+    }
+
     const onChangeChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
         const nameIndex = event.target.name.split("_")
         const fieldName = nameIndex[0];
@@ -66,12 +75,14 @@ export const AdminExpenseSheet: React.FC<Props> = ({expenseSheets, onCancel, onS
     }
 
     const onDeleteExpenseSheet = (sheetIndex: number) => {
+        const selectedSheet = expSheets[sheetIndex];
         const newConfirmDialog: ConfirmDialogType = {
             ...confirmDialog,
             open: true,
             onCancel: resetConfirmDialog,
             onConfirm: () => onDeleteExpenseSheetConfirm(sheetIndex),
-            title: "Delete Expense Sheet " + (sheetIndex + 1)
+            title: "Delete Expense Sheet " + (sheetIndex + 1),
+            description: `Are you sure you want to delete expense sheet ${selectedSheet.name}.`
 
         }
         setConfirmDialog(newConfirmDialog);
@@ -82,7 +93,8 @@ export const AdminExpenseSheet: React.FC<Props> = ({expenseSheets, onCancel, onS
     }
 
     const onDeleteExpenseSheetConfirm = (sheetIndex: number) => {
-        const newExpenseSheet = expenseSheets.splice(sheetIndex, 1);
+        const newExpenseSheet = expSheets.slice(0); // clone array
+        newExpenseSheet.splice(sheetIndex, 1); // remove element by index
         setExpSheets(newExpenseSheet);
         resetConfirmDialog();
     }
@@ -102,8 +114,8 @@ export const AdminExpenseSheet: React.FC<Props> = ({expenseSheets, onCancel, onS
                     Title: <input name={"name_" + sheetIndex} value={sheet.name} onChange={onChange}/>
                 </div>
                 <div>
-                    Description: <input name={"description_" + sheetIndex} value={sheet.description}
-                                        onChange={onChange}/>
+                    Description: <textarea name={"description_" + sheetIndex} value={sheet.description}
+                                        onChange={onChangeTextArea}/>
                 </div>
                 <div>
                     Enable: <input name={"enabled_" + sheetIndex} type="checkbox" checked={sheet.enabled}
