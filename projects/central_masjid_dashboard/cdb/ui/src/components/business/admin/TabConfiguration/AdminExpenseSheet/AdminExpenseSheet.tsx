@@ -3,6 +3,9 @@ import CloseablePanel from "../../../../common/CloseablePanel/CloseablePanel";
 import {Sheet} from "mdb-core-js";
 import styles from "./AdminExpenseSheet.module.scss";
 import {SheetRow} from "mdb-core-js/dist/types/types";
+import {ConfirmDialogType} from "../../../../common/UiTypes";
+import ConfirmDialog, {createBlankConfirmDialogState, createConfirmDialogState}
+    from "../../../../common/ConfirmDialog/ConfirmDialog"
 
 interface Props {
     expenseSheets: Sheet[],
@@ -14,7 +17,9 @@ interface Props {
 // AdminExpenseSheet
 
 export const AdminExpenseSheet: React.FC<Props> = ({expenseSheets, onCancel, onSave, defaultExpanded}) => {
-    const [expSheets, setExpSheets] = useState<Sheet[]>([])
+    const [expSheets, setExpSheets] = useState<Sheet[]>([]);
+    const [confirmDialog, setConfirmDialog] = useState<ConfirmDialogType>(createBlankConfirmDialogState());
+
 
     useEffect(() => {
         if (expenseSheets) {
@@ -33,6 +38,15 @@ export const AdminExpenseSheet: React.FC<Props> = ({expenseSheets, onCancel, onS
         setExpSheets(newExpSheets);
     }
 
+    const onChangeChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const nameIndex = event.target.name.split("_")
+        const fieldName = nameIndex[0];
+        const sheetIndex = +nameIndex[1];
+        const newExpSheets = expSheets.slice(0); // clone array
+        newExpSheets[sheetIndex][fieldName] = event.target.checked;
+        setExpSheets(newExpSheets);
+    }
+
 
     const onChangeRowValue = (event: React.ChangeEvent<HTMLInputElement>) => {
         const nameSheetRowIndex = event.target.name.split("_")
@@ -44,50 +58,65 @@ export const AdminExpenseSheet: React.FC<Props> = ({expenseSheets, onCancel, onS
         setExpSheets(newExpSheets);
     }
 
+    const onAddExpenseSheet = () => {
+        const newExpSheets = expSheets.slice(0); // clone array
+        const newSheet: Sheet = {rows: [], name: "", description: "", enabled: false}
+        newExpSheets.push(newSheet);
+        setExpSheets(newExpSheets);
+    }
 
-    return (
-        <div>
-            <CloseablePanel
-                title="Expense Sheets"
-                editMode={true}
-                defaultExpanded
-                onSave={onSave}
-                onCancel={onCancel}>
+    const onDeleteExpenseSheet = (sheetIndex: number) => {
+        const newConfirmDialog: ConfirmDialogType = {
+            ...confirmDialog,
+            open: true,
+            onCancel: resetConfirmDialog,
+            onConfirm: () => onDeleteExpenseSheetConfirm(sheetIndex),
+            title: "Delete Expense Sheet " + (sheetIndex + 1)
 
-                {expSheets.map((es, sheetIndex) => createExpenseSheet(es, sheetIndex, onChange, onChangeRowValue))}
+        }
+        setConfirmDialog(newConfirmDialog);
+    }
 
-            </CloseablePanel>
-        </div>
-    );
-}
+    const resetConfirmDialog = () => {
+        setConfirmDialog(createBlankConfirmDialogState());
+    }
+
+    const onDeleteExpenseSheetConfirm = (sheetIndex: number) => {
+        const newExpenseSheet = expenseSheets.splice(sheetIndex, 1);
+        setExpSheets(newExpenseSheet);
+        resetConfirmDialog();
+    }
 
 
-const createExpenseSheet = (sheet: Sheet,
-                            sheetIndex: number,
-                            onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
-                            onChangeRowValue: (event: React.ChangeEvent<HTMLInputElement>) => void) => {
-    return (
-        <div key={sheetIndex}>
-            <div>
-                <h3>Expense sheet 1</h3>
-            </div>
-            <div>
-                Title: <input name={"name_" + sheetIndex} value={sheet.name} onChange={onChange}/>
-            </div>
-            <div>
-                Description: <input name={"description_" + sheetIndex} value={sheet.description} onChange={onChange}/>
-            </div>
-            <div>
-                Enable: <input name={"enabled_" + sheetIndex} type="checkbox" checked={sheet.enabled}/>
-            </div>
-            <div>
-                <table>
-                    <tbody>
-                    <tr>
-                        <td>Order</td>
-                        <td>Item</td>
-                        <td>Value</td>
-                        <td>
+    const createExpenseSheet = (sheet: Sheet, sheetIndex: number) => {
+        return (
+            <div key={sheetIndex}>
+                <div>
+                    <h3>Expense sheet {sheetIndex + 1}</h3>
+                    <button onClick={() => onDeleteExpenseSheet(sheetIndex)}>
+                        ❌ Delete Expense sheet {sheetIndex + 1}
+                    </button>
+                </div>
+
+                <div>
+                    Title: <input name={"name_" + sheetIndex} value={sheet.name} onChange={onChange}/>
+                </div>
+                <div>
+                    Description: <input name={"description_" + sheetIndex} value={sheet.description}
+                                        onChange={onChange}/>
+                </div>
+                <div>
+                    Enable: <input name={"enabled_" + sheetIndex} type="checkbox" checked={sheet.enabled}
+                                   onChange={onChangeChecked}/>
+                </div>
+                <div>
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td>Order</td>
+                            <td>Item</td>
+                            <td>Value</td>
+                            <td>
                         <span
                             style={{cursor: "pointer"}}
                             onClick={() => {
@@ -97,28 +126,28 @@ const createExpenseSheet = (sheet: Sheet,
                             aria-hidden={true}>
                             ➕
                         </span>
-                        </td>
-                    </tr>
-                    {sheet.rows && sheet.rows.map((sheet, rowIndex) => createRows(
-                        sheet, sheetIndex, rowIndex, onChangeRowValue))}
-                    </tbody>
-                </table>
+                            </td>
+                        </tr>
+                        {sheet.rows && sheet.rows.map((sheet, rowIndex) => createRows(
+                            sheet, sheetIndex, rowIndex))}
+                        </tbody>
+                    </table>
+                </div>
+                <hr/>
             </div>
-            <hr/>
-        </div>
-    );
-}
+        );
+    }
 
-const createRows = (row: SheetRow,
-                    sheetIndex: number,
-                    rowIndex: number,
-                    onChangeRowValue: (event: React.ChangeEvent<HTMLInputElement>) => void) => {
-    return (
-        <tr key={rowIndex}>
-            <td><input name={"order_" + sheetIndex + "_" + rowIndex} value={row.order} onChange={onChangeRowValue} type="number" /></td>
-            <td><input name={"label_" + sheetIndex + "_" + rowIndex} value={row.label} onChange={onChangeRowValue} /></td>
-            <td><input name={"value_" + sheetIndex + "_" + rowIndex} value={row.value} onChange={onChangeRowValue} /></td>
-            <td>
+    const createRows = (row: SheetRow, sheetIndex: number, rowIndex: number) => {
+        return (
+            <tr key={rowIndex}>
+                <td><input name={"order_" + sheetIndex + "_" + rowIndex} value={row.order} onChange={onChangeRowValue}
+                           type="number"/></td>
+                <td><input name={"label_" + sheetIndex + "_" + rowIndex} value={row.label} onChange={onChangeRowValue}/>
+                </td>
+                <td><input name={"value_" + sheetIndex + "_" + rowIndex} value={row.value} onChange={onChangeRowValue}/>
+                </td>
+                <td>
                 <span
                     style={{cursor: "pointer"}}
                     onClick={() => {
@@ -128,7 +157,34 @@ const createRows = (row: SheetRow,
                     aria-hidden={true}>
                 ❌
                 </span>
-            </td>
-        </tr>
+                </td>
+            </tr>
+        );
+    }
+
+
+    return (
+        <div>
+            <CloseablePanel
+                title="Expense Sheets"
+                editMode={true}
+                defaultExpanded
+                onSave={onSave}
+                onCancel={onCancel}>
+                <div>
+                    <div>
+                        {expSheets.map((es, sheetIndex) => createExpenseSheet(es, sheetIndex))}
+                    </div>
+                    <div>
+                        <button onClick={onAddExpenseSheet}>
+                            ➕ Add Expense Sheet
+                        </button>
+
+                    </div>
+                </div>
+
+            </CloseablePanel>
+            {confirmDialog && <ConfirmDialog dialog={confirmDialog}/>}
+        </div>
     );
 }
