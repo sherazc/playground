@@ -88,15 +88,25 @@ export const AdminExpenseSheet: React.FC<Props> = ({expenseSheets, onCancel, onS
         setConfirmDialog(newConfirmDialog);
     }
 
-    const resetConfirmDialog = () => {
-        setConfirmDialog(createBlankConfirmDialogState());
-    }
-
     const onDeleteExpenseSheetConfirm = (sheetIndex: number) => {
         const newExpenseSheet = expSheets.slice(0); // clone array
         newExpenseSheet.splice(sheetIndex, 1); // remove element by index
         setExpSheets(newExpenseSheet);
         resetConfirmDialog();
+    }
+
+    const onAddSheetRow = (sheetIndex: number) => {
+        console.log(sheetIndex);
+        const sheetRow: SheetRow = {
+            value: "", label: "", order: 0
+        }
+        const newExpenseSheet = expSheets.slice(0); // clone array
+        newExpenseSheet[sheetIndex].rows.push(sheetRow);
+        setExpSheets(newExpenseSheet);
+    }
+
+    const resetConfirmDialog = () => {
+        setConfirmDialog(createBlankConfirmDialogState());
     }
 
 
@@ -131,8 +141,7 @@ export const AdminExpenseSheet: React.FC<Props> = ({expenseSheets, onCancel, onS
                             <td>
                         <span
                             style={{cursor: "pointer"}}
-                            onClick={() => {
-                            }}
+                            onClick={() => onAddSheetRow(sheetIndex)}
                             role="img"
                             aria-label="Add"
                             aria-hidden={true}>
