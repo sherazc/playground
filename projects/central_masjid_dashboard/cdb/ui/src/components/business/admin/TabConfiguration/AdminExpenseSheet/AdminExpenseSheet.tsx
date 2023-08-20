@@ -17,9 +17,10 @@ interface Props {
 // AdminExpenseSheet
 
 export const AdminExpenseSheet: React.FC<Props> = ({expenseSheets, onCancel, onSave, defaultExpanded}) => {
-    const [expSheets, setExpSheets] = useState<Sheet[]>([]);
-    const [confirmDialog, setConfirmDialog] = useState<ConfirmDialogType>(createBlankConfirmDialogState());
-
+    const [expSheets, setExpSheets]
+        = useState<Sheet[]>([]);
+    const [confirmDialog, setConfirmDialog]
+        = useState<ConfirmDialogType>(createBlankConfirmDialogState());
 
     useEffect(() => {
         if (expenseSheets) {
@@ -55,7 +56,6 @@ export const AdminExpenseSheet: React.FC<Props> = ({expenseSheets, onCancel, onS
         newExpSheets[sheetIndex][fieldName] = event.target.checked;
         setExpSheets(newExpSheets);
     }
-
 
     const onChangeRowValue = (event: React.ChangeEvent<HTMLInputElement>) => {
         const nameSheetRowIndex = event.target.name.split("_")
@@ -96,7 +96,6 @@ export const AdminExpenseSheet: React.FC<Props> = ({expenseSheets, onCancel, onS
     }
 
     const onAddSheetRow = (sheetIndex: number) => {
-        console.log(sheetIndex);
         const sheetRow: SheetRow = {
             value: "", label: "", order: 0
         }
@@ -105,10 +104,15 @@ export const AdminExpenseSheet: React.FC<Props> = ({expenseSheets, onCancel, onS
         setExpSheets(newExpenseSheet);
     }
 
+    const onDeleteSheetRow = (sheetIndex: number, rowIndex: number) => {
+        const newExpenseSheet = expSheets.slice(0); // clone array
+        newExpenseSheet[sheetIndex].rows.splice(rowIndex, 1);
+        setExpSheets(newExpenseSheet);
+    }
+
     const resetConfirmDialog = () => {
         setConfirmDialog(createBlankConfirmDialogState());
     }
-
 
     const createExpenseSheet = (sheet: Sheet, sheetIndex: number) => {
         return (
@@ -119,7 +123,6 @@ export const AdminExpenseSheet: React.FC<Props> = ({expenseSheets, onCancel, onS
                         ❌ Delete Expense sheet {sheetIndex + 1}
                     </button>
                 </div>
-
                 <div>
                     Title: <input name={"name_" + sheetIndex} value={sheet.name} onChange={onChange}/>
                 </div>
@@ -171,8 +174,7 @@ export const AdminExpenseSheet: React.FC<Props> = ({expenseSheets, onCancel, onS
                 <td>
                 <span
                     style={{cursor: "pointer"}}
-                    onClick={() => {
-                    }}
+                    onClick={() => onDeleteSheetRow(sheetIndex, rowIndex)}
                     role="img"
                     aria-label="Delete"
                     aria-hidden={true}>
@@ -182,7 +184,6 @@ export const AdminExpenseSheet: React.FC<Props> = ({expenseSheets, onCancel, onS
             </tr>
         );
     }
-
 
     return (
         <div>
@@ -200,10 +201,8 @@ export const AdminExpenseSheet: React.FC<Props> = ({expenseSheets, onCancel, onS
                         <button onClick={onAddExpenseSheet}>
                             ➕ Add Expense Sheet
                         </button>
-
                     </div>
                 </div>
-
             </CloseablePanel>
             {confirmDialog && <ConfirmDialog dialog={confirmDialog}/>}
         </div>
