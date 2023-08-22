@@ -202,7 +202,7 @@ class Accounts extends Component {
                 <div className={`${styles.heading1} ${styles.vMargin8}`}>
                     Expenses
                 </div>
-                <button onClick={this.onNextButton}>Next</button>
+                {/*<button onClick={this.onNextButton}>Next</button>*/}
                 <div className={styles.vMargin6}>
                     {this.slides.map((s, i) => {
                         const SlideComponent = s.type;

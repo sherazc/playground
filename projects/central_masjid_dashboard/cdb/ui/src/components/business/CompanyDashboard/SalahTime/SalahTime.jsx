@@ -166,6 +166,7 @@ class SalahTime extends Component {
         }
 
         const today = new Date();
+        const millisInDays = 86400000;
 
         const jummahs = centralControl.jummahs
             .filter(j => j.enabled && j.date && j.khateeb) // jummah is enabled and all values are available
@@ -176,7 +177,7 @@ class SalahTime extends Component {
                 }
             })
             .filter(j => j.date) // Filter where date is missing
-            .filter(j => j.date.getTime() > today.getTime()) // Filter future jummahs
+            .filter(j => j.date.getTime() + millisInDays > today.getTime()) // Filter future jummahs
             .sort(sortJummah); // Sort by Date
 
         let jummahDetails = undefined;
@@ -191,8 +192,6 @@ class SalahTime extends Component {
                 {jummahDetails}
             </>);
         }
-
-
         return undefined
     }
 

@@ -112,8 +112,9 @@ class CompanyDashboard extends Component {
     isShowMiddleSection(centralControl) {
         const expenses = filterEnabledItems(centralControl.expenses);
         const funds = filterEnabledItems(centralControl.funds);
+        let expenseSheets = filterEnabledItems(centralControl.expenseSheets);
 
-        return expenses.length > 0 || funds.length > 0;
+        return expenses.length > 0 || funds.length > 0 || expenseSheets.length > 0;
     }
 
     render() {
