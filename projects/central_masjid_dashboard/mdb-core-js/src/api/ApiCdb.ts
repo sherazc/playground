@@ -1,4 +1,4 @@
-import {CustomConfiguration, Hadith, ReminderDetail} from "../types/types";
+import {CentralControlCompany, CustomConfiguration, Hadith, ReminderDetail} from "../types/types";
 import {addHeadersInRequest, ApiHeaders, ApiRequest, callApiIntercept, InterceptorCallBacks} from "./ApiCore";
 import {promiseParseObjectsIsoDateToMdDate} from "../services/DateService";
 
@@ -11,6 +11,7 @@ export const cdbEndpoints = (baseUrl: string) => {
         epConfigurations: (companyId: string) => `${baseUrl}/api/auth/companies/${companyId}/configurations`,
         epRod: () => `${baseUrl}/api/rod`,
         epHod: () => `${baseUrl}/api/hod`,
+        epCentralControl: (companyUrl: string) => `${baseUrl}/api/companies/url/${companyUrl}/central-control`,
     }
 }
 
@@ -33,6 +34,7 @@ export const cdbApis = (baseUrl: string, commonHeaders?: ApiHeaders, interceptor
         apiRod: (): Promise<ReminderDetail> => promiseParseObjectsIsoDateToMdDate(
             callApiIntercept({endpoint: endpoints.epRod()}, interceptorCbs)),
         apiHod: (): Promise<Hadith> => callApiIntercept({endpoint: endpoints.epHod()}, interceptorCbs),
+        apiCentralControl: (companyUrl: string): Promise<CentralControlCompany> => callApiIntercept({endpoint: endpoints.epCentralControl(companyUrl)}, interceptorCbs),
     }
     return api;
 }

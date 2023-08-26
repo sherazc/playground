@@ -43,6 +43,13 @@ rm -rf widgets/jummah-schedule-widget/yarn-error.log
 rm -rf widgets/jummah-schedule-widget/node_modules
 rm -rf ui/public/static/jummah-schedule-widget/app.min.*
 
+# Clean calendar-widget
+rm -rf widgets/calendar-widget/yarn.lock
+rm -rf widgets/calendar-widget/package-lock.json
+rm -rf widgets/calendar-widget/yarn-error.log
+rm -rf widgets/calendar-widget/node_modules
+rm -rf ui/public/static/calendar-widget/app.min.*
+
 
 # Clean API
 rm -rf api/webservices/src/main/resources/static

@@ -203,6 +203,26 @@ export interface CentralControl {
     expenseSheets: Sheet[];
 }
 
+export interface CentralControlCompany extends CentralControl {
+    company: Array<Company>
+}
+
+export const createEmptyCentralControlCompany = (): CentralControlCompany => {
+    return {
+        "id": "",
+        "companyId": "",
+        "announcements": [],
+        "customConfigurations": [],
+        "events": [],
+        "expenses": [],
+        "funds": [],
+        "jummahs": [],
+        "expenseSheets": [],
+        "company": []
+    };
+}
+
+
 export interface Sheet {
     name: string;
     description: string;

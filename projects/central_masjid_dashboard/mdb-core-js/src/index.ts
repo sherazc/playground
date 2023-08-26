@@ -71,6 +71,8 @@ export {
     PrayerTime,
     CustomConfiguration,
     CentralControl,
+    CentralControlCompany,
+    createEmptyCentralControlCompany,
     Announcement,
     MhEvent,
     Expense,
