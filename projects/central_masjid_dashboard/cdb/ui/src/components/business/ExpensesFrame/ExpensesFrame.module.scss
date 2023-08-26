@@ -1,0 +1,11 @@
+@import "../../layout/theme";
+
+
+.container {
+    max-width: 800px;
+}
+
+.box {
+    @extend .vMarginBottom7, .card-5;
+    //background-color: red;
+}

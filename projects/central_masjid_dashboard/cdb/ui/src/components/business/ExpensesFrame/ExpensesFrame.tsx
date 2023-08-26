@@ -4,11 +4,13 @@ import {RouteComponentProps} from "react-router-dom";
 import {
     cdbApis,
     CentralControlCompany,
-    createEmptyCentralControlCompany, Expense, Sheet
+    createEmptyCentralControlCompany, Expense, Fund, Sheet
 } from "mdb-core-js";
 import {ExpenseSheet} from "../CompanyDashboard/Accounts/ExpenseSheet/ExpenseSheet";
 import {filterEnabledItems} from "../../../services/utilities";
-import Expenses from "../CompanyDashboard/Accounts/Expenses/Expenses";
+import Expenses from "../CompanyDashboard/Accounts/Expenses/Expenses.jsx";
+import Funds from "../CompanyDashboard/Accounts/Funds/Funds.jsx";
+import styles from "./ExpensesFrame.module.scss"
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
 // @ts-ignore
@@ -22,7 +24,8 @@ interface Props {
 }
 
 export const ExpenseFrame: React.FC<Props & RouteComponentProps<RouterProps>> = ({match}) => {
-    const [centralControl, setCentralControl] = useState<CentralControlCompany>(createEmptyCentralControlCompany());
+    const [centralControl, setCentralControl]
+        = useState<CentralControlCompany>(createEmptyCentralControlCompany());
 
 
     useEffect(() => {
@@ -36,7 +39,15 @@ export const ExpenseFrame: React.FC<Props & RouteComponentProps<RouterProps>> = 
         if (!expenses || expenses.length < 1) {
             return
         }
-        return <Expenses expenses={expenses}/>
+        return <div className={styles.box}><Expenses expenses={expenses}/></div>
+    }
+
+
+    const createFundsComponent = (funds: Fund[]) => {
+        if (!funds || funds.length < 1) {
+            return
+        }
+        return <div className={styles.box}><Funds funds={funds}/></div>
     }
 
 
@@ -44,17 +55,15 @@ export const ExpenseFrame: React.FC<Props & RouteComponentProps<RouterProps>> = 
         if (!sheets || sheets.length < 1) {
             return
         }
-        return sheets.map(s => <ExpenseSheet style={{}} expenseSheet={s}/>)
+        return sheets.map(s => <div className={styles.box}><ExpenseSheet style={{}} expenseSheet={s}/></div>)
     }
 
 
     return (
-        <div>
+        <div className={styles.container}>
+            {createFundsComponent(filterEnabledItems(centralControl.funds))}
             {createLegacyExpensesComponent(filterEnabledItems(centralControl.expenses))}
             {createExpensesComponent(filterEnabledItems(centralControl.expenseSheets))}
-
-
-            {/*{centralControl.expenseSheets && centralControl.expenseSheets.map((s) => <ExpenseSheet expenseSheet={s} style={{}} />)}*/}
         </div>
     );
 }

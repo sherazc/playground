@@ -166,6 +166,70 @@ $content-padding-mobile: 5%;
   }
 }
 
+.vMarginBottom1 {
+  margin-bottom: .2vw !important;
+  @media screen and (max-width: $screen-break) {
+    margin-bottom: 1vw !important;
+  }
+}
+
+.vMarginBottom2 {
+  margin-bottom: .5vw !important;
+  @media screen and (max-width: $screen-break) {
+    margin-bottom: 1.5vw !important;
+  }
+}
+
+.vMarginBottom3 {
+  margin-bottom: 1vw !important;
+  @media screen and (max-width: $screen-break) {
+    margin-bottom: 4vw !important;
+  }
+}
+
+
+.vMarginBottom4 {
+  margin-bottom: 1.5vw !important;
+  @media screen and (max-width: $screen-break) {
+    margin-bottom: 5vw !important;
+  }
+}
+
+.vMarginBottom5 {
+  margin-bottom: 2vw !important;
+  @media screen and (max-width: $screen-break) {
+    margin-bottom: 6.5vw !important;
+  }
+}
+
+.vMarginBottom6 {
+  margin-bottom: 3vw !important;
+  @media screen and (max-width: $screen-break) {
+    margin-bottom: 9vw !important;
+  }
+}
+
+.vMarginBottom7 {
+  margin-bottom: 4vw !important;
+  @media screen and (max-width: $screen-break) {
+    margin-bottom: 12vw !important;
+  }
+}
+
+.vMarginBottom8 {
+  margin-bottom: 5.5vw !important;
+  @media screen and (max-width: $screen-break) {
+    margin-bottom: 16vw !important;
+  }
+}
+
+.vMarginBottom9 {
+  margin-bottom: 7vw !important;
+  @media screen and (max-width: $screen-break) {
+    margin-bottom: 22vw !important;
+  }
+}
+
 .anchorLight {
   color: $colorTextLight;
   text-decoration: none;
