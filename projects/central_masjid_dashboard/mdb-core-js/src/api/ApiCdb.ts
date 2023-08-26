@@ -39,7 +39,7 @@ export const cdbApis = (baseUrl: string, commonHeaders?: ApiHeaders, interceptor
     return api;
 }
 
-
+/*
 // ############# Reference: Sample Call in application
 // Do not use it. This is just for reference and testing
 const interceptorCbs: InterceptorCallBacks = {
@@ -72,3 +72,4 @@ api.apiRod().then(
 );
 
 api.apiHod().then((r: Hadith) => console.log("apiHod", r));
+*/

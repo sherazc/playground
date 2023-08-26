@@ -68,44 +68,6 @@ class Accounts extends Component {
         }
     }
 
-    /*
-    // Not sure why I implemented in componentDidUpdate() instead of  componentDidMount()
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.shouldUpdateStateFromProps(this.props, prevProps, this.state)) {
-            // 1. Clean up if needed
-            this.cleanup();
-
-            // 2. Update State
-            let enabledExpenses = filterEnabledItems(this.props.centralControl.expenses);
-            let enabledFunds = filterEnabledItems(this.props.centralControl.funds);
-
-            this.setState({expenses: enabledExpenses, funds: enabledFunds});
-
-            // 3. Create slide objects
-            const defaultProps = {
-                style: {animationDuration: `${this.animationSeconds}s`}
-            };
-
-            if (enabledExpenses && enabledExpenses.length > 0) {
-                this.createSlideObject(this.slides, Expenses, "Expenses",
-                    {expenses: enabledExpenses, ...defaultProps});
-            }
-
-            if (enabledFunds && enabledFunds.length > 0) {
-                this.createSlideObject(this.slides, Funds, "Funds",
-                    {funds: enabledFunds, ...defaultProps});
-            }
-
-            // 4. Set initial classes
-            this.addShowHideInitialStyles(this.slides.length, this.state.slidesClasses);
-
-            // 5. Start Animation
-            if (this.slides.length > 1) {
-                this.animationInterval = setInterval(this.startSlideShow, this.animationStaySeconds * 1000);
-            }
-        }
-    }
-*/
 
     startSlideShow() {
         const totalSlides = this.slides.length;
