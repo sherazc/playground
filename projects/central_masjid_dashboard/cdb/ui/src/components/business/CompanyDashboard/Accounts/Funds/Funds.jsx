@@ -7,7 +7,7 @@ class Funds extends Component {
     makeFund(fund) {
         const progressPercentage = fund.current / fund.goal * 100;
         return (
-            <div className={styles.container}>
+            <div className={`${styles.container} ${this.props.fundClassName}`}>
                 <div className={`${styles.heading5} ${styles.header}`}>
                     {fund.name}
                 </div>

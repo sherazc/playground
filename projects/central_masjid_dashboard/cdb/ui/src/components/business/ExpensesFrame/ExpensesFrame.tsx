@@ -47,7 +47,7 @@ export const ExpenseFrame: React.FC<Props & RouteComponentProps<RouterProps>> = 
         if (!funds || funds.length < 1) {
             return
         }
-        return <div className={styles.box}><Funds funds={funds}/></div>
+        return <Funds funds={funds} fundClassName={styles.box}/>
     }
 
 
@@ -55,7 +55,10 @@ export const ExpenseFrame: React.FC<Props & RouteComponentProps<RouterProps>> = 
         if (!sheets || sheets.length < 1) {
             return
         }
-        return sheets.map(s => <div className={styles.box}><ExpenseSheet style={{}} expenseSheet={s}/></div>)
+        return sheets.map((s, i) =>
+            <div key={i} className={styles.box}>
+                <ExpenseSheet style={{}} expenseSheet={s}/>
+            </div>)
     }
 
 

@@ -1,11 +1,12 @@
 @import "../../layout/theme";
-
-
 .container {
+    text-align: center;
     max-width: 800px;
+    @media screen and (max-width: $screen-break) {
+        max-width: unset;
+    }
 }
 
 .box {
-    @extend .vMarginBottom7, .card-5;
-    //background-color: red;
+    @extend .vMarginBottom7;
 }
