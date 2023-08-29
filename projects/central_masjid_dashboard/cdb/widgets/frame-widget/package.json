@@ -5,7 +5,7 @@
   "scripts": {
     "build-tsc": "tsc",
     "test": "jest",
-    "clean": "rm -f ../../ui/public/static/frame-widget/app.min.js&rm -f ../../ui/public/static/frame-widget/app.min.js.map",
+    "clean": "rm -f ../../ui/public/static/frame-widget/app.min.js & rm -f ../../ui/public/static/frame-widget/app.min.js.map & rm -rf ./dist & mkdir ./dist",
     "dev": "npm run clean & webpack --mode development --watch",
     "build": "npm run clean & webpack --mode production"
   },
