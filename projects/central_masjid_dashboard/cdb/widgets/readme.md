@@ -31,14 +31,26 @@ To do development on __calendar-widget__ then under
 
 This command will start webpack watch on the project's
 javascript files. Webpack will compile javascript files 
-into `cdb/ui/public/static/frame-widget` 
+into `cdb/ui/public/static/frame-widget/app.min.js` 
 
 ## Step 4 - Modify sourcecode
 Widgets sourcecode is combination of typescript/javascript and html files. 
-To modify 
+An example to modify frame-widget's HTML, modify 
+`cdb/ui/public/static/frame-widget/index-dev.html`. And to modify frame-widget's 
+typescript, modify `cdb/widgets/frame-widget/src/app.ts`
 
-give examples
+## Step 5 - Verifying as modifying
+While modifying keep all three application running, `cdb/api/webservice`, 
+`cdb/ui`, and `cdb/widgets/frame-widget`. On port `8085` backend apis are 
+running and on port `3000`.
+
+Access this URL to view changes:
+
+http://localhost:3000/static/frame-widget/index-dev.html
+
 
 # Widget Building
+Once satisfied with the changes
+
 
 # Widget Deployment
