@@ -50,7 +50,8 @@ http://localhost:3000/static/frame-widget/index-dev.html
 
 
 # Widget Building
-Once satisfied with the changes
+TODO: finish it.
 
 
 # Widget Deployment
+TODO: finish it.
