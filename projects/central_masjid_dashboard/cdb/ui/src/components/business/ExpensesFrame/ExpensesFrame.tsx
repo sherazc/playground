@@ -37,7 +37,6 @@ export const ExpenseFrame: React.FC<Props & RouteComponentProps<RouterProps>> = 
     useEffect(() => {
         // Send dimension message to parent
         const rootContainer = document.getElementById("calendarRoot");
-            console.log("here")
         if (rootContainer) {
             const width = rootContainer.scrollWidth;
             const height = rootContainer.scrollHeight;

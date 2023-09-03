@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script>
+
+        var appNamePrefix = "calendar";
+        var companyUrl = (new URLSearchParams(window.location.search)).get("companyUrl");
+        window[`${appNamePrefix}ServerUrl`] = "http://localhost:3000";  // dev testing
+        window[`${appNamePrefix}AppDivId`] = `${appNamePrefix}App`;
+    </script>
+</head>
+<body>
+<script>
+    document.write(`<div style="height: fit-content" id="${appNamePrefix}App"></div>`);
+</script>
+<script type="application/javascript" src="app.min.js"></script>
+
+</body>
+</html>
