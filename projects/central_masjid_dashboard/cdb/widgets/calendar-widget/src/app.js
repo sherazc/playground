@@ -2,7 +2,7 @@ import "./app.scss";
 
 const buildWidgetHTML = () => {
     let resultHtml = `
-    <div class="calendarContainer">
+    <div class="iframeContainer">
         <iframe id="calendarIframe"  frameborder="0" allowfullscreen  src="${serverUrl}/calendar/${companyUrl}"></iframe>
     </div>
     `;

@@ -7,18 +7,18 @@ html, body {
 
 }
 
-.calendarContainer {
+.iframeContainer {
 }
 
-.calendarContainer iframe {
+.iframeContainer iframe {
   width: 100%;
   border: 0;
 }
 
-.calendarContainer iframe:focus {
+.iframeContainer iframe:focus {
   outline: none;
 }
 
-.calendarContainer iframe[seamless] {
+.iframeContainer iframe[seamless] {
   display: block;
 }

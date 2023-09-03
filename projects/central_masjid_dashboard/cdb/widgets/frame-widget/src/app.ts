@@ -1,19 +1,21 @@
 import "./app.scss";
 
 (() => {
+    // @ts-ignore
+    const appName = appNamePrefix;
 
     // @ts-ignore
-    const appDivId = window[`${appNamePrefix}AppDivId`];
+    const appDivId = window[`${appName}AppDivId`];
 
     // @ts-ignore
-    const serverUrl = window[`${appNamePrefix}ServerUrl`];
+    const serverUrl = window[`${appName}ServerUrl`];
 
     const buildWidgetHTML = () => {
         // @ts-ignore
         const cUrl = companyUrl;
         return `
-    <div class="calendarContainer">
-        <iframe id="calendarIframe"  frameborder="0" allowfullscreen  src="${serverUrl}/expense/${cUrl}"></iframe>
+    <div class="iframeContainer">
+        <iframe id="${appName}Iframe"  frameborder="0" allowfullscreen  src="${serverUrl}/expense/${cUrl}"></iframe>
     </div>
     `;
     };
@@ -27,7 +29,7 @@ import "./app.scss";
         // sends message to iframe. iframe resizes it self.
         window.addEventListener("message", function (event) {
 
-            const iframe = document.getElementById("calendarIframe");
+            const iframe = document.getElementById(`${appName}Iframe`);
             const dimensions = event.data.dimensions;
             if (iframe && dimensions && dimensions.height && dimensions.height > 0) {
                 // @ts-ignore
