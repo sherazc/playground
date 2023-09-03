@@ -23,21 +23,23 @@ class Layout01 extends Component {
     render() {
         const {classes} = this.props;
         return (
-            <Grid container justify="center">
-                <Grid
-                    container
-                    className={classes.container}
-                    alignItems="center"
-                    justify="flex-start">
-                    <div style={{width: "100%"}}>
-                        <Header01/>
-                        <div style={{padding: "25px"}}>
-                            {this.props.children}
+            <div style={{backgroundColor: "#eee"}}>
+                <Grid container justifyContent="center">
+                    <Grid
+                        container
+                        className={classes.container}
+                        alignItems="center"
+                        justifyContent="flex-start">
+                        <div style={{width: "100%"}}>
+                            <Header01/>
+                            <div style={{padding: "25px"}}>
+                                {this.props.children}
+                            </div>
+                            <Footer01/>
                         </div>
-                        <Footer01/>
-                    </div>
+                    </Grid>
                 </Grid>
-            </Grid>
+            </div>
         );
     }
 }

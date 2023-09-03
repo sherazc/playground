@@ -36,7 +36,7 @@ export const ExpenseFrame: React.FC<Props & RouteComponentProps<RouterProps>> = 
 
     useEffect(() => {
         // Send dimension message to parent
-        const rootContainer = document.getElementById("calendarRoot");
+        const rootContainer = document.getElementById("expensesRoot");
         if (rootContainer) {
             const width = rootContainer.scrollWidth;
             const height = rootContainer.scrollHeight;
@@ -73,7 +73,7 @@ export const ExpenseFrame: React.FC<Props & RouteComponentProps<RouterProps>> = 
 
 
     return (
-        <div id="calendarRoot" className={styles.container}>
+        <div id="expensesRoot" className={styles.container}>
             {createFundsComponent(filterEnabledItems(centralControl.funds))}
             {createLegacyExpensesComponent(filterEnabledItems(centralControl.expenses))}
             {createExpensesComponent(filterEnabledItems(centralControl.expenseSheets))}

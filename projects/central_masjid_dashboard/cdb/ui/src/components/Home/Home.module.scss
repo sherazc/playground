@@ -7,6 +7,7 @@ $borderRadius: 5px;
   // height: 100%;
   padding: 0vw;
   flex-direction: column;
+  background-color: #eee;
   @media screen and (max-width: $screen-break) {
     padding: 1vw;
   }
