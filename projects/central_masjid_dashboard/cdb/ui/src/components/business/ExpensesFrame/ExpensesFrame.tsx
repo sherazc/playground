@@ -34,6 +34,17 @@ export const ExpenseFrame: React.FC<Props & RouteComponentProps<RouterProps>> = 
                 e => console.log("API Error", e))
     }, []);
 
+    useEffect(() => {
+        // Send dimension message to parent
+        const rootContainer = document.getElementById("calendarRoot");
+            console.log("here")
+        if (rootContainer) {
+            const width = rootContainer.scrollWidth;
+            const height = rootContainer.scrollHeight;
+            window.parent.postMessage({"dimensions": {width, height}}, "*");
+        }
+        // setView(getQueryParam("view"));
+    });
 
     const createLegacyExpensesComponent = (expenses: Expense[]) => {
         if (!expenses || expenses.length < 1) {
@@ -63,7 +74,7 @@ export const ExpenseFrame: React.FC<Props & RouteComponentProps<RouterProps>> = 
 
 
     return (
-        <div className={styles.container}>
+        <div id="calendarRoot" className={styles.container}>
             {createFundsComponent(filterEnabledItems(centralControl.funds))}
             {createLegacyExpensesComponent(filterEnabledItems(centralControl.expenses))}
             {createExpensesComponent(filterEnabledItems(centralControl.expenseSheets))}

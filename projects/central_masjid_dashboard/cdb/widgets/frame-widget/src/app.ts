@@ -3,14 +3,11 @@ import "./app.scss";
 const buildWidgetHTML = () => {
     // @ts-ignore
     const cUrl = companyUrl;
-    let resultHtml = `
+    return `
     <div class="calendarContainer">
-        <iframe id="calendarIframe"  frameborder="0" allowfullscreen  src="${serverUrl}/calendar/${cUrl}"></iframe>
+        <iframe id="calendarIframe"  frameborder="0" allowfullscreen  src="${serverUrl}/expense/${cUrl}"></iframe>
     </div>
     `;
-
-
-    return resultHtml;
 };
 
 const callback = () => {
@@ -19,12 +16,14 @@ const callback = () => {
     // @ts-ignore
     appDiv.innerHTML = buildWidgetHTML();
 
+    // sends message to iframe. iframe resizes it self.
     window.addEventListener("message", function (event) {
+        console.log("testing")
         const calendarIframe = document.getElementById("calendarIframe");
         const dimensions = event.data.dimensions;
         if (calendarIframe && dimensions && dimensions.height && dimensions.height > 0) {
             // @ts-ignore
-            calendarIframe.height = dimensions.height + 200;
+            calendarIframe.height = dimensions.height + 20;
 
         }
     });

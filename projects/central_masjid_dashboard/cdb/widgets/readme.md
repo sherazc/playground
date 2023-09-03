@@ -1,3 +1,32 @@
+# Widget
+On the client side widget need this code to run.
+````
+<div id="calendarApp"></div>
+<script>
+    var calendarServerUrl = "http://localhost:3000";
+    var calendarAppDivId = "calendarApp";
+    var companyUrl = "hic"
+</script>
+<script type="application/javascript" src="http://localhost:3000/static/frame-widget/app.min.js"></script>
+````
+1. It needs a div tag where widget will be built.
+1. Some variables to configure base URL, div id where  and if needed
+unique company identifies.
+1. `app.min.js` script that will build HTML and put it in div
+
+# Widget code
+Using `frame-widget` to explain the code structure.
+
+- All widgets code exists under `cdb/widgets/frame-widget` folder.
+- To create more widgets, use `cdb/widgets/frame-widget` as reference 
+because it uses typescript, and scss. Also use it to convert 
+other widgets to typescript.
+- webpack builds `app.min.js` under `cdb/ui/public/static/frame-widget`.
+This file will be served inside UI (ReactJS app). 
+- HTML files under `cdb/ui/public/static/frame-widget` are only there 
+for admin users to try out (demo) the widget.
+- `cdb/ui/src/components/business/admin/TabWidget/widgets.js` lists
+all the widgets.
 
 # Widget development
 
