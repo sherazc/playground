@@ -1,9 +1,9 @@
 @import "../../layout/theme";
 .container {
     text-align: center;
-    max-width: 800px;
+    max-width: 1000px;
     @media screen and (max-width: $screen-break) {
-        max-width: unset;
+        max-width: 100%;
     }
 }
 

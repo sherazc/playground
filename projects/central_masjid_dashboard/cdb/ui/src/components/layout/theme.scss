@@ -1,3 +1,6 @@
+// TODO Set body font in here instead of index.css
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 $h1-color: #696969;
 // Dashboard colors
 $color1: #b8b72fff;
@@ -20,6 +23,15 @@ $screen-width-mobile: 95%;
 
 $content-padding: 3%;
 $content-padding-mobile: 5%;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: red;
+}
 
 // ########## Text
 
