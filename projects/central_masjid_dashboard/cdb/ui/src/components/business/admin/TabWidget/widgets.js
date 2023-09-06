@@ -97,6 +97,20 @@ var rodAppDivId = "rodApp";
 </script>
 <script type="application/javascript" src="${baseUrl}/static/rod-widget/app.min.js"></script>`
             , liveLink: "/static/rod-widget/index.html"
+        },
+        {
+            name: "Expenses",
+            description: `Show as many expense sheet as you want.`,
+            image: "/images/widget/expenses_demo.png",
+            imageDescription: "Above Image is sample output.",
+            script: `<script>
+var appNamePrefix = "frameWidget01";
+var frameWidget01ServerUrl = "${baseUrl}";
+var frameWidget01AppUrl = "expense/${company.url}";
+</script>
+<script type="application/javascript" src="${baseUrl}/static/frame-widget/app.min.js"></script>
+`
+            , liveLink: `/static/frame-widget/index-dev.html?url=expense/${company.url}`
         }
     ];
 };
