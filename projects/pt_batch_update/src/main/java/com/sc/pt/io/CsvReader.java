@@ -3,6 +3,7 @@ package com.sc.pt.io;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class CsvReader {
         try {
 
             BufferedReader bufferedReader = openReader(fileName);
-            String line = null;
+            String line;
             boolean skipFirstLine = true;
             while ((line = bufferedReader.readLine()) != null) {
                 if (skipFirstLine) {
@@ -29,6 +30,11 @@ public class CsvReader {
     }
 
     private BufferedReader openReader(String fileName) throws IOException {
-        return new BufferedReader(new InputStreamReader(CsvReader.class.getClassLoader().getResource(fileName).openStream()));
+        URL resource = CsvReader.class.getClassLoader().getResource(fileName);
+        if (resource == null) {
+            throw new IOException("Failed to find resource file=" + fileName);
+        } else {
+            return new BufferedReader(new InputStreamReader(resource.openStream()));
+        }
     }
 }

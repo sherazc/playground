@@ -1,8 +1,8 @@
 package com.sc.pt.batch;
 
 public class StringDateFilter {
-    private String from;
-    private String to;
+    private final String from;
+    private final String to;
 
     public StringDateFilter(String from, String to) {
         this.from = from;
