@@ -10,7 +10,7 @@ import java.util.Calendar;
 public class TimeCalculator {
     private static final SimpleDateFormat SDF = new SimpleDateFormat("HH:mm");
     public String addMinutes(String time, int minutes) {
-        String newTime = null;
+        String newTime = "";
         Calendar cal = Calendar.getInstance();
         try {
             cal.setTime(SDF.parse(time));

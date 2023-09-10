@@ -10,19 +10,19 @@ public class Main {
         new Main().run(args);
     }
 
-    private void run(String[] args) {
-        if (args != null && args.length > 5) {
+    private void run(String[] command) {
+        validateCommand(command);
+        if (command != null && command.length > 5) {
             PtBatchUpdate ptBatchUpdate = new PtBatchUpdate();
-            // List<String> lines = new CsvReader().readLines(args[1]);
-            List<String> lines = new TxtFileReader().readLines(args[1]);
+            List<String> lines = new TxtFileReader().readLines(command[1]);
             List<String> changedLines = null;
 
-            if ("add".equalsIgnoreCase(args[0])) {
-                changedLines = ptBatchUpdate.change(
-                        lines, args[2], args[3], Integer.parseInt(args[4]), Integer.parseInt(args[5]));
+            if ("add".equalsIgnoreCase(command[0])) {
+                changedLines = ptBatchUpdate.addMinutes(
+                        lines, command[2], command[3], Integer.parseInt(command[4]), Integer.parseInt(command[5]));
 
-            } else if ("fix".equalsIgnoreCase(args[0])) {
-                changedLines = ptBatchUpdate.fixTime(lines, args[2], args[3], Integer.parseInt(args[4]), args[5]);
+            } else if ("fix".equalsIgnoreCase(command[0])) {
+                changedLines = ptBatchUpdate.fixDate(lines, command[2], command[3], Integer.parseInt(command[4]), command[5]);
             }
 
             if (changedLines != null) {
@@ -38,6 +38,10 @@ public class Main {
                     "java -jar pt-batch.jar add /Users/sheraz/dev/playground/projects/pt_batch_update/src/main/resources/pt.txt 01/03 01/10 1 1"
             );
         }
+    }
+
+    private void validateCommand(String[] command) {
+        // TODO implement it.
     }
 
 
