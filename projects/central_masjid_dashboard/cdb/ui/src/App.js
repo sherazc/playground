@@ -25,6 +25,7 @@ import Calendar from './components/business/Calendar/Calendar';
 import PrivacyPolicy from "./components/business/PrivacyPolicy/PrivacyPolicy";
 import {DashboardSelect} from "./components/business/DashboardSelect/DashboardSelect";
 import {ExpenseFrame} from "./components/business/ExpensesFrame/ExpensesFrame";
+import {CompanyDashboardV2} from "./components/business/CompanyDashboardV2/CompanyDashboardV2";
 // import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 // import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 // import { ThemeProvider } from '@material-ui/core/styles';
@@ -122,6 +123,10 @@ class App extends Component {
                                 path={`${process.env.PUBLIC_URL}/:companyDashboardUrl`}
                                 component={DashboardSelect}/>
 */}
+
+                            <Route
+                                path={`${process.env.PUBLIC_URL}/v2/:companyUrl`}
+                                component={CompanyDashboardV2}/>
 
 
                             <Route
