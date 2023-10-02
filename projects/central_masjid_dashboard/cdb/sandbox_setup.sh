@@ -41,6 +41,7 @@ sudo swapon -a
 # Directory structure
 mkdir -p /home/ubuntu/cdb/app
 mkdir -p /home/ubuntu/cdb/data/mongodb
+mkdir -p /home/ubuntu/cdb/data_export
 mkdir -p /home/ubuntu/cdb/logs/cdb
 mkdir -p /home/ubuntu/cdb/logs/mongodb
 
@@ -93,3 +94,73 @@ sudo nano /etc/profile
 # export JAVA_HOME=/usr/local/jdk-21
 # export MY_PATH="$JAVA_HOME/bin"
 # export PATH=$MY_PATH:$PATH
+
+# copy app
+scp -i ~/.ssh/id_rsa \
+  cdb/api/webservices/target/cdb.jar \
+  ubuntu@192.168.64.9:/home/ubuntu/cdb/app
+
+# copy db archive
+scp -i ~/.ssh/id_rsa \
+  cdb/misc/data_export/db-backup-2023-08-23-03-21.tar.gz \
+  ubuntu@192.168.64.9:/home/ubuntu/cdb/data_export
+
+# copy backup-db.sh
+scp -i ~/.ssh/id_rsa \
+  cdb/db-backup.sh \
+  ubuntu@192.168.64.9:/home/ubuntu/cdb/data_export
+
+# copy db-restore.sh
+scp -i ~/.ssh/id_rsa \
+  cdb/db-restore.sh \
+  ubuntu@192.168.64.9:/home/ubuntu/cdb/data_export
+
+# copy cdb-dev.sh
+# update --google.geocode.api.key=
+scp -i ~/.ssh/id_rsa \
+  cdb/cdb-dev.sh \
+  ubuntu@192.168.64.9:/home/ubuntu/cdb/app
+
+# copy cdb.service and move to /etc/systemd/system/
+scp -i ~/.ssh/id_rsa \
+  cdb/cdb.service \
+  ubuntu@192.168.64.9:/home/ubuntu/cdb
+# After above copy move the file to
+# sudo mv /home/ubuntu/cdb/cdb.service /etc/systemd/system/
+
+# start cdb service
+sudo systemctl daemon-reload
+sudo systemctl enable cdb
+sudo systemctl start cdb
+sudo systemctl status cdb
+
+# install mysql db
+sudo apt install mysql-server
+systemctl status mysql
+sudo mysql_secure_installation
+
+# setup mysql user
+sudo mysql
+mysql> create user cdbuser;
+mysql> create database cdb;
+mysql> grant all privileges on *.* to 'cdbuser'@'localhost' identified by 'passwordcdb';
+$ mysql -u cdbuser -D cdb -h localhost -p
+Enter password: ***********
+
+
+# install php
+sudo apt install php-fpm php-mysql
+
+# configure php
+
+# install wordpress
+
+
+# install nginx
+# configure nginx
+
+
+# restart and check if wordpress and masjid dashboard comes up
+
+# Make sure python3 is installed
+python3 --version
