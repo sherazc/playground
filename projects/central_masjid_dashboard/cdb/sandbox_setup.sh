@@ -151,8 +151,10 @@ $ mysql -u cdbuser -D cdb -h localhost -ppasswordcdb
 
 # install php
 sudo apt install php-fpm php-mysql
-
-# configure php
+$ sudo nano /etc/php/8.1/fpm/php.ini
+# Above can have different version. Update these variable:
+# upload_max_filesize = 20M
+# post_max_size = 21M
 
 # install wordpress
 
