@@ -138,15 +138,16 @@ sudo systemctl status cdb
 sudo apt install mysql-server
 systemctl status mysql
 sudo mysql_secure_installation
+# dont install VALIDATE PASSWORD PLUGIN. Keep password validation low=0
 
 # setup mysql user
 sudo mysql
-mysql> create user cdbuser;
 mysql> create database cdb;
-mysql> grant all privileges on *.* to 'cdbuser'@'localhost' identified by 'passwordcdb';
-$ mysql -u cdbuser -D cdb -h localhost -p
-Enter password: ***********
-
+mysql> create user 'cdbuser'@'localhost' identified by 'passwordcdb';
+mysql> grant all privileges on cdb.* to 'cdbuser'@'localhost';
+mysql> flush privileges;
+mysql> exit
+$ mysql -u cdbuser -D cdb -h localhost -ppasswordcdb
 
 # install php
 sudo apt install php-fpm php-mysql
