@@ -3,6 +3,7 @@
 # For detail commands look at this document
 # https://docs.google.com/document/d/1KXnAUAc2ZkylDPBInMyK7NBovZ6-eJmaeUPcOTAc0Ps/edit#heading=h.7krpvip38c93
 
+# Run these commands under central_masjid_dashboard folder
 
 # For testing creating multipass container
 brew install multipass
@@ -23,7 +24,47 @@ ip a
 ssh -i /Users/sheraz/.ssh/id_rsa ubuntu@54.165.184.232
 
 # Connect to multipass primary instance
-ssh -i /Users/sheraz/.ssh/id_rsa ubuntu@192.168.64.8
+ssh -i /Users/sheraz/.ssh/id_rsa ubuntu@192.168.64.9
+
+# Directory structure
+mkdir -p /home/ubuntu/cdb/app
+mkdir -p /home/ubuntu/cdb/data/mongodb
+mkdir -p /home/ubuntu/cdb/data_export
+mkdir -p /home/ubuntu/cdb/logs/cdb
+mkdir -p /home/ubuntu/cdb/logs/mongodb
+
+# copy app
+scp -i ~/.ssh/id_rsa \
+  cdb/api/webservices/target/cdb.jar \
+  ubuntu@192.168.64.9:/home/ubuntu/cdb/app
+
+# copy db archive
+scp -i ~/.ssh/id_rsa \
+  cdb/misc/data_export/db-backup-2023-08-23-03-21.tar.gz \
+  ubuntu@192.168.64.9:/home/ubuntu/cdb/data_export
+
+# copy backup-db.sh
+scp -i ~/.ssh/id_rsa \
+  cdb/db-backup.sh \
+  ubuntu@192.168.64.9:/home/ubuntu/cdb/data_export
+
+# copy db-restore.sh
+scp -i ~/.ssh/id_rsa \
+  cdb/db-restore.sh \
+  ubuntu@192.168.64.9:/home/ubuntu/cdb/data_export
+
+# copy cdb-dev.sh
+# update --google.geocode.api.key=
+scp -i ~/.ssh/id_rsa \
+  cdb/cdb-dev.sh \
+  ubuntu@192.168.64.9:/home/ubuntu/cdb/app
+
+# copy cdb.service and move to /etc/systemd/system/
+scp -i ~/.ssh/id_rsa \
+  cdb/cdb.service \
+  ubuntu@192.168.64.9:/home/ubuntu/cdb
+# After above copy move the file to
+# sudo mv /home/ubuntu/cdb/cdb.service /etc/systemd/system/
 
 
 # Swap file
@@ -36,15 +77,6 @@ sudo nano /etc/fstab
 /swapfile swap swap defaults 0 0
 # Start swap for current session
 sudo swapon -a
-
-
-# Directory structure
-mkdir -p /home/ubuntu/cdb/app
-mkdir -p /home/ubuntu/cdb/data/mongodb
-mkdir -p /home/ubuntu/cdb/data_export
-mkdir -p /home/ubuntu/cdb/logs/cdb
-mkdir -p /home/ubuntu/cdb/logs/mongodb
-
 
 # Install Mongo DB
 sudo apt-get install gnupg curl
@@ -82,6 +114,8 @@ sudo nano /etc/mongod.conf
 sudo systemctl start mongod.service
 sudo systemctl enable mongod.service
 
+# TODO: Restore
+
 # install JDK
 mkdir -p ~/dev/jdk
 cd ~/dev/jdk
@@ -95,38 +129,6 @@ sudo nano /etc/profile
 # export MY_PATH="$JAVA_HOME/bin"
 # export PATH=$MY_PATH:$PATH
 
-# copy app
-scp -i ~/.ssh/id_rsa \
-  cdb/api/webservices/target/cdb.jar \
-  ubuntu@192.168.64.9:/home/ubuntu/cdb/app
-
-# copy db archive
-scp -i ~/.ssh/id_rsa \
-  cdb/misc/data_export/db-backup-2023-08-23-03-21.tar.gz \
-  ubuntu@192.168.64.9:/home/ubuntu/cdb/data_export
-
-# copy backup-db.sh
-scp -i ~/.ssh/id_rsa \
-  cdb/db-backup.sh \
-  ubuntu@192.168.64.9:/home/ubuntu/cdb/data_export
-
-# copy db-restore.sh
-scp -i ~/.ssh/id_rsa \
-  cdb/db-restore.sh \
-  ubuntu@192.168.64.9:/home/ubuntu/cdb/data_export
-
-# copy cdb-dev.sh
-# update --google.geocode.api.key=
-scp -i ~/.ssh/id_rsa \
-  cdb/cdb-dev.sh \
-  ubuntu@192.168.64.9:/home/ubuntu/cdb/app
-
-# copy cdb.service and move to /etc/systemd/system/
-scp -i ~/.ssh/id_rsa \
-  cdb/cdb.service \
-  ubuntu@192.168.64.9:/home/ubuntu/cdb
-# After above copy move the file to
-# sudo mv /home/ubuntu/cdb/cdb.service /etc/systemd/system/
 
 # start cdb service
 sudo systemctl daemon-reload
@@ -157,13 +159,18 @@ $ sudo nano /etc/php/8.1/fpm/php.ini
 # post_max_size = 21M
 
 # install wordpress
+cd ~
+wget https://wordpress.org/latest.zip
+sudo apt install zip unzip
+unzip latest.zip
 
+# TODO: install nginx
+# TODO: configure nginx
 
-# install nginx
-# configure nginx
-
-
-# restart and check if wordpress and masjid dashboard comes up
+# TODO: restart and check if wordpress and masjid dashboard comes up
 
 # Make sure python3 is installed
 python3 --version
+
+
+# TODO: install certbot
