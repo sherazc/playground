@@ -128,6 +128,10 @@ sudo nano /etc/profile
 # export JAVA_HOME=/usr/local/jdk-21
 # export MY_PATH="$JAVA_HOME/bin"
 # export PATH=$MY_PATH:$PATH
+sudo update-alternatives --install /usr/bin/java java /usr/local/jdk-21/bin/java 100
+sudo update-alternatives --install /usr/bin/javac javac /usr/local/jdk-21/bin/javac 100
+update-alternatives --display java
+update-alternatives --display javac
 
 
 # start cdb service
@@ -135,6 +139,8 @@ sudo systemctl daemon-reload
 sudo systemctl enable cdb
 sudo systemctl start cdb
 sudo systemctl status cdb
+# Use journalctl to see logs
+# journalctl -u cdb
 
 # install mysql db
 sudo apt install mysql-server
@@ -163,9 +169,20 @@ cd ~
 wget https://wordpress.org/latest.zip
 sudo apt install zip unzip
 unzip latest.zip
+sudo mv /home/ubuntu/wordpress/* /var/www/html/
+rm -rf /home/ubuntu/wordpress
 
 # TODO: install nginx
+sudo apt update
+sudo apt install nginx
+sudo systemctl status nginx
+
 # TODO: configure nginx
+sudo unlink /etc/nginx/sites-enabled/default
+sudo ln -s /etc/nginx/sites-available/scwordpress.com /etc/nginx/sites-enabled/
+sudo chown -R www-data:www-data /home/ubuntu/wordpress
+sudo nginx -t # test syntax
+sudo systemctl reload nginx
 
 # TODO: restart and check if wordpress and masjid dashboard comes up
 
