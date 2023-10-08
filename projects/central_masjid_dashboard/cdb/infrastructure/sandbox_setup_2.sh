@@ -48,12 +48,6 @@ scp -i ~/.ssh/id_rsa \
 
 
 
-# copy app
-
-
-
-
-
 
 # copy cdb.service and move to /etc/systemd/system/
 scp -i ~/.ssh/id_rsa \

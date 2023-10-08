@@ -3,10 +3,10 @@ Description=Central Dashboard
 After=syslog.target network.target mongodb.service
 
 [Service]
-# User=ubuntu
+User=ubuntu
 Type=simple
-WorkingDirectory=/home/ubuntu/cdb/app
-ExecStart=/home/ubuntu/cdb/app/cdb-dev.sh
+WorkingDirectory=/opt/central_masjid_dashboard/web-cdb/
+ExecStart=/opt/central_masjid_dashboard/web-cdb/cdb-dev.sh
 Restart=always
 
 [Install]
