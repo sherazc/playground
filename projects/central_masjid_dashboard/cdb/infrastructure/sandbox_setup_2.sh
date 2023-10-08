@@ -24,41 +24,36 @@ ip a
 ssh -i /Users/sheraz/.ssh/id_rsa ubuntu@54.165.184.232
 
 # Connect to multipass primary instance
-ssh -i /Users/sheraz/.ssh/id_rsa ubuntu@192.168.64.9
+ssh -i /Users/sheraz/.ssh/id_rsa ubuntu@192.168.64.10
 
-# Directory structure
-mkdir -p /home/ubuntu/cdb/app
-mkdir -p /home/ubuntu/cdb/data/mongodb
-mkdir -p /home/ubuntu/cdb/data_export
-mkdir -p /home/ubuntu/cdb/logs/cdb
-mkdir -p /home/ubuntu/cdb/logs/mongodb
-mkdir -p /home/ubuntu/dev
+
+# copy infra
+scp -r -i ~/.ssh/id_rsa \
+  cdb/infrastructure/dev \
+  ubuntu@192.168.64.10:/home/ubuntu/
 
 # copy app
-scp -i ~/.ssh/id_rsa \
+scp -r -i ~/.ssh/id_rsa \
   cdb/api/webservices/target/cdb.jar \
-  ubuntu@192.168.64.9:/home/ubuntu/cdb/app
+  ubuntu@192.168.64.10:/home/ubuntu/dev/central_masjid_dashboard/web-cdb
+
 
 # copy db archive
 scp -i ~/.ssh/id_rsa \
   cdb/misc/data_export/db-backup-2023-08-23-03-21.tar.gz \
-  ubuntu@192.168.64.9:/home/ubuntu/cdb/data_export/
+  ubuntu@192.168.64.10:/home/ubuntu/dev/central_masjid_dashboard/data-backup
 
-# copy backup-db.sh
-scp -i ~/.ssh/id_rsa \
-  cdb/db-backup.sh \
-  ubuntu@192.168.64.9:/home/ubuntu/cdb/data_export/
 
-# copy db-restore.sh
-scp -i ~/.ssh/id_rsa \
-  cdb/db-restore.sh \
-  ubuntu@192.168.64.9:/home/ubuntu/cdb/data_export/
+##################################
 
-# copy cdb-dev.sh
-# update --google.geocode.api.key=
-scp -i ~/.ssh/id_rsa \
-  cdb/cdb-dev.sh \
-  ubuntu@192.168.64.9:/home/ubuntu/cdb/app/
+
+
+# copy app
+
+
+
+
+
 
 # copy cdb.service and move to /etc/systemd/system/
 scp -i ~/.ssh/id_rsa \

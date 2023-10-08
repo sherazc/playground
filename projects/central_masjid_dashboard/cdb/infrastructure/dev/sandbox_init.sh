@@ -3,99 +3,48 @@
 # For detail commands look at this document
 # https://docs.google.com/document/d/1KXnAUAc2ZkylDPBInMyK7NBovZ6-eJmaeUPcOTAc0Ps/edit#heading=h.7krpvip38c93
 
-# Run these commands under central_masjid_dashboard folder
-
-# For testing creating multipass container
-brew install multipass
-multipass version
-multipass find
-multipass launch 22.04 -n primary -c 2 -m 4G -d 50G
-
-multipass shell
-sudo apt update && sudo apt upgrade
-sudo apt install ubuntu-desktop xrdp -y
-sudo passwd ubuntu
-ip a
-# Now login using microsoft remote desktop to the ip printed above
-
-# Copy public key in EC2's authorized_keys file
-
-# Connect to aws
-ssh -i /Users/sheraz/.ssh/id_rsa ubuntu@54.165.184.232
-
-# Connect to multipass primary instance
-ssh -i /Users/sheraz/.ssh/id_rsa ubuntu@192.168.64.9
-
-# Directory structure
-mkdir -p /home/ubuntu/cdb/app
-mkdir -p /home/ubuntu/cdb/data/mongodb
-mkdir -p /home/ubuntu/cdb/data_export
-mkdir -p /home/ubuntu/cdb/logs/cdb
-mkdir -p /home/ubuntu/cdb/logs/mongodb
-mkdir -p /home/ubuntu/dev
-
-# copy app
-scp -i ~/.ssh/id_rsa \
-  cdb/api/webservices/target/cdb.jar \
-  ubuntu@192.168.64.9:/home/ubuntu/cdb/app
-
-# copy db archive
-scp -i ~/.ssh/id_rsa \
-  cdb/misc/data_export/db-backup-2023-08-23-03-21.tar.gz \
-  ubuntu@192.168.64.9:/home/ubuntu/cdb/data_export/
-
-# copy backup-db.sh
-scp -i ~/.ssh/id_rsa \
-  cdb/db-backup.sh \
-  ubuntu@192.168.64.9:/home/ubuntu/cdb/data_export/
-
-# copy db-restore.sh
-scp -i ~/.ssh/id_rsa \
-  cdb/db-restore.sh \
-  ubuntu@192.168.64.9:/home/ubuntu/cdb/data_export/
-
-# copy cdb-dev.sh
-# update --google.geocode.api.key=
-scp -i ~/.ssh/id_rsa \
-  cdb/cdb-dev.sh \
-  ubuntu@192.168.64.9:/home/ubuntu/cdb/app/
-
-# copy cdb.service and move to /etc/systemd/system/
-scp -i ~/.ssh/id_rsa \
-  cdb/cdb.service \
-  ubuntu@192.168.64.9:/home/ubuntu/dev/
-# After above copy move the file to
-# sudo mv /home/ubuntu/dev/cdb.service /etc/systemd/system/
-
-# copy wp-config.php and move to /var/www/html/ after wordpress installation
-scp -i ~/.ssh/id_rsa \
-  cdb/wp-config.php \
-  ubuntu@192.168.64.9:/home/ubuntu/dev/
-
-
-# copy nginx_cdbsites.com and move to /etc/nginx/sites-available/
-scp -i ~/.ssh/id_rsa \
-  cdb/nginx_cdbsites.com \
-  ubuntu@192.168.64.9:/home/ubuntu/dev
 
 
 
-scp -r -i ~/.ssh/id_rsa \
-  cdb/api/webservices/target \
-  ubuntu@192.168.64.9:/home/ubuntu/dev
 
 
+sudo mv /home/ubuntu/dev/central_masjid_dashboard /opt/
+
+sudo -i
+
+
+# install JDK
+mkdir -p /home/ubuntu/dev/jdk
+cd /home/ubuntu/dev/jdk
+wget https://download.java.net/java/GA/jdk21/fd2272bbf8e04c3dbaee13770090416c/35/GPL/openjdk-21_linux-aarch64_bin.tar.gz
+tar -xvzf openjdk-21_linux-aarch64_bin.tar.gz
+mv /home/ubuntu/dev/jdk/jdk-21 /opt/central_masjid_dashboard/test
+# mv jdk-21 /usr/local
+rm -rf /home/ubuntu/dev/jdk
+nano /etc/profile
+# Add below lines at the end of /etc/profile file
+# export JAVA_HOME=/opt/central_masjid_dashboard/jdk-21
+# export MY_PATH="$JAVA_HOME/bin"
+# export PATH=$MY_PATH:$PATH
+update-alternatives --install /usr/bin/java java /opt/central_masjid_dashboard/jdk-21/bin/java 100
+update-alternatives --install /usr/bin/javac javac /opt/central_masjid_dashboard/jdk-21/bin/javac 100
+update-alternatives --display java
+update-alternatives --display javac
+
+
+
+apt update && sudo apt upgrade
 
 # Swap file
-sudo swapon --show
-sudo fallocate -l 1G /swapfile
-sudo chmod 600 /swapfile
-sudo mkswap /swapfile
-sudo nano /etc/fstab
+swapon --show
+fallocate -l 1G /swapfile
+chmod 600 /swapfile
+mkswap /swapfile
+nano /etc/fstab
 # Enter this line in it /etc/fstab.
 /swapfile swap swap defaults 0 0
 # Start swap for current session
-sudo swapon -a
+swapon -a
 
 # Install Mongo DB
 sudo apt-get install gnupg curl
@@ -117,6 +66,7 @@ echo "mongodb-mongosh hold" | sudo dpkg --set-selections
 echo "mongodb-org-mongos hold" | sudo dpkg --set-selections
 echo "mongodb-org-tools hold" | sudo dpkg --set-selections
 
+# TODO: Trying without this step
 # Configure MongoDB
 sudo nano /lib/systemd/system/mongod.service
 # Fix these values
@@ -135,25 +85,10 @@ sudo systemctl enable mongod.service
 
 # TODO: Restore
 
-# install JDK
-mkdir -p ~/dev/jdk
-cd ~/dev/jdk
-wget https://download.java.net/java/GA/jdk21/fd2272bbf8e04c3dbaee13770090416c/35/GPL/openjdk-21_linux-aarch64_bin.tar.gz
-tar -xvzf openjdk-21_linux-aarch64_bin.tar.gz
-sudo mv jdk-21 /usr/local
-rm -rf ~/dev/jdk
-sudo nano /etc/profile
-# Add below lines at the end of /etc/profile file
-# export JAVA_HOME=/usr/local/jdk-21
-# export MY_PATH="$JAVA_HOME/bin"
-# export PATH=$MY_PATH:$PATH
-sudo update-alternatives --install /usr/bin/java java /usr/local/jdk-21/bin/java 100
-sudo update-alternatives --install /usr/bin/javac javac /usr/local/jdk-21/bin/javac 100
-update-alternatives --display java
-update-alternatives --display javac
 
 
 # start cdb service
+sudo mv /home/ubuntu/dev/central_masjid_dashboard/scripts/cdb.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable cdb
 sudo systemctl start cdb
