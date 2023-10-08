@@ -32,6 +32,7 @@ mkdir -p /home/ubuntu/cdb/data/mongodb
 mkdir -p /home/ubuntu/cdb/data_export
 mkdir -p /home/ubuntu/cdb/logs/cdb
 mkdir -p /home/ubuntu/cdb/logs/mongodb
+mkdir -p /home/ubuntu/dev
 
 # copy app
 scp -i ~/.ssh/id_rsa \
@@ -41,30 +42,48 @@ scp -i ~/.ssh/id_rsa \
 # copy db archive
 scp -i ~/.ssh/id_rsa \
   cdb/misc/data_export/db-backup-2023-08-23-03-21.tar.gz \
-  ubuntu@192.168.64.9:/home/ubuntu/cdb/data_export
+  ubuntu@192.168.64.9:/home/ubuntu/cdb/data_export/
 
 # copy backup-db.sh
 scp -i ~/.ssh/id_rsa \
   cdb/db-backup.sh \
-  ubuntu@192.168.64.9:/home/ubuntu/cdb/data_export
+  ubuntu@192.168.64.9:/home/ubuntu/cdb/data_export/
 
 # copy db-restore.sh
 scp -i ~/.ssh/id_rsa \
   cdb/db-restore.sh \
-  ubuntu@192.168.64.9:/home/ubuntu/cdb/data_export
+  ubuntu@192.168.64.9:/home/ubuntu/cdb/data_export/
 
 # copy cdb-dev.sh
 # update --google.geocode.api.key=
 scp -i ~/.ssh/id_rsa \
   cdb/cdb-dev.sh \
-  ubuntu@192.168.64.9:/home/ubuntu/cdb/app
+  ubuntu@192.168.64.9:/home/ubuntu/cdb/app/
 
 # copy cdb.service and move to /etc/systemd/system/
 scp -i ~/.ssh/id_rsa \
   cdb/cdb.service \
-  ubuntu@192.168.64.9:/home/ubuntu/cdb
+  ubuntu@192.168.64.9:/home/ubuntu/dev/
 # After above copy move the file to
-# sudo mv /home/ubuntu/cdb/cdb.service /etc/systemd/system/
+# sudo mv /home/ubuntu/dev/cdb.service /etc/systemd/system/
+
+# copy wp-config.php and move to /var/www/html/ after wordpress installation
+scp -i ~/.ssh/id_rsa \
+  cdb/wp-config.php \
+  ubuntu@192.168.64.9:/home/ubuntu/dev/
+
+
+# copy nginx_cdbsites.com and move to /etc/nginx/sites-available/
+scp -i ~/.ssh/id_rsa \
+  cdb/nginx_cdbsites.com \
+  ubuntu@192.168.64.9:/home/ubuntu/dev
+
+
+
+scp -r -i ~/.ssh/id_rsa \
+  cdb/api/webservices/target \
+  ubuntu@192.168.64.9:/home/ubuntu/dev
+
 
 
 # Swap file
@@ -170,17 +189,24 @@ wget https://wordpress.org/latest.zip
 sudo apt install zip unzip
 unzip latest.zip
 sudo mv /home/ubuntu/wordpress/* /var/www/html/
-rm -rf /home/ubuntu/wordpress
+sudo mv /home/ubuntu/dev/wp-config.php /var/www/html/
 
-# TODO: install nginx
-sudo apt update
+
+# install nginx
 sudo apt install nginx
+sudo systemctl enable nginx
 sudo systemctl status nginx
+# To test sandbox add below in /etc/hosts
+# 127.0.0.1 scwordpress.com
+# 127.0.0.1 sccdb.com
+# 127.0.0.1 www.scwordpress.com
+# 127.0.0.1 www.sccdb.com
 
-# TODO: configure nginx
+# configure nginx
 sudo unlink /etc/nginx/sites-enabled/default
-sudo ln -s /etc/nginx/sites-available/scwordpress.com /etc/nginx/sites-enabled/
-sudo chown -R www-data:www-data /home/ubuntu/wordpress
+sudo mv /home/ubuntu/nginx_cdbsites.com /etc/nginx/sites-available
+sudo ln -s /etc/nginx/sites-available/nginx_cdbsites.com /etc/nginx/sites-enabled/
+sudo chown -R www-data:www-data /var/www/html/
 sudo nginx -t # test syntax
 sudo systemctl reload nginx
 
@@ -188,6 +214,5 @@ sudo systemctl reload nginx
 
 # Make sure python3 is installed
 python3 --version
-
 
 # TODO: install certbot
