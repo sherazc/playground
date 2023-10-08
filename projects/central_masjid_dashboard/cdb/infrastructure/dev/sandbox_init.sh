@@ -55,9 +55,9 @@ curl -fsSL https://pgp.mongodb.com/server-7.0.asc | \
 
 echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
 
-sudo apt-get update
+apt-get update
 
-sudo apt-get install -y mongodb-org
+apt-get install -y mongodb-org
 
 echo "mongodb-org hold" | sudo dpkg --set-selections
 echo "mongodb-org-database hold" | sudo dpkg --set-selections
@@ -66,29 +66,29 @@ echo "mongodb-mongosh hold" | sudo dpkg --set-selections
 echo "mongodb-org-mongos hold" | sudo dpkg --set-selections
 echo "mongodb-org-tools hold" | sudo dpkg --set-selections
 
-# TODO: Trying without this step
-# Configure MongoDB
-sudo nano /lib/systemd/system/mongod.service
-# Fix these values
-# User=ubuntu
-# Group=ubuntu
 
-sudo systemctl daemon-reload
+systemctl daemon-reload
 
-sudo nano /etc/mongod.conf
+nano /etc/mongod.conf
 # Fix below values
-# dbPath: /home/ubuntu/cdb/data/mongodb
-# path: /home/ubuntu/cdb/logs/mongodb/mongod.log
+# dbPath: /opt/central_masjid_dashboard/data/mongodb
+# path: /opt/central_masjid_dashboard/data/mongodb_logs/mongod.log
 
-sudo systemctl start mongod.service
-sudo systemctl enable mongod.service
+chown -R mongodb:mongodb /opt/central_masjid_dashboard/data/mongodb*
 
-# TODO: Restore
+systemctl start mongod.service
+systemctl status mongod.service
+systemctl enable mongod.service
 
-
+# Restore
+cd /opt/central_masjid_dashboard/data-backup
+nano db-restore.sh
+# update backup .tar.gz file name in db-restore.sh e.g.
+# backupDir="db-backup-2023-08-23-03-21"
+./db-restore.sh
 
 # start cdb service
-sudo mv /home/ubuntu/dev/central_masjid_dashboard/scripts/cdb.service /etc/systemd/system/
+sudo mv /opt/central_masjid_dashboard/scripts/cdb.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable cdb
 sudo systemctl start cdb
