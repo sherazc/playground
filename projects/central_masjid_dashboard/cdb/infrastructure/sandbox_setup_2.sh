@@ -24,56 +24,53 @@ ip a
 ssh -i /Users/sheraz/.ssh/id_rsa ubuntu@54.165.184.232
 
 # Connect to multipass primary instance
-ssh -i /Users/sheraz/.ssh/id_rsa ubuntu@192.168.64.10
+ssh -i /Users/sheraz/.ssh/id_rsa ubuntu@192.168.64.11
 
 
 # copy infra
 scp -r -i ~/.ssh/id_rsa \
-  cdb/infrastructure/dev \
-  ubuntu@192.168.64.10:/home/ubuntu/
+  cdb/infrastructure/dev/ \
+  ubuntu@192.168.64.11:/home/ubuntu/
 
 # copy app
 scp -r -i ~/.ssh/id_rsa \
   cdb/api/webservices/target/cdb.jar \
-  ubuntu@192.168.64.10:/home/ubuntu/dev/central_masjid_dashboard/web-cdb
-
+  ubuntu@192.168.64.11:/home/ubuntu/dev/central_masjid_dashboard/web-cdb
 
 # copy db archive
 scp -i ~/.ssh/id_rsa \
   cdb/misc/data_export/db-backup-2023-08-23-03-21.tar.gz \
-  ubuntu@192.168.64.10:/home/ubuntu/dev/central_masjid_dashboard/data-backup
+  ubuntu@192.168.64.11:/home/ubuntu/dev/central_masjid_dashboard/data-backup
 
+################################## Deprecated Start
 
 ##################################
-
-
+# Below commands are moved in sandbox_init.sh
 
 
 # copy cdb.service and move to /etc/systemd/system/
 scp -i ~/.ssh/id_rsa \
   cdb/cdb.service \
-  ubuntu@192.168.64.9:/home/ubuntu/dev/
+  ubuntu@192.168.64.11:/home/ubuntu/dev/
 # After above copy move the file to
 # sudo mv /home/ubuntu/dev/cdb.service /etc/systemd/system/
 
 # copy wp-config.php and move to /var/www/html/ after wordpress installation
 scp -i ~/.ssh/id_rsa \
   cdb/wp-config.php \
-  ubuntu@192.168.64.9:/home/ubuntu/dev/
+  ubuntu@192.168.64.11:/home/ubuntu/dev/
 
 
 # copy nginx_cdbsites.com and move to /etc/nginx/sites-available/
 scp -i ~/.ssh/id_rsa \
   cdb/nginx_cdbsites.com \
-  ubuntu@192.168.64.9:/home/ubuntu/dev
+  ubuntu@192.168.64.11:/home/ubuntu/dev
 
 
 
 scp -r -i ~/.ssh/id_rsa \
   cdb/api/webservices/target \
-  ubuntu@192.168.64.9:/home/ubuntu/dev
-
-
+  ubuntu@192.168.64.11:/home/ubuntu/dev
 
 # Swap file
 sudo swapon --show
