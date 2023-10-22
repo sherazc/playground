@@ -3,23 +3,17 @@
 # For detail commands look at this document
 # https://docs.google.com/document/d/1KXnAUAc2ZkylDPBInMyK7NBovZ6-eJmaeUPcOTAc0Ps/edit#heading=h.7krpvip38c93
 
-
-
-
-
-
-sudo mv /home/ubuntu/dev/central_masjid_dashboard /opt/
-
 sudo -i
 
+mv /home/ubuntu/dev/central_masjid_dashboard /opt/
 
 # install JDK
 mkdir -p /home/ubuntu/dev/jdk
 cd /home/ubuntu/dev/jdk
 wget https://download.java.net/java/GA/jdk21/fd2272bbf8e04c3dbaee13770090416c/35/GPL/openjdk-21_linux-aarch64_bin.tar.gz
 tar -xvzf openjdk-21_linux-aarch64_bin.tar.gz
-mv /home/ubuntu/dev/jdk/jdk-21 /opt/central_masjid_dashboard/test
-# mv jdk-21 /usr/local
+mv /home/ubuntu/dev/jdk/jdk-21 /opt/central_masjid_dashboard/
+
 rm -rf /home/ubuntu/dev/jdk
 nano /etc/profile
 # Add below lines at the end of /etc/profile file
@@ -31,7 +25,10 @@ update-alternatives --install /usr/bin/javac javac /opt/central_masjid_dashboard
 update-alternatives --display java
 update-alternatives --display javac
 
+# restart, re-login and check java, javac, jshell and $JAVA_HOME
+# ctrl+d to exit jshell
 
+sudo -i
 
 apt update && sudo apt upgrade
 
@@ -86,20 +83,26 @@ nano db-restore.sh
 # update backup .tar.gz file name in db-restore.sh e.g.
 # backupDir="db-backup-2023-08-23-03-21"
 ./db-restore.sh
+# try Studio 3T to connect using ssh
 
 # start cdb service
-sudo mv /opt/central_masjid_dashboard/scripts/cdb.service /etc/systemd/system/
-sudo systemctl daemon-reload
-sudo systemctl enable cdb
-sudo systemctl start cdb
-sudo systemctl status cdb
+nano /opt/central_masjid_dashboard/web-cdb/cdb-dev.sh
+# change google API key --google.geocode.api.key=<API KEY>
+mv /opt/central_masjid_dashboard/scripts/cdb.service /etc/systemd/system/
+systemctl daemon-reload
+systemctl enable cdb
+systemctl start cdb
+systemctl status cdb
 # Use journalctl to see logs
 # journalctl -u cdb
 
+LOOK INTO CHANGING MYSQL DB PATH
+
 # install mysql db
-sudo apt install mysql-server
+apt install mysql-server
 systemctl status mysql
-sudo mysql_secure_installation
+# By default mysql.service is enabled and
+mysql_secure_installation
 # dont install VALIDATE PASSWORD PLUGIN. Keep password validation low=0
 
 # setup mysql user
