@@ -7,7 +7,7 @@
 # Wordpress and PHP site
 server {
   listen 80;
-  root /var/www/html/;
+  root /opt/central_masjid_dashboard/wordpress/;
   index index.php index.html index.htm index.nginx-debian.html;
 
   server_name scwordpress.com www.scwordpress.com;

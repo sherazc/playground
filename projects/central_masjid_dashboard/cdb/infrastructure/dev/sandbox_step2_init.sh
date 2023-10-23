@@ -3,6 +3,8 @@
 # For detail commands look at this document
 # https://docs.google.com/document/d/1KXnAUAc2ZkylDPBInMyK7NBovZ6-eJmaeUPcOTAc0Ps/edit#heading=h.7krpvip38c93
 
+# Run these commands in remote ubuntu machine (ec2 or multipass)
+
 sudo -i
 
 mv /home/ubuntu/dev/central_masjid_dashboard /opt/
@@ -96,12 +98,15 @@ systemctl status cdb
 # Use journalctl to see logs
 # journalctl -u cdb
 
-LOOK INTO CHANGING MYSQL DB PATH
 
 # install mysql db
 apt install mysql-server
 systemctl status mysql
-# By default mysql.service is enabled and
+# to change mysql data directory do it in this file
+nano /etc/mysql/mysql.conf.d/mysqld.cnf
+# I am not going to change it, because there are many files
+# There are data, socket, logs, process, change owner and client files
+# By default mysql.service is enabled and started
 mysql_secure_installation
 # dont install VALIDATE PASSWORD PLUGIN. Keep password validation low=0
 
@@ -113,40 +118,43 @@ mysql> grant all privileges on cdb.* to 'cdbuser'@'localhost';
 mysql> flush privileges;
 mysql> exit
 $ mysql -u cdbuser -D cdb -h localhost -ppasswordcdb
+# Look into ssh remote connection. Maybe try this https://linuxize.com/post/mysql-remote-access/
 
 # install php
-sudo apt install php-fpm php-mysql
-$ sudo nano /etc/php/8.1/fpm/php.ini
+apt install php-fpm php-mysql
+nano /etc/php/8.1/fpm/php.ini
 # Above can have different version. Update these variable:
 # upload_max_filesize = 20M
 # post_max_size = 21M
 
 # install wordpress
-cd ~
+cd /opt/central_masjid_dashboard
 wget https://wordpress.org/latest.zip
-sudo apt install zip unzip
+apt install zip unzip
 unzip latest.zip
-sudo mv /home/ubuntu/wordpress/* /var/www/html/
-sudo mv /home/ubuntu/dev/wp-config.php /var/www/html/
+rm latest.zip
+# remove below moves
+# sudo mv /home/ubuntu/wordpress/* /var/www/html/
+# sudo mv /home/ubuntu/dev/wp-config.php /var/www/html/
 
 
 # install nginx
-sudo apt install nginx
-sudo systemctl enable nginx
-sudo systemctl status nginx
-# To test sandbox add below in /etc/hosts
+apt install nginx
+systemctl enable nginx
+systemctl status nginx
+# To test sandbox add below in /etc/hosts and /etc/cloud/templates/hosts.debian.tmpl
 # 127.0.0.1 scwordpress.com
 # 127.0.0.1 sccdb.com
 # 127.0.0.1 www.scwordpress.com
 # 127.0.0.1 www.sccdb.com
 
 # configure nginx
-sudo unlink /etc/nginx/sites-enabled/default
-sudo mv /home/ubuntu/nginx_cdbsites.com /etc/nginx/sites-available
-sudo ln -s /etc/nginx/sites-available/nginx_cdbsites.com /etc/nginx/sites-enabled/
-sudo chown -R www-data:www-data /var/www/html/
-sudo nginx -t # test syntax
-sudo systemctl reload nginx
+unlink /etc/nginx/sites-enabled/default
+cp /opt/central_masjid_dashboard/scripts/nginx_cdbsites.com /etc/nginx/sites-available
+ln -s /etc/nginx/sites-available/nginx_cdbsites.com /etc/nginx/sites-enabled/
+chown -R www-data:www-data /opt/central_masjid_dashboard/wordpress
+nginx -t # test syntax
+systemctl reload nginx
 
 # TODO: restart and check if wordpress and masjid dashboard comes up
 
