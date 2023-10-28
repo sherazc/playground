@@ -12,10 +12,19 @@ mv /home/ubuntu/dev/central_masjid_dashboard /opt/
 # install JDK
 mkdir -p /home/ubuntu/dev/jdk
 cd /home/ubuntu/dev/jdk
+# https://jdk.java.net/21/
+
+# ARM64
 wget https://download.java.net/java/GA/jdk21/fd2272bbf8e04c3dbaee13770090416c/35/GPL/openjdk-21_linux-aarch64_bin.tar.gz
 tar -xvzf openjdk-21_linux-aarch64_bin.tar.gz
-mv /home/ubuntu/dev/jdk/jdk-21 /opt/central_masjid_dashboard/
 
+# X86_64
+wget https://download.java.net/java/GA/jdk21.0.1/415e3f918a1f4062a0074a2794853d0d/12/GPL/openjdk-21.0.1_linux-x64_bin.tar.gz
+tar -xvzf openjdk-21.0.1_linux-x64_bin.tar.gz
+mv jdk-21.0.1 jdk-21
+
+mv /home/ubuntu/dev/jdk/jdk-21 /opt/central_masjid_dashboard/
+cd ..
 rm -rf /home/ubuntu/dev/jdk
 nano /etc/profile
 # Add below lines at the end of /etc/profile file
@@ -32,7 +41,7 @@ update-alternatives --display javac
 
 sudo -i
 
-apt update && sudo apt upgrade
+apt update && apt upgrade
 
 # Swap file
 swapon --show
@@ -52,6 +61,7 @@ curl -fsSL https://pgp.mongodb.com/server-7.0.asc | \
    sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg \
    --dearmor
 
+# this works for both x86_64 and arm64
 echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
 
 apt-get update
@@ -76,8 +86,8 @@ nano /etc/mongod.conf
 chown -R mongodb:mongodb /opt/central_masjid_dashboard/data/mongodb*
 
 systemctl start mongod.service
-systemctl status mongod.service
 systemctl enable mongod.service
+systemctl status mongod.service
 
 # Restore
 cd /opt/central_masjid_dashboard/data-backup
