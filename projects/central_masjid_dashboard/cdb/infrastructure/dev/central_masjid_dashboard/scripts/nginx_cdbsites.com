@@ -10,7 +10,7 @@ server {
   root /opt/central_masjid_dashboard/wordpress/;
   index index.php index.html index.htm index.nginx-debian.html;
 
-  server_name scwordpress.com www.scwordpress.com;
+  server_name bitsegment.com www.bitsegment.com;
 
   location = /favicon.ico {
     log_not_found off;
@@ -50,7 +50,7 @@ server {
 # Tomcat Proxy pass
 server {
   listen 80;
-  server_name sccdb.com www.sccdb.com;
+  server_name mdb.bitsegment.com cdb.bitsegment.com;
 
   # spring boot sets X-Frame-Options=deny header
   # because of which <iframe> was not working
