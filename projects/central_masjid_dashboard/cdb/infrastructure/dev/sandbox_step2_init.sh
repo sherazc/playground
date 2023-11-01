@@ -166,25 +166,8 @@ chown -R www-data:www-data /opt/central_masjid_dashboard/wordpress
 nginx -t # test syntax
 systemctl reload nginx
 
-# TODO: restart and check if wordpress and masjid dashboard comes up
 
-# Make sure python3 is installed
-python3 --version
-
-# TODO: install certbot
-
-
-http://54.227.143.121:8085
-
-http://54.227.143.121
-
-http://ec2-54-227-143-121.compute-1.amazonaws.com
-
-http://bitsegment.com
-
-http://www.bitsegment.com
-
-http://mdb.bitsegment.com
-
-http://cdb.bitsegment.com
-
+snap install --classic certbot
+ln -s /snap/bin/certbot /usr/bin/certbot
+certbot --nginx
+certbot renew --dry-run
