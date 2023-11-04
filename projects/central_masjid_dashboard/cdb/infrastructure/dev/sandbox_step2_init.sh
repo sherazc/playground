@@ -166,7 +166,9 @@ chown -R www-data:www-data /opt/central_masjid_dashboard/wordpress
 nginx -t # test syntax
 systemctl reload nginx
 
-
+# Install Certbot
+# https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal&tab=standard
+# Logs /var/log/letsencrypt/letsencrypt.log
 snap install --classic certbot
 ln -s /snap/bin/certbot /usr/bin/certbot
 certbot --nginx
