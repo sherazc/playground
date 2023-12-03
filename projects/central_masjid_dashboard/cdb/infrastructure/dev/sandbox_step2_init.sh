@@ -118,7 +118,7 @@ nano /etc/mysql/mysql.conf.d/mysqld.cnf
 # There are data, socket, logs, process, change owner and client files
 # By default mysql.service is enabled and started
 mysql_secure_installation
-# dont install VALIDATE PASSWORD PLUGIN. Keep password validation low=0
+# dont install "VALIDATE PASSWORD COMPONENT". Keep password validation low=0
 
 # setup mysql user
 sudo mysql
@@ -137,15 +137,15 @@ nano /etc/php/8.1/fpm/php.ini
 # upload_max_filesize = 20M
 # post_max_size = 21M
 
+# restart machine to take above php change to take effect
+
+
 # install wordpress
 cd /opt/central_masjid_dashboard
 wget https://wordpress.org/latest.zip
 apt install zip unzip
 unzip latest.zip
 rm latest.zip
-# remove below moves
-# sudo mv /home/ubuntu/wordpress/* /var/www/html/
-# sudo mv /home/ubuntu/dev/wp-config.php /var/www/html/
 
 
 # install nginx
