@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.sc.sb</groupId>
-	<artifactId>spring-boot-jwt-auth-roles</artifactId>
+	<artifactId>app10-jwt-auth-roles</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>spring-boot-jwt-auth-roles</name>
+	<name>app10-jwt-auth-roles</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>

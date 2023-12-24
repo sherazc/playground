@@ -89,6 +89,10 @@ systemctl start mongod.service
 systemctl enable mongod.service
 systemctl status mongod.service
 
+####################
+# Hold start
+###################
+
 # Restore
 cd /opt/central_masjid_dashboard/data-backup
 nano db-restore.sh
@@ -107,6 +111,10 @@ systemctl start cdb
 systemctl status cdb
 # Use journalctl to see logs
 # journalctl -u cdb
+
+####################
+# Hold end
+###################
 
 
 # install mysql db
@@ -147,6 +155,9 @@ apt install zip unzip
 unzip latest.zip
 rm latest.zip
 
+####################
+# Hold start 2
+###################
 
 # install nginx
 apt install nginx

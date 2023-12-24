@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.greglturnquist</groupId>
-	<artifactId>react-and-spring-data-rest</artifactId>
+	<artifactId>app11-react-and-spring-data-rest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
