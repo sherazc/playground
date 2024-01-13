@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: AWS Serverless Spring Boot 2 API - com.sc.sb3.lambda::app12_sb3_lambda
+Globals:
+  Api:
+    EndpointConfiguration: REGIONAL
+
+Resources:
+  App12_sb3_lambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: com.sc.sb3.lambda.StreamLambdaHandler::handleRequest
+      Runtime: java17
+      CodeUri: .
+      MemorySize: 512
+      Policies: AWSLambdaBasicExecutionRole
+      Timeout: 30
+      Events:
+        ProxyResource:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: any
+
+Outputs:
+  App12_sb3_lambdaApi:
+    Description: URL for application
+    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/ping'
+    Export:
+      Name: App12_sb3_lambdaApi
