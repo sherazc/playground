@@ -1,6 +1,5 @@
 package com.sc.sb.auth.config;
 
-import com.sc.sb.auth.entity.ScRole;
 import com.sc.sb.auth.entity.ScUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,9 +13,9 @@ import java.util.stream.Collectors;
 public class AuthenticatedUserDetail implements UserDetails {
 
     private final ScUser scUser;
-    private final List<ScRole> scRoles;
+    private final List<String> scRoles;
 
-    public AuthenticatedUserDetail(ScUser scUser, List<ScRole> scRoles) {
+    public AuthenticatedUserDetail(ScUser scUser, List<String> scRoles) {
         this.scUser = scUser;
         this.scRoles = scRoles;
     }
@@ -24,7 +23,6 @@ public class AuthenticatedUserDetail implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return scRoles.stream()
-                .map(ScRole::getRoleName)
                 .filter(Objects::nonNull)
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());

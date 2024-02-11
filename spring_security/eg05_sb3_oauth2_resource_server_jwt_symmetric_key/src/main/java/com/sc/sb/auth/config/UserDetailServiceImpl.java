@@ -29,16 +29,12 @@ public class UserDetailServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<ScUser> scUser = scUserRepository.findByUserNameIgnoreCase(username);
 
-        List<ScUserRole> scUserRoles = scUser.map(ScUser::getId)
-                .map(scUserRoleRepository::findByScUser_Id)
+        List<String> scRolesName = scUser.map(ScUser::getId)
+                .map(scUserRoleRepository::findScRolesByScUserId)
                 .orElse(List.of());
 
-        List<ScRole> scRoles = scUserRoles.stream()
-                .map(ScUserRole::getScRole)
-                .toList();
-
         return scUser
-                .map(u -> new AuthenticatedUserDetail(u, scRoles))
+                .map(u -> new AuthenticatedUserDetail(u, scRolesName))
                 .orElseThrow(() -> new UsernameNotFoundException("Can not find user: " + username));
     }
 }
