@@ -33,6 +33,7 @@ public class SecurityConfig {
     @Value("${jwt.key}")
     private String jwtKey;
 
+    /*
     @Bean
     public UserDetailsService userDetailsService() {
         // TODO: get user form database
@@ -45,7 +46,7 @@ public class SecurityConfig {
                         )
                         .build());
     }
-
+    */
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
