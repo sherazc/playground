@@ -7,20 +7,23 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class AuthenticatedUserDetail implements UserDetails {
 
     private final ScUser scUser;
+    private final List<ScRole> scRoles;
 
-    public AuthenticatedUserDetail(ScUser scUser) {
+    public AuthenticatedUserDetail(ScUser scUser, List<ScRole> scRoles) {
         this.scUser = scUser;
+        this.scRoles = scRoles;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return scUser.getScRoles().stream()
+        return scRoles.stream()
                 .map(ScRole::getRoleName)
                 .filter(Objects::nonNull)
                 .map(SimpleGrantedAuthority::new)

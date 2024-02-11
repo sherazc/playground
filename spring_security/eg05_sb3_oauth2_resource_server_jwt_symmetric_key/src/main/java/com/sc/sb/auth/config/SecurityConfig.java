@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
@@ -51,15 +52,18 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(AbstractHttpConfigurer::disable)
+                .csrf(AbstractHttpConfigurer::disable) // this is also required for "/h2-console/**"
                 // .authorizeRequests() // In SB3 it has been deprecated replaced with authorizeHttpRequests()
                 // TODO: I read few docs on ROLE_ and SCOPE_ prefix but still could not understand.
                 // https://curity.io/resources/learn/scopes-and-how-they-relate-to-claims/#the-prefix-scope
                 //  Read more docs.
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/api/auth/token").hasRole("USER") // To obtain token it must be a ROLE_USER
                         .anyRequest().hasAuthority("SCOPE_READ") // All other resources must have SCOPE_READ
                 )
+                .headers((headers) -> headers
+                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 // Disable session.
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 // TODO: Video shows OAuth2ResourceServerConfigurer.jwt()
@@ -86,7 +90,7 @@ public class SecurityConfig {
     @Bean
     public JwtDecoder jwtDecoder() {
         byte[] bytes = jwtKey.getBytes();
-        SecretKeySpec originalKey = new SecretKeySpec(bytes, 0, bytes.length,"RSA");
+        SecretKeySpec originalKey = new SecretKeySpec(bytes, 0, bytes.length, "RSA");
         return NimbusJwtDecoder.withSecretKey(originalKey).macAlgorithm(MacAlgorithm.HS512).build();
     }
 
