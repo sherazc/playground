@@ -1,8 +1,6 @@
 package com.sc.sb.auth.config;
 
-import com.sc.sb.auth.entity.ScRole;
 import com.sc.sb.auth.entity.ScUser;
-import com.sc.sb.auth.entity.ScUserRole;
 import com.sc.sb.auth.repository.ScUserRepository;
 import com.sc.sb.auth.repository.ScUserRoleRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {

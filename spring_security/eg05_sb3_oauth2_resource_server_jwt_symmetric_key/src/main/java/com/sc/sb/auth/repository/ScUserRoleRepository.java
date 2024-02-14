@@ -1,6 +1,5 @@
 package com.sc.sb.auth.repository;
 
-import com.sc.sb.auth.entity.ScRole;
 import com.sc.sb.auth.entity.ScUserRole;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
