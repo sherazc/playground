@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class AuthenticatedUserDetail implements UserDetails {
+public class ScUserDetail implements UserDetails {
 
     private final ScUser scUser;
     private final List<String> scRoles;
 
-    public AuthenticatedUserDetail(ScUser scUser, List<String> scRoles) {
+    public ScUserDetail(ScUser scUser, List<String> scRoles) {
         this.scUser = scUser;
         this.scRoles = scRoles;
     }

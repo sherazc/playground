@@ -12,12 +12,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserDetailServiceImpl implements UserDetailsService {
+public class ScUserDetailServiceImpl implements UserDetailsService {
 
     private final ScUserRepository scUserRepository;
     private final ScUserRoleRepository scUserRoleRepository;
 
-    public UserDetailServiceImpl(ScUserRepository scUserRepository, ScUserRoleRepository scUserRoleRepository) {
+    public ScUserDetailServiceImpl(ScUserRepository scUserRepository, ScUserRoleRepository scUserRoleRepository) {
         this.scUserRepository = scUserRepository;
         this.scUserRoleRepository = scUserRoleRepository;
     }
@@ -31,7 +31,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
                 .orElse(List.of());
 
         return scUser
-                .map(u -> new AuthenticatedUserDetail(u, scRolesName))
+                .map(u -> new ScUserDetail(u, scRolesName))
                 .orElseThrow(() -> new UsernameNotFoundException("Can not find user: " + username));
     }
 }

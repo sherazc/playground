@@ -14,11 +14,11 @@ import java.time.temporal.ChronoUnit;
 import java.util.stream.Collectors;
 
 @Service
-public class TokenService {
+public class ScTokenGeneratorService {
 
     private final JwtEncoder encoder;
 
-    public TokenService(JwtEncoder encoder) {
+    public ScTokenGeneratorService(JwtEncoder encoder) {
         this.encoder = encoder;
     }
 
