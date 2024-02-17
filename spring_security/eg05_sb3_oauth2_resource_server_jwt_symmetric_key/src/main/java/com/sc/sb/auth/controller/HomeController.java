@@ -7,8 +7,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HomeController {
 
-    @GetMapping("/home")
-    public String home(Authentication authentication) {
-        return "Hello " + authentication.getName();
+    @GetMapping("/admin_user_read_write")
+    public String admin_user_read_write(Authentication authentication) {
+        return "admin_user_read_write = " + authentication.getName();
+    }
+
+    @GetMapping("/user_read_write")
+    public String user_read_write(Authentication authentication) {
+        return "admin_user_read_write = " + authentication.getName();
+    }
+
+    @GetMapping("/user_read")
+    public String user_read(Authentication authentication) {
+        return "user_read = " + authentication.getName();
     }
 }
