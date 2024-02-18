@@ -10,6 +10,24 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * DTO Object used by Spring Security. When authenticating in Spring Security uses this DTO to get users:
+ * - Active,
+ * - Roles/Authorities
+ * - Password
+ * - Any other custom data
+ *
+ * org.springframework.security.core.userdetails.UserDetails is used to create
+ * org.springframework.security.core.Authentication
+ *
+ * Authentication is the main Object that is used by Spring Security's Security Context.
+ *
+ * Authentication Object can be DI. It contains current user's:
+ * - Username
+ * - is authenticated
+ * - password
+ * - Roles/Authorities
+ */
 public class ScUserDetail implements UserDetails {
 
     private final ScUser scUser;

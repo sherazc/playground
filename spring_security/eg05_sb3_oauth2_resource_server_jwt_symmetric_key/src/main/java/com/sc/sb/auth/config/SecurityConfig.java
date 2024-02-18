@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 
 @Configuration
 @EnableWebSecurity(
-        // debug = true // Works is future releases not in 3.2.2
+        // debug = true // Will work in future releases not in 3.2.2
         // https://github.com/spring-projects/spring-security/issues/14370
 )
 // @EnableGlobalMethodSecurity  - Deprecated. Use @EnableMethodSecurity instead.
@@ -45,10 +45,15 @@ import java.util.stream.Collectors;
 )
 public class SecurityConfig {
 
+    /**
+     * Note this is key is used in both JwtEncoder and JwtDecoder this makes it symmetric key encryption.
+     * Same key is used to create JWT (sign JWT in JwtEncoder) and verify JWT signature (in JwtDecoder).
+     */
     @Value("${jwt.key}")
     private String jwtKey;
 
     /*
+    // Extracted into ScUserDetailServiceImpl. It uses Database instead of in-memory.
     @Bean
     public UserDetailsService userDetailsService() {
         // TODO: get user form database
@@ -68,15 +73,14 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable) // this is also required for "/h2-console/**"
                 // .authorizeRequests() // In SB3 it has been deprecated replaced with authorizeHttpRequests()
-                // TODO: I read few docs on ROLE_ and SCOPE_ prefix but still could not understand.
-                // https://curity.io/resources/learn/scopes-and-how-they-relate-to-claims/#the-prefix-scope
-                //  Read more docs.
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/h2-console/**").permitAll()
-                        // Removed this because doing method security
+                        // Removed roles and request checking on endpoints because using method security
                         // .requestMatchers("/api/auth/token").hasRole("USER") // To obtain token it must be a ROLE_USER
                         .anyRequest().authenticated() // All other resources must be authenticated
                 )
+                // this is also required for "/h2-console/**"
+                // I also had to use this in MDB for iFrame to open in different domain
                 .headers((headers) -> headers
                         .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 // Disable session.
@@ -88,24 +92,22 @@ public class SecurityConfig {
                 //  https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/config/annotation/web/configurers/oauth2/server/resource/OAuth2ResourceServerConfigurer.html#jwt()
                 //  https://stackoverflow.com/questions/76339307/spring-security-deprecated-issue
                 //  .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
-                //  Go through this reference doc. But it still had deprecated example
+                //  Went through this reference doc. It still contains deprecated example.
                 //  https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html
                 // .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(getJwtAuthenticationConverter())))
+                // Login strategy will be HTTP Basic
                 .httpBasic(Customizer.withDefaults())
                 .build();
     }
 
 
     /**
-     * If we use this line:
+     * In SecurityFilterChain configuration If we use this line:
      *  .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
-     * Then by default when the request receives Bearer JWT token with scope
-     * Then all scopes get the prefix SCOPE_ in the Authorities
-     *
-     * To avoid above we can create custom
-     *
-     * @return
+     * Then by default when a request receives Bearer JWT token with scope claim
+     * Then all scopes get the prefix SCOPE_ in the Authorities.
+     * To avoid above we can create custom.
      */
     private Converter<Jwt, AbstractAuthenticationToken> getJwtAuthenticationConverter() {
         JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
@@ -121,17 +123,24 @@ public class SecurityConfig {
     }
 
 
+    /**
+     * Used by ScTokenGeneratorService to generate token.
+     * Not required by Spring security. Only needed if this application is also responsible
+     * generating tokens.
+     */
     @Bean
     public JwtEncoder jwtEncoder() {
         return new NimbusJwtEncoder(new ImmutableSecret<>(jwtKey.getBytes()));
     }
 
 
+    /**
+     * Required by Spring security. Used to validate JWT token signature.
+     */
     @Bean
     public JwtDecoder jwtDecoder() {
         byte[] bytes = jwtKey.getBytes();
         SecretKeySpec originalKey = new SecretKeySpec(bytes, 0, bytes.length, "RSA");
         return NimbusJwtDecoder.withSecretKey(originalKey).macAlgorithm(MacAlgorithm.HS512).build();
     }
-
 }
