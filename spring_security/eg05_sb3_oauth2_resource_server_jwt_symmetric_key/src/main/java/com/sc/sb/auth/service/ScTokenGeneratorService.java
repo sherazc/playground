@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,7 +24,7 @@ public class ScTokenGeneratorService {
     }
 
 
-    public String generateToken(Authentication authentication) {
+    public String generateToken(Authentication authentication, String[] requestedScopes) {
         Instant now = Instant.now();
 
         /*
@@ -36,10 +37,10 @@ public class ScTokenGeneratorService {
            That because: Purpose of the JWT token is to use scope to give access only to the resources that users
            want to use. DO NOT put all the roles/scopes that user has in the JWT.
         */
-
+        List<String> requestedScopeList = List.of(requestedScopes);
         String scope = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
-                .filter(authority -> !authority.startsWith("ROLE"))
+                .filter(requestedScopeList::contains) // Add only the requested scopes
                 .collect(Collectors.joining(" "));
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("self")
