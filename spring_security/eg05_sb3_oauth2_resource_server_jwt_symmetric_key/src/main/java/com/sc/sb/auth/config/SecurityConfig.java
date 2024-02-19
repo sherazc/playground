@@ -108,6 +108,21 @@ public class SecurityConfig {
      * Then by default when a request receives Bearer JWT token with scope claim
      * Then all scopes get the prefix SCOPE_ in the Authorities.
      * To avoid above we can create custom.
+     *
+     * ScTokenGeneratorService.generateToken() is loading roles and authorities in this "scope" claims.
+     * This is recommendation not required.
+     *
+     * The name that has ROLE_ prefix will be loaded as Roles
+     * The name without ROLE_ prefix will be loaded as Authorities
+     *
+     * E.g.
+     * If authority name is ROLE_ADMIN it can be checked like:
+     *  - @PreAuthorize("hasRole('ADMIN')")
+     *  - @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+     *
+     * If authority name is MYAPP_ADMIN it can be checked like:
+     *  - @PreAuthorize("hasAuthority('MYAPP_ADMIN')")
+     *
      */
     private Converter<Jwt, AbstractAuthenticationToken> getJwtAuthenticationConverter() {
         JwtAuthenticationConverter converter = new JwtAuthenticationConverter();

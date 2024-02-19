@@ -35,9 +35,7 @@ public class ScUserDetailServiceImpl implements UserDetailsService {
         Optional<ScUser> scUser = scUserRepository.findByUserNameIgnoreCase(username);
 
         /*
-        The name that has ROLE_ prefix will be loaded as Roles
-        The name without ROLE_ prefix will be loaded as Authorities
-        By default Authorities will be present in JWT's scope
+
          */
 
         List<String> scRolesName = scUser.map(ScUser::getId)

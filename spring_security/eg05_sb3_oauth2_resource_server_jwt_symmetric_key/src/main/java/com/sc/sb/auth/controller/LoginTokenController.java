@@ -31,7 +31,7 @@ public class LoginTokenController {
      * @return JWT
      */
     @GetMapping("/token")
-    // Custom business logic to only let user to use this endpoint who have ROLE_USER
+    // Custom business logic to only let user use this endpoint who have ROLE_USER
     @PreAuthorize("hasRole('USER')")
     public String token(Authentication authentication, @RequestParam String[] requestedScopes) {
         return scTokenGeneratorService.generateToken(authentication, requestedScopes);
