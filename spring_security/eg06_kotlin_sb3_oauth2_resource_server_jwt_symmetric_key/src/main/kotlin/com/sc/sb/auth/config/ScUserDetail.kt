@@ -7,10 +7,10 @@ import org.springframework.security.core.userdetails.UserDetails
 
 class ScUserDetail(
     private val scUser: ScUser,
-    private val scRoles: List<String>
+    private val scRoles: Collection<String>
 ) : UserDetails {
     override fun getAuthorities(): Collection<GrantedAuthority> = scRoles
-        .filter { Objects.nonNull(it) }
+        .filter { it.isNotBlank() }
         .map { SimpleGrantedAuthority(it) }
 
     override fun getPassword(): String = scUser.userPassword

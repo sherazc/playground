@@ -5,6 +5,7 @@ import com.sc.sb.auth.repository.ScUserRepository
 import com.sc.sb.auth.repository.ScUserRoleRepository
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
+import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
 import java.util.Optional
 
@@ -25,8 +26,8 @@ class ScUserDetailServiceImpl(
             .orElse(listOf())
 
 
-        scUser
+        return scUser
             .map { ScUserDetail(it, scRoleName) }
-        TODO("Not yet implemented")
+            .orElseThrow { UsernameNotFoundException("Can not find user: $username") }
     }
 }
