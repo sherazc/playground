@@ -1,34 +1,22 @@
 package com.sc.sb.auth.config
 
+import com.sc.sb.auth.entity.ScUser
 import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
-class ScUserDetail: UserDetails{
-    override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
-        TODO("Not yet implemented")
-    }
+class ScUserDetail(
+    private val scUser: ScUser,
+    private val scRoles: List<String>
+) : UserDetails {
+    override fun getAuthorities(): Collection<GrantedAuthority> = scRoles
+        .filter { Objects.nonNull(it) }
+        .map { SimpleGrantedAuthority(it) }
 
-    override fun getPassword(): String {
-        TODO("Not yet implemented")
-    }
-
-    override fun getUsername(): String {
-        TODO("Not yet implemented")
-    }
-
-    override fun isAccountNonExpired(): Boolean {
-        TODO("Not yet implemented")
-    }
-
-    override fun isAccountNonLocked(): Boolean {
-        TODO("Not yet implemented")
-    }
-
-    override fun isCredentialsNonExpired(): Boolean {
-        TODO("Not yet implemented")
-    }
-
-    override fun isEnabled(): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun getPassword(): String = scUser.userPassword
+    override fun getUsername(): String = scUser.userName
+    override fun isAccountNonExpired(): Boolean = true
+    override fun isAccountNonLocked(): Boolean = true
+    override fun isCredentialsNonExpired(): Boolean = true
+    override fun isEnabled(): Boolean = true
 }

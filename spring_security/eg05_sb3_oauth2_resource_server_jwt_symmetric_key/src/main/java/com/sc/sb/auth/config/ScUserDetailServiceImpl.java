@@ -34,10 +34,6 @@ public class ScUserDetailServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<ScUser> scUser = scUserRepository.findByUserNameIgnoreCase(username);
 
-        /*
-
-         */
-
         List<String> scRolesName = scUser.map(ScUser::getId)
                 .map(scUserRoleRepository::findScRolesByScUserId)
                 .orElse(List.of());

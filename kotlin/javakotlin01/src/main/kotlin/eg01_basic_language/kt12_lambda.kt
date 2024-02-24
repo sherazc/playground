@@ -37,5 +37,7 @@ fun main() {
     // Using builtin kotlin java functions that expects lambda
     val strings = listOf("a", "b", "c")
     println(Collections.max((strings), { a, b -> a.compareTo(b) }))
+
+    // For trailing lambdas () parenthesis are not required. we just need curly braces
     println(Collections.max(strings) { a, b -> a.compareTo(b) })
 }

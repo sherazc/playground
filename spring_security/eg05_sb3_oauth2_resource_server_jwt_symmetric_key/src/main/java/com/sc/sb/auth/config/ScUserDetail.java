@@ -43,7 +43,7 @@ public class ScUserDetail implements UserDetails {
         return scRoles.stream()
                 .filter(Objects::nonNull)
                 .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
