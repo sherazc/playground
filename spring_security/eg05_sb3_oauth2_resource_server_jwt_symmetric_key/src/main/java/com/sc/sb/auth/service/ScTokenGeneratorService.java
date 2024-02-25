@@ -27,10 +27,12 @@ public class ScTokenGeneratorService {
         Instant now = Instant.now();
 
         List<String> requestedScopeList = List.of(requestedScopes);
+
         String scope = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .filter(requestedScopeList::contains) // Add only the requested scopes
                 .collect(Collectors.joining(" "));
+
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("self")
                 .issuedAt(now)
@@ -38,7 +40,9 @@ public class ScTokenGeneratorService {
                 .subject(authentication.getName())
                 .claim("scope", scope)
                 .build();
+
         var encoderParameters = JwtEncoderParameters.from(JwsHeader.with(MacAlgorithm.HS512).build(), claims);
+
         return this.encoder.encode(encoderParameters).getTokenValue();
     }
 
