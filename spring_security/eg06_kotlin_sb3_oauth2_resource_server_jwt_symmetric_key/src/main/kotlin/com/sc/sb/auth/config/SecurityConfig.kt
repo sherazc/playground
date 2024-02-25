@@ -63,8 +63,10 @@ class SecurityConfig(
 
         converter.setJwtGrantedAuthoritiesConverter { jwt ->
             val scopesString = jwt.getClaim<String>("scope")
-            // Last lambda line has implicit return.
-            scopesString.split("\\s")
+            // Unlike Java, we have to use String.toRegex()
+            // In kotlin there are 2 different overloaded splits.
+            // One with string delimiter and other with regex
+            scopesString.split("\\s".toRegex())
                 .map { scope -> SimpleGrantedAuthority(scope) }
         }
 
