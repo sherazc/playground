@@ -54,6 +54,7 @@ class SecurityConfig(
                     jwt.jwtAuthenticationConverter(getJwtAuthenticationConverter())
                 }
             }
+            .httpBasic { }
             .build();
     }
 
