@@ -1,5 +1,6 @@
-package com.sc.sb.auth
+package com.sc.sb.auth.controller
 
+import com.sc.sb.auth.service.ScTokenGeneratorService
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.GetMapping
