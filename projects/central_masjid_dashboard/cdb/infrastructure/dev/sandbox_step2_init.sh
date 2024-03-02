@@ -12,14 +12,15 @@ mv /home/ubuntu/dev/central_masjid_dashboard /opt/
 # install JDK
 mkdir -p /home/ubuntu/dev/jdk
 cd /home/ubuntu/dev/jdk
-# https://jdk.java.net/21/
+# To get the latest Open JDK download link go to this site:
+# https://jdk.java.net
 
 # ARM64
-wget https://download.java.net/java/GA/jdk21/fd2272bbf8e04c3dbaee13770090416c/35/GPL/openjdk-21_linux-aarch64_bin.tar.gz
+wget https://download.java.net/java/GA/jdk21.0.2/f2283984656d49d69e91c558476027ac/13/GPL/openjdk-21.0.2_linux-aarch64_bin.tar.gz
 tar -xvzf openjdk-21_linux-aarch64_bin.tar.gz
 
 # X86_64
-wget https://download.java.net/java/GA/jdk21.0.1/415e3f918a1f4062a0074a2794853d0d/12/GPL/openjdk-21.0.1_linux-x64_bin.tar.gz
+wget https://download.java.net/java/GA/jdk21.0.2/f2283984656d49d69e91c558476027ac/13/GPL/openjdk-21.0.2_linux-x64_bin.tar.gz
 tar -xvzf openjdk-21.0.1_linux-x64_bin.tar.gz
 mv jdk-21.0.1 jdk-21
 
@@ -89,10 +90,6 @@ systemctl start mongod.service
 systemctl enable mongod.service
 systemctl status mongod.service
 
-####################
-# Hold start
-###################
-
 # Restore
 cd /opt/central_masjid_dashboard/data-backup
 nano db-restore.sh
@@ -111,11 +108,6 @@ systemctl start cdb
 systemctl status cdb
 # Use journalctl to see logs
 # journalctl -u cdb
-
-####################
-# Hold end
-###################
-
 
 # install mysql db
 apt install mysql-server
