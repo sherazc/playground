@@ -8,15 +8,19 @@ import java.util.List;
 public abstract class FileLineReaders {
 
     public List<String> readLines(String fileName) {
+        return this.readLines(fileName, true);
+    }
+
+    public List<String> readLines(String fileName, boolean skipFirstLine) {
         List<String> lines = new ArrayList<>();
         try {
 
             BufferedReader bufferedReader = openReader(fileName);
             String line;
-            boolean skipFirstLine = true;
+            boolean skipedFirstLine = !skipFirstLine;
             while ((line = bufferedReader.readLine()) != null) {
-                if (skipFirstLine) {
-                    skipFirstLine = false;
+                if (!skipedFirstLine) {
+                    skipedFirstLine = true;
                     continue;
                 }
                 lines.add(line);

@@ -29,14 +29,41 @@ public class Main {
                 changedLines.forEach(System.out::println);
             }
         } else {
-            System.out.println("Usage:");
-            System.out.println(
-                    "java -jar pt-batch.jar <command> <file name> <from date> <to date> <column - 0 is the first> <time/minutes>"
-            );
-            System.out.println("Example:");
-            System.out.println(
-                    "java -jar pt-batch.jar add /Users/sheraz/dev/playground/projects/pt_batch_update/src/main/resources/pt.txt 01/03 01/10 1 1"
-            );
+            String guide = """
+                    PRAYER TIME - BATCH UPDATE
+                    This command only prints out modified content.
+                    To put the output in a file use bash >> operator.
+                    ###########
+                    usage:
+                    java -jar pt-batch.jar <command> <file name> <from date> <to date> <column - 0 is the first> <time/minutes>\s
+                    ###########
+                    Commands: add fix
+                    ###########
+                    Columns:
+                    0  = Date
+                    1  = Fajr,
+                    2  = Fajr Iqama,
+                    3  = Dhuhr,
+                    4  = Dhuhr Iqama,
+                    5  = Asr,
+                    6  = Asr Iqama,
+                    7  = Maghrib,
+                    8  = Maghrib Iqama,
+                    9  = Isha,
+                    10 = Isha Iqama,
+                    11 = Sunrise
+                    ###########
+                    Example, To add 1 min to maghrib time:
+                    java -jar \\
+                        pt-batch.jar \\
+                        add \\
+                        mdb_prayers_20240310_Hamzah_Islamic_Center.txt \\
+                        01/01 12/31 \\
+                        7 1 >> mdb_prayers_20240310_Hamzah_Islamic_Center_update_time.txt
+                    ###########
+                    """;
+
+            System.out.println(guide);
         }
     }
 
