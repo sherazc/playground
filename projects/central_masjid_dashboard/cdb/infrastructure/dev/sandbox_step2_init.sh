@@ -16,24 +16,24 @@ cd /home/ubuntu/dev/jdk
 # https://jdk.java.net
 
 # ARM64
-wget https://download.java.net/java/GA/jdk21.0.2/f2283984656d49d69e91c558476027ac/13/GPL/openjdk-21.0.2_linux-aarch64_bin.tar.gz
-tar -xvzf openjdk-21_linux-aarch64_bin.tar.gz
+wget https://download.java.net/java/GA/jdk22/830ec9fcccef480bb3e73fb7ecafe059/36/GPL/openjdk-22_linux-aarch64_bin.tar.gz
+tar -xvzf openjdk-22_linux-aarch64_bin.tar.gz
 
 # X86_64
-wget https://download.java.net/java/GA/jdk21.0.2/f2283984656d49d69e91c558476027ac/13/GPL/openjdk-21.0.2_linux-x64_bin.tar.gz
-tar -xvzf openjdk-21.0.1_linux-x64_bin.tar.gz
-mv jdk-21.0.1 jdk-21
+wget https://download.java.net/java/GA/jdk22/830ec9fcccef480bb3e73fb7ecafe059/36/GPL/openjdk-22_linux-x64_bin.tar.gz
+tar -xvzf openjdk-22_linux-x64_bin.tar.gz
+mv jdk-22 jdk-22
 
-mv /home/ubuntu/dev/jdk/jdk-21 /opt/central_masjid_dashboard/
+mv /home/ubuntu/dev/jdk/jdk-22 /opt/central_masjid_dashboard/
 cd ..
 rm -rf /home/ubuntu/dev/jdk
 nano /etc/profile
 # Add below lines at the end of /etc/profile file
-# export JAVA_HOME=/opt/central_masjid_dashboard/jdk-21
+# export JAVA_HOME=/opt/central_masjid_dashboard/jdk-22
 # export MY_PATH="$JAVA_HOME/bin"
 # export PATH=$MY_PATH:$PATH
-update-alternatives --install /usr/bin/java java /opt/central_masjid_dashboard/jdk-21/bin/java 100
-update-alternatives --install /usr/bin/javac javac /opt/central_masjid_dashboard/jdk-21/bin/javac 100
+update-alternatives --install /usr/bin/java java /opt/central_masjid_dashboard/jdk-22/bin/java 100
+update-alternatives --install /usr/bin/javac javac /opt/central_masjid_dashboard/jdk-22/bin/javac 100
 update-alternatives --display java
 update-alternatives --display javac
 
@@ -139,17 +139,12 @@ nano /etc/php/8.1/fpm/php.ini
 
 # restart machine to take above php change to take effect
 
-
 # install wordpress
 cd /opt/central_masjid_dashboard
 wget https://wordpress.org/latest.zip
 apt install zip unzip
 unzip latest.zip
 rm latest.zip
-
-####################
-# Hold start 2
-###################
 
 # install nginx
 apt install nginx
