@@ -67,7 +67,7 @@ public class PrayerServiceImpl implements PrayerService {
                 mergeExistingIqamahTimes(prayerConfig);
             }
             int todayYear = CdbDateUtils.todayUtc().get(Calendar.YEAR);
-            prayerConfigDstApplier.addHour(prayerConfig, todayYear, 1);
+            prayerConfigDstApplier.addHoursToDstPeriod(prayerConfig, todayYear, 1);
 
             serviceResponseBuilder.successful(true);
             serviceResponseBuilder.target(prayerConfig);

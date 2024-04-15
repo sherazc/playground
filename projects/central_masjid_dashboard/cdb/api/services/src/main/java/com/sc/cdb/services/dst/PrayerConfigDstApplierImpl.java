@@ -20,7 +20,7 @@ public class PrayerConfigDstApplierImpl implements PrayerConfigDstApplier {
     }
 
     @Override
-    public void addHour(PrayerConfig prayerConfig, int year, int hoursCount) {
+    public void addHoursToDstPeriod(PrayerConfig prayerConfig, int year, int hoursCount) {
         if (!shouldApplyDst(prayerConfig)) {
             return;
         }

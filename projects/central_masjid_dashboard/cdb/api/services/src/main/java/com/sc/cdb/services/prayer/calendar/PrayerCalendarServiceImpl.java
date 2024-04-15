@@ -111,7 +111,7 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
             return response.build();
         }
 
-        prayerConfigDstApplier.addHour(prayerConfigOptional.get(), userYear, 1);
+        prayerConfigDstApplier.addHoursToDstPeriod(prayerConfigOptional.get(), userYear, 1);
 
         List<Prayer> prayersInDb = prayerConfigOptional.get().getPrayers();
         Map<String, String> errors = prayerValidator.validatePrayers(prayersInDb);

@@ -376,7 +376,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
 
         int todayYear = CdbDateUtils.todayUtc().get(Calendar.YEAR);
 
-        prayerConfigDstApplier.addHour(prayerConfig, todayYear, -1);
+        prayerConfigDstApplier.addHoursToDstPeriod(prayerConfig, todayYear, -1);
 
         Map<String, String> fieldErrors = prayerValidator.validatePrayers(prayerConfig.getPrayers());
 
@@ -427,7 +427,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         int todayYear = CdbDateUtils.todayUtc().get(Calendar.YEAR);
 
         prayerConfigOptional.ifPresent(prayerConfig
-                -> prayerConfigDstApplier.addHour(prayerConfig, todayYear, 1));
+                -> prayerConfigDstApplier.addHoursToDstPeriod(prayerConfig, todayYear, 1));
         return prayerConfigOptional;
     }
 
