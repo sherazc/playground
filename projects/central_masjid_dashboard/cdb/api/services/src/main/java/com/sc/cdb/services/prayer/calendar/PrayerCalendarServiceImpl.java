@@ -31,6 +31,7 @@ import com.sc.cdb.services.dst.PrayerConfigDstApplier;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.services.prayer.PrayerComparator;
 import com.sc.cdb.services.prayer.PrayerConfigService;
+import com.sc.cdb.services.prayer.PrayerHijriSetter;
 import com.sc.cdb.utils.CdbDateUtils;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -41,16 +42,16 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PrayerCalendarServiceImpl implements PrayerCalendarService {
 
-    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+
 
     private final PrayerConfigRepository prayerConfigRepository;
     private final PrayerValidator prayerValidator;
     private final PrayerComparator prayerComparator;
-    private final GregorianHijriConverter gregorianHijriConverter;
     private final CustomConfigurationsService customConfigurationsService;
     private final CompanyRepository companyRepository;
     private final PrayerConfigDstApplier prayerConfigDstApplier;
     private final PrayerConfigService prayerConfigService;
+    private final PrayerHijriSetter prayerHijriSetter;
 
     @Override
     public ServiceResponse<CompanyMonthPrayers> calendarByCompanyUrl(String companyUrl, CalenderType type,
@@ -150,8 +151,7 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
                     .filter(p -> this.include229onlyIfLeapYear(p, prayerCloneYear)) // filter 2/29 if not leap
                     .map(p -> p.toBuilder().build()) // Create Prayer clone
                     .map(p -> this.updatePrayerYear(p, prayerCloneYear)) // year to series year
-                    .map(p -> this.gregorianToHijri(p, hijriAdjustDays)) // set Hijrah date
-                    .map(this::hijriToHijriString)
+                    .map(p -> prayerHijriSetter.populateHijri(p, hijriAdjustDays)) // set Hijrah date and Hijrah String
                     .collect(Collectors.toList());
 
             prayers3Copies.addAll(prayersClone);
@@ -252,22 +252,7 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
         return customConfigurationsService.getIntConfig(companyId, "hijri_adjust_days", 0);
     }
 
-    private Prayer hijriToHijriString(Prayer prayer) {
-        if (prayer.getHijrahDate() != null) {
-            String hijriString = dateFormatter.format(prayer.getHijrahDate());
-            prayer.setHijriString(hijriString);
-        }
-        return prayer;
-    }
 
-    private Prayer gregorianToHijri(Prayer prayer, int hijriAdjustDays) {
-        if (prayer.getDate() != null) {
-            HijrahDate hijrahDate = gregorianHijriConverter.fromGregorian(prayer.getDate());
-            HijrahDate hijrahDateWithAdjustDays = hijrahDate.plus(hijriAdjustDays * -1, ChronoUnit.DAYS);
-            prayer.setHijrahDate(hijrahDateWithAdjustDays);
-        }
-        return prayer;
-    }
 
     private boolean include229onlyIfLeapYear(Prayer prayer, int year) {
         boolean leapYear = year % 4 == 0;
