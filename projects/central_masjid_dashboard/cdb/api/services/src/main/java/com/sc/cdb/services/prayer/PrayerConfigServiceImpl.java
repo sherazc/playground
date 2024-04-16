@@ -45,6 +45,7 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
     private final CustomConfigurationsService customConfigurationsService;
     private final DbVersionService dbVersionService;
     private final DomainMapper mapper;
+    private final PrayerHijriSetter prayerHijriSetter;
 
 
     @Override
@@ -80,12 +81,16 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
                 .orElse(false);
 
         if (valid) {
+            // Hijri Adjust Days
+            int hijriAdjustDays = getHijriAdjustDays(companyId);
             List<Prayer> twoYearPrayers = doublePrayers(prayerConfigOptional.get().getPrayers());
             Prayer prayer = findDatePrayerAndNextChange(twoYearPrayers, month, day);
             Calendar today = CdbDateUtils.todayUtc();
             setTodayYearInPrayer(prayer, today);
             fixNextYearNextChangeDates(prayer);
             overrideIqamas(companyId, Collections.singletonList(prayer));
+
+            prayerHijriSetter.populateHijri(prayer, hijriAdjustDays);
             serviceResponseBuilder
                     .target(prayer)
                     .successful(true)
@@ -110,6 +115,8 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
 
             List<Prayer> twoYearPrayers = doublePrayers(prayerConfigOptional.get().getPrayers());
             Calendar today = CdbDateUtils.todayUtc();
+            // Hijri Adjust Days
+            int hijriAdjustDays = getHijriAdjustDays(companyId);
 
             for (int i = 0; i < length; i++) {
                 Prayer originalPrayer = findDatePrayerAndNextChange(twoYearPrayers, month, day);
@@ -126,6 +133,8 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
                 fixNextYearNextChangeDates(prayer);
 
                 overrideIqamas(companyId, Collections.singletonList(prayer));
+
+                prayerHijriSetter.populateHijri(prayer, hijriAdjustDays);
                 prayersResult.add(prayer);
 
                 Date incrementPrayerDate = CdbDateUtils.addDateField(prayer.getDate(), Calendar.DATE, 1);
@@ -447,5 +456,9 @@ public class PrayerConfigServiceImpl implements PrayerConfigService {
         }
 
         return prayerConfigOptional;
+    }
+
+    private int getHijriAdjustDays(String companyId) {
+        return customConfigurationsService.getIntConfig(companyId, "hijri_adjust_days", 0);
     }
 }

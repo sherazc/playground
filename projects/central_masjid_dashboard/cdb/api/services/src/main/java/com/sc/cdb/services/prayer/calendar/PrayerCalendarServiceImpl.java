@@ -252,8 +252,6 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
         return customConfigurationsService.getIntConfig(companyId, "hijri_adjust_days", 0);
     }
 
-
-
     private boolean include229onlyIfLeapYear(Prayer prayer, int year) {
         boolean leapYear = year % 4 == 0;
         if (leapYear) {
