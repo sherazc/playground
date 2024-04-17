@@ -1,4 +1,3 @@
-/*
 package com.sc.cdb.services.prayer;
 
 import com.sc.cdb.data.dao.PrayerConfigDao;
@@ -8,15 +7,15 @@ import com.sc.cdb.data.repository.PrayerConfigRepository;
 import com.sc.cdb.services.auth.CompanyService;
 import com.sc.cdb.services.bulk.PrayerValidator;
 import com.sc.cdb.services.common.CustomConfigurationsService;
+import com.sc.cdb.services.common.GregorianHijriConverter;
+import com.sc.cdb.services.common.GregorianHijriConverterImpl;
 import com.sc.cdb.services.common.TestUtils;
 import com.sc.cdb.services.dst.PrayerConfigDstApplier;
-import com.sc.cdb.services.mapper.DomainMapper;
 import com.sc.cdb.services.mapper.DomainMapperImpl;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.services.version.DbVersionService;
 import com.sc.cdb.utils.CdbDateUtils;
 import org.bson.types.ObjectId;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -25,22 +24,36 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.*;
+import java.time.chrono.HijrahDate;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {PrayerConfigServiceImpl.class, PrayerComparator.class, DomainMapperImpl.class})
+@SpringBootTest(classes = {
+        PrayerConfigServiceImpl.class,
+        PrayerComparator.class,
+        DomainMapperImpl.class,
+        PrayerHijriSetter.class, GregorianHijriConverterImpl.class})
 class PrayerConfigServiceTest {
 
     public static final String COMPANY_ID = "5da27307f54ab6c94a693ee2";
+
     @Autowired
     private PrayerConfigService prayerConfigService;
 
     @Autowired
-    private DomainMapper domainMapper;
+    private GregorianHijriConverter gregorianHijriConverter;
 
     @MockBean
     private PrayerConfigRepository prayerConfigRepository;
@@ -202,6 +215,8 @@ class PrayerConfigServiceTest {
                 prayer.getMaghribChangeDate(), prayer.getMaghribChange());
         assertPrayerTime(today, prayer.getDate(), prayer.getIsha(), prayer.getIshaIqama(),
                 prayer.getIshaChangeDate(), prayer.getIshaChange());
+
+        assertEquals(dateToHijriString(prayerDate), prayer.getHijriString());
     }
 
     private void assertPrayerTime(Calendar today, Date prayerDate, String azan, String iqama, Date changeDate, String change) {
@@ -225,5 +240,9 @@ class PrayerConfigServiceTest {
             changeCalendar.ifPresent(c -> assertNotEquals(c, i));
         });
     }
+
+    private String dateToHijriString(Date date) {
+        HijrahDate hijrahDate = gregorianHijriConverter.fromGregorian(date);
+        return PrayerHijriSetter.dateFormatter.format(hijrahDate);
+    }
 }
-*/
