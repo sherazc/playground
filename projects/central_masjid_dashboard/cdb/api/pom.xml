@@ -106,6 +106,16 @@
             <artifactId>mapstruct</artifactId>
             <version>1.5.5.Final</version>
         </dependency>
+
+
+        <!-- Remove this after spring boot 3.2 upgrade -->
+        <dependency>
+            <groupId>io.github.classgraph</groupId>
+            <artifactId>classgraph</artifactId>
+            <version>4.8.139</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
