@@ -6,9 +6,9 @@ import "./app.css";
 import {
     time24To12,
     dateToDisplayDateShort,
-    getQueryParam
+    hijriStringToDisplayDateLong,
+    dateToDisplayDateLong
 } from "../../../ui/src/services/utilities";
-
 
 const buildWidgetHTML = (serverResponse) => {
     if (!serverResponse || !serverResponse.successful || !serverResponse.target) {
@@ -27,6 +27,14 @@ const buildWidgetHTML = (serverResponse) => {
 
     let resultHtml = `
         <div class="ptContainer">
+        <div style="padding: 10px; text-align: center">
+            <div>
+                ${dateToDisplayDateLong(prayer.date)}
+            </div>
+            <div>
+                ${hijriStringToDisplayDateLong(prayer.hijriString)}
+            </div>
+        </div>
         <div class="ptHeader">Prayer Time</div>
         <div class="ptTableContainer">
             <table class='ptTable' border='0'>

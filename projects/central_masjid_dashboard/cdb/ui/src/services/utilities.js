@@ -4,9 +4,26 @@ import moment from "moment"
 export const MONTH_NAMES = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"];
 
+const MONTH_NAMES_HIJRI = [
+    "Muharram",
+    "Safar",
+    "Rabi' Al-Awwal",
+    "Rabi' Al-Thani",
+    "Jumada Al-Awwal",
+    "Jumada Al-Thani",
+    "Rajab",
+    "Sha'ban",
+    "Ramadan",
+    "Shawwal",
+    "Dhu Al-Qi'dah",
+    "Dhu Al-Hijjah"
+];
+
 export const TIME_24_REGX = /([01]?[0-9]|2[0-3]):[0-5][0-9]/;
 
 export const MONTH_DATE_REGEX = /^(0[1-9]|1[0-2]|0?[1-9])\/(0[1-9]|[12]\d|3[01]|0?[1-9])$/;
+
+export const REGX_HIJRI_STRING = /^([0-9]{4})\/([01]?[0-9])\/([0123]?[0-9])$/;
 
 /**
  * Returns react router path parameter value
@@ -49,6 +66,21 @@ export const dateToDisplayDateLong = (date) => {
     return `${MONTH_NAMES[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
 };
 
+export const hijriStringToDisplayDateLong = (hijriString) => {
+    if (!hijriString || hijriString.length < 10 || !REGX_HIJRI_STRING.test(hijriString)) {
+        return "";
+    }
+
+    const monthNumber = hijriString.substring(5, 7) * 1;
+    if (monthNumber > 12) {
+        return ""
+    }
+
+    const yearString = hijriString.substring(0, 4);
+    const dateString = hijriString.substring(8, 10);
+
+    return `${MONTH_NAMES_HIJRI[monthNumber - 1]} ${dateString}, ${yearString}`;
+}
 
 export const dateToDisplayDate = (date) => {
     if (!date) {
