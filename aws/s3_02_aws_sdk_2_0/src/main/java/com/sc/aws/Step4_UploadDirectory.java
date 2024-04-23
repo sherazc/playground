@@ -1,47 +1,51 @@
-/*
 package com.sc.aws;
 
-import com.amazonaws.regions.Regions;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.transfer.MultipleFileUpload;
-import com.amazonaws.services.s3.transfer.TransferManager;
-import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
+import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.s3.S3AsyncClient;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.S3CrtAsyncClientBuilder;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.transfer.s3.S3TransferManager;
 
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Path;
+
+import static software.amazon.awssdk.transfer.s3.SizeConstant.MB;
+
+/**
+ * <a href="https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/transfer-manager.html">
+ *     https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/transfer-manager.html
+ * </a>
+ *
+ * S3TransferManager can be used to transfer directories. It requires two additional dependencies.
+ *
+ * - software.amazon.awssdk:s3-transfer-manager
+ * - software.amazon.awssdk.crt:aws-crt
+ *
+ * S3TransferManager uses S3AsyncClient instead of S3Client
+ *
+ */
 
 public class Step4_UploadDirectory {
 
     public static final String DIRECTORY_NAME = "my_test_directory";
 
     public static void main(String[] args) throws InterruptedException {
-        AmazonS3 s3 = AmazonS3ClientBuilder
-                .standard()
-                .withRegion(Regions.US_EAST_1)
-                .build();
-
-        String bucketName = "s3-practice01";
-
-        TransferManager transferManager = TransferManagerBuilder
-                .standard()
-                .withS3Client(s3)
-                .build();
-
-        String s3DirectoryPathKeyPrefix = "step4/sub_directory/";
         File directoryToUpload = getMyTestDirectory();
-        boolean includeSubDirectories = true;
 
-        MultipleFileUpload multipleFileUpload = transferManager.uploadDirectory(bucketName,
-                s3DirectoryPathKeyPrefix, directoryToUpload, includeSubDirectories);
+        S3CrtAsyncClientBuilder s3AsyncBuilder = S3AsyncClient.crtBuilder()
+                .credentialsProvider(DefaultCredentialsProvider.create())
+                .region(Region.US_EAST_1)
+                .targetThroughputInGbps(20.0)
+                .minimumPartSizeInBytes(8 * MB);
 
-        // upload TransferManager.uploadDirectory() is an async process
-        // Wait till it completes
-        multipleFileUpload.waitForCompletion();
+        try (S3AsyncClient s3Async = s3AsyncBuilder.build()) {
 
-        // then shutdown
-        transferManager.shutdownNow();
+            S3TransferManager.builder().s
+        }
 
         System.out.println("Directory uploaded: " + directoryToUpload);
     }
@@ -56,4 +60,3 @@ public class Step4_UploadDirectory {
         }
     }
 }
-*/
