@@ -1,22 +1,24 @@
-/*
 package com.sc.aws;
 
-import com.amazonaws.regions.Regions;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.Bucket;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.Bucket;
+import software.amazon.awssdk.services.s3.model.ListBucketsRequest;
+import software.amazon.awssdk.services.s3.model.ListBucketsResponse;
 
 import java.util.List;
 
 public class Step2_ListBuckets {
     public static void main(String[] args) {
-        AmazonS3 s3 = AmazonS3ClientBuilder
-                .standard()
-                .withRegion(Regions.US_EAST_1)
-                .build();
+        try (S3Client s3 = S3Client.builder().region(Region.US_EAST_1).build()) {
 
-        List<Bucket> buckets = s3.listBuckets();
-        buckets.forEach(System.out::println);
+            ListBucketsRequest listBucketRequest = ListBucketsRequest
+                    .builder()
+                    .build();
+
+            ListBucketsResponse listBucketsResponse = s3.listBuckets(listBucketRequest);
+            List<Bucket> buckets = listBucketsResponse.buckets();
+            buckets.forEach(System.out::println);
+        }
     }
 }
-*/

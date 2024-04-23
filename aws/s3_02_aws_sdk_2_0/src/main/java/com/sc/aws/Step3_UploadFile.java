@@ -1,30 +1,37 @@
-/*
 package com.sc.aws;
 
-import com.amazonaws.regions.Regions;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.Bucket;
+import software.amazon.awssdk.services.s3.model.ListBucketsRequest;
+import software.amazon.awssdk.services.s3.model.ListBucketsResponse;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.util.List;
 
 public class Step3_UploadFile {
 
     public static final String FILE_NAME = "my_test_file.txt";
 
     public static void main(String[] args) {
-        AmazonS3 s3 = AmazonS3ClientBuilder
-                .standard()
-                .withRegion(Regions.US_EAST_1)
-                .build();
+        String bucketName = "s3-practice02-sheraz";
+        try (S3Client s3 = S3Client.builder().region(Region.US_EAST_1).build()) {
 
-        String bucketName = "s3-practice01";
-        String fileNameKeyName = FILE_NAME;
-        File file = getMyTestFile();
-        s3.putObject(bucketName,fileNameKeyName, file);
-        System.out.println("File uploaded successfully");
+            PutObjectRequest putObjectRequest = PutObjectRequest
+                    .builder()
+                    .bucket(bucketName)
+                    .key(FILE_NAME)
+                    .build();
 
+            Path myTestFilePath = getMyTestFile().toPath();
+            s3.putObject(putObjectRequest, myTestFilePath);
+            System.out.println("Successfully uploaded file " + myTestFilePath.toAbsolutePath());
+        }
     }
 
     private static File getMyTestFile() {
@@ -36,4 +43,3 @@ public class Step3_UploadFile {
         }
     }
 }
-*/
