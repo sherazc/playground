@@ -114,8 +114,8 @@ const callback = (jsonResponse) => {
 const appDivId = prayerTimeAppDivId; // used inside callback function
 const serverUrl = prayerTimeServerUrl;
 const today = new Date();
-const month = today.getUTCMonth() + 1;
-const date = today.getUTCDate();
+const month = today.getMonth() + 1;
+const date = today.getDate();
 
 const jsonpFunctionName = createRandomFunctionName();
 const jsonpScriptSrc = `${serverUrl}/api/prayer/companyId/${companyId}/month/${month}/day/${date}?cb=${jsonpFunctionName}`;
