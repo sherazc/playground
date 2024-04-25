@@ -15,6 +15,7 @@ public class Step01_CreateBucket {
                     .build();
 
             s3.createBucket(createRequest);
+            System.out.println("Created bucket: " + bucketName);
         }
     }
 }

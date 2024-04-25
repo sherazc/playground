@@ -9,6 +9,7 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Step3_UploadFile {
 
@@ -24,16 +25,16 @@ public class Step3_UploadFile {
                     .key(FILE_NAME)
                     .build();
 
-            Path myTestFilePath = getMyTestFile().toPath();
+            Path myTestFilePath = getMyTestFile();
             s3.putObject(putObjectRequest, myTestFilePath);
             System.out.println("Successfully uploaded file " + myTestFilePath.toAbsolutePath());
         }
     }
 
-    private static File getMyTestFile() {
+    private static Path getMyTestFile() {
         URL resource = Step3_UploadFile.class.getClassLoader().getResource(FILE_NAME);
         try {
-            return new File(resource.toURI());
+            return Paths.get(resource.toURI());
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
