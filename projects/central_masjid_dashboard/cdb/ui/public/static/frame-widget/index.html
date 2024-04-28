@@ -25,8 +25,8 @@
 
     // Set these variables
     var appNamePrefix = "frameWidget01";
-    window[`${appNamePrefix}ServerUrl`] = "http://localhost:8085";  // dev testing
-    // window[`${appNamePrefix}ServerUrl`] = location.origin;
+    // window[`${appNamePrefix}ServerUrl`] = "http://localhost:8085";  // dev testing
+    window[`${appNamePrefix}ServerUrl`] = location.origin;
     window[`${appNamePrefix}AppUrl`] = (new URLSearchParams(window.location.search)).get("url");
 
 

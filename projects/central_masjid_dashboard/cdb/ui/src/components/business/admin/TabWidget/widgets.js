@@ -110,7 +110,7 @@ var frameWidget01AppUrl = "expense/${company.url}";
 </script>
 <script type="application/javascript" src="${baseUrl}/static/frame-widget/app.min.js"></script>
 `
-            , liveLink: `/static/frame-widget/index-dev.html?url=expense/${company.url}`
+            , liveLink: `/static/frame-widget/index.html?url=expense/${company.url}`
         }
     ];
 };

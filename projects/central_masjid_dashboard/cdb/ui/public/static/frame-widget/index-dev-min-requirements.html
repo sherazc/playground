@@ -11,11 +11,9 @@
 <script>
     // http://localhost:3000/static/frame-widget/index-dev-min-requirements.html?url=expense/hic
     var appNamePrefix = "frameWidget01";
-    window[`${appNamePrefix}ServerUrl`] = "http://localhost:3000";  // dev testing
+    window[`${appNamePrefix}ServerUrl`] = "http://localhost:8085";  // dev testing
     window[`${appNamePrefix}AppUrl`] = (new URLSearchParams(window.location.search)).get("url");
 </script>
 <script type="application/javascript" src="app.min.js"></script>
-
-
 </body>
 </html>
