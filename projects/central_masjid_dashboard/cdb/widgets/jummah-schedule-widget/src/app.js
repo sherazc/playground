@@ -3,9 +3,7 @@ import {
     jsonpMain
 } from "../../commonJsonpService"
 import "./app.scss";
-import {
-    dateToDisplayDateShort
-} from "../../../ui/src/services/utilities";
+import {dateToDisplayDateShort} from "mdb-core-js";
 
 const buildWidgetHTML = (serverResponse) => {
     // Error result

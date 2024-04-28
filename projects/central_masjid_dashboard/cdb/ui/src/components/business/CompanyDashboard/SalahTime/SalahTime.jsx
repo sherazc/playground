@@ -5,10 +5,14 @@ import {
     getConfigValue,
     removeTimeFromDateObject
 } from "../../../../services/utilities";
+
 import {
-    writeIslamicDate
-} from "../../../../services/hijricalendar-kuwaiti";
-import {dateToDisplayDateLong, dateToDisplayDateShort, isoDateToJsDate, time24To12} from "mdb-core-js";
+    dateToDisplayDateLong,
+    dateToDisplayDateShort,
+    hijriStringToDisplayDateLong,
+    isoDateToJsDate,
+    time24To12
+} from "mdb-core-js";
 // import PrayerCountDown from "../PrayerCountDown/PrayerCountDown";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
@@ -212,14 +216,14 @@ class SalahTime extends Component {
 
     render() {
         const today = new Date();
-        const hijriAdjustDays = getConfigValue("hijri_adjust_days", this.props.companyConfigurations);
+        const hijriDate = hijriStringToDisplayDateLong(this.state.prayer.hijriString);
         return (
             <div>
                 {/*<PrayerCountDown prayer={this.state.prayer}/>*/}
                 <div className={styles.salahTimeDateHeading}>
                     {dateToDisplayDateLong(today)}
                     <br/>
-                    {writeIslamicDate(today, hijriAdjustDays)}
+                    {hijriDate}
                 </div>
                 {this.createPrayerGrid(this.state.prayer, this.state.prayerFound)}
             </div>
