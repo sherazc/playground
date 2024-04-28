@@ -3,7 +3,7 @@ import {
     jsonpMain
 } from "../../commonJsonpService"
 import "./app.scss";
-import {dateToDisplayDateShort} from "mdb-core-js";
+import {dateToDisplayDateShort, isoDateToJsDate} from "mdb-core-js";
 
 const buildWidgetHTML = (serverResponse) => {
     // Error result
@@ -26,7 +26,7 @@ const buildWidgetHTML = (serverResponse) => {
         jummahTableRows += `
             <tr>
                 <td>
-                    ${dateToDisplayDateShort(jummah.date)}
+                    ${dateToDisplayDateShort(isoDateToJsDate((jummah.date)))}
                 </td>
                 <td>
                     ${jummah.khateeb}
