@@ -1,10 +1,10 @@
 import React, {Component} from "react";
 import {
     datesMonthDatePart,
-    dateToDisplayDateShort,
     equalObjects
 } from "../../../../../../services/utilities"
 import InputField from "../../../../../partials/InputField";
+import {dateToDisplayDateShort} from "mdb-core-js";
 
 class PrayerDay extends Component {
 

@@ -1,7 +1,8 @@
-import {addDaysToDate, datesMonthDatePart} from "../../../../services/utilities";
+import {datesMonthDatePart} from "../../../../services/utilities";
 import {
     createBlankAlertDialogState
 } from "../../../common/AlertDialog/AlertDialog";
+import {addDays} from "mdb-core-js";
 
 export default class TabPrayerService {
 
@@ -43,7 +44,7 @@ export default class TabPrayerService {
                 sunrise: this.getDocumentElementValue(`sunrise${monthDateKabab}`)
             };
             prayers.push(prayer);
-            date = addDaysToDate(date, 1);
+            date = addDays(date, 1);
         }
         return prayers;
     }

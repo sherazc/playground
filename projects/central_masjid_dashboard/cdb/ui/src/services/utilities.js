@@ -1,29 +1,7 @@
 import equals from "deep-equal";
 import moment from "moment"
 
-export const MONTH_NAMES = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"];
-
-const MONTH_NAMES_HIJRI = [
-    "Muharram",
-    "Safar",
-    "Rabi' Al-Awwal",
-    "Rabi' Al-Thani",
-    "Jumada Al-Awwal",
-    "Jumada Al-Thani",
-    "Rajab",
-    "Sha'ban",
-    "Ramadan",
-    "Shawwal",
-    "Dhu Al-Qi'dah",
-    "Dhu Al-Hijjah"
-];
-
-export const TIME_24_REGX = /([01]?[0-9]|2[0-3]):[0-5][0-9]/;
-
 export const MONTH_DATE_REGEX = /^(0[1-9]|1[0-2]|0?[1-9])\/(0[1-9]|[12]\d|3[01]|0?[1-9])$/;
-
-export const REGX_HIJRI_STRING = /^([0-9]{4})\/([01]?[0-9])\/([0123]?[0-9])$/;
 
 /**
  * Returns react router path parameter value
@@ -58,46 +36,6 @@ export const addUnit = (num) => {
     return num + "vw";
 };
 
-export const dateToDisplayDateLong = (date) => {
-    if (!date) {
-        return;
-    }
-    const d = date instanceof Date ? date : new Date(date);
-    return `${MONTH_NAMES[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
-};
-
-export const hijriStringToDisplayDateLong = (hijriString) => {
-    if (!hijriString || hijriString.length < 10 || !REGX_HIJRI_STRING.test(hijriString)) {
-        return "";
-    }
-
-    const monthNumber = hijriString.substring(5, 7) * 1;
-    if (monthNumber > 12) {
-        return ""
-    }
-
-    const yearString = hijriString.substring(0, 4);
-    const dateString = hijriString.substring(8, 10);
-
-    return `${MONTH_NAMES_HIJRI[monthNumber - 1]} ${dateString}, ${yearString}`;
-}
-
-export const dateToDisplayDate = (date) => {
-    if (!date) {
-        return;
-    }
-    const d = date instanceof Date ? date : new Date(date);
-    return `${d.getUTCMonth() + 1}/${d.getUTCDate()}/${d.getUTCFullYear()}`;
-};
-
-export const dateToDisplayDateShort = (date) => {
-    if (!date) {
-        return "";
-    }
-    const d = date instanceof Date ? date : new Date(date);
-    return `${d.getUTCMonth() + 1}/${d.getUTCDate()}`;
-};
-
 
 export const dateToDisplayTime = (date) => {
     if (!date) {
@@ -124,23 +62,6 @@ const numberTo2DigitsString = (number) => {
     return number < 10 && number > -1 ? `0${number}` : number;
 };
 
-export const time24To12 = (time24) => {
-    if (!time24) {
-        return "";
-    }
-    if (!TIME_24_REGX.test(time24)) {
-        return time24;
-    }
-    const hoursMinutes = time24.split(":");
-    const hours24 = hoursMinutes[0] - 0;
-    const hours12 = hours24 > 12 ? hours24 % 12 : hours24;
-    const minutes = hoursMinutes[1] - 0;
-    const amPm = hours24 > 11 ? "pm" : "am";
-
-    return `${numberTo2DigitsString(hours12)}:${numberTo2DigitsString(minutes)}${amPm}`;
-
-};
-
 export const getConfigValue = (configName, allConfigs, defaultConfig) => {
     if (!configName || !allConfigs || configName.length < 1 || allConfigs.length < 1) {
         return defaultConfig ? defaultConfig : "";
@@ -155,18 +76,6 @@ export const getConfigValue = (configName, allConfigs, defaultConfig) => {
         }
     }
     return configValue;
-};
-
-
-export const addDaysToDate = (date, days) => {
-    if (!date) {
-        date = new Date();
-    }
-
-    const momentDate = moment(date);
-    momentDate.utc();
-    momentDate.add(days, "days");
-    return momentDate.toDate();
 };
 
 
@@ -210,16 +119,6 @@ export const createEmptyIfUndefined = (str) => {
 export const removeTimeFromDateObject = (date) => {
     if (!date) return;
     return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-};
-
-export const stringToDate = (stringDate) => {
-    if (!stringDate) return;
-    if (stringDate.trim().length < 1) return;
-    let result;
-    try {
-        result = removeTimeFromDateObject(new Date(stringDate.trim()));
-    } catch(error) {}
-    return result;
 };
 
 export const replaceNonAlphaNumeric = (str, maxLength) => {

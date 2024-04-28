@@ -1,5 +1,5 @@
 import React, {Component, useState} from "react";
-import {dateToDisplayDate, time24To12} from "../../../services/utilities";
+import {dateToDisplayDate, time24To12} from "mdb-core-js";
 
 export default (props) => {
     const {prayer} = props;

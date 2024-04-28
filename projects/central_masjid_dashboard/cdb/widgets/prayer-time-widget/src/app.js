@@ -3,12 +3,12 @@ import {
     jsonpMain
 } from "../../commonJsonpService"
 import "./app.css";
+
 import {
+    isoDateToJsDate,
     time24To12,
-    dateToDisplayDateShort,
-    hijriStringToDisplayDateLong,
-    dateToDisplayDateLong
-} from "../../../ui/src/services/utilities";
+    dateToDisplayDateShort, dateToDisplayDateLong, hijriStringToDisplayDateLong
+} from "mdb-core-js";
 
 const buildWidgetHTML = (serverResponse) => {
     if (!serverResponse || !serverResponse.successful || !serverResponse.target) {
@@ -29,7 +29,7 @@ const buildWidgetHTML = (serverResponse) => {
         <div class="ptContainer">
         <div style="padding: 10px; text-align: center">
             <div>
-                ${dateToDisplayDateLong(prayer.date)}
+                ${dateToDisplayDateLong(isoDateToJsDate(prayer.date))}
             </div>
             <div>
                 ${hijriStringToDisplayDateLong(prayer.hijriString)}
@@ -52,7 +52,7 @@ const buildWidgetHTML = (serverResponse) => {
                 <td>${time24To12(prayer.fajr)}</td>
                 <td>${time24To12(prayer.fajrIqama)}</td>
                 <td>
-                    ${dateToDisplayDateShort(prayer.fajrChangeDate)}
+                    ${dateToDisplayDateShort(isoDateToJsDate(prayer.fajrChangeDate))}
                     <br/>
                     ${time24To12(prayer.fajrChange)}
                 </td>
@@ -66,7 +66,7 @@ const buildWidgetHTML = (serverResponse) => {
                 <td>${time24To12(prayer.dhuhr)}</td>
                 <td>${time24To12(prayer.dhuhrIqama)}</td>
                 <td>
-                    ${dateToDisplayDateShort(prayer.dhuhrChangeDate)}
+                    ${dateToDisplayDateShort(isoDateToJsDate(prayer.dhuhrChangeDate))}
                     <br/>
                     ${time24To12(prayer.dhuhrChange)}
                 </td>
@@ -76,7 +76,7 @@ const buildWidgetHTML = (serverResponse) => {
                 <td>${time24To12(prayer.asr)}</td>
                 <td>${time24To12(prayer.asrIqama)}</td>
                 <td>
-                    ${dateToDisplayDateShort(prayer.asrChangeDate)}
+                    ${dateToDisplayDateShort(isoDateToJsDate(prayer.asrChangeDate))}
                     <br/>
                     ${time24To12(prayer.asrChange)}
                 </td>
@@ -92,7 +92,7 @@ const buildWidgetHTML = (serverResponse) => {
                 <td>${time24To12(prayer.isha)}</td>
                 <td>${time24To12(prayer.ishaIqama)}</td>
                 <td>
-                    ${dateToDisplayDateShort(prayer.ishaChangeDate)}
+                    ${dateToDisplayDateShort(isoDateToJsDate(prayer.ishaChangeDate))}
                     <br/>
                     ${time24To12(prayer.ishaChange)}
                 </td>
@@ -116,6 +116,7 @@ const serverUrl = prayerTimeServerUrl;
 const today = new Date();
 const month = today.getMonth() + 1;
 const date = today.getDate();
+isoDateToJsDate()
 
 const jsonpFunctionName = createRandomFunctionName();
 const jsonpScriptSrc = `${serverUrl}/api/prayer/companyId/${companyId}/month/${month}/day/${date}?cb=${jsonpFunctionName}`;

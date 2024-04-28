@@ -1,10 +1,8 @@
 import React, {Component} from "react";
 import styles from "./PrayersMonth.module.scss"
-import {
-    MONTH_NAMES
-} from "../../../../../services/utilities";
 import PrayerDay from "./PrayerDay/PrayerDay";
 import {MODE_EDIT, MODE_VIEW} from "../../../../partials/InputField";
+import {MONTH_NAMES} from "mdb-core-js";
 
 class PrayersMonth extends Component {
 

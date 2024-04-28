@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import {dateToDisplayDate, filterEnabledItems} from "../../../../../services/utilities";
+import {filterEnabledItems} from "../../../../../services/utilities";
 import CircleProgressBar from "../CircleProgressBar/CircleProgressBar";
 import styles from "./Funds.module.scss"
+import {dateToDisplayDate, isoDateToJsDate} from "mdb-core-js";
 
 class Funds extends Component {
     makeFund(fund) {
@@ -34,7 +35,7 @@ class Funds extends Component {
                     </tr>
                     <tr>
                         <th>End Date</th>
-                        <td>{dateToDisplayDate(fund.endDate)}</td>
+                        <td>{dateToDisplayDate(isoDateToJsDate(fund.endDate))}</td>
                     </tr>
 
                     <tr>

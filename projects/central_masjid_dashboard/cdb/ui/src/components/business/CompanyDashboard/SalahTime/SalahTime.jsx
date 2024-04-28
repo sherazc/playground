@@ -2,15 +2,13 @@ import React, {Component} from "react";
 import axios from "axios";
 import styles from "./SalahTime.module.scss";
 import {
-    time24To12,
-    dateToDisplayDateShort,
     getConfigValue,
-    dateToDisplayDateLong,
-    removeTimeFromDateObject, stringToDate
+    removeTimeFromDateObject
 } from "../../../../services/utilities";
 import {
     writeIslamicDate
 } from "../../../../services/hijricalendar-kuwaiti";
+import {dateToDisplayDateLong, dateToDisplayDateShort, isoDateToJsDate, time24To12} from "mdb-core-js";
 // import PrayerCountDown from "../PrayerCountDown/PrayerCountDown";
 
 const baseUrl = process.env.REACT_APP_API_BASE_PATH;
@@ -73,7 +71,7 @@ class SalahTime extends Component {
                     <td>{time24To12(prayer.fajr)}</td>
                     <td>{time24To12(prayer.fajrIqama)}</td>
                     <td className={this.blinkClassIfRequired(prayer.fajrChangeDate)}>
-                        {dateToDisplayDateShort(prayer.fajrChangeDate)}
+                        {dateToDisplayDateShort(isoDateToJsDate(prayer.fajrChangeDate))}
                         <br/>
                         {time24To12(prayer.fajrChange)}
                     </td>
@@ -87,7 +85,7 @@ class SalahTime extends Component {
                     <td>{time24To12(prayer.dhuhr)}</td>
                     <td>{time24To12(prayer.dhuhrIqama)}</td>
                     <td className={this.blinkClassIfRequired(prayer.dhuhrChangeDate)}>
-                        {dateToDisplayDateShort(prayer.dhuhrChangeDate)}
+                        {dateToDisplayDateShort(isoDateToJsDate(prayer.dhuhrChangeDate))}
                         <br/>
                         {time24To12(prayer.dhuhrChange)}
                     </td>
@@ -97,7 +95,7 @@ class SalahTime extends Component {
                     <td>{time24To12(prayer.asr)}</td>
                     <td>{time24To12(prayer.asrIqama)}</td>
                     <td className={this.blinkClassIfRequired(prayer.asrChangeDate)}>
-                        {dateToDisplayDateShort(prayer.asrChangeDate)}
+                        {dateToDisplayDateShort(isoDateToJsDate(prayer.asrChangeDate))}
                         <br/>
                         {time24To12(prayer.asrChange)}
                     </td>
@@ -115,7 +113,7 @@ class SalahTime extends Component {
                     <td>{time24To12(prayer.isha)}</td>
                     <td>{time24To12(prayer.ishaIqama)}</td>
                     <td className={this.blinkClassIfRequired(prayer.ishaChangeDate)}>
-                        {dateToDisplayDateShort(prayer.ishaChangeDate)}
+                        {dateToDisplayDateShort(isoDateToJsDate(prayer.ishaChangeDate))}
                         <br/>
                         {time24To12(prayer.ishaChange)}
                     </td>
@@ -199,7 +197,7 @@ class SalahTime extends Component {
 
     blinkClassIfRequired(changeDate) {
         if (!changeDate) return "";
-        const iqamaChangeDate = stringToDate(changeDate);
+        const iqamaChangeDate = isoDateToJsDate(changeDate);
         if (!iqamaChangeDate) return "";
 
         const today = removeTimeFromDateObject(new Date());

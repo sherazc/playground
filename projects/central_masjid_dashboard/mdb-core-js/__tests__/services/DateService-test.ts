@@ -36,7 +36,7 @@ import {
     isSameMonthDate, 
     getSystemTimezone, 
     getSystemTimezoneDateIsoString, 
-    DATE_TIME_REGX,
+    REGX_DATE_TIME,
     isoDateFixToSystemTimezone, 
     getCurrentSystemDate,
     getTodaysDate, 
@@ -398,7 +398,7 @@ describe("Timezone", () => {
     it("getSystemTimezoneDateIsoString() no date argument", () => {
         const systemTimezoneDateIsoString = getSystemTimezoneDateIsoString();
         const systemTimezone = getSystemTimezone(systemTimezoneDateIsoString);
-        expect(systemTimezoneDateIsoString).toMatch(DATE_TIME_REGX);
+        expect(systemTimezoneDateIsoString).toMatch(REGX_DATE_TIME);
         expect(systemTimezoneDateIsoString.endsWith(systemTimezone)).toBe(true);
     });
 

@@ -6,13 +6,46 @@ import {
 } from '../common/Utilities';
 import {PrayerTime} from '../types/types';
 
-export const TIME_24_REGX = /([01]?[0-9]|2[0-3]):[0-5][0-9].*/;
+export const REGX_TIME_24 = /([01]?[0-9]|2[0-3]):[0-5][0-9].*/;
 
 // https://stackoverflow.com/questions/3143070/javascript-regex-iso-datetime
-export const DATE_TIME_REGX = /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/;
+export const REGX_DATE_TIME = /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/;
 // export const DATE_TIME_REGX = /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/;
 
-export const DATE_REGX = /\d{4}-([0]\d|1[0-2])-([0-2]\d|3[01]).*/;
+export const REGX_DATE = /\d{4}-([0]\d|1[0-2])-([0-2]\d|3[01]).*/;
+
+export const REGX_HIJRI_STRING = /^([0-9]{4})\/([01]?[0-9])\/([0123]?[0-9])$/;
+
+export const MONTH_NAMES = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+];
+
+export const MONTH_NAMES_HIJRI = [
+    "Muharram",
+    "Safar",
+    "Rabi' Al-Awwal",
+    "Rabi' Al-Thani",
+    "Jumada Al-Awwal",
+    "Jumada Al-Thani",
+    "Rajab",
+    "Sha'ban",
+    "Ramadan",
+    "Shawwal",
+    "Dhu Al-Qi'dah",
+    "Dhu Al-Hijjah"
+];
+
 
 // Deprecated : use iso string dates in objects. Dont think its needed
 // use isoDateFixToSystemTimezone instead
@@ -155,7 +188,7 @@ export const dateFromISO = (isoDateString?: string): (Date | undefined) => {
 
 export const isoDateToJsDate = (dateString?: string | null): Date | undefined => {
     let date = undefined;
-    if (dateString && DATE_REGX.test(dateString)) {
+    if (dateString && REGX_DATE.test(dateString)) {
         const year = numberNaNToZero(+dateString.substring(0, 4));
         const month = numberNaNToZero(+dateString.substring(5, 7) - 1);
         const d = numberNaNToZero(+dateString.substring(8, 10));
@@ -251,7 +284,7 @@ export const isoDateFixToSystemTimezone = (isoDateString?: (string | null)): (st
     }
     const result = resultArray.join("");
 
-    if (!DATE_TIME_REGX.test(result)) {
+    if (!REGX_DATE_TIME.test(result)) {
         return;
     } else {
         return result;
@@ -263,7 +296,7 @@ export const getTodaysMonth = (): number => getCurrentSystemDate().getMonth() + 
 
 
 export const stringH24MinToDate = (date: (Date | undefined), time?: string): (Date | undefined) => {
-    if (!date || !time || !TIME_24_REGX.test(time)) {
+    if (!date || !time || !REGX_TIME_24.test(time)) {
         return;
     }
 
@@ -303,7 +336,7 @@ export class MdDate {
     }
 
     set isoDate(isoDate: string) {
-        this._isValid = DATE_TIME_REGX.test(isoDate);
+        this._isValid = REGX_DATE_TIME.test(isoDate);
         if (this._isValid) {
             this._isoDate = isoDateFixToSystemTimezone(isoDate);
             this._jsDate = isoDateToJsDate(isoDate);
@@ -348,7 +381,7 @@ export class MdDate {
     static mdDateJsonReviver(key: string, value?: string): (MdDate | any) {
         const keyContainsDate = isNotBlankString(key) && key.toLowerCase().includes("date");
 
-        if (keyContainsDate && value && DATE_TIME_REGX.test(value)) {
+        if (keyContainsDate && value && REGX_DATE_TIME.test(value)) {
             return new MdDate(value);
         } else {
             return value;
@@ -369,7 +402,7 @@ export const parseObjectsIsoDateToMdDate = (obj?: any) => {
 
     const isDateValue = (value: string) => {
         return isNotBlankString(value)
-            && DATE_TIME_REGX.test(value);
+            && REGX_DATE_TIME.test(value);
     }
 
     for (var k in obj) {
@@ -401,13 +434,42 @@ export const promiseParseObjectsIsoDateToMdDate = (promise?: Promise<any>): Prom
     });
 }
 
-
 export const dateToDisplayDateShort = (date?: Date | null) => {
     if (!date || isNaN(date.getTime())) {
         return "";
     }
     return `${date.getMonth() + 1}/${date.getDate()}`;
 };
+
+export const dateToDisplayDate = (date: Date) => {
+    if (!date) {
+        return "";
+    }
+    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+};
+
+export const dateToDisplayDateLong = (date: Date): string => {
+    if (!date) {
+        return "";
+    }
+    return `${MONTH_NAMES[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+};
+
+export const hijriStringToDisplayDateLong = (hijriString: string): string => {
+    if (!hijriString || hijriString.length < 10 || !REGX_HIJRI_STRING.test(hijriString)) {
+        return "";
+    }
+
+    const monthNumber = +hijriString.substring(5, 7);
+    if (monthNumber > 12) {
+        return ""
+    }
+
+    const yearString = hijriString.substring(0, 4);
+    const dateString = hijriString.substring(8, 10);
+
+    return `${MONTH_NAMES_HIJRI[monthNumber - 1]} ${dateString}, ${yearString}`;
+}
 
 
 export const time24To12 = (time24?: string | null) => {
@@ -417,7 +479,7 @@ export const time24To12 = (time24?: string | null) => {
 
     time24 = time24.trim();
 
-    if (!TIME_24_REGX.test(time24)) {
+    if (!REGX_TIME_24.test(time24)) {
         // incase of custom string
         return time24;
     }
@@ -503,7 +565,7 @@ export const addMinutesTo24hTime = (time?: (string | undefined | null), minutes?
     }
     time = time.trim();
 
-    if (!TIME_24_REGX.test(time)) {
+    if (!REGX_TIME_24.test(time)) {
         return;
     }
 

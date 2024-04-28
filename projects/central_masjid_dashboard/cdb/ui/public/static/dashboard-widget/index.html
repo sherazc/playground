@@ -18,9 +18,9 @@
         var appNamePrefix = "dashboard";
         var appScriptSrc = "/static/dashboard-widget/app.min.js";
         var companyUrl = (new URLSearchParams(window.location.search)).get("companyUrl");
-        //window[`${appNamePrefix}ServerUrl`] = "http://localhost:8085";  // dev testing
+        // window[`${appNamePrefix}ServerUrl`] = "http://localhost:8085";  // dev testing
         window[`${appNamePrefix}ServerUrl`] = location.origin;
-
+        window[`${appNamePrefix}AppDivId`] = `${appNamePrefix}App`;
         window.onload = function () {
             var widgetScriptHelp = `<div id="${appNamePrefix}App"></div>
 <script>

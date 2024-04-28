@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import styles from "./SideLabelInputText.module.scss"
-import {time24To12} from "../../../services/utilities";
 import {
     Input
 } from '@material-ui/core';
+import {time24To12} from "mdb-core-js";
 
 export const MODE_VIEW = "view";
 export const MODE_EDIT = "edit";

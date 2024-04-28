@@ -1,8 +1,5 @@
 import React from "react";
-
-import {
-    time24To12
-} from "../../services/utilities"
+import {time24To12} from "mdb-core-js";
 
 export const MODE_VIEW = "view";
 export const MODE_EDIT = "edit";

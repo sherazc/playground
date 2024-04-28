@@ -15,9 +15,12 @@ export {
 
 
 export {
-    TIME_24_REGX,
-    DATE_TIME_REGX,
-    DATE_REGX,
+    REGX_TIME_24,
+    REGX_DATE_TIME,
+    REGX_DATE,
+    REGX_HIJRI_STRING,
+    MONTH_NAMES,
+    MONTH_NAMES_HIJRI,
     isoDateToJsDate,
     jsDateToIsoDate,
     getSystemTimezone,
@@ -41,7 +44,10 @@ export {
     dayOfTheYear,
     isSameMonthDate,
     isTimeBetweenAzans,
-    isValidJsDate
+    isValidJsDate,
+    dateToDisplayDateLong,
+    hijriStringToDisplayDateLong,
+    dateToDisplayDate
 } from "./services/DateService";
 
 
