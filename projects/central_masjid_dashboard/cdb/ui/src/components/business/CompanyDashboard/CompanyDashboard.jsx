@@ -127,7 +127,7 @@ class CompanyDashboard extends Component {
         const website = company && company.website ? company.website : "";
         let clockType = getConfigValue("clock_type", this.state.companyConfigurations, "1");
         return (
-            <Grid container justify="center"
+            <Grid container justifyContent="center"
                 style={{backgroundImage: `url(${process.env.PUBLIC_URL}/images/dashboard_background.jpg)`}}
                 className={styles.gridContainer}>
                 <Grid item xs={xsBreakPoint} sm={smBreakPoint} md={mdBreakPoint} className={styles.gridSide}>

@@ -1,11 +1,11 @@
 import React, {Component, useState} from "react";
-import {dateToDisplayDate, time24To12} from "mdb-core-js";
+import {dateToDisplayDate, isoDateToJsDate, time24To12} from "mdb-core-js";
 
 export default (props) => {
     const {prayer} = props;
     return (
         <tr>
-            <td>{dateToDisplayDate(prayer.date)}</td>
+            <td>{dateToDisplayDate(isoDateToJsDate(prayer.date))}</td>
             <td>{prayer.hijriString}</td>
             <td>
                 <div>{time24To12(prayer.fajr)}</div>

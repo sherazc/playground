@@ -37,16 +37,6 @@ export const addUnit = (num) => {
 };
 
 
-export const dateToDisplayTime = (date) => {
-    if (!date) {
-        return;
-    }
-    const d = date instanceof Date ? date : new Date(date);
-
-    return `${time24To12(d.getUTCHours() + ":" + d.getUTCMinutes())}`;
-};
-
-
 export const datesMonthDatePart = (date) => {
     if (!date) {
         return;

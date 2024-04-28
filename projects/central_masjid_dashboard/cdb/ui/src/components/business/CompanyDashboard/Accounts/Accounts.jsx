@@ -154,7 +154,7 @@ class Accounts extends Component {
     }
 
     createSlideObject(slides, componentType, slideKey, props) {
-        props.key = slideKey;
+        props.key = slideKey + Math.ceil(Math.random() * 10000);
         return slides.push({type: componentType, props});
     }
 

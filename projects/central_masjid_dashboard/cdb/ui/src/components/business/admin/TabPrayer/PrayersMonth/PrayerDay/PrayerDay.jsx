@@ -4,7 +4,7 @@ import {
     equalObjects
 } from "../../../../../../services/utilities"
 import InputField from "../../../../../partials/InputField";
-import {dateToDisplayDateShort} from "mdb-core-js";
+import {dateToDisplayDateShort, isoDateToJsDate} from "mdb-core-js";
 
 class PrayerDay extends Component {
 
@@ -55,11 +55,11 @@ class PrayerDay extends Component {
     render() {
         const {viewMode} = this.props;
         const {prayer} = this.state;
-        const monthDate = datesMonthDatePart(prayer.date);
+        const monthDate = datesMonthDatePart(isoDateToJsDate(prayer.date));
         return (
             <tr>
                 <td>
-                    {dateToDisplayDateShort(prayer.date)}
+                    {dateToDisplayDateShort(isoDateToJsDate(prayer.date))}
                 </td>
                 <td>
                     <InputField
