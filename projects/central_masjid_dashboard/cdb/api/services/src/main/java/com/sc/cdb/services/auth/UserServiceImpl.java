@@ -1,11 +1,9 @@
 package com.sc.cdb.services.auth;
 
 import com.sc.cdb.config.AppConfiguration;
-import com.sc.cdb.data.common.util.Constants;
 import com.sc.cdb.data.dao.UserDao;
 import com.sc.cdb.data.model.auth.Company;
 import com.sc.cdb.data.model.auth.User;
-import com.sc.cdb.data.model.auth.UserCompany;
 import com.sc.cdb.data.repository.UserRepository;
 import com.sc.cdb.services.email.EmailService;
 import com.sc.cdb.services.model.ServiceResponse;
@@ -20,7 +18,6 @@ import org.springframework.stereotype.Component;
 import java.text.MessageFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -145,20 +142,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserCompany> findAllCompanyUsers(String companyId) {
-        if (Constants.COLLECTION_ALL.equalsIgnoreCase(companyId)) {
-            return this.userDao.findAllUserCompany();
-        } else {
-            return this.userDao.findUserCompanyByCompanyId(companyId);
-        }
-    }
-
-    @Override
-    public Optional<User> findById(String userId) {
-        return this.userRepository.findById(userId);
-    }
-
-    @Override
     public Optional<User> findCompanyUser(String companyId, String userId) {
         LOG.debug("Searching for user. companyId = {}, userId = {}", companyId, userId);
         if (StringUtils.isBlank(companyId) || StringUtils.isBlank(userId)) {
@@ -176,7 +159,7 @@ public class UserServiceImpl implements UserService {
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             if (StringUtils.equals(user.getEmailVerifyCode(), emailVerifyCode)
-                && !isVerificationExpired(user.getRegistrationDate())) {
+                    && !isVerificationExpired(user.getRegistrationDate())) {
 
                 boolean activated = activateAndVerifyUser(user);
                 activateCompanyIfNeeded(user.getCompanyId());

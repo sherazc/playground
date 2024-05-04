@@ -1,9 +1,11 @@
 package com.sc.cdb.webservices.auth.controller;
 
 import com.sc.cdb.data.model.auth.User;
+import com.sc.cdb.services.auth.CompanyAuthService;
 import com.sc.cdb.services.auth.UserService;
 import com.sc.cdb.services.model.ServiceResponse;
 import com.sc.cdb.webservices.decorator.ErrorResponseDecorator;
+import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,23 +28,18 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth/companies/{companyId}/users")
+@AllArgsConstructor
 public class CompanyUserController {
     private static final Logger LOG = LoggerFactory.getLogger(CompanyUserController.class);
 
-    private UserService userService;
-    private ErrorResponseDecorator errorResponseDecorator;
-
-    public CompanyUserController(
-            UserService userService,
-            ErrorResponseDecorator errorResponseDecorator) {
-        this.userService = userService;
-        this.errorResponseDecorator = errorResponseDecorator;
-    }
+    private final CompanyAuthService companyAuthService;
+    private final UserService userService;
+    private final ErrorResponseDecorator errorResponseDecorator;
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
     public ResponseEntity<?> getAllCompanyUsers(@PathVariable("companyId") String companyId) {
-        return ResponseEntity.ok(userService.findAllCompanyUsers(companyId));
+        return ResponseEntity.ok(companyAuthService.findCompanyUsersByCompanyId(companyId));
     }
 
     @GetMapping("{userId}")

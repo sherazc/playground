@@ -23,6 +23,39 @@ db.getCollection('companyListVersion').find({});
 db.getCollection('companyDataVersion').find({});
 
 
+
+// Join Company with Users
+// AKA Find all company users
+db.getCollection('company').aggregate([
+    {
+      $lookup:
+         {
+            from: "user",
+            localField: "_id",
+            foreignField: "companyId",
+            as: "users"
+        }
+   },
+   { $match : { "_id" : ObjectId("601178cedc813a7769981d34") } }
+]);
+
+
+
+// Join User and Companies
+db.getCollection('user').aggregate([
+    {
+      $lookup:
+         {
+            from: "company",
+            localField: "companyId",
+            foreignField: "_id",
+            as: "company"
+        }
+   },
+   { $match : { "companyId" : ObjectId("601178cedc813a7769981d34") } }
+]);
+
+
 // Join centralControl and Company
 db.getCollection('centralControl').aggregate([
     {
