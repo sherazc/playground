@@ -12,7 +12,7 @@ import {mapStateLoginToProps} from "../../../../store/lib/utils";
 class AuthCompanyUserList extends Component {
     constructor(props) {
         super(props);
-        this.state = {editCompanyUserPrepared: false, users: []};
+        this.state = {editCompanyUserPrepared: false, companiesUsers: []};
         this.onActivateUser = this.onActivateUser.bind(this);
         this.activateUserCallback = this.activateUserCallback.bind(this);
     }
@@ -42,16 +42,20 @@ class AuthCompanyUserList extends Component {
         }
     }
 
-    updateCompaniesUsers(users) {
-        this.setState({users});
+    updateCompaniesUsers(companiesUsers) {
+        this.setState({companiesUsers});
     }
 
     editCompanyUser(userId) {
-        let user = this.findUserById(this.state.users, userId);
+        let user = this.findUserById(this.state.companiesUsers, userId);
         this.props.prepareCompanyUserToEdit(user);
         this.setState({editCompanyUserPrepared: true});
     }
 
+
+    // TODO:
+    //  Loop over companies and then sub loop over users
+    //  Fix it
     findUserById(users, userId) {
         let result = null;
         users.some(user => {
@@ -90,6 +94,10 @@ class AuthCompanyUserList extends Component {
         activateUser(this.activateUserCallback, userId, active);
     }
 
+
+
+    // TODO:
+    //  Fix it
     activateUserCallback(serviceResponse) {
         if (!serviceResponse.target || isBlank(serviceResponse.target.id)) {
             return;
@@ -120,12 +128,8 @@ class AuthCompanyUserList extends Component {
         return (
             <Layout01>
                 <div>
-                    <h1>
-                        Users in&nbsp;
-                        {action === "current" ? `${this.props.login.company.name}` : `all companies.`}
-                    </h1>
                     <UserGrid
-                        users={this.state.users}
+                        companiesUsers={this.state.companiesUsers}
                         onActivateUser={this.onActivateUser}
                         editCompanyUser={this.editCompanyUser.bind(this)}
                         deleteCompanyUser={this.deleteCompanyUser.bind(this)}/>

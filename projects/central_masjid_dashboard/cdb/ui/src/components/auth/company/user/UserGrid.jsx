@@ -42,10 +42,11 @@ class UserGrid extends Component {
         this.setState({activateConfirmDialog: createBlankConfirmDialogState()});
     }
 
-    buildUsersGrid(users) {
+    buildUsersGrid(companyUsers) {
         return (
             <table border="1">
                 <thead>
+                <tr><th colSpan={100}>{companyUsers.name}</th></tr>
                 <tr>
                     <th>
                         Index
@@ -55,9 +56,6 @@ class UserGrid extends Component {
                     </th>
                     <th>
                         Email
-                    </th>
-                    <th>
-                        Company Name
                     </th>
                     <th>
                         Roles
@@ -74,7 +72,7 @@ class UserGrid extends Component {
                 </tr>
                 </thead>
                 <tbody>
-                {users.map((user, index) => {
+                {companyUsers.users.map((user, index) => {
                     const selfRow = this.props.login.user.id !== user.id;
                     return (
                         <tr key={index}>
@@ -86,9 +84,6 @@ class UserGrid extends Component {
                             </td>
                             <td>
                                 {user.email}
-                            </td>
-                            <td>
-                                {user.company.name}
                             </td>
 
                             <td>
@@ -130,10 +125,10 @@ class UserGrid extends Component {
     }
 
     render() {
-        const users = this.props.users;
+        const companiesUsers = this.props.companiesUsers;
         let content;
-        if (users && users.length > 0) {
-            content = this.buildUsersGrid(users);
+        if (companiesUsers && companiesUsers.length > 0) {
+            content = companiesUsers.map(companyUsers => this.buildUsersGrid(companyUsers));
         } else {
             content = <div>No users found</div>
         }
