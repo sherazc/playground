@@ -52,20 +52,18 @@ class AuthCompanyUserList extends Component {
         this.setState({editCompanyUserPrepared: true});
     }
 
-
-    // TODO:
-    //  Loop over companies and then sub loop over users
-    //  Fix it
-    findUserById(users, userId) {
-        let result = null;
-        users.some(user => {
-            if (userId === user.id) {
-                result = user;
-                return true;
-            } else {
-                return false;
+    findUserById(companiesUsers, userId) {
+        if (!companiesUsers) {
+            return;
+        }
+        let result;
+        for (let i = 0; i < companiesUsers.length; i++) {
+            const companyUsers = companiesUsers[i];
+            result = companyUsers.users.find(user => user.id === userId);
+            if (result) {
+                break;
             }
-        });
+        }
         return result;
     }
 
@@ -95,27 +93,22 @@ class AuthCompanyUserList extends Component {
     }
 
 
-
-    // TODO:
-    //  Fix it
     activateUserCallback(serviceResponse) {
         if (!serviceResponse.target || isBlank(serviceResponse.target.id)) {
             return;
         }
         const updatedUser = serviceResponse.target;
-        const users = this.state.users;
-        let foundIndex = -1;
-        users.filter((user, index) => {
-            if (user.id === updatedUser.id) {
-                foundIndex = index;
-                return true;
+
+        for (let i = 0; i < this.state.companiesUsers.length; i++) {
+            const companyUsers = this.state.companiesUsers[i];
+            for (let j = 0; j < companyUsers.users.length; j++) {
+                const user = companyUsers.users[j]
+                if (user.id === updatedUser.id) {
+                    user.active = updatedUser.active;
+                }
             }
-            return false;
-        });
-        if (foundIndex > -1 && foundIndex < users.length) {
-            users[foundIndex].active = updatedUser.active;
-            this.setState({users: users});
         }
+        this.setState({companiesUsers: this.state.companiesUsers});
     }
 
     render() {
