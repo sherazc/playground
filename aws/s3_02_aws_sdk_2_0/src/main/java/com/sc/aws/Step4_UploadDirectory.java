@@ -55,6 +55,7 @@ public class Step4_UploadDirectory {
 
                 DirectoryUpload directoryUpload = s3TransferManager.uploadDirectory(uploadDirectoryRequest);
 
+                // CompletableFuture.join() vs Future.get()
                 // join() works same as get()
                 // join() does not throw checked exception where as get() does.
                 // get() is defined in Future interface
@@ -64,8 +65,6 @@ public class Step4_UploadDirectory {
                 completedDirectoryUpload
                         .failedTransfers()
                         .forEach(failedUpload -> System.out.println("Failed to transfer " + failedUpload));
-
-
 
                 System.out.println("""
                         Upload directory completed. {directoryToUpload}
