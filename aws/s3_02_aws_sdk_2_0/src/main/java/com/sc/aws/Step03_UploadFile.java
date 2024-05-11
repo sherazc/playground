@@ -10,7 +10,7 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class Step3_UploadFile {
+public class Step03_UploadFile {
 
     public static final String FILE_NAME = "my_test_file.txt";
 
@@ -31,7 +31,7 @@ public class Step3_UploadFile {
     }
 
     private static Path getMyTestFile() {
-        URL resource = Step3_UploadFile.class.getClassLoader().getResource(FILE_NAME);
+        URL resource = Step03_UploadFile.class.getClassLoader().getResource(FILE_NAME);
         try {
             return Paths.get(resource.toURI());
         } catch (URISyntaxException e) {

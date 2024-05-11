@@ -29,7 +29,7 @@ import static software.amazon.awssdk.transfer.s3.SizeConstant.MB;
  * S3TransferManager uses S3AsyncClient instead of S3Client
  */
 
-public class Step4_UploadDirectory {
+public class Step04_UploadDirectory {
 
     public static final String DIRECTORY_NAME = "my_test_directory";
 
@@ -76,7 +76,7 @@ public class Step4_UploadDirectory {
 
 
     private static Path getMyTestDirectory() {
-        URL resource = Step4_UploadDirectory.class.getClassLoader().getResource(DIRECTORY_NAME);
+        URL resource = Step04_UploadDirectory.class.getClassLoader().getResource(DIRECTORY_NAME);
         try {
             return Paths.get(resource.toURI());
         } catch (URISyntaxException e) {

@@ -8,7 +8,7 @@ import software.amazon.awssdk.services.s3.model.ListBucketsResponse;
 
 import java.util.List;
 
-public class Step2_ListBuckets {
+public class Step02_ListBuckets {
     public static void main(String[] args) {
         try (S3Client s3 = S3Client.builder().region(Region.US_EAST_1).build()) {
 
