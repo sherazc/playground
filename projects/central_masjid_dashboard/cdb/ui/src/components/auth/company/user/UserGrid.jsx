@@ -44,7 +44,7 @@ class UserGrid extends Component {
 
     buildUsersGrid(companyUsers) {
         return (
-            <table border="1">
+            <table border="1" style={{marginBottom: "30px"}}>
                 <thead>
                 <tr><th colSpan={100}>{companyUsers.name}</th></tr>
                 <tr>
@@ -97,6 +97,7 @@ class UserGrid extends Component {
                             <td>
 
                                 <Checkbox color="primary" checked={user.verified} disabled={!selfRow}/>
+                                <span style={{fontSize: "8px"}}>(Not implemented)</span>
                             </td>
                             <td>
                                 <a href="#/" onClick={(e) => {
