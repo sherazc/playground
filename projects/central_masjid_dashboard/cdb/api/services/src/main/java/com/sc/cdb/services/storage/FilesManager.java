@@ -1,7 +1,8 @@
 package com.sc.cdb.services.storage;
 
 public interface FilesManager {
-    boolean deleteFile(String directory, String fileName);
-    byte[] readFile(String directory, String fileName);
-    boolean writeFile(String directory, String fileName, byte[] data);
+    boolean exists(String directory, String fileName);
+    boolean delete(String directory, String fileName);
+    byte[] read(String directory, String fileName);
+    boolean write(String directory, String fileName, byte[] data);
 }
