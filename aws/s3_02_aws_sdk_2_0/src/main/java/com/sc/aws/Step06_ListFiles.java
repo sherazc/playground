@@ -10,7 +10,7 @@ import software.amazon.awssdk.services.s3.model.S3Object;
 
 import java.util.List;
 
-public class Step05_ListFiles {
+public class Step06_ListFiles {
 
     public static void main(String[] args) {
         String bucketName = "s3-practice02-sheraz";

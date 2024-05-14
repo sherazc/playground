@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 
 import static software.amazon.awssdk.transfer.s3.SizeConstant.MB;
 
-public class Step07_ReadFile_download {
+public class Step08_ReadFile_download {
 
     public static void main(String[] args) {
         String bucketName = "s3-practice02-sheraz";

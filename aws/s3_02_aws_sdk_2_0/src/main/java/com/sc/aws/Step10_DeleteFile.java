@@ -5,7 +5,7 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.DeleteObjectResponse;
 
-public class Step09_DeleteFile {
+public class Step10_DeleteFile {
 
     public static void main(String[] args) {
         String FILE_NAME = "my_test_file.txt";

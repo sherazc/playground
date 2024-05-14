@@ -6,7 +6,7 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 
-public class Step06_ReadFile_content_bytes {
+public class Step07_ReadFile_content_bytes {
 
     public static void main(String[] args) {
         String bucketName = "s3-practice02-sheraz";

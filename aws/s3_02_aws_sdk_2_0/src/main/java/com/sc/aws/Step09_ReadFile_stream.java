@@ -1,7 +1,6 @@
 package com.sc.aws;
 
 import software.amazon.awssdk.core.ResponseInputStream;
-import software.amazon.awssdk.core.async.AsyncResponseTransformer;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
@@ -11,7 +10,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Step08_ReadFile_stream {
+public class Step09_ReadFile_stream {
 
     public static void main(String[] args) throws IOException {
 

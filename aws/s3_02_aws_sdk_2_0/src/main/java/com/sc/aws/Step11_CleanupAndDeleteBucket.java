@@ -11,7 +11,7 @@ import software.amazon.awssdk.services.s3.model.S3Object;
 
 import java.util.List;
 
-public class Step10_CleanupAndDeleteBucket {
+public class Step11_CleanupAndDeleteBucket {
 
     public static void main(String[] args) {
         String bucketName = "s3-practice02-sheraz";
