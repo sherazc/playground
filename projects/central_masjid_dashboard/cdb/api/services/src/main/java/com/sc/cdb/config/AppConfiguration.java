@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-@ConfigurationProperties("cdb")
+@ConfigurationProperties(value = "cdb")
 public class AppConfiguration {
 
     private EmailConfig email = new EmailConfig();
