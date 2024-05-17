@@ -1,9 +1,12 @@
 package com.sc.cdb.services.storage;
 
+import com.sc.cdb.config.AppConfiguration;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import software.amazon.awssdk.services.s3.model.HeadObjectRequest;
 import software.amazon.awssdk.services.s3.model.NoSuchKeyException;
 
@@ -11,12 +14,11 @@ import software.amazon.awssdk.services.s3.model.NoSuchKeyException;
 @Slf4j
 public class FileManagerS3 implements FilesManager {
 
-    @Value("${cdb.s3BucketName:MDB-Client}")
-    private String s3BucketName;
-
+    private final AppConfiguration appConfiguration;
     private final S3ConnectionManager s3ConnectionManager;
 
-    public FileManagerS3(S3ConnectionManager s3ConnectionManager) {
+    public FileManagerS3(AppConfiguration appConfiguration, S3ConnectionManager s3ConnectionManager) {
+        this.appConfiguration = appConfiguration;
         this.s3ConnectionManager = s3ConnectionManager;
     }
 
@@ -33,7 +35,7 @@ public class FileManagerS3 implements FilesManager {
             try {
                 HeadObjectRequest headObjectRequest = HeadObjectRequest
                         .builder()
-                        .bucket(s3BucketName)
+                        .bucket(appConfiguration.getS3().getBucketName())
                         .key(key)
                         .build();
                 size = s3Client.headObject(headObjectRequest).contentLength();
@@ -53,10 +55,20 @@ public class FileManagerS3 implements FilesManager {
 
     @Override
     public byte[] read(String directory, String fileName) {
-        try (S3Client s3Client = s3ConnectionManager.connect()) {
-
+        if (!exists(directory, fileName)) {
+            return new byte[0];
         }
-        return new byte[0];
+
+        String key = buildObjectKey(directory, fileName);
+        try (S3Client s3Client = s3ConnectionManager.connect()) {
+            GetObjectRequest getObjectRequest = GetObjectRequest
+                    .builder()
+                    .bucket(appConfiguration.getS3().getBucketName())
+                    .key(key)
+                    .build();
+            ResponseBytes<GetObjectResponse> objectAsBytes = s3Client.getObjectAsBytes(getObjectRequest);
+            return objectAsBytes.asByteArray();
+        }
     }
 
     @Override
