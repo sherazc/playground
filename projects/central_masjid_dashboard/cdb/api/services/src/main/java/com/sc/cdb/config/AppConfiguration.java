@@ -19,7 +19,11 @@ public class AppConfiguration {
 
     @Data
     public static class S3Config {
-        private String bucketName;
+        private String region;
+        // For client files like logo and flyers
+        private String clientBucketName;
+        // For server files like db backups
+        private String serverBucketName;
     }
 }
 
