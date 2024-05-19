@@ -1,39 +1,23 @@
-package com.sc.cdb.services.storage;
+package com.sc.cdb.services.storage
 
-import com.sc.cdb.config.AppConfiguration;
-import org.springframework.stereotype.Service;
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.s3.S3Client;
+import com.sc.cdb.config.AppConfiguration
+import org.springframework.stereotype.Service
+import software.amazon.awssdk.regions.Region
+import software.amazon.awssdk.services.s3.S3Client
 
 @Service
-public class S3ConnectionManager {
+class S3ConnectionManager(private val appConfiguration: AppConfiguration) {
 
-    private final AppConfiguration appConfiguration;
+    fun connect(): S3Client = S3Client
+        .builder()
+        .region(region())
+        .build()
 
-    public S3ConnectionManager(AppConfiguration appConfiguration) {
-        this.appConfiguration = appConfiguration;
-    }
+    fun close(s3Client: S3Client) = s3Client.close()
 
-    public S3Client connect() {
-        return S3Client
-                .builder()
-                .region(region())
-                .build();
-    }
+    fun clientBucketName(): String = appConfiguration.s3.clientBucketName
 
-    public String clientBucketName() {
-        return appConfiguration.getS3().getClientBucketName();
-    }
+    fun serverBucketName(): String = appConfiguration.s3.serverBucketName
 
-    public String serverBucketName() {
-        return appConfiguration.getS3().getServerBucketName();
-    }
-
-    private Region region() {
-        return Region.of(appConfiguration.getS3().getRegion());
-    }
-
-    public void close(S3Client s3Client) {
-        s3Client.close();
-    }
+    private fun region(): Region = Region.of(appConfiguration.s3.region)
 }
