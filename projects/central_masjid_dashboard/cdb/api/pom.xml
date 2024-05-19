@@ -159,11 +159,23 @@
                 <configuration>
                     <jvmTarget>${maven.compiler.target}</jvmTarget>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>kotlin-maven-lombok</artifactId>
+                        <version>1.9.24</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.projectlombok</groupId>
+                        <artifactId>lombok</artifactId>
+                        <version>1.18.32</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>3.13.0</version>
                 <executions>
                     <execution>
                         <id>default-compile</id>
