@@ -12,7 +12,7 @@ import software.amazon.awssdk.services.s3.model.HeadObjectRequest
 import software.amazon.awssdk.services.s3.model.NoSuchKeyException
 import software.amazon.awssdk.services.s3.model.PutObjectRequest
 
-interface FileManager2 {
+interface FileManager {
     fun exists(storage: String, directory: String, fileName: String): Boolean
     fun size(storage: String, directory: String, fileName: String): Long
     fun delete(storage: String, directory: String, fileName: String): Boolean
@@ -22,7 +22,7 @@ interface FileManager2 {
 
 @Service
 @Slf4j
-class FileManagerS32Impl(private val s3ConnectionManager: S3ConnectionManager) : FileManager2 {
+class FileManagerS3Impl(private val s3ConnectionManager: S3ConnectionManager) : FileManager {
     private val logger = KotlinLogging.logger {}
 
     override fun exists(storage: String, directory: String, fileName: String): Boolean =
