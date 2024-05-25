@@ -107,7 +107,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private void sendVerifyEmail(User user) {
-        if (!appConfiguration.getEmail().isEnable()) {
+        if (!appConfiguration.getEmail().getEnable()) {
             LOG.warn("Not sending verify email. Email is not enabled.");
             return;
         }

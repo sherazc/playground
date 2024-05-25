@@ -1,0 +1,23 @@
+package com.sc.cdb.webservices.storage
+
+import com.sc.cdb.data.model.storage.FileType
+import com.sc.cdb.services.dto.CdbFileDto
+import com.sc.cdb.services.storage.FileService
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RestController
+
+@RestController("/api/storage")
+class FileController(private val fileService: FileService,
+                     service: FileService) {
+
+    @PostMapping("/companyId/{companyId}/fileType/{fileType}")
+    fun uploadFile(@RequestBody cdbFileDto: CdbFileDto, @PathVariable companyId: String, @PathVariable fileType: String): ResponseEntity<String> {
+        cdbFileDto.fileType = FileType.valueOf(fileType)
+        cdbFileDto.companyId = companyId
+        fileService.upload(cdbFileDto)
+        return ResponseEntity.ok("Worked");
+    }
+}

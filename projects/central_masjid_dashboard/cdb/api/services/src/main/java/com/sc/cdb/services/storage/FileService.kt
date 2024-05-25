@@ -9,8 +9,10 @@ class FileService {
     // On successful upload returns file File ID
     fun upload(file: CdbFileDto): String {
 
-        return ""
+        return "mock_file_id"
     }
+
+
 }
 
 
@@ -21,7 +23,7 @@ bucket_name aka storage
     |
     +--companyId
             |
-            +--fileType
+            +--fileType (logo, flyer)
                     |
                     +--directory
                             |

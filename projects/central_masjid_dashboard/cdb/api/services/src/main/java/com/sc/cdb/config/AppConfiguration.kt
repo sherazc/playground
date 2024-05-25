@@ -1,29 +1,21 @@
-package com.sc.cdb.config;
+package com.sc.cdb.config
 
-import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import org.springframework.boot.context.properties.ConfigurationProperties
+import org.springframework.stereotype.Component
 
-@Data
 @Component
 @ConfigurationProperties(value = "cdb")
-public class AppConfiguration {
+data class AppConfiguration(
+    var email: EmailConfig = EmailConfig(),
+    var s3: S3Config = S3Config()
+)
 
-    private EmailConfig email = new EmailConfig();
-    private S3Config s3 = new S3Config();
+data class EmailConfig(var enable: Boolean = false)
 
-    @Data
-    public static class EmailConfig {
-        private boolean enable;
-    }
-
-    @Data
-    public static class S3Config {
-        private String region;
-        // For client files like logo and flyers
-        private String clientBucketName;
-        // For server files like db backups
-        private String serverBucketName;
-    }
-}
-
+data class S3Config(
+    var region: String = "",
+    // For client files like logo and flyers
+    var clientBucketName: String = "",
+    // For server files like db backups
+    var serverBucketName: String = ""
+)
