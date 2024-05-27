@@ -5,13 +5,13 @@ import com.sc.cdb.data.model.storage.StorageType
 import javax.validation.constraints.Size
 
 data class CdbFileDto(
-    var id: String,
-    var companyId: String,
-    var storage: StorageType,
-    var fileType: FileType,
+    var id: String?,
+    var companyId: String?,
+    var storage: StorageType?,
+    var fileType: FileType?,
     @Size(min = 0, max = 256)
-    var directory: String,
+    var directory: String?,
     @Size(min = 3, max = 100)
-    var fileName: String,
-    var dataBase64: String
+    var fileName: String?,
+    var dataBase64: String?
 )
