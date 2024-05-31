@@ -20,7 +20,7 @@ class FileController(private val fileService: FileService,
     fun uploadFile(@RequestBody cdbFileDto: CdbFileDto,
                    @PathVariable companyId: String,
                    @PathVariable fileType: String): ResponseEntity<String> {
-        cdbFileDto.fileType = FileType.valueOf(fileType)
+        cdbFileDto.fileType = FileType.findByName(fileType)
         cdbFileDto.companyId = companyId
         fileService.upload(cdbFileDto)
         return ResponseEntity.ok("Worked");
@@ -31,3 +31,4 @@ class FileController(private val fileService: FileService,
         return ResponseEntity.ok("Worked2");
     }
 }
+
