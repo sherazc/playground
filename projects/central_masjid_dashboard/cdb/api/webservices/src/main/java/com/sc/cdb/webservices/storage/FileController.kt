@@ -22,6 +22,9 @@ class FileController(private val fileService: FileService,
                    @PathVariable fileType: String): ResponseEntity<String> {
         cdbFileDto.fileType = FileType.findByName(fileType)
         cdbFileDto.companyId = companyId
+
+        // TODO: make it work
+        // validator.validate(cdbFileDto)
         fileService.upload(cdbFileDto)
         return ResponseEntity.ok("Worked");
     }
