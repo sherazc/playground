@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service
 
 
 @Service
-class FileService {
+class FileService(private val cdbFileDtoHelper: CdbFileDtoHelper) {
     // On successful upload returns file File ID
     fun upload(file: CdbFileDto): String {
         val key = createKey(file);
@@ -16,29 +16,12 @@ class FileService {
 
     private fun createKey(file: CdbFileDto): String {
         val key = StringBuilder("/${file.companyId}/${file.fileType.toString()}")
-        key.append(slashPrefixSuffix(file.directory))
+        key.append(cdbFileDtoHelper.slashPrefixSuffix(file.directory))
 
         return "mock_key"
     }
 
-    private fun slashPrefixSuffix(directory: String?): String {
-        if (directory == null) {
-            return ""
-        }
 
-        val result = StringBuilder(directory)
-
-        if (directory.isNotEmpty()) {
-            if (!directory.startsWith("/")) {
-                result.insert(0, "/")
-            }
-
-            if (!directory.endsWith("/")) {
-                result.append("/")
-            }
-        }
-        return result.toString()
-    }
 
 
 }
