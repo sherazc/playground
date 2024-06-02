@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component
 class CdbFileDtoHelper {
 
     fun slashPrefixSuffix(directory: String?): String {
-        if (directory == null) {
-            return ""
+        if (directory.isNullOrEmpty()) {
+            return "/"
         }
 
         val result = StringBuilder(directory)
