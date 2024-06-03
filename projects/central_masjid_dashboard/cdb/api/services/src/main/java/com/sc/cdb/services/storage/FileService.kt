@@ -15,15 +15,11 @@ class FileService(private val cdbFileDtoHelper: CdbFileDtoHelper) {
     }
 
     private fun createKey(file: CdbFileDto): String {
-        val key = StringBuilder("/${file.companyId}/${file.fileType.toString()}")
-        key.append(cdbFileDtoHelper.slashPrefixSuffix(file.directory))
-
-        return "mock_key"
+        val basePath = cdbFileDtoHelper.getBasePath(file)
+        val directory = cdbFileDtoHelper.getDirectory(file.directory)
+        val fileName = cdbFileDtoHelper.getFileName(file)
+        return "${basePath}${directory}${fileName}"
     }
-
-
-
-
 }
 
 

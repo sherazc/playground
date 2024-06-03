@@ -16,11 +16,11 @@ class CdbFileDtoHelperTest {
 
     @Test
     fun slashPrefixSuffix() {
-        assertEquals("/", underTest.slashPrefixSuffix(null))
-        assertEquals("/", underTest.slashPrefixSuffix(""))
-        assertEquals("/a/", underTest.slashPrefixSuffix("a"))
-        assertEquals("/a/", underTest.slashPrefixSuffix("/a"))
-        assertEquals("/a/", underTest.slashPrefixSuffix("a/"))
-        assertEquals("/a/", underTest.slashPrefixSuffix("/a/"))
+        assertEquals("/", underTest.getDirectory(null))
+        assertEquals("/", underTest.getDirectory(""))
+        assertEquals("/a/", underTest.getDirectory("a"))
+        assertEquals("/a/", underTest.getDirectory("/a"))
+        assertEquals("/a/", underTest.getDirectory("a/"))
+        assertEquals("/a/", underTest.getDirectory("/a/"))
     }
 }
