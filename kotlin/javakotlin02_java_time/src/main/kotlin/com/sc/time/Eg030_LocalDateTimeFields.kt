@@ -22,6 +22,18 @@ fun main() {
     val currentNano:Int = currentTime.nano
     val currentEpochSecond:Long = currentTime.toEpochSecond(ZoneOffset.UTC)
 
-    println("Set debug pointer to see the values")
-
+    println("""
+        currentYear=$currentYear
+        currentMonth=$currentMonth
+        currentMonthValue=$currentMonthValue
+        currentDayOfMonth=$currentDayOfMonth
+        currentDayOfYear=$currentDayOfYear
+        currentDayOfWeek=$currentDayOfWeek
+        currentDayOfWeekValue=$currentDayOfWeekValue
+        currentHour=$currentHour
+        currentMinute=$currentMinute
+        currentSec=$currentSec
+        currentNano=$currentNano
+        currentEpochSecond=$currentEpochSecond
+    """.trimIndent())
 }
