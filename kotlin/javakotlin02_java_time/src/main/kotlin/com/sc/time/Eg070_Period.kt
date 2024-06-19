@@ -5,8 +5,10 @@ import java.time.Period
 
 fun main() {
     /*
-    Period is used to calculate time between 2 dates
-    And add it to LocalDate
+    Date-based time.
+    Period is used to
+    - calculate period between 2 dates in years, months and days.
+    - add it to LocalDate
      */
 
     val now = LocalDate.now()
@@ -25,7 +27,12 @@ fun main() {
     val period3 = Period.of(3, 9, 20)
     println(period3.isZero)
 
-    val period4 = Period.parse("P2Y3M5D")
-    val dateTime1:LocalDate = period4.addTo(LocalDate.now()) as LocalDate
+    val period4 = Period.ofDays(2)
+    val period5 = Period.ofMonths(5)
+    val period6 = Period.ofYears(3)
+
+    val period7 = Period.parse("P2Y3M5D")
+    val dateTime1:LocalDate = period7.addTo(LocalDate.now()) as LocalDate
     println(dateTime1)
+
 }
