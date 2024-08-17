@@ -1,5 +1,4 @@
 import {fetchWrapper} from "./ApiFetchWrapper";
-import {parseObjectsIsoDateToMdDate} from "../services/DateService";
 
 export type ApiMethod = "GET" | "PUT" | "POST" | "DELETE";
 export type ApiHeaders = [string, string][];

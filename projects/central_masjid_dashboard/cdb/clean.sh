@@ -50,6 +50,14 @@ rm -rf widgets/calendar-widget/yarn-error.log
 rm -rf widgets/calendar-widget/node_modules
 rm -rf ui/public/static/calendar-widget/app.min.*
 
+# Clean frame-widget
+rm -rf widgets/frame-widget/yarn.lock
+rm -rf widgets/frame-widget/package-lock.json
+rm -rf widgets/frame-widget/yarn-error.log
+rm -rf widgets/frame-widget/node_modules
+rm -rf ui/public/static/frame-widget/app.min.*
+
+
 
 # Clean API
 rm -rf api/webservices/src/main/resources/static
