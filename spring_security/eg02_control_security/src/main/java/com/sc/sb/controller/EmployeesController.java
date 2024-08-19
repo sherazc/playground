@@ -6,12 +6,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController("/employee")
+@RestController
+@RequestMapping("/employee")
 public class EmployeesController {
     private List<Employee> employees;
 
@@ -30,7 +32,7 @@ public class EmployeesController {
         return employee;
     }
 
-    @DeleteMapping("/employee/{employeeName}")
+    @DeleteMapping("/{employeeName}")
     public boolean deleteEmployee(@PathVariable String employeeName) {
         Employee employee = this.employees.stream()
                 .filter(e -> e.getName().equalsIgnoreCase(employeeName))
