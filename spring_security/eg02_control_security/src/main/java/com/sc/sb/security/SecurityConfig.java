@@ -24,7 +24,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                  .formLogin().disable()
                  .anonymous().disable()
                  // .authorizeRequests().anyRequest().denyAll() // this will produce 403 Forbidden
-                .cors().disable().csrf().disable()
+                .cors().disable()
+                .csrf().disable()
         ;
     }
 
