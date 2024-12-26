@@ -8,5 +8,7 @@ data class CdbFileDto(
     val fileType: FileType,
     val fileName: String,
     val dataBase64: String,
-    val createDate: LocalDateTime
-)
+    val createDate: LocalDateTime,
+    val directory: String
+) {
+}

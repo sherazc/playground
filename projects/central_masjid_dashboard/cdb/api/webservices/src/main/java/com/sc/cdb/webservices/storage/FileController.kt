@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RestController
 import java.time.LocalDateTime
 import javax.validation.Valid
 
-@Validated
-@RestController
-@RequestMapping("/api/storage")
+//@Validated
+//@RestController
+//@RequestMapping("/api/storage")
 class FileController(private val fileService: FileService) {
 
-    @PostMapping("/companyId/{companyId}/fileType/{fileTypeString}")
+//    @PostMapping("/companyId/{companyId}/fileType/{fileTypeString}")
     fun uploadFile(@RequestBody @Valid uploadRequest: UploadRequestDto,
                    @PathVariable companyId: String,
                    @PathVariable fileTypeString: String): ResponseEntity<String> {
@@ -34,13 +34,13 @@ class FileController(private val fileService: FileService) {
             companyId, fileType,
             uploadRequest.fileName,
             uploadRequest.dataBase64,
-            createDate)
+            createDate, "")
 
         fileService.upload(cdbFileDto)
         return ResponseEntity.ok("Worked");
     }
 
-    @GetMapping
+//    @GetMapping
     fun getFile(): ResponseEntity<String> {
         return ResponseEntity.ok("Worked2");
     }
