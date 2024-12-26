@@ -56,7 +56,12 @@ public class RandomAyaNumber {
     }
 
     public int generateRandomAyaNumber(int seed) {
-        return new Random(seed).nextInt(this.limit);
+        Random random = new Random(seed);
+        int result = random.nextInt(this.limit);
+        while (result < 1) {
+            result = random.nextInt(this.limit);
+        }
+        return result;
     }
 
     public static RandomAyaNumber getInstance() {
