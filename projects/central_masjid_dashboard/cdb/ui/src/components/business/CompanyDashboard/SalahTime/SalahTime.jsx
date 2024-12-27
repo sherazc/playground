@@ -202,8 +202,6 @@ class SalahTime extends Component {
         const iqamaChangeDate = isoDateToJsDate(changeDate);
         if (!iqamaChangeDate) return "";
 
-        const today = removeTimeFromDateObject(new Date());
-
         const daysAfterToday = removeTimeFromDateObject(new Date());
         daysAfterToday.setDate(daysAfterToday.getDate() + 3);
 
