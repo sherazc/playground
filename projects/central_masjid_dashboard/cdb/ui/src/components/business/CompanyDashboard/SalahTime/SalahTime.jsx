@@ -197,16 +197,12 @@ class SalahTime extends Component {
         return undefined
     }
 
-
-
     blinkClassIfRequired(changeDate) {
         if (!changeDate) return "";
         const iqamaChangeDate = isoDateToJsDate(changeDate);
         if (!iqamaChangeDate) return "";
 
         const today = removeTimeFromDateObject(new Date());
-
-        iqamaChangeDate.setFullYear(today.getFullYear());
 
         const daysAfterToday = removeTimeFromDateObject(new Date());
         daysAfterToday.setDate(daysAfterToday.getDate() + 3);
