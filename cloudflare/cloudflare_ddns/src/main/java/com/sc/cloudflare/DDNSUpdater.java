@@ -1,7 +1,6 @@
 package com.sc.cloudflare;
 import java.io.*;
 import java.net.*;
-import java.util.regex.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -42,7 +41,7 @@ public class DDNSUpdater {
         String authHeader = AUTH_METHOD.equals("global") ? "X-Auth-Key: " : "Authorization: Bearer ";
 
         // Seek for the A record
-        String record = httpRequest("https://api.cloudflare.com/client/v4/zones/" + ZONE_IDENTIFIER + "/dns_records?type=A&name=" + RECORD_NAME, "GET", authHeader);
+        String record = httpRequest("https://api.cloudflare.com/client/v4/zones/" + ZONE_IDENTIFIER + "/dns_records?type=A&name=" + RECORD_NAME, "GET", "X-Auth-Email: " + AUTH_EMAIL, authHeader + AUTH_KEY, null);
 
         // Check if the domain has an A record
         ObjectMapper mapper = new ObjectMapper();
@@ -70,7 +69,7 @@ public class DDNSUpdater {
         updateData.put("proxied", PROXY);
 
         // Change the IP@Cloudflare using the API
-        String updateResponse = httpRequest("https://api.cloudflare.com/client/v4/zones/" + ZONE_IDENTIFIER + "/dns_records/" + recordId, "PATCH", authHeader, updateData.toString());
+        String updateResponse = httpRequest("https://api.cloudflare.com/client/v4/zones/" + ZONE_IDENTIFIER + "/dns_records/" + recordId, "PATCH", "X-Auth-Email: " + AUTH_EMAIL, authHeader + AUTH_KEY, updateData.toString());
 
         // Report the status
         JsonNode updateJson = mapper.readTree(updateResponse);
@@ -87,7 +86,7 @@ public class DDNSUpdater {
         String[] services = {"https://api.ipify.org", "https://ipv4.icanhazip.com"};
         for (String service : services) {
             try {
-                String ip = httpRequest(service, "GET", null);
+                String ip = httpRequest(service, "GET", null, null, null);
                 if (ip.matches("\\b(?:\\d{1,3}\\.){3}\\d{1,3}\\b")) {
                     return ip;
                 }
@@ -96,18 +95,13 @@ public class DDNSUpdater {
         return null;
     }
 
-    private static String httpRequest(String urlStr, String method, String authHeader) throws IOException {
-        return httpRequest(urlStr, method, authHeader, null);
-    }
-
-    private static String httpRequest(String urlStr, String method, String authHeader, String data) throws IOException {
+    private static String httpRequest(String urlStr, String method, String authEmailHeader, String authHeader, String data) throws IOException {
         URL url = new URL(urlStr);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod(method);
         conn.setRequestProperty("Content-Type", "application/json");
-        if (authHeader != null) {
-            conn.setRequestProperty(authHeader.split(": ")[0], authHeader.split(": ")[1] + AUTH_KEY);
-        }
+        conn.setRequestProperty("X-Auth-Email", AUTH_EMAIL);
+        conn.setRequestProperty(authHeader.split(": ")[0], authHeader.split(": ")[1]);
         if (data != null) {
             conn.setDoOutput(true);
             try (OutputStream os = conn.getOutputStream()) {
@@ -130,12 +124,12 @@ public class DDNSUpdater {
             ObjectNode slackMessage = mapper.createObjectNode();
             slackMessage.put("channel", SLACK_CHANNEL);
             slackMessage.put("text", SITE_NAME + " DDNS " + status + ": " + RECORD_NAME + " IP: " + ip);
-            httpRequest(SLACK_URI, "POST", "Content-Type: application/json", slackMessage.toString());
+            httpRequest(SLACK_URI, "POST", "Content-Type: application/json", slackMessage.toString(), null);
         }
         if (!DISCORD_URI.isEmpty()) {
             ObjectNode discordMessage = mapper.createObjectNode();
             discordMessage.put("content", SITE_NAME + " DDNS " + status + ": " + RECORD_NAME + " IP: " + ip);
-            httpRequest(DISCORD_URI, "POST", "Content-Type: application/json", discordMessage.toString());
+            httpRequest(DISCORD_URI, "POST", "Content-Type: application/json", discordMessage.toString(), null);
         }
     }
 }
