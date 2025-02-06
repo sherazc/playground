@@ -7,15 +7,15 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class DDNSUpdater {
     // The email used to login 'https://dash.cloudflare.com'
-    private static final String AUTH_EMAIL = "";
+    private static final String AUTH_EMAIL = "stariqch@gmail.com";
     // Set to "global" for Global API Key or "token" for Scoped API Token
     private static final String AUTH_METHOD = "token";
     // Your API Token or Global API Key
-    private static final String AUTH_KEY = "";
+    private static final String AUTH_KEY = "8d35d55fb92ccf983afaf23893953757a394d";
     // Can be found in the "Overview" tab of your domain
-    private static final String ZONE_IDENTIFIER = "";
+    private static final String ZONE_IDENTIFIER = "410d97279db83a3099c7cae4c6d67970";
     // Which record you want to be synced
-    private static final String RECORD_NAME = "";
+    private static final String RECORD_NAME = "mail.bitsegment.com";
     // Set the DNS TTL (seconds)
     private static final int TTL = 3600;
     // Set the proxy to true or false
