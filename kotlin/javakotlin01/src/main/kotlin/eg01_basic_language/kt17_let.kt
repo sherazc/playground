@@ -1,6 +1,19 @@
 package eg01_basic_language
 
 fun main() {
+    /**
+     *
+     * let   = Transform or operate on a nullable object (?.let)
+     * apply = Configure an object (setting multiple properties)
+     * run   = Perform operations and return a computed value
+     * also  = Use for logging or additional actions (without modifying the object)
+     * with	 = Work with an object’s properties without extending it
+     *
+     *
+     * all the above functions take lambda as the only or last argument.
+     * So because of that, we do not need to put parenthesis ()
+     **/
+
 
     /**
      * let
