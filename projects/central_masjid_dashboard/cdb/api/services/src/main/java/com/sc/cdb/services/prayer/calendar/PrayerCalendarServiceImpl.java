@@ -112,7 +112,14 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
             return response.build();
         }
 
-        prayerConfigDstApplier.addHoursToDstPeriod(prayerConfigOptional.get(), userYear, 1);
+        // Hijri Adjust Days
+        int hijriAdjustDays = getHijriAdjustDays(companyId);
+
+        int userGregorianYear = convertToGregorianYear(userYear, userMonth, hijriAdjustDays, calenderType);
+        int userGregorianMonth = convertToGregorianYear(userYear, userMonth, hijriAdjustDays, calenderType);
+
+
+        prayerConfigDstApplier.addHoursToDstPeriod(prayerConfigOptional.get(), userGregorianYear, 1);
 
         List<Prayer> prayersInDb = prayerConfigOptional.get().getPrayers();
         Map<String, String> errors = prayerValidator.validatePrayers(prayersInDb);
@@ -121,17 +128,6 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
             response.fieldErrors(errors);
             response.message("Stored prayer are not valid. Admin needs to reset prayers.");
             return response.build();
-        }
-
-        // Hijri Adjust Days
-        int hijriAdjustDays = getHijriAdjustDays(companyId);
-
-        int userGregorianYear = userYear;
-
-        if (CalenderType.hijri == calenderType) {
-            LocalDate localDate = hijriYearMonthToLocalDate(userYear, userMonth, hijriAdjustDays);
-            userGregorianYear = localDate.getYear();
-
         }
 
         prayerConfigService.overrideIqamas(companyId, prayersInDb);
@@ -183,6 +179,24 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
         response.target(monthPrayersList);
 
         return response.build();
+    }
+
+    private int convertToGregorianYear(int year, int month, int hijriAdjustDays, CalenderType calenderType) {
+        if (CalenderType.hijri == calenderType) {
+            LocalDate localDate = hijriYearMonthToLocalDate(year, month, hijriAdjustDays);
+            return localDate.getYear();
+        } else {
+            return year;
+        }
+    }
+
+    private int convertToGregorianMonth(int year, int month, int hijriAdjustDays, CalenderType calenderType) {
+        if (CalenderType.hijri == calenderType) {
+            LocalDate localDate = hijriYearMonthToLocalDate(year, month, hijriAdjustDays);
+            return localDate.getMonthValue();
+        } else {
+            return month;
+        }
     }
 
     private boolean isValidCalendar(int userMonth, Map<Month, List<Prayer>> prayersMonthGroups) {

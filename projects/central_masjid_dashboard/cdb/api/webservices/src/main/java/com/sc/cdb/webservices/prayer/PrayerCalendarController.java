@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/calendar/")
 public class PrayerCalendarController {
 
-    private PrayerCalendarService prayerCalendarService;
+    private final PrayerCalendarService prayerCalendarService;
 
     public PrayerCalendarController(PrayerCalendarService prayerCalendarService) {
         this.prayerCalendarService = prayerCalendarService;
