@@ -114,10 +114,8 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
 
         // Hijri Adjust Days
         int hijriAdjustDays = getHijriAdjustDays(companyId);
-
         int userGregorianYear = convertToGregorianYear(userYear, userMonth, hijriAdjustDays, calenderType);
-        int userGregorianMonth = convertToGregorianYear(userYear, userMonth, hijriAdjustDays, calenderType);
-
+        int userGregorianMonth = convertToGregorianMonth(userYear, userMonth, hijriAdjustDays, calenderType);
 
         prayerConfigDstApplier.addHoursToDstPeriod(prayerConfigOptional.get(), userGregorianYear, 1);
 
@@ -165,7 +163,7 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
                 .filter(p -> p.getDate().after(limits[0]) && p.getDate().before(limits[1]))
                 .collect(Collectors.groupingBy(monthGroupingCollectorFunction));
 
-        boolean validCalendar = isValidCalendar(userMonth, prayersMonthGroups);
+        boolean validCalendar = isValidCalendar(userGregorianMonth, prayersMonthGroups);
         response.successful(validCalendar);
         List<MonthPrayers> monthPrayersList = prayersMonthGroups.keySet()
                 .stream()
@@ -201,8 +199,11 @@ public class PrayerCalendarServiceImpl implements PrayerCalendarService {
 
     private boolean isValidCalendar(int userMonth, Map<Month, List<Prayer>> prayersMonthGroups) {
         return prayersMonthGroups != null
+                // User has not specified month. Should be 12 months
                 && ((userMonth < 1 && prayersMonthGroups.size() == 12)
-                        || (userMonth > 0 && prayersMonthGroups.size() == 1));
+                // User has specified month. Should always be 1 month for Gregorian.
+                // Could be 2 for Hijri
+                        || (userMonth > 0 && !prayersMonthGroups.isEmpty() && prayersMonthGroups.size() < 3));
     }
 
     private Date[] calculateLimits(CalenderType calenderType, int userYear, int userMonth, int hijriAdjustDays) {
