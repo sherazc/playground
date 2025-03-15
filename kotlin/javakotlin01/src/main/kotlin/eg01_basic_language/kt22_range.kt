@@ -5,10 +5,26 @@ fun main() {
     val numberRange2: IntRange = 1.rangeTo(10)
     val charRange1: CharRange = 'a'..'z'
 
+    for (x in numberRange2) {
+        println("numberRange2 x = $x")
+    }
     numberRange1.forEach { print(it) }
     charRange1.forEach { print(it) }
 
+    val numberRange3: IntProgression = 10 downTo 5 step  2
 
+    for (x in numberRange3) {
+        println("numberRange3 x = $x")
+    }
+
+    val numberRange4: IntProgression = 5..10 step  2
+
+    for (x in numberRange4) {
+        println("numberRange4 x = $x")
+    }
+
+    val numberRange5: IntProgression = 1 until 5 step 2
+    numberRange5.forEach { println("numberRange5 num = $it") }
 
     for (i in 1..5) {
         println(i) // Prints 1, 2, 3, 4, 5
@@ -33,5 +49,11 @@ fun main() {
     }
 
 
+    val charRange2 = 'z' downTo 'j' step 2
+    charRange2.forEach { println("charRange2 char = $it") }
+
+    val startChar = 'G'
+    val endChar = 'T'
+    (startChar until endChar step 3).forEach { println("charRange3 char = $it") }
 }
 
