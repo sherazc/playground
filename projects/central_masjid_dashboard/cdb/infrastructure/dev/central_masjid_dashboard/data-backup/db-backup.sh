@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# You will find db-backup.sh and db-restore.sh script in prod servers in this folder:
+# /opt/central_masjid_dashboard/data-backup/
+
 backupDir="db-backup-$(date +"%Y-%m-%d-%H-%M")"
 mkdir "$backupDir"
 
@@ -18,3 +21,5 @@ cd ..
 tar -cvzf "$backupDir.tar.gz" "$backupDir"
 
 rm -rf "$backupDir"
+
+# To restore the created archive look at db-restore.sh
