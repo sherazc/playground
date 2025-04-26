@@ -45,6 +45,12 @@ npm install
 npm run build
 cd ..
 
+# Build prayer-time-widget
+cd ./frame-widget
+npm install
+npm run build
+cd ..
+
 # Build UI
 cd ../ui
 # UI is already been cleaned up
