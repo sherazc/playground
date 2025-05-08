@@ -1,13 +1,19 @@
-import {ScrollView, Text, Touchable, TouchableOpacity, View} from "react-native";
+import {ScrollView, Text, TouchableOpacity, View} from "react-native";
 import {useState} from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Index() {
 
   const [myStorage, setMyStorage] = useState<string>("Nothing stored yet")
 
-  const handleStore = () => {
-    console.log("test");
+  const handleSetStorage = () => {
+    console.log("Set value in storage");
+    AsyncStorage.setItem("myStorage", "New Value: " + new Date().toISOString());
+  }
 
+  const handleGetStorage = () => {
+    console.log("Get value from storage");
+    AsyncStorage.getItem("myStorage").then(value => setMyStorage(value as string));
   }
 
   return (
@@ -19,10 +25,16 @@ export default function Index() {
       }}
     >
       <ScrollView>
-        <TouchableOpacity onPress={handleStore}>
-          <Text>Click to store</Text>
+        <TouchableOpacity onPress={handleSetStorage}>
+          <Text>Set value in store</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity onPress={handleGetStorage}>
+          <Text>get value from store</Text>
+        </TouchableOpacity>
+
         <Text>{myStorage}</Text>
+
 
       </ScrollView>
     </View>
