@@ -1,6 +1,11 @@
 import {ScrollView, Text, TouchableOpacity, View} from "react-native";
 import {useState} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  expoRegisterForNotificationsAsync,
+  expoRemoveNotificationsAsync,
+  expoScheduleNotificationAsync
+} from "@/app/ExpoNotification";
 
 export default function Index() {
 
@@ -14,6 +19,28 @@ export default function Index() {
   const handleGetStorage = () => {
     console.log("Get value from storage");
     AsyncStorage.getItem("myStorage").then(value => setMyStorage(value as string));
+  }
+
+  const handleShowNotificaiton = () => {
+    expoRemoveNotificationsAsync().then(() => { // Successfully removed
+      expoRegisterForNotificationsAsync().then(registered => {
+        if (registered) {
+          try {
+            console.log("Setting up notifications.");
+
+            expoScheduleNotificationAsync("Notification test", `Message ${new Date().toISOString()}`, new Date())
+              .then(() => console.log("Successfully set notification"))
+              .catch(e => console.log("Failed set notification"));
+          } catch (error) {
+            console.log("Failed set notification, exception occurred", error);
+          }
+        } else {
+          console.log("Failed set notification. Device not registered");
+        }
+      });
+
+
+    }, (reason: any) => console.log("Failed to remove previously set notifications.", reason)); // Failed to remove notification
   }
 
   return (
@@ -35,6 +62,9 @@ export default function Index() {
 
         <Text>{myStorage}</Text>
 
+        <TouchableOpacity onPress={handleShowNotificaiton}>
+          <Text>Show Notification</Text>
+        </TouchableOpacity>
 
       </ScrollView>
     </View>
