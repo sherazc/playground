@@ -21,14 +21,14 @@ export default function Index() {
     AsyncStorage.getItem("myStorage").then(value => setMyStorage(value as string));
   }
 
-  const handleShowNotificaiton = () => {
+  const handleShowNotification = () => {
     expoRemoveNotificationsAsync().then(() => { // Successfully removed
       expoRegisterForNotificationsAsync().then(registered => {
         if (registered) {
           try {
             console.log("Setting up notifications.");
 
-            expoScheduleNotificationAsync("Notification test", `Message ${new Date().toISOString()}`, new Date())
+            expoScheduleNotificationAsync("Notification test", `Message ${new Date().toISOString()}`, new Date(new Date().getDate() + (5 + 1000)))
               .then(() => console.log("Successfully set notification"))
               .catch(e => console.log("Failed set notification"));
           } catch (error) {
@@ -62,8 +62,8 @@ export default function Index() {
 
         <Text>{myStorage}</Text>
 
-        <TouchableOpacity onPress={handleShowNotificaiton}>
-          <Text>Show Notification</Text>
+        <TouchableOpacity onPress={handleShowNotification}>
+          <Text>Show Notification 2</Text>
         </TouchableOpacity>
 
       </ScrollView>

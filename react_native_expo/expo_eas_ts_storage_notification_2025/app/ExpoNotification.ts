@@ -1,7 +1,7 @@
 import * as Notifications from 'expo-notifications';
+import {SchedulableTriggerInputTypes} from 'expo-notifications';
 import * as Device from 'expo-device';
 import {Alert} from 'react-native';
-import {SchedulableTriggerInputTypes} from "expo-notifications/src/Notifications.types";
 
 export const expoRemoveNotificationsAsync = () => {
   const promises: Array<Promise<any>> = [];
@@ -38,11 +38,14 @@ export const expoScheduleNotificationAsync = async (title: string, message: stri
       title: title,
       body: message
     },
-    // trigger: { seconds: 10 },
     trigger: {
-      type: SchedulableTriggerInputTypes.DATE,
-      date: date
-    }
+      type: SchedulableTriggerInputTypes.TIME_INTERVAL,
+      seconds: 5
+    },
+    // trigger: {
+    //   type: SchedulableTriggerInputTypes.DATE,
+    //   date: date
+    // }
   });
 }
 
