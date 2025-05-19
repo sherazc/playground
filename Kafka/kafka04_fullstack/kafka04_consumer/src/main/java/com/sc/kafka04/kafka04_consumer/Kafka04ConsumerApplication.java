@@ -1,0 +1,13 @@
+package com.sc.kafka04.kafka04_consumer;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class Kafka04ConsumerApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Kafka04ConsumerApplication.class, args);
+	}
+
+}
