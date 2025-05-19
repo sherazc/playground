@@ -16,18 +16,19 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
-      KAFKA_LOG_DIRS: /tmp/kraft-combined-logs
+      KAFKA_LOG_DIRS: /var/lib/kafka/data
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      CLUSTER_ID: 'abcdabcdabcdabcd'
     volumes:
-      - kafka-data:/tmp/kraft-combined-logs
-    command:
-      - bash
-      - -c
-      - |
-        KAFKA_CLUSTER_ID="$(kafka-storage random-uuid)"
-        kafka-storage format -t "$KAFKA_CLUSTER_ID" -c /etc/kafka/kafka.properties
-        exec /etc/confluent/docker/run
+      - kafka-data:/var/lib/kafka/data
+#    command:
+#      - bash
+#      - -c
+#      - |
+#        KAFKA_CLUSTER_ID="$(kafka-storage random-uuid)"
+#        kafka-storage format -t "$KAFKA_CLUSTER_ID" -c /etc/kafka/kafka.properties
+#        exec /etc/confluent/docker/run
 
   postgres:
     image: postgres:15
