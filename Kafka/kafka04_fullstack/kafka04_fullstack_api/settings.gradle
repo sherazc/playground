@@ -1,0 +1,2 @@
+rootProject.name = 'kafka04_fullstack_api'
+include 'kafka04_common', 'kafka04_producer', 'kafka04_consumer'
