@@ -1,4 +1,4 @@
-package com.sc.kafka04.kafka04_producer.entity;
+package com.sc.kafka04.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
