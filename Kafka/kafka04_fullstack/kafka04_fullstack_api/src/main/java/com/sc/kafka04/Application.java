@@ -1,12 +1,13 @@
-package com.sc.kafka04.kafka04_producer;
+package com.sc.kafka04;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ProducerApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ProducerApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
+
 }

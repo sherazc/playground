@@ -1,4 +1,4 @@
-package com.sc.kafka04.kafka04_producer.controller;
+package com.sc.kafka04.controller;
 
 import com.sc.kafka04.entity.RegisterUser;
 import com.sc.kafka04.repository.RegisterUserRepo;
