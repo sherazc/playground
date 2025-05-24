@@ -22,7 +22,11 @@ import java.util.Map;
 @Configuration
 public class KafkaConfig {
 
-  // ConsumerFactory is used to listen to messages
+  public static final String RU_KAFKA_SERVER = "localhost:9092";
+  public static final String RU_MESSAGE_GROUP = "ru_message-group";
+  public static final String RU_MESSAGE_TOPIC = "ru_message-topic";
+
+  // ConsumerFactory is required to listen to messages
   @Bean
   public ConsumerFactory<String, RegisterUserRecord> consumerFactory() {
     JsonDeserializer<RegisterUserRecord> deserializer =
@@ -30,8 +34,8 @@ public class KafkaConfig {
     deserializer.addTrustedPackages("*"); // or use a specific package
 
     Map<String, Object> props = new HashMap<>();
-    props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-    props.put(ConsumerConfig.GROUP_ID_CONFIG, "message-group");
+    props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, RU_KAFKA_SERVER);
+    props.put(ConsumerConfig.GROUP_ID_CONFIG, RU_MESSAGE_GROUP);
     props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
     return new DefaultKafkaConsumerFactory<>(
@@ -41,6 +45,8 @@ public class KafkaConfig {
     );
   }
 
+  // Required for consuming JSON Objects
+  // Consuming String messages works without it.
   @Bean
   public ConcurrentKafkaListenerContainerFactory<String, RegisterUserRecord> myKafkaListenerContainerFactory() {
     ConcurrentKafkaListenerContainerFactory<String, RegisterUserRecord> factory =
@@ -53,7 +59,7 @@ public class KafkaConfig {
   @Bean
   public ProducerFactory<String, RegisterUserRecord> producerFactory() {
     Map<String, Object> props = new HashMap<>();
-    props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+    props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, RU_KAFKA_SERVER);
     props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
     props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
     return new DefaultKafkaProducerFactory<>(props);
@@ -73,6 +79,7 @@ public class KafkaConfig {
   - Manual acknowledgment
   - Batch processing
   - Message filtering, etc.
+  - JSON Serialization.
 
   @Bean
   public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory(
@@ -97,4 +104,4 @@ public class KafkaConfig {
 
     return factory;
   }
-   */
+*/

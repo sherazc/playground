@@ -1,5 +1,6 @@
 package com.sc.kafka04.controller;
 
+import com.sc.kafka04.config.KafkaConfig;
 import com.sc.kafka04.dto.RegisterUserRecord;
 import com.sc.kafka04.entity.RegisterUser;
 import com.sc.kafka04.repository.RegisterUserRepo;
@@ -39,7 +40,7 @@ public class MessageProducerController {
   public String saveUser(@RequestBody  RegisterUserRecord registerUser) {
 
     CompletableFuture<SendResult<String, RegisterUserRecord>> sendResultFuture
-        = kafkaTemplate.send("message-topic", registerUser);
+        = kafkaTemplate.send(KafkaConfig.RU_MESSAGE_TOPIC, registerUser);
 
     try {
       SendResult<String, RegisterUserRecord> sendResult = sendResultFuture.get();
