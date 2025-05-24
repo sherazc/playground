@@ -45,7 +45,7 @@ public class KafkaConfig {
     );
   }
 
-  // Required for consuming JSON Objects
+  // Spring Boot Required for consuming JSON Objects
   // Consuming String messages works without it.
   @Bean
   public ConcurrentKafkaListenerContainerFactory<String, RegisterUserRecord> myKafkaListenerContainerFactory() {

@@ -22,26 +22,19 @@ services:
       CLUSTER_ID: 'abcdabcdabcdabcd'
     volumes:
       - kafka-data:/var/lib/kafka/data
-#    command:
-#      - bash
-#      - -c
-#      - |
-#        KAFKA_CLUSTER_ID="$(kafka-storage random-uuid)"
-#        kafka-storage format -t "$KAFKA_CLUSTER_ID" -c /etc/kafka/kafka.properties
-#        exec /etc/confluent/docker/run
 
-  postgres:
-    image: postgres:15
-    container_name: postgres
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_DB: appdb
-      POSTGRES_USER: appuser
-      POSTGRES_PASSWORD: apppass
-    volumes:
-      - pg-data:/var/lib/postgresql/data
+#  postgres:
+#    image: postgres:15
+#    container_name: postgres
+#    ports:
+#      - "5432:5432"
+#    environment:
+#      POSTGRES_DB: appdb
+#      POSTGRES_USER: appuser
+#      POSTGRES_PASSWORD: apppass
+#    volumes:
+#      - pg-data:/var/lib/postgresql/data
 
 volumes:
   kafka-data:
-  pg-data:
+#  pg-data:
