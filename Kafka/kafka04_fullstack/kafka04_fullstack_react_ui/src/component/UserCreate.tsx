@@ -6,8 +6,9 @@ interface Props { }
 
 const createEmptyUser = (): RegisterUser => ({
   userName: "",
-  password: "",
-  registerTime: ""
+  userPassword: "",
+  registerTime: "",
+  userRole: ""
 });
 
 export const UserCreate: React.FC<Props> = () => {
@@ -45,7 +46,7 @@ export const UserCreate: React.FC<Props> = () => {
       <form onSubmit={handleCreateUser}>
         User Name: <input name="userName" value={registerUser.userName} onChange={handleInputChange} />
         <br />
-        Password: <input name="password" value={registerUser.password} onChange={handleInputChange} />
+        Password: <input name="userPassword" value={registerUser.userPassword} onChange={handleInputChange} />
         <br />
         <button type="submit">Submit</button>
       </form>

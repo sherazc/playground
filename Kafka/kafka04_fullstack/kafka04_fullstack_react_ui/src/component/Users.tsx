@@ -18,7 +18,7 @@ export const Users: React.FC<Props> = () => {
       <h1>All Users</h1>
       <ol>
         {registerUsers && registerUsers.map(user => (
-          <li key={user.id}>{`${user.userName}/${user.password} ${user.registerTime}`}</li>
+          <li key={user.id}>{`${user.userName}/${user.userPassword} ${user.registerTime}`}</li>
         ))}
       </ol>
     </div>

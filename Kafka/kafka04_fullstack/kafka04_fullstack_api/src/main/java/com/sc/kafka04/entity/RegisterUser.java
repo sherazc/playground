@@ -22,7 +22,7 @@ public class RegisterUser {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String userName;
-  @Column(name = "user_password")
-  private String password;
+  private String userPassword;
+  private String userRole;
   private LocalDateTime registerTime;
 }

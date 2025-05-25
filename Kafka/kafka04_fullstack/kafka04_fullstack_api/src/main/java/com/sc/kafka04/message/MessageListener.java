@@ -23,7 +23,8 @@ public class MessageListener {
     RegisterUser registerUser = RegisterUser.builder()
         .id(registerUserRecord.id())
         .userName(registerUserRecord.userName())
-        .password(registerUserRecord.password())
+        .userRole(registerUserRecord.userRole())
+        .userPassword(registerUserRecord.userPassword())
         .registerTime(registerUserRecord.registerTime())
         .build();
 
