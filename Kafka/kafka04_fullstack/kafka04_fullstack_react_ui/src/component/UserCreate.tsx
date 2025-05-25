@@ -8,7 +8,7 @@ const createEmptyUser = (): RegisterUser => ({
   userName: "",
   userPassword: "",
   registerTime: "",
-  userRole: ""
+  userRole: "BASIC"
 });
 
 export const UserCreate: React.FC<Props> = () => {
@@ -35,7 +35,14 @@ export const UserCreate: React.FC<Props> = () => {
     setRegisterUser({
       ...registerUser,
       [event.target.name]: event.target.value
-    })
+    });
+  };
+
+  const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    setRegisterUser({
+      ...registerUser,
+      [event.target.name]: event.target.value
+    });
   }
 
   return (
@@ -47,6 +54,12 @@ export const UserCreate: React.FC<Props> = () => {
         User Name: <input name="userName" value={registerUser.userName} onChange={handleInputChange} />
         <br />
         Password: <input name="userPassword" value={registerUser.userPassword} onChange={handleInputChange} />
+        <br />
+        Role: 
+        <select name="userRole" onChange={handleSelectChange}>
+          <option value="BASIC">BASIC</option>
+          <option value="ADMIN">ADMIN</option>
+        </select>
         <br />
         <button type="submit">Submit</button>
       </form>
