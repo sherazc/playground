@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface RegisterUserRepo extends CrudRepository<RegisterUser, Long> {
   Optional<RegisterUser> findByUserName(String username);
+  Optional<RegisterUser> findByEmail(String email);
+
 }

@@ -1,6 +1,7 @@
 package com.sc.kafka04.controller;
 
 import com.sc.kafka04.config.KafkaConfig;
+import com.sc.kafka04.dto.MyErrorResponse;
 import com.sc.kafka04.dto.RegisterUserRecord;
 import com.sc.kafka04.entity.RegisterUser;
 import com.sc.kafka04.exception.MyException;
@@ -11,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -52,7 +54,8 @@ public class RegisterUserController {
     registerUserValidator.validate(registerUser, bindingResult);
 
     if (bindingResult.hasErrors()) {
-      return bindingResult.getFieldError().getDefaultMessage();
+      FieldError fieldError = bindingResult.getFieldError();
+      throw new MyException(new MyErrorResponse(fieldError.getDefaultMessage(), fieldError.getField(), "400"));
     }
 
     CompletableFuture<SendResult<String, RegisterUserRecord>> sendResultFuture
