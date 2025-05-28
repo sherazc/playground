@@ -22,6 +22,7 @@ public class RegisterUser {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String userName;
+  private String email;
   private String userPassword;
   private String userRole;
   private LocalDateTime registerTime;

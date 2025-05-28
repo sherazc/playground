@@ -5,10 +5,12 @@ import com.sc.kafka04.dto.RegisterUserRecord;
 import com.sc.kafka04.entity.RegisterUser;
 import com.sc.kafka04.exception.MyException;
 import com.sc.kafka04.repository.RegisterUserRepo;
+import com.sc.kafka04.validator.RegisterUserValidator;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +29,7 @@ public class RegisterUserController {
 
   private final RegisterUserRepo registerUserRepo;
   private final KafkaTemplate<String, RegisterUserRecord> kafkaTemplate;
+  private final RegisterUserValidator registerUserValidator;
 
   @GetMapping("/users")
   public List<RegisterUser> getAllUser() {
@@ -35,28 +38,34 @@ public class RegisterUserController {
         .toList();
   }
 
-@PostMapping("/users")
-public String saveUser(
-    @RequestBody
-    @Valid // Either use Jakarta @Valid annotation
-    // @Validated // or use Spring's @Validated annotation
-    RegisterUserRecord registerUser) {
+  @PostMapping("/users")
+  public String saveUser(
+      @RequestBody
+      @Valid // Either use Jakarta @Valid annotation
+      // @Validated // or use Spring's @Validated annotation
+      RegisterUserRecord registerUser, BindingResult bindingResult) {
 
-  if (registerUser.registerTime().isBefore(LocalDateTime.now())) {
-    throw new MyException("Registration date should be in future.");
+    if (registerUser.registerTime().isBefore(LocalDateTime.now())) {
+      throw new MyException("Registration date should be in future.");
+    }
+
+    registerUserValidator.validate(registerUser, bindingResult);
+
+    if (bindingResult.hasErrors()) {
+      return bindingResult.getFieldError().getDefaultMessage();
+    }
+
+    CompletableFuture<SendResult<String, RegisterUserRecord>> sendResultFuture
+        = kafkaTemplate.send(KafkaConfig.RU_MESSAGE_TOPIC, registerUser);
+
+    try {
+      SendResult<String, RegisterUserRecord> sendResult = sendResultFuture.get();
+      System.out.println(sendResult.getProducerRecord().topic());
+      System.out.println(sendResult.getProducerRecord().key());
+      System.out.println(sendResult.getProducerRecord().value());
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+    return "Register user process started.";
   }
-
-  CompletableFuture<SendResult<String, RegisterUserRecord>> sendResultFuture
-      = kafkaTemplate.send(KafkaConfig.RU_MESSAGE_TOPIC, registerUser);
-
-  try {
-    SendResult<String, RegisterUserRecord> sendResult = sendResultFuture.get();
-    System.out.println(sendResult.getProducerRecord().topic());
-    System.out.println(sendResult.getProducerRecord().key());
-    System.out.println(sendResult.getProducerRecord().value());
-  } catch (Exception e) {
-    throw new RuntimeException(e);
-  }
-  return "Register user process started.";
-}
 }

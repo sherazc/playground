@@ -8,6 +8,7 @@ public record RegisterUserRecord(
     Long id,
     @Size(min = 1, max = 5, message = "User name should be between 1 and 5")
     String userName,
+    String email,
     String userPassword,
     String userRole,
 
