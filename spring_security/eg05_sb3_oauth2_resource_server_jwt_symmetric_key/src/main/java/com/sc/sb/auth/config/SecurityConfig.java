@@ -53,10 +53,9 @@ public class SecurityConfig {
     private String jwtKey;
 
     /*
-    // Extracted into ScUserDetailServiceImpl. It uses Database instead of in-memory.
+    // Extracted into ScUserDetailServiceImpl. It uses Database instead of InMemoryUserDetailsManager.
     @Bean
     public UserDetailsService userDetailsService() {
-        // TODO: get user form database
         return new InMemoryUserDetailsManager(
                 User.withUsername("sheraz")
                         .password("{noop}password")

@@ -4,9 +4,11 @@ import com.sc.kafka04.config.KafkaConfig;
 import com.sc.kafka04.dto.RegisterUserRecord;
 import com.sc.kafka04.entity.RegisterUser;
 import com.sc.kafka04.repository.RegisterUserRepo;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,7 +36,11 @@ public class RegisterUserController {
   }
 
   @PostMapping("/users")
-  public String saveUser(@RequestBody  RegisterUserRecord registerUser) {
+  public String saveUser(
+      @RequestBody
+      @Valid // Either use Jakarta @Valid annotation
+      // @Validated // or use Spring's @Validated annotation
+      RegisterUserRecord registerUser) {
 
     CompletableFuture<SendResult<String, RegisterUserRecord>> sendResultFuture
         = kafkaTemplate.send(KafkaConfig.RU_MESSAGE_TOPIC, registerUser);

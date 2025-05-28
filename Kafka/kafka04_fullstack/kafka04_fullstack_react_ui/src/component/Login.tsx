@@ -8,8 +8,10 @@ export const Login: React.FC<Props> = () => {
     <div>
       <h1>Login</h1>
       <form>
-        <input/>
-        <input/>
+        User Name: <input/>
+        <br />
+        Password: <input/>
+        <br/>
         <button type="submit">Login</button>
       </form>
     </div>
