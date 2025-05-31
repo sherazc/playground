@@ -88,7 +88,7 @@ class RegisterUserControllerTest {
         "Doe",
         "john@example.com",
         "password",
-        "ADMIN", LocalDateTime.now().plusMinutes(10));
+        100L, LocalDateTime.now().plusMinutes(10));
 
     ProducerRecord<String, RegisterUserRecord> mockProducerRecord =
         new ProducerRecord<>(KafkaConfig.RU_MESSAGE_TOPIC, validUser);

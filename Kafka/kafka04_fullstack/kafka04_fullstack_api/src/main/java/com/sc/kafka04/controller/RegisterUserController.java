@@ -25,7 +25,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.StreamSupport;
 
 @RestController
-@RequestMapping("/register")
+@RequestMapping("/register/users")
 @AllArgsConstructor
 public class RegisterUserController {
 
@@ -33,14 +33,14 @@ public class RegisterUserController {
   private final KafkaTemplate<String, RegisterUserRecord> kafkaTemplate;
   private final RegisterUserValidator registerUserValidator;
 
-  @GetMapping("/users")
+  @GetMapping()
   public List<RegisterUser> getAllUser() {
     return StreamSupport
         .stream(registerUserRepo.findAll().spliterator(), false)
         .toList();
   }
 
-  @PostMapping("/users")
+  @PostMapping()
   public String saveUser(
       @RequestBody
       @Valid // Either use Jakarta @Valid annotation

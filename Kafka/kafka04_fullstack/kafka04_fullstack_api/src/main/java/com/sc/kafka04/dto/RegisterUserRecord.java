@@ -12,6 +12,6 @@ public record RegisterUserRecord(
     @UniqueUserEmail
     String email,
     String userPassword,
-    String userRole,
+    Long registerRoleId,
     LocalDateTime registerTime) {
 }
