@@ -1,19 +1,19 @@
 import React, { ChangeEvent, ChangeEventHandler, FormEvent, useRef, useState } from "react";
-import { RegisterUser } from "../types";
+import { RegisterUserRecord } from "../types";
 import { createUser } from "../api/Api";
 
 interface Props { }
 
-const createEmptyUser = (): RegisterUser => ({
+const createEmptyUser = (): RegisterUserRecord => ({
   userName: "",
   userPassword: "",
   registerTime: "",
-  userRole: "BASIC"
+  registerRoleId: 0
 });
 
 export const UserCreate: React.FC<Props> = () => {
 
-  const [registerUser, setRegisterUser] = useState<RegisterUser>(createEmptyUser());
+  const [registerUser, setRegisterUser] = useState<RegisterUserRecord>(createEmptyUser());
 
   const createResultRef = useRef<HTMLInputElement>(null);
 

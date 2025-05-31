@@ -1,7 +1,13 @@
-export type RegisterUser = {
+export type RegisterUserRecord = {
     id?: number;
     userName: string;
     userPassword: string; 
-    userRole: string; 
+    registerRoleId: number; 
     registerTime: string;
-}
+};
+
+export type RegisterRole = {
+  id: number;
+  roleName: string;
+};
+

@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-import { RegisterUser } from "../types";
+import { RegisterRole, RegisterUserRecord } from "../types";
 
 export const JWT_TOKEN = 'jwt_token';
 
@@ -24,12 +24,13 @@ export const removeAuthToken = () => {
   }
 };
 
+export const getAllRoles = async (): Promise<RegisterRole[]> =>    
+  (await axiosInstance.get<RegisterRole[]>("/register/roles")).data
 
-export const getAllUsers = async (): Promise<RegisterUser[]> => {
-  return (await axiosInstance.get<RegisterUser[]>("/register/users")).data
-};
+export const getAllUsers = async (): Promise<RegisterUserRecord[]> => 
+   (await axiosInstance.get<RegisterUserRecord[]>("/register/users")).data
 
-export const createUser = async (registerUser: RegisterUser): Promise<string> => {
+export const createUser = async (registerUser: RegisterUserRecord): Promise<string> => {
   return (await axiosInstance.post<string>("/register/users", registerUser)).data
 };
 

@@ -18,7 +18,7 @@ CREATE TABLE register_user
 
 
 INSERT INTO register_role (id, role_name)
-values (100, 'BASIC_USER');
+values (100, 'BASIC');
 
 INSERT INTO register_role (id, role_name)
 values (200, 'ADMIN');
