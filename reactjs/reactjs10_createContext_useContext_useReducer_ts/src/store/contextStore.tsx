@@ -32,7 +32,7 @@ export const AppProvider: React.FC<Props> = ({children}): React.JSX.Element => {
 
   return (
     <AppContext.Provider value={[state, dispatch]}>
-      children
+      {children}
     </AppContext.Provider>
   );
 }
