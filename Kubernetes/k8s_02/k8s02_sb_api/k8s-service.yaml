@@ -1,0 +1,22 @@
+# Service exposes those Pods so you can access them — in this case, on http://localhost:30080
+
+# API version for Service resources
+apiVersion: v1
+# Specifies that this object is a Service
+kind: Service
+metadata:
+  # Name of the Service (unique within the namespace)
+  name: k8s02-sb-api-service
+spec:
+  # Exposes the service on a static port on each Node (good for local development)
+  type: NodePort
+  selector:
+    # Matches Pods with the label 'app: k8s02-sb-app' (this links the service to the pods)
+    app: k8s02-sb-app
+  ports:
+    # Port exposed by the service inside the cluster (other services use this)
+    - port: 8080
+      # Port the actual container is listening on
+      targetPort: 8080
+      # Static port on the host machine (your Mac) to expose the service
+      nodePort: 30080

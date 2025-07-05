@@ -1,0 +1,35 @@
+# Deployment creates and maintains your app Pods.
+
+# API version for Deployments; apps/v1 is the standard and stable version
+apiVersion: apps/v1
+# Specifies that this object is a Deployment
+kind: Deployment
+metadata:
+  # Name of the Deployment resource (can be anything unique within the namespace)
+  name: k8s02-sb-app
+spec:
+  # Number of Pod replicas you want running at all times
+  replicas: 1
+  # This is how the Deployment identifies which Pods to manage
+  selector:
+    matchLabels:
+      # It matches Pods that have the label 'app: k8s02-sb-app'
+      app: k8s02-sb-app
+  # This is the Pod template — what each Pod should look like
+  template:
+    metadata:
+      labels:
+        # The label given to the Pods created by this Deployment
+        app: k8s02-sb-app
+    # Specification of what containers should run inside the Pod
+    spec:
+      containers:
+        # Name of the container (your choice, used internally)
+        - name: k8s02-sb-api-container
+          # The Docker image name (must exist locally if 'Never' pull policy is used)
+          image: k8s02-sb-api-image
+          # Tells K8s NOT to pull the image from a registry — use local image only
+          imagePullPolicy: Never
+          ports:
+            # The port the container listens on (must match your Spring Boot app's port)
+            - containerPort: 8080
