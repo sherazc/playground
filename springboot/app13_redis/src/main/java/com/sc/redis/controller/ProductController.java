@@ -1,4 +1,4 @@
-package com.sc.redis;
+package com.sc.redis.controller;
 
 import com.sc.redis.dto.Product;
 import com.sc.redis.service.ProductService;
