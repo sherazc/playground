@@ -13,7 +13,7 @@ public class CustomerOrderService {
 
   private final AppDb appDb;
 
-  @Cacheable(value="CustomerOrder")
+  @Cacheable(value="customer-order")
   public CustomerOrder getCustomerOrderById(Long id) {
     System.out.println("Fetching from customer order map (not cache)...");
     CommonUtils.simulateDelay(2000);
