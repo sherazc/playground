@@ -1,7 +1,7 @@
 package com.sc.redis.repository;
 
-import com.sc.redis.dto.CustomerOrder;
-import com.sc.redis.dto.Product;
+import com.sc.redis.dto.ItemOne;
+import com.sc.redis.dto.ItemTwo;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,27 +10,13 @@ import java.util.Map;
 
 @Repository
 public class AppDb {
-  public static final Map<Long, Product> productMap = Map.of(
-      1L, new Product(1L, "Apple", 0.99),
-      2L, new Product(2L, "Banana", 0.59),
-      3L, new Product(3L, "Orange", 1.29)
-  );
+  public static final Map<Long, ItemOne> itemOnes = Map.of(
+      100L, new ItemOne(100L, "item-one-a"),
+      200L, new ItemOne(200L, "item-one-b"),
+      300L, new ItemOne(300L, "item-one-c"));
 
-  public static final Map<Long, CustomerOrder> customerOrderMap = Map.of(
-      100L, CustomerOrder.builder()
-          .id(100L)
-          .userName("Sheraz")
-          .products(List.of(productMap.get(1L)))
-          .build(),
-      200L, CustomerOrder.builder()
-          .id(200L)
-          .userName("Tariq")
-          .products(List.of(productMap.get(2L), productMap.get(3L)))
-          .build(),
-      300L, CustomerOrder.builder()
-          .id(300L)
-          .userName("Chaudhry")
-          .products(List.of(productMap.get(3L)))
-          .build()
-  );
+  public static final Map<Long, ItemTwo> itemTwos = Map.of(
+      1L, new ItemTwo(1L, "item-two-a"),
+      2L, new ItemTwo(2L, "item-two-b"),
+      3L, new ItemTwo(3L, "item-two-c"));
 }

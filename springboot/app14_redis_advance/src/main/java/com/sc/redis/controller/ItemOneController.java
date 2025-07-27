@@ -1,7 +1,7 @@
 package com.sc.redis.controller;
 
-import com.sc.redis.dto.Product;
-import com.sc.redis.service.ProductService;
+import com.sc.redis.dto.ItemOne;
+import com.sc.redis.service.ItemOneService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/item-one")
 @RequiredArgsConstructor
-public class ProductController {
+public class ItemOneController {
 
-  private final ProductService productService;
+  private final ItemOneService itemOneService;
 
   @GetMapping("/{id}")
-  public Product getProduct(@PathVariable Long id) {
-    return productService.getProductById(id);
+  public ItemOne getItemOne(@PathVariable Long id) {
+    return itemOneService.getItemOneById(id);
   }
 }
