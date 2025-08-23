@@ -19,7 +19,7 @@ public class RedisConfig {
   public RedisCacheConfiguration globalCacheConfiguration() {
     return RedisCacheConfiguration
         .defaultCacheConfig() // configure all the defaults
-        // .entryTtl(Duration.ofMinutes(5))
+        .entryTtl(Duration.ofMinutes(5))
         .disableCachingNullValues()
         .prefixCacheNameWith("my_app::") // prefix all the keys. Used like namespace.
         .serializeKeysWith(
@@ -38,11 +38,17 @@ public class RedisConfig {
     // Each cache configuration
     Map<String, RedisCacheConfiguration> cacheConfigs = new HashMap<>();
 
-    cacheConfigs.put("products", RedisCacheConfiguration.defaultCacheConfig()
+    cacheConfigs.put("item-one", RedisCacheConfiguration.defaultCacheConfig()
         .entryTtl(Duration.ofMinutes(1)).serializeValuesWith(
-        // Stores value as JSON
-        RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer())
-    ));
+            // Stores value as JSON
+            RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer())
+        ));
+
+    cacheConfigs.put("item-two", RedisCacheConfiguration.defaultCacheConfig()
+        .entryTtl(Duration.ofMinutes(2)).serializeValuesWith(
+            // Stores value as JSON
+            RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer())
+        ));
 
     return RedisCacheManager.builder(connectionFactory)
         .cacheDefaults(globalCacheConfiguration())
