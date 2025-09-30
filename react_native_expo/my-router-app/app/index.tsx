@@ -11,7 +11,7 @@ export default function Index() {
       }}
     >
       <Text>Index Page</Text>
-      <Link href="/about">About Page</Link>
+      <Link href="/about">Go to About Page</Link>
       <Button title="Home Page" onPress={() => router.push("/(tabs)/home")} />
       {/* asChild will hide the Link, show the Child and 
       attach a router.push("/profile") handler to the child.
