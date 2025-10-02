@@ -19,6 +19,10 @@ export default function Index() {
       <Link href="/(tabs)/profile" asChild>
         <Button title="Profile Page" />
       </Link>
+
+      <Link href="/blog/tech/100" asChild>
+        <Button title="Goto /blog/tech/100" />
+      </Link>
     </View>
   );
 }
