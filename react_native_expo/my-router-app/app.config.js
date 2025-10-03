@@ -1,8 +1,8 @@
 import appJson from "./app.json";
 
-export default {
+export default () => ({
   ...appJson,
   "expo-router": {
-    root: "src/app"
-  }
-};
+    root: "src/screens",
+  },
+});
