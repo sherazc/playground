@@ -9,7 +9,7 @@ export default function RootLayout() {
       }} />
       <Stack.Screen name="about" options={{ title: "About Us" }} />
       {/*  "headerShown: false" hides the Stack Nav header */}
-      <Stack.Screen name="(tabs)" options={{ title: "Dashboard", headerShown: false }} />
+      <Stack.Screen name="(myTabs)" options={{ title: "Dashboard", headerShown: false }} />
 
       <Stack.Screen name="blog/[category]/[postId]" options={({route}) => {
         // important: params are string[]. thats why we have to make postId as string
