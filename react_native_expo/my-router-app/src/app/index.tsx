@@ -23,10 +23,10 @@ export default function Index() {
       <Link href="/blog/tech/100" asChild>
         <Button title="/blog/tech/100" />
       </Link>
-      <Link href="/(singleSlot)/Screen1" asChild>
+      <Link href="/singleSlot/Screen1" asChild>
         <Button title="/(singleSlot)/Screen1" />
       </Link>
-      <Link href="/(singleSlot)/Screen2" asChild>
+      <Link href="/singleSlot/Screen2" asChild>
         <Button title="/(singleSlot)/Screen2" />
       </Link>
     </View>
