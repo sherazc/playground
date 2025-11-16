@@ -1,6 +1,7 @@
 export type RegisterUserRecord = {
     id?: number;
     userName: string;
+    email: string;
     userPassword: string; 
     registerRoleId: number; 
     registerTime: string;

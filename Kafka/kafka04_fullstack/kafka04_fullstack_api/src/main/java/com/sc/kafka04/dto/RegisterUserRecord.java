@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 public record RegisterUserRecord(
     Long id,
-    @Size(min = 1, max = 5, message = "User name should be between 1 and 5")
+    @Size(min = 1, max = 10, message = "User name should be between 1 and 10")
     String userName,
     @UniqueUserEmail
     String email,
