@@ -41,3 +41,5 @@ node_installation
 venv
 
 .java-version
+
+.aws-sam

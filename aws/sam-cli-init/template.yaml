@@ -1,9 +1,9 @@
-Transform: AWS::Serverless-2016-10-31
 AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
 Description: >
-  sam_intellij_aws_toolkit
+  sam-cli-init
 
-  Sample SAM Template for sam_intellij_aws_toolkit
+  Sample SAM Template for sam-cli-init
 
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
@@ -19,7 +19,7 @@ Resources:
       Handler: helloworld.App::handleRequest
       Runtime: java21
       Architectures:
-        - arm64
+        - x86_64
       MemorySize: 512
       Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
         Variables:

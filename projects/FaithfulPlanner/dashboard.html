@@ -1,0 +1,1861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaithfulPlanner - Clinic Scheduling</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .app-container {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background: white;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 2px solid #f0f0f0;
+            text-align: center;
+        }
+
+        .sidebar-header h1 {
+            color: #667eea;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            margin: 0;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 15px 20px;
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            border-left: 4px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #f5f7ff;
+            border-left-color: #667eea;
+            color: #667eea;
+        }
+
+        .nav-link.active {
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 30px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h2 {
+            color: #333;
+            font-size: 28px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #e0e7ff;
+            color: #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #c7d2f8;
+        }
+
+        .btn-logout {
+            background: #f56565;
+            color: white;
+        }
+
+        .btn-logout:hover {
+            background: #e53e3e;
+        }
+
+        /* Screen Sections */
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        /* Login Screen */
+        .login-container {
+            max-width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .login-container h1 {
+            color: #667eea;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .form-actions button {
+            flex: 1;
+        }
+
+        /* Dashboard Content */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .card h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .card-stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 15px 0;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .card-stat:last-child {
+            border-bottom: none;
+        }
+
+        .card-stat-label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .card-stat-value {
+            color: #667eea;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        /* Accordion Styles */
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background-color: #f8f9fa;
+            margin: 0 -25px;
+            padding: 10px 25px;
+            border-radius: 6px;
+        }
+
+        .accordion-toggle {
+            font-size: 18px;
+            font-weight: bold;
+            color: #667eea;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-toggle.expanded {
+            transform: rotate(90deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .accordion-content.expanded {
+            max-height: 300px;
+            padding-top: 15px;
+        }
+
+        .person-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .person-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 15px;
+            margin: 5px 0;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 3px solid #667eea;
+        }
+
+        .person-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .person-role {
+            font-size: 12px;
+            color: #666;
+            background: #e0e7ff;
+            padding: 2px 8px;
+            border-radius: 12px;
+        }
+
+        .no-assignments {
+            text-align: center;
+            color: #999;
+            font-style: italic;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+
+        /* Table Styles */
+        .table-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #f8f9fa;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        th {
+            padding: 15px 20px;
+            text-align: left;
+            color: #333;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-primary {
+            background: #e0e7ff;
+            color: #667eea;
+        }
+
+        .badge-success {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .badge-warning {
+            background: #feebc8;
+            color: #7c2d12;
+        }
+
+        /* Form Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 15px;
+        }
+
+        .modal-header h3 {
+            color: #333;
+            font-size: 22px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: #999;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        /* Organization Selector */
+        .org-selector {
+            background: white;
+            padding: 15px 20px;
+            border-bottom: 2px solid #f0f0f0;
+            margin-bottom: 0;
+        }
+
+        .org-selector select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .org-selector label {
+            display: block;
+            margin-bottom: 8px;
+            color: #666;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .org-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            background: #667eea;
+            color: white;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .super-admin-only {
+            display: none;
+        }
+
+        .super-admin-only.show {
+            display: block;
+        }
+
+        /* Action Buttons in Tables */
+        .action-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn-edit {
+            background: #bee3f8;
+            color: #2c5282;
+        }
+
+        .action-btn-edit:hover {
+            background: #90cdf4;
+        }
+
+        .action-btn-delete {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+
+        .action-btn-delete:hover {
+            background: #fc8181;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 250px;
+            }
+
+            .main-content {
+                margin-left: 250px;
+                padding: 20px;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+
+            .header-actions {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .main-content {
+                margin-left: 200px;
+                padding: 15px;
+            }
+
+            .sidebar-header h1 {
+                font-size: 16px;
+            }
+
+            .nav-link {
+                padding: 12px 15px;
+                font-size: 13px;
+            }
+
+            table {
+                font-size: 13px;
+            }
+
+            th, td {
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h1>FaithfulPlanner</h1>
+            </div>
+            <div class="org-selector">
+                <label>Current Organization</label>
+                <select id="orgSelector" onchange="switchOrganization()">
+                    <option value="">Select Organization</option>
+                    <option value="mercy-clinic">Mercy Free Clinic</option>
+                    <option value="hope-center">Hope Community Center</option>
+                    <option value="faith-health">Faith & Health Alliance</option>
+                </select>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a class="nav-link active" onclick="switchScreen('login')">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="switchScreen('org-registration')">Register Organization</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="switchScreen('org-selection')">Select Organization</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="switchScreen('dashboard')">Dashboard</a>
+                </li>
+                <li class="nav-item super-admin-only">
+                    <a class="nav-link" onclick="switchScreen('org-management')">Organization Management</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="switchScreen('providers')">Providers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="switchScreen('volunteers')">Volunteers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="switchScreen('schedules')">Schedules</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="switchScreen('shift-details')">Shift Details</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="switchScreen('notifications')">Notifications</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="switchScreen('settings')">Settings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="switchScreen('org-settings')">Organization Settings</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Login Screen -->
+            <div id="login" class="screen active">
+                <div class="login-container">
+                    <h1>FaithfulPlanner</h1>
+                    <form onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" placeholder="Enter your password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="organization">Organization</label>
+                            <select id="organization" required>
+                                <option value="">Select your organization</option>
+                                <option value="mercy-clinic">Mercy Free Clinic</option>
+                                <option value="hope-center">Hope Community Center</option>
+                                <option value="faith-health">Faith & Health Alliance</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="role">Role</label>
+                            <select id="role" required>
+                                <option value="">Select your role</option>
+                                <option value="super-admin">Super Admin</option>
+                                <option value="org-admin">Organization Admin</option>
+                                <option value="provider">Provider/Doctor</option>
+                                <option value="volunteer">Volunteer</option>
+                            </select>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                            <button type="button" class="btn btn-secondary" onclick="switchScreen('org-registration')">Register Organization</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Organization Registration Screen -->
+            <div id="org-registration" class="screen">
+                <div class="login-container">
+                    <h1>Register Organization</h1>
+                    <form onsubmit="handleOrgRegistration(event)">
+                        <div class="form-group">
+                            <label for="orgName">Organization Name</label>
+                            <input type="text" id="orgName" placeholder="Enter organization name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="orgType">Organization Type</label>
+                            <select id="orgType" required>
+                                <option value="">Select type</option>
+                                <option value="clinic">Free Clinic</option>
+                                <option value="hospital">Community Hospital</option>
+                                <option value="center">Health Center</option>
+                                <option value="mobile">Mobile Clinic</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="orgAddress">Address</label>
+                            <input type="text" id="orgAddress" placeholder="Organization address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="adminEmail">Admin Email</label>
+                            <input type="email" id="adminEmail" placeholder="Primary admin email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="orgPhone">Phone Number</label>
+                            <input type="tel" id="orgPhone" placeholder="Organization phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="orgColor">Brand Color</label>
+                            <input type="color" id="orgColor" value="#667eea">
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Register Organization</button>
+                            <button type="button" class="btn btn-secondary" onclick="switchScreen('login')">Back to Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Organization Selection Screen -->
+            <div id="org-selection" class="screen">
+                <div class="header">
+                    <h2>Select Organization</h2>
+                    <button class="btn btn-logout" onclick="switchScreen('login')">Logout</button>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="card" onclick="selectOrganization('mercy-clinic')">
+                        <h3>Mercy Free Clinic</h3>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Role</span>
+                            <span class="card-stat-value">Admin</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Active Providers</span>
+                            <span class="card-stat-value">12</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Volunteers</span>
+                            <span class="card-stat-value">28</span>
+                        </div>
+                    </div>
+
+                    <div class="card" onclick="selectOrganization('hope-center')">
+                        <h3>Hope Community Center</h3>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Role</span>
+                            <span class="card-stat-value">Provider</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Active Providers</span>
+                            <span class="card-stat-value">8</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Volunteers</span>
+                            <span class="card-stat-value">15</span>
+                        </div>
+                    </div>
+
+                    <div class="card" onclick="selectOrganization('faith-health')">
+                        <h3>Faith & Health Alliance</h3>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Role</span>
+                            <span class="card-stat-value">Volunteer</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Active Providers</span>
+                            <span class="card-stat-value">6</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Volunteers</span>
+                            <span class="card-stat-value">22</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Organization Management Screen (Super Admin Only) -->
+            <div id="org-management" class="screen">
+                <div class="header">
+                    <h2>Organization Management <span class="org-badge">Super Admin</span></h2>
+                    <div class="header-actions">
+                        <button class="btn btn-primary" onclick="openModal('addOrgModal')">+ Add Organization</button>
+                        <button class="btn btn-logout" onclick="switchScreen('login')">Logout</button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Organization Name</th>
+                                <th>Type</th>
+                                <th>Admin Email</th>
+                                <th>Providers</th>
+                                <th>Volunteers</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Mercy Free Clinic</td>
+                                <td>Free Clinic</td>
+                                <td>admin@mercyclinic.org</td>
+                                <td>12</td>
+                                <td>28</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>
+                                    <button class="action-btn action-btn-edit">Edit</button>
+                                    <button class="action-btn action-btn-delete">Suspend</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Hope Community Center</td>
+                                <td>Health Center</td>
+                                <td>admin@hopecenter.org</td>
+                                <td>8</td>
+                                <td>15</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>
+                                    <button class="action-btn action-btn-edit">Edit</button>
+                                    <button class="action-btn action-btn-delete">Suspend</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Faith & Health Alliance</td>
+                                <td>Mobile Clinic</td>
+                                <td>admin@faithhealth.org</td>
+                                <td>6</td>
+                                <td>22</td>
+                                <td><span class="badge badge-warning">Pending</span></td>
+                                <td>
+                                    <button class="action-btn action-btn-edit">Edit</button>
+                                    <button class="action-btn action-btn-delete">Suspend</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Dashboard Screen -->
+            <div id="dashboard" class="screen">
+                <div class="header">
+                    <h2>Dashboard <span class="org-badge" id="currentOrgBadge">Mercy Free Clinic</span></h2>
+                    <div class="header-actions">
+                        <button class="btn btn-secondary" onclick="switchScreen('org-selection')">Switch Organization</button>
+                        <button class="btn btn-primary" onclick="openModal('addClinicModal')">+ New Clinic Date</button>
+                        <button class="btn btn-logout" onclick="switchScreen('login')">Logout</button>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <h3>Upcoming Clinic Dates</h3>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Next Clinic Date</span>
+                            <span class="card-stat-value">Nov 30</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Total Clinics (30 days)</span>
+                            <span class="card-stat-value">3</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Fully Scheduled</span>
+                            <span class="card-stat-value">2</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Assigned Providers</h3>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Total Providers</span>
+                            <span class="card-stat-value">12</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Available This Week</span>
+                            <span class="card-stat-value">8</span>
+                        </div>
+                        
+                        <div class="accordion-header" onclick="toggleAccordion('providers-accordion')">
+                            <span class="card-stat-label">Providers Assigned (Next Clinic)</span>
+                            <span class="accordion-toggle" id="providers-toggle">▶</span>
+                        </div>
+                        <div class="accordion-content" id="providers-accordion">
+                            <ul class="person-list">
+                                <li class="person-item">
+                                    <span class="person-name">Dr. Sarah Johnson</span>
+                                    <span class="person-role">General Medicine</span>
+                                </li>
+                                <li class="person-item">
+                                    <span class="person-name">Dr. Michael Chen</span>
+                                    <span class="person-role">Pediatrics</span>
+                                </li>
+                                <li class="person-item">
+                                    <span class="person-name">Dr. Patricia Williams</span>
+                                    <span class="person-role">Cardiology</span>
+                                </li>
+                                <li class="person-item">
+                                    <span class="person-name">Dr. James Martinez</span>
+                                    <span class="person-role">Family Medicine</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Assigned Volunteers</h3>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Total Volunteers</span>
+                            <span class="card-stat-value">28</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Active This Month</span>
+                            <span class="card-stat-value">22</span>
+                        </div>
+                        
+                        <div class="accordion-header" onclick="toggleAccordion('volunteers-accordion')">
+                            <span class="card-stat-label">Volunteers Assigned (Next Clinic)</span>
+                            <span class="accordion-toggle" id="volunteers-toggle">▶</span>
+                        </div>
+                        <div class="accordion-content" id="volunteers-accordion">
+                            <ul class="person-list">
+                                <li class="person-item">
+                                    <span class="person-name">James Rodriguez</span>
+                                    <span class="person-role">Registration</span>
+                                </li>
+                                <li class="person-item">
+                                    <span class="person-name">Emma Thompson</span>
+                                    <span class="person-role">Patient Support</span>
+                                </li>
+                                <li class="person-item">
+                                    <span class="person-name">David Kim</span>
+                                    <span class="person-role">Data Entry</span>
+                                </li>
+                                <li class="person-item">
+                                    <span class="person-name">Lisa Anderson</span>
+                                    <span class="person-role">Patient Support</span>
+                                </li>
+                                <li class="person-item">
+                                    <span class="person-name">Maria Garcia</span>
+                                    <span class="person-role">Translation</span>
+                                </li>
+                                <li class="person-item">
+                                    <span class="person-name">Robert Johnson</span>
+                                    <span class="person-role">Logistics</span>
+                                </li>
+                                <li class="person-item">
+                                    <span class="person-name">Jennifer Lee</span>
+                                    <span class="person-role">Intake</span>
+                                </li>
+                                <li class="person-item">
+                                    <span class="person-name">Christopher Brown</span>
+                                    <span class="person-role">Setup/Cleanup</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Clinic Date</th>
+                                <th>Providers Assigned</th>
+                                <th>Volunteers Assigned</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Nov 30, 2025</td>
+                                <td>4 <small style="color: #666; display: block;">(Dr. Johnson, Dr. Chen, Dr. Williams, Dr. Martinez)</small></td>
+                                <td>8 <small style="color: #666; display: block;">(Rodriguez, Thompson, Kim, Anderson +4 more)</small></td>
+                                <td><span class="badge badge-success">Scheduled</span></td>
+                                <td>
+                                    <button class="action-btn action-btn-edit" onclick="openModal('editClinicModal')">Edit</button>
+                                    <button class="action-btn action-btn-delete">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Dec 7, 2025</td>
+                                <td>3 <small style="color: #666; display: block;">(Dr. Johnson, Dr. Chen, Dr. Brown)</small></td>
+                                <td>6 <small style="color: #666; display: block;">(Rodriguez, Kim, Garcia, Lee +2 more)</small></td>
+                                <td><span class="badge badge-success">Scheduled</span></td>
+                                <td>
+                                    <button class="action-btn action-btn-edit" onclick="openModal('editClinicModal')">Edit</button>
+                                    <button class="action-btn action-btn-delete">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Dec 14, 2025</td>
+                                <td>2 <small style="color: #666; display: block;">(Dr. Williams, Dr. Martinez)</small></td>
+                                <td>4 <small style="color: #666; display: block;">(Thompson, Anderson, Garcia, Johnson)</small></td>
+                                <td><span class="badge badge-warning">Pending</span></td>
+                                <td>
+                                    <button class="action-btn action-btn-edit" onclick="openModal('editClinicModal')">Edit</button>
+                                    <button class="action-btn action-btn-delete">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Provider Management Screen -->
+            <div id="providers" class="screen">
+                <div class="header">
+                    <h2>Provider Management <span class="org-badge" id="providerOrgBadge">Mercy Free Clinic</span></h2>
+                    <div class="header-actions">
+                        <button class="btn btn-secondary" onclick="switchScreen('org-selection')">Switch Organization</button>
+                        <button class="btn btn-primary" onclick="openModal('addProviderModal')">+ Add Provider</button>
+                        <button class="btn btn-logout" onclick="switchScreen('login')">Logout</button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Specialty</th>
+                                <th>Contact</th>
+                                <th>Availability</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Dr. Sarah Johnson</td>
+                                <td>General Medicine</td>
+                                <td>sarah@clinic.org</td>
+                                <td>Weekends</td>
+                                <td><span class="badge badge-success">Available</span></td>
+                                <td>
+                                    <button class="action-btn action-btn-edit">Edit</button>
+                                    <button class="action-btn action-btn-delete">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Dr. Michael Chen</td>
+                                <td>Pediatrics</td>
+                                <td>michael@clinic.org</td>
+                                <td>Saturdays</td>
+                                <td><span class="badge badge-success">Available</span></td>
+                                <td>
+                                    <button class="action-btn action-btn-edit">Edit</button>
+                                    <button class="action-btn action-btn-delete">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Dr. Patricia Williams</td>
+                                <td>Cardiology</td>
+                                <td>patricia@clinic.org</td>
+                                <td>By Request</td>
+                                <td><span class="badge badge-warning">Limited</span></td>
+                                <td>
+                                    <button class="action-btn action-btn-edit">Edit</button>
+                                    <button class="action-btn action-btn-delete">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Volunteer Management Screen -->
+            <div id="volunteers" class="screen">
+                <div class="header">
+                    <h2>Volunteer Management <span class="org-badge" id="volunteerOrgBadge">Mercy Free Clinic</span></h2>
+                    <div class="header-actions">
+                        <button class="btn btn-secondary" onclick="switchScreen('org-selection')">Switch Organization</button>
+                        <button class="btn btn-primary" onclick="openModal('addVolunteerModal')">+ Add Volunteer</button>
+                        <button class="btn btn-logout" onclick="switchScreen('login')">Logout</button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Assigned Role</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>James Rodriguez</td>
+                                <td>james@volunteer.org</td>
+                                <td>(555) 123-4567</td>
+                                <td>Registration Assistant</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>
+                                    <button class="action-btn action-btn-edit">Edit</button>
+                                    <button class="action-btn action-btn-delete">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Emma Thompson</td>
+                                <td>emma@volunteer.org</td>
+                                <td>(555) 234-5678</td>
+                                <td>Patient Support</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>
+                                    <button class="action-btn action-btn-edit">Edit</button>
+                                    <button class="action-btn action-btn-delete">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>David Kim</td>
+                                <td>david@volunteer.org</td>
+                                <td>(555) 345-6789</td>
+                                <td>Data Entry</td>
+                                <td><span class="badge badge-primary">Pending</span></td>
+                                <td>
+                                    <button class="action-btn action-btn-edit">Edit</button>
+                                    <button class="action-btn action-btn-delete">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Schedule Management Screen -->
+            <div id="schedules" class="screen">
+                <div class="header">
+                    <h2>Schedule Management</h2>
+                    <div class="header-actions">
+                        <button class="btn btn-primary" onclick="openModal('addScheduleModal')">+ Create Schedule</button>
+                        <button class="btn btn-logout" onclick="switchScreen('login')">Logout</button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Clinic Date</th>
+                                <th>Time</th>
+                                <th>Provider</th>
+                                <th>Volunteers</th>
+                                <th>Capacity</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Nov 30, 2025</td>
+                                <td>9:00 AM - 12:00 PM</td>
+                                <td>Dr. Sarah Johnson</td>
+                                <td>4</td>
+                                <td>20</td>
+                                <td><span class="badge badge-success">Full</span></td>
+                                <td>
+                                    <button class="action-btn action-btn-edit">Edit</button>
+                                    <button class="action-btn action-btn-delete">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Nov 30, 2025</td>
+                                <td>1:00 PM - 4:00 PM</td>
+                                <td>Dr. Michael Chen</td>
+                                <td>3</td>
+                                <td>18</td>
+                                <td><span class="badge badge-success">Full</span></td>
+                                <td>
+                                    <button class="action-btn action-btn-edit">Edit</button>
+                                    <button class="action-btn action-btn-delete">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Dec 7, 2025</td>
+                                <td>9:00 AM - 12:00 PM</td>
+                                <td>Dr. Patricia Williams</td>
+                                <td>2</td>
+                                <td>15</td>
+                                <td><span class="badge badge-warning">Partial</span></td>
+                                <td>
+                                    <button class="action-btn action-btn-edit">Edit</button>
+                                    <button class="action-btn action-btn-delete">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Shift Details Screen -->
+            <div id="shift-details" class="screen">
+                <div class="header">
+                    <h2>Shift Details</h2>
+                    <button class="btn btn-logout" onclick="switchScreen('login')">Logout</button>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <h3>Shift Information</h3>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Date</span>
+                            <span class="card-stat-value">Nov 30, 2025</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Time</span>
+                            <span class="card-stat-value">9:00 AM - 12:00 PM</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Provider</span>
+                            <span class="card-stat-value">Dr. Sarah Johnson</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Location</span>
+                            <span class="card-stat-value">Main Clinic</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Assigned Volunteers</h3>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Total Assigned</span>
+                            <span class="card-stat-value">4</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Confirmed</span>
+                            <span class="card-stat-value">3</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Pending Response</span>
+                            <span class="card-stat-value">1</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Capacity</h3>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Expected Patients</span>
+                            <span class="card-stat-value">20</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Current Patients</span>
+                            <span class="card-stat-value">18</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Remaining Slots</span>
+                            <span class="card-stat-value">2</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Volunteer Name</th>
+                                <th>Role</th>
+                                <th>Contact</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>James Rodriguez</td>
+                                <td>Registration Assistant</td>
+                                <td>(555) 123-4567</td>
+                                <td><span class="badge badge-success">Confirmed</span></td>
+                            </tr>
+                            <tr>
+                                <td>Emma Thompson</td>
+                                <td>Patient Support</td>
+                                <td>(555) 234-5678</td>
+                                <td><span class="badge badge-success">Confirmed</span></td>
+                            </tr>
+                            <tr>
+                                <td>David Kim</td>
+                                <td>Data Entry</td>
+                                <td>(555) 345-6789</td>
+                                <td><span class="badge badge-primary">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>Lisa Anderson</td>
+                                <td>Patient Support</td>
+                                <td>(555) 456-7890</td>
+                                <td><span class="badge badge-success">Confirmed</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Notifications Screen -->
+            <div id="notifications" class="screen">
+                <div class="header">
+                    <h2>Notifications</h2>
+                    <button class="btn btn-logout" onclick="switchScreen('login')">Logout</button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Alert Type</th>
+                                <th>Message</th>
+                                <th>Recipient</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Nov 23, 2:30 PM</td>
+                                <td>Shift Reminder</td>
+                                <td>Reminder: Clinic on Nov 30, 9:00 AM</td>
+                                <td>All Providers</td>
+                                <td><span class="badge badge-success">Sent</span></td>
+                            </tr>
+                            <tr>
+                                <td>Nov 22, 10:15 AM</td>
+                                <td>Confirmation Request</td>
+                                <td>Please confirm your availability for Dec 7</td>
+                                <td>Dr. Sarah Johnson</td>
+                                <td><span class="badge badge-primary">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>Nov 21, 3:45 PM</td>
+                                <td>Volunteer Assignment</td>
+                                <td>You have been assigned to Nov 30 shift</td>
+                                <td>All Volunteers</td>
+                                <td><span class="badge badge-success">Sent</span></td>
+                            </tr>
+                            <tr>
+                                <td>Nov 20, 9:00 AM</td>
+                                <td>Clinic Scheduled</td>
+                                <td>New clinic date scheduled: Dec 14</td>
+                                <td>All Users</td>
+                                <td><span class="badge badge-success">Sent</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Settings/Profile Screen -->
+            <div id="settings" class="screen">
+                <div class="header">
+                    <h2>Settings & Profile</h2>
+                    <button class="btn btn-logout" onclick="switchScreen('login')">Logout</button>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <h3>User Profile</h3>
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" value="Admin User" placeholder="Enter full name">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" value="admin@clinic.org" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="tel" value="(555) 999-0000" placeholder="Enter phone">
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%; margin-top: 15px;">Save Profile</button>
+                    </div>
+
+                    <div class="card">
+                        <h3>Account Settings</h3>
+                        <div class="form-group">
+                            <label>Current Password</label>
+                            <input type="password" placeholder="Enter current password">
+                        </div>
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" placeholder="Enter new password">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input type="password" placeholder="Confirm new password">
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%; margin-top: 15px;">Update Password</button>
+                    </div>
+
+                    <div class="card">
+                        <h3>Notification Preferences</h3>
+                        <div style="margin: 15px 0;">
+                            <label style="display: flex; align-items: center; margin-bottom: 10px;">
+                                <input type="checkbox" checked style="margin-right: 10px;">
+                                Email notifications for shift reminders
+                            </label>
+                            <label style="display: flex; align-items: center; margin-bottom: 10px;">
+                                <input type="checkbox" checked style="margin-right: 10px;">
+                                SMS notifications for urgent updates
+                            </label>
+                            <label style="display: flex; align-items: center; margin-bottom: 10px;">
+                                <input type="checkbox" style="margin-right: 10px;">
+                                Daily digest of activities
+                            </label>
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%; margin-top: 15px;">Save Preferences</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Organization Settings Screen -->
+            <div id="org-settings" class="screen">
+                <div class="header">
+                    <h2>Organization Settings <span class="org-badge" id="orgSettingsBadge">Mercy Free Clinic</span></h2>
+                    <button class="btn btn-logout" onclick="switchScreen('login')">Logout</button>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <h3>Organization Profile</h3>
+                        <div class="form-group">
+                            <label>Organization Name</label>
+                            <input type="text" value="Mercy Free Clinic" placeholder="Enter organization name">
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" value="123 Main St, Anytown, ST 12345" placeholder="Enter address">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="tel" value="(555) 123-4567" placeholder="Enter phone">
+                        </div>
+                        <div class="form-group">
+                            <label>Brand Color</label>
+                            <input type="color" value="#667eea">
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%; margin-top: 15px;">Save Organization Profile</button>
+                    </div>
+
+                    <div class="card">
+                        <h3>User Management</h3>
+                        <div class="form-group">
+                            <label>Invite User Email</label>
+                            <input type="email" placeholder="Enter user email">
+                        </div>
+                        <div class="form-group">
+                            <label>Role</label>
+                            <select>
+                                <option value="org-admin">Organization Admin</option>
+                                <option value="provider">Provider</option>
+                                <option value="volunteer">Volunteer</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%; margin-top: 15px;">Send Invitation</button>
+                    </div>
+
+                    <div class="card">
+                        <h3>Clinic Configuration</h3>
+                        <div style="margin: 15px 0;">
+                            <label style="display: flex; align-items: center; margin-bottom: 10px;">
+                                <input type="checkbox" checked style="margin-right: 10px;">
+                                Enable weekend clinics
+                            </label>
+                            <label style="display: flex; align-items: center; margin-bottom: 10px;">
+                                <input type="checkbox" style="margin-right: 10px;">
+                                Enable multi-day events
+                            </label>
+                            <label style="display: flex; align-items: center; margin-bottom: 10px;">
+                                <input type="checkbox" checked style="margin-right: 10px;">
+                                Automatic reminder notifications
+                            </label>
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%; margin-top: 15px;">Save Configuration</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Add Provider -->
+    <div id="addProviderModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Provider</h3>
+                <button class="close-btn" onclick="closeModal('addProviderModal')">&times;</button>
+            </div>
+            <form onsubmit="handleAddProvider(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Specialty</label>
+                    <input type="text" placeholder="e.g., General Medicine" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="tel" required>
+                </div>
+                <div class="form-group">
+                    <label>Availability</label>
+                    <select required>
+                        <option value="">Select availability</option>
+                        <option value="weekends">Weekends</option>
+                        <option value="saturdays">Saturdays</option>
+                        <option value="sundays">Sundays</option>
+                        <option value="by-request">By Request</option>
+                    </select>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">Add Provider</button>
+                    <button type="button" class="btn btn-secondary" style="flex: 1;" onclick="closeModal('addProviderModal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Add Volunteer -->
+    <div id="addVolunteerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Volunteer</h3>
+                <button class="close-btn" onclick="closeModal('addVolunteerModal')">&times;</button>
+            </div>
+            <form onsubmit="handleAddVolunteer(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="tel" required>
+                </div>
+                <div class="form-group">
+                    <label>Assigned Role</label>
+                    <select required>
+                        <option value="">Select role</option>
+                        <option value="registration">Registration Assistant</option>
+                        <option value="patient-support">Patient Support</option>
+                        <option value="data-entry">Data Entry</option>
+                        <option value="logistics">Logistics</option>
+                    </select>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">Add Volunteer</button>
+                    <button type="button" class="btn btn-secondary" style="flex: 1;" onclick="closeModal('addVolunteerModal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Add Schedule -->
+    <div id="addScheduleModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create New Schedule</h3>
+                <button class="close-btn" onclick="closeModal('addScheduleModal')">&times;</button>
+            </div>
+            <form onsubmit="handleAddSchedule(event)">
+                <div class="form-group">
+                    <label>Clinic Date</label>
+                    <input type="date" required>
+                </div>
+                <div class="form-group">
+                    <label>Start Time</label>
+                    <input type="time" required>
+                </div>
+                <div class="form-group">
+                    <label>End Time</label>
+                    <input type="time" required>
+                </div>
+                <div class="form-group">
+                    <label>Provider</label>
+                    <select required>
+                        <option value="">Select provider</option>
+                        <option value="sarah">Dr. Sarah Johnson</option>
+                        <option value="michael">Dr. Michael Chen</option>
+                        <option value="patricia">Dr. Patricia Williams</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Expected Patient Count</label>
+                    <input type="number" min="1" required>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">Create Schedule</button>
+                    <button type="button" class="btn btn-secondary" style="flex: 1;" onclick="closeModal('addScheduleModal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Add Clinic -->
+    <div id="addClinicModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Clinic Date</h3>
+                <button class="close-btn" onclick="closeModal('addClinicModal')">&times;</button>
+            </div>
+            <form onsubmit="handleAddClinic(event)">
+                <div class="form-group">
+                    <label>Clinic Date</label>
+                    <input type="date" required>
+                </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" placeholder="e.g., Main Clinic" required>
+                </div>
+                <div class="form-group">
+                    <label>Notes</label>
+                    <input type="text" placeholder="Additional notes">
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">Add Clinic</button>
+                    <button type="button" class="btn btn-secondary" style="flex: 1;" onclick="closeModal('addClinicModal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Add Organization (Super Admin) -->
+    <div id="addOrgModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Organization</h3>
+                <button class="close-btn" onclick="closeModal('addOrgModal')">&times;</button>
+            </div>
+            <form onsubmit="handleAddOrganization(event)">
+                <div class="form-group">
+                    <label>Organization Name</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Organization Type</label>
+                    <select required>
+                        <option value="">Select type</option>
+                        <option value="clinic">Free Clinic</option>
+                        <option value="hospital">Community Hospital</option>
+                        <option value="center">Health Center</option>
+                        <option value="mobile">Mobile Clinic</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Admin Email</label>
+                    <input type="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="tel" required>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">Add Organization</button>
+                    <button type="button" class="btn btn-secondary" style="flex: 1;" onclick="closeModal('addOrgModal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function switchScreen(screenId) {
+            // Hide all screens
+            const screens = document.querySelectorAll('.screen');
+            screens.forEach(screen => screen.classList.remove('active'));
+
+            // Show selected screen
+            const selectedScreen = document.getElementById(screenId);
+            if (selectedScreen) {
+                selectedScreen.classList.add('active');
+            }
+
+            // Update active nav link
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            const activeLink = document.querySelector(`[onclick="switchScreen('${screenId}')"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('show');
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('show');
+            }
+        }
+
+        let currentOrganization = null;
+        let userRole = null;
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const organization = document.getElementById('organization').value;
+            const role = document.getElementById('role').value;
+            
+            currentOrganization = organization;
+            userRole = role;
+            
+            // Show/hide super admin features
+            const superAdminElements = document.querySelectorAll('.super-admin-only');
+            superAdminElements.forEach(el => {
+                if (role === 'super-admin') {
+                    el.classList.add('show');
+                } else {
+                    el.classList.remove('show');
+                }
+            });
+            
+            alert(`Logged in as ${role} for ${getOrganizationName(organization)}: ${email}`);
+            
+            if (role === 'super-admin') {
+                switchScreen('org-management');
+            } else {
+                switchScreen('org-selection');
+            }
+        }
+
+        function getOrganizationName(orgId) {
+            const orgNames = {
+                'mercy-clinic': 'Mercy Free Clinic',
+                'hope-center': 'Hope Community Center',
+                'faith-health': 'Faith & Health Alliance'
+            };
+            return orgNames[orgId] || orgId;
+        }
+
+        function switchOrganization() {
+            const selector = document.getElementById('orgSelector');
+            const selectedOrg = selector.value;
+            if (selectedOrg) {
+                currentOrganization = selectedOrg;
+                updateOrganizationDisplay();
+            }
+        }
+
+        function selectOrganization(orgId) {
+            currentOrganization = orgId;
+            document.getElementById('orgSelector').value = orgId;
+            updateOrganizationDisplay();
+            switchScreen('dashboard');
+        }
+
+        function updateOrganizationDisplay() {
+            const orgName = getOrganizationName(currentOrganization);
+            const badges = document.querySelectorAll('#currentOrgBadge, #orgSettingsBadge');
+            badges.forEach(badge => {
+                badge.textContent = orgName;
+            });
+        }
+
+        function handleOrgRegistration(event) {
+            event.preventDefault();
+            const orgName = document.getElementById('orgName').value;
+            alert(`Organization "${orgName}" registered successfully!`);
+            switchScreen('login');
+        }
+
+        function handleAddOrganization(event) {
+            event.preventDefault();
+            alert('Organization added successfully!');
+            closeModal('addOrgModal');
+            event.target.reset();
+        }
+
+        function toggleAccordion(accordionId) {
+            const accordion = document.getElementById(accordionId);
+            const toggle = document.getElementById(accordionId.replace('-accordion', '-toggle'));
+            
+            if (accordion.classList.contains('expanded')) {
+                accordion.classList.remove('expanded');
+                toggle.classList.remove('expanded');
+                toggle.textContent = '▶';
+            } else {
+                accordion.classList.add('expanded');
+                toggle.classList.add('expanded');
+                toggle.textContent = '▼';
+            }
+        }
+
+        function handleAddProvider(event) {
+            event.preventDefault();
+            alert('Provider added successfully!');
+            closeModal('addProviderModal');
+            event.target.reset();
+            // Refresh accordion if on dashboard
+            updateDashboardAccordions();
+        }
+
+        function handleAddVolunteer(event) {
+            event.preventDefault();
+            alert('Volunteer added successfully!');
+            closeModal('addVolunteerModal');
+            event.target.reset();
+            // Refresh accordion if on dashboard
+            updateDashboardAccordions();
+        }
+
+        function updateDashboardAccordions() {
+            // This function would typically refresh the accordion data from the server
+            // For now, it's a placeholder for future implementation
+            console.log('Refreshing dashboard accordions...');
+        }
+
+        function handleAddSchedule(event) {
+            event.preventDefault();
+            alert('Schedule created successfully!');
+            closeModal('addScheduleModal');
+            event.target.reset();
+        }
+
+        function handleAddClinic(event) {
+            event.preventDefault();
+            alert('Clinic date added successfully!');
+            closeModal('addClinicModal');
+            event.target.reset();
+        }
+
+        function toggleSignup() {
+            alert('Sign up functionality would be implemented here');
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('show');
+            }
+        }
+    </script>
+</body>
+</html>
