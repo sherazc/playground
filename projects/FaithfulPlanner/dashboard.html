@@ -339,6 +339,54 @@
             margin-top: 10px;
         }
 
+        /* Specialty field styles */
+        .specialty-container {
+            position: relative;
+        }
+
+        .specialty-other-input {
+            display: none;
+            margin-top: 10px;
+            animation: slideDown 0.3s ease;
+        }
+
+        .specialty-other-input.show {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .specialty-other-input input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .specialty-other-input input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .specialty-other-input label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
         /* Table Styles */
         .table-container {
             background: white;
@@ -1612,8 +1660,31 @@
                     <input type="text" required>
                 </div>
                 <div class="form-group">
-                    <label>Specialty</label>
-                    <input type="text" placeholder="e.g., General Medicine" required>
+                    <div class="specialty-container">
+                        <label>Specialty</label>
+                        <select id="specialtySelect" onchange="toggleSpecialtyOther()" required>
+                            <option value="">Select specialty</option>
+                            <option value="General Medicine">General Medicine</option>
+                            <option value="Family Medicine">Family Medicine</option>
+                            <option value="Internal Medicine">Internal Medicine</option>
+                            <option value="Pediatrics">Pediatrics</option>
+                            <option value="Cardiology">Cardiology</option>
+                            <option value="Dermatology">Dermatology</option>
+                            <option value="Emergency Medicine">Emergency Medicine</option>
+                            <option value="Psychiatry">Psychiatry</option>
+                            <option value="Orthopedics">Orthopedics</option>
+                            <option value="Gynecology">Gynecology</option>
+                            <option value="Neurology">Neurology</option>
+                            <option value="Dentistry">Dentistry</option>
+                            <option value="Optometry">Optometry</option>
+                            <option value="Nursing">Nursing</option>
+                            <option value="Other">Other (specify)</option>
+                        </select>
+                        <div class="specialty-other-input" id="specialtyOtherInput">
+                            <label>Please specify specialty</label>
+                            <input type="text" id="customSpecialty" placeholder="Enter custom specialty">
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Email</label>
@@ -1622,16 +1693,6 @@
                 <div class="form-group">
                     <label>Phone</label>
                     <input type="tel" required>
-                </div>
-                <div class="form-group">
-                    <label>Availability</label>
-                    <select required>
-                        <option value="">Select availability</option>
-                        <option value="weekends">Weekends</option>
-                        <option value="saturdays">Saturdays</option>
-                        <option value="sundays">Sundays</option>
-                        <option value="by-request">By Request</option>
-                    </select>
                 </div>
                 <div style="display: flex; gap: 10px; margin-top: 20px;">
                     <button type="submit" class="btn btn-primary" style="flex: 1;">Add Provider</button>
@@ -1660,16 +1721,6 @@
                 <div class="form-group">
                     <label>Phone</label>
                     <input type="tel" required>
-                </div>
-                <div class="form-group">
-                    <label>Assigned Role</label>
-                    <select required>
-                        <option value="">Select role</option>
-                        <option value="registration">Registration Assistant</option>
-                        <option value="patient-support">Patient Support</option>
-                        <option value="data-entry">Data Entry</option>
-                        <option value="logistics">Logistics</option>
-                    </select>
                 </div>
                 <div style="display: flex; gap: 10px; margin-top: 20px;">
                     <button type="submit" class="btn btn-primary" style="flex: 1;">Add Volunteer</button>
@@ -1935,11 +1986,42 @@
             // updateCardsForSelectedRow(clinicDate);
         }
 
+        function toggleSpecialtyOther() {
+            const specialtySelect = document.getElementById('specialtySelect');
+            const otherInput = document.getElementById('specialtyOtherInput');
+            const customSpecialtyInput = document.getElementById('customSpecialty');
+            
+            if (specialtySelect.value === 'Other') {
+                otherInput.classList.add('show');
+                customSpecialtyInput.required = true;
+                customSpecialtyInput.focus();
+            } else {
+                otherInput.classList.remove('show');
+                customSpecialtyInput.required = false;
+                customSpecialtyInput.value = '';
+            }
+        }
+
         function handleAddProvider(event) {
             event.preventDefault();
-            alert('Provider added successfully!');
+            
+            const specialtySelect = document.getElementById('specialtySelect');
+            const customSpecialty = document.getElementById('customSpecialty');
+            
+            let finalSpecialty = specialtySelect.value;
+            if (specialtySelect.value === 'Other' && customSpecialty.value.trim()) {
+                finalSpecialty = customSpecialty.value.trim();
+            }
+            
+            alert(`Provider added successfully with specialty: ${finalSpecialty}`);
             closeModal('addProviderModal');
             event.target.reset();
+            
+            // Reset specialty other input
+            document.getElementById('specialtyOtherInput').classList.remove('show');
+            customSpecialty.required = false;
+            customSpecialty.value = '';
+            
             // Refresh accordion if on dashboard
             updateDashboardAccordions();
         }
