@@ -387,6 +387,43 @@
             font-size: 13px;
         }
 
+        /* Volunteer type field styles */
+        .volunteer-type-container {
+            position: relative;
+        }
+
+        .volunteer-type-other-input {
+            display: none;
+            margin-top: 10px;
+            animation: slideDown 0.3s ease;
+        }
+
+        .volunteer-type-other-input.show {
+            display: block;
+        }
+
+        .volunteer-type-other-input input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .volunteer-type-other-input input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .volunteer-type-other-input label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
         /* Table Styles */
         .table-container {
             background: white;
@@ -1722,6 +1759,33 @@
                     <label>Phone</label>
                     <input type="tel" required>
                 </div>
+                <div class="form-group">
+                    <div class="volunteer-type-container">
+                        <label>Volunteer Type</label>
+                        <select id="volunteerTypeSelect" onchange="toggleVolunteerTypeOther()" required>
+                            <option value="">Select volunteer type</option>
+                            <option value="Registration Assistant">Registration Assistant</option>
+                            <option value="Patient Support">Patient Support</option>
+                            <option value="Data Entry">Data Entry</option>
+                            <option value="Logistics">Logistics</option>
+                            <option value="Translation">Translation</option>
+                            <option value="Intake">Intake</option>
+                            <option value="Setup/Cleanup">Setup/Cleanup</option>
+                            <option value="Medical Assistant">Medical Assistant</option>
+                            <option value="Pharmacy Assistant">Pharmacy Assistant</option>
+                            <option value="Reception">Reception</option>
+                            <option value="Transportation">Transportation</option>
+                            <option value="Child Care">Child Care</option>
+                            <option value="Security">Security</option>
+                            <option value="IT Support">IT Support</option>
+                            <option value="Other">Other (specify)</option>
+                        </select>
+                        <div class="volunteer-type-other-input" id="volunteerTypeOtherInput">
+                            <label>Please specify volunteer type</label>
+                            <input type="text" id="customVolunteerType" placeholder="Enter custom volunteer type">
+                        </div>
+                    </div>
+                </div>
                 <div style="display: flex; gap: 10px; margin-top: 20px;">
                     <button type="submit" class="btn btn-primary" style="flex: 1;">Add Volunteer</button>
                     <button type="button" class="btn btn-secondary" style="flex: 1;" onclick="closeModal('addVolunteerModal')">Cancel</button>
@@ -2002,6 +2066,22 @@
             }
         }
 
+        function toggleVolunteerTypeOther() {
+            const volunteerTypeSelect = document.getElementById('volunteerTypeSelect');
+            const otherInput = document.getElementById('volunteerTypeOtherInput');
+            const customVolunteerTypeInput = document.getElementById('customVolunteerType');
+            
+            if (volunteerTypeSelect.value === 'Other') {
+                otherInput.classList.add('show');
+                customVolunteerTypeInput.required = true;
+                customVolunteerTypeInput.focus();
+            } else {
+                otherInput.classList.remove('show');
+                customVolunteerTypeInput.required = false;
+                customVolunteerTypeInput.value = '';
+            }
+        }
+
         function handleAddProvider(event) {
             event.preventDefault();
             
@@ -2028,9 +2108,24 @@
 
         function handleAddVolunteer(event) {
             event.preventDefault();
-            alert('Volunteer added successfully!');
+            
+            const volunteerTypeSelect = document.getElementById('volunteerTypeSelect');
+            const customVolunteerType = document.getElementById('customVolunteerType');
+            
+            let finalVolunteerType = volunteerTypeSelect.value;
+            if (volunteerTypeSelect.value === 'Other' && customVolunteerType.value.trim()) {
+                finalVolunteerType = customVolunteerType.value.trim();
+            }
+            
+            alert(`Volunteer added successfully with type: ${finalVolunteerType}`);
             closeModal('addVolunteerModal');
             event.target.reset();
+            
+            // Reset volunteer type other input
+            document.getElementById('volunteerTypeOtherInput').classList.remove('show');
+            customVolunteerType.required = false;
+            customVolunteerType.value = '';
+            
             // Refresh accordion if on dashboard
             updateDashboardAccordions();
         }
