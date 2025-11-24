@@ -221,39 +221,12 @@
             padding: 25px;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
-            border: 2px solid transparent;
-            cursor: pointer;
-            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-            border-color: #d1d5db;
-        }
-
-        .card.selected {
-            border-color: #667eea;
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
-            transform: translateY(-3px);
-        }
-
-        .card.selected::after {
-            content: '✓';
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: #667eea;
-            color: white;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: bold;
         }
 
         .card h3 {
@@ -439,8 +412,22 @@
             min-width: 140px;
         }
 
+        tbody tr {
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
         tbody tr:hover {
             background: #f8f9fa;
+        }
+
+        tbody tr.selected {
+            background-color: #e0e7ff;
+            border-left: 4px solid #667eea;
+        }
+
+        tbody tr.selected:hover {
+            background-color: #c7d2f8;
         }
 
         .badge {
@@ -944,84 +931,84 @@
                     <div class="table-scroll">
                         <table>
                             <tbody>
-                                <tr>
+                                <tr onclick="selectRow(this, 'Nov 30, 2025')">
                                     <td>Nov 30, 2025</td>
                                     <td>4 <small style="color: #666; display: block;">(Dr. Johnson, Dr. Chen, Dr. Williams, Dr. Martinez)</small></td>
                                     <td>8 <small style="color: #666; display: block;">(Rodriguez, Thompson, Kim, Anderson +4 more)</small></td>
                                     <td><span class="badge badge-success">Scheduled</span></td>
                                     <td>
-                                        <button class="action-btn action-btn-edit" onclick="openModal('editClinicModal')">Edit</button>
-                                        <button class="action-btn action-btn-delete">Delete</button>
+                                        <button class="action-btn action-btn-edit" onclick="event.stopPropagation(); openModal('editClinicModal')">Edit</button>
+                                        <button class="action-btn action-btn-delete" onclick="event.stopPropagation()">Delete</button>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr onclick="selectRow(this, 'Dec 7, 2025')">
                                     <td>Dec 7, 2025</td>
                                     <td>3 <small style="color: #666; display: block;">(Dr. Johnson, Dr. Chen, Dr. Brown)</small></td>
                                     <td>6 <small style="color: #666; display: block;">(Rodriguez, Kim, Garcia, Lee +2 more)</small></td>
                                     <td><span class="badge badge-success">Scheduled</span></td>
                                     <td>
-                                        <button class="action-btn action-btn-edit" onclick="openModal('editClinicModal')">Edit</button>
-                                        <button class="action-btn action-btn-delete">Delete</button>
+                                        <button class="action-btn action-btn-edit" onclick="event.stopPropagation(); openModal('editClinicModal')">Edit</button>
+                                        <button class="action-btn action-btn-delete" onclick="event.stopPropagation()">Delete</button>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr onclick="selectRow(this, 'Dec 14, 2025')">
                                     <td>Dec 14, 2025</td>
                                     <td>2 <small style="color: #666; display: block;">(Dr. Williams, Dr. Martinez)</small></td>
                                     <td>4 <small style="color: #666; display: block;">(Thompson, Anderson, Garcia, Johnson)</small></td>
                                     <td><span class="badge badge-warning">Pending</span></td>
                                     <td>
-                                        <button class="action-btn action-btn-edit" onclick="openModal('editClinicModal')">Edit</button>
-                                        <button class="action-btn action-btn-delete">Delete</button>
+                                        <button class="action-btn action-btn-edit" onclick="event.stopPropagation(); openModal('editClinicModal')">Edit</button>
+                                        <button class="action-btn action-btn-delete" onclick="event.stopPropagation()">Delete</button>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr onclick="selectRow(this, 'Dec 21, 2025')">
                                     <td>Dec 21, 2025</td>
                                     <td>5 <small style="color: #666; display: block;">(Dr. Johnson, Dr. Martinez, Dr. Smith, Dr. Davis, Dr. Wilson)</small></td>
                                     <td>10 <small style="color: #666; display: block;">(Rodriguez, Thompson, Kim, Garcia +6 more)</small></td>
                                     <td><span class="badge badge-success">Scheduled</span></td>
                                     <td>
-                                        <button class="action-btn action-btn-edit" onclick="openModal('editClinicModal')">Edit</button>
-                                        <button class="action-btn action-btn-delete">Delete</button>
+                                        <button class="action-btn action-btn-edit" onclick="event.stopPropagation(); openModal('editClinicModal')">Edit</button>
+                                        <button class="action-btn action-btn-delete" onclick="event.stopPropagation()">Delete</button>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr onclick="selectRow(this, 'Dec 28, 2025')">
                                     <td>Dec 28, 2025</td>
                                     <td>3 <small style="color: #666; display: block;">(Dr. Chen, Dr. Williams, Dr. Brown)</small></td>
                                     <td>7 <small style="color: #666; display: block;">(Anderson, Lee, Johnson, Miller +3 more)</small></td>
                                     <td><span class="badge badge-success">Scheduled</span></td>
                                     <td>
-                                        <button class="action-btn action-btn-edit" onclick="openModal('editClinicModal')">Edit</button>
-                                        <button class="action-btn action-btn-delete">Delete</button>
+                                        <button class="action-btn action-btn-edit" onclick="event.stopPropagation(); openModal('editClinicModal')">Edit</button>
+                                        <button class="action-btn action-btn-delete" onclick="event.stopPropagation()">Delete</button>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr onclick="selectRow(this, 'Jan 4, 2026')">
                                     <td>Jan 4, 2026</td>
                                     <td>4 <small style="color: #666; display: block;">(Dr. Johnson, Dr. Martinez, Dr. Taylor, Dr. White)</small></td>
                                     <td>9 <small style="color: #666; display: block;">(Rodriguez, Kim, Garcia, Thompson +5 more)</small></td>
                                     <td><span class="badge badge-warning">Pending</span></td>
                                     <td>
-                                        <button class="action-btn action-btn-edit" onclick="openModal('editClinicModal')">Edit</button>
-                                        <button class="action-btn action-btn-delete">Delete</button>
+                                        <button class="action-btn action-btn-edit" onclick="event.stopPropagation(); openModal('editClinicModal')">Edit</button>
+                                        <button class="action-btn action-btn-delete" onclick="event.stopPropagation()">Delete</button>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr onclick="selectRow(this, 'Jan 11, 2026')">
                                     <td>Jan 11, 2026</td>
                                     <td>2 <small style="color: #666; display: block;">(Dr. Davis, Dr. Wilson)</small></td>
                                     <td>5 <small style="color: #666; display: block;">(Anderson, Lee, Miller, Clark, Hall)</small></td>
                                     <td><span class="badge badge-warning">Pending</span></td>
                                     <td>
-                                        <button class="action-btn action-btn-edit" onclick="openModal('editClinicModal')">Edit</button>
-                                        <button class="action-btn action-btn-delete">Delete</button>
+                                        <button class="action-btn action-btn-edit" onclick="event.stopPropagation(); openModal('editClinicModal')">Edit</button>
+                                        <button class="action-btn action-btn-delete" onclick="event.stopPropagation()">Delete</button>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr onclick="selectRow(this, 'Jan 18, 2026')">
                                     <td>Jan 18, 2026</td>
                                     <td>6 <small style="color: #666; display: block;">(Dr. Johnson, Dr. Chen, Dr. Martinez, Dr. Smith +2 more)</small></td>
                                     <td>12 <small style="color: #666; display: block;">(Rodriguez, Thompson, Kim, Garcia +8 more)</small></td>
                                     <td><span class="badge badge-primary">Draft</span></td>
                                     <td>
-                                        <button class="action-btn action-btn-edit" onclick="openModal('editClinicModal')">Edit</button>
-                                        <button class="action-btn action-btn-delete">Delete</button>
+                                        <button class="action-btn action-btn-edit" onclick="event.stopPropagation(); openModal('editClinicModal')">Edit</button>
+                                        <button class="action-btn action-btn-delete" onclick="event.stopPropagation()">Delete</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -1030,7 +1017,7 @@
                 </div>
 
                 <div class="dashboard-grid">
-                    <div class="card" onclick="selectCard('clinic-dates-card')" id="clinic-dates-card">
+                    <div class="card" id="clinic-dates-card">
                         <h3>Upcoming Clinic Dates</h3>
                         <div class="card-stat">
                             <span class="card-stat-label">Next Clinic Date</span>
@@ -1046,7 +1033,7 @@
                         </div>
                     </div>
 
-                    <div class="card" onclick="selectCard('providers-card')" id="providers-card">
+                    <div class="card" id="providers-card">
                         <h3>Assigned Providers</h3>
                         <div class="card-stat">
                             <span class="card-stat-label">Total Providers</span>
@@ -1083,7 +1070,7 @@
                         </div>
                     </div>
 
-                    <div class="card" onclick="selectCard('volunteers-card')" id="volunteers-card">
+                    <div class="card" id="volunteers-card">
                         <h3>Assigned Volunteers</h3>
                         <div class="card-stat">
                             <span class="card-stat-label">Total Volunteers</span>
@@ -1931,21 +1918,21 @@
             }
         }
 
-        function selectCard(cardId) {
-            // Remove selection from all cards
-            const allCards = document.querySelectorAll('.card');
-            allCards.forEach(card => {
-                card.classList.remove('selected');
+        function selectRow(rowElement, clinicDate) {
+            // Remove selection from all rows
+            const allRows = document.querySelectorAll('tbody tr');
+            allRows.forEach(row => {
+                row.classList.remove('selected');
             });
             
-            // Add selection to clicked card
-            const selectedCard = document.getElementById(cardId);
-            if (selectedCard) {
-                selectedCard.classList.add('selected');
-            }
+            // Add selection to clicked row
+            rowElement.classList.add('selected');
             
             // Log selection for demonstration
-            console.log('Selected card:', cardId);
+            console.log('Selected clinic date:', clinicDate);
+            
+            // Here you can update the cards based on selected row
+            // updateCardsForSelectedRow(clinicDate);
         }
 
         function handleAddProvider(event) {
