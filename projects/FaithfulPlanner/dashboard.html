@@ -424,6 +424,101 @@
             font-size: 13px;
         }
 
+        /* Specialty Management Styles */
+        .specialty-items {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 10px;
+        }
+
+        .specialty-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            margin: 5px 0;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 3px solid #667eea;
+        }
+
+        .specialty-name {
+            font-weight: 500;
+            color: #333;
+            flex: 1;
+        }
+
+        .specialty-remove-btn {
+            background: #fed7d7;
+            color: #742a2a;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .specialty-remove-btn:hover {
+            background: #fc8181;
+            color: white;
+        }
+
+        .specialty-count {
+            font-size: 12px;
+            color: #666;
+            margin-left: 10px;
+            padding: 2px 8px;
+            background: #e0e7ff;
+            border-radius: 12px;
+        }
+
+        /* Volunteer Type Management Styles */
+        .volunteer-type-items {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 10px;
+        }
+
+        .volunteer-type-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            margin: 5px 0;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 3px solid #667eea;
+        }
+
+        .volunteer-type-name {
+            font-weight: 500;
+            color: #333;
+            flex: 1;
+        }
+
+        .volunteer-type-remove-btn {
+            background: #fed7d7;
+            color: #742a2a;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .volunteer-type-remove-btn:hover {
+            background: #fc8181;
+            color: white;
+        }
+
         /* Table Styles */
         .table-container {
             background: white;
@@ -1612,6 +1707,40 @@
                         </div>
                         <button class="btn btn-primary" style="width: 100%; margin-top: 15px;">Save Preferences</button>
                     </div>
+
+                    <div class="card">
+                        <h3>Specialty Management</h3>
+                        <div class="form-group">
+                            <label>Add New Specialty</label>
+                            <div style="display: flex; gap: 10px;">
+                                <input type="text" id="newSpecialtyInput" placeholder="Enter specialty name" style="flex: 1;">
+                                <button class="btn btn-primary" onclick="addSpecialty()" style="padding: 12px 20px;">Add</button>
+                            </div>
+                        </div>
+                        <div class="specialty-list" id="specialtyList">
+                            <h4 style="margin: 20px 0 10px 0; color: #333; font-size: 16px;">Current Specialties:</h4>
+                            <div class="specialty-items" id="specialtyItems">
+                                <!-- Specialty items will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Volunteer Type Management</h3>
+                        <div class="form-group">
+                            <label>Add New Volunteer Type</label>
+                            <div style="display: flex; gap: 10px;">
+                                <input type="text" id="newVolunteerTypeInput" placeholder="Enter volunteer type" style="flex: 1;">
+                                <button class="btn btn-primary" onclick="addVolunteerType()" style="padding: 12px 20px;">Add</button>
+                            </div>
+                        </div>
+                        <div class="volunteer-type-list" id="volunteerTypeList">
+                            <h4 style="margin: 20px 0 10px 0; color: #333; font-size: 16px;">Current Volunteer Types:</h4>
+                            <div class="volunteer-type-items" id="volunteerTypeItems">
+                                <!-- Volunteer type items will be populated here -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -1701,22 +1830,7 @@
                         <label>Specialty</label>
                         <select id="specialtySelect" onchange="toggleSpecialtyOther()" required>
                             <option value="">Select specialty</option>
-                            <option value="General Medicine">General Medicine</option>
-                            <option value="Family Medicine">Family Medicine</option>
-                            <option value="Internal Medicine">Internal Medicine</option>
-                            <option value="Pediatrics">Pediatrics</option>
-                            <option value="Cardiology">Cardiology</option>
-                            <option value="Dermatology">Dermatology</option>
-                            <option value="Emergency Medicine">Emergency Medicine</option>
-                            <option value="Psychiatry">Psychiatry</option>
-                            <option value="Orthopedics">Orthopedics</option>
-                            <option value="Gynecology">Gynecology</option>
-                            <option value="Neurology">Neurology</option>
-                            <option value="Dentistry">Dentistry</option>
-                            <option value="Optometry">Optometry</option>
-                            <option value="Nursing">Nursing</option>
-                            <option value="Other">Other (specify)</option>
-                        </select>
+                            <!-- Options will be populated dynamically -->
                         <div class="specialty-other-input" id="specialtyOtherInput">
                             <label>Please specify specialty</label>
                             <input type="text" id="customSpecialty" placeholder="Enter custom specialty">
@@ -1764,21 +1878,7 @@
                         <label>Volunteer Type</label>
                         <select id="volunteerTypeSelect" onchange="toggleVolunteerTypeOther()" required>
                             <option value="">Select volunteer type</option>
-                            <option value="Registration Assistant">Registration Assistant</option>
-                            <option value="Patient Support">Patient Support</option>
-                            <option value="Data Entry">Data Entry</option>
-                            <option value="Logistics">Logistics</option>
-                            <option value="Translation">Translation</option>
-                            <option value="Intake">Intake</option>
-                            <option value="Setup/Cleanup">Setup/Cleanup</option>
-                            <option value="Medical Assistant">Medical Assistant</option>
-                            <option value="Pharmacy Assistant">Pharmacy Assistant</option>
-                            <option value="Reception">Reception</option>
-                            <option value="Transportation">Transportation</option>
-                            <option value="Child Care">Child Care</option>
-                            <option value="Security">Security</option>
-                            <option value="IT Support">IT Support</option>
-                            <option value="Other">Other (specify)</option>
+                            <!-- Options will be populated dynamically -->
                         </select>
                         <div class="volunteer-type-other-input" id="volunteerTypeOtherInput">
                             <label>Please specify volunteer type</label>
@@ -1924,6 +2024,12 @@
             if (activeLink) {
                 activeLink.classList.add('active');
             }
+
+            // Initialize specialty and volunteer type lists when settings screen is accessed
+            if (screenId === 'settings') {
+                renderSpecialtyList();
+                renderVolunteerTypeList();
+            }
         }
 
         function openModal(modalId) {
@@ -1942,6 +2048,45 @@
 
         let currentOrganization = null;
         let userRole = null;
+
+        // Default specialty list
+        let specialtyList = [
+            'Family Medicine',
+            'Internal Medicine',
+            'Pediatrics',
+            'Cardiology',
+            'Dermatology',
+            'Emergency Medicine',
+            'Endocrinology',
+            'Gastroenterology',
+            'Gynecology',
+            'Neurology',
+            'Oncology',
+            'Ophthalmology',
+            'Orthopedics',
+            'Psychiatry',
+            'Radiology',
+            'Surgery',
+            'Urology'
+        ];
+
+        // Default volunteer type list
+        let volunteerTypeList = [
+            'Registration/Check-in',
+            'Medical Assistant',
+            'Pharmacy Assistant',
+            'Interpreter/Translator',
+            'General Support',
+            'Patient Escort',
+            'Administrative Support',
+            'Childcare Provider',
+            'Health Educator',
+            'Social Services',
+            'IT Support',
+            'Facilities/Maintenance',
+            'Food Service',
+            'Transportation'
+        ];
 
         function handleLogin(event) {
             event.preventDefault();
@@ -2082,6 +2227,94 @@
             }
         }
 
+        function renderVolunteerTypeList() {
+            const volunteerTypeItemsContainer = document.getElementById('volunteerTypeItems');
+            if (!volunteerTypeItemsContainer) return;
+
+            volunteerTypeItemsContainer.innerHTML = '';
+
+            if (volunteerTypeList.length === 0) {
+                volunteerTypeItemsContainer.innerHTML = '<div style="text-align: center; color: #999; font-style: italic; padding: 20px;">No volunteer types added yet</div>';
+                return;
+            }
+
+            volunteerTypeList.forEach((volunteerType, index) => {
+                const volunteerTypeItem = document.createElement('div');
+                volunteerTypeItem.className = 'volunteer-type-item';
+                volunteerTypeItem.innerHTML = `
+                    <span class="volunteer-type-name">${volunteerType}</span>
+                    <button class="volunteer-type-remove-btn" onclick="removeVolunteerType(${index})" title="Remove volunteer type">
+                        Remove
+                    </button>
+                `;
+                volunteerTypeItemsContainer.appendChild(volunteerTypeItem);
+            });
+
+            // Update the volunteer type dropdown in the volunteer modal
+            updateVolunteerTypeDropdown();
+        }
+
+        function addVolunteerType() {
+            const newVolunteerTypeInput = document.getElementById('newVolunteerTypeInput');
+            const volunteerTypeName = newVolunteerTypeInput.value.trim();
+
+            if (!volunteerTypeName) {
+                alert('Please enter a volunteer type name');
+                return;
+            }
+
+            if (volunteerTypeList.includes(volunteerTypeName)) {
+                alert('This volunteer type already exists');
+                return;
+            }
+
+            volunteerTypeList.push(volunteerTypeName);
+            volunteerTypeList.sort(); // Keep the list sorted alphabetically
+            newVolunteerTypeInput.value = '';
+            renderVolunteerTypeList();
+            
+            alert(`Volunteer type "${volunteerTypeName}" added successfully!`);
+        }
+
+        function removeVolunteerType(index) {
+            const volunteerTypeName = volunteerTypeList[index];
+            if (confirm(`Are you sure you want to remove "${volunteerTypeName}"?`)) {
+                volunteerTypeList.splice(index, 1);
+                renderVolunteerTypeList();
+                alert(`Volunteer type "${volunteerTypeName}" removed successfully!`);
+            }
+        }
+
+        function updateVolunteerTypeDropdown() {
+            const volunteerTypeSelect = document.getElementById('volunteerTypeSelect');
+            if (!volunteerTypeSelect) return;
+
+            // Store current selection
+            const currentSelection = volunteerTypeSelect.value;
+
+            // Clear existing options except the first one (placeholder)
+            volunteerTypeSelect.innerHTML = '<option value="">Select volunteer type</option>';
+
+            // Add all volunteer types from the list
+            volunteerTypeList.forEach(volunteerType => {
+                const option = document.createElement('option');
+                option.value = volunteerType;
+                option.textContent = volunteerType;
+                volunteerTypeSelect.appendChild(option);
+            });
+
+            // Add "Other" option at the end
+            const otherOption = document.createElement('option');
+            otherOption.value = 'Other';
+            otherOption.textContent = 'Other (specify below)';
+            volunteerTypeSelect.appendChild(otherOption);
+
+            // Restore selection if it still exists
+            if (currentSelection && Array.from(volunteerTypeSelect.options).some(opt => opt.value === currentSelection)) {
+                volunteerTypeSelect.value = currentSelection;
+            }
+        }
+
         function handleAddProvider(event) {
             event.preventDefault();
             
@@ -2136,6 +2369,94 @@
             console.log('Refreshing dashboard accordions...');
         }
 
+        function renderSpecialtyList() {
+            const specialtyItemsContainer = document.getElementById('specialtyItems');
+            if (!specialtyItemsContainer) return;
+
+            specialtyItemsContainer.innerHTML = '';
+
+            if (specialtyList.length === 0) {
+                specialtyItemsContainer.innerHTML = '<div style="text-align: center; color: #999; font-style: italic; padding: 20px;">No specialties added yet</div>';
+                return;
+            }
+
+            specialtyList.forEach((specialty, index) => {
+                const specialtyItem = document.createElement('div');
+                specialtyItem.className = 'specialty-item';
+                specialtyItem.innerHTML = `
+                    <span class="specialty-name">${specialty}</span>
+                    <button class="specialty-remove-btn" onclick="removeSpecialty(${index})" title="Remove specialty">
+                        Remove
+                    </button>
+                `;
+                specialtyItemsContainer.appendChild(specialtyItem);
+            });
+
+            // Update the specialty dropdown in the provider modal
+            updateProviderSpecialtyDropdown();
+        }
+
+        function addSpecialty() {
+            const newSpecialtyInput = document.getElementById('newSpecialtyInput');
+            const specialtyName = newSpecialtyInput.value.trim();
+
+            if (!specialtyName) {
+                alert('Please enter a specialty name');
+                return;
+            }
+
+            if (specialtyList.includes(specialtyName)) {
+                alert('This specialty already exists');
+                return;
+            }
+
+            specialtyList.push(specialtyName);
+            specialtyList.sort(); // Keep the list sorted alphabetically
+            newSpecialtyInput.value = '';
+            renderSpecialtyList();
+            
+            alert(`Specialty "${specialtyName}" added successfully!`);
+        }
+
+        function removeSpecialty(index) {
+            const specialtyName = specialtyList[index];
+            if (confirm(`Are you sure you want to remove "${specialtyName}"?`)) {
+                specialtyList.splice(index, 1);
+                renderSpecialtyList();
+                alert(`Specialty "${specialtyName}" removed successfully!`);
+            }
+        }
+
+        function updateProviderSpecialtyDropdown() {
+            const specialtySelect = document.getElementById('specialtySelect');
+            if (!specialtySelect) return;
+
+            // Store current selection
+            const currentSelection = specialtySelect.value;
+
+            // Clear existing options except the first one (placeholder)
+            specialtySelect.innerHTML = '<option value="">Select specialty</option>';
+
+            // Add all specialties from the list
+            specialtyList.forEach(specialty => {
+                const option = document.createElement('option');
+                option.value = specialty;
+                option.textContent = specialty;
+                specialtySelect.appendChild(option);
+            });
+
+            // Add "Other" option at the end
+            const otherOption = document.createElement('option');
+            otherOption.value = 'Other';
+            otherOption.textContent = 'Other (specify below)';
+            specialtySelect.appendChild(otherOption);
+
+            // Restore selection if it still exists
+            if (currentSelection && Array.from(specialtySelect.options).some(opt => opt.value === currentSelection)) {
+                specialtySelect.value = currentSelection;
+            }
+        }
+
         function handleAddSchedule(event) {
             event.preventDefault();
             alert('Schedule created successfully!');
@@ -2160,6 +2481,35 @@
                 event.target.classList.remove('show');
             }
         }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize dropdowns in modals
+            updateProviderSpecialtyDropdown();
+            updateVolunteerTypeDropdown();
+            
+            // Add Enter key support for specialty input
+            const newSpecialtyInput = document.getElementById('newSpecialtyInput');
+            if (newSpecialtyInput) {
+                newSpecialtyInput.addEventListener('keypress', function(event) {
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                        addSpecialty();
+                    }
+                });
+            }
+
+            // Add Enter key support for volunteer type input
+            const newVolunteerTypeInput = document.getElementById('newVolunteerTypeInput');
+            if (newVolunteerTypeInput) {
+                newVolunteerTypeInput.addEventListener('keypress', function(event) {
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                        addVolunteerType();
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>
