@@ -22,6 +22,7 @@
             display: flex;
             width: 100%;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         /* Sidebar Navigation */
@@ -82,6 +83,8 @@
             margin-left: 280px;
             flex: 1;
             padding: 30px;
+            max-width: calc(100% - 280px);
+            overflow-x: hidden;
         }
 
         .header {
@@ -524,14 +527,31 @@
             background: white;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
             margin-bottom: 30px;
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: visible;
+            -webkit-overflow-scrolling: touch;
+            display: block;
+            cursor: grab;
+        }
+
+        .table-container:active {
+            cursor: grabbing;
         }
 
         .table-scroll {
             max-height: 400px;
             overflow-y: auto;
-            overflow-x: hidden;
+            overflow-x: auto;
+            display: block;
+            width: 100%;
+            -webkit-overflow-scrolling: touch;
+            cursor: grab;
+        }
+
+        .table-scroll:active {
+            cursor: grabbing;
         }
 
         .table-scroll::-webkit-scrollbar {
@@ -551,9 +571,28 @@
             background: #a8a8a8;
         }
 
+        /* Table Container Scrollbar */
+        .table-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .table-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .table-container::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
+            table-layout: auto;
         }
 
         thead {
@@ -925,6 +964,8 @@
             .main-content {
                 margin-left: 0;
                 padding: 80px 15px 15px 15px;
+                max-width: 100%;
+                overflow-x: hidden;
             }
 
             .header {
@@ -1244,19 +1285,17 @@
                 </div>
 
                 <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Clinic Date</th>
-                                <th>Providers Assigned</th>
-                                <th>Volunteers Assigned</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                    </table>
                     <div class="table-scroll">
                         <table>
+                            <thead>
+                                <tr>
+                                    <th>Clinic Date</th>
+                                    <th>Providers Assigned</th>
+                                    <th>Volunteers Assigned</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
                             <tbody>
                                 <tr onclick="selectRow(this, 'Nov 30, 2025')">
                                     <td>Nov 30, 2025</td>
@@ -2507,6 +2546,61 @@
             }
         }
 
+        // Enable mouse drag scrolling for table containers
+        function initTableScrolling() {
+            const scrollElements = document.querySelectorAll('.table-container, .table-scroll');
+            
+            scrollElements.forEach(element => {
+                let isDown = false;
+                let startX;
+                let scrollLeft;
+                let hasDragged = false;
+                const dragThreshold = 5;
+
+                element.addEventListener('mousedown', (e) => {
+                    if (e.target.closest('.action-btn')) {
+                        return;
+                    }
+                    isDown = true;
+                    hasDragged = false;
+                    startX = e.pageX - element.getBoundingClientRect().left;
+                    scrollLeft = element.scrollLeft;
+                });
+
+                element.addEventListener('mouseleave', () => {
+                    isDown = false;
+                });
+
+                element.addEventListener('mouseup', () => {
+                    isDown = false;
+                });
+
+                element.addEventListener('mousemove', (e) => {
+                    if (!isDown) return;
+                    
+                    const x = e.pageX - element.getBoundingClientRect().left;
+                    const walk = (x - startX);
+                    
+                    if (Math.abs(walk) > dragThreshold) {
+                        hasDragged = true;
+                        e.preventDefault();
+                        element.scrollLeft = scrollLeft - walk;
+                    }
+                });
+
+                const rows = element.querySelectorAll('tbody tr');
+                rows.forEach(row => {
+                    row.addEventListener('click', (e) => {
+                        if (hasDragged) {
+                            e.stopPropagation();
+                        }
+                    });
+                });
+            });
+        }
+
+        // Initialize table scrolling when page loads
+        document.addEventListener('DOMContentLoaded', initTableScrolling);
 
     </script>
 </body>
