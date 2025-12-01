@@ -966,6 +966,86 @@
             opacity: 1;
         }
 
+        /* Utility Classes */
+        .full-width {
+            width: 100%;
+        }
+
+        .margin-top-15 {
+            margin-top: 15px;
+        }
+
+        .flex-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .flex-row-15 {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .flex-column {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .color-preview {
+            width: 60px;
+            height: 60px;
+            border-radius: 6px;
+            border: 2px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .color-value {
+            font-size: 12px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .checkbox-label input {
+            margin-right: 10px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-group input {
+            flex: 1;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-actions button {
+            flex: 1;
+        }
+
+        .settings-section-title {
+            margin: 20px 0 10px 0;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .small-text {
+            color: #666;
+            display: block;
+        }
+
         /* Mobile Styles */
         @media (max-width: 768px) {
             .hamburger-btn {
@@ -1161,11 +1241,11 @@
                         </div>
                         <div class="form-group">
                             <label for="orgColor">Brand Color</label>
-                            <div style="display: flex; gap: 15px; align-items: flex-start;">
+                            <div class="flex-row-15">
                                 <input type="color" id="orgColor" value="#667eea" onchange="updateColorPreview('orgColor', 'orgColorPreview')">
-                                <div style="display: flex; flex-direction: column; gap: 5px;">
-                                    <div id="orgColorPreview" style="width: 60px; height: 60px; border-radius: 6px; background: #667eea; border: 2px solid #e0e0e0; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"></div>
-                                    <span id="orgColorValue" style="font-size: 12px; color: #666; font-weight: 500;">#667eea</span>
+                                <div class="flex-column">
+                                    <div id="orgColorPreview" class="color-preview" style="background: #667eea;"></div>
+                                    <span id="orgColorValue" class="color-value">#667eea</span>
                                 </div>
                             </div>
                         </div>
@@ -1326,8 +1406,8 @@
                             <tbody>
                                 <tr onclick="selectRow(this, 'Nov 30, 2025')">
                                     <td>Nov 30, 2025</td>
-                                    <td>4 <small style="color: #666; display: block;">(Dr. Johnson, Dr. Chen, Dr. Williams, Dr. Martinez)</small></td>
-                                    <td>8 <small style="color: #666; display: block;">(Rodriguez, Thompson, Kim, Anderson +4 more)</small></td>
+                                    <td>4 <small class="small-text">(Dr. Johnson, Dr. Chen, Dr. Williams, Dr. Martinez)</small></td>
+                                    <td>8 <small class="small-text">(Rodriguez, Thompson, Kim, Anderson +4 more)</small></td>
                                     <td><span class="badge badge-success">Scheduled</span></td>
                                     <td>
                                         <button class="action-btn action-btn-edit" onclick="event.stopPropagation(); openModal('editClinicModal')">Edit</button>
@@ -1336,8 +1416,8 @@
                                 </tr>
                                 <tr onclick="selectRow(this, 'Dec 7, 2025')">
                                     <td>Dec 7, 2025</td>
-                                    <td>3 <small style="color: #666; display: block;">(Dr. Johnson, Dr. Chen, Dr. Brown)</small></td>
-                                    <td>6 <small style="color: #666; display: block;">(Rodriguez, Kim, Garcia, Lee +2 more)</small></td>
+                                    <td>3 <small class="small-text">(Dr. Johnson, Dr. Chen, Dr. Brown)</small></td>
+                                    <td>6 <small class="small-text">(Rodriguez, Kim, Garcia, Lee +2 more)</small></td>
                                     <td><span class="badge badge-success">Scheduled</span></td>
                                     <td>
                                         <button class="action-btn action-btn-edit" onclick="event.stopPropagation(); openModal('editClinicModal')">Edit</button>
@@ -1346,8 +1426,8 @@
                                 </tr>
                                 <tr onclick="selectRow(this, 'Dec 14, 2025')">
                                     <td>Dec 14, 2025</td>
-                                    <td>2 <small style="color: #666; display: block;">(Dr. Williams, Dr. Martinez)</small></td>
-                                    <td>4 <small style="color: #666; display: block;">(Thompson, Anderson, Garcia, Johnson)</small></td>
+                                    <td>2 <small class="small-text">(Dr. Williams, Dr. Martinez)</small></td>
+                                    <td>4 <small class="small-text">(Thompson, Anderson, Garcia, Johnson)</small></td>
                                     <td><span class="badge badge-warning">Pending</span></td>
                                     <td>
                                         <button class="action-btn action-btn-edit" onclick="event.stopPropagation(); openModal('editClinicModal')">Edit</button>
@@ -1882,7 +1962,7 @@
                             <label>Phone</label>
                             <input type="tel" value="(555) 999-0000" placeholder="Enter phone">
                         </div>
-                        <button class="btn btn-primary" style="width: 100%; margin-top: 15px;">Save Profile</button>
+                        <button class="btn btn-primary full-width margin-top-15">Save Profile</button>
                     </div>
 
                     <div class="card">
@@ -1899,39 +1979,39 @@
                             <label>Confirm Password</label>
                             <input type="password" placeholder="Confirm new password">
                         </div>
-                        <button class="btn btn-primary" style="width: 100%; margin-top: 15px;">Update Password</button>
+                        <button class="btn btn-primary full-width margin-top-15">Update Password</button>
                     </div>
 
                     <div class="card">
                         <h3>Notification Preferences</h3>
                         <div style="margin: 15px 0;">
-                            <label style="display: flex; align-items: center; margin-bottom: 10px;">
-                                <input type="checkbox" checked style="margin-right: 10px;">
+                            <label class="checkbox-label">
+                                <input type="checkbox" checked>
                                 Email notifications for shift reminders
                             </label>
-                            <label style="display: flex; align-items: center; margin-bottom: 10px;">
-                                <input type="checkbox" checked style="margin-right: 10px;">
+                            <label class="checkbox-label">
+                                <input type="checkbox" checked>
                                 SMS notifications for urgent updates
                             </label>
-                            <label style="display: flex; align-items: center; margin-bottom: 10px;">
-                                <input type="checkbox" style="margin-right: 10px;">
+                            <label class="checkbox-label">
+                                <input type="checkbox">
                                 Daily digest of activities
                             </label>
                         </div>
-                        <button class="btn btn-primary" style="width: 100%; margin-top: 15px;">Save Preferences</button>
+                        <button class="btn btn-primary full-width margin-top-15">Save Preferences</button>
                     </div>
 
                     <div class="card">
                         <h3>Specialty Management</h3>
                         <div class="form-group">
                             <label>Add New Specialty</label>
-                            <div style="display: flex; gap: 10px;">
-                                <input type="text" placeholder="Enter specialty name" style="flex: 1;">
-                                <button class="btn btn-primary" style="padding: 12px 20px;">Add</button>
+                            <div class="input-group">
+                                <input type="text" placeholder="Enter specialty name">
+                                <button class="btn btn-primary">Add</button>
                             </div>
                         </div>
                         <div class="specialty-list">
-                            <h4 style="margin: 20px 0 10px 0; color: #333; font-size: 16px;">Current Specialties:</h4>
+                            <h4 class="settings-section-title">Current Specialties:</h4>
                             <div class="specialty-items">
                                 <div class="specialty-item">
                                     <span class="specialty-name">Family Medicine</span>
@@ -1961,13 +2041,13 @@
                         <h3>Volunteer Type Management</h3>
                         <div class="form-group">
                             <label>Add New Volunteer Type</label>
-                            <div style="display: flex; gap: 10px;">
-                                <input type="text" placeholder="Enter volunteer type" style="flex: 1;">
-                                <button class="btn btn-primary" style="padding: 12px 20px;">Add</button>
+                            <div class="input-group">
+                                <input type="text" placeholder="Enter volunteer type">
+                                <button class="btn btn-primary">Add</button>
                             </div>
                         </div>
                         <div class="volunteer-type-list">
-                            <h4 style="margin: 20px 0 10px 0; color: #333; font-size: 16px;">Current Volunteer Types:</h4>
+                            <h4 class="settings-section-title">Current Volunteer Types:</h4>
                             <div class="volunteer-type-items">
                                 <div class="volunteer-type-item">
                                     <span class="volunteer-type-name">Registration/Check-in</span>
@@ -2019,15 +2099,15 @@
                         </div>
                         <div class="form-group">
                             <label>Brand Color</label>
-                            <div style="display: flex; gap: 15px; align-items: flex-start;">
+                            <div class="flex-row-15">
                                 <input type="color" id="orgColorSettings" value="#667eea" onchange="updateColorPreview('orgColorSettings', 'orgColorSettingsPreview')">
-                                <div style="display: flex; flex-direction: column; gap: 5px;">
-                                    <div id="orgColorSettingsPreview" style="width: 60px; height: 60px; border-radius: 6px; background: #667eea; border: 2px solid #e0e0e0; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"></div>
-                                    <span id="orgColorSettingsValue" style="font-size: 12px; color: #666; font-weight: 500;">#667eea</span>
+                                <div class="flex-column">
+                                    <div id="orgColorSettingsPreview" class="color-preview" style="background: #667eea;"></div>
+                                    <span id="orgColorSettingsValue" class="color-value">#667eea</span>
                                 </div>
                             </div>
                         </div>
-                        <button class="btn btn-primary" style="width: 100%; margin-top: 15px;">Save Organization Profile</button>
+                        <button class="btn btn-primary full-width margin-top-15">Save Organization Profile</button>
                     </div>
 
                     <div class="card">
@@ -2044,26 +2124,26 @@
                                 <option value="volunteer">Volunteer</option>
                             </select>
                         </div>
-                        <button class="btn btn-primary" style="width: 100%; margin-top: 15px;">Send Invitation</button>
+                        <button class="btn btn-primary full-width margin-top-15">Send Invitation</button>
                     </div>
 
                     <div class="card">
                         <h3>Clinic Configuration</h3>
                         <div style="margin: 15px 0;">
-                            <label style="display: flex; align-items: center; margin-bottom: 10px;">
-                                <input type="checkbox" checked style="margin-right: 10px;">
+                            <label class="checkbox-label">
+                                <input type="checkbox" checked>
                                 Enable weekend clinics
                             </label>
-                            <label style="display: flex; align-items: center; margin-bottom: 10px;">
-                                <input type="checkbox" style="margin-right: 10px;">
+                            <label class="checkbox-label">
+                                <input type="checkbox">
                                 Enable multi-day events
                             </label>
-                            <label style="display: flex; align-items: center; margin-bottom: 10px;">
-                                <input type="checkbox" checked style="margin-right: 10px;">
+                            <label class="checkbox-label">
+                                <input type="checkbox" checked>
                                 Automatic reminder notifications
                             </label>
                         </div>
-                        <button class="btn btn-primary" style="width: 100%; margin-top: 15px;">Save Configuration</button>
+                        <button class="btn btn-primary full-width margin-top-15">Save Configuration</button>
                     </div>
                 </div>
             </div>
@@ -2120,9 +2200,9 @@
                     <label>Phone</label>
                     <input type="tel" required>
                 </div>
-                <div style="display: flex; gap: 10px; margin-top: 20px;">
-                    <button type="submit" class="btn btn-primary" style="flex: 1;">Add Provider</button>
-                    <button type="button" class="btn btn-secondary" style="flex: 1;" onclick="closeModal('addProviderModal')">Cancel</button>
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-primary">Add Provider</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('addProviderModal')">Cancel</button>
                 </div>
             </form>
         </div>
@@ -2175,9 +2255,9 @@
                         </div>
                     </div>
                 </div>
-                <div style="display: flex; gap: 10px; margin-top: 20px;">
-                    <button type="submit" class="btn btn-primary" style="flex: 1;">Add Volunteer</button>
-                    <button type="button" class="btn btn-secondary" style="flex: 1;" onclick="closeModal('addVolunteerModal')">Cancel</button>
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-primary">Add Volunteer</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('addVolunteerModal')">Cancel</button>
                 </div>
             </form>
         </div>
@@ -2216,9 +2296,9 @@
                     <label>Expected Patient Count</label>
                     <input type="number" min="1" required>
                 </div>
-                <div style="display: flex; gap: 10px; margin-top: 20px;">
-                    <button type="submit" class="btn btn-primary" style="flex: 1;">Create Schedule</button>
-                    <button type="button" class="btn btn-secondary" style="flex: 1;" onclick="closeModal('addScheduleModal')">Cancel</button>
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-primary">Create Schedule</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('addScheduleModal')">Cancel</button>
                 </div>
             </form>
         </div>
@@ -2244,9 +2324,9 @@
                     <label>Notes</label>
                     <input type="text" placeholder="Additional notes">
                 </div>
-                <div style="display: flex; gap: 10px; margin-top: 20px;">
-                    <button type="submit" class="btn btn-primary" style="flex: 1;">Add Clinic</button>
-                    <button type="button" class="btn btn-secondary" style="flex: 1;" onclick="closeModal('addClinicModal')">Cancel</button>
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-primary">Add Clinic</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('addClinicModal')">Cancel</button>
                 </div>
             </form>
         </div>
@@ -2286,9 +2366,9 @@
                     <label>Phone</label>
                     <input type="tel" required>
                 </div>
-                <div style="display: flex; gap: 10px; margin-top: 20px;">
-                    <button type="submit" class="btn btn-primary" style="flex: 1;">Add Organization</button>
-                    <button type="button" class="btn btn-secondary" style="flex: 1;" onclick="closeModal('addOrgModal')">Cancel</button>
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-primary">Add Organization</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('addOrgModal')">Cancel</button>
                 </div>
             </form>
         </div>
