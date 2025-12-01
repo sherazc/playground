@@ -1161,7 +1161,13 @@
                         </div>
                         <div class="form-group">
                             <label for="orgColor">Brand Color</label>
-                            <input type="color" id="orgColor" value="#667eea">
+                            <div style="display: flex; gap: 15px; align-items: flex-start;">
+                                <input type="color" id="orgColor" value="#667eea" onchange="updateColorPreview('orgColor', 'orgColorPreview')">
+                                <div style="display: flex; flex-direction: column; gap: 5px;">
+                                    <div id="orgColorPreview" style="width: 60px; height: 60px; border-radius: 6px; background: #667eea; border: 2px solid #e0e0e0; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"></div>
+                                    <span id="orgColorValue" style="font-size: 12px; color: #666; font-weight: 500;">#667eea</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-actions">
                             <button type="submit" class="btn btn-primary">Register Organization</button>
@@ -2013,7 +2019,13 @@
                         </div>
                         <div class="form-group">
                             <label>Brand Color</label>
-                            <input type="color" value="#667eea">
+                            <div style="display: flex; gap: 15px; align-items: flex-start;">
+                                <input type="color" id="orgColorSettings" value="#667eea" onchange="updateColorPreview('orgColorSettings', 'orgColorSettingsPreview')">
+                                <div style="display: flex; flex-direction: column; gap: 5px;">
+                                    <div id="orgColorSettingsPreview" style="width: 60px; height: 60px; border-radius: 6px; background: #667eea; border: 2px solid #e0e0e0; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"></div>
+                                    <span id="orgColorSettingsValue" style="font-size: 12px; color: #666; font-weight: 500;">#667eea</span>
+                                </div>
+                            </div>
                         </div>
                         <button class="btn btn-primary" style="width: 100%; margin-top: 15px;">Save Organization Profile</button>
                     </div>
@@ -2409,6 +2421,20 @@
             const orgName = document.getElementById('orgName').value;
             alert(`Organization "${orgName}" registered successfully!`);
             switchScreen('login');
+        }
+
+        function updateColorPreview(inputId, previewId) {
+            const colorInput = document.getElementById(inputId);
+            const colorPreview = document.getElementById(previewId);
+            const colorValue = document.getElementById(inputId.replace('Color', 'ColorValue'));
+            
+            if (colorInput && colorPreview) {
+                const hexColor = colorInput.value.toUpperCase();
+                colorPreview.style.background = hexColor;
+                if (colorValue) {
+                    colorValue.textContent = hexColor;
+                }
+            }
         }
 
         function handleAddOrganization(event) {
