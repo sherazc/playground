@@ -1,0 +1,14 @@
+/* FaithfulPlanner Theme: Purple Theme */
+/* For premium medical centers and specialized clinics */
+
+:root {
+    /* Primary Color Palette - Purple */
+    --primary: #8b5cf6;
+    --primary-dark: #7c3aed;
+    --primary-light: #a78bfa;
+    --primary-ultra-light: #ede9fe;
+
+    /* Adjust info color to match theme */
+    --info: #8b5cf6;
+    --info-light: #ede9fe;
+}

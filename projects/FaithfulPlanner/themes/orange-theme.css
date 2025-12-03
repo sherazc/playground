@@ -1,0 +1,14 @@
+/* FaithfulPlanner Theme: Orange Theme */
+/* For pediatric clinics and family health centers */
+
+:root {
+    /* Primary Color Palette - Orange */
+    --primary: #f59e0b;
+    --primary-dark: #d97706;
+    --primary-light: #fbbf24;
+    --primary-ultra-light: #fef3c7;
+
+    /* Warning color matches primary theme */
+    --warning: #f59e0b;
+    --warning-light: #fef3c7;
+}

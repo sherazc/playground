@@ -1,0 +1,13 @@
+/* FaithfulPlanner Theme: Blue Theme (Default) */
+/* This is the default theme that ships with the application */
+
+:root {
+    /* Primary Color Palette - Blue */
+    --primary: #3b82f6;
+    --primary-dark: #1d4ed8;
+    --primary-light: #60a5fa;
+    --primary-ultra-light: #dbeafe;
+
+    /* Keep all other variables as per root defaults */
+    /* Neutral Colors, backgrounds, text colors, etc. remain unchanged */
+}

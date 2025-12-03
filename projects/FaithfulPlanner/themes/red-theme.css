@@ -1,0 +1,14 @@
+/* FaithfulPlanner Theme: Red Theme */
+/* For emergency clinics and urgent care centers */
+
+:root {
+    /* Primary Color Palette - Red */
+    --primary: #ef4444;
+    --primary-dark: #dc2626;
+    --primary-light: #f87171;
+    --primary-ultra-light: #fee2e2;
+
+    /* Error color matches primary theme */
+    --error: #ef4444;
+    --error-light: #fee2e2;
+}

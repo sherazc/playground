@@ -1,0 +1,14 @@
+/* FaithfulPlanner Theme: Green Theme */
+/* For community health clinics and wellness centers */
+
+:root {
+    /* Primary Color Palette - Green */
+    --primary: #10b981;
+    --primary-dark: #059669;
+    --primary-light: #34d399;
+    --primary-ultra-light: #d1fae5;
+
+    /* Success color can be adjusted to match primary */
+    --success: #10b981;
+    --success-light: #d1fae5;
+}
