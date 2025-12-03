@@ -309,27 +309,12 @@
         }
 
         .person-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             padding: 8px 15px;
-            margin: 5px 0;
-            background: #f8f9fa;
-            border-radius: 6px;
-            border-left: 3px solid #667eea;
         }
 
         .person-name {
             font-weight: 600;
             color: #333;
-        }
-
-        .person-role {
-            font-size: 12px;
-            color: #666;
-            background: #e0e7ff;
-            padding: 2px 8px;
-            border-radius: 12px;
         }
 
         .no-assignments {
@@ -347,13 +332,19 @@
             position: relative;
         }
 
-        .specialty-other-input {
+        /* Volunteer type field styles */
+        .volunteer-type-container {
+            position: relative;
+        }
+
+        /* Collapsible Input Container (specialty & volunteer type) */
+        .collapsible-input {
             display: none;
             margin-top: 10px;
             animation: slideDown 0.3s ease;
         }
 
-        .specialty-other-input.show {
+        .collapsible-input.show {
             display: block;
         }
 
@@ -368,7 +359,7 @@
             }
         }
 
-        .specialty-other-input input {
+        .collapsible-input input {
             width: 100%;
             padding: 12px;
             border: 2px solid #e0e0e0;
@@ -377,12 +368,12 @@
             transition: border-color 0.3s ease;
         }
 
-        .specialty-other-input input:focus {
+        .collapsible-input input:focus {
             outline: none;
             border-color: #667eea;
         }
 
-        .specialty-other-input label {
+        .collapsible-input label {
             display: block;
             margin-bottom: 8px;
             color: #333;
@@ -390,45 +381,8 @@
             font-size: 13px;
         }
 
-        /* Volunteer type field styles */
-        .volunteer-type-container {
-            position: relative;
-        }
-
-        .volunteer-type-other-input {
-            display: none;
-            margin-top: 10px;
-            animation: slideDown 0.3s ease;
-        }
-
-        .volunteer-type-other-input.show {
-            display: block;
-        }
-
-        .volunteer-type-other-input input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            font-size: 14px;
-            transition: border-color 0.3s ease;
-        }
-
-        .volunteer-type-other-input input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .volunteer-type-other-input label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 600;
-            font-size: 13px;
-        }
-
-        /* Specialty Management Styles */
-        .specialty-items {
+        /* Item List Container (scrollable list) */
+        .scrollable-list {
             max-height: 300px;
             overflow-y: auto;
             border: 1px solid #e0e0e0;
@@ -436,7 +390,8 @@
             padding: 10px;
         }
 
-        .specialty-item {
+        /* Generic List Item (person, specialty, volunteer type) */
+        .list-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -447,13 +402,14 @@
             border-left: 3px solid #667eea;
         }
 
-        .specialty-name {
+        .list-item-name {
             font-weight: 500;
             color: #333;
             flex: 1;
         }
 
-        .specialty-remove-btn {
+        /* Remove/Delete Button */
+        .btn-remove {
             background: #fed7d7;
             color: #742a2a;
             border: none;
@@ -465,12 +421,13 @@
             transition: all 0.3s ease;
         }
 
-        .specialty-remove-btn:hover {
+        .btn-remove:hover {
             background: #fc8181;
             color: white;
         }
 
-        .specialty-count {
+        /* Badge/Count Badge */
+        .count-badge {
             font-size: 12px;
             color: #666;
             margin-left: 10px;
@@ -479,47 +436,13 @@
             border-radius: 12px;
         }
 
-        /* Volunteer Type Management Styles */
-        .volunteer-type-items {
-            max-height: 300px;
-            overflow-y: auto;
-            border: 1px solid #e0e0e0;
-            border-radius: 6px;
-            padding: 10px;
-        }
-
-        .volunteer-type-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 15px;
-            margin: 5px 0;
-            background: #f8f9fa;
-            border-radius: 6px;
-            border-left: 3px solid #667eea;
-        }
-
-        .volunteer-type-name {
-            font-weight: 500;
-            color: #333;
-            flex: 1;
-        }
-
-        .volunteer-type-remove-btn {
-            background: #fed7d7;
-            color: #742a2a;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
+        /* Person Role Badge */
+        .person-role {
             font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .volunteer-type-remove-btn:hover {
-            background: #fc8181;
-            color: white;
+            color: #666;
+            background: #e0e7ff;
+            padding: 2px 8px;
+            border-radius: 12px;
         }
 
         /* Table Styles */
@@ -2012,26 +1935,26 @@
                         </div>
                         <div class="specialty-list">
                             <h4 class="settings-section-title">Current Specialties:</h4>
-                            <div class="specialty-items">
-                                <div class="specialty-item">
-                                    <span class="specialty-name">Family Medicine</span>
-                                    <button class="specialty-remove-btn">Remove</button>
+                            <div class="scrollable-list">
+                                <div class="list-item">
+                                    <span class="list-item-name">Family Medicine</span>
+                                    <button class="btn-remove">Remove</button>
                                 </div>
-                                <div class="specialty-item">
-                                    <span class="specialty-name">Internal Medicine</span>
-                                    <button class="specialty-remove-btn">Remove</button>
+                                <div class="list-item">
+                                    <span class="list-item-name">Internal Medicine</span>
+                                    <button class="btn-remove">Remove</button>
                                 </div>
-                                <div class="specialty-item">
-                                    <span class="specialty-name">Pediatrics</span>
-                                    <button class="specialty-remove-btn">Remove</button>
+                                <div class="list-item">
+                                    <span class="list-item-name">Pediatrics</span>
+                                    <button class="btn-remove">Remove</button>
                                 </div>
-                                <div class="specialty-item">
-                                    <span class="specialty-name">Cardiology</span>
-                                    <button class="specialty-remove-btn">Remove</button>
+                                <div class="list-item">
+                                    <span class="list-item-name">Cardiology</span>
+                                    <button class="btn-remove">Remove</button>
                                 </div>
-                                <div class="specialty-item">
-                                    <span class="specialty-name">Emergency Medicine</span>
-                                    <button class="specialty-remove-btn">Remove</button>
+                                <div class="list-item">
+                                    <span class="list-item-name">Emergency Medicine</span>
+                                    <button class="btn-remove">Remove</button>
                                 </div>
                             </div>
                         </div>
@@ -2048,26 +1971,26 @@
                         </div>
                         <div class="volunteer-type-list">
                             <h4 class="settings-section-title">Current Volunteer Types:</h4>
-                            <div class="volunteer-type-items">
-                                <div class="volunteer-type-item">
-                                    <span class="volunteer-type-name">Registration/Check-in</span>
-                                    <button class="volunteer-type-remove-btn">Remove</button>
+                            <div class="scrollable-list">
+                                <div class="list-item">
+                                    <span class="list-item-name">Registration/Check-in</span>
+                                    <button class="btn-remove">Remove</button>
                                 </div>
-                                <div class="volunteer-type-item">
-                                    <span class="volunteer-type-name">Medical Assistant</span>
-                                    <button class="volunteer-type-remove-btn">Remove</button>
+                                <div class="list-item">
+                                    <span class="list-item-name">Medical Assistant</span>
+                                    <button class="btn-remove">Remove</button>
                                 </div>
-                                <div class="volunteer-type-item">
-                                    <span class="volunteer-type-name">Pharmacy Assistant</span>
-                                    <button class="volunteer-type-remove-btn">Remove</button>
+                                <div class="list-item">
+                                    <span class="list-item-name">Pharmacy Assistant</span>
+                                    <button class="btn-remove">Remove</button>
                                 </div>
-                                <div class="volunteer-type-item">
-                                    <span class="volunteer-type-name">Interpreter/Translator</span>
-                                    <button class="volunteer-type-remove-btn">Remove</button>
+                                <div class="list-item">
+                                    <span class="list-item-name">Interpreter/Translator</span>
+                                    <button class="btn-remove">Remove</button>
                                 </div>
-                                <div class="volunteer-type-item">
-                                    <span class="volunteer-type-name">General Support</span>
-                                    <button class="volunteer-type-remove-btn">Remove</button>
+                                <div class="list-item">
+                                    <span class="list-item-name">General Support</span>
+                                    <button class="btn-remove">Remove</button>
                                 </div>
                             </div>
                         </div>
@@ -2186,7 +2109,7 @@
                             <option value="Urology">Urology</option>
                             <option value="Other">Other (specify below)</option>
                         </select>
-                        <div class="specialty-other-input" id="specialtyOtherInput">
+                        <div class="collapsible-input" id="specialtyOtherInput">
                             <label>Please specify specialty</label>
                             <input type="text" id="customSpecialty" placeholder="Enter custom specialty">
                         </div>
@@ -2249,7 +2172,7 @@
                             <option value="Transportation">Transportation</option>
                             <option value="Other">Other (specify below)</option>
                         </select>
-                        <div class="volunteer-type-other-input" id="volunteerTypeOtherInput">
+                        <div class="collapsible-input" id="volunteerTypeOtherInput">
                             <label>Please specify volunteer type</label>
                             <input type="text" id="customVolunteerType" placeholder="Enter custom volunteer type">
                         </div>
