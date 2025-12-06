@@ -415,59 +415,24 @@
             font-weight: 700;
         }
 
-        /* Accordion Styles */
-        .accordion-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            padding: 10px 0;
-            border-bottom: 1px solid #f0f0f0;
-            transition: background-color 0.3s ease;
-        }
 
-        .accordion-header:hover {
-            background-color: #f8f9fa;
-            margin: 0 -25px;
-            padding: 10px 25px;
-            border-radius: 6px;
-        }
-
-        .accordion-toggle {
-            font-size: 18px;
-            font-weight: bold;
-            color: #667eea;
-            transition: transform 0.3s ease;
-        }
-
-        .accordion-toggle.expanded {
-            transform: rotate(90deg);
-        }
-
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .accordion-content.expanded {
-            max-height: 300px;
-            padding-top: 15px;
-        }
 
         .person-list {
             list-style: none;
             margin: 0;
             padding: 0;
+            text-align: left;
         }
 
         .person-item {
-            padding: 8px 15px;
+            padding: 8px 0;
+            text-align: left;
         }
 
         .person-name {
             font-weight: 600;
             color: #333;
+            text-align: left;
         }
 
         .no-assignments {
@@ -1751,22 +1716,12 @@
 
                 <!-- Clinic Day Details Section -->
                 <div class="card clinic-day-details">
-                    <h3 id="selected-clinic-date">Select a clinic date to view details</h3>
+                    <div style="display: flex; align-items: center; gap: var(--spacing-10);">
+                        <h3 id="selected-clinic-date" style="margin: 0;">Select a clinic date to view details</h3>
+                        <span id="selected-clinic-status" class="badge badge-success" style="display: none;"></span>
+                    </div>
                     
                     <div class="details-grid">
-                        <!-- Clinic Information -->
-                        <div class="detail-section">
-                            <h4 class="detail-section-title">Clinic Information</h4>
-                            <div class="card-stat">
-                                <span class="card-stat-label">Clinic Date</span>
-                                <span class="card-stat-value" id="detail-clinic-date">—</span>
-                            </div>
-                            <div class="card-stat">
-                                <span class="card-stat-label">Status</span>
-                                <span class="card-stat-value" id="detail-clinic-status">—</span>
-                            </div>
-                        </div>
-
                         <!-- Providers Details -->
                         <div class="detail-section">
                             <h4 class="detail-section-title">Assigned Providers</h4>
@@ -1774,11 +1729,8 @@
                                 <span class="card-stat-label">Total Assigned</span>
                                 <span class="card-stat-value" id="detail-providers-count">0</span>
                             </div>
-                            <div class="accordion-header" onclick="toggleAccordion('detail-providers-accordion')">
-                                <span class="card-stat-label">Provider List</span>
-                                <span class="accordion-toggle" id="detail-providers-toggle">▶</span>
-                            </div>
-                            <div class="accordion-content" id="detail-providers-accordion">
+                            <div>
+                                <h5 class="card-stat-label" style="margin-top: var(--spacing-15); margin-bottom: var(--spacing-10);">Provider List</h5>
                                 <ul class="person-list" id="detail-providers-list">
                                     <li class="person-item">
                                         <span class="person-name">No providers assigned</span>
@@ -1794,11 +1746,8 @@
                                 <span class="card-stat-label">Total Assigned</span>
                                 <span class="card-stat-value" id="detail-volunteers-count">0</span>
                             </div>
-                            <div class="accordion-header" onclick="toggleAccordion('detail-volunteers-accordion')">
-                                <span class="card-stat-label">Volunteer List</span>
-                                <span class="accordion-toggle" id="detail-volunteers-toggle">▶</span>
-                            </div>
-                            <div class="accordion-content" id="detail-volunteers-accordion">
+                            <div>
+                                <h5 class="card-stat-label" style="margin-top: var(--spacing-15); margin-bottom: var(--spacing-10);">Volunteer List</h5>
                                 <ul class="person-list" id="detail-volunteers-list">
                                     <li class="person-item">
                                         <span class="person-name">No volunteers assigned</span>
@@ -2761,20 +2710,7 @@
             event.target.reset();
         }
 
-        function toggleAccordion(accordionId) {
-            const accordion = document.getElementById(accordionId);
-            const toggle = document.getElementById(accordionId.replace('-accordion', '-toggle'));
-            
-            if (accordion.classList.contains('expanded')) {
-                accordion.classList.remove('expanded');
-                toggle.classList.remove('expanded');
-                toggle.textContent = '▶';
-            } else {
-                accordion.classList.add('expanded');
-                toggle.classList.add('expanded');
-                toggle.textContent = '▼';
-            }
-        }
+
 
         function selectRow(rowElement, clinicDate) {
             // Remove selection from all rows
@@ -2939,12 +2875,16 @@
             // Get data for selected clinic date
             const data = clinicData[clinicDate];
             
-            // Update header
+            // Update header with clinic date
             document.getElementById('selected-clinic-date').textContent = 'Clinic Day: ' + clinicDate;
             
-            // Update clinic information
-            document.getElementById('detail-clinic-date').textContent = clinicDate;
-            document.getElementById('detail-clinic-status').innerHTML = `<span class="badge badge-${data.status.toLowerCase() === 'scheduled' ? 'success' : data.status.toLowerCase() === 'pending' ? 'warning' : 'primary'}">${data.status}</span>`;
+            // Update and show status badge
+            const statusBadge = document.getElementById('selected-clinic-status');
+            const badgeClass = data.status.toLowerCase() === 'scheduled' ? 'badge-success' : 
+                               data.status.toLowerCase() === 'pending' ? 'badge-warning' : 'badge-primary';
+            statusBadge.className = `badge ${badgeClass}`;
+            statusBadge.textContent = data.status;
+            statusBadge.style.display = 'inline-block';
             
             // Update providers
             document.getElementById('detail-providers-count').textContent = data.providers.length;
