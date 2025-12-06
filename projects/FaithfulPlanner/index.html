@@ -215,8 +215,8 @@
         }
 
         .header h2 {
-            color: #333;
-            font-size: 28px;
+            color: var(--text-primary);
+            font-size: var(--font-size-3xl);
         }
 
         .header-actions {
@@ -264,7 +264,7 @@
         }
 
         .btn-logout:hover {
-            background: #dc2626;
+            background: #c41e3a;
             box-shadow: var(--shadow-md);
         }
 
@@ -380,18 +380,18 @@
         }
 
         .card h3 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 18px;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-15);
+            font-size: var(--font-size-lg);
         }
 
         .card-stat {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: 15px 0;
-            padding: 10px 0;
-            border-bottom: 1px solid #f0f0f0;
+            margin: var(--spacing-15) 0;
+            padding: var(--spacing-10) 0;
+            border-bottom: var(--border-width) solid var(--border-light);
         }
 
         .card-stat:last-child {
@@ -399,14 +399,14 @@
         }
 
         .card-stat-label {
-            color: #666;
-            font-weight: 500;
+            color: var(--text-secondary);
+            font-weight: var(--font-weight-medium);
         }
 
         .card-stat-value {
-            color: #667eea;
-            font-size: 20px;
-            font-weight: 700;
+            color: var(--primary);
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
         }
 
 
@@ -428,8 +428,8 @@
         }
 
         .person-name {
-            font-weight: 600;
-            color: #333;
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
             text-align: left;
             flex: 1;
         }
@@ -697,32 +697,26 @@
         }
 
         .btn-remove:hover {
-            background: var(--error);
-            color: white;
-            transform: scale(1.05);
-        }
-
-        .btn-remove:hover {
             background: #fc8181;
-            color: white;
+            color: var(--text-on-primary);
         }
 
         /* Badge/Count Badge */
         .count-badge {
-            font-size: 12px;
-            color: #666;
-            margin-left: 10px;
-            padding: 2px 8px;
-            background: #e0e7ff;
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            margin-left: var(--spacing-10);
+            padding: var(--spacing-2) var(--spacing-8);
+            background: var(--primary-ultra-light);
             border-radius: 12px;
         }
 
         /* Person Role Badge */
         .person-role {
-            font-size: 12px;
-            color: #666;
-            background: #e0e7ff;
-            padding: 2px 8px;
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            background: var(--primary-ultra-light);
+            padding: var(--spacing-2) var(--spacing-8);
             border-radius: 12px;
         }
 
@@ -879,7 +873,7 @@
         }
 
         tbody tr.selected:hover {
-            background-color: #dbeafe;
+            background-color: var(--primary-ultra-light);
         }
 
         .badge {
@@ -897,12 +891,12 @@
 
         .badge-success {
             background: var(--success-light);
-            color: #065f46;
+            color: var(--success);
         }
 
         .badge-warning {
             background: var(--warning-light);
-            color: #92400e;
+            color: var(--warning);
         }
 
         /* Form Modal */
@@ -1023,22 +1017,22 @@
 
         .action-btn-edit {
             background: var(--info-light);
-            color: #1e40af;
+            color: var(--info);
         }
 
         .action-btn-edit:hover {
             background: var(--info);
-            color: white;
+            color: var(--text-on-primary);
         }
 
         .action-btn-delete {
             background: var(--error-light);
-            color: #991b1b;
+            color: var(--error);
         }
 
         .action-btn-delete:hover {
             background: var(--error);
-            color: white;
+            color: var(--text-on-primary);
         }
 
         /* Responsive Design */
@@ -1129,8 +1123,8 @@
             position: absolute;
             height: 3px;
             width: 100%;
-            background: #667eea;
-            border-radius: 3px;
+            background: var(--primary);
+            border-radius: var(--border-radius-sm);
             opacity: 1;
             left: 0;
             transform: rotate(0deg);
@@ -1256,9 +1250,9 @@
         .color-preview {
             width: 60px;
             height: 60px;
-            border-radius: 6px;
-            border: 2px solid #e0e0e0;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius-sm);
+            border: 2px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
         }
 
         .color-value {
@@ -1422,7 +1416,7 @@
         }
 
         .small-text {
-            color: #666;
+            color: var(--text-secondary);
             display: block;
         }
 
@@ -1474,6 +1468,265 @@
 
             .nav-link {
                 padding: 12px 20px;
+            }
+        }
+
+        /* Extended Utility Classes */
+        
+        /* Flexbox Utilities */
+        .flex-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flex-between {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .flex-start {
+            display: flex;
+            align-items: center;
+        }
+
+        .flex-column-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .items-end {
+            align-items: flex-end;
+        }
+
+        .items-start {
+            align-items: flex-start;
+        }
+
+        /* Text Utilities */
+        .text-center {
+            text-align: center;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .font-bold {
+            font-weight: var(--font-weight-bold);
+        }
+
+        .font-semibold {
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .font-medium {
+            font-weight: var(--font-weight-medium);
+        }
+
+        .text-sm {
+            font-size: var(--font-size-sm);
+            display: block;
+        }
+
+        .text-secondary {
+            color: var(--text-secondary);
+        }
+
+        /* Margin Utilities - All sides */
+        .m-0 { margin: 0; }
+        .m-1 { margin: 1px; }
+        .m-2 { margin: var(--spacing-2); }
+        .m-4 { margin: var(--spacing-4); }
+
+        /* Margin Top and Bottom (Y-axis) */
+        .my-10 { margin-top: var(--spacing-10); margin-bottom: var(--spacing-10); }
+        .my-15 { margin-top: var(--spacing-15); margin-bottom: var(--spacing-15); }
+        .my-20 { margin-top: var(--spacing-20); margin-bottom: var(--spacing-20); }
+        .my-30 { margin-top: var(--spacing-30); margin-bottom: var(--spacing-30); }
+
+        /* Margin Top */
+        .mt-0 { margin-top: 0; }
+        .mt-1 { margin-top: 1px; }
+        .mt-5 { margin-top: var(--spacing-5); }
+        .mt-10 { margin-top: var(--spacing-10); }
+        .mt-15 { margin-top: var(--spacing-15); }
+        .mt-20 { margin-top: var(--spacing-20); }
+        .mt-30 { margin-top: var(--spacing-30); }
+
+        /* Margin Bottom */
+        .mb-0 { margin-bottom: 0; }
+        .mb-1 { margin-bottom: 1px; }
+        .mb-5 { margin-bottom: var(--spacing-5); }
+        .mb-8 { margin-bottom: var(--spacing-8); }
+        .mb-10 { margin-bottom: var(--spacing-10); }
+        .mb-15 { margin-bottom: var(--spacing-15); }
+        .mb-20 { margin-bottom: var(--spacing-20); }
+        .mb-30 { margin-bottom: var(--spacing-30); }
+
+        /* Padding Utilities */
+        .p-0 { padding: 0; }
+        .p-5 { padding: var(--spacing-5); }
+        .p-10 { padding: var(--spacing-10); }
+        .p-12 { padding: var(--spacing-12); }
+        .p-15 { padding: var(--spacing-15); }
+        .p-20 { padding: var(--spacing-20); }
+        .p-30 { padding: var(--spacing-30); }
+
+        /* Display Utilities */
+        .block {
+            display: block;
+        }
+
+        .inline {
+            display: inline;
+        }
+
+        .inline-block {
+            display: inline-block;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .flex-1 {
+            flex: 1;
+        }
+
+        .flex-shrink-0 {
+            flex-shrink: 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Gap Utilities */
+        .gap-1 { gap: 1px; }
+        .gap-2 { gap: var(--spacing-2); }
+        .gap-4 { gap: var(--spacing-4); }
+        .gap-8 { gap: var(--spacing-8); }
+
+        /* Width Utilities */
+        .w-full {
+            width: 100%;
+        }
+
+        .w-auto {
+            width: auto;
+        }
+
+        .max-w-full {
+            max-width: 100%;
+        }
+
+        /* Color Utilities */
+        .text-primary {
+            color: var(--text-primary);
+        }
+
+        .text-error {
+            color: var(--error);
+        }
+
+        .text-success {
+            color: var(--success);
+        }
+
+        .text-warning {
+            color: var(--warning);
+        }
+
+        .bg-secondary {
+            background-color: var(--bg-secondary);
+        }
+
+        .bg-primary {
+            background-color: var(--bg-primary);
+        }
+
+        /* Border Utilities */
+        .border-b {
+            border-bottom: var(--border-width) solid var(--border-color);
+        }
+
+        .border-b-light {
+            border-bottom: var(--border-width) solid var(--border-light);
+        }
+
+        /* Position Utilities */
+        .relative {
+            position: relative;
+        }
+
+        .absolute {
+            position: absolute;
+        }
+
+        .fixed {
+            position: fixed;
+        }
+
+        /* Overflow Utilities */
+        .overflow-hidden {
+            overflow: hidden;
+        }
+
+        .overflow-y-auto {
+            overflow-y: auto;
+        }
+
+        .whitespace-nowrap {
+            white-space: nowrap;
+        }
+
+        /* Misc Utilities */
+        .cursor-pointer {
+            cursor: pointer;
+        }
+
+        .no-underline {
+            text-decoration: none;
+        }
+
+        .opacity-0 {
+            opacity: 0;
+        }
+
+        .opacity-100 {
+            opacity: 1;
+        }
+
+        .transition-all {
+            transition: all var(--transition-base);
+        }
+
+        .transition-colors {
+            transition: color var(--transition-fast), background-color var(--transition-fast);
+        }
+
+        .user-select-none {
+            user-select: none;
+        }
+
+        /* Responsive Display */
+        @media (max-width: 768px) {
+            .hide-mobile {
+                display: none !important;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .show-mobile-only {
+                display: none !important;
             }
         }
     </style>
@@ -1627,7 +1880,7 @@
                             <div class="flex-row-15">
                                 <input type="color" id="orgColor" value="#667eea" onchange="updateColorPreview('orgColor', 'orgColorPreview')">
                                 <div class="flex-column">
-                                    <div id="orgColorPreview" class="color-preview" style="background: #667eea;"></div>
+                                    <div id="orgColorPreview" class="color-preview"></div>
                                     <span id="orgColorValue" class="color-value">#667eea</span>
                                 </div>
                             </div>
@@ -1819,8 +2072,8 @@
                                 </tr>
                                 <tr onclick="selectRow(this, 'Dec 21, 2025')">
                                     <td>Dec 21, 2025</td>
-                                    <td>5 <small style="color: #666; display: block;">(Dr. Johnson, Dr. Martinez, Dr. Smith, Dr. Davis, Dr. Wilson)</small></td>
-                                    <td>10 <small style="color: #666; display: block;">(Rodriguez, Thompson, Kim, Garcia +6 more)</small></td>
+                                    <td>5 <small class="text-secondary text-sm">(Dr. Johnson, Dr. Martinez, Dr. Smith, Dr. Davis, Dr. Wilson)</small></td>
+                                    <td>10 <small class="text-secondary text-sm">(Rodriguez, Thompson, Kim, Garcia +6 more)</small></td>
                                     <td><span class="badge badge-success">Scheduled</span></td>
                                     <td>
                                         <button class="action-btn action-btn-edit" onclick="event.stopPropagation(); openModal('editClinicModal')">Edit</button>
@@ -1829,8 +2082,8 @@
                                 </tr>
                                 <tr onclick="selectRow(this, 'Dec 28, 2025')">
                                     <td>Dec 28, 2025</td>
-                                    <td>3 <small style="color: #666; display: block;">(Dr. Chen, Dr. Williams, Dr. Brown)</small></td>
-                                    <td>7 <small style="color: #666; display: block;">(Anderson, Lee, Johnson, Miller +3 more)</small></td>
+                                    <td>3 <small class="text-secondary text-sm">(Dr. Chen, Dr. Williams, Dr. Brown)</small></td>
+                                    <td>7 <small class="text-secondary text-sm">(Anderson, Lee, Johnson, Miller +3 more)</small></td>
                                     <td><span class="badge badge-success">Scheduled</span></td>
                                     <td>
                                         <button class="action-btn action-btn-edit" onclick="event.stopPropagation(); openModal('editClinicModal')">Edit</button>
@@ -1839,8 +2092,8 @@
                                 </tr>
                                 <tr onclick="selectRow(this, 'Jan 4, 2026')">
                                     <td>Jan 4, 2026</td>
-                                    <td>4 <small style="color: #666; display: block;">(Dr. Johnson, Dr. Martinez, Dr. Taylor, Dr. White)</small></td>
-                                    <td>9 <small style="color: #666; display: block;">(Rodriguez, Kim, Garcia, Thompson +5 more)</small></td>
+                                    <td>4 <small class="text-secondary text-sm">(Dr. Johnson, Dr. Martinez, Dr. Taylor, Dr. White)</small></td>
+                                    <td>9 <small class="text-secondary text-sm">(Rodriguez, Kim, Garcia, Thompson +5 more)</small></td>
                                     <td><span class="badge badge-warning">Pending</span></td>
                                     <td>
                                         <button class="action-btn action-btn-edit" onclick="event.stopPropagation(); openModal('editClinicModal')">Edit</button>
@@ -1849,8 +2102,8 @@
                                 </tr>
                                 <tr onclick="selectRow(this, 'Jan 11, 2026')">
                                     <td>Jan 11, 2026</td>
-                                    <td>2 <small style="color: #666; display: block;">(Dr. Davis, Dr. Wilson)</small></td>
-                                    <td>5 <small style="color: #666; display: block;">(Anderson, Lee, Miller, Clark, Hall)</small></td>
+                                    <td>2 <small class="text-secondary text-sm">(Dr. Davis, Dr. Wilson)</small></td>
+                                    <td>5 <small class="text-secondary text-sm">(Anderson, Lee, Miller, Clark, Hall)</small></td>
                                     <td><span class="badge badge-warning">Pending</span></td>
                                     <td>
                                         <button class="action-btn action-btn-edit" onclick="event.stopPropagation(); openModal('editClinicModal')">Edit</button>
@@ -1859,8 +2112,8 @@
                                 </tr>
                                 <tr onclick="selectRow(this, 'Jan 18, 2026')">
                                     <td>Jan 18, 2026</td>
-                                    <td>6 <small style="color: #666; display: block;">(Dr. Johnson, Dr. Chen, Dr. Martinez, Dr. Smith +2 more)</small></td>
-                                    <td>12 <small style="color: #666; display: block;">(Rodriguez, Thompson, Kim, Garcia +8 more)</small></td>
+                                    <td>6 <small class="text-secondary text-sm">(Dr. Johnson, Dr. Chen, Dr. Martinez, Dr. Smith +2 more)</small></td>
+                                    <td>12 <small class="text-secondary text-sm">(Rodriguez, Thompson, Kim, Garcia +8 more)</small></td>
                                     <td><span class="badge badge-primary">Draft</span></td>
                                     <td>
                                         <button class="action-btn action-btn-edit" onclick="event.stopPropagation(); openModal('editClinicModal')">Edit</button>
@@ -1874,9 +2127,9 @@
 
                 <!-- Clinic Day Details Section -->
                 <div class="card clinic-day-details">
-                    <div style="display: flex; align-items: center; gap: var(--spacing-10);">
-                        <h3 id="selected-clinic-date" style="margin: 0;">Select a clinic date to view details</h3>
-                        <span id="selected-clinic-status" class="badge badge-success" style="display: none;"></span>
+                    <div class="flex flex-start gap-10">
+                        <h3 id="selected-clinic-date" class="m-0">Select a clinic date to view details</h3>
+                        <span id="selected-clinic-status" class="badge badge-success hidden"></span>
                     </div>
                     
                     <div class="details-grid">
@@ -1887,7 +2140,7 @@
                                 <span class="card-stat-label">Total Assigned</span>
                                 <span class="card-stat-value" id="detail-providers-count">0</span>
                             </div>
-                            <div style="margin-top: var(--spacing-15);" class="search-wrapper">
+                            <div class="mt-15 search-wrapper">
                                 <div class="search-input-container">
                                     <input type="text" id="provider-search" placeholder="Search and add providers..." class="search-input">
                                     <div id="provider-dropdown" class="search-dropdown"></div>
@@ -1895,7 +2148,7 @@
                                 <button type="button" class="dropdown-toggle-btn" onclick="toggleAllProviders()" title="Show all providers">▼</button>
                             </div>
                             <div>
-                                <h5 class="card-stat-label" style="margin-top: var(--spacing-15); margin-bottom: var(--spacing-10);">Provider List</h5>
+                                <h5 class="card-stat-label mt-15 mb-10">Provider List</h5>
                                 <ul class="person-list" id="detail-providers-list">
                                     <li class="person-item">
                                         <span class="person-name">No providers assigned</span>
@@ -1911,7 +2164,7 @@
                                 <span class="card-stat-label">Total Assigned</span>
                                 <span class="card-stat-value" id="detail-volunteers-count">0</span>
                             </div>
-                            <div style="margin-top: var(--spacing-15);" class="search-wrapper">
+                            <div class="mt-15 search-wrapper">
                                 <div class="search-input-container">
                                     <input type="text" id="volunteer-search" placeholder="Search and add volunteers..." class="search-input">
                                     <div id="volunteer-dropdown" class="search-dropdown"></div>
@@ -1919,7 +2172,7 @@
                                 <button type="button" class="dropdown-toggle-btn" onclick="toggleAllVolunteers()" title="Show all volunteers">▼</button>
                             </div>
                             <div>
-                                <h5 class="card-stat-label" style="margin-top: var(--spacing-15); margin-bottom: var(--spacing-10);">Volunteer List</h5>
+                                <h5 class="card-stat-label mt-15 mb-10">Volunteer List</h5>
                                 <ul class="person-list" id="detail-volunteers-list">
                                     <li class="person-item">
                                         <span class="person-name">No volunteers assigned</span>
@@ -2319,7 +2572,7 @@
                         <h3>Notification Preferences</h3>
                         
                         <h4 class="settings-section-title">Email & SMS Notifications</h4>
-                        <div style="margin: var(--spacing-15) 0;">
+                        <div class="my-15">
                             <label class="checkbox-label">
                                 <input type="checkbox" checked>
                                 <span class="checkbox-box"></span>
@@ -2338,7 +2591,7 @@
                         </div>
 
                         <h4 class="settings-section-title">Notification Frequency</h4>
-                        <div style="margin: var(--spacing-15) 0;">
+                        <div class="my-15">
                             <label class="radio-label">
                                 <input type="radio" name="frequency" value="immediate" checked>
                                 <span class="radio-box"></span>
@@ -2469,7 +2722,7 @@
                             <div class="flex-row-15">
                                 <input type="color" id="orgColorSettings" value="#667eea" onchange="updateColorPreview('orgColorSettings', 'orgColorSettingsPreview')">
                                 <div class="flex-column">
-                                    <div id="orgColorSettingsPreview" class="color-preview" style="background: #667eea;"></div>
+                                    <div id="orgColorSettingsPreview" class="color-preview"></div>
                                     <span id="orgColorSettingsValue" class="color-value">#667eea</span>
                                 </div>
                             </div>
@@ -2496,7 +2749,7 @@
 
                     <div class="card">
                         <h3>Clinic Configuration</h3>
-                        <div style="margin: 15px 0;">
+                        <div class="my-15">
                             <label class="checkbox-label">
                                 <input type="checkbox" checked>
                                 Enable weekend clinics
@@ -2522,12 +2775,12 @@
                     <button class="btn btn-logout" onclick="switchScreen('login')">Logout</button>
                 </div>
 
-                <div class="card" style="margin-bottom: var(--spacing-30);">
+                <div class="card mb-30">
                     <h3>Search Volunteers</h3>
                     
                     <!-- Volunteer Search -->
-                    <div style="margin-bottom: var(--spacing-20);">
-                        <label style="display: block; margin-bottom: var(--spacing-10);">Volunteer Name</label>
+                    <div class="mb-20">
+                        <label class="block mb-10">Volunteer Name</label>
                         <div class="search-wrapper">
                             <div class="search-input-container">
                                 <input type="text" id="report-volunteer-search" placeholder="Search volunteer..." class="search-input">
@@ -2535,29 +2788,29 @@
                             </div>
                             <button type="button" class="dropdown-toggle-btn" onclick="toggleReportVolunteers()" title="Show all volunteers">▼</button>
                         </div>
-                        <div style="margin-top: var(--spacing-10);">
-                            <span id="selected-volunteer-name" style="font-weight: 600; color: var(--text-primary);">No volunteer selected</span>
+                        <div class="mt-10">
+                            <span id="selected-volunteer-name" class="font-semibold text-primary">No volunteer selected</span>
                         </div>
                     </div>
 
                     <!-- Date Range Filter -->
-                    <div style="display: flex; gap: var(--spacing-20); margin-top: var(--spacing-20);">
-                        <div style="flex: 1;">
-                            <label style="display: block; margin-bottom: var(--spacing-10);">Start Date</label>
+                    <div class="flex gap-20 mt-20">
+                        <div class="flex-1">
+                            <label class="block mb-10">Start Date</label>
                             <input type="date" id="report-start-date" class="search-input">
                         </div>
-                        <div style="flex: 1;">
-                            <label style="display: block; margin-bottom: var(--spacing-10);">End Date</label>
+                        <div class="flex-1">
+                            <label class="block mb-10">End Date</label>
                             <input type="date" id="report-end-date" class="search-input">
                         </div>
-                        <div style="display: flex; align-items: flex-end;">
-                            <button class="btn btn-primary" onclick="generateVolunteerReport()" style="margin: 0;">Generate Report</button>
+                        <div class="flex items-end">
+                            <button class="btn btn-primary m-0" onclick="generateVolunteerReport()">Generate Report</button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Summary Section -->
-                <div class="dashboard-grid" style="margin-bottom: var(--spacing-30);">
+                <div class="dashboard-grid mb-30">
                     <div class="card">
                         <h3>Summary</h3>
                         <div class="card-stat">
@@ -2586,7 +2839,7 @@
                             </thead>
                             <tbody id="volunteer-report-results">
                                 <tr>
-                                    <td colspan="5" style="text-align: center; padding: var(--spacing-30); color: var(--text-secondary);">Select a volunteer and date range to view report</td>
+                                    <td colspan="5" class="text-center p-30 text-secondary">Select a volunteer and date range to view report</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -3155,7 +3408,7 @@
             const providersList = document.getElementById('detail-providers-list');
             providersList.innerHTML = data.providers.length > 0 ? data.providers.map(provider => 
                 `<li class="person-item">
-                    <div style="display: flex; align-items: center; gap: 8px; flex: 1;">
+                    <div class="flex flex-start gap-4 flex-1">
                         <span class="person-name">${provider.name}</span>
                         <span class="person-role">${provider.role}</span>
                     </div>
@@ -3170,7 +3423,7 @@
             const volunteersList = document.getElementById('detail-volunteers-list');
             volunteersList.innerHTML = data.volunteers.length > 0 ? data.volunteers.map(volunteer => 
                 `<li class="person-item">
-                    <div style="display: flex; align-items: center; gap: 8px; flex: 1;">
+                    <div class="flex flex-start gap-4 flex-1">
                         <span class="person-name">${volunteer.name}</span>
                         <span class="person-role">${volunteer.role}</span>
                     </div>
@@ -3400,7 +3653,7 @@
                 // Show all items if no search term or empty search
                 const filtered = allItems;
                 if (filtered.length === 0) {
-                    dropdown.innerHTML = '<div style="padding: 12px; color: var(--text-secondary); text-align: center;">No results found</div>';
+                    dropdown.innerHTML = '<div class="p-12 text-secondary text-center">No results found</div>';
                     dropdown.classList.add('show');
                     return;
                 }
@@ -3424,7 +3677,7 @@
             );
 
             if (filtered.length === 0) {
-                dropdown.innerHTML = '<div style="padding: 12px; color: var(--text-secondary); text-align: center;">No results found</div>';
+                dropdown.innerHTML = '<div class="p-12 text-secondary text-center">No results found</div>';
                 dropdown.classList.add('show');
                 return;
             }
@@ -3618,7 +3871,7 @@
             // Update table
             const tbody = document.getElementById('volunteer-report-results');
             if (workData.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: var(--spacing-30); color: var(--text-secondary);">No work records found for selected date range</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center p-30 text-secondary">No work records found for selected date range</td></tr>`;
                 return;
             }
 
