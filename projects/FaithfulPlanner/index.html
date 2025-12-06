@@ -1543,6 +1543,9 @@
                 <li class="nav-item">
                     <a class="nav-link" onclick="switchScreen('org-settings')">Organization Settings</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="switchScreen('volunteer-reports')">Volunteer Reports</a>
+                </li>
             </ul>
         </div>
 
@@ -2273,7 +2276,7 @@
             <!-- Settings/Profile Screen -->
             <div id="settings" class="screen">
                 <div class="header">
-                    <h2>Settings & Profile</h2>
+                    <h2>Settings</h2>
                     <button class="btn btn-logout" onclick="switchScreen('login')">Logout</button>
                 </div>
 
@@ -2427,6 +2430,15 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="card">
+                        <h3>Shift Settings</h3>
+                        <div class="form-group">
+                            <label>Per Day Shift Hours</label>
+                            <input type="number" placeholder="Enter shift hours" value="4" min="1" max="24">
+                        </div>
+                        <button class="btn btn-primary full-width margin-top-15">Save Shift Settings</button>
+                    </div>
                 </div>
             </div>
 
@@ -2499,6 +2511,85 @@
                             </label>
                         </div>
                         <button class="btn btn-primary full-width margin-top-15">Save Configuration</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Volunteer Reports Screen -->
+            <div id="volunteer-reports" class="screen">
+                <div class="header">
+                    <h2>Volunteer Reports</h2>
+                    <button class="btn btn-logout" onclick="switchScreen('login')">Logout</button>
+                </div>
+
+                <div class="card" style="margin-bottom: var(--spacing-30);">
+                    <h3>Search Volunteers</h3>
+                    
+                    <!-- Volunteer Search -->
+                    <div style="margin-bottom: var(--spacing-20);">
+                        <label style="display: block; margin-bottom: var(--spacing-10);">Volunteer Name</label>
+                        <div class="search-wrapper">
+                            <div class="search-input-container">
+                                <input type="text" id="report-volunteer-search" placeholder="Search volunteer..." class="search-input">
+                                <div id="report-volunteer-dropdown" class="search-dropdown"></div>
+                            </div>
+                            <button type="button" class="dropdown-toggle-btn" onclick="toggleReportVolunteers()" title="Show all volunteers">▼</button>
+                        </div>
+                        <div style="margin-top: var(--spacing-10);">
+                            <span id="selected-volunteer-name" style="font-weight: 600; color: var(--text-primary);">No volunteer selected</span>
+                        </div>
+                    </div>
+
+                    <!-- Date Range Filter -->
+                    <div style="display: flex; gap: var(--spacing-20); margin-top: var(--spacing-20);">
+                        <div style="flex: 1;">
+                            <label style="display: block; margin-bottom: var(--spacing-10);">Start Date</label>
+                            <input type="date" id="report-start-date" class="search-input">
+                        </div>
+                        <div style="flex: 1;">
+                            <label style="display: block; margin-bottom: var(--spacing-10);">End Date</label>
+                            <input type="date" id="report-end-date" class="search-input">
+                        </div>
+                        <div style="display: flex; align-items: flex-end;">
+                            <button class="btn btn-primary" onclick="generateVolunteerReport()" style="margin: 0;">Generate Report</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary Section -->
+                <div class="dashboard-grid" style="margin-bottom: var(--spacing-30);">
+                    <div class="card">
+                        <h3>Summary</h3>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Total Days Worked</span>
+                            <span class="card-stat-value" id="total-days-worked">0</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Total Hours</span>
+                            <span class="card-stat-value" id="total-hours-worked">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Table -->
+                <div class="table-container">
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Clinic</th>
+                                    <th>Role</th>
+                                    <th>Hours Worked</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="volunteer-report-results">
+                                <tr>
+                                    <td colspan="5" style="text-align: center; padding: var(--spacing-30); color: var(--text-secondary);">Select a volunteer and date range to view report</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -3384,6 +3475,162 @@
             } else {
                 populateDropdown('', allVolunteers, 'volunteer-dropdown');
             }
+        }
+
+        // Volunteer Reports functionality
+        let selectedReportVolunteer = null;
+
+        // Sample report data - in real app, this would come from backend
+        const volunteerWorkData = {
+            'James Rodriguez': [
+                { date: '2025-11-30', clinic: 'Mercy Free Clinic', role: 'Registration', hours: 8, status: 'Completed' },
+                { date: '2025-12-07', clinic: 'Mercy Free Clinic', role: 'Registration', hours: 8, status: 'Completed' },
+                { date: '2025-12-14', clinic: 'Mercy Free Clinic', role: 'Registration', hours: 8, status: 'Completed' }
+            ],
+            'Emma Thompson': [
+                { date: '2025-11-30', clinic: 'Mercy Free Clinic', role: 'Patient Support', hours: 8, status: 'Completed' },
+                { date: '2025-12-21', clinic: 'Mercy Free Clinic', role: 'Patient Support', hours: 8, status: 'Completed' }
+            ],
+            'David Kim': [
+                { date: '2025-11-30', clinic: 'Mercy Free Clinic', role: 'Data Entry', hours: 6, status: 'Completed' },
+                { date: '2025-12-07', clinic: 'Mercy Free Clinic', role: 'Data Entry', hours: 8, status: 'Completed' },
+                { date: '2025-12-28', clinic: 'Mercy Free Clinic', role: 'Data Entry', hours: 8, status: 'Completed' }
+            ],
+            'Maria Garcia': [
+                { date: '2025-12-21', clinic: 'Mercy Free Clinic', role: 'Translation', hours: 8, status: 'Completed' }
+            ],
+            'Robert Johnson': [
+                { date: '2025-11-30', clinic: 'Mercy Free Clinic', role: 'Logistics', hours: 8, status: 'Completed' },
+                { date: '2025-12-07', clinic: 'Mercy Free Clinic', role: 'Logistics', hours: 8, status: 'Completed' },
+                { date: '2025-12-14', clinic: 'Mercy Free Clinic', role: 'Logistics', hours: 8, status: 'Completed' },
+                { date: '2025-12-28', clinic: 'Mercy Free Clinic', role: 'Logistics', hours: 8, status: 'Completed' }
+            ],
+            'Jennifer Lee': [
+                { date: '2025-12-07', clinic: 'Mercy Free Clinic', role: 'Intake', hours: 8, status: 'Completed' }
+            ],
+            'Christopher Brown': [
+                { date: '2025-11-30', clinic: 'Mercy Free Clinic', role: 'Setup/Cleanup', hours: 4, status: 'Completed' },
+                { date: '2025-12-21', clinic: 'Mercy Free Clinic', role: 'Setup/Cleanup', hours: 4, status: 'Completed' }
+            ],
+            'Lisa Anderson': [
+                { date: '2025-12-28', clinic: 'Mercy Free Clinic', role: 'Patient Support', hours: 8, status: 'Completed' }
+            ],
+            'Alex Martinez': [
+                { date: '2025-12-14', clinic: 'Mercy Free Clinic', role: 'Medical Assistant', hours: 8, status: 'Completed' },
+                { date: '2025-01-04', clinic: 'Mercy Free Clinic', role: 'Medical Assistant', hours: 8, status: 'Scheduled' }
+            ],
+            'Sarah White': [
+                { date: '2025-11-30', clinic: 'Mercy Free Clinic', role: 'Patient Support', hours: 8, status: 'Completed' },
+                { date: '2025-12-21', clinic: 'Mercy Free Clinic', role: 'Patient Support', hours: 8, status: 'Completed' },
+                { date: '2025-01-18', clinic: 'Mercy Free Clinic', role: 'Patient Support', hours: 8, status: 'Scheduled' }
+            ]
+        };
+
+        function populateReportVolunteerDropdown(searchTerm) {
+            const dropdown = document.getElementById('report-volunteer-dropdown');
+            
+            if (!searchTerm.trim()) {
+                const filtered = allVolunteers;
+                dropdown.innerHTML = filtered.map(vol => `
+                    <div class="search-dropdown-item" onclick="selectReportVolunteer('${vol.name}', '${vol.role}')">
+                        <div class="dropdown-item-info">
+                            <div class="dropdown-item-name">${vol.name}</div>
+                            <div class="dropdown-item-role">${vol.role}</div>
+                        </div>
+                    </div>
+                `).join('');
+                dropdown.classList.add('show');
+                return;
+            }
+
+            const filtered = allVolunteers.filter(vol =>
+                vol.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                vol.role.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+
+            dropdown.innerHTML = filtered.map(vol => `
+                <div class="search-dropdown-item" onclick="selectReportVolunteer('${vol.name}', '${vol.role}')">
+                    <div class="dropdown-item-info">
+                        <div class="dropdown-item-name">${vol.name}</div>
+                        <div class="dropdown-item-role">${vol.role}</div>
+                    </div>
+                </div>
+            `).join('');
+            dropdown.classList.add('show');
+        }
+
+        function selectReportVolunteer(name, role) {
+            selectedReportVolunteer = name;
+            document.getElementById('report-volunteer-search').value = name;
+            document.getElementById('selected-volunteer-name').textContent = `${name} (${role})`;
+            document.getElementById('report-volunteer-dropdown').classList.remove('show');
+        }
+
+        function toggleReportVolunteers() {
+            const dropdown = document.getElementById('report-volunteer-dropdown');
+            if (dropdown.classList.contains('show')) {
+                dropdown.classList.remove('show');
+            } else {
+                populateReportVolunteerDropdown('');
+            }
+        }
+
+        document.getElementById('report-volunteer-search').addEventListener('input', (e) => {
+            populateReportVolunteerDropdown(e.target.value);
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            const dropdown = document.getElementById('report-volunteer-dropdown');
+            const searchContainer = document.querySelector('#volunteer-reports .search-wrapper');
+            if (!searchContainer?.contains(e.target)) {
+                dropdown.classList.remove('show');
+            }
+        });
+
+        function generateVolunteerReport() {
+            if (!selectedReportVolunteer) {
+                alert('Please select a volunteer first');
+                return;
+            }
+
+            const startDate = document.getElementById('report-start-date').value;
+            const endDate = document.getElementById('report-end-date').value;
+
+            let workData = volunteerWorkData[selectedReportVolunteer] || [];
+
+            // Filter by date range if specified
+            if (startDate || endDate) {
+                workData = workData.filter(item => {
+                    if (startDate && item.date < startDate) return false;
+                    if (endDate && item.date > endDate) return false;
+                    return true;
+                });
+            }
+
+            // Update summary
+            const totalDays = workData.length;
+            const totalHours = workData.reduce((sum, item) => sum + item.hours, 0);
+            
+            document.getElementById('total-days-worked').textContent = totalDays;
+            document.getElementById('total-hours-worked').textContent = totalHours;
+
+            // Update table
+            const tbody = document.getElementById('volunteer-report-results');
+            if (workData.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: var(--spacing-30); color: var(--text-secondary);">No work records found for selected date range</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = workData.map(item => `
+                <tr>
+                    <td>${new Date(item.date).toLocaleDateString()}</td>
+                    <td>${item.clinic}</td>
+                    <td>${item.role}</td>
+                    <td>${item.hours} hrs</td>
+                    <td><span class="badge ${item.status === 'Completed' ? 'badge-success' : 'badge-warning'}">${item.status}</span></td>
+                </tr>
+            `).join('');
         }
 
     </script>
