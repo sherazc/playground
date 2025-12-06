@@ -246,7 +246,6 @@
 
         .btn-primary:hover {
             background: var(--primary-dark);
-            transform: translateY(-2px);
             box-shadow: var(--shadow-md);
         }
 
@@ -378,11 +377,6 @@
             box-shadow: var(--shadow-md);
             transition: transform var(--transition-base), box-shadow var(--transition-base);
             border: var(--border-width) solid var(--border-light);
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
         }
 
         .card h3 {
@@ -876,6 +870,12 @@
         tbody tr.selected {
             background-color: var(--primary-ultra-light);
             border-left: 4px solid var(--primary);
+            box-shadow: inset 4px 0 0 var(--primary);
+        }
+
+        tbody tr.selected td:first-child {
+            border-left: 4px solid var(--primary);
+            padding-left: calc(var(--spacing-20) - 4px);
         }
 
         tbody tr.selected:hover {
