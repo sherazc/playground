@@ -345,6 +345,32 @@
             margin-bottom: var(--spacing-30);
         }
 
+        /* Clinic Day Details */
+        .clinic-day-details {
+            margin-bottom: var(--spacing-30);
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-20);
+            margin-top: var(--spacing-20);
+        }
+
+        .detail-section {
+            border: var(--border-width) solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            padding: var(--spacing-15);
+            background: var(--bg-secondary);
+        }
+
+        .detail-section-title {
+            margin: 0 0 var(--spacing-15) 0;
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+        }
+
         .card {
             background: var(--bg-primary);
             padding: var(--spacing-20);
@@ -1723,110 +1749,62 @@
                     </div>
                 </div>
 
-                <div class="dashboard-grid">
-                    <div class="card" id="clinic-dates-card">
-                        <h3>Upcoming Clinic Dates</h3>
-                        <div class="card-stat">
-                            <span class="card-stat-label">Next Clinic Date</span>
-                            <span class="card-stat-value">Nov 30</span>
+                <!-- Clinic Day Details Section -->
+                <div class="card clinic-day-details">
+                    <h3 id="selected-clinic-date">Select a clinic date to view details</h3>
+                    
+                    <div class="details-grid">
+                        <!-- Clinic Information -->
+                        <div class="detail-section">
+                            <h4 class="detail-section-title">Clinic Information</h4>
+                            <div class="card-stat">
+                                <span class="card-stat-label">Clinic Date</span>
+                                <span class="card-stat-value" id="detail-clinic-date">—</span>
+                            </div>
+                            <div class="card-stat">
+                                <span class="card-stat-label">Status</span>
+                                <span class="card-stat-value" id="detail-clinic-status">—</span>
+                            </div>
                         </div>
-                        <div class="card-stat">
-                            <span class="card-stat-label">Total Clinics (30 days)</span>
-                            <span class="card-stat-value">8</span>
-                        </div>
-                        <div class="card-stat">
-                            <span class="card-stat-label">Fully Scheduled</span>
-                            <span class="card-stat-value">5</span>
-                        </div>
-                    </div>
 
-                    <div class="card" id="providers-card">
-                        <h3>Assigned Providers</h3>
-                        <div class="card-stat">
-                            <span class="card-stat-label">Total Providers</span>
-                            <span class="card-stat-value">12</span>
+                        <!-- Providers Details -->
+                        <div class="detail-section">
+                            <h4 class="detail-section-title">Assigned Providers</h4>
+                            <div class="card-stat">
+                                <span class="card-stat-label">Total Assigned</span>
+                                <span class="card-stat-value" id="detail-providers-count">0</span>
+                            </div>
+                            <div class="accordion-header" onclick="toggleAccordion('detail-providers-accordion')">
+                                <span class="card-stat-label">Provider List</span>
+                                <span class="accordion-toggle" id="detail-providers-toggle">▶</span>
+                            </div>
+                            <div class="accordion-content" id="detail-providers-accordion">
+                                <ul class="person-list" id="detail-providers-list">
+                                    <li class="person-item">
+                                        <span class="person-name">No providers assigned</span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="card-stat">
-                            <span class="card-stat-label">Available This Week</span>
-                            <span class="card-stat-value">8</span>
-                        </div>
-                        
-                        <div class="accordion-header" onclick="toggleAccordion('providers-accordion')">
-                            <span class="card-stat-label">Providers Assigned (Next Clinic)</span>
-                            <span class="accordion-toggle" id="providers-toggle">▶</span>
-                        </div>
-                        <div class="accordion-content" id="providers-accordion">
-                            <ul class="person-list">
-                                <li class="person-item">
-                                    <span class="person-name">Dr. Sarah Johnson</span>
-                                    <span class="person-role">General Medicine</span>
-                                </li>
-                                <li class="person-item">
-                                    <span class="person-name">Dr. Michael Chen</span>
-                                    <span class="person-role">Pediatrics</span>
-                                </li>
-                                <li class="person-item">
-                                    <span class="person-name">Dr. Patricia Williams</span>
-                                    <span class="person-role">Cardiology</span>
-                                </li>
-                                <li class="person-item">
-                                    <span class="person-name">Dr. James Martinez</span>
-                                    <span class="person-role">Family Medicine</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
 
-                    <div class="card" id="volunteers-card">
-                        <h3>Assigned Volunteers</h3>
-                        <div class="card-stat">
-                            <span class="card-stat-label">Total Volunteers</span>
-                            <span class="card-stat-value">28</span>
-                        </div>
-                        <div class="card-stat">
-                            <span class="card-stat-label">Active This Month</span>
-                            <span class="card-stat-value">22</span>
-                        </div>
-                        
-                        <div class="accordion-header" onclick="toggleAccordion('volunteers-accordion')">
-                            <span class="card-stat-label">Volunteers Assigned (Next Clinic)</span>
-                            <span class="accordion-toggle" id="volunteers-toggle">▶</span>
-                        </div>
-                        <div class="accordion-content" id="volunteers-accordion">
-                            <ul class="person-list">
-                                <li class="person-item">
-                                    <span class="person-name">James Rodriguez</span>
-                                    <span class="person-role">Registration</span>
-                                </li>
-                                <li class="person-item">
-                                    <span class="person-name">Emma Thompson</span>
-                                    <span class="person-role">Patient Support</span>
-                                </li>
-                                <li class="person-item">
-                                    <span class="person-name">David Kim</span>
-                                    <span class="person-role">Data Entry</span>
-                                </li>
-                                <li class="person-item">
-                                    <span class="person-name">Lisa Anderson</span>
-                                    <span class="person-role">Patient Support</span>
-                                </li>
-                                <li class="person-item">
-                                    <span class="person-name">Maria Garcia</span>
-                                    <span class="person-role">Translation</span>
-                                </li>
-                                <li class="person-item">
-                                    <span class="person-name">Robert Johnson</span>
-                                    <span class="person-role">Logistics</span>
-                                </li>
-                                <li class="person-item">
-                                    <span class="person-name">Jennifer Lee</span>
-                                    <span class="person-role">Intake</span>
-                                </li>
-                                <li class="person-item">
-                                    <span class="person-name">Christopher Brown</span>
-                                    <span class="person-role">Setup/Cleanup</span>
-                                </li>
-                            </ul>
+                        <!-- Volunteers Details -->
+                        <div class="detail-section">
+                            <h4 class="detail-section-title">Assigned Volunteers</h4>
+                            <div class="card-stat">
+                                <span class="card-stat-label">Total Assigned</span>
+                                <span class="card-stat-value" id="detail-volunteers-count">0</span>
+                            </div>
+                            <div class="accordion-header" onclick="toggleAccordion('detail-volunteers-accordion')">
+                                <span class="card-stat-label">Volunteer List</span>
+                                <span class="accordion-toggle" id="detail-volunteers-toggle">▶</span>
+                            </div>
+                            <div class="accordion-content" id="detail-volunteers-accordion">
+                                <ul class="person-list" id="detail-volunteers-list">
+                                    <li class="person-item">
+                                        <span class="person-name">No volunteers assigned</span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2808,11 +2786,197 @@
             // Add selection to clicked row
             rowElement.classList.add('selected');
             
-            // Log selection for demonstration
-            console.log('Selected clinic date:', clinicDate);
+            // Sample data for each clinic date
+            const clinicData = {
+                'Nov 30, 2025': {
+                    status: 'Scheduled',
+                    providers: [
+                        { name: 'Dr. Sarah Johnson', role: 'General Medicine' },
+                        { name: 'Dr. Michael Chen', role: 'Pediatrics' },
+                        { name: 'Dr. Patricia Williams', role: 'Cardiology' },
+                        { name: 'Dr. James Martinez', role: 'Family Medicine' }
+                    ],
+                    volunteers: [
+                        { name: 'James Rodriguez', role: 'Registration' },
+                        { name: 'Emma Thompson', role: 'Patient Support' },
+                        { name: 'David Kim', role: 'Data Entry' },
+                        { name: 'Lisa Anderson', role: 'Patient Support' },
+                        { name: 'Maria Garcia', role: 'Translation' },
+                        { name: 'Robert Johnson', role: 'Logistics' },
+                        { name: 'Jennifer Lee', role: 'Intake' },
+                        { name: 'Christopher Brown', role: 'Setup/Cleanup' }
+                    ]
+                },
+                'Dec 7, 2025': {
+                    status: 'Scheduled',
+                    providers: [
+                        { name: 'Dr. Sarah Johnson', role: 'General Medicine' },
+                        { name: 'Dr. Michael Chen', role: 'Pediatrics' },
+                        { name: 'Dr. Robert Brown', role: 'Internal Medicine' }
+                    ],
+                    volunteers: [
+                        { name: 'James Rodriguez', role: 'Registration' },
+                        { name: 'David Kim', role: 'Data Entry' },
+                        { name: 'Maria Garcia', role: 'Translation' },
+                        { name: 'Jennifer Lee', role: 'Intake' },
+                        { name: 'Christopher Brown', role: 'Setup/Cleanup' },
+                        { name: 'Emma Thompson', role: 'Patient Support' }
+                    ]
+                },
+                'Dec 14, 2025': {
+                    status: 'Pending',
+                    providers: [
+                        { name: 'Dr. Patricia Williams', role: 'Cardiology' },
+                        { name: 'Dr. James Martinez', role: 'Family Medicine' }
+                    ],
+                    volunteers: [
+                        { name: 'Emma Thompson', role: 'Patient Support' },
+                        { name: 'Lisa Anderson', role: 'Patient Support' },
+                        { name: 'Maria Garcia', role: 'Translation' },
+                        { name: 'Robert Johnson', role: 'Logistics' }
+                    ]
+                },
+                'Dec 21, 2025': {
+                    status: 'Scheduled',
+                    providers: [
+                        { name: 'Dr. Sarah Johnson', role: 'General Medicine' },
+                        { name: 'Dr. James Martinez', role: 'Family Medicine' },
+                        { name: 'Dr. John Smith', role: 'Internal Medicine' },
+                        { name: 'Dr. Michael Davis', role: 'Pediatrics' },
+                        { name: 'Dr. Elizabeth Wilson', role: 'General Medicine' }
+                    ],
+                    volunteers: [
+                        { name: 'James Rodriguez', role: 'Registration' },
+                        { name: 'Emma Thompson', role: 'Patient Support' },
+                        { name: 'David Kim', role: 'Data Entry' },
+                        { name: 'Maria Garcia', role: 'Translation' },
+                        { name: 'Robert Johnson', role: 'Logistics' },
+                        { name: 'Jennifer Lee', role: 'Intake' },
+                        { name: 'Christopher Brown', role: 'Setup/Cleanup' },
+                        { name: 'Lisa Anderson', role: 'Patient Support' },
+                        { name: 'Alex Martinez', role: 'Medical Assistant' },
+                        { name: 'Sarah White', role: 'Patient Support' }
+                    ]
+                },
+                'Dec 28, 2025': {
+                    status: 'Scheduled',
+                    providers: [
+                        { name: 'Dr. Michael Chen', role: 'Pediatrics' },
+                        { name: 'Dr. Patricia Williams', role: 'Cardiology' },
+                        { name: 'Dr. Robert Brown', role: 'Internal Medicine' }
+                    ],
+                    volunteers: [
+                        { name: 'Lisa Anderson', role: 'Patient Support' },
+                        { name: 'Jennifer Lee', role: 'Intake' },
+                        { name: 'Christopher Brown', role: 'Setup/Cleanup' },
+                        { name: 'Maria Garcia', role: 'Translation' },
+                        { name: 'James Rodriguez', role: 'Registration' },
+                        { name: 'Emma Thompson', role: 'Patient Support' },
+                        { name: 'Robert Johnson', role: 'Logistics' }
+                    ]
+                },
+                'Jan 4, 2026': {
+                    status: 'Pending',
+                    providers: [
+                        { name: 'Dr. Sarah Johnson', role: 'General Medicine' },
+                        { name: 'Dr. James Martinez', role: 'Family Medicine' },
+                        { name: 'Dr. Michael Taylor', role: 'Pediatrics' },
+                        { name: 'Dr. Elizabeth White', role: 'Cardiology' }
+                    ],
+                    volunteers: [
+                        { name: 'James Rodriguez', role: 'Registration' },
+                        { name: 'David Kim', role: 'Data Entry' },
+                        { name: 'Maria Garcia', role: 'Translation' },
+                        { name: 'Robert Johnson', role: 'Logistics' },
+                        { name: 'Jennifer Lee', role: 'Intake' },
+                        { name: 'Christopher Brown', role: 'Setup/Cleanup' },
+                        { name: 'Lisa Anderson', role: 'Patient Support' },
+                        { name: 'Emma Thompson', role: 'Patient Support' },
+                        { name: 'Alex Martinez', role: 'Medical Assistant' }
+                    ]
+                },
+                'Jan 11, 2026': {
+                    status: 'Pending',
+                    providers: [
+                        { name: 'Dr. Michael Davis', role: 'Pediatrics' },
+                        { name: 'Dr. Elizabeth Wilson', role: 'General Medicine' }
+                    ],
+                    volunteers: [
+                        { name: 'Lisa Anderson', role: 'Patient Support' },
+                        { name: 'Jennifer Lee', role: 'Intake' },
+                        { name: 'Christopher Brown', role: 'Setup/Cleanup' },
+                        { name: 'Sarah Clark', role: 'Patient Support' },
+                        { name: 'Michael Hall', role: 'Data Entry' }
+                    ]
+                },
+                'Jan 18, 2026': {
+                    status: 'Draft',
+                    providers: [
+                        { name: 'Dr. Sarah Johnson', role: 'General Medicine' },
+                        { name: 'Dr. Michael Chen', role: 'Pediatrics' },
+                        { name: 'Dr. James Martinez', role: 'Family Medicine' },
+                        { name: 'Dr. John Smith', role: 'Internal Medicine' },
+                        { name: 'Dr. Patricia Williams', role: 'Cardiology' },
+                        { name: 'Dr. Robert Brown', role: 'General Medicine' }
+                    ],
+                    volunteers: [
+                        { name: 'James Rodriguez', role: 'Registration' },
+                        { name: 'Emma Thompson', role: 'Patient Support' },
+                        { name: 'David Kim', role: 'Data Entry' },
+                        { name: 'Maria Garcia', role: 'Translation' },
+                        { name: 'Robert Johnson', role: 'Logistics' },
+                        { name: 'Jennifer Lee', role: 'Intake' },
+                        { name: 'Christopher Brown', role: 'Setup/Cleanup' },
+                        { name: 'Lisa Anderson', role: 'Patient Support' },
+                        { name: 'Alex Martinez', role: 'Medical Assistant' },
+                        { name: 'Sarah White', role: 'Patient Support' },
+                        { name: 'Sarah Clark', role: 'Patient Support' },
+                        { name: 'Michael Hall', role: 'Data Entry' }
+                    ]
+                }
+            };
             
-            // Here you can update the cards based on selected row
-            // updateCardsForSelectedRow(clinicDate);
+            // Get data for selected clinic date
+            const data = clinicData[clinicDate];
+            
+            // Update header
+            document.getElementById('selected-clinic-date').textContent = 'Clinic Day: ' + clinicDate;
+            
+            // Update clinic information
+            document.getElementById('detail-clinic-date').textContent = clinicDate;
+            document.getElementById('detail-clinic-status').innerHTML = `<span class="badge badge-${data.status.toLowerCase() === 'scheduled' ? 'success' : data.status.toLowerCase() === 'pending' ? 'warning' : 'primary'}">${data.status}</span>`;
+            
+            // Update providers
+            document.getElementById('detail-providers-count').textContent = data.providers.length;
+            const providersList = document.getElementById('detail-providers-list');
+            providersList.innerHTML = data.providers.map(provider => 
+                `<li class="person-item">
+                    <span class="person-name">${provider.name}</span>
+                    <span class="person-role">${provider.role}</span>
+                </li>`
+            ).join('');
+            
+            // Update volunteers
+            document.getElementById('detail-volunteers-count').textContent = data.volunteers.length;
+            const volunteersList = document.getElementById('detail-volunteers-list');
+            volunteersList.innerHTML = data.volunteers.map(volunteer => 
+                `<li class="person-item">
+                    <span class="person-name">${volunteer.name}</span>
+                    <span class="person-role">${volunteer.role}</span>
+                </li>`
+            ).join('');
+            
+            // Collapse accordions
+            const providersAccordion = document.getElementById('detail-providers-accordion');
+            const volunteersAccordion = document.getElementById('detail-volunteers-accordion');
+            if (providersAccordion.classList.contains('show')) {
+                providersAccordion.classList.remove('show');
+                document.getElementById('detail-providers-toggle').textContent = '▶';
+            }
+            if (volunteersAccordion.classList.contains('show')) {
+                volunteersAccordion.classList.remove('show');
+                document.getElementById('detail-volunteers-toggle').textContent = '▶';
+            }
         }
 
         function toggleSpecialtyOther() {
