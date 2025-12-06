@@ -435,6 +435,137 @@
             text-align: left;
         }
 
+        .search-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            font-size: var(--font-size-base);
+            font-family: inherit;
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            transition: border-color 0.2s ease;
+            box-sizing: border-box;
+            height: 44px;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: var(--bg-primary);
+        }
+
+        .search-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-top: none;
+            border-radius: 0 0 var(--border-radius-sm) var(--border-radius-sm);
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 10;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .search-dropdown.show {
+            display: block;
+        }
+
+        .search-dropdown-item {
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s ease;
+        }
+
+        .search-dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-dropdown-item:hover {
+            background-color: var(--bg-primary);
+        }
+
+        .dropdown-item-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .dropdown-item-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .dropdown-item-role {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .dropdown-item-add-btn {
+            padding: 6px 12px;
+            background-color: var(--primary);
+            color: var(--text-on-primary);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .dropdown-item-add-btn:hover {
+            background-color: var(--primary-dark, #5568d3);
+        }
+
+        .search-wrapper {
+            position: relative;
+            display: flex;
+            gap: 0;
+            align-items: flex-start;
+        }
+
+        .search-input-container {
+            flex: 1;
+            position: relative;
+        }
+
+        .dropdown-toggle-btn {
+            padding: 0 12px;
+            background-color: var(--primary);
+            color: var(--text-on-primary);
+            border: 1px solid var(--primary);
+            border-left: none;
+            border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 44px;
+        }
+
+        .search-input {
+            border-radius: var(--border-radius-sm) 0 0 var(--border-radius-sm);
+        }
+
+        .dropdown-toggle-btn:hover {
+            background-color: var(--primary-dark, #5568d3);
+        }
+
         .no-assignments {
             text-align: center;
             color: #999;
@@ -1729,6 +1860,13 @@
                                 <span class="card-stat-label">Total Assigned</span>
                                 <span class="card-stat-value" id="detail-providers-count">0</span>
                             </div>
+                            <div style="margin-top: var(--spacing-15);" class="search-wrapper">
+                                <div class="search-input-container">
+                                    <input type="text" id="provider-search" placeholder="Search and add providers..." class="search-input">
+                                    <div id="provider-dropdown" class="search-dropdown"></div>
+                                </div>
+                                <button type="button" class="dropdown-toggle-btn" onclick="toggleAllProviders()" title="Show all providers">▼</button>
+                            </div>
                             <div>
                                 <h5 class="card-stat-label" style="margin-top: var(--spacing-15); margin-bottom: var(--spacing-10);">Provider List</h5>
                                 <ul class="person-list" id="detail-providers-list">
@@ -1745,6 +1883,13 @@
                             <div class="card-stat">
                                 <span class="card-stat-label">Total Assigned</span>
                                 <span class="card-stat-value" id="detail-volunteers-count">0</span>
+                            </div>
+                            <div style="margin-top: var(--spacing-15);" class="search-wrapper">
+                                <div class="search-input-container">
+                                    <input type="text" id="volunteer-search" placeholder="Search and add volunteers..." class="search-input">
+                                    <div id="volunteer-dropdown" class="search-dropdown"></div>
+                                </div>
+                                <button type="button" class="dropdown-toggle-btn" onclick="toggleAllVolunteers()" title="Show all volunteers">▼</button>
                             </div>
                             <div>
                                 <h5 class="card-stat-label" style="margin-top: var(--spacing-15); margin-bottom: var(--spacing-10);">Volunteer List</h5>
@@ -2710,8 +2855,6 @@
             event.target.reset();
         }
 
-
-
         function selectRow(rowElement, clinicDate) {
             // Remove selection from all rows
             const allRows = document.querySelectorAll('tbody tr');
@@ -2721,6 +2864,12 @@
             
             // Add selection to clicked row
             rowElement.classList.add('selected');
+            
+            // Clear search inputs
+            const providerSearch = document.getElementById('provider-search');
+            const volunteerSearch = document.getElementById('volunteer-search');
+            if (providerSearch) providerSearch.value = '';
+            if (volunteerSearch) volunteerSearch.value = '';
             
             // Sample data for each clinic date
             const clinicData = {
@@ -3091,6 +3240,117 @@
 
         // Initialize table scrolling when page loads
         document.addEventListener('DOMContentLoaded', initTableScrolling);
+
+        // Dropdown search functionality
+        const allProviders = [
+            { name: 'Dr. Sarah Johnson', role: 'General Medicine' },
+            { name: 'Dr. Michael Chen', role: 'Pediatrics' },
+            { name: 'Dr. Patricia Williams', role: 'Cardiology' },
+            { name: 'Dr. James Martinez', role: 'Family Medicine' },
+            { name: 'Dr. Robert Brown', role: 'Internal Medicine' },
+            { name: 'Dr. John Smith', role: 'Internal Medicine' },
+            { name: 'Dr. Michael Davis', role: 'Pediatrics' },
+            { name: 'Dr. Elizabeth Wilson', role: 'General Medicine' },
+            { name: 'Dr. David Taylor', role: 'Surgery' },
+            { name: 'Dr. Jennifer White', role: 'Orthopedics' }
+        ];
+
+        const allVolunteers = [
+            { name: 'James Rodriguez', role: 'Registration' },
+            { name: 'Emma Thompson', role: 'Patient Support' },
+            { name: 'David Kim', role: 'Data Entry' },
+            { name: 'Maria Garcia', role: 'Translation' },
+            { name: 'Robert Johnson', role: 'Logistics' },
+            { name: 'Jennifer Lee', role: 'Intake' },
+            { name: 'Christopher Brown', role: 'Setup/Cleanup' },
+            { name: 'Lisa Anderson', role: 'Patient Support' },
+            { name: 'Alex Martinez', role: 'Medical Assistant' },
+            { name: 'Sarah White', role: 'Patient Support' }
+        ];
+
+        function populateDropdown(searchTerm, allItems, dropdownId) {
+            const dropdown = document.getElementById(dropdownId);
+            
+            if (!searchTerm.trim()) {
+                // Show all items if no search term or empty search
+                const filtered = allItems;
+                if (filtered.length === 0) {
+                    dropdown.innerHTML = '<div style="padding: 12px; color: var(--text-secondary); text-align: center;">No results found</div>';
+                    dropdown.classList.add('show');
+                    return;
+                }
+
+                dropdown.innerHTML = filtered.map(item => `
+                    <div class="search-dropdown-item">
+                        <div class="dropdown-item-info">
+                            <div class="dropdown-item-name">${item.name}</div>
+                            <div class="dropdown-item-role">${item.role}</div>
+                        </div>
+                        <button type="button" class="dropdown-item-add-btn" onclick="event.stopPropagation();">Add</button>
+                    </div>
+                `).join('');
+                dropdown.classList.add('show');
+                return;
+            }
+
+            const filtered = allItems.filter(item =>
+                item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                item.role.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+
+            if (filtered.length === 0) {
+                dropdown.innerHTML = '<div style="padding: 12px; color: var(--text-secondary); text-align: center;">No results found</div>';
+                dropdown.classList.add('show');
+                return;
+            }
+
+            dropdown.innerHTML = filtered.map(item => `
+                <div class="search-dropdown-item">
+                    <div class="dropdown-item-info">
+                        <div class="dropdown-item-name">${item.name}</div>
+                        <div class="dropdown-item-role">${item.role}</div>
+                    </div>
+                    <button type="button" class="dropdown-item-add-btn" onclick="event.stopPropagation();">Add</button>
+                </div>
+            `).join('');
+            dropdown.classList.add('show');
+        }
+
+        // Provider search
+        document.getElementById('provider-search').addEventListener('input', (e) => {
+            populateDropdown(e.target.value, allProviders, 'provider-dropdown');
+        });
+
+        // Volunteer search
+        document.getElementById('volunteer-search').addEventListener('input', (e) => {
+            populateDropdown(e.target.value, allVolunteers, 'volunteer-dropdown');
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-wrapper')) {
+                document.getElementById('provider-dropdown').classList.remove('show');
+                document.getElementById('volunteer-dropdown').classList.remove('show');
+            }
+        });
+
+        function toggleAllProviders() {
+            const dropdown = document.getElementById('provider-dropdown');
+            if (dropdown.classList.contains('show')) {
+                dropdown.classList.remove('show');
+            } else {
+                populateDropdown('', allProviders, 'provider-dropdown');
+            }
+        }
+
+        function toggleAllVolunteers() {
+            const dropdown = document.getElementById('volunteer-dropdown');
+            if (dropdown.classList.contains('show')) {
+                dropdown.classList.remove('show');
+            } else {
+                populateDropdown('', allVolunteers, 'volunteer-dropdown');
+            }
+        }
 
     </script>
 </body>
