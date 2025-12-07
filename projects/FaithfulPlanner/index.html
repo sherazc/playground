@@ -956,6 +956,45 @@
             color: var(--text-primary);
         }
 
+        /* Modal Type Styling */
+        .modal.confirm .modalHeader {
+            border-bottom-color: var(--info);
+        }
+
+        .modal.confirm .modalHeader h3 {
+            color: var(--info);
+        }
+
+        .modal.warning .modalHeader {
+            border-bottom-color: var(--warning);
+        }
+
+        .modal.warning .modalHeader h3 {
+            color: var(--warning);
+        }
+
+        .modal.error .modalHeader {
+            border-bottom-color: var(--error);
+        }
+
+        .modal.error .modalHeader h3 {
+            color: var(--error);
+        }
+
+        .modalActions {
+            display: flex;
+            gap: var(--spacing-10);
+            justify-content: flex-end;
+            padding-top: var(--spacing-20);
+            border-top: var(--border-width) solid var(--border-light);
+            margin-top: var(--spacing-20);
+        }
+
+        .modalActions button {
+            padding: var(--spacing-8) var(--spacing-15);
+            font-size: var(--font-size-base);
+        }
+
         /* Organization Selector */
         .orgSelector {
             background: var(--bg-primary);
@@ -1798,6 +1837,9 @@
                 </li>
                 <li class="navItem">
                     <a class="navLink" onclick="switchScreen('volunteer-reports')">Volunteer Reports</a>
+                </li>
+                <li class="navItem">
+                    <a class="navLink" onclick="switchScreen('design')">Design</a>
                 </li>
             </ul>
         </div>
@@ -2846,6 +2888,47 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Design Screen -->
+            <div id="design" class="screen">
+                <div class="header">
+                    <h2>Design</h2>
+                    <button class="btn btnLogout" onclick="switchScreen('login')">Logout</button>
+                </div>
+
+                <div class="card fullWidth">
+                    <h3>Modal Types</h3>
+                    <p class="text-secondary mb-2fullWidth">Click any button below to see the configurable modal in action:</p>
+                    
+                    <div class="flex gap-10 mt-2fullWidth">
+                        <button class="btn btnPrimary" onclick="showConfirmModal()">Confirm Modal</button>
+                        <button class="btn btnSecondary" style="background-color: var(--warning); color: white;" onclick="showWarningModal()">Warning Modal</button>
+                        <button class="btn" style="background-color: var(--error); color: white;" onclick="showErrorModal()">Error Modal</button>
+                    </div>
+
+                    <div class="mt-3fullWidth">
+                        <h4>Custom Modal Example</h4>
+                        <button class="btn btnPrimary mt-2fullWidth" onclick="showCustomModal()">Show Custom Modal</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Configurable Modal -->
+    <div id="configModal" class="modal">
+        <div class="modalContent" style="max-width: 500px;">
+            <div class="modalHeader">
+                <h3 id="modalTitle">Modal Title</h3>
+                <button class="closeBtn" onclick="closeConfigModal()">&times;</button>
+            </div>
+            <div style="padding: 20px; border-bottom: 1px solid var(--border-color);">
+                <p id="modalMessage" class="text-secondary"></p>
+            </div>
+            <div class="modalActions">
+                <button id="modalCancelBtn" class="btn btnSecondary" onclick="handleModalCancel()" style="display: none;">Cancel</button>
+                <button id="modalOkBtn" class="btn btnPrimary">OK</button>
+            </div>
         </div>
     </div>
 
@@ -3129,6 +3212,146 @@
             if (modal) {
                 modal.classList.remove('show');
             }
+        }
+
+        // Configurable Modal System
+        let modalConfig = {
+            title: '',
+            message: '',
+            type: 'confirm', // 'confirm', 'warning', 'error'
+            okLabel: 'OK',
+            okFunction: null,
+            cancelLabel: null,
+            cancelFunction: null,
+            closeFunction: null
+        };
+
+        function showModal(config) {
+            // Update modal config
+            modalConfig = {
+                title: config.title || 'Modal',
+                message: config.message || '',
+                type: config.type || 'confirm',
+                okLabel: config.okLabel || 'OK',
+                okFunction: config.okFunction || null,
+                cancelLabel: config.cancelLabel || null,
+                cancelFunction: config.cancelFunction || null,
+                closeFunction: config.closeFunction || null
+            };
+
+            // Update modal elements
+            document.getElementById('modalTitle').textContent = modalConfig.title;
+            document.getElementById('modalMessage').textContent = modalConfig.message;
+            
+            // Update OK button
+            document.getElementById('modalOkBtn').textContent = modalConfig.okLabel;
+            document.getElementById('modalOkBtn').onclick = handleModalOk;
+
+            // Update cancel button visibility
+            const cancelBtn = document.getElementById('modalCancelBtn');
+            if (modalConfig.cancelLabel) {
+                cancelBtn.style.display = 'block';
+                cancelBtn.textContent = modalConfig.cancelLabel;
+            } else {
+                cancelBtn.style.display = 'none';
+            }
+
+            // Set modal type styling
+            const modal = document.getElementById('configModal');
+            modal.classList.remove('confirm', 'warning', 'error');
+            modal.classList.add(modalConfig.type);
+
+            // Show modal
+            openModal('configModal');
+        }
+
+        function handleModalOk() {
+            if (modalConfig.okFunction && typeof modalConfig.okFunction === 'function') {
+                modalConfig.okFunction();
+            }
+            closeConfigModal();
+        }
+
+        function handleModalCancel() {
+            if (modalConfig.cancelFunction && typeof modalConfig.cancelFunction === 'function') {
+                modalConfig.cancelFunction();
+            }
+            closeConfigModal();
+        }
+
+        function closeConfigModal() {
+            if (modalConfig.closeFunction && typeof modalConfig.closeFunction === 'function') {
+                modalConfig.closeFunction();
+            }
+            closeModal('configModal');
+        }
+
+        // Preset Modal Examples
+        function showConfirmModal() {
+            showModal({
+                title: 'Confirm Action',
+                message: 'Are you sure you want to proceed with this action?',
+                type: 'confirm',
+                okLabel: 'Yes',
+                okFunction: () => {
+                    console.log('Confirm action accepted');
+                    alert('Action confirmed!');
+                },
+                cancelLabel: 'No',
+                cancelFunction: () => {
+                    console.log('Confirm action cancelled');
+                }
+            });
+        }
+
+        function showWarningModal() {
+            showModal({
+                title: 'Warning',
+                message: 'This action cannot be undone. Please proceed with caution.',
+                type: 'warning',
+                okLabel: 'I Understand',
+                okFunction: () => {
+                    console.log('Warning acknowledged');
+                    alert('Warning acknowledged!');
+                },
+                cancelLabel: 'Cancel',
+                cancelFunction: () => {
+                    console.log('Warning cancelled');
+                }
+            });
+        }
+
+        function showErrorModal() {
+            showModal({
+                title: 'Error',
+                message: 'An error occurred. Please try again later.',
+                type: 'error',
+                okLabel: 'Dismiss',
+                okFunction: () => {
+                    console.log('Error dismissed');
+                }
+            });
+        }
+
+        function showCustomModal() {
+            showModal({
+                title: 'Delete Appointment',
+                message: 'Are you sure you want to delete this appointment? This cannot be undone.',
+                type: 'error',
+                okLabel: 'Delete',
+                okFunction: () => {
+                    console.log('Appointment deleted');
+                    alert('Appointment deleted successfully!');
+                },
+                cancelLabel: 'Keep it',
+                cancelFunction: () => {
+                    console.log('Delete cancelled');
+                    alert('Appointment kept safe!');
+                },
+                closeFunction: () => {
+                    console.log('Modal closed by close button');
+                }
+            });
         }
 
         let currentOrganization = null;
