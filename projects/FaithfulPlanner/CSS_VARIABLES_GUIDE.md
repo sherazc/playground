@@ -2,9 +2,49 @@
 
 ## Overview
 
-FaithfulPlanner now uses comprehensive CSS variables that make it easy to customize the UI for different clinics. All colors, spacing, typography, shadows, and other design tokens are defined at the root level and can be easily modified.
+FaithfulPlanner uses comprehensive CSS variables for complete design system control. All colors, spacing, typography, shadows, borders, and layout dimensions are defined as CSS variables and can be easily customized per clinic or theme.
 
-## CSS Variables Structure
+**Current Status:** 80 CSS variables across 5 complete theme files (Blue, Green, Orange, Purple, Red)
+
+## Quick Reference - Most Common Variables
+
+### Primary Colors
+```css
+--primary: #667eea              /* Main brand color */
+--primary-dark: #5568d3         /* Hover/active states */
+--primary-light: #8b9ff4        /* Secondary usage */
+--primary-ultra-light: #f5f7ff  /* Backgrounds */
+```
+
+### Spacing Scale
+```css
+--spacing-2: 2px     /* Minimal gaps */
+--spacing-5: 5px     /* Small gaps */
+--spacing-10: 10px   /* Default gaps */
+--spacing-15: 15px   /* Medium gaps */
+--spacing-20: 20px   /* Large gaps */
+--spacing-30: 30px   /* Extra large gaps */
+--spacing-40: 40px   /* Maximum gaps */
+```
+
+### Text Colors
+```css
+--text-primary: #333333      /* Main text */
+--text-secondary: #666666    /* Secondary text */
+--text-tertiary: #999999     /* Tertiary text */
+--text-light: #cccccc        /* Light text */
+--text-on-primary: #ffffff   /* Text on primary background */
+```
+
+### Backgrounds
+```css
+--bg-primary: #ffffff        /* Main background */
+--bg-secondary: #f8f8f9      /* Secondary background */
+--bg-tertiary: #f0f0f0       /* Tertiary background */
+--bg-hover: #f5f7ff          /* Hover states */
+```
+
+## Complete CSS Variables Structure
 
 ### 1. Color Palettes
 
