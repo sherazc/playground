@@ -13,8 +13,9 @@
 
 # Requirement
 - Create a todo list.
-- This list should be stored in backend http session.
-- Get todos from session and show it in different page
+- Page 1: a form where the user enters a todo item; on submit it is persisted to the SQLite database.
+- Page 2: the Spring controller loads the todos from the database into the http session, then passes the list to the view.
+- The Thymeleaf UI iterates over the todo list passed in by the controller and displays it.
 
 # AWS 
 - Since this just a toy project, I want to keep the AWS bill as minimum as possible.
