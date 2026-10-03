@@ -1,0 +1,8 @@
+target/
+.idea/
+.git/
+.claude/
+data/*.db
+*.iml
+.DS_Store
+*.md
