@@ -7,8 +7,8 @@ COPY src src
 RUN ./mvnw -q -DskipTests package
 
 FROM eclipse-temurin:21-jre
-RUN groupadd -g 1000 app && useradd -u 1000 -g 1000 -m -s /usr/sbin/nologin app \
-    && mkdir /data && chown 1000:1000 /data
+RUN groupadd -g 2001 app && useradd -u 2001 -g 2001 -m -s /usr/sbin/nologin app \
+    && mkdir /data && chown 2001:2001 /data
 COPY --from=build /build/target/todo-0.0.1-SNAPSHOT.jar /app/app.jar
 ENV APP_DB_PATH=/data/todo.db
 USER app

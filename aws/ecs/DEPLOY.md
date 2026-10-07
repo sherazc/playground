@@ -3,7 +3,7 @@
 Console runbook. Single task, public IP, no load balancer, SQLite on EFS.
 
 Assumptions:
-- Container runs as `app` (uid/gid 1000), listens on 8080, `APP_DB_PATH=/data/todo.db`.
+- Container runs as `app` (uid/gid 2001), listens on 8080, `APP_DB_PATH=/data/todo.db`.
 - Default VPC, public subnets. Replace `<ACCOUNT_ID>` and `<REGION>` everywhere.
 
 ## 1. Build and push the image (ECR)
@@ -38,8 +38,8 @@ docker buildx build --platform linux/amd64 \
 4. Open the file system > **Access points > Create access point**:
    - Name `todo`
    - Root directory path: `/todo`
-   - POSIX user: User ID `1000`, Group ID `1000`
-   - Root directory creation permissions: Owner UID `1000`, Owner GID `1000`, Permissions `755`
+   - POSIX user: User ID `2001`, Group ID `2001`
+   - Root directory creation permissions: Owner UID `2001`, Owner GID `2001`, Permissions `755`
    - **Create access point**
 
 ## 4. IAM: task execution role
@@ -113,5 +113,5 @@ Do in this order:
 - **Task stops immediately:** open the stopped task > **Stopped reason** and container logs. `exec format error` means an architecture mismatch (rebuild with `--platform linux/amd64` or match the task's CPU architecture). Exit code 137 suggests out of memory: raise memory to 2 GB.
 - **CannotPullContainerError:** check the image URI and tag exist in ECR. Tasks in public subnets need **Public IP on** to reach ECR. Verify the execution role has `AmazonECSTaskExecutionRolePolicy`.
 - **EFS mount timeout (`ResourceInitializationError ... mount.nfs4 timed out`):** check `todo-efs-sg` allows TCP 2049 from `todo-app-sg`, that mount targets exist in the AZ/subnet the task landed in and are Available, and that the platform version is >= 1.4.0.
-- **Permission denied on /data:** the access point must have POSIX uid/gid `1000` and creation permissions `755` with owner 1000:1000, and the image must run as uid 1000. If you created the access point with the wrong values, delete it, recreate it, and update the task definition (new revision) and service.
+- **Permission denied on /data:** the access point must have POSIX uid/gid `2001` and creation permissions `755` with owner 2001:2001, and the image must run as uid 2001. If you created the access point with the wrong values, delete it, recreate it, and update the task definition (new revision) and service.
 - **Page does not load but the task is Running:** confirm `todo-app-sg` allows 8080 from your current IP (it changes), and use `http`, not `https`.
